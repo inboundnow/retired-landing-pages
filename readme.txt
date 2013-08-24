@@ -69,6 +69,7 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
  
 * Fixed: Variation saves for custom css and custom js. 
 * Fixed: jQuery error related to wysiwyg content formatting. 
+* Integrating: Github
 
 = 1.0.9.9 =
 * Improved extension metabox loading for quicker load times and optimized meta data storage.
