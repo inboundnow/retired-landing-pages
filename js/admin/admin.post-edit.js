@@ -1,4 +1,4 @@
-cooljQuery(document).ready(function ($) {
+jQuery(document).ready(function ($) {
 
 	jQuery('#templates-container').isotope();
               
