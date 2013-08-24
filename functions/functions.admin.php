@@ -12,7 +12,7 @@ function lp_admin_enqueue($hook)
 	
 	//jquery cookie
 	wp_dequeue_script('jquery-cookie');
-	wp_enqueue_script('jquery-cookie', LANDINGPAGES_URLPATH . 'js/jquery.cookie.js');
+	wp_enqueue_script('jquery-cookie', LANDINGPAGES_URLPATH . 'js/jquery.lp.cookie.js');
 	
 	// Frontend Editor
 	if ((isset($_GET['page']) == 'lp-frontend-editor')) {
@@ -20,14 +20,17 @@ function lp_admin_enqueue($hook)
 	}
 	
 	// Store Options Page
-	if (isset($_GET['page']) && (($_GET['page'] == 'lp_store') || ($_GET['page'] == 'lp_addons'))) {
+	if (isset($_GET['page']) && (($_GET['page'] == 'lp_store') || ($_GET['page'] == 'lp_addons'))) 
+	{
 		wp_dequeue_script('easyXDM');
 		wp_enqueue_script('easyXDM', LANDINGPAGES_URLPATH . 'js/libraries/easyXDM.debug.js');
 		//wp_enqueue_script('lp-js-store', LANDINGPAGES_URLPATH . 'js/admin/admin.store.js');
 	} 
 
 	// Admin enqueue - Landing Page CPT only 
-	if ( isset($post) && 'landing-page' == $post->post_type ) { 
+	if (  ( isset($post) && 'landing-page' == $post->post_type ) || ( isset($_GET['post_type']) && $_GET['post_type']=='landing-page' ) ) 
+	{ 
+		
 		wp_enqueue_script('jpicker', LANDINGPAGES_URLPATH . 'js/libraries/jpicker/jpicker-1.1.6.min.js');
 		wp_localize_script( 'jpicker', 'jpicker', array( 'thispath' => LANDINGPAGES_URLPATH.'js/libraries/jpicker/images/' ));
 		wp_enqueue_style('jpicker-css', LANDINGPAGES_URLPATH . 'js/libraries/jpicker/css/jPicker-1.1.6.min.css');
@@ -64,7 +67,7 @@ function lp_admin_enqueue($hook)
 		if ( $hook == 'post.php' ) 
 		{
 			wp_enqueue_script('lp-post-edit-ui', LANDINGPAGES_URLPATH . 'js/admin/admin.post-edit.js');
-			wp_localize_script( 'lp-post-edit-ui', 'lp_post_edit_ui', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID , 'wp_landing_page_meta_nonce' => wp_create_nonce('wp-landing-page-meta-nonce') ) );
+			wp_localize_script( 'lp-post-edit-ui', 'lp_post_edit_ui', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID , 'wp_landing_page_meta_nonce' => wp_create_nonce('wp-landing-page-meta-nonce'),  'lp_template_nonce' => wp_create_nonce('lp-nonce') ) );
 			wp_enqueue_style('admin-post-edit-css', LANDINGPAGES_URLPATH . '/css/admin-post-edit.css');
 			/* Error with picker_functions.js for datepicker need new solution
 			wp_enqueue_script('jqueryui');
@@ -85,7 +88,7 @@ function lp_admin_enqueue($hook)
 		{  
 			// Create New Landing Jquery UI
 			wp_enqueue_script('lp-js-create-new-lander', LANDINGPAGES_URLPATH . 'js/admin/admin.post-new.js', array('jquery'), '1.0', true );
-			wp_localize_script( 'lp-js-create-new-lander', 'lp_post_new_ui', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID , 'wp_landing_page_meta_nonce' => wp_create_nonce('wp-landing-page-meta-nonce') ) );
+			wp_localize_script( 'lp-js-create-new-lander', 'lp_post_new_ui', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID , 'wp_landing_page_meta_nonce' => wp_create_nonce('lp_nonce') ) );
 			wp_enqueue_style('lp-css-post-new', LANDINGPAGES_URLPATH . 'css/admin-post-new.css');
 		}
 		
@@ -123,118 +126,6 @@ function lp_show_metabox($post,$key)
 	lp_render_metabox($key,$lp_custom_fields,$post);
 }
 
-add_action('save_post', 'lp_save_meta');
-function lp_save_meta($post_id) {
-	global $post;
-
-	$extension_data = lp_get_extension_data();
-	
-	if (!isset($post)||isset($_POST['split_test']))
-		return;
-		
-	if ($post->post_type=='revision')
-	{
-		return;
-	}
-	
-	if ((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) ||(isset($_POST['post_type'])&&$_POST['post_type']=='revision'))
-	{
-		return;
-	}
-		
-	if ($post->post_type=='landing-page')
-	{
-		//print_r($extension_data);exit;
-		foreach ($extension_data as $key=>$data)
-		{	
-			if ($key=='lp')
-			{
-				// verify nonce
-				if (!wp_verify_nonce($_POST["lp_{$key}_custom_fields_nonce"], 'lp-nonce'))
-				{
-
-					return $post_id;
-				}
-				
-				$lp_custom_fields = $extension_data[$key]['options'];	
-				
-				foreach ($lp_custom_fields as $field)
-				{
-					$old = get_post_meta($post_id, $field['id'], true);				
-					$new = $_POST[$field['id']];	
-
-					if (isset($new) && $new != $old ) {
-						update_post_meta($post_id, $field['id'], $new);
-					} elseif ('' == $new && $old) {
-						delete_post_meta($post_id, $field['id'], $old);
-					}
-				}
-			}
-			else if (substr($key,0,4)=='ext-')
-			{	
-				
-				$lp_custom_fields = $extension_data[$key]['options'];		
-			
-				// verify nonce
-				if (!wp_verify_nonce($_POST["lp_{$key}_custom_fields_nonce"], 'lp-nonce'))
-				{
-					return $post_id;
-				}
-				
-				// loop through fields and save the data
-				foreach ($lp_custom_fields as $field) {
-				//echo $key.":".$field['id']."<br>";
-
-					if($field['type'] == 'tax_select') continue;
-						$old = get_post_meta($post_id, $field['id'], true);				
-						$new = $_POST[$field['id']];
-						//echo "$old:".$new."<br>";			
-						
-						if (isset($new) && $new != $old ) {
-							update_post_meta($post_id, $field['id'], $new);
-						} elseif ('' == $new && $old) {
-							delete_post_meta($post_id, $field['id'], $old);
-						}
-				} // end foreach		
-				//exit;
-			}
-			else if ((isset($_POST['lp-selected-template'])&&$_POST['lp-selected-template']==$key))
-			{
-				$lp_custom_fields = $extension_data[$key]['options'];
-				//echo "key:$key<br>";
-				//print_r($lp_custom_fields);
-				// loop through fields and save the data
-				foreach ($lp_custom_fields as $field) {
-				//echo $key.":".$field['id']."<br>";
-					
-					if($field['type'] == 'tax_select' || !isset($_POST[$field['id']])) 
-						continue;
-					
-					$old = get_post_meta($post_id, $field['id'], true);				
-					$new = $_POST[$field['id']];
-					//echo "$old:".$new."<br>";			
-					
-					if (isset($new) && $new != $old ) {
-						update_post_meta($post_id, $field['id'], $new);
-					} elseif ('' == $new && $old) {
-						delete_post_meta($post_id, $field['id'], $old);
-					}
-				} 
-			}
-			else
-			{
-				//echo "key:$key<br>";
-			}
-		}
-		
-		//echo "here";
-		//exit;
-		// save taxonomies
-		$post = get_post($post_id);
-		//$category = $_POST['landing_page_category'];
-		//wp_set_object_terms( $post_id, $category, 'landing_page_category' );
-	}
-}
 
 add_action('wp_trash_post', 'lp_trash_lander');
 function lp_trash_lander($post_id) {
@@ -406,6 +297,15 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			'desc'  => $description,
 			'id'    => $key.'-'.$id,
 			'type'  => 'default-content',
+			'default'  => $default
+			);
+			break;	
+		case "html":
+			return array(
+			'label' => $label,
+			'desc'  => $description,
+			'id'    => $key.'-'.$id,
+			'type'  => 'html',
 			'default'  => $default
 			);
 			break;	
@@ -649,7 +549,7 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 							$i++;
 						}
 						echo "</table>";
-						echo '<br><div class="lp_tooltip tool_checkbox" title="'.$field['desc'].'"></div><p class="description">'.$field['desc'].'</p>';
+						echo '<br><div class="lp_tooltip tool_checkbox" title="'.$field['desc'].'"></div>';
 					break;
 					// radio
 					case 'radio':
@@ -668,6 +568,11 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 							echo '<option', $option == $value ? ' selected="selected"' : '', ' value="'.$value.'">'.$label.'</option>';
 						}
 						echo '</select><br /><div class="lp_tooltip tool_dropdown" title="'.$field['desc'].'"></div>';
+					break;
+					case 'html':
+						//print_r($field);
+						echo $option;
+						echo '<br /><div class="lp_tooltip tool_dropdown" title="'.$field['desc'].'"></div>';
 					break;
 					
 

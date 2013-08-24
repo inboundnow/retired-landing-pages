@@ -117,7 +117,7 @@ function lp_get_extension_data_cats($array)
 {
 	foreach ($array as $key=>$val)
 	{
-		if ($key=='lp')
+		if ($key=='lp'||substr($key,0,4)=='ext-')
 			continue;
 			
 		$cat_value = $val['category'];

@@ -361,19 +361,22 @@ function lp_custom_css_input() {
 		
 	echo "<em>Custom CSS may be required to remove sidebars, increase the widget of the post content container to 100%, and sometimes to manually remove comment boxes.</em>";
 	echo '<input type="hidden" name="lp-custom-css-noncename" id="lp_custom_css_noncename" value="'.wp_create_nonce(basename(__FILE__)).'" />';
-	$custom_css_name = apply_filters('lp-custom-css-name','lp-custom-css');
+	$custom_css_name = apply_filters('lp_custom_css_name','lp-custom-css');
 	echo '<textarea name="'.$custom_css_name.'" id="lp-custom-css" rows="5" cols="30" style="width:100%;">'.get_post_meta($post->ID,$custom_css_name,true).'</textarea>';
 }
 
 function landing_pages_save_custom_css($post_id) {
 	global $post;
-	if (!isset($post)||!isset($_POST['lp-custom-css']))
+	
+	if (!isset($post) || ( isset($post) && $post->post_type!='landing-page' ) )
 		return;
+	
 	
 	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 
 	
-	$custom_css_name = apply_filters('lp-custom-css-name','lp-custom-css');
+	$custom_css_name = apply_filters('lp_custom_css_name','lp-custom-css');
+	//echo $custom_css_name;exit;
 	
 	$lp_custom_css = $_POST[$custom_css_name];
 	update_post_meta($post_id, 'lp-custom-css', $lp_custom_css);
@@ -391,7 +394,7 @@ function lp_custom_js_input() {
 	global $post;
 	echo "<em></em>";
 	//echo wp_create_nonce('lp-custom-js');exit;
-	$custom_js_name = apply_filters('lp-custom-js-name','lp-custom-js');
+	$custom_js_name = apply_filters('lp_custom_js_name','lp-custom-js');
 	
 	echo '<input type="hidden" name="lp_custom_js_noncename" id="lp_custom_js_noncename" value="'.wp_create_nonce(basename(__FILE__)).'" />';
 	echo '<textarea name="'.$custom_js_name.'" id="lp_custom_js" rows="5" cols="30" style="width:100%;">'.get_post_meta($post->ID,$custom_js_name,true).'</textarea>';
@@ -399,11 +402,13 @@ function lp_custom_js_input() {
 
 function landing_pages_save_custom_js($post_id) {
 	global $post;
-	if (!isset($post)||!isset($_POST['lp-custom-js']))
+	if (!isset($post) || ( isset($post) && $post->post_type!='landing-page' ) )
 		return;
+	
+		
 	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 	
-	$custom_js_name = apply_filters('lp-custom-js-name','lp-custom-js');
+	$custom_js_name = apply_filters('lp_custom_js_name','lp-custom-js');
 	
 	$lp_custom_js = $_POST[$custom_js_name];
 	
@@ -687,5 +692,118 @@ function lp_generate_meta()
 		}
 	}
 	
+}
+
+add_action('save_post', 'lp_save_meta');
+function lp_save_meta($post_id) {
+	global $post;
+
+	$extension_data = lp_get_extension_data();
+	
+	if (!isset($post)||isset($_POST['split_test']))
+		return;
+		
+	if ($post->post_type=='revision')
+	{
+		return;
+	}
+	
+	if ((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) ||(isset($_POST['post_type'])&&$_POST['post_type']=='revision'))
+	{
+		return;
+	}
+		
+	if ($post->post_type=='landing-page')
+	{
+		//print_r($extension_data);exit;
+		foreach ($extension_data as $key=>$data)
+		{	
+			if ($key=='lp')
+			{
+				// verify nonce
+				if (!wp_verify_nonce($_POST["lp_{$key}_custom_fields_nonce"], 'lp-nonce'))
+				{
+
+					return $post_id;
+				}
+				
+				$lp_custom_fields = $extension_data[$key]['options'];	
+				
+				foreach ($lp_custom_fields as $field)
+				{
+					$old = get_post_meta($post_id, $field['id'], true);				
+					(isset($_POST[$field['id']]))? $new = $_POST[$field['id']] : $new = null;	
+
+					if (isset($new) && $new != $old ) {
+						update_post_meta($post_id, $field['id'], $new);
+					} elseif ('' == $new && $old) {
+						delete_post_meta($post_id, $field['id'], $old);
+					}
+				}
+			}
+			else if (substr($key,0,4)=='ext-')
+			{	
+				
+				$lp_custom_fields = $extension_data[$key]['options'];		
+			
+				// verify nonce
+				if (!wp_verify_nonce($_POST["lp_{$key}_custom_fields_nonce"], 'lp-nonce'))
+				{
+					return $post_id;
+				}
+				
+				// loop through fields and save the data
+				foreach ($lp_custom_fields as $field) {
+				//echo $key.":".$field['id']."<br>";
+
+					if($field['type'] == 'tax_select') continue;
+						$old = get_post_meta($post_id, $field['id'], true);		
+						
+						(isset($_POST[$field['id']]))? $new = $_POST[$field['id']] : $new = null;
+						//echo "$old:".$new."<br>";			
+						
+						if (isset($new) && $new != $old ) {
+							update_post_meta($post_id, $field['id'], $new);
+						} elseif ('' == $new && $old) {
+							delete_post_meta($post_id, $field['id'], $old);
+						}
+				} // end foreach		
+			}
+			else if ((isset($_POST['lp-selected-template'])&&$_POST['lp-selected-template']==$key))
+			{
+				$lp_custom_fields = $extension_data[$key]['options'];
+				//echo "key:$key<br>";
+				//print_r($lp_custom_fields);
+				// loop through fields and save the data
+				foreach ($lp_custom_fields as $field) {
+				//echo $key.":".$field['id']."<br>";
+					
+					if($field['type'] == 'tax_select' || !isset($_POST[$field['id']])) 
+						continue;
+					
+					$old = get_post_meta($post_id, $field['id'], true);				
+					(isset($_POST[$field['id']]))? $new = $_POST[$field['id']] : $new = null;
+					//echo "$old:".$new."<br>";			
+					
+					if (isset($new) && $new != $old ) {
+						update_post_meta($post_id, $field['id'], $new);
+					} elseif ('' == $new && $old) {
+						delete_post_meta($post_id, $field['id'], $old);
+					}
+				} 
+			}
+			else
+			{
+				//echo "key:$key<br>";
+			}
+		}
+		
+		//echo "here";
+		//exit;
+		// save taxonomies
+		$post = get_post($post_id);
+		//$category = $_POST['landing_page_category'];
+		//wp_set_object_terms( $post_id, $category, 'landing_page_category' );
+	}
 }
 

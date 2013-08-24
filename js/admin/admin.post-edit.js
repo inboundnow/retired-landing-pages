@@ -1,4 +1,4 @@
-jQuery(document).ready(function ($) {
+cooljQuery(document).ready(function ($) {
 
 	jQuery('#templates-container').isotope();
               
@@ -156,7 +156,7 @@ jQuery(document).ready(function ($) {
 					success: function (response) {		
 						//alert(response);
 						var html = '<input id="lp_select_template" type="hidden" value="'+template+'" name="lp-selected-template'+variation_tag+'">'
-								 + '<input type="hidden" value="7db237c042" name="lp_lp_custom_fields_nonce">'
+								 + '<input type="hidden" value="'+lp_post_edit_ui.lp_template_nonce+'" name="lp_lp_custom_fields_nonce">'
 								 + '<h3 class="hndle" style="background: none repeat scroll 0% 0% rgb(248, 248, 248); cursor: default;">'
 								 + '<span>'
 								 + '<small>'+ template +' Options:</small>'
@@ -341,6 +341,7 @@ jQuery(document).ready(function ($) {
     }
 
     // Ajax Saving for metadata
+	/*
     jQuery('#lp_metabox_select_template input, #lp_metabox_select_template select, #lp_metabox_select_template textarea').on("change keyup", function (e) {
         // iframe content change needs its own change function $("#iFrame").contents().find("#someDiv")
         // media uploader needs its own change function
@@ -377,7 +378,7 @@ jQuery(document).ready(function ($) {
         //console.log(parent_el);
         jQuery(ajax_save_button).appendTo(parent_el);
     });
-
+	*/
 
     
 });

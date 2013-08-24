@@ -12,20 +12,22 @@ if (is_admin())
 		}
 	}
 	
-	// Setup navigation and display elements
-	$tab_slug = 'main';
-	$lp_global_settings[$tab_slug]['label'] = 'Global Settings';	
 	
-	$lp_global_settings[$tab_slug]['options'][] = lp_add_option($tab_slug,"text","landing-page-permalink-prefix","go","Default landing page permalink prefix","Enter in the 'prefix' for landing page permalinks. eg: /prefix/pemalink-name", $options=null);
-	//$lp_global_settings[$tab_slug]['options'][] = lp_add_option($tab_slug,"text","landing-page-group-permalink-prefix","group","Default split testing group permalink prefix","Enter in the 'prefix' for split testing group permalinks. eg: /prefix/pemalink-name", $options=null);
-	$lp_global_settings[$tab_slug]['options'][] = lp_add_option($tab_slug,"radio","landing-page-auto-format-forms","0","Enable Form Standardization","With this setting enabled landing pages plugin will clean and standardize all input ids and classnames. Uncheck this setting to disable standardization.", $options= array('1'=>'on','0'=>'off'));
-	$lp_global_settings[$tab_slug]['options'][] = lp_add_option($tab_slug,"radio","landing-page-prepopulate-forms","1","Enable Form Prepopulation","With this setting enabled landing pages plugin will remember form input data that the user submits to a form and attempt to pre-populate all other forms with the same user's data when applicable.", $options= array('1'=>'on','0'=>'off'));
-	$lp_global_settings[$tab_slug]['options'][] = lp_add_option($tab_slug,"textarea","landing-page-auto-format-forms-retain-elements","<button><script><textarea><style><input><form><select><label><a><p><b><u><strong><i><img><strong><span><font><h1><h2><h3><center><blockquote><embed><object><small>","Form Standardization Element Whitelist","Form standardization strips the conversion area content of html elements. Add the elements you do not want to be stripped to this list.", $options= array('1'=>'on','0'=>'off'));
-
-
-	function lp_get_global_settings_elements()
+	function lp_get_global_settings()
 	{
 		global $lp_global_settings;
+		
+		// Setup navigation and display elements
+		$tab_slug = 'main';
+		$lp_global_settings[$tab_slug]['label'] = 'Global Settings';	
+		
+		$lp_global_settings[$tab_slug]['options'][] = lp_add_option($tab_slug,"text","landing-page-permalink-prefix","go","Default landing page permalink prefix","Enter in the 'prefix' for landing page permalinks. eg: /prefix/pemalink-name", $options=null);
+		$lp_global_settings[$tab_slug]['options'][] = lp_add_option($tab_slug,"radio","landing-page-auto-format-forms","0","Enable Form Standardization","With this setting enabled landing pages plugin will clean and standardize all input ids and classnames. Uncheck this setting to disable standardization.", $options= array('1'=>'on','0'=>'off'));
+		$lp_global_settings[$tab_slug]['options'][] = lp_add_option($tab_slug,"radio","landing-page-prepopulate-forms","1","Enable Form Prepopulation","With this setting enabled landing pages plugin will remember form input data that the user submits to a form and attempt to pre-populate all other forms with the same user's data when applicable.", $options= array('1'=>'on','0'=>'off'));
+		$lp_global_settings[$tab_slug]['options'][] = lp_add_option($tab_slug,"textarea","landing-page-auto-format-forms-retain-elements","<button><script><textarea><style><input><form><select><label><a><p><b><u><strong><i><img><strong><span><font><h1><h2><h3><center><blockquote><embed><object><small>","Form Standardization Element Whitelist","Form standardization strips the conversion area content of html elements. Add the elements you do not want to be stripped to this list.", $options= array('1'=>'on','0'=>'off'));
+
+		$lp_global_settings = apply_filters('lp_define_global_settings',$lp_global_settings);
+	
 		return $lp_global_settings;
 	}	
 	
@@ -70,8 +72,9 @@ if (is_admin())
 	function lp_display_global_settings()
 	{	
 		global $wpdb;
-		global $lp_global_settings;
-		$lp_global_settings = lp_get_global_settings_elements();
+		$lp_global_settings = lp_get_global_settings();
+		
+		//print_r($lp_global_settings);
 		$active_tab = 'main'; 
 		if (isset($_REQUEST['open-tab']))
 		{
@@ -212,7 +215,7 @@ if (is_admin())
 	function lp_save_global_settings() 
 	{
 		
-		$lp_global_settings = lp_get_global_settings_elements();
+		$lp_global_settings = lp_get_global_settings();
 		
 		if (!isset($_POST['nature']))
 			return;
@@ -226,15 +229,20 @@ if (is_admin())
 			// loop through fields and save the data
 			foreach ($lp_options as $option) 
 			{
-				$old = get_option($option['id']);				
-				$new = $_POST[$option['id']];	
-			
-				if ((isset($new) && $new !== $old )|| !isset($old) ) 
+				
+	
+					
+				$old = get_option($option['id']);	
+				(isset($_POST[$option['id']]))? $new = $_POST[$option['id']] : $new = null;
+				
+				
+				if ((isset($new) && ($new !== $old ) )|| !isset($old) ) 
 				{
 					//echo $option['id'];exit;
 					$bool = update_option($option['id'],$new);				
-					if ($option['id']=='main-landing-page-permalink-prefix'||$option['id']=='main-landing-page-group-permalink-prefix')
+					if ($option['id']=='main-landing-page-permalink-prefix')
 					{
+						//echo "here";
 						global $wp_rewrite;
 						$wp_rewrite->flush_rules();
 					}
@@ -267,9 +275,10 @@ if (is_admin())
 						$license_status = update_option('lp_license_status-'.$option['slug'], $license_data->license);
 					}
 				} 
-				elseif ('' == $new && $old) 
+				elseif (!$new && $old) 
 				{
-					$bool = update_option($option['id'],$option['default']);
+					//echo "here: $key <br>";
+					$bool = delete_option($option['id']);
 				}
 				else
 				{
@@ -310,7 +319,7 @@ if (is_admin())
 						$license_status = update_option('lp_license_status-'.$option['slug'], $license_data->license);
 					}
 				}
-				
+				//exit;
 				do_action('lp_save_global_settings',$option);
 			} // end foreach		
 			

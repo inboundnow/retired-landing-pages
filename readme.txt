@@ -7,7 +7,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: landing pages, inbound marketing, conversion pages, split testing, a b test, a b testing, a/b test, a/b testing, coming soon page, email list, landing page, list building, maintenance page, squeeze page, inbound now, landing-pages, splash pages, cpa, click tracking, goal tracking, analytics
 Requires at least: 3.3
 Tested up to: 3.5
-Stable Tag: 1.0.9.7
+Stable Tag: 1.1.0.1
 
 Create landing pages for your WordPress site. Monitor and improve conversion rates, run A/B split tests, customize your own templates and more.
 
@@ -28,7 +28,7 @@ Landing pages are an ideal way to convert more of your passive website visitors 
 * Use your current WordPress theme or choose from our library of custom landing page designs.
 * Pre-populate Forms with visitor information to increase conversion rates
 * Gather lead intelligence and track lead activity with <a href="http://wordpress.org/plugins/leads/screenshots/">WordPress Leads</a>
-* Extend functionality with our growing repository of <a href="http://www.inboundnow.com/landing-pages/downloads/category/add-ons/">third party add ons</a>.
+* Extend functionality with our growing repository of <a href="http://www.inboundnow.com/market/category/landing-pages/extensions/">third party add ons</a>.
 * Easily implement your own custom landing page design.
 
 This plugin is form agnostic meaning it will work with any form system you use.
@@ -43,7 +43,7 @@ http://www.youtube.com/watch?v=BzcD6PgvLP4
 
 We built the landing page plugin as a framework! Need A/B testing out of the box implemented for your existing designs? Use WordPress Landing Pages to quickly spin up new landing pages that have all the functionality your clients will need.
 
-You can quickly take your existing designs and implement them using our <a href="http://www.inboundnow.com/landing-pages/docs/dev/">templating framework</a>.
+You can quickly take your existing designs and implement them using our <a href="http://docs.inboundnow.com/landing-pages/dev">templating framework</a>.
 
 The plugin is also fully extendable and has a number of actions, filters, and hooks available for use. If a hook doesn't exist, simply ask and we can implement custom changes.
 
@@ -54,7 +54,7 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 
 == Frequently Asked Questions ==
 *Can I create my own landing page designs?,
-*Yes! You can learn how to <a href="http://plugins.inboundnow.com/docs/dev/creating-templates/">create your own landing page template here</a>.
+*Yes! You can learn how to <a href="http://docs.inboundnow.com/landing-pages/dev/creating-templates">create your own landing page template here</a>.
 
 == Screenshots ==
 
@@ -64,6 +64,17 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 4. Choose from a ton of pre-made templates, use your existing design, or design your own theme!
 
 == Changelog ==
+
+=  1.1.0.1 =
+ 
+* Fixed: Variation saves for custom css and custom js. 
+* Fixed: jQuery error related to wysiwyg content formatting. 
+
+= 1.0.9.9 =
+* Improved extension metabox loading for quicker load times and optimized meta data storage.
+* Phased out more 'old method' split testing components.
+* Improved .htaccess parsing. 
+* Addressed issue with line breaks being removed from WYSIWYG editors.
 
 = 1.0.9.4 =
 * Added in tours for the edit screen and the list of landing page screen for new users to learn how to use the tool quickly and easily

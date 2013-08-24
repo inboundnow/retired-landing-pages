@@ -45,6 +45,7 @@ class LP_EXTENSION_UPDATER {
 	 * @return void
 	 */
 	private function hook() {
+		//update_option('_site_transient_update_plugins',''); //uncomment to force upload update check
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'pre_set_site_transient_update_plugins_filter' ) );
 		add_filter( 'plugins_api', array( $this, 'plugins_api_filter' ), 10, 3);
 		//echo 1; exit;
@@ -72,16 +73,25 @@ class LP_EXTENSION_UPDATER {
 		$to_send = array( 'slug' => $this->slug );
 
 		$api_response = $this->api_request( 'plugin_latest_version', $to_send );
-		//echo $this->version;
-		//print_r($api_response);exit;
+		
+		/*** Debug assistance ***
+			echo $this->name;
+			echo "\r\n<br>\r\n";
+			echo $this->version;
+			print_r($api_response);
+			echo "\r\n<hr>\r\n";
+		*/
+		
 		if( false !== $api_response && is_object( $api_response ) ) {
 			if( version_compare( $this->version, $api_response->new_version, '<' ) )
 				//echo $this->name;exit;
 				$_transient_data->response[$this->name] = $api_response;
 		}
+		
 		//echo "<hr>";
 		//echo var_dump($_transient_data);
 		//exit;
+		
 		return $_transient_data;
 	} 
 
