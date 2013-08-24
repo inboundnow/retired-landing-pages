@@ -42,8 +42,6 @@ include_once('modules/module.extension-updater.php');
 include_once('modules/module.install.php');
 include_once('modules/module.alert.php');
 }
-
-
 	
 /**
  * REGISTER LANDING PAGES ACTIVATION
