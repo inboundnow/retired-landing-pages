@@ -7,7 +7,7 @@ Version:  1.1.0.1
 Author: David Wells, Hudson Atwell
 Author URI: http://www.inboundnow.com/
 */
-					
+			
 define('LANDINGPAGES_CURRENT_VERSION', ' 1.1.0.1' );
 define('LANDINGPAGES_URLPATH', WP_PLUGIN_URL.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
@@ -42,8 +42,6 @@ include_once('modules/module.extension-updater.php');
 include_once('modules/module.install.php');
 include_once('modules/module.alert.php');
 }
-
-
 	
 /**
  * REGISTER LANDING PAGES ACTIVATION
@@ -67,7 +65,6 @@ function landing_page_activate()
 	
 }
 
-	
 /**
  * LOAD FUNCTIONS THAT WILL BE USED BY NATIVE TEMPLATES
  */
@@ -234,8 +231,6 @@ if (is_admin())
 		//echo 1; exit;
 		if (current_user_can('manage_options'))
 		{
-
-			//add_submenu_page('edit.php?post_type=landing-page', 'URL Rotater', 'URL Rotater', 'manage_options', 'lp_split_testing','lp_split_testing_display');	
 			
 			add_submenu_page('edit.php?post_type=landing-page', 'Templates', 'Templates', 'manage_options', 'lp_manage_templates','lp_manage_templates',100);	
 				
