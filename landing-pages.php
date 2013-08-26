@@ -3,12 +3,12 @@
 Plugin Name: Landing Pages
 Plugin URI: http://www.inboundnow.com/landing-pages/
 Description: The first true all-in-one Landing Page solution for WordPress, including ongoing conversion metrics, a/b split testing, unlimited design options and so much more!
-Version:  1.1.0.1
+Version:  1.1.0.2
 Author: David Wells, Hudson Atwell
 Author URI: http://www.inboundnow.com/
 */
 			
-define('LANDINGPAGES_CURRENT_VERSION', ' 1.1.0.1' );
+define('LANDINGPAGES_CURRENT_VERSION', ' 1.1.0.2' );
 define('LANDINGPAGES_URLPATH', WP_PLUGIN_URL.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 define('LANDINGPAGES_PLUGIN_SLUG', 'landing-pages' );
@@ -18,9 +18,7 @@ define('LANDINGPAGES_UPLOADS_PATH', $uploads['basedir'].'/landing-pages/template
 define('LANDINGPAGES_UPLOADS_URLPATH', $uploads['baseurl'].'/landing-pages/templates/' ); 
 $current_url = "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]."";
 
-/**
- * load frontend-only and load global core files
- */
+/* load frontend-only and load global core files */
 include_once('functions/functions.global.php');
 include_once('modules/module.post-type.php');
 include_once('modules/module.track.php');
@@ -31,6 +29,11 @@ include_once('modules/module.widgets.php');
 include_once('modules/module.cookies.php');
 include_once('modules/module.lead-collection.php');
 include_once('modules/module.ab-testing.php');
+
+/* Inbound Core Shared Files */
+include_once('shared/tracking/store.lead.php'); // Lead Storage
+include_once('shared/post-type.lead.php'); // Lead CPT
+
 
 if (is_admin())
 {
@@ -303,12 +306,12 @@ function lp_register_ajax() {
 	$current_url = trim(str_replace('//','/',"http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]."/"));
 	global $post;
 	// if leads on add tracking to all pages
-	if (@function_exists('wpleads_check_active'))
+	
+	if (@function_exists('wpleads_check_active') && 'landing-page' !== $post->post_type)
 	{
-		require_once(LANDINGPAGES_PATH . 'js/ajax.tracking.js.php');
+		require_once(WP_PLUGIN_DIR . '/leads/js/wpl.leads-tracking.js.php'); // This needs consolidation and fixing
 	}
-	else if ($post->post_type=='landing-page')
-	{	
+	else {	
 		require_once(LANDINGPAGES_PATH . 'js/ajax.tracking.js.php');
 	}
 	// embed the javascript file that makes the AJAX request

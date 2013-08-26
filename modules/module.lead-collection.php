@@ -12,6 +12,7 @@ function lp_lead_collection_js()
 	do_action('lp-lead-collection-add-js-pre'); 
 	
 	?>	
+	// Landing Page Lead storage
 	var email = jQuery(".lp-email-value input").val();
 	var firstname = jQuery(".lp-first-name-value input").val();
 	var lastname = jQuery(".lp-last-name-value input").val();
@@ -97,17 +98,19 @@ function lp_lead_collection_js()
     });	
     var post_values_json = JSON.stringify(post_values);
 	var wp_lead_uid = jQuery.cookie("wp_lead_uid");
+	var page_views = JSON.stringify(pageviewObj);
 	jQuery.cookie("wp_lead_email", email, { path: '/', expires: 365 });
 	var current_variation = <?php $variation = (isset($_GET['lp-variation-id'])) ? $_GET['lp-variation-id'] : '0'; echo  $variation ;?>;	
 	jQuery.ajax({
 		type: 'POST',
 		url: '<?php echo admin_url('admin-ajax.php') ?>',
 		data: {
-			action: 'lp_store_lead',
+			action: 'inbound_store_lead',
 			emailTo: email, 
 			first_name: firstname, 
 			last_name: lastname,
 			wp_lead_uid: wp_lead_uid,
+			page_views: page_views,
 			raw_post_values_json : post_values_json,
 			lp_v: current_variation,
 			lp_id: '<?php echo $post_id; ?>'<?php 
@@ -115,6 +118,8 @@ function lp_lead_collection_js()
 			?>
 		},
 		success: function(user_id){
+			jQuery.cookie("wp_lead_id", user_id, { path: '/', expires: 365 });
+			jQuery.totalStorage('wp_lead_id', user_id); 
 				if (form_id)
 				{
 					jQuery('form').unbind('submit');
@@ -135,43 +140,4 @@ function lp_lead_collection_js()
 
 	});
 	<?php
-}
-
-if (!post_type_exists('wp-lead'))
-{
-	add_action('init', 'lp_wpleads_register');
-	function lp_wpleads_register() {
-		//echo $slug;exit;
-		$labels = array(
-			'name' => _x('Leads', 'post type general name'),
-			'singular_name' => _x('Lead', 'post type singular name'),
-			'add_new' => _x('Add New', 'Lead'),
-			'add_new_item' => __('Add New Lead'),
-			'edit_item' => __('Edit Lead'),
-			'new_item' => __('New Leads'),
-			'view_item' => __('View Leads'),
-			'search_items' => __('Search Leads'),
-			'not_found' =>  __('Nothing found'),
-			'not_found_in_trash' => __('Nothing found in Trash'),
-			'parent_item_colon' => ''
-		);
-
-		$args = array(
-			'labels' => $labels,
-			'public' => false,
-			'publicly_queryable' => false,
-			//'show_ui' => true,
-			'show_ui' => false,
-			'query_var' => true,
-			//'menu_icon' => WPL_URL . '/images/leads.png',
-			'capability_type' => 'post',
-			'hierarchical' => false,
-			'menu_position' => null,
-			'supports' => array('custom-fields','thumbnail')
-		  );
-
-		register_post_type( 'wp-lead' , $args );
-		//flush_rewrite_rules( false );
-
-	}
 }
