@@ -103,8 +103,8 @@ function landing_pages_insert_custom_head() {
 		//$global_js =  htmlspecialchars_decode(get_option( 'lp_global_js', '' ));			
 		$global_record_admin_actions = get_option( 'lp_global_record_admin_actions', '0' );
 		
-		$custom_css_name = apply_filters('lp-custom-css-name','lp-custom-css');
-		$custom_js_name = apply_filters('lp-custom-js-name','lp-custom-js');
+		$custom_css_name = apply_filters('lp_custom_css_name','lp-custom-css');
+		$custom_js_name = apply_filters('lp_custom_js_name','lp-custom-js');
 		//echo $custom_css_name;
 		$custom_css = get_post_meta($post->ID, $custom_css_name, true);
 		$custom_js = get_post_meta($post->ID, $custom_js_name, true);
