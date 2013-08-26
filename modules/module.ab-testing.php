@@ -131,7 +131,7 @@ if (is_admin())
 	}
 	
 	/* force visual editor to open in text mode */
-	add_filter( 'wp_default_editor', 'lp_ab_testing_force_default_editor' );
+	
 	function lp_ab_testing_force_default_editor() {
 		//allowed: tinymce, html, test
 		return 'html';
