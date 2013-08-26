@@ -11,7 +11,9 @@
 	width: 95%;
 	color: #AAAAAA;
 }
-
+#local-storage-notice {
+	display: none !important;
+}
 #lp-notes-area input:focus{
 	color: #000;
 }
