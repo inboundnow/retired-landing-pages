@@ -33,7 +33,9 @@ function inbound_store_lead()
 		(isset(	$_POST['lp_v'] )) ? $lp_variation = $_POST['lp_v'] : $lp_variation = 0;
 		(isset(	$_POST['page_views'] )) ? $page_views = $_POST['page_views'] : $page_views = false;
 		
-		do_action('lp_store_lead_pre');
+		do_action('inbound_store_lead_pre'); // Global lead storage action hook
+		//do_action('lp_store_lead_pre'); // Landing Page specific storage hook (remove)
+		//do_action('wpl_store_lead_pre'); // Leads specific storage hook (remove)
 		
 		$query = $wpdb->prepare(
 			'SELECT ID FROM ' . $wpdb->posts . '
