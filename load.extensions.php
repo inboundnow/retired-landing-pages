@@ -28,7 +28,9 @@
 	{
 		foreach ($template_paths as $name)
 		{	
-			include_once($extended_templates_path."$name/config.php");	
+			if ($name != ".svn"){
+			include_once($extended_templates_path."$name/config.php");
+			}
 		}		
 	}
 
