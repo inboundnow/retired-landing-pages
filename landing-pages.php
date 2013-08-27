@@ -119,7 +119,7 @@ function landing_pages_insert_custom_head() {
 		{
 			echo $custom_css;
 		}
-		if (!stristr($custom_css,'<script'))
+		if (!stristr($custom_js,'<script'))
 		{
 			echo '<script type="text/javascript" id="lp_js_custom">jQuery(document).ready(function($) {
 			'.$custom_js.' });</script>';
