@@ -631,6 +631,10 @@ function lp_ab_testing_prepare_headline($main_headline)
 	else if (isset($_REQUEST['lp_id']))
 	{
 		$post_id = $_REQUEST['lp_id'];
+	}	
+	else if (isset($_REQUEST['post_id']))
+	{
+		$post_id = $_REQUEST['post_id'];
 	}
 	
 	if ($current_variation_id>0)
