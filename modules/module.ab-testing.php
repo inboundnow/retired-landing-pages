@@ -140,6 +140,7 @@ if (is_admin())
 	add_filter('lp_edit_main_headline','lp_ab_testing_admin_prepare_headline');
 	function lp_ab_testing_admin_prepare_headline($main_headline)
 	{			
+		
 		$current_variation_id = lp_ab_testing_get_current_variation_id();
 		
 		if (isset($_REQUEST['post']))
@@ -621,7 +622,7 @@ function lp_ab_testing_lp_conversion_area_position($position, $post = null, $key
 add_filter('lp_main_headline','lp_ab_testing_prepare_headline', 10, 2);
 function lp_ab_testing_prepare_headline($main_headline, $post = null)
 {	
-	
+
 	$current_variation_id = lp_ab_testing_get_current_variation_id();
 
 	if (isset($post))

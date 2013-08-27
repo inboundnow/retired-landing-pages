@@ -70,10 +70,10 @@ $content = lp_content_area($post,null,true);
     <head>
         <meta charset="utf-8" />
         <title><?php wp_title(); ?></title>
-    <?php /* Load all functions hooked to lp_head including global js and global css */
+		<?php /* Load all functions hooked to lp_head including global js and global css */
         wp_head(); // Load Regular WP Head
         do_action('lp_head'); // Load Custom Landing Page Specific Header Items
-?>
+		?>
         
         <!-- Our CSS stylesheet file -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" />
@@ -119,7 +119,7 @@ body {  background: url(<?php echo $bg_image; ?>) no-repeat center center fixed;
     <body <?php lp_body_class();?>>
 <div id="page-wrapper">     
 <div id="heading-area">
-    <h1><?php the_title(); ?></h1>
+    <h1><?php lp_main_headline(); ?></h1>
 </div>
 <div id="content-wrapper">
 <div id="content-background">
