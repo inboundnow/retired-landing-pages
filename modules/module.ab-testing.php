@@ -566,7 +566,7 @@ function lp_ab_testing_prepare_content_area($content, $post=null)
 }
 
 //ready conversion area for displaying ab variations
-add_filter('lp_conversion_area_post','lp_ab_testing_prepare_conversion_area' , 10 , 2 );
+add_filter('lp_conversion_area_pre_standardize','lp_ab_testing_prepare_conversion_area' , 10 , 2 );
 function lp_ab_testing_prepare_conversion_area($content,$post=null)
 {				
 	$current_variation_id = lp_ab_testing_get_current_variation_id();
@@ -618,13 +618,17 @@ function lp_ab_testing_lp_conversion_area_position($position, $post = null, $key
 }
 
 
-add_filter('lp_main_headline','lp_ab_testing_prepare_headline');
-function lp_ab_testing_prepare_headline($main_headline)
+add_filter('lp_main_headline','lp_ab_testing_prepare_headline', 10, 2);
+function lp_ab_testing_prepare_headline($main_headline, $post = null)
 {	
 	
 	$current_variation_id = lp_ab_testing_get_current_variation_id();
 
-	if (isset($_REQUEST['post']))
+	if (isset($post))
+	{
+		$post_id = $post->ID;
+	}
+	else if (isset($_REQUEST['post']))
 	{
 		$post_id = $_REQUEST['post'];
 	}
@@ -636,6 +640,7 @@ function lp_ab_testing_prepare_headline($main_headline)
 	{
 		$post_id = $_REQUEST['post_id'];
 	}
+	
 	
 	if ($current_variation_id>0)
 		$main_headline = get_post_meta($post_id,'lp-main-headline-'.$current_variation_id, true);
@@ -790,21 +795,6 @@ function lp_ab_testing_check_for_variations()
 	
 	if ($variation_id>0||isset($_COOKIE['lp-variation-id']))
 	{			
-	
-		add_filter('lp_conversion_area_pre_standardize','lp_ab_testing_alter_conversion_area', 10, 3);
-		function lp_ab_testing_alter_conversion_area($content, $post_id, $doshortcode = true)
-		{
-			$variation_id = lp_ab_testing_get_current_variation_id();
-
-			if ($variation_id>0)
-			{
-				$content = get_post_meta($post_id,'landing-page-myeditor-'.$variation_id, true);
-				
-				if ($doshortcode)
-					$content = do_shortcode($content);
-			}
-			return $content;
-		}
 
 		add_filter('the_content','lp_ab_testing_alter_content_area', 10, 2);
 		function lp_ab_testing_alter_content_area($content)
