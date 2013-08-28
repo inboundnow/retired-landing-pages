@@ -7,7 +7,12 @@ jQuery(document).ready(function ($) {
   	} else {
 		var current_val = jQuery(".new-date").val();
   	}
+  	// if no timepicker in options fix it
+  	if (typeof (current_val) == "undefined" || current_val === null || current_val == "") {
+  		var current_val = '';
+  	}
 
+  	console.log(current_val);
 	var ret = current_val.split(" ");
 	var current_date = ret[0];
 	var current_time = ret[1];
