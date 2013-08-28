@@ -37,7 +37,7 @@ $key = wp_cta_get_parent_directory(dirname(__FILE__));
 $wp_cta_data[$key]['info'] = 
 array(
 	'version' => "1.0", // Version Number
-	'label' => "Call to Action Box 1" // Nice Name
+	'label' => "Call to Action Box 1", // Nice Name
     'category' => 'Box CTA', // Template Category
     'demo' => 'http://demo.inboundnow.com/go/demo-template-preview/', // Demo Link
     'description'  => 'The Demo theme is here to help developers and designs implment thier own designs into the landing page plugin. Study this template to learn about Landing Page Plugin\'s templating system and to assist in building new templates.', // template description
@@ -89,7 +89,7 @@ array(
         'description' => "Use this setting to change headline color",
         'id'  => 'headline-text-color',
         'type'  => 'colorpicker',
-        'default'  => 'FFFFFF'
+        'default'  => 'FFFFFF',
         'context'  => 'normal',
         ),
     array(
