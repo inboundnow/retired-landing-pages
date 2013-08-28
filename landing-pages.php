@@ -12,7 +12,7 @@ define('LANDINGPAGES_CURRENT_VERSION', ' 1.1.0.2' );
 define('LANDINGPAGES_URLPATH', WP_PLUGIN_URL.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 define('LANDINGPAGES_PLUGIN_SLUG', 'landing-pages' );
-define('LANDINGPAGES_STORE_URL', 'http://inboundly.wpengine.com/landing-pages/' ); 
+define('LANDINGPAGES_STORE_URL', 'http://www.inboundnow.com/landing-pages/' ); 
 $uploads = wp_upload_dir();
 define('LANDINGPAGES_UPLOADS_PATH', $uploads['basedir'].'/landing-pages/templates/' ); 
 define('LANDINGPAGES_UPLOADS_URLPATH', $uploads['baseurl'].'/landing-pages/templates/' ); 
