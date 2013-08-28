@@ -9,7 +9,7 @@
 	{
 		foreach ($template_paths as $name)
 		{	
-			if ($name != ".svn"){	
+			if ($name != ".svn" && $name != ".git"){	
 			include_once(LANDINGPAGES_PATH."/templates/$name/config.php");
 			}	
 		}		
@@ -28,7 +28,7 @@
 	{
 		foreach ($template_paths as $name)
 		{	
-			if ($name != ".svn"){
+			if ($name != ".svn" && $name != ".git"){
 			include_once($extended_templates_path."$name/config.php");
 			}
 		}		
@@ -40,7 +40,7 @@
 	{
 		foreach ($template_paths as $name)
 		{	
-			if ($name != ".svn"){	
+			if ($name != ".svn" && $name != ".git"){	
 			include_once(LANDINGPAGES_PATH."/templates/$name/config.php"); 	
 			}
 		}		
