@@ -39,7 +39,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 	
     // Convert Hex to RGB Value for submit button
 function Hex_2_RGB($hex) {
-        $hex = ereg_replace("#", "", $hex);
+        $hex = preg_replace("/#/", "", $hex);
         $color = array();
  
         if(strlen($hex) == 3) {

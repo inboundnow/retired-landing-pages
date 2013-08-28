@@ -38,7 +38,7 @@ $imploded = implode(',', array_slice($arr, 0, 5));
 $date_array = explode(",", $imploded);
 // Convert Hex to RGB Value for submit button
 function lp_Hex_2_RGB($hex) {
-        $hex = @ereg_replace("#", "", $hex);
+        $hex = @preg_replace("/#/", "", $hex);
         $color = array();
  
         if(strlen($hex) == 3) {

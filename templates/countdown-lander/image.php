@@ -6,7 +6,7 @@ header("Content-type: image/png");
 $hex_value = $_GET['hex'];
 // Convert Hex to RGB Value
 function HexToRGB($hex) {
-        $hex = ereg_replace("#", "", $hex);
+        $hex = preg_replace("/#/", "", $hex);
         $color = array();
  
         if(strlen($hex) == 3) {
