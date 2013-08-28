@@ -12,7 +12,7 @@ jQuery(document).ready(function ($) {
   		var current_val = '';
   	}
 
-  	console.log(current_val);
+  	
 	var ret = current_val.split(" ");
 	var current_date = ret[0];
 	var current_time = ret[1];
