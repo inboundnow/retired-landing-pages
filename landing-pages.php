@@ -225,7 +225,7 @@ if (is_admin())
 	include_once('modules/module.templates.php');
 	include_once('modules/module.store.php');
 
-// Create Sub-menu
+	// Create Sub-menu
 
 	add_action('admin_menu', 'lp_add_menu');
 	
