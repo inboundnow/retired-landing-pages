@@ -4,6 +4,10 @@
 * Template Name:  Demo Template
 * @package  WordPress Landing Pages
 * @author 	David Wells
+*
+* This is a demo template for developers and designers to use as a reference for building landing page templates
+* For a boilerplate without all the markup visit: XYZ
+* 
 */
 
 do_action('lp_global_config'); // The lp_global_config function is for global code added by 3rd party extensions
@@ -11,89 +15,156 @@ do_action('lp_global_config'); // The lp_global_config function is for global co
 //gets template directory name to use as identifier - do not edit - include in all template files
 $key = lp_get_parent_directory(dirname(__FILE__)); 
 
-// Add in global templata data
-//EDIT - START - defines template information - helps categorize template and provides additional popup information
-// Add Landing Page to a specific category. 
-$lp_data[$key]['category'] = "Miscellaneous"; 
-// Add version control to your template.
-$lp_data[$key]['version'] = "1.0.0.1"; 
-// Add description visible to the user
-$lp_data[$key]['description'] = "This is your template's description.."; 
-// Add a live demo link to illustration the page functionality to the user
-$lp_data[$key]['features'][] = lp_list_feature("Demo Link","http://demo.inboundnow.com/go/demo-template-preview/"); 
-// Description of the landing page visible to the user.
-$lp_data[$key]['features'][] = lp_list_feature("The Demo theme is here to help developers and designs implment thier own designs into the landing page plugin. Study this template to learn about Landing Page Plugin's templating system and to assist in building new templates."); 
-// Thumbnail SRC
-$lp_data[$key]['thumbnail'] = LANDINGPAGES_URLPATH.'templates/'.$key.'/thumbnail.png'; 
-//EDIT - END
+/**
+ * $lp_data[$key]['info'] 
+ * Configures Template Information
+ */
 
-//DO NOT EDIT - adds template to template selection dropdown 
-$lp_data[$key]['value'] = $key; //do not edit this
-$lp_data[$key]['label'] = ucwords(str_replace('-',' ',$key)); //do not edit this
+/* $wp_cta_data[$key]['settings'] Parameters
 
-//*************************************************************************************************
-/* Add User Options to Your Landing Page Template Below */
-// For more on adding meta-boxes to templates head to:
-// http://plugins.inboundnow.com/docs/dev/creating-templates/template-config/
-//*************************************************************************************************
+    'version' => (string) (required)
+    - Version Number. default = "1.0"
 
-// ADD IN META BOX OPTIONS TO YOUR TEMPLATE BELOW
+    'label' => (string) (required)
+    - Custom Nice Name for templates. default = template file folder name
 
-/* Textfield Example */
-// Add a text input field to the landing page options panel	
-// This is called in the template's index.php file with lp_get_value($post, $key, 'text-box-id'); 
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"text","text-box-id","Default Text Here","Text Field Label","Text field Description", $options=null);
+    'description' => (string) (required)
+    - Landing page description.
 
-/* Textarea Example */
-// Add a text area input field to the landing page options	
-// This is called in the template's index.php file with lp_get_value($post, $key, 'textarea-id'); 
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"textarea","textarea-id","Default text in textarea","Textarea Label","Textarea description to the user", $options=null);
+    'category' => (string) (required)
+    - Category for template. default = "all"
 
-/* Colorpicker Example */
-// Add a colorpicker option to your template's options panel. 
-// This is called in the template's index.php file with lp_get_value($post, $key, 'color-picker-id'); 
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","color-picker-id","ffffff","ColorPicker Label","Colorpicker field description", $options=null);
+    'demo' => (string) (required)
+    - Link to demo url.
+*/
 
-/* Radio Button Example */
-// Add a radio button option to your theme's options panel.	
-// This is called in the template's index.php file with lp_get_value($post, $key, 'display-navigation'); 
-$options = array('1' => 'on','0'=>'off');
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"radio","radio-id-here","1","Radio Label","Radio field description", $options);
+$lp_data[$key]['info'] = 
+array(
+	'version' => "2.0.0", // Version Number
+	'label' => "Demo", // Nice Name
+	'category' => 'Miscellaneous', // Template Category
+	'demo' => 'http://demo.inboundnow.com/go/demo-template-preview/', // Demo Link
+	'description'  => 'The Demo theme is here to help developers and designs implment thier own designs into the landing page plugin. Study this template to learn about Landing Page Plugin\'s templating system and to assist in building new templates.' // template description
+);
 
-/* Checkbox Example */
-// Add a checkbox option to your theme's option panel.
-// To add additional checkbox options, add additional values into the array.
-// This is called in the template's index.php file with lp_get_value($post, $key, 'checkbox-id-here'); 
-$options = array('option_on'=>'on');
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"checkbox","checkbox-id-here","on","Example Checkbox Label","Example Checkbox Description", $options);	
 
-/* Dropdown Example */
-// Add a dropdown toggle to the landing page options panel	
-// To add additional dropdown options, add additional values into the array.
-// This is called in the template's index.php file with lp_get_value($post, $key, 'dropdown-id-here'); 
-$options = array('right'=>'Float right','left'=>'Float left', 'default'=>'Default option');
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"dropdown","dropdown-id-here","default","Dropdown Label","Dropdown option description", $options);	
+/**
+ * $lp_data[$key]['settings'] 
+ * Adds metabox options to landing page template
+ * http://plugins.inboundnow.com/docs/dev/creating-templates/template-config/
+ */
 
-/* Date Picker Example */
-// Add a colorpicker option to your theme's options panel. 
-// This is called in the template's index.php file with lp_get_value($post, $key, 'date-picker-id'); 
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"datepicker","date-picker","2013-12-27","Date Picker Label","Date Picker Description", $options=null);
+/* Parameters
+    'label' => (string) (required)
+    - Label for Meta Fields.
 
-/* WYSIWYG Example */
-// Add visual/html editor to landing page options	
-// This is called in the template's index.php file with lp_get_value($post, $key, 'wysiwyg-id'); 
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"wysiwyg","wysiwyg-id","Default WYSIWYG content","Main Content Box 2","Main Content Box 2", $options=null);
+    'description' => (string) (required)
+    - Description for meta Field 
 
-/* Media Uploaded Example */
-// Add a media uploader field to your landing page options	
-// This is called in the template's index.php file with lp_get_value($post, $key, 'wysiwyg-id'); 
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"media","media-id","/wp-content/plugins/landing-pages/templates/path-to-image-place-holder.png","File/Image Upload Label","File/Image Upload Description", $options=null);
+    'id' => (string) (required)
+    - unprefixed-meta-key. The $key (template file path name) is appended in the loop this array is used in.
+
+    'type' => (string) (required)
+    - Meta box type. default = 'text'
+
+    'default' => (string) (optional)
+    - Default Field Value.  default = ''
+
+    'options' => (array) (required for metaboxes with multiple options)
+    - example: 'options' => array('value' => 'label','value_2'=>'label 2')
+    - For dropdowns, checkboxes, etc.
+
+    'context' => (string) (optional)
+    - where this box will go, will be used for advanced placement/styling.  default = normal
+ 
+*/
+ 
+// Define Meta Options for template
+// This is called in the template's index.php file with lp_get_value($post, $key, 'text-box-id');
+$lp_data[$key]['settings'] = 
+array(
+	/* Text field Example */
+    array(  
+        'label' => 'Text Field Label', // Label of field
+        'description' => "Text field Description", // field description
+        'id' => 'text-box-id', // metakey. The $key Prefix is appended making the meta value demo-text-box-id
+        'type'  => 'text', // text metafield type
+        'default'  => '2013-1-31 13:00', // default content
+        'context'  => 'normal' // Context in screen for organizing options
+        ),
+    /* Textarea Example */
+    array(
+        'label' => 'Textarea Label',
+        'description' => "Textarea description to the user",
+        'id'  => 'textarea-id', // called in template's index.php file with lp_get_value($post, $key, 'textarea-id');
+        'type'  => 'textarea',
+        'default'  => 'Default text in textarea',
+        'context'  => 'normal'
+        ),
+    /* Colorpicker Example */
+    array(
+        'label' => 'ColorPicker Label',
+        'description' => "Colorpicker field description",
+        'id'  => 'color-picker-id', // called in template's index.php file with lp_get_value($post, $key, 'color-picker-id');
+        'type'  => 'colorpicker',
+        'default'  => 'ffffff',
+        'context'  => 'normal'
+        ),
+    /* Radio Button Example */
+    array(
+        'label' => 'Radio Label',
+        'description' => "Radio field description",
+        'id'  => 'radio-id-here', // called in template's index.php file with lp_get_value($post, $key, 'radio-id-here');
+        'type'  => 'radio',
+        'default'  => '1',
+        'options' => array('1' => 'on','0'=>'off'),
+        'context'  => 'normal'
+        ),
+    /* Checkbox Example */
+    array(
+        'label' => 'Checkbox Label',
+        'description' => "Example Checkbox Description",
+        'id'  => 'checkbox-id-here', // called in template's index.php file with lp_get_value($post, $key, 'checkbox-id-here');
+        'type'  => 'checkbox',
+        'default'  => 'on',
+        'options' => array('option_on' => 'on','option_off'=>'off'),	
+        'context'  => 'normal'
+        ),
+    /* Dropdown Example */
+    array(
+        'label' => 'Dropdown Label',
+        'description' => "Dropdown option description",
+        'id'  => 'dropdown-id-here', // called in template's index.php file with lp_get_value($post, $key, 'dropdown-id-here');
+        'type'  => 'dropdown',
+        'default'  => 'default',		
+		'options' => array('right'=>'Float right','left'=>'Float left', 'default'=>'Default option'),
+        'context'  => 'normal'
+        ),
+    /* Date Picker Example */
+     array(
+        'label' => 'Date Picker Label',
+        'description' => "Date Picker Description",
+        'id'  => 'date-picker', // called in template's index.php file with lp_get_value($post, $key, 'date-picker');
+        'type'  => 'datepicker',
+        'default'  => '2013-12-27',
+        'context'  => 'normal'
+        ),
+     /* WYSIWYG Example */
+     array(
+        'label' => 'Main Content Box 2',
+        'description' => "wysiwyg description",
+        'id'  => 'wysiwyg-id', // called in template's index.php file with lp_get_value($post, $key, 'wysiwyg-id');
+        'type'  => 'wysiwyg',
+        'default'  => 'Default WYSIWYG content',				
+        'context'  => 'normal'
+        ),
+     /* Media Uploaded Example */
+     array(
+        'label' => 'File/Image Upload Label',
+        'description' => "File/Image Upload Description",
+        'id'  => 'media-id', // called in template's index.php file with lp_get_value($post, $key, 'media-id');
+        'type'  => 'media',
+        'default'  => '/wp-content/plugins/landing-pages/templates/path-to-image-place-holder.png',
+        'context'  => 'normal'
+        )
+    );

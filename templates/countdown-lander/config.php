@@ -47,12 +47,16 @@ array(
 	'description'  => 'Coundown Lander provides a simple sharp looking countdown page.' // template description
 );
 
-/* $wp_cta_data[$key]['settings'] Parameters
+/**
+ * $lp_data[$key]['settings'] 
+ * Adds metabox options to landing page template
+ */
 
+/* Parameters
     'label' - (string) (required)
     Label for Meta Fields.
 
-    'description' - (string) (optional)
+    'description' - (string) (required)
     Description for meta Field 
 
     'id' - (string) (required)
@@ -64,11 +68,14 @@ array(
     'default' - (string) (optional)
     Default Field Value.  default = ''
 
+    'options' - (array) (required for metaboxes with multiple options)
+    example: 'options' => array('value' => 'label','value_2'=>'label 2')
+    For dropdowns, checkboxes, etc.
+
     'context' - (string) (optional)
     where this box will go, will be used for advanced placement/styling.  default = normal
  
 */
- 
  
 // Define Meta Options for template
 $lp_data[$key]['settings'] = 
