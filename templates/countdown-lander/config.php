@@ -4,7 +4,7 @@
 * Template Name:  Countdown Lander Template
 *
 * @package  WordPress Landing Pages
-* @author 	David Wells
+* @author 	David Wells, Hudson Atwell
 */
 
 do_action('lp_global_config'); // The lp_global_config function is for global code added by 3rd party extensions
@@ -12,59 +12,140 @@ do_action('lp_global_config'); // The lp_global_config function is for global co
 //gets template directory name to use as identifier - do not edit - include in all template files
 $key = lp_get_parent_directory(dirname(__FILE__)); 
 
-//EDIT - START - defines template information - helps categorizae template and provides additional popup information
-$lp_data[$key]['category'] = "Countdown"; 
-$lp_data[$key]['version'] = "1.0.0.4"; 
-$lp_data[$key]['description'] = "Countdown Lander Template"; 
-$lp_data[$key]['features'][] = lp_list_feature("Demo Link","http://demo.inboundnow.com/go/countdown-lander-preview/"); 
-$lp_data[$key]['features'][] = lp_list_feature("The countdown lander template is for counting down to events or limited time offers."); 
-$lp_data[$key]['thumbnail'] = LANDINGPAGES_URLPATH.'templates/'.$key.'/thumbnail.png'; 
+/// Information START - define template information
+/**
+ * $lp_data[$key]['info']
+ * type - multidemensional array
+ *
+ * This array houses the template metadata
+ */
 
-//DO NOT EDIT - adds template to template selection dropdown 
-$lp_data[$key]['value'] = $key; 
-$lp_data[$key]['label'] = ucwords(str_replace('-',' ',$key)); 
+/* $wp_cta_data[$key]['settings'] Parameters
 
+    'version' - (string) (optional)
+    Version Number. default = "1.0"
 
-//************************************************
-// Add User Options to Your Landing Page Template
-//************************************************
-// Date Picker Example
-// Add a colorpicker option to your theme's options panel. 
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"datepicker","date-picker","2013-1-31 13:00","Countdown Date","What date are we counting down to?", $options=null);
+    'label' - (string) (optional)
+    Custom Nice Name for templates. default = template file folder name
 
-// Add Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","headline-color","ffffff","Headline Text Color","Use this setting to change the Heading Text Color", $options=null);
+    'description' - (string) (optional)
+    Landing page description.
 
-// Add Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","other-text-color","ffffff","Other Text Color","Use this setting to change the template's text color", $options=null);	
+    'category' - (string) (optional)
+    Category for template. default = "all"
 
-// Add Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","submit-button-color","5baa1e","Submit Button Color","Use this setting to change the template's submit button color.", $options=null);		
-// Add Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","content-background","000000","Content Background Color","Use this setting to change the content area's background color", $options=null);	
+    'demo' - (string) (optional)
+    Link to demo url.
+*/
 
-// Add a radio button option to your theme's options panel.	
-$options = array('on' => 'on','off'=>'off');
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"radio","background-on","on","Show Transparent Background behind content?","Toggle this on to render the transparent background behind your content for better visability", $options);
+$lp_data[$key]['info'] = 
+array(
+	'version' => "1.0.0.5", // Version Number
+	'label' => "Countdown Lander", // Nice Name
+	'category' => 'Countdown', // Template Category
+	'demo' => 'http://demo.inboundnow.com/go/countdown-lander/', // Demo Link
+	'description'  => 'Coundown Lander provides a simple sharp looking countdown page.' // template description
+);
 
-// Textfield Example
-// Add a text input field to the landing page options panel	
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"text","countdown-message","Countdown Until... Message","Countdown Until... Message","Insert the event you are counting down to", $options=null);
-	
-// Media Uploaded Example
-// Add a media uploader field to your landing page options	
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"media","bg-image","","Background Image","Enter an URL or upload an image for the background.", $options=null);
+/* $wp_cta_data[$key]['settings'] Parameters
 
-// Radio Button Example
-// Add a radio button option to your theme's options panel.	
-$options = array('1' => 'on','0'=>'off');
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"radio","display-social","1","Display Social Media Share Buttons","Toggle social sharing on and off", $options);
+    'label' - (string) (required)
+    Label for Meta Fields.
+
+    'description' - (string) (optional)
+    Description for meta Field 
+
+    'id' - (string) (required)
+    unprefixed-meta-key. The $key (template file path name) is appended in the loop this array is used in.
+
+    'type' - (string) (required)
+    Meta box type. default = 'text'
+
+    'default' - (string) (optional)
+    Default Field Value.  default = ''
+
+    'context' - (string) (optional)
+    where this box will go, will be used for advanced placement/styling.  default = normal
+ 
+*/
+ 
+ 
+// Define Meta Options for template
+$lp_data[$key]['settings'] = 
+array(
+    array(
+        'label' => 'Countdown Date', // Name of field
+        'description' => "What date are we counting down to?", // what field does
+        'id' => 'date-picker', // metakey. $key Prefix is appended from parent in array loop
+        'type'  => 'datepicker', // metafield type
+        'default'  => '2013-1-31 13:00', // default content
+        'context'  => 'normal' // Context in screen (advanced layouts in future)
+        ),
+    array(
+        'label' => 'Headline Text Color',
+        'description' => "Use this setting to change headline color",
+        'id'  => 'headline-color',
+        'type'  => 'colorpicker',
+        'default'  => 'FFFFFF',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Other Text Color',
+        'description' => "Use this setting to change the template's text color",
+        'id'  => 'other-text-color',
+        'type'  => 'colorpicker',
+        'default'  => 'FFFFFF',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Submit Button Color',
+        'description' => "Use this setting to change the template's submit button color.",
+        'id'  => 'submit-button-color',
+        'type'  => 'colorpicker',
+        'default'  => '5baa1e',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Content Background Color',
+        'description' => "Use this setting to change the content area's background color",
+        'id'  => 'content-background',
+        'type'  => 'colorpicker',
+        'default'  => '000000',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Show Transparent Background behind content?',
+        'description' => "Toggle this on to render the transparent background behind your content for better visability",
+        'id'  => 'background-on',
+        'type'  => 'radio',
+        'default'  => 'on',		
+		'options' => array('on' => 'on','off'=>'off'),
+        'context'  => 'normal'
+        ),
+     array(
+        'label' => 'Countdown Until... Message',
+        'description' => "Insert the event you are counting down to.",
+        'id'  => 'countdown-message',
+        'type'  => 'text',
+        'default'  => 'Countdown Until... Message',
+        'context'  => 'normal'
+        ),
+     array(
+        'label' => 'Background Image',
+        'description' => "Enter an URL or upload an image for the background.",
+        'id'  => 'bg-image',
+        'type'  => 'media',
+        'default'  => '',				
+        'context'  => 'normal'
+        ),
+     array(
+        'label' => 'Display Social Media Share Buttons',
+        'description' => "Toggle social sharing on and off",
+        'id'  => 'display-social',
+        'type'  => 'radio',
+        'default'  => '1',		
+		'options' => array('1' => 'on','0'=>'off'),		
+        'context'  => 'normal'
+        )
+    );
+ 
