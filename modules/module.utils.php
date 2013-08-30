@@ -1,19 +1,32 @@
 <?php
-/* 
-function add_first_and_last($output) {
-  $output = preg_replace('/class="menu-item/', 'class="first-menu-item menu-item', $output, 1);
-  $output = substr_replace($output, 'class="last-menu-item menu-item', strripos($output, 'class="menu-item'), strlen('class="menu-item'));
-  return $output;
+/**
+ * Utility Functions
+ */
+
+add_action( 'init', 'inbound_meta_debug' );
+if (!function_exists('inbound_meta_debug')) {
+	function inbound_meta_debug(){
+	//print all global fields for post
+	if (isset($_GET['debug'])) {
+			global $wpdb;
+			$data   =   array();
+			$wpdb->query("
+			  SELECT `meta_key`, `meta_value`
+				FROM $wpdb->postmeta
+				WHERE `post_id` = ".$_GET['post']."
+			");
+			foreach($wpdb->last_result as $k => $v){
+				$data[$v->meta_key] =   $v->meta_value;
+			};
+			if (isset($_GET['post']))
+			{
+				echo "<pre>";
+				print_r( $data);
+				echo "</pre>";
+			}
+		} 
+	}
 }
-add_filter('wp_nav_menu', 'add_first_and_last');
-//Filtering a Class in Navigation Menu Item
-add_filter('nav_menu_css_class' , 'special_nav_class' , 10 , 2);
-function special_nav_class($classes, $item){
-     if ( 'landing-page' == get_post_type() ) {
-             $classes[] = 'lp_explode_menu';
-     }
-     return $classes;
-}*/
 
 // Fix SEO Title Tags to not use the_title
 //add_action('wp','landingpage_seo_title_filters');

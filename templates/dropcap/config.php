@@ -20,7 +20,7 @@ array(
 );
 
 // Define Meta Options for template
-// These values are returned in the template's index.php file with lp_get_value($post, $key, 'text-box-id') function
+// These values are returned in the template's index.php file with lp_get_value($post, $key, 'field-id') function
 $lp_data[$key]['settings'] = 
 array(
     array(  

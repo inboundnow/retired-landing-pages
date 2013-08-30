@@ -858,44 +858,7 @@ function lp_ab_testing_check_for_variations()
 			
 		update_post_meta($page_id,'lp-ab-variation-conversions-'.$variation_id, $conversions);
 	}
-}
-
-//add ab toggling options to customizer
-add_action('lp_launch_customizer_pre','lp_ab_customizer_print_variation_toggle', 10 , 1);
-function lp_ab_customizer_print_variation_toggle($post)
-{
-	$lp_variation = (isset($_GET['lp-variation-id'])) ? $_GET['lp-variation-id'] : '0';
-
-	$variations = get_post_meta($post->ID,'lp-ab-variations', true);
-	$variations_array = explode(",", $variations);
-	$post_type_is = get_post_type($post->ID);
-	if ($post_type_is !== "landing-page") { 
-			echo "<style type='text/css'>#variation-list {display:none;}</style>";
-		}
-	if ($variations_array[0] === "")
-	{
-		echo '<div id="variation-list" class="no-abtests"><h3>No A/B Tests running for this page</h3>';
-	} 
-	else 
-	{
-		echo '<div id="variation-list"><h3>Variations:</h3>';
-		echo '<div id="current_variation_id">'.$lp_variation.'</div>';
-	}
-	
-	foreach ($variations_array as $key => $val) 
-	{
-		$letter = lp_ab_key_to_letter($val);
-		$current_view = ($val == $lp_variation) ? 'current-variation-view' : '';
-		echo "<div class='variation-lp ".$current_view."' id=". $val . " rel='".$letter."'>";
-		echo $letter;
-	   
-		// echo $val; number
-		echo "</div>";
-	}
-	
-	echo '</div>';
-	
-}		
+}	
 
 add_action('lp_launch_customizer_pre','lp_ab_testing_customizer_enqueue');
 function lp_ab_testing_customizer_enqueue($post)
@@ -927,24 +890,5 @@ function ab_testing_frontend_editor_screen_pre($post)
 	});
 	</script>
 <?php } 
-
-/*-------------------------------------------------------WORKSPACE-------------------------------------------------------*/
-//print all global fields for post
-/*
-global $wpdb;
-$data   =   array();
-$wpdb->query("
-	SELECT `meta_key`, `meta_value`
-	FROM $wpdb->postmeta
-	WHERE `post_id` = ".$_GET['post']."
-");
-foreach($wpdb->last_result as $k => $v){
-	$data[$v->meta_key] =   $v->meta_value;
-};
-if (isset($_GET['post']))
-{
-	print_r( $data);
-} 
-*/
 
 ?>

@@ -159,6 +159,10 @@ function lp_landing_page_header_area()
 		echo "<div id='lp-notes-area'>";
    		lp_display_notes_input('lp-variation-notes',$varaition_notes);
     	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="Primary Headline Goes here. This will be visible on the page" id="lp-main-headline" value="'.$main_title.'" title="This headline will appear in the landing page template."></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
+    // Frontend params
+    if(isset($_REQUEST['frontend']) && $_REQUEST['frontend'] == 'true') {  
+    echo('<input type="hidden" name="frontend" value="true" />');
+}	
 
 }
 function lp_save_header_area( $post_id )
@@ -623,7 +627,7 @@ function lp_conversion_log_metabox() {
 
 	}
 	echo '<div id="leads-table-container">';
-	echo '<h2>Conversion logs:</h2>'; 
+	echo '<h2 id="convert-header">Conversion logs:</h2>'; 
 	echo '<div id="leads-table-container-inside">';
 	$myListTable = new LP_LEAD_LOG();	
 	$myListTable->prepare_items();

@@ -230,13 +230,13 @@ function lp_ab_testing_add_tabs()
 			echo '<a href="?post='.$post->ID.'&lp-variation-id='.$new_variation_id.'&action=edit" class="lp-nav-tab nav-tab nav-tab-special-active" id="tabs-add-variation">'.$letter.'</a>';
 		}
 		$edit_link = (isset($_GET['lp-variation-id'])) ? '&lp-variation-id='.$_GET['lp-variation-id'].'' : '&lp-variation-id=0';
-		echo '<a rel="'.$post->guid.'" class="button-primary new-save-lp-frontend" href="'.$post->guid.''.$edit_link.'&template-customize=on">Launch Visual Editor</a>';
+		echo '<a rel="'.$post->guid.'" id="launch-visual-editer" class="button-primary new-save-lp-frontend" href="'.$post->guid.''.$edit_link.'&template-customize=on">Launch Visual Editor</a>';
 		echo '</h2>';
 	} 
 	else 
 	{
 		if ($post_type_is === "page" || $post_type_is === "post" ) {
 		// Frontend edit button for other post types
-		echo '<a class="button-primary new-save-lp-frontend" style="position: fixed;right: 38px; top: 57px;" href="'.$permalink.'?template-customize=on">Launch Visual Editor</a>'; }
+		echo '<a class="button-primary new-save-lp-frontend" id="launch-visual-editer" style="position: fixed;right: 38px; top: 57px;" href="'.$permalink.'?template-customize=on">Launch Visual Editor</a>'; }
 	}
 }
