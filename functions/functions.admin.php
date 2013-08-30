@@ -84,10 +84,10 @@ function lp_admin_enqueue($hook)
 			wp_enqueue_style('jquery-timepicker-css', LANDINGPAGES_URLPATH . 'js/libraries/jquery-datepicker/jquery.timepicker.css');
 			wp_enqueue_style('jquery-datepicker-base.css', LANDINGPAGES_URLPATH . 'js/libraries/jquery-datepicker/lib/base.css');
 			// New frontend editor
-			if (isset($_GET['frontend'])) {
+			if (isset($_GET['frontend']) && $_GET['frontend'] === 'true') {
 				//show_admin_bar( false ); // doesnt work
-				//wp_enqueue_style('new-customizer-admin', LANDINGPAGES_URLPATH . '/css/new-customizer-admin.css');
-				//wp_enqueue_script('new-customizer-admin', LANDINGPAGES_URLPATH . 'js/admin/new-customizer-admin.js');
+				wp_enqueue_style('new-customizer-admin', LANDINGPAGES_URLPATH . '/css/new-customizer-admin.css');
+				wp_enqueue_script('new-customizer-admin', LANDINGPAGES_URLPATH . 'js/admin/new-customizer-admin.js');
 			}
 		}
 
@@ -114,18 +114,22 @@ function lp_admin_enqueue($hook)
 	}
 }
 
-add_filter('admin_url','add_fullscreen_param');
-function add_fullscreen_param( $link ) {
-	$params['frontend'] = 'false';
-	if(isset($_GET['frontend']) && $_GET['frontend'] == 'true') {
-        $params['frontend'] = 'true';
-    }
-    if(isset($_REQUEST['frontend']) && $_REQUEST['frontend'] == 'true') {
-        $params['frontend'] = 'true';
-    }
-    $link = add_query_arg( $params, $link );
+add_filter('admin_url','lp_add_fullscreen_param');
+function lp_add_fullscreen_param( $link ) {
 
-    return $link;
+	if (  ( isset($post) && 'landing-page' == $post->post_type ) || ( isset($_GET['post_type']) && $_GET['post_type']=='landing-page' ) ) 
+	{ 
+		$params['frontend'] = 'false';
+		if(isset($_GET['frontend']) && $_GET['frontend'] == 'true') {
+	        $params['frontend'] = 'true';
+	    }
+	    if(isset($_REQUEST['frontend']) && $_REQUEST['frontend'] == 'true') {
+	        $params['frontend'] = 'true';
+	    }
+	    $link = add_query_arg( $params, $link );
+
+	}   
+	return $link;
 }
 
 
