@@ -36,7 +36,7 @@ console.log(link_varaition);
 
 	// reload the iframe preview page (for option toggles)
 	//jQuery('.reload').on('click', function (event) {
-		reload_preview();
+		reload_preview(); // need to trigger reload from parent frame
 	//});
 
 	//alert(jQuery("#current_variation_id").text());

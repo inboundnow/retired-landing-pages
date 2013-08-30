@@ -16,7 +16,19 @@ jQuery(document).ready(function ($) {
 			inDuration : 600,
 	});
 	*/
-	
+    jQuery("body").on('click', '#content-tmce', function () {
+        $.cookie("lp-edit-view-choice", "editor", { path: '/', expires: 7 });
+    });
+    jQuery("body").on('click', '#content-html', function () {
+        $.cookie("lp-edit-view-choice", "html", { path: '/', expires: 7 });
+    });
+    var which_editor = $.cookie("lp-edit-view-choice");
+    if(which_editor === null){
+        jQuery("#content-tmce").click();
+    }    
+    if(which_editor === 'editor'){
+        jQuery("#content-tmce").click();
+    }
     /* Tour Start JS */
     var tourbutton = '<a class="" id="lp-tour" style="font-size:13px;">Need help? Take the tour</a>';
     jQuery(tourbutton).appendTo("h2:eq(0)");
