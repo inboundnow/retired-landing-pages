@@ -1,78 +1,117 @@
 <?php
 /**
-* WordPress Landing Page Config File
 * Template Name:  Super Slick Template
-*
 * @package  WordPress Landing Pages
 * @author 	David Wells
 */
 
-do_action('lp_global_config'); // The lp_global_config function is for global code added by 3rd party extensions
+do_action('lp_global_config'); // global config action hook
 
 //gets template directory name to use as identifier - do not edit - include in all template files
 $key = lp_get_parent_directory(dirname(__FILE__)); 
 
-//adds template data to global array for use with landing page plugin - edit theme category and description only. 
-
-//EDIT - START - defines template information - helps categorizae template and provides additional popup information
-$lp_data[$key]['category'] = "Miscellaneous"; 
-$lp_data[$key]['description'] = "Super Slick Template"; 
-$lp_data[$key]['version'] = "1.0.0.1"; 
-$lp_data[$key]['features'][] = lp_list_feature("Demo Link","http://demo.inboundnow.com/go/super-slick-lander-preview/"); 
-$lp_data[$key]['features'][] = lp_list_feature("SuperSlick is great for showcasing a hero image or video on your landing page."); 
-$lp_data[$key]['thumbnail'] = LANDINGPAGES_URLPATH.'templates/'.$key.'/thumbnail.png'; 
-
-
-//DO NOT EDIT - adds template to template selection dropdown 
-$lp_data[$key]['value'] = $key; 
-$lp_data[$key]['label'] = ucwords(str_replace('-',' ',$key)); 
+$lp_data[$key]['info'] = 
+array(
+	'version' => "1.0.1", // Version Number
+	'label' => "Super Slick Template", // Nice Name
+	'category' => 'Miscellaneous, v1', // Template Category
+	'demo' => 'http://demo.inboundnow.com/go/super-slick-lander-preview/', // Demo Link
+	'description'  => 'SuperSlick is great for showcasing a hero image or video on your landing page.' // template description
+);
 
 
-//************************************************
-// Add User Options to Your Landing Page Template
-//************************************************
-// Add Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","headline-color","000000","Headline Text Color","Use this setting to change the template's headline text color", $options=null);	
-
-// Add a text input field
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"text","sub-headline","Sub Headline Goes Here","Sub Headline Text","Sub headline text goes here", $options=null);
-
-// Add Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","sub-headline-color","a3a3a3","Sub Headline Text Color","Use this setting to change the template's headline text color", $options=null);	
-
-// Add a Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","top-color","ffffff","Top Main Background Color","Use this setting to change the template's body color", $options=null);
-
-// Add a Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","top-text-color","000000","Top Area Text Color","Use this setting to change the template's Top Text Color", $options=null);	
-
-// Add a dropdown toggle to the landing page options panel	
-$options = array('left'=>'Form on left', 'right'=>'Form on right');
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"dropdown","form-placement","left","Top Area Layout","Do you want the conversion/form area on the right or left?", $options);	
-
-// Add Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","submit-button-color","5baa1e","Submit Button Background Color","Use this setting to change the template's submit button color.", $options=null);
-
-// Add WYSIWYG editor
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"wysiwyg","wysiwyg-content","This is the bottom area text","Bottom Area Content","This is the content in the bottom of the page", $options=null);
-
-// Add a Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","bottom-text-color","000000","Bottom Text Color","Use this setting to change the template's Bottom Text Color", $options=null);	
-
-// Add a Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","bottom-color","ffffff","Bottom Background Color","Use this setting to change the template's Bottom Background Color", $options=null);
-
-// Add a Radio button
-$options = array('1' => 'on','0'=>'off');
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"radio","display-social","0","Display Social Media Share Buttons","Toggle social sharing on and off", $options);
+// Define Meta Options for template
+// These values are returned in the template's index.php file with lp_get_value($post, $key, 'field-id') function
+$lp_data[$key]['settings'] = 
+array(
+    array(  
+        'label' => 'Headline Text Color', // Label of field
+        'description' => "Use this setting to change the template's headline text color", // field description
+        'id' => 'headline-color', // metakey.
+        'type'  => 'colorpicker', // text metafield type
+        'default'  => '000000', // default content
+        'context'  => 'normal' // Context in screen for organizing options
+        ),
+    array(
+        'label' => 'Sub Headline Text',
+        'description' => "Sub headline text goes here",
+        'id'  => 'sub-headline', 
+        'type'  => 'text',
+        'default'  => 'Sub Headline Goes Here',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Sub Headline Text Color',
+        'description' => "Sub Headline Text Color",
+        'id'  => 'sub-headline-color', 
+        'type'  => 'colorpicker',
+        'default'  => 'a3a3a3',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Top Main Background Color',
+        'description' => "Use this setting to change the template's body color",
+        'id'  => 'top-color',
+        'type'  => 'colorpicker',
+        'default'  => 'ffffff',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Top Area Text Color',
+        'description' => "Use this setting to change the template's Top Text Color",
+        'id'  => 'top-text-color', 
+        'type'  => 'colorpicker',
+        'default'  => '000000',	
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Top Area Layout',
+        'description' => "Do you want the conversion/form area on the right or left?",
+        'id'  => 'form-placement',
+        'type'  => 'dropdown',
+        'default'  => 'left',
+        'options' => array('left'=>'Form on left', 'right'=>'Form on right'),
+        'context'  => 'normal'
+        ),
+	  array(
+        'label' => 'Submit Button Background Color',
+        'description' => "Submit Button Background Color",
+        'id'  => 'submit-button-color',
+        'type'  => 'colorpicker',
+        'default'  => '5baa1e',
+        'context'  => 'normal'
+        ),
+	 array(
+        'label' => "Bottom Area Content",
+        'description' => "This is the content in the bottom of the page",
+        'id'  => 'wysiwyg-content',
+        'type'  => 'wysiwyg',
+        'default'  => 'This is the bottom area text',
+        'context'  => 'normal'
+        ),
+  array(
+        'label' => 'Bottom Text Color',
+        'description' => "Bottom Text Color",
+        'id'  => 'bottom-text-color',
+        'type'  => 'colorpicker',
+        'default'  => '000000',
+        'context'  => 'normal'
+        ),
+   array(
+        'label' => 'Bottom Background Color',
+        'description' => "Bottom Background Color",
+        'id'  => 'bottom-color',
+        'type'  => 'colorpicker',
+        'default'  => 'ffffff',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Display Social Media Share Buttons',
+        'description' => "Display Social Media Share Buttons",
+        'id'  => 'display-social',
+        'type'  => 'radio',
+        'default'  => '0',
+        'options' => array('1' => 'on','0'=>'off'),
+        'context'  => 'normal'
+        )
+    );	

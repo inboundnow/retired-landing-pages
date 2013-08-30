@@ -12,32 +12,6 @@ do_action('lp_global_config'); // The lp_global_config function is for global co
 //gets template directory name to use as identifier - do not edit - include in all template files
 $key = lp_get_parent_directory(dirname(__FILE__)); 
 
-/// Information START - define template information
-/**
- * $lp_data[$key]['info']
- * type - multidemensional array
- *
- * This array houses the template metadata
- */
-
-/* $wp_cta_data[$key]['settings'] Parameters
-
-    'version' - (string) (optional)
-    Version Number. default = "1.0"
-
-    'label' - (string) (optional)
-    Custom Nice Name for templates. default = template file folder name
-
-    'description' - (string) (optional)
-    Landing page description.
-
-    'category' - (string) (optional)
-    Category for template. default = "all"
-
-    'demo' - (string) (optional)
-    Link to demo url.
-*/
-
 $lp_data[$key]['info'] = 
 array(
 	'version' => "1.0.0.5", // Version Number
@@ -46,36 +20,6 @@ array(
 	'demo' => 'http://demo.inboundnow.com/go/countdown-lander/', // Demo Link
 	'description'  => 'Coundown Lander provides a simple sharp looking countdown page.' // template description
 );
-
-/**
- * $lp_data[$key]['settings'] 
- * Adds metabox options to landing page template
- */
-
-/* Parameters
-    'label' - (string) (required)
-    Label for Meta Fields.
-
-    'description' - (string) (required)
-    Description for meta Field 
-
-    'id' - (string) (required)
-    unprefixed-meta-key. The $key (template file path name) is appended in the loop this array is used in.
-
-    'type' - (string) (required)
-    Meta box type. default = 'text'
-
-    'default' - (string) (optional)
-    Default Field Value.  default = ''
-
-    'options' - (array) (required for metaboxes with multiple options)
-    example: 'options' => array('value' => 'label','value_2'=>'label 2')
-    For dropdowns, checkboxes, etc.
-
-    'context' - (string) (optional)
-    where this box will go, will be used for advanced placement/styling.  default = normal
- 
-*/
  
 // Define Meta Options for template
 $lp_data[$key]['settings'] = 
@@ -155,4 +99,3 @@ array(
         'context'  => 'normal'
         )
     );
- 
