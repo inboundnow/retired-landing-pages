@@ -229,8 +229,9 @@ function add_custom_meta_box_select_templates() {
 function lp_display_meta_box_select_template() {
 	global $post;
 	$template =  get_post_meta($post->ID, 'lp-selected-template', true);
+
 	$template = apply_filters('lp_selected_template',$template); 
-	
+	//echo $template;
 	if (!isset($template)||isset($template)&&!$template){ $template = 'default';}
 	
 	$name = apply_filters('lp_selected_template_id','lp-selected-template');
@@ -294,38 +295,19 @@ function lp_display_meta_box_select_template_container() {
 		echo '<div id="templates-container" >';
 		
 		foreach ($extension_data as $this_extension=>$data)
-		{
-			 
+		{ 
 
 			if (substr($this_extension,0,4)=='ext-')
-			{
-				continue;
-			}		
-
-			$cat_slug = str_replace(' ', '-', $data['category']);
+				continue;	
+		
+			$cat_slug = str_replace(' ', '-', $data['info']['category']);
 			$cat_slug = strtolower($cat_slug);
-			// get demo link
-			if (isset($data['features'][0]['url'])) 
-				$demolink = $data['features'][0]['url'] . "?TB_iframe=true&width=1024&height=800"; // grab demo link
-			else if ($this_extension=='default')
-				$demolink =  get_bloginfo('template_directory')."/screenshot.png";									
-			else
-				$demolink = "/wp-admin/customize.php?theme=" .$this_extension. "&TB_iframe=true&width=1024&height=800";
 			
-			// get template description
-			if (isset($data['features'][1]['label'])) 
-				$template_desc = $data['features'][1]['label']; // grab demo link
-			else if ($this_extension=='default')
-				$template_desc =  "This is your primary Wordpress theme that is currently active";								
-			else
-				// $shortname = $data['theme_slug'];
-				$template_desc = "This is an inactive theme you have installed in your wordpress site";
-
 			// Get Thumbnail
-			if (isset($data['thumbnail']))
-				$thumbnail = $data['thumbnail'];
-			else if ($this_extension=='default')
-				$thumbnail =  get_bloginfo('template_directory')."/screenshot.png";									
+			if (file_exists(LANDINGPAGES_PATH.'templates/'.$this_extension."/thumbnail.png"))
+			{
+				$thumbnail = LANDINGPAGES_URLPATH.'templates/'.$this_extension."/thumbnail.png"; 
+			}				
 			else
 			{
 				$thumbnail = LANDINGPAGES_UPLOADS_URLPATH.$this_extension."/thumbnail.png";
@@ -333,14 +315,14 @@ function lp_display_meta_box_select_template_container() {
 			?>
 			<div id='template-item' class="<?php echo $cat_slug; ?>">
 				<div id="template-box">
-					<div class="lp_tooltip_templates" title="<?php echo $template_desc; ?>"></div>
-				<a class='lp_select_template' href='#' label='<?php echo $data['label']; ?>' id='<?php echo $this_extension; ?>'>
-					<img src="<?php echo $thumbnail; ?>" class='template-thumbnail' alt="<?php echo $data['label']; ?>" id='id_<?php echo $data['theme_slug']; ?>'>
+					<div class="lp_tooltip_templates" title="<?php echo $data['info']['description']; ?>"></div>
+				<a class='lp_select_template' href='#' label='<?php echo $data['info']['label']; ?>' id='<?php echo $this_extension; ?>'>
+					<img src="<?php echo $thumbnail; ?>" class='template-thumbnail' alt="<?php echo $data['info']['label']; ?>" id='lp_<?php echo $this_extension; ?>'>
 				</a>
 				<p>
-					<div id="template-title"><?php echo $data['label']; ?></div>
-					<a href='#' label='<?php echo $data['label']; ?>' id='<?php echo $this_extension; ?>' class='lp_select_template'>Select</a> | 
-					<a class='thickbox <?php echo $cat_slug;?>' href='<?php echo $demolink;?>' id='lp_preview_this_template'>Preview</a> 
+					<div id="template-title"><?php echo $data['info']['label']; ?></div>
+					<a href='#' label='<?php echo $data['info']['label']; ?>' id='<?php echo $this_extension; ?>' class='lp_select_template'>Select</a> | 
+					<a class='thickbox <?php echo $cat_slug;?>' href='<?php echo $data['info']['demo'];?>' id='lp_preview_this_template'>Preview</a> 
 				</p>
 				</div>
 			</div>
@@ -650,8 +632,6 @@ function lp_generate_meta()
 	
 	$extension_data = lp_get_extension_data();	
 	
-	//print_r($extension_data);
-	
 	$current_template = get_post_meta( $post->ID , 'lp-selected-template' , true);
 	$current_template = apply_filters('lp_variation_selected_template',$current_template, $post);
 	
@@ -727,28 +707,28 @@ function lp_save_meta($post_id) {
 				// verify nonce
 				if (!wp_verify_nonce($_POST["lp_{$key}_custom_fields_nonce"], 'lp-nonce'))
 				{
-
 					return $post_id;
 				}
-				
-				$lp_custom_fields = $extension_data[$key]['options'];	
+
+				$lp_custom_fields = $extension_data[$key]['settings'];	
 				
 				foreach ($lp_custom_fields as $field)
 				{
-					$old = get_post_meta($post_id, $field['id'], true);				
-					(isset($_POST[$field['id']]))? $new = $_POST[$field['id']] : $new = null;	
+					$id = $key."-".$field['id'];
+					$old = get_post_meta($post_id, $id, true);				
+					(isset($_POST[$id]))? $new = $_POST[$id] : $new = null;	
 
 					if (isset($new) && $new != $old ) {
-						update_post_meta($post_id, $field['id'], $new);
+						update_post_meta($post_id, $id, $new);
 					} elseif ('' == $new && $old) {
-						delete_post_meta($post_id, $field['id'], $old);
+						delete_post_meta($post_id, $id, $old);
 					}
 				}
 			}
 			else if (substr($key,0,4)=='ext-')
 			{	
 				
-				$lp_custom_fields = $extension_data[$key]['options'];		
+				$lp_custom_fields = $extension_data[$key]['settings'];		
 			
 				// verify nonce
 				if (!wp_verify_nonce($_POST["lp_{$key}_custom_fields_nonce"], 'lp-nonce'))
@@ -758,41 +738,40 @@ function lp_save_meta($post_id) {
 				
 				// loop through fields and save the data
 				foreach ($lp_custom_fields as $field) {
-				//echo $key.":".$field['id']."<br>";
+					$id = $key."-".$field['id'];
 
 					if($field['type'] == 'tax_select') continue;
-						$old = get_post_meta($post_id, $field['id'], true);		
+						$old = get_post_meta($post_id, $id, true);		
 						
-						(isset($_POST[$field['id']]))? $new = $_POST[$field['id']] : $new = null;
+						(isset($_POST[$id]))? $new = $_POST[$id] : $new = null;
 						//echo "$old:".$new."<br>";			
 						
 						if (isset($new) && $new != $old ) {
-							update_post_meta($post_id, $field['id'], $new);
+							update_post_meta($post_id, $id, $new);
 						} elseif ('' == $new && $old) {
-							delete_post_meta($post_id, $field['id'], $old);
+							delete_post_meta($post_id, $id, $old);
 						}
 				} // end foreach		
 			}
 			else if ((isset($_POST['lp-selected-template'])&&$_POST['lp-selected-template']==$key))
 			{
-				$lp_custom_fields = $extension_data[$key]['options'];
-				//echo "key:$key<br>";
-				//print_r($lp_custom_fields);
+				$lp_custom_fields = $extension_data[$key]['settings'];
+				
 				// loop through fields and save the data
 				foreach ($lp_custom_fields as $field) {
-				//echo $key.":".$field['id']."<br>";
+					$id = $key."-".$field['id'];
 					
-					if($field['type'] == 'tax_select' || !isset($_POST[$field['id']])) 
+					if($field['type'] == 'tax_select' || !isset($_POST[$id])) 
 						continue;
 					
-					$old = get_post_meta($post_id, $field['id'], true);				
-					(isset($_POST[$field['id']]))? $new = $_POST[$field['id']] : $new = null;
-					//echo "$old:".$new."<br>";			
+					$old = get_post_meta($post_id, $id, true);				
+					(isset($_POST[$id]))? $new = $_POST[$id] : $new = null;
+					echo "$old:".$new."<br>";			
 					
 					if (isset($new) && $new != $old ) {
-						update_post_meta($post_id, $field['id'], $new);
+						update_post_meta($post_id, $id, $new);
 					} elseif ('' == $new && $old) {
-						delete_post_meta($post_id, $field['id'], $old);
+						delete_post_meta($post_id, $id, $old);
 					}
 				} 
 			}
@@ -801,7 +780,7 @@ function lp_save_meta($post_id) {
 				//echo "key:$key<br>";
 			}
 		}
-		
+		//exit;
 		//echo "here";
 		//exit;
 		// save taxonomies

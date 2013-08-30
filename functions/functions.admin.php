@@ -85,9 +85,9 @@ function lp_admin_enqueue($hook)
 			wp_enqueue_style('jquery-datepicker-base.css', LANDINGPAGES_URLPATH . 'js/libraries/jquery-datepicker/lib/base.css');
 			// New frontend editor
 			if (isset($_GET['frontend'])) {
-				// show_admin_bar( false ); // doesnt work
-				wp_enqueue_style('new-customizer-admin', LANDINGPAGES_URLPATH . '/css/new-customizer-admin.css');
-				wp_enqueue_script('new-customizer-admin', LANDINGPAGES_URLPATH . 'js/admin/new-customizer-admin.js');
+				//show_admin_bar( false ); // doesnt work
+				//wp_enqueue_style('new-customizer-admin', LANDINGPAGES_URLPATH . '/css/new-customizer-admin.css');
+				//wp_enqueue_script('new-customizer-admin', LANDINGPAGES_URLPATH . 'js/admin/new-customizer-admin.js');
 			}
 		}
 
@@ -96,7 +96,7 @@ function lp_admin_enqueue($hook)
 		{  
 			// Create New Landing Jquery UI
 			wp_enqueue_script('lp-js-create-new-lander', LANDINGPAGES_URLPATH . 'js/admin/admin.post-new.js', array('jquery'), '1.0', true );
-			wp_localize_script( 'lp-js-create-new-lander', 'lp_post_new_ui', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID , 'wp_landing_page_meta_nonce' => wp_create_nonce('lp_nonce') ) );
+			wp_localize_script( 'lp-js-create-new-lander', 'lp_post_new_ui', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID , 'wp_landing_page_meta_nonce' => wp_create_nonce('lp_nonce')  , 'LANDINGPAGES_URLPATH' => LANDINGPAGES_URLPATH ) );
 			wp_enqueue_style('lp-css-post-new', LANDINGPAGES_URLPATH . 'css/admin-post-new.css');
 		}
 		
@@ -143,7 +143,7 @@ function lp_show_metabox($post,$key)
 	$extension_data = lp_get_extension_data();
 	$key = $key['args']['key'];
 
-	$lp_custom_fields = $extension_data[$key]['options'];
+	$lp_custom_fields = $extension_data[$key]['settings'];
 	$lp_custom_fields = apply_filters('lp_show_metabox',$lp_custom_fields, $key);
 	
 	lp_render_metabox($key,$lp_custom_fields,$post);
@@ -345,9 +345,10 @@ function lp_render_metabox($key,$custom_fields,$post)
 	//print_r($custom_fields);exit;
 	foreach ($custom_fields as $field) {
 		$raw_option_id = str_replace($key . "-", "", $field['id']);
+		$field_id = $key . "-" .$field['id'];
 		$label_class = $raw_option_id . "-label";
 		// get value of this field if it exists for this post
-		$meta = get_post_meta($post->ID, $field['id'], true);
+		$meta = get_post_meta($post->ID, $field_id, true);
 
 
 		if ((!isset($meta)&&isset($field['default'])&&!is_numeric($meta))||isset($meta)&&empty($meta)&&isset($field['default'])&&!is_numeric($meta))
@@ -358,13 +359,13 @@ function lp_render_metabox($key,$custom_fields,$post)
 		}
 
 		// begin a table row with
-		echo '<tr class="'.$field['id'].' '.$raw_option_id.' landing-page-option-row">
-				<th class="landing-page-table-header '.$label_class.'"><label for="'.$field['id'].'">'.$field['label'].'</label></th>
+		echo '<tr class="'.$field_id.' '.$raw_option_id.' landing-page-option-row">
+				<th class="landing-page-table-header '.$label_class.'"><label for="'.$field_id.'">'.$field['label'].'</label></th>
 				<td class="landing-page-option-td">';
 				switch($field['type']) {
 					// default content for the_content
 					case 'default-content':
-						echo '<span id="overwrite-content" class="button-secondary">Insert Default Content into main Content area</span><div style="display:none;"><textarea name="'.$field['id'].'" id="'.$field['id'].'" class="default-content" cols="106" rows="6" style="width: 75%; display:hidden;">'.$meta.'</textarea></div>';
+						echo '<span id="overwrite-content" class="button-secondary">Insert Default Content into main Content area</span><div style="display:none;"><textarea name="'.$field_id.'" id="'.$field_id.'" class="default-content" cols="106" rows="6" style="width: 75%; display:hidden;">'.$meta.'</textarea></div>';
 						break;
 					// text
 					case 'colorpicker':
@@ -372,7 +373,7 @@ function lp_render_metabox($key,$custom_fields,$post)
 						{
 							$meta = $field['default'];
 						}
-						echo '<input type="text" class="jpicker" style="background-color:#'.$meta.'" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$meta.'" size="5" /><span class="button-primary new-save-lp" id="'.$field['id'].'" style="margin-left:10px; display:none;">Update</span>
+						echo '<input type="text" class="jpicker" style="background-color:#'.$meta.'" name="'.$field_id.'" id="'.$field_id.'" value="'.$meta.'" size="5" /><span class="button-primary new-save-lp" id="'.$field_id.'" style="margin-left:10px; display:none;">Update</span>
 								<div class="lp_tooltip tool_color" title="'.$field['desc'].'"></div>';
 						break;
 					case 'datepicker':
@@ -380,30 +381,30 @@ function lp_render_metabox($key,$custom_fields,$post)
 						<span class="datepair" data-language="javascript">	
 									Date: <input type="text" id="date-picker-'.$key.'" class="date start" /></span>
 									Time: <input id="time-picker-'.$key.'" type="text" class="time time-picker" />
-									<input type="hidden" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$meta.'" class="new-date" value="" >
+									<input type="hidden" name="'.$field_id.'" id="'.$field_id.'" value="'.$meta.'" class="new-date" value="" >
 									<p class="description">'.$field['desc'].'</p>
 							</div>';		
 						break;						
 					case 'text':
-						echo '<input type="text" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$meta.'" size="30" />
+						echo '<input type="text" name="'.$field_id.'" id="'.$field_id.'" value="'.$meta.'" size="30" />
 								<div class="lp_tooltip" title="'.$field['desc'].'"></div>';
 						break;
 					// textarea
 					case 'textarea':
-						echo '<textarea name="'.$field['id'].'" id="'.$field['id'].'" cols="106" rows="6" style="width: 75%;">'.$meta.'</textarea>
+						echo '<textarea name="'.$field_id.'" id="'.$field_id.'" cols="106" rows="6" style="width: 75%;">'.$meta.'</textarea>
 								<div class="lp_tooltip tool_textarea" title="'.$field['desc'].'"></div>';
 						break;
 					// wysiwyg
 					case 'wysiwyg':
-						wp_editor( $meta, $field['id'], $settings = array() );
+						wp_editor( $meta, $field_id, $settings = array() );
 						echo	'<p class="description">'.$field['desc'].'</p>';							
 						break;
 					// media					
 					case 'media':
 						//echo 1; exit;
 						echo '<label for="upload_image">';
-						echo '<input name="'.$field['id'].'"  id="'.$field['id'].'" type="text" size="36" name="upload_image" value="'.$meta.'" />';
-						echo '<input class="upload_image_button" id="uploader_'.$field['id'].'" type="button" value="Upload Image" />';
+						echo '<input name="'.$field_id.'"  id="'.$field_id.'" type="text" size="36" name="upload_image" value="'.$meta.'" />';
+						echo '<input class="upload_image_button" id="uploader_'.$field_id.'" type="button" value="Upload Image" />';
 						echo '<p class="description">'.$field['desc'].'</p>'; 
 						break;
 					// checkbox
@@ -420,7 +421,7 @@ function lp_render_metabox($key,$custom_fields,$post)
 								echo "<tr>";
 								$i=1;
 							}
-								echo '<td><input type="checkbox" name="'.$field['id'].'[]" id="'.$field['id'].'" value="'.$value.'" ',in_array($value,$meta) ? ' checked="checked"' : '','/>';
+								echo '<td><input type="checkbox" name="'.$field_id.'[]" id="'.$field_id.'" value="'.$value.'" ',in_array($value,$meta) ? ' checked="checked"' : '','/>';
 								echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label></td>';					
 							if ($i==4)
 							{
@@ -434,16 +435,16 @@ function lp_render_metabox($key,$custom_fields,$post)
 					// radio
 					case 'radio':
 						foreach ($field['options'] as $value=>$label) {
-							//echo $meta.":".$field['id'];
+							//echo $meta.":".$field_id;
 							//echo "<br>";
-							echo '<input type="radio" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$value.'" ',$meta==$value ? ' checked="checked"' : '','/>';
+							echo '<input type="radio" name="'.$field_id.'" id="'.$field_id.'" value="'.$value.'" ',$meta==$value ? ' checked="checked"' : '','/>';
 							echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label> &nbsp;&nbsp;&nbsp;&nbsp;';								
 						}
 						echo '<div class="lp_tooltip" title="'.$field['desc'].'"></div>';
 					break;
 					// select
 					case 'dropdown':
-						echo '<select name="'.$field['id'].'" id="'.$field['id'].'" class="'.$raw_option_id.'">';
+						echo '<select name="'.$field_id.'" id="'.$field_id.'" class="'.$raw_option_id.'">';
 						foreach ($field['options'] as $value=>$label) {
 							echo '<option', $meta == $value ? ' selected="selected"' : '', ' value="'.$value.'">'.$label.'</option>';
 						}

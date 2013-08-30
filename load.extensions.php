@@ -54,19 +54,67 @@
 function lp_get_extension_data()
 {
 	global $lp_data;
-	//print_r($lp_data);exit;
-	//ADD METABOX - SELECTED TEMPLATE
-	$lp_data['lp']['options'][] = 	lp_add_option('lp',"radio","selected-template","default","Select Template","This option provides a placeholder for the selected template data", $options=null);
 	
-	//ADD METABOX - MAIN HEADLINE
-	$lp_data['lp']['options'][] =  lp_add_option('lp',"radio","main-headline","","Set Main Headline","Set Main Headline", $options=null);	
-
+	$parent_key = 'lp';
+	
+	$lp_data[$parent_key]['settings'] = 
+		array(	
+			//ADD METABOX - SELECTED TEMPLATE	
+			array(
+				'id'  => 'selected-template',
+				'label' => 'Select Template',
+				'description' => "This option provides a placeholder for the selected template data.",
+				'type'  => 'radio', // this is not honored. Template selection setting is handled uniquely by core.
+				'default'  => 'default',
+				'options' => null // this is not honored. Template selection setting is handled uniquely by core.
+			),
+			array(
+				'id'  => 'main-headline',
+				'label' => 'Set Main Headline',
+				'description' => "Set Main Headline",
+				'type'  => 'text', // this is not honored. Main Headline Input setting is handled uniquely by core.
+				'default'  => '',
+				'options' => null 
+			),
+		);
+	
 	//IMPORT EXTERNAL DATA
 	$lp_data = apply_filters( 'lp_extension_data' , $lp_data);
 	
 	return $lp_data;
 }
 
+/* Provide backwards compatibility for older data array model */
+add_filter('lp_extension_data','lp_rebuild_old_data_configurations_to_suit_new_convention');
+function lp_rebuild_old_data_configurations_to_suit_new_convention($lp_data)
+{
+	foreach ($lp_data as $parent_key => $subarray)
+	{
+		if (is_array($subarray))
+		{
+			foreach ($subarray as $k=>$subsubarray)
+			{
+				/* change 'options' key to 'settings' */
+				if ($k=='options')
+					$lp_data[$parent_key]['settings'] = $subsubarray;
+				
+				if ($k=='category')
+					$lp_data[$parent_key]['info']['category'] = $subsubarray;
+				
+				if ($k=='version')
+					$lp_data[$parent_key]['info']['version'] = $subsubarray;
+				
+				if ($k=='label')
+					$lp_data[$parent_key]['info']['label'] = $subsubarray;
+				
+				if ($k=='description')
+					$lp_data[$parent_key]['info']['description'] = $subsubarray;
+			}
+		}
+	}
+	
+	return $lp_data;
+}
 
 function lp_get_core_template_paths()
 {
@@ -121,8 +169,20 @@ function lp_get_extension_data_cats($array)
 	{
 		if ($key=='lp'||substr($key,0,4)=='ext-')
 			continue;
-			
-		$cat_value = $val['category'];
+		
+		/* allot for older lp_data model */		
+		if (isset($val['category']))
+		{
+			$cat_value = $val['category'];
+		}
+		else
+		{
+			if (isset($val['info']['category']))
+			{
+				$cat_value = $val['info']['category'];
+			}
+		}
+		
 		$name = str_replace(array('-','_'),' ',$cat_value);
 		$name = ucwords($name);
 		if (!isset($template_cats[$cat_value]))
