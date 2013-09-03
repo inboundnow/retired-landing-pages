@@ -228,7 +228,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			return array(
 			'label' => $label,
 			'description'  => $description,
-			'id'    => $key.'-'.$id,
+			'id'    => $id,
 			'type'  => 'colorpicker',
 			'default'  => $default
 			);
@@ -237,7 +237,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			return array(
 			'label' => $label,
 			'description'  => $description,
-			'id'    => $key.'-'.$id,
+			'id'    => $id,
 			'type'  => 'text',
 			'default'  => $default
 			);
@@ -246,7 +246,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			return array(
 			'label' => $label,
 			'description'  => $description,
-			'id'    => $key.'-'.$id,
+			'id'    => $id,
 			'type'  => 'license-key',
 			'default'  => $default,
 			'slug' => $id
@@ -256,7 +256,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			return array(
 			'label' => $label,
 			'description'  => $description,
-			'id'    => $key.'-'.$id,
+			'id'    => $id,
 			'type'  => 'textarea',
 			'default'  => $default
 			);
@@ -265,7 +265,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			return array(
 			'label' => $label,
 			'description'  => $description,
-			'id'    => $key.'-'.$id,
+			'id'    => $id,
 			'type'  => 'wysiwyg',
 			'default'  => $default
 			);
@@ -274,7 +274,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			return array(
 			'label' => $label,
 			'description'  => $description,
-			'id'    => $key.'-'.$id,
+			'id'    => $id,
 			'type'  => 'media',
 			'default'  => $default
 			);
@@ -283,7 +283,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			return array(
 			'label' => $label,
 			'description'  => $description,
-			'id'    => $key.'-'.$id,
+			'id'    => $id,
 			'type'  => 'checkbox',
 			'default'  => $default,
 			'options' => $options
@@ -293,7 +293,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			return array(
 			'label' => $label,
 			'description'  => $description,
-			'id'    => $key.'-'.$id,
+			'id'    =>$id,
 			'type'  => 'radio',
 			'default'  => $default,
 			'options' => $options
@@ -303,7 +303,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			return array(
 			'label' => $label,
 			'description'  => $description,
-			'id'    => $key.'-'.$id,
+			'id'    => $id,
 			'type'  => 'dropdown',
 			'default'  => $default,
 			'options' => $options
@@ -313,7 +313,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			return array(
 			'label' => $label,
 			'description'  => $description,
-			'id'    => $key.'-'.$id,
+			'id'    => $id,
 			'type'  => 'datepicker',
 			'default'  => $default
 			);
@@ -322,7 +322,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			return array(
 			'label' => $label,
 			'description'  => $description,
-			'id'    => $key.'-'.$id,
+			'id'    => $id,
 			'type'  => 'default-content',
 			'default'  => $default
 			);
@@ -331,7 +331,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			return array(
 			'label' => $label,
 			'description'  => $description,
-			'id'    => $key.'-'.$id,
+			'id'    => $id,
 			'type'  => 'html',
 			'default'  => $default
 			);
