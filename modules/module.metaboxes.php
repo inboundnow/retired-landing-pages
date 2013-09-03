@@ -766,7 +766,7 @@ function lp_save_meta($post_id) {
 					
 					$old = get_post_meta($post_id, $id, true);				
 					(isset($_POST[$id]))? $new = $_POST[$id] : $new = null;
-					echo "$old:".$new."<br>";			
+					//echo "$old:".$new."<br>";			
 					
 					if (isset($new) && $new != $old ) {
 						update_post_meta($post_id, $id, $new);
