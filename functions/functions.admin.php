@@ -227,7 +227,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 		case "colorpicker":
 			return array(
 			'label' => $label,
-			'desc'  => $description,
+			'description'  => $description,
 			'id'    => $key.'-'.$id,
 			'type'  => 'colorpicker',
 			'default'  => $default
@@ -236,7 +236,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 		case "text":
 			return array(
 			'label' => $label,
-			'desc'  => $description,
+			'description'  => $description,
 			'id'    => $key.'-'.$id,
 			'type'  => 'text',
 			'default'  => $default
@@ -245,7 +245,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 		case "license-key":
 			return array(
 			'label' => $label,
-			'desc'  => $description,
+			'description'  => $description,
 			'id'    => $key.'-'.$id,
 			'type'  => 'license-key',
 			'default'  => $default,
@@ -255,7 +255,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 		case "textarea":
 			return array(
 			'label' => $label,
-			'desc'  => $description,
+			'description'  => $description,
 			'id'    => $key.'-'.$id,
 			'type'  => 'textarea',
 			'default'  => $default
@@ -264,7 +264,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 		case "wysiwyg":
 			return array(
 			'label' => $label,
-			'desc'  => $description,
+			'description'  => $description,
 			'id'    => $key.'-'.$id,
 			'type'  => 'wysiwyg',
 			'default'  => $default
@@ -273,7 +273,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 		case "media":
 			return array(
 			'label' => $label,
-			'desc'  => $description,
+			'description'  => $description,
 			'id'    => $key.'-'.$id,
 			'type'  => 'media',
 			'default'  => $default
@@ -282,7 +282,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 		case "checkbox":
 			return array(
 			'label' => $label,
-			'desc'  => $description,
+			'description'  => $description,
 			'id'    => $key.'-'.$id,
 			'type'  => 'checkbox',
 			'default'  => $default,
@@ -292,7 +292,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 		case "radio":
 			return array(
 			'label' => $label,
-			'desc'  => $description,
+			'description'  => $description,
 			'id'    => $key.'-'.$id,
 			'type'  => 'radio',
 			'default'  => $default,
@@ -302,7 +302,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 		case "dropdown":
 			return array(
 			'label' => $label,
-			'desc'  => $description,
+			'description'  => $description,
 			'id'    => $key.'-'.$id,
 			'type'  => 'dropdown',
 			'default'  => $default,
@@ -312,7 +312,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 		case "datepicker":
 			return array(
 			'label' => $label,
-			'desc'  => $description,
+			'description'  => $description,
 			'id'    => $key.'-'.$id,
 			'type'  => 'datepicker',
 			'default'  => $default
@@ -321,7 +321,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 		case "default-content":
 			return array(
 			'label' => $label,
-			'desc'  => $description,
+			'description'  => $description,
 			'id'    => $key.'-'.$id,
 			'type'  => 'default-content',
 			'default'  => $default
@@ -330,7 +330,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 		case "html":
 			return array(
 			'label' => $label,
-			'desc'  => $description,
+			'description'  => $description,
 			'id'    => $key.'-'.$id,
 			'type'  => 'html',
 			'default'  => $default
@@ -378,7 +378,7 @@ function lp_render_metabox($key,$custom_fields,$post)
 							$meta = $field['default'];
 						}
 						echo '<input type="text" class="jpicker" style="background-color:#'.$meta.'" name="'.$field_id.'" id="'.$field_id.'" value="'.$meta.'" size="5" /><span class="button-primary new-save-lp" id="'.$field_id.'" style="margin-left:10px; display:none;">Update</span>
-								<div class="lp_tooltip tool_color" title="'.$field['desc'].'"></div>';
+								<div class="lp_tooltip tool_color" title="'.$field['description'].'"></div>';
 						break;
 					case 'datepicker':
 						echo '<div class="jquery-date-picker" id="date-picking">	
@@ -386,22 +386,22 @@ function lp_render_metabox($key,$custom_fields,$post)
 									Date: <input type="text" id="date-picker-'.$key.'" class="date start" /></span>
 									Time: <input id="time-picker-'.$key.'" type="text" class="time time-picker" />
 									<input type="hidden" name="'.$field_id.'" id="'.$field_id.'" value="'.$meta.'" class="new-date" value="" >
-									<p class="description">'.$field['desc'].'</p>
+									<p class="description">'.$field['description'].'</p>
 							</div>';		
 						break;						
 					case 'text':
 						echo '<input type="text" name="'.$field_id.'" id="'.$field_id.'" value="'.$meta.'" size="30" />
-								<div class="lp_tooltip" title="'.$field['desc'].'"></div>';
+								<div class="lp_tooltip" title="'.$field['description'].'"></div>';
 						break;
 					// textarea
 					case 'textarea':
 						echo '<textarea name="'.$field_id.'" id="'.$field_id.'" cols="106" rows="6" style="width: 75%;">'.$meta.'</textarea>
-								<div class="lp_tooltip tool_textarea" title="'.$field['desc'].'"></div>';
+								<div class="lp_tooltip tool_textarea" title="'.$field['description'].'"></div>';
 						break;
 					// wysiwyg
 					case 'wysiwyg':
 						wp_editor( $meta, $field_id, $settings = array() );
-						echo	'<p class="description">'.$field['desc'].'</p>';							
+						echo	'<p class="description">'.$field['description'].'</p>';							
 						break;
 					// media					
 					case 'media':
@@ -409,7 +409,7 @@ function lp_render_metabox($key,$custom_fields,$post)
 						echo '<label for="upload_image">';
 						echo '<input name="'.$field_id.'"  id="'.$field_id.'" type="text" size="36" name="upload_image" value="'.$meta.'" />';
 						echo '<input class="upload_image_button" id="uploader_'.$field_id.'" type="button" value="Upload Image" />';
-						echo '<p class="description">'.$field['desc'].'</p>'; 
+						echo '<p class="description">'.$field['description'].'</p>'; 
 						break;
 					// checkbox
 					case 'checkbox':
@@ -434,7 +434,7 @@ function lp_render_metabox($key,$custom_fields,$post)
 							$i++;
 						}
 						echo "</table>";
-						echo '<div class="lp_tooltip tool_checkbox" title="'.$field['desc'].'"></div>';
+						echo '<div class="lp_tooltip tool_checkbox" title="'.$field['description'].'"></div>';
 					break;
 					// radio
 					case 'radio':
@@ -444,7 +444,7 @@ function lp_render_metabox($key,$custom_fields,$post)
 							echo '<input type="radio" name="'.$field_id.'" id="'.$field_id.'" value="'.$value.'" ',$meta==$value ? ' checked="checked"' : '','/>';
 							echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label> &nbsp;&nbsp;&nbsp;&nbsp;';								
 						}
-						echo '<div class="lp_tooltip" title="'.$field['desc'].'"></div>';
+						echo '<div class="lp_tooltip" title="'.$field['description'].'"></div>';
 					break;
 					// select
 					case 'dropdown':
@@ -452,7 +452,7 @@ function lp_render_metabox($key,$custom_fields,$post)
 						foreach ($field['options'] as $value=>$label) {
 							echo '<option', $meta == $value ? ' selected="selected"' : '', ' value="'.$value.'">'.$label.'</option>';
 						}
-						echo '</select><div class="lp_tooltip" title="'.$field['desc'].'"></div>';
+						echo '</select><div class="lp_tooltip" title="'.$field['description'].'"></div>';
 					break;
 					
 
