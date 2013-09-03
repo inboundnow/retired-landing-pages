@@ -161,7 +161,7 @@ function lp_landing_page_header_area()
     	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="Primary Headline Goes here. This will be visible on the page" id="lp-main-headline" value="'.$main_title.'" title="This headline will appear in the landing page template."></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
     // Frontend params
     if(isset($_REQUEST['frontend']) && $_REQUEST['frontend'] == 'true') {  
-    echo('<input type="hidden" name="frontend" value="true" />');
+    echo('<input type="hidden" name="frontend" id="frontend-on" value="true" />');
 }	
 
 }

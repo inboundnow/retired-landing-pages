@@ -117,8 +117,8 @@ function lp_admin_enqueue($hook)
 add_filter('admin_url','lp_add_fullscreen_param');
 function lp_add_fullscreen_param( $link ) {
 
-	if (  ( isset($post) && 'landing-page' == $post->post_type ) || ( isset($_GET['post_type']) && $_GET['post_type']=='landing-page' ) ) 
-	{ 
+//	if (  ( isset($post) && 'landing-page' == $post->post_type ) || ( isset($_GET['post_type']) && $_GET['post_type']=='landing-page' ) ) 
+//	{ 
 		$params['frontend'] = 'false';
 		if(isset($_GET['frontend']) && $_GET['frontend'] == 'true') {
 	        $params['frontend'] = 'true';
@@ -128,7 +128,7 @@ function lp_add_fullscreen_param( $link ) {
 	    }
 	    $link = add_query_arg( $params, $link );
 
-	}   
+//	}   
 	return $link;
 }
 
