@@ -28,7 +28,11 @@
 	{
 		foreach ($template_paths as $name)
 		{	
-			if ($name != ".svn" && $name != ".git"){
+			$match = FALSE;
+			if (strpos($name, 'tmp') !== FALSE) {
+				$match = TRUE;
+			}
+			if ($name != ".svn" && $name != ".git" && $match === FALSE){
 			include_once($extended_templates_path."$name/config.php");
 			}
 		}		

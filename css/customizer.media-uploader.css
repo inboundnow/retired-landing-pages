@@ -8,6 +8,9 @@ width: 376px;
 .post_title, .image_alt, .post_excerpt, .post_content, .url, .align, .upload-flash-bypass, .max-upload-size {
 	display: none;
 }
+.media-upload-form {
+	width: 60% !important;
+}
 .savesend input.button {
 	background-color: #21759b;
 background-image: -webkit-gradient(linear,left top,left bottom,from(#2a95c5),to(#21759b));
@@ -25,4 +28,7 @@ text-decoration: none;
 text-shadow: 0 1px 0 rgba(0,0,0,0.1);
 height: 35px;
 font-size: 20px;
+}
+.media-upload-form.type-form.validate, #image-form {
+	width: 60% !important;
 }

@@ -103,6 +103,22 @@ jQuery(document).ready(function ($) {
                 href = href.replace(/&width=[0-9]+/g, '');
                 href = href.replace(/&height=[0-9]+/g, '');
                 $(this).attr( 'href', href + '&width=' + ( W - 80 ) + '&height=' + ( H - 85 ) );
+                /*
+                var frontend_status = jQuery("#frontend-on").val();
+                if (typeof (frontend_status) != "undefined" && frontend_status !== null) {
+                     console.log('clixk');
+                    var custom_css = jQuery("#TB_iframeContent").contents().find('#custom-media-css').length; 
+                    // Not complete need to troubleshoot
+                        if( custom_css < 1) {
+                        console.log('yes');
+                        setTimeout(function() {
+                        jQuery("#TB_iframeContent").contents().find('head').append('<link rel="stylesheet" id="custom-media-css" href="/wp-content/plugins/landing-pages/css/customizer.media-uploader.css" type="text/css" />');
+                         }, 500);
+                        setTimeout(function() {
+                            jQuery("#TB_iframeContent").contents().find('head').append('<link rel="stylesheet" id="custom-media-css" href="/wp-content/plugins/landing-pages/css/customizer.media-uploader.css" type="text/css" />');
+                        }, 2000);
+                    }
+                } */
             });
 
         };
@@ -213,9 +229,7 @@ jQuery(document).ready(function ($) {
         if (confirm('Are you sure you want to overwrite what is currently in the main edit box above?')) {
             var default_content = jQuery(".default-content").text();
            jQuery("#content_ifr").contents().find("body").html(default_content);
-       } else {
-    // Do nothing!
-    }  
+        }
     });
     
     // Colorpicker fix
@@ -353,7 +367,6 @@ jQuery(document).ready(function ($) {
     }
 
     // Ajax Saving for metadata
-	/*
     jQuery('#lp_metabox_select_template input, #lp_metabox_select_template select, #lp_metabox_select_template textarea').on("change keyup", function (e) {
         // iframe content change needs its own change function $("#iFrame").contents().find("#someDiv")
         // media uploader needs its own change function
@@ -390,7 +403,132 @@ jQuery(document).ready(function ($) {
         //console.log(parent_el);
         jQuery(ajax_save_button).appendTo(parent_el);
     });
-	*/
+
+    // wysiwyg on keyup save action
+    /*
+    setTimeout(function() {
+    jQuery('.mceIframeContainer iframe, .landing-page-option-row iframe').contents().find('body').on("keyup", function (e) {
+        var thisclass = jQuery(this).attr("class");
+        var this_class_dirty = thisclass.replace("mceContentBody ", "");
+        var this_class_cleaner = this_class_dirty.replace("wp-editor", "");
+        var clean_1 = this_class_cleaner.replace("post-type-landing-page", "");
+        var clean_2 = clean_1.replace("post-status-publish", ""); 
+        var clean_3 = clean_2.replace(/[.\s]+$/g, ""); // remove trailing whitespace
+        var clean_spaces = clean_3.replace(/\s{2,}/g, ' '); // remove more than one space
+        var this_id =  clean_spaces.replace(/[.\s]+$/g, ""); // remove trailing whitespace
+        console.log(this_id);
+        var parent_el = jQuery( "." + this_id + " .landing-page-table-header");
+        jQuery(parent_el).find(".lp-success-message").remove();
+        jQuery(parent_el).find(".new-save-lp").remove();
+        var ajax_save_button = jQuery('<span class="button-primary new-save-lp" id="' + this_id + '" style="margin-left:10px;">Update</span>');
+        //console.log(parent_el);
+        jQuery(ajax_save_button).appendTo(parent_el);
+    });
+    }, 4000);
+    */
+   
+      
+	// SAVE META
+    var nonce_val = lp_post_edit_ui.wp_landing_page_meta_nonce; // NEED CORRECT NONCE
+    jQuery(document).on('mousedown', '.new-save-lp', function () {
+        var type_input = jQuery(this).parent().find("input").attr("type");
+        var type_select = jQuery(this).parent().find("select");
+        // var the_conversion_area_editor = jQuery(this).parent().parent().find('#lp-conversion-area_ifr').length;
+        jQuery(this).parent().find(".lp-success-message").hide();
+       // var the_content_editor = jQuery(this).parent().parent().find('#wp_content_ifr').length;
+        var type_wysiwyg = jQuery(this).parent().parent().find('iframe').length;
+
+        var type_textarea = jQuery(this).parent().find("textarea");
+        if (typeof (type_input) != "undefined" && type_input !== null) {
+            var type_of_field = type_input;
+        } else if (typeof (type_wysiwyg) != "undefined" && type_wysiwyg !== null && type_wysiwyg === 1) {
+            var type_of_field = 'wysiwyg';
+        } else if (typeof (type_textarea) != "undefined" && type_textarea !== null) {
+            var type_of_field = 'textarea';
+        } else {
+            (typeof (type_select) != "undefined" && type_select)
+            var type_of_field = 'select';
+        }
+        // console.log(type_of_field); // type of input
+        var new_value_meta_input = jQuery(this).parent().find("input").val();
+        //console.log(new_value_meta_input); 
+        var new_value_meta_select = jQuery(this).parent().find("select").val();
+        var new_value_meta_textarea = jQuery(this).parent().find("textarea").val();
+       // console.log(new_value_meta_select); 
+        var new_value_meta_radio = jQuery(this).parent().find("input:checked").val();
+        var new_value_meta_checkbox = jQuery(this).parent().find('input[type="checkbox"]:checked').val();
+        var new_wysiwyg_meta = jQuery(this).parent().parent().find("iframe").contents().find("body").html();
+        // prep data
+        if (typeof (new_value_meta_input) != "undefined" && new_value_meta_input !== null && type_of_field == "text") {
+            var meta_to_save = new_value_meta_input;
+        } else if (typeof (new_value_meta_textarea) != "undefined" && new_value_meta_textarea !== null && type_of_field == "textarea") {
+            var meta_to_save = new_value_meta_textarea;
+        } else if (typeof (new_value_meta_select) != "undefined" && new_value_meta_select !== null) {
+            var meta_to_save = new_value_meta_select;
+        } else if (typeof (new_value_meta_radio) != "undefined" && new_value_meta_radio !== null && type_of_field == "radio") {
+            var meta_to_save = new_value_meta_radio;
+        } else if (typeof (new_value_meta_checkbox) != "undefined" && new_value_meta_checkbox !== null && type_of_field == "checkbox") {
+            var meta_to_save = new_value_meta_checkbox;
+        } else if (typeof (new_wysiwyg_meta) != "undefined" && new_wysiwyg_meta !== null && type_of_field == "wysiwyg") {
+            var meta_to_save = new_wysiwyg_meta;
+            //alert('here');  
+        } else {
+            var meta_to_save = "";
+        }
+
+        // if data exists save it
+        // console.log(meta_to_save);
+
+        var this_meta_id = jQuery(this).attr("id"); // From save button
+        console.log(this_meta_id);
+        var post_id = jQuery("#post_ID").val();
+        console.log(post_id);
+        console.log(meta_to_save);
+        var frontend_status = jQuery("#frontend-on").val();
+
+        // Run Ajax
+        jQuery.ajax({
+            type: 'POST',
+            url: lp_post_edit_ui.ajaxurl,
+            context: this,
+            data: {
+                action: 'wp_landing_page_meta_save',
+                meta_id: this_meta_id,
+                new_meta_val: meta_to_save,
+                page_id: post_id,
+                nonce: nonce_val
+            },
+
+            success: function (data) {
+                var self = this;
+
+                //alert(data);
+                // jQuery('.lp-form').unbind('submit').submit();
+                //var worked = '<span class="success-message-map">Success! ' + this_meta_id + ' set to ' + meta_to_save + '</span>';
+                var worked = '<span class="lp-success-message">Updated!</span>';
+                var s_message = jQuery(self).parent();
+                jQuery(worked).appendTo(s_message);
+                jQuery(self).parent().find("lp-success-message").remove();
+                jQuery(self).hide();
+                // RUN RELOAD
+                if (typeof (frontend_status) != "undefined" && frontend_status !== null) {
+                jQuery('.reload').click();
+                console.log('reload frame');
+                } else {
+                console.log('No reload frame');    
+                }
+                //alert("Changes Saved!");
+            },
+
+            error: function (MLHttpRequest, textStatus, errorThrown) {
+                alert("Ajax not enabled");
+            }
+        });
+        
+        //reload_preview();    
+        return false;    
+            
+    });
 
     
 });

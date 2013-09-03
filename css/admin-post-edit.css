@@ -21,7 +21,9 @@
 #titlediv #title:focus, #lp-notes-area input:focus{
   border: solid 1px #dfdfdf;
 }
-
+.select2-container {
+min-width: 320px;
+}
 .lp-delete-var-stats, .lp-clear-success {
 	color: red;
 	opacity: .7;
