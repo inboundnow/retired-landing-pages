@@ -1,5 +1,6 @@
 <?php
 
+// Not currently firing. Need to roll into core tracking
 add_action('lp_record_conversion','lp_cookie_user');
 function lp_cookie_user($lp_id)
 {	

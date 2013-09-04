@@ -1,6 +1,7 @@
 <?php
 /**
  * Prepare Landing Page Form Metabox
+ * Roll into /shared/
  */
 
 // Add additonal WYSIWYG edit box to landing page custom post type:

@@ -12,7 +12,7 @@
 			// add date?	
 		},
 		success: function(user_id){
-			console.log('LP Page View Fired');	
+			//console.log('LP Page View Fired');	
 			   },
 		error: function(MLHttpRequest, textStatus, errorThrown){
 				//alert(MLHttpRequest+' '+errorThrown+' '+textStatus);

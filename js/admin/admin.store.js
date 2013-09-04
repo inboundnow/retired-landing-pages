@@ -1,5 +1,5 @@
 jQuery(document).ready(function() 
 { 
-	//jQuery("label[for=edd-gateway-paypal]").hide();
+	// Store page jquery not in use
 }); 
     

@@ -846,18 +846,7 @@ function lp_ab_testing_check_for_variations()
 		update_post_meta($page_id,'lp-ab-variation-impressions-'.$variation_id, $impressions);
 	}
 	
-	add_action('lp_record_conversion','lp_ab_testing_record_conversion', 10, 2);
-	function lp_ab_testing_record_conversion($page_id, $variation_id)
-	{
-		$conversions = get_post_meta($page_id,'lp-ab-variation-conversions-'.$variation_id, true);
-
-		if (!is_numeric($conversions))
-			$conversions = 1;
-		else
-			$conversions++;
-			
-		update_post_meta($page_id,'lp-ab-variation-conversions-'.$variation_id, $conversions);
-	}
+	
 }	
 
 add_action('lp_launch_customizer_pre','lp_ab_testing_customizer_enqueue');

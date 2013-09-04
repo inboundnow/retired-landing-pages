@@ -27,7 +27,6 @@ include_once('modules/module.utils.php');
 include_once('modules/module.sidebar.php');
 include_once('modules/module.widgets.php');
 include_once('modules/module.cookies.php');
-include_once('modules/module.lead-collection.php');
 include_once('modules/module.ab-testing.php');
 add_action('init', 'lp_click_track_redirect', 11); // Click Tracking init
 include_once('modules/module.click-tracking.php');
@@ -228,7 +227,6 @@ function landing_pages_add_conversion_area($content)
 
 if (is_admin())
 {
-	//include_once('modules/module.split-testing.php');
 	include_once('modules/module.templates.php');
 	include_once('modules/module.store.php');
 
