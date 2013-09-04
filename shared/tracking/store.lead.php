@@ -29,12 +29,21 @@ function inbound_store_lead()
 		(isset(	$_SERVER['REMOTE_ADDR'] )) ? $ip_address = $_SERVER['REMOTE_ADDR'] : $ip_address = "undefined";
 		(isset(	$_POST['wp_lead_uid'] )) ? $wp_lead_uid = $_POST['wp_lead_uid'] : $wp_lead_uid = "null";
 		(isset(	$_POST['lp_id'] )) ? $lp_id = $_POST['lp_id'] : $lp_id = 0;
+		(isset(	$_POST['post_type'] )) ? $post_type = $_POST['post_type'] : $post_type = 'na';
 		(isset(	$_POST['lp_v'] )) ? $lp_variation = $_POST['lp_v'] : $lp_variation = 0;
 		(isset(	$_POST['page_views'] )) ? $page_views = $_POST['page_views'] : $page_views = false;
+		(isset(	$_POST['page_view_count'] )) ? $page_view_count = $_POST['page_view_count'] : $page_view_count = 0;
+		
+		// Update conversions
+		if($post_type === 'landing-page'){
+			$lp_conversions = get_post_meta( $lp_id, 'lp-ab-variation-conversions-'.$lp_variation, true );
+			$lp_conversions++;
+			update_post_meta( $lp_id, 'lp-ab-variation-conversions-'.$lp_variation, $lp_conversions );
+		}
 		
 		//do_action('inbound_store_lead_pre'); // Global lead storage action hook
 		//do_action('lp_store_lead_pre'); // Landing Page specific storage hook (remove)
-		//do_action('wpl_store_lead_pre'); // Leads specific storage hook (remove)
+		do_action('wpl_store_lead_pre'); // Leads specific storage hook (remove)
 		
 		$query = $wpdb->prepare(
 			'SELECT ID FROM ' . $wpdb->posts . '
@@ -111,7 +120,10 @@ function inbound_store_lead()
 			update_post_meta( $post_ID, 'wpleads_ip_address', $ip_address );
 			update_post_meta( $post_ID, 'wp_leads_uid', $wp_lead_uid );
 			update_post_meta( $post_ID, 'page_views', $page_views );
+			//update_post_meta( $post_ID, 'wpl-lead-page-view-count', $page_view_count ); // enable
+			//update_post_meta( $post_ID, 'wpl-lead-conversion-count', 1 ); // enable
 			update_post_meta( $post_ID, 'wpleads_conversion_data', $conversion_data );
+			
 			update_post_meta( $post_ID, 'wpleads_landing_page_'.$lp_id, 1 );
 			
 			$geo_array = unserialize(lp_remote_connect('http://www.geoplugin.net/php.gp?ip='.$ip_address));
@@ -132,6 +144,7 @@ function inbound_store_lead()
 		
 		}
 		setcookie('wp_lead_id' , $post_ID, time() + (20 * 365 * 24 * 60 * 60),'/');
+	
 		$data['lp_id'] = $lp_id;
 		$data['lead_id'] = $post_ID;
 		$data['first_name'] = $first_name;
@@ -140,7 +153,7 @@ function inbound_store_lead()
 		$data['wp_lead_uid'] = $wp_lead_uid;
 		$data['raw_post_values_json'] = $raw_post_values_json;
 		
-		do_action('inbound_store_lead_post', $data );
+		do_action('wpl_store_lead_post', $data );
 		
 		echo $post_ID;
 		die();
