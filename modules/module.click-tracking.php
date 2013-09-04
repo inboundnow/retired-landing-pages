@@ -165,7 +165,8 @@ function lp_store_click_data_to_lead($landing_page_id, $lead_ID, $lp_variation) 
 		$individual_event_count++;			
 		$meta = get_post_meta( $lead_ID, 'times', TRUE ); // replace times			
 		$meta++;
-
+		$conversions_count = get_post_meta($lead_ID,'wpl-lead-conversion-count', true);
+		$conversions_count++;
 		if ($conversion_data) {
 		
 				$conversion_data = json_decode($conversion_data,true);
@@ -187,7 +188,7 @@ function lp_store_click_data_to_lead($landing_page_id, $lead_ID, $lp_variation) 
 		//	update_post_meta( $lead_ID, 'lt_event_tracked_'.$landing_page_id, $individual_event_count );
 		}
 		update_post_meta( $lead_ID, 'times', $meta );
-
+		update_post_meta( $lead_ID, 'wpl-lead-conversion-count', $meta );
 		// Need to call conversion paths too
 	}
 }
