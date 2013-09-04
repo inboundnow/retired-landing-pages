@@ -29,7 +29,8 @@ include_once('modules/module.widgets.php');
 include_once('modules/module.cookies.php');
 include_once('modules/module.lead-collection.php');
 include_once('modules/module.ab-testing.php');
-
+add_action('init', 'lp_click_track_redirect', 11); // Click Tracking init
+include_once('modules/module.click-tracking.php');
 /* Inbound Core Shared Files. Lead files take presidence */
 
 add_action( 'plugins_loaded', 'inbound_load_shared' );
@@ -40,7 +41,6 @@ function inbound_load_shared(){
 		include_once('shared/tracking/store.lead.php'); // Lead Storage
 	}
 }
-
 
 
 
