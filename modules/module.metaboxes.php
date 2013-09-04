@@ -303,15 +303,27 @@ function lp_display_meta_box_select_template_container() {
 			$cat_slug = str_replace(' ', '-', $data['info']['category']);
 			$cat_slug = strtolower($cat_slug);
 			
+			$thumb = false;
 			// Get Thumbnail
 			if (file_exists(LANDINGPAGES_PATH.'templates/'.$this_extension."/thumbnail.png"))
-			{
-				$thumbnail = LANDINGPAGES_URLPATH.'templates/'.$this_extension."/thumbnail.png"; 
+			{	
+				if ($this_extension=='default') {
+				$thumbnail =  get_bloginfo('template_directory')."/screenshot.png";	
+				} else {
+				$thumbnail = LANDINGPAGES_URLPATH.'templates/'.$this_extension."/thumbnail.png";
+				}
+				$thumb = true; 
 			}				
-			else
+			if (file_exists(LANDINGPAGES_UPLOADS_PATH.$this_extension."/thumbnail.png"))
 			{
 				$thumbnail = LANDINGPAGES_UPLOADS_URLPATH.$this_extension."/thumbnail.png";
-			} 
+				$thumb = true;
+			}
+			if ($thumb === false) {
+				$thumbnail = LANDINGPAGES_URLPATH.'templates/default/thumbnail.png'; 	
+				
+			}
+			
 			?>
 			<div id='template-item' class="<?php echo $cat_slug; ?>">
 				<div id="template-box">

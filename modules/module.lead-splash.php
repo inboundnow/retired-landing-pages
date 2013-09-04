@@ -1,5 +1,5 @@
 <?php
-//define('WP_DEBUG',true);
+define('WP_DEBUG',true);
 require_once('../../../../wp-admin/admin.php');
 $matches = array();
 preg_match('/wp-admin/', $_SERVER['HTTP_REFERER'], $matches, null, 0);

@@ -30,9 +30,18 @@ include_once('modules/module.cookies.php');
 include_once('modules/module.lead-collection.php');
 include_once('modules/module.ab-testing.php');
 
-/* Inbound Core Shared Files */
-include_once('shared/tracking/store.lead.php'); // Lead Storage
-include_once('shared/post-type.lead.php'); // Lead CPT
+/* Inbound Core Shared Files. Lead files take presidence */
+
+add_action( 'plugins_loaded', 'inbound_load_shared' );
+function inbound_load_shared(){
+	if (function_exists('wpleads_check_active')) { 
+		include_once( WPL_PATH.'/shared/tracking/store.lead.php'); // Lead Storage
+	} else {
+		include_once('shared/tracking/store.lead.php'); // Lead Storage
+	}
+}
+
+
 
 
 if (is_admin())
@@ -59,8 +68,6 @@ function landing_page_activate()
 	add_option( 'lp_global_js', '', '', 'no' );
 	add_option( 'lp_global_record_admin_actions', '1', '', 'no' );
 	add_option( 'lp_global_lp_slug', 'go', '', 'no' );
-	
-	//add_option( 'lp_split_testing_slug', 'group', '', 'no' );
 	update_option( 'lp_activate_rewrite_check', '1');
 	
 	//global $wp_rewrite;
@@ -299,25 +306,8 @@ function lp_custom_template($single) {
 /**
  * ADD TRACKING SCRIPTS FOR IMPRESSION AND CONVERSION TRACKING
  */
+// Moved to /shared/tracking/
 
-add_action('wp_footer','lp_register_ajax');
-function lp_register_ajax() {
-	$current_url = "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]."/";
-	$current_url = trim(str_replace('//','/',"http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]."/"));
-	global $post;
-	// if leads on add tracking to all pages
-	
-	if (@function_exists('wpleads_check_active') && 'landing-page' !== $post->post_type)
-	{
-		require_once(WP_PLUGIN_DIR . '/leads/js/wpl.leads-tracking.js.php'); // This needs consolidation and fixing
-	}
-	else {	
-		require_once(LANDINGPAGES_PATH . 'js/ajax.tracking.js.php');
-	}
-	// embed the javascript file that makes the AJAX request
-	//wp_enqueue_script( 'lp-ajax-request', LANDINGPAGES_URLPATH . 'js/ajax.tracking.js.php', array( 'jquery' ) );
-	//wp_localize_script( 'lp-ajax-request', 'myajax', array( 'ajaxurl' => admin_url('admin-ajax.php'), 'current_url' =>  $current_url, 'standardize_form' =>  $standardize_form ));
-}
 
 /**
  * LOAD THE TEMLATE CUSTOMIZER MODULE
