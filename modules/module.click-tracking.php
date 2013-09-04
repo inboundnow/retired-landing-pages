@@ -181,7 +181,8 @@ function lp_store_click_data_to_lead($landing_page_id, $lead_ID, $lp_variation) 
 			$conversion_data[1]['id'] = $landing_page_id;
 			$conversion_data[1]['variation'] = $lp_variation;
 			$conversion_data[1]['datetime'] = $wordpress_date_time;
-			$conversion_data[1]['first_time'] = 1;					
+			$conversion_data[1]['first_time'] = 1;
+			// Add in exact link url clicked					
 			$conversion_data = json_encode($conversion_data);
 			update_post_meta( $lead_ID, 'wpleads_conversion_data', $conversion_data );
 			update_post_meta( $lead_ID, 'wpleads_landing_page_'.$landing_page_id, $individual_event_count );
