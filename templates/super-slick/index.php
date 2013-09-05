@@ -147,7 +147,7 @@ jQuery(document).ready(
 	
 	</div>
 			
-	<div id="logotopend"><h1><?php the_title(); ?></h1>
+	<div id="logotopend"><h1><?php lp_main_headline(); ?></h1>
 	</div>
 	<div id="tagline"><?php echo $sub_headline;?></div>
 

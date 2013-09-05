@@ -102,7 +102,7 @@ body { <?php echo $bg_style; ?> }
 <div id="wrapper">
 <div id="content">
 <div id="textspot">
-	<p><?php the_title(); ?>
+	<p><?php lp_main_headline(); ?>
 <?php $rebuild_form_options = get_option( 'landing-page-auto-format-forms' ); // conditional to check for options
 echo $rebuild_form_options; ?>
 	</p>

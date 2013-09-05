@@ -93,7 +93,7 @@ if (have_posts()) : while (have_posts()) : the_post();
     <![endif]-->
     <div id="content">
         <div id="area">
-             <h1><?php the_title(); // Load WordPress Post Title ?></h1>
+             <h1><?php lp_main_headline(); // Load WordPress Post Title ?></h1>
 
             <?php echo $content; // Load Wordpress Content ?>
         </div><!--end #area -->

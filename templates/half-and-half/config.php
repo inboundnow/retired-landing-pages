@@ -14,7 +14,7 @@ $lp_data[$key]['info'] =
 array(
 	'version' => "1.0.1", // Version Number
 	'label' => "Half and Half", // Nice Name
-	'category' => 'Miscellaneous, v1', // Template Category
+	'category' => 'Miscellaneous', // Template Category
 	'demo' => 'http://demo.inboundnow.com/go/half-and-half-lander-preview/', // Demo Link
 	'description'  => 'Half and Half is a template with two content areas on each side of the page. One side has your conversion area and the other your content on the page.' // template description
 );

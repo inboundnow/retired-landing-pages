@@ -100,7 +100,7 @@ $content = get_the_content();
 <div id="content-wrapper">
   <div id="content">
   <!-- Use the_title(); to print out the main headline -->
-   <h1><?php the_title(); ?></h1>
+   <h1><?php lp_main_headline(); ?></h1>
 
          <?php 
           // Conditional check for main content placeholder

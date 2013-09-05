@@ -136,8 +136,8 @@ $blue = $RBG_array["b"];
     <header id="sidebar">
         <aside id="logo" class="clearfix">
             <figure data-media="<?php echo $logo; ?>" data-media440="<?php echo $logo; ?>"
-            data-media600="<?php echo $logo; ?>" title="<?php the_title(); ?>">
-                <img src="<?php echo $logo; ?>" alt="<?php the_title(); ?>">
+            data-media600="<?php echo $logo; ?>" title="<?php lp_main_headline(); ?>">
+                <img src="<?php echo $logo; ?>" alt="<?php lp_main_headline(); ?>">
             </figure>
         </aside>
         <aside id="form-area">

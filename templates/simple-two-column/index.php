@@ -117,7 +117,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
 <div id="left">
 	<div id="left-content">
-<h1><?php the_title(); ?></h1>
+<h1><?php lp_main_headline(); ?></h1>
 <?php echo $content; ?>
 	</div> <!-- end left-content -->
 </div> <!-- end left -->

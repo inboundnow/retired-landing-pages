@@ -12,63 +12,88 @@ do_action('lp_global_config'); // The lp_global_config function is for global co
 //gets template directory name to use as identifier - do not edit - include in all template files
 $key = lp_get_parent_directory(dirname(__FILE__)); 
 
-//adds template data to global array for use with landing page plugin - edit theme category and description only. 
-
-//EDIT - START - defines template information - helps categorizae template and provides additional popup information
-$lp_data[$key]['category'] = "Miscellaneous"; 
-// Add Landing Page to a specific category. 
-$lp_data[$key]['version'] = "1.0.0.1"; 
-// Add version control to your template.
-$lp_data[$key]['description'] = "This template illustrates capabilities of this plugin's templating system.."; 
-// Add description visible to the user
-$lp_data[$key]['features'][] = lp_list_feature("Demo Link","http://demo.inboundnow.com/go/simple-two-column-lander-preview/"); 
-// Add a live demo link to illustration the page functionality to the user
-$lp_data[$key]['features'][] = lp_list_feature("This is a standard template with a main content area and a sidebar for a conversion form. There are numerous options to change the color scheme to fit your brand."); 
-// Description of the landing page visible to the user.
-$lp_data[$key]['thumbnail'] = LANDINGPAGES_URLPATH.'templates/'.$key.'/thumbnail.png'; 
-// Thumbnail
-
-
-//DO NOT EDIT - adds template to template selection dropdown 
-$lp_data[$key]['value'] = $key; //do not edit this
-$lp_data[$key]['label'] = ucwords(str_replace('-',' ',$key)); //do not edit this
+$lp_data[$key]['info'] = 
+array(
+	'version' => "1.0.1", // Version Number
+	'label' => "Simple Two Column", // Nice Name
+	'category' => 'Miscellaneous, v1', // Template Category
+	'demo' => 'http://demo.inboundnow.com/go/simple-two-column/', // Demo Link
+	'description'  => 'Two column landing page template.' // template description
+);
 
 
 //************************************************
 // Add User Options to Your Landing Page Template
 //************************************************
 
-// Add a radio button option to your theme's options panel.	
-$options = array('1' => 'on','0'=>'off');
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"radio","display-social","1","Display Social Media Share Buttons","Toggle social sharing on and off", $options);
-
-// Add a dropdown toggle to the landing page options panel	
-$options = array('right'=>'Sidebar on right', 'left'=>'Sidebar on left' );
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"dropdown","sidebar","right","Sidebar Layout","Align sidebar to the left or the right", $options);	
-
-// Add Colorpicker
-// This is called in the template's index.php file with lp_get_value($post, $key, 'sidebar-color'); */
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","sidebar-color","2A4480","Sidebar color","Use this setting to change the template's sidebar color", $options=null);
-
-// Add Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","submit-button-color","5baa1e","Submit Button Background Color","Use this setting to change the template's submit button color.", $options=null);		
-
-// Add Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","content-color","1240AB","Main Content Area Color","Use this setting to change the template's main content area background color", $options=null);
-
-// Add Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","body-color","06266F","Background color","Use this setting to change the template's background color", $options=null);
-
-// Add Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","content-text-color","ffffff","Content Text Color","Use this setting to change the content text color", $options=null);	
-
-// Add Colorpicker
-$lp_data[$key]['options'][] = 
-	lp_add_option($key,"colorpicker","sidebar-text-color","ffffff","Sidebar Text Color","Use this setting to change the sidebar text color", $options=null);
+// Define Meta Options for template
+// These values are returned in the template's index.php file with lp_get_value($post, $key, 'field-id') function
+$lp_data[$key]['settings'] = 
+array(
+    array(  
+        'label' => 'Display Social Media Share Buttons', // Label of field
+        'description' => "Display Social Media Share Buttons", // field description
+        'id' => 'display-social', // metakey.
+        'type'  => 'radio', // text metafield type
+        'default'  => '1', // default content
+        'options' => array('1' => 'on','0'=>'off'), // options for radio
+        'context'  => 'normal' // Context in screen for organizing options
+        ),
+    array(
+        'label' => "Sidebar Layout",
+        'description' => "","Align sidebar to the left or the right",
+        'id'  => 'sidebar', 
+        'type'  => 'dropdown',
+        'default'  => 'left',
+        'options' => array('right'=>'Sidebar on right','left'=>'Sidebar on left'),
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Sidebar Color',
+        'description' => "Sidebar Background Color",
+        'id'  => 'sidebar-color', 
+        'type'  => 'colorpicker',
+        'default'  => '2A4480',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Submit Button Color',
+        'description' => "Submit Button Background Color",
+        'id'  => 'submit-button-color', 
+        'type'  => 'colorpicker',
+        'default'  => '5baa1e',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Main Content Area Color',
+        'description' => "Use this setting to change the template's main content area background color",
+        'id'  => 'content-color', 
+        'type'  => 'colorpicker',
+        'default'  => '1240AB',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Background Color',
+        'description' => "Use this setting to change the template's background color",
+        'id'  => 'body-color', 
+        'type'  => 'colorpicker',
+        'default'  => '06266F',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Content Text Color',
+        'description' => "Content Text Color",
+        'id'  => 'content-text-color',
+        'type'  => 'colorpicker',
+        'default'  => 'ffffff',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Sidebar Text Color',
+        'description' => "Use this setting to change the sidebar text color",
+        'id'  => 'sidebar-text-color',
+        'type'  => 'colorpicker',
+        'default'  => 'ffffff',
+        'context'  => 'normal'
+        )
+);	
