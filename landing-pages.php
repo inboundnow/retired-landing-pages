@@ -66,7 +66,6 @@ function landing_page_activate()
 
 	add_option( 'lp_global_css', '', '', 'no' );
 	add_option( 'lp_global_js', '', '', 'no' );
-	add_option( 'lp_global_record_admin_actions', '1', '', 'no' );
 	add_option( 'lp_global_lp_slug', 'go', '', 'no' );
 	update_option( 'lp_activate_rewrite_check', '1');
 	
@@ -108,7 +107,6 @@ function landing_pages_insert_custom_head() {
    if (isset($post)&&'landing-page'==$post->post_type) 
    {
 		//$global_js =  htmlspecialchars_decode(get_option( 'lp_global_js', '' ));			
-		$global_record_admin_actions = get_option( 'lp_global_record_admin_actions', '0' );
 		
 		$custom_css_name = apply_filters('lp_custom_css_name','lp-custom-css');
 		$custom_js_name = apply_filters('lp_custom_js_name','lp-custom-js');
@@ -136,18 +134,6 @@ function landing_pages_insert_custom_head() {
 			echo $custom_js;
 		}
 
-		if ($global_record_admin_actions==0&&current_user_can( 'manage_options' ))
-		{
-		}
-		else
-		{		
-
-			if (!lp_determine_spider())
-			{
-				//lp_set_page_views(get_the_ID($this_id));
-			}
-		}
-		  
 		//rewind_posts();
 		//wp_reset_query();
    }
