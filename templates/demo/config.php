@@ -20,7 +20,7 @@ $key = lp_get_parent_directory(dirname(__FILE__));
  * Configures Template Information
  */
 
-/* $wp_cta_data[$key]['settings'] Parameters
+/* $lp_data[$key]['settings'] Parameters
 
     'version' => (string) (required)
     - Version Number. default = "1.0"
