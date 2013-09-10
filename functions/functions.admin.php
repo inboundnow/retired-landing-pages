@@ -653,3 +653,5 @@ function lp_ab_get_lp_active_status($post,$vid=null)
 		return $variation_status;
 	}
 }
+
+?>

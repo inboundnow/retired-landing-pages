@@ -21,4 +21,8 @@ function lp_addon_display()
 	<div id="lp-store-iframe-container">
     </div>
 
-<?php }
+<?php
+
+}
+
+?>

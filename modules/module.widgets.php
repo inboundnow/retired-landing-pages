@@ -97,3 +97,5 @@ class lp_conversion_area_widget extends WP_Widget
 	<?php
 	}
 }
+
+?>

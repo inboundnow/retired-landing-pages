@@ -130,7 +130,5 @@ function lp_templates_upload_execute()
 	}
 }
 
-function lp_templates_update()
-{
-	//echo 'hello Update!';
-}
+
+?>

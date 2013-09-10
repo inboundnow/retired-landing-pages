@@ -45,8 +45,9 @@ function lp_activation_message_ignore() {
              add_user_meta($user_id, 'lp_activation_ignore_notice', 'true', true);
     }
 } */
-// End Landing Page Welcome
 
+// End Landing Page Welcome
+add_action('admin_notices', 'lp_template_page_get_more');
 function lp_template_page_get_more(){
     global $pagenow;  
     $page_string = isset($_GET["page"]) ? $_GET["page"] : "null";
@@ -57,9 +58,9 @@ function lp_template_page_get_more(){
 jQuery("#bulk_actions").prepend(moretemp); jQuery(".lp-selection-heading").append(moretemp); jQuery(".lp-selection-heading #more-templates").css("float","right"); jQuery(moretemp).show(); });</script>';
         }
 }
-add_action('admin_notices', 'lp_template_page_get_more');
-/* End Template Notices */
 
+/* End Template Notices */
+add_action('admin_notices', 'lp_ab_notice');
 function lp_ab_notice(){
     global $pagenow;  
     $page_string = isset($_GET["page"]) ? $_GET["page"] : "null";
@@ -69,4 +70,5 @@ function lp_ab_notice(){
         echo "</h3><h1><a href=\"#\" onClick=\"window.open('http://www.youtube.com/embed/KJ_EDJAvv9Y?autoplay=1','landing-page','width=640,height=480,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,copyhistory=no,resizable=no')\">Watch Video Explanation</a></h1></p></div>";
         }
 }
-add_action('admin_notices', 'lp_ab_notice');
+
+?>

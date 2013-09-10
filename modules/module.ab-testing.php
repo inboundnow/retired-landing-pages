@@ -860,6 +860,7 @@ function ab_testing_frontend_editor_screen_pre($post)
 		}
 	});
 	</script>
-<?php } 
+	<?php 
+} 
 
 ?>

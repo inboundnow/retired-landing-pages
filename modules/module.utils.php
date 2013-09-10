@@ -120,17 +120,23 @@ function landingpage_remove_plugin_filters() {
 
     global $wp_filter;
     global $wp;
+	
     if ($wp->query_vars["post_type"] == 'landing-page') {
        add_filter('body_class','landing_body_class_names');
     }
 }   
 
 function landing_body_class_names($classes) {
-	 global $post;
-	if('landing-page' == get_post_type() ) {
- 	$arr = array();
-    $template_id = get_post_meta($post->ID, 'lp-selected-template', true);
-    $arr[] = 'template-' . $template_id;
- }
+	global $post;
+	
+	if('landing-page' == get_post_type() ) 
+	{
+		$arr = array();
+		$template_id = get_post_meta($post->ID, 'lp-selected-template', true);
+		$arr[] = 'template-' . $template_id;
+	}
+	
     return $arr;
 }
+
+?>

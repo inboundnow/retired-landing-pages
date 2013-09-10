@@ -452,3 +452,5 @@ function lp_templates_add_menu()
 		$_registered_pages[$hookname] = true;  
 	}
 }
+
+?>

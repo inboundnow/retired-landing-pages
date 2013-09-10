@@ -193,3 +193,5 @@ function lp_store_click_data_to_lead($landing_page_id, $lead_ID, $lp_variation) 
 		// Need to call conversion paths too
 	}
 }
+
+?>
