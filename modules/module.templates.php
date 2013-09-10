@@ -33,7 +33,8 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 
 		function __construct()
 		{
-			global $lp_data; 
+			$lp_data = lp_get_extension_data();
+			
 			foreach ($lp_data as $key=>$value)
 			{
 				$array_core_templates = array('countdown-lander','default','demo','dropcap','half-and-half','simple-two-column','super-slick','svtle','tubelar','rsvp-envelope');
@@ -62,13 +63,13 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 				
 					$this_data['ID']  = $key;
 					$this_data['template']  = $key;
-					$this_data['name']  = $value['label'];
-					$this_data['category']  = $value['category'];
-					$this_data['description']  = $value['description'];
+					$this_data['name']  = $value['info']['label'];
+					$this_data['category']  = $value['info']['category'];
+					$this_data['description']  = $value['info']['description'];
 					$this_data['thumbnail']  = $thumbnail;
-					if (isset($value['version'])&&!empty($value['version']))
+					if (isset($value['version'])&&!empty($value['info']['version']))
 					{
-						$this_data['version']  = $value['version'];
+						$this_data['version']  = $value['info']['version'];
 					}
 					else
 					{
