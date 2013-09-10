@@ -812,7 +812,7 @@ function lp_ab_testing_alter_title_area($content)
 {
 	global $post;
 	
-	if ($post->post_type!='landing-page')
+	if ($post->post_type!='landing-page'||is_admin())
 		return $content;
 	
 	return lp_main_headline($post, null, true);	
