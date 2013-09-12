@@ -119,7 +119,7 @@ function lp_add_fullscreen_param( $link )
 {
 	if (isset($_GET['page']))
 		return $link;
-		
+
 	if (  ( isset($post) && 'landing-page' == $post->post_type ) || ( isset($_REQUEST['post_type']) && $_REQUEST['post_type']=='landing-page' ) ) 
 	{ 
 		$params['frontend'] = 'false';
