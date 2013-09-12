@@ -72,6 +72,14 @@ function landing_page_activate()
 	//global $wp_rewrite;
 	//$wp_rewrite->flush_rules();
 	
+} 
+
+register_deactivation_hook(__FILE__, 'landing_page_deactivate');
+
+function landing_page_deactivate()
+{
+	global $wp_rewrite;
+	$wp_rewrite->flush_rules();
 }
 
 /**
