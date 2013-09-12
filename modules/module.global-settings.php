@@ -72,7 +72,7 @@ if (is_admin())
 	}	
 	
 	/* Provide backwards compatibility for older data array model */
-	add_filter('lp_define_global_settings','lp_rebuild_old_global_settings_configurations_to_suit_new_convention');
+	add_filter('lp_define_global_settings','lp_rebuild_old_global_settings_configurations_to_suit_new_convention', 99, 1);
 	function lp_rebuild_old_global_settings_configurations_to_suit_new_convention($lp_global_settings)
 	{
 		//print_r($lp_global_settings);exit;
