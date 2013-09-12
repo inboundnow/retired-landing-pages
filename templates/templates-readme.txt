@@ -1,6 +1,6 @@
 *** Notice ***
 
-If you are trying to install your own landing page templates, make sure you are uploading those files into the /wp-content/uploads/landing-pages/templates folder. 
+If you are trying to install your own landing page templates, make sure you are uploading those files into the /wp-content/uploads/landing-pages/templates/ folder. 
 
 If your custom templates are uploaded in this folder they will get overwritten on plugin updates.
 
