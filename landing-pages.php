@@ -34,14 +34,15 @@ include_once('modules/module.click-tracking.php');
 /* Inbound Core Shared Files. Lead files take presidence */
 
 add_action( 'plugins_loaded', 'inbound_load_shared' );
-function inbound_load_shared(){
-	if (function_exists('wpleads_check_active') && file_exists( WPL_PATH.'/shared/tracking/store.lead.php')) { 
-		include_once( WPL_PATH.'/shared/tracking/store.lead.php'); // Lead Storage
-	} else {
-		include_once('shared/tracking/store.lead.php'); // Lead Storage
+if (!function_exists('inbound_load_shared')) {
+	function inbound_load_shared(){
+		if (function_exists('wpleads_check_active') && file_exists( WPL_PATH.'/shared/tracking/store.lead.php')) { 
+			include_once( WPL_PATH.'/shared/tracking/store.lead.php'); // Lead Storage from leads plugin
+		} else {
+			include_once('shared/tracking/store.lead.php'); // Lead Storage from landing pages
+		}
 	}
 }
-
 
 
 if (is_admin())
