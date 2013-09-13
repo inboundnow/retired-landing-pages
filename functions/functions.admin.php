@@ -117,6 +117,8 @@ function lp_admin_enqueue($hook)
 add_filter('admin_url','lp_add_fullscreen_param');
 function lp_add_fullscreen_param( $link ) 
 {
+	if (isset($_GET['page']))
+		return $link;
 
 	if (  ( isset($post) && 'landing-page' == $post->post_type ) || ( isset($_REQUEST['post_type']) && $_REQUEST['post_type']=='landing-page' ) ) 
 	{ 

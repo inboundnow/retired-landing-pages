@@ -78,7 +78,7 @@ $content = lp_content_area($post,null,true);
 		?>
         
         <!-- Our CSS stylesheet file -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" />
         <link rel="stylesheet" href="<?php echo $path; ?>assets/css/styles.css" />
         <link rel="stylesheet" href="<?php echo $path; ?>assets/countdown/jquery.countdown.css" />
  <style type="text/css">
