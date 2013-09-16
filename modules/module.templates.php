@@ -279,7 +279,7 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 					{
 						foreach ($_REQUEST['template'] as $key=>$slug)
 						{	
-							lp_templates_delete_dir(LANDINGPAGES_PATH.'templates/'.$slug, $slug);
+							lp_templates_delete_dir(LANDINGPAGES_UPLOADS_PATH.'templates/'.$slug, $slug);
 						}						
 					}
 					break;
