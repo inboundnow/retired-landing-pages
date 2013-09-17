@@ -791,6 +791,7 @@ function lp_ab_testing_prepare_variation_callback()
 		
 
 add_filter('the_content','lp_ab_testing_alter_content_area', 10, 2);
+add_filter('get_the_content','lp_ab_testing_alter_content_area', 10, 2);
 function lp_ab_testing_alter_content_area($content)
 {
 	global $post;
