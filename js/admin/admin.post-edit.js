@@ -279,9 +279,14 @@ jQuery(document).ready(function ($) {
     // Add current title of template to selector
     var selected_template = jQuery('#lp_select_template').val();
     var selected_template_id = "#" + selected_template;
+    var clean_template_name = selected_template.replace(/-/g, ' ');
+    function capitaliseFirstLetter(string)
+    {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     var currentlabel = jQuery(".currently_selected");
     jQuery(selected_template_id).parent().addClass("default_template_highlight").prepend(currentlabel);
-    jQuery("#lp_metabox_select_template h3").first().append(' - Current Active Template: <strong>' + selected_template + '</strong>')
+    jQuery("#lp_metabox_select_template h3").first().prepend('<strong>' + capitaliseFirstLetter(clean_template_name) + '</strong> - ');
 
     jQuery('#lp-change-template-button').live('click', function () {
         jQuery(".wrap").fadeOut(500,function(){

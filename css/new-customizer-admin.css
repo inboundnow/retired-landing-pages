@@ -25,7 +25,11 @@ float: none !important;}
 text-align: center !important;
 width: 280px !important;
 margin: auto !important;
+height: 44px !important;
+font-size: 17px !important;
 }
+#major-publishing-actions {
+padding: 15px 10px 15px !important;}
 .select2-container {
 	min-width: 100% !important;
 }
