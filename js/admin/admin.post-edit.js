@@ -279,9 +279,14 @@ jQuery(document).ready(function ($) {
     // Add current title of template to selector
     var selected_template = jQuery('#lp_select_template').val();
     var selected_template_id = "#" + selected_template;
+    var clean_template_name = selected_template.replace(/-/g, ' ');
+    function capitaliseFirstLetter(string)
+    {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     var currentlabel = jQuery(".currently_selected");
     jQuery(selected_template_id).parent().addClass("default_template_highlight").prepend(currentlabel);
-    jQuery("#lp_metabox_select_template h3").first().append(' - Current Active Template: <strong>' + selected_template + '</strong>')
+    jQuery("#lp_metabox_select_template h3").first().prepend('<strong>' + capitaliseFirstLetter(clean_template_name) + '</strong> - ');
 
     jQuery('#lp-change-template-button').live('click', function () {
         jQuery(".wrap").fadeOut(500,function(){
@@ -486,6 +491,19 @@ jQuery(document).ready(function ($) {
         console.log(meta_to_save);
         var frontend_status = jQuery("#frontend-on").val();
 
+        function do_reload_preview() {    
+        var cache_bust =  generate_random_cache_bust(35);
+        var reload_url = parent.window.location.href;
+        reload_url = reload_url.replace('template-customize=on','');
+        //alert(reload_url);
+        var current_variation_id = jQuery("#lp-current-view").text();
+    
+        // var reload = jQuery(parent.document).find("#lp-live-preview").attr("src"); 
+        var new_reload = reload_url + "&live-preview-area=" + cache_bust + "&lp-variation-id=" + current_variation_id;
+        //alert(new_reload);
+        jQuery(parent.document).find("#lp-live-preview").attr("src", new_reload);
+        // console.log(new_reload);
+        }
         // Run Ajax
         jQuery.ajax({
             type: 'POST',
@@ -512,8 +530,9 @@ jQuery(document).ready(function ($) {
                 jQuery(self).hide();
                 // RUN RELOAD
                 if (typeof (frontend_status) != "undefined" && frontend_status !== null) {
-                jQuery('.reload').click();
+               
                 console.log('reload frame');
+                do_reload_preview();
                 } else {
                 console.log('No reload frame');    
                 }

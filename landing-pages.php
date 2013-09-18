@@ -32,7 +32,6 @@ add_action('init', 'lp_click_track_redirect', 11); // Click Tracking init
 include_once('modules/module.click-tracking.php');
 
 /* Inbound Core Shared Files. Lead files take presidence */
-
 add_action( 'plugins_loaded', 'inbound_load_shared' );
 if (!function_exists('inbound_load_shared')) {
 	function inbound_load_shared(){
@@ -43,7 +42,6 @@ if (!function_exists('inbound_load_shared')) {
 		}
 	}
 }
-
 
 if (is_admin())
 {
@@ -56,10 +54,7 @@ include_once('modules/module.install.php');
 include_once('modules/module.alert.php');
 }
 	
-/**
- * REGISTER LANDING PAGES ACTIVATION
- */
- 
+// REGISTER LANDING PAGES ACTIVATION
 register_activation_hook(__FILE__, 'landing_page_activate');
 
 function landing_page_activate()
@@ -83,10 +78,8 @@ function landing_page_deactivate()
 	$wp_rewrite->flush_rules();
 }
 
-/**
- * LOAD FUNCTIONS THAT WILL BE USED BY NATIVE TEMPLATES
- */
- 
+
+//LOAD FUNCTIONS THAT WILL BE USED BY NATIVE TEMPLATES
 add_action('lp_init', 'inbound_include_template_functions');
 
 if (!function_exists('inbound_include_template_functions')) {
@@ -95,10 +88,7 @@ if (!function_exists('inbound_include_template_functions')) {
 	}
 }
 	
-/**
- * PREPARE LANDING PAGE TEMPLATE DATA
- */
- 
+// PREPARE LANDING PAGE TEMPLATE DATA
 if (is_admin())
 {	
 	include_once('load.extensions.php');
@@ -106,25 +96,20 @@ if (is_admin())
 }
 
 
-/**
- * Hook function that will apply css, js, and record impressions
- */
+// Hook function that will apply css, js
 add_action('wp_head','landing_pages_insert_custom_head');
 function landing_pages_insert_custom_head() {
 	global $post;
 	
    if (isset($post)&&'landing-page'==$post->post_type) 
    {
-		//$global_js =  htmlspecialchars_decode(get_option( 'lp_global_js', '' ));			
-		
+
 		$custom_css_name = apply_filters('lp_custom_css_name','lp-custom-css');
 		$custom_js_name = apply_filters('lp_custom_js_name','lp-custom-js');
-		//echo $custom_css_name;
 		$custom_css = get_post_meta($post->ID, $custom_css_name, true);
 		$custom_js = get_post_meta($post->ID, $custom_js_name, true);
-		//echo $this_id;exit;
 
-		//Print Cusom CSS
+		//Print Custom CSS
 		if (!stristr($custom_css,'<style'))
 		{
 			echo '<style type="text/css" id="lp_css_custom">'.$custom_css.'</style>';	
@@ -133,6 +118,7 @@ function landing_pages_insert_custom_head() {
 		{
 			echo $custom_css;
 		}
+		//Print Custom JS
 		if (!stristr($custom_js,'<script'))
 		{
 			echo '<script type="text/javascript" id="lp_js_custom">jQuery(document).ready(function($) {
@@ -142,9 +128,6 @@ function landing_pages_insert_custom_head() {
 		{
 			echo $custom_js;
 		}
-
-		//rewind_posts();
-		//wp_reset_query();
    }
 }
 
@@ -250,9 +233,7 @@ if (is_admin())
 
 }
 
-/**
- * MAKE SURE WE USE THE RIGHT TEMPLATE
- */
+// MAKE SURE WE USE THE RIGHT TEMPLATE
 add_filter('single_template', 'lp_custom_template');
 
 function lp_custom_template($single) {
@@ -297,14 +278,5 @@ function lp_custom_template($single) {
     return $single;
 }
 
-/**
- * ADD TRACKING SCRIPTS FOR IMPRESSION AND CONVERSION TRACKING
- */
-// Moved to /shared/tracking/
-
-
-/**
- * LOAD THE TEMLATE CUSTOMIZER MODULE
- */
-
+// LOAD THE TEMLATE CUSTOMIZER MODULE
 include_once('modules/module.customizer.php');
