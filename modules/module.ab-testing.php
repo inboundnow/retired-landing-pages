@@ -586,7 +586,7 @@ function lp_ab_testing_lp_conversion_area_position($position, $post = null, $key
 	{
 		$post_id = $_REQUEST['lp_id'];
 	}
-	
+
 	if ($current_variation_id>0)
 		$position = get_post_meta($post->ID, "{$key}-conversion-area-placement-".$current_variation_id, true);
 

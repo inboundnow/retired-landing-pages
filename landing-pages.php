@@ -162,11 +162,11 @@ function landing_pages_add_conversion_area($content)
 			
 			get_post_meta($post->ID, "default-conversion-area-placement", true);
 			
-			
+
 			$position = get_post_meta($post->ID, "{$key}-conversion-area-placement", true);
-			
+		
 			$position = apply_filters('lp_conversion_area_position', $position, $post, $key);
-			
+
 			$_SESSION['lp_conversion_area_position'] = $position;
 			
 			$conversion_area = lp_conversion_area(null,null,true,true);

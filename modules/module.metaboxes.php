@@ -769,17 +769,18 @@ function lp_save_meta($post_id) {
 			else if ((isset($_POST['lp-selected-template'])&&$_POST['lp-selected-template']==$key))
 			{
 				$lp_custom_fields = $extension_data[$key]['settings'];
-				
+
 				// loop through fields and save the data
 				foreach ($lp_custom_fields as $field) {
 					$id = $key."-".$field['id'];
-					
+
 					if($field['type'] == 'tax_select' || !isset($_POST[$id])) 
 						continue;
 					
-					$old = get_post_meta($post_id, $id, true);				
+					$old = get_post_meta($post_id, $id, true);		
+
 					(isset($_POST[$id]))? $new = $_POST[$id] : $new = null;
-					//echo "$old:".$new."<br>";			
+					//echo "$old:".$new."<br>";		exit;	
 					
 					if (isset($new) && $new != $old ) {
 						update_post_meta($post_id, $id, $new);
