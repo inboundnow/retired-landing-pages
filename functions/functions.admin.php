@@ -551,7 +551,7 @@ function lp_make_percent($rate, $return = false)
 
 function lp_check_license_status($field)
 {
-	//print_r($field);exit;
+
 	$date = date("Y-m-d");
 	$cache_date = get_option($field['id']."-expire");
 	$license_status = get_option('lp_license_status-'.$field['slug']);

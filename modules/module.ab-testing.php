@@ -228,7 +228,7 @@ if (is_admin())
 		if (!$varaition_notes&&isset($_REQUEST['post']))
 		{
 			//echo 1;exit;
-			get_post_meta($_GET['post'],'lp-variation-notes', true);
+			get_post_meta($_REQUEST['post'],'lp-variation-notes', true);
 		}
 		
 		return $varaition_notes;

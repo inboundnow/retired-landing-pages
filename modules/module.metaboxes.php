@@ -691,7 +691,7 @@ function lp_generate_meta()
 	
 }
 
-add_action('save_post', 'lp_save_meta');
+//add_action('save_post', 'lp_save_meta');
 function lp_save_meta($post_id) {
 	global $post;
 

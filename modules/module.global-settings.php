@@ -300,16 +300,16 @@ if (is_admin())
 			// loop through fields and save the data
 			foreach ($tab_settings as $field) 
 			{
-				$field_id = $key."-".$field['id'];
-				$old = get_option($field_id);	
-				(isset($_POST[$field_id]))? $new = $_POST[$field_id] : $new = null;
+				$field['id']  = $key."-".$field['id'];
+				$old = get_option($field['id'] );	
+				(isset($_POST[$field['id'] ]))? $new = $_POST[$field['id'] ] : $new = null;
 				
 				
 				if ((isset($new) && ($new !== $old ) )|| !isset($old) ) 
 				{
-					//echo $field_id;exit;
-					$bool = update_option($field_id,$new);				
-					if ($field_id=='main-landing-page-permalink-prefix')
+					//echo $field['id'] ;exit;
+					$bool = update_option($field['id'] ,$new);				
+					if ($field['id'] =='main-landing-page-permalink-prefix')
 					{
 						//echo "here";
 						global $wp_rewrite;
@@ -347,7 +347,7 @@ if (is_admin())
 				elseif (!$new && $old) 
 				{
 					//echo "here: $key <br>";
-					$bool = delete_option($field_id);
+					$bool = delete_option($field['id'] );
 				}
 				else
 				{
@@ -430,8 +430,8 @@ if (is_admin())
 				$default = null;
 			}
 			
-			$field_id = $key."-".$field['id'];
-			$option = get_option($field_id, $default);
+			$field['id'] = $key."-".$field['id'];
+			$option = get_option($field['id'] , $default);
 			
 			// begin a table row with
 			echo '<tr>
@@ -444,18 +444,18 @@ if (is_admin())
 							{
 								$option = $field['default'];
 							}
-							echo '<input type="text" class="jpicker" name="'.$field_id.'" id="'.$field_id.'" value="'.$option.'" size="5" />
+							echo '<input type="text" class="jpicker" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="5" />
 									<div class="lp_tooltip tool_color" title="'.$field['desc'].'"></div>';
 							break;
 						case 'datepicker':
-							echo '<input id="datepicker-example2" class="Zebra_DatePicker_Icon" type="text" name="'.$field_id.'" id="'.$field_id.'" value="'.$option.'" size="8" />
+							echo '<input id="datepicker-example2" class="Zebra_DatePicker_Icon" type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="8" />
 									<div class="lp_tooltip tool_date" title="'.$field['desc'].'"></div><p class="description">'.$field['desc'].'</p>';
 							break;	
 						case 'license-key':
 							$license_status = lp_check_license_status($field);
 							//echo $license_status;exit;
-							echo '<input type="hidden" name="lp_license_status-'.$field['slug'].'" id="'.$field_id.'" value="'.$license_status.'" size="30" />
-							<input type="text" name="'.$field_id.'" id="'.$field_id.'" value="'.$option.'" size="30" />
+							echo '<input type="hidden" name="lp_license_status-'.$field['slug'].'" id="'.$field['id'] .'" value="'.$license_status.'" size="30" />
+							<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="30" />
 									<div class="lp_tooltip tool_text" title="'.$field['desc'].'"></div>';
 							
 							if ($license_status=='valid')
@@ -468,25 +468,25 @@ if (is_admin())
 							}						
 							break;	
 						case 'text':
-							echo '<input type="text" name="'.$field_id.'" id="'.$field_id.'" value="'.$option.'" size="30" />
+							echo '<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="30" />
 									<div class="lp_tooltip tool_text" title="'.$field['desc'].'"></div>';
 							break;
 						// textarea
 						case 'textarea':
-							echo '<textarea name="'.$field_id.'" id="'.$field_id.'" cols="106" rows="6">'.$option.'</textarea>
+							echo '<textarea name="'.$field['id'] .'" id="'.$field['id'] .'" cols="106" rows="6">'.$option.'</textarea>
 									<div class="lp_tooltip tool_textarea" title="'.$field['desc'].'"></div>';
 							break;
 						// wysiwyg
 						case 'wysiwyg':
-							wp_editor( $option, $field_id, $settings = array() );
+							wp_editor( $option, $field['id'] , $settings = array() );
 							echo	'<span class="description">'.$field['desc'].'</span><br><br>';							
 							break;
 						// media					
 							case 'media':
 							//echo 1; exit;
 							echo '<label for="upload_image">';
-							echo '<input name="'.$field_id.'"  id="'.$field_id.'" type="text" size="36" name="upload_image" value="'.$option.'" />';
-							echo '<input class="upload_image_button" id="uploader_'.$field_id.'" type="button" value="Upload Image" />';
+							echo '<input name="'.$field['id'] .'"  id="'.$field['id'] .'" type="text" size="36" name="upload_image" value="'.$option.'" />';
+							echo '<input class="upload_image_button" id="uploader_'.$field['id'] .'" type="button" value="Upload Image" />';
 							echo '<br /><div class="lp_tooltip tool_media" title="'.$field['desc'].'"></div>'; 
 							break;
 						// checkbox
@@ -503,7 +503,7 @@ if (is_admin())
 									echo "<tr>";
 									$i=1;
 								}
-									echo '<td><input type="checkbox" name="'.$field_id.'[]" id="'.$field_id.'" value="'.$value.'" ',in_array($value,$option) ? ' checked="checked"' : '','/>';
+									echo '<td><input type="checkbox" name="'.$field['id'] .'[]" id="'.$field['id'] .'" value="'.$value.'" ',in_array($value,$option) ? ' checked="checked"' : '','/>';
 									echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label></td>';					
 								if ($i==4)
 								{
@@ -517,16 +517,16 @@ if (is_admin())
 						// radio
 						case 'radio':
 							foreach ($field['options'] as $value=>$label) {
-								//echo $meta.":".$field_id;
+								//echo $meta.":".$field['id'] ;
 								//echo "<br>";
-								echo '<input type="radio" name="'.$field_id.'" id="'.$field_id.'" value="'.$value.'" ',$option==$value ? ' checked="checked"' : '','/>';
+								echo '<input type="radio" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$value.'" ',$option==$value ? ' checked="checked"' : '','/>';
 								echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label> &nbsp;&nbsp;&nbsp;&nbsp;';								
 							}
 							echo '<div class="lp_tooltip tool_radio" title="'.$field['desc'].'"></div>';
 						break;
 						// select
 						case 'dropdown':
-							echo '<select name="'.$field_id.'" id="'.$field_id.'">';
+							echo '<select name="'.$field['id'] .'" id="'.$field['id'] .'">';
 							foreach ($field['options'] as $value=>$label) {
 								echo '<option', $option == $value ? ' selected="selected"' : '', ' value="'.$value.'">'.$label.'</option>';
 							}
