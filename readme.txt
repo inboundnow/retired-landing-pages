@@ -69,7 +69,7 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
  
 * Fixed: Issue with extension license keys not validating
 * Fixed: Issue with shortcodes not firing on select core templates
-* Improvent: Converted global settings data array to new easier to read format for development, added in legacy support.
+* Improvement: Converted global settings data array to new easier to read format for development, added in legacy support.
 
 =  1.1.0.1 =
  
