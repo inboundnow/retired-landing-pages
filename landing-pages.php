@@ -136,9 +136,13 @@ add_filter('the_content','landing_pages_add_conversion_area', 20);
 add_filter('get_the_content','landing_pages_add_conversion_area', 20);
 function landing_pages_add_conversion_area($content)
 {	
-	if ('landing-page'==get_post_type())
+	
+	if ('landing-page'==get_post_type() && !is_admin())
 	{
+		
 		global $post;
+		
+		remove_action('the_content', 'landing_pages_add_conversion_area');
 		
 		$key = get_post_meta($post->ID, 'lp-selected-template', true);
 		$key = apply_filters('lp_selected_template',$key); 
@@ -152,19 +156,20 @@ function landing_pages_add_conversion_area($content)
 		//echo $key;	
 		if ($my_theme->exists()||$key=='default')
 		{
+
 			global $post;
 		    $wrapper_class = ""; 
 			
 			get_post_meta($post->ID, "default-conversion-area-placement", true);
 			
+			
 			$position = get_post_meta($post->ID, "{$key}-conversion-area-placement", true);
+			
 			$position = apply_filters('lp_conversion_area_position', $position, $post, $key);
 			
 			$_SESSION['lp_conversion_area_position'] = $position;
 			
-			$content = lp_content_area(null,null,true);
 			$conversion_area = lp_conversion_area(null,null,true,true);
-		
 		
 			
 			$standardize_form = get_option( 'main-landing-page-auto-format-forms' , 0); // conditional to check for options
