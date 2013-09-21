@@ -1,4 +1,4 @@
-#wpadminbar, #edit-slug-box, #post-status-info, #screen-options-link-wrap, #leads-table-container, .misc-pub-section, #minor-publishing, .misc-pub-section, .misc-pub-section.curtime, #delete-action, #convert-header, #lp-tour, #view-post-btn, #launch-visual-editer, #adminmenuwrap, #lp_ab_display_stats_metabox, #lp-thumbnail-sidebar-preview, #landing_page_categorydiv, #postimagediv, #leads-table-container-inside {
+#wpadminbar, #edit-slug-box, #post-status-info, #screen-options-link-wrap, #leads-table-container, .misc-pub-section, #minor-publishing, .misc-pub-section, .misc-pub-section.curtime, #delete-action, #convert-header, #lp-tour, #view-post-btn, #launch-visual-editer, #adminmenuwrap, #lp_ab_display_stats_metabox, #lp-thumbnail-sidebar-preview, #landing_page_categorydiv, #postimagediv, #leads-table-container-inside, .updated.below-h2 a  {
 	display: none !important;
 }
 html.wp-toolbar {
@@ -17,6 +17,9 @@ width: 76% !important;
 }
 #submitdiv .handlediv , #submitdiv .hndle {
 	display: none !important;
+}
+.wrap div.updated, .wrap div.error, .media-upload-form div.error {
+margin: 5px 0 0px !important;
 }
 #publishing-action {
 text-align: center !important;
