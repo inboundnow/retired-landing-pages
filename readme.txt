@@ -65,6 +65,9 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 
 == Changelog ==
 
+= Latest =
+* Added [lp_conversion_area] Shortcode. It renders form conversion area anywhere on landing page
+
 =  1.1.7 =
  
 * Fixed: Issue with extension license keys not validating

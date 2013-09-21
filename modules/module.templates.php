@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_GET['page'])&&($_GET['page']=='lp_templates_upload'||$_GET['page']=='lp_templates_update'||$_GET['page']=='lp_templates_search'))
 {
 	add_action('admin_enqueue_scripts','lp_templates_admin_enqueue');
@@ -37,7 +38,7 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 			
 			foreach ($lp_data as $key=>$value)
 			{
-				$array_core_templates = array('countdown-lander','default','demo','dropcap','half-and-half','simple-two-column','super-slick','svtle','tubelar','rsvp-envelope');
+				$array_core_templates = array('countdown-lander','default','demo','dropcap','half-and-half','simple-two-column','super-slick','svtle','tubelar','rsvp-envelope', 'three-column-lander');
 				
 				if ($key!='lp'&&!in_array($key,$array_core_templates)&&substr($key,0,4)!='ext-')
 				{
