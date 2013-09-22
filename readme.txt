@@ -7,7 +7,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: landing pages, inbound marketing, conversion pages, split testing, a b test, a b testing, a/b test, a/b testing, coming soon page, email list, landing page, list building, maintenance page, squeeze page, inbound now, landing-pages, splash pages, cpa, click tracking, goal tracking, analytics
 Requires at least: 3.4
 Tested up to: 3.5
-Stable Tag: 1.1.6
+Stable Tag: 1.1.7
 
 Create landing pages for your WordPress site. Monitor and improve conversion rates, run A/B split tests, customize your own templates and more.
 
@@ -45,7 +45,9 @@ We built the landing page plugin as a framework! Need A/B testing out of the box
 
 You can quickly take your existing designs and implement them using our <a href="http://docs.inboundnow.com/landing-pages/dev">templating framework</a>.
 
-The plugin is also fully extendable and has a number of actions, filters, and hooks available for use. If a hook doesn't exist, simply ask and we can implement custom changes.
+The plugin is also fully extendable and has a number of <a href='http://docs.inboundnow.com/landing-pages/dev/core-hooks-filters'>actions, filters</a>, and hooks available for use. If a hook doesn't exist, simply ask and we can implement custom changes.
+
+<b>You can also follow us on <a href="https://github.com/inboundnow/landing-pages/">GitHub</a></b>
 
 == Installation ==
 
@@ -65,14 +67,11 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 
 == Changelog ==
 
-= Latest =
-* Added [lp_conversion_area] Shortcode. It renders form conversion area anywhere on landing page
-
 =  1.1.7 =
  
 * Fixed: Issue with extension license keys not validating
 * Fixed: Issue with shortcodes not firing on select core templates
-* Improvent: Converted global settings data array to new easier to read format for development, added in legacy support.
+* Improvement: Converted global settings data array to new easier to read format for development, added in legacy support.
 
 =  1.1.0.1 =
  
