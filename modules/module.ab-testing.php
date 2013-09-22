@@ -93,7 +93,7 @@ if (is_admin())
 			
 			(isset($_GET['new-variation'])&&$_GET['new-variation']==1) ? $new_variation = 1 : $new_variation = 0;				
 
-			$content_area = lp_content_area(null,null,true);
+			$content_area = lp_content_area($post,null,true);
 			
 			//prepare for new variation creation - use A as default content if not being cloned
 			if (($new_variation==1&&!isset($_GET['clone']))||isset($_GET['clone'])&&$_GET['clone']==0)
@@ -397,7 +397,7 @@ if (is_admin())
 	function lp_ab_testing_save_post($postID)
 	{
 		global $post;
-		unset($_POST['post_content']);
+
 		$var_final = (isset($_POST['lp-variation-id'])) ? $_POST['lp-variation-id'] : '0';
 		if (  isset($_POST['post_type']) && $_POST['post_type']=='landing-page')
 		{
@@ -464,8 +464,12 @@ if (is_admin())
 			//echo $this_variation;exit;
 			foreach ($_POST as $key=>$value)
 			{
+				//echo $key." : -{$this_variation} : $value<br>";
 				if (!in_array($key,$ignore_list)&&!strstr($key,'nonce'))
 				{
+					if ($key=='post_content')
+						$key = 'content';
+						
 					if (!strstr($key,"-{$this_variation}"))
 					{
 						$new_array[$key.'-'.$this_variation] = $value;
@@ -475,11 +479,10 @@ if (is_admin())
 						//echo $key." : -{$this_variation}<br>";
 						$new_array[$key] = $value;
 					}
-					
 				}
+				//echo $key." : -{$this_variation} : $value<br>";
 			}
 			
-			//echo $postID;
 			//print_r($new_array);exit;
 			
 			foreach($new_array as $key => $val)
@@ -497,6 +500,21 @@ if (is_admin())
 		}
 	}
 
+	//not sure if this is needed
+	add_filter('lp_content_area','lp_ab_testing_alter_content_area_admin', 10, 2);
+	function lp_ab_testing_alter_content_area_admin($content)
+	{
+		global $post;
+		
+		$variation_id = lp_ab_testing_get_current_variation_id();
+
+		if ($variation_id>0)
+		{
+			$content = do_shortcode(get_post_meta($post->ID,'content-'.$variation_id, true));
+		}
+
+		return $content;
+	}
 }
 
 //PERFORM FRONT-END ONLY ACTIONS
