@@ -32,15 +32,15 @@ add_action('init', 'lp_click_track_redirect', 11); // Click Tracking init
 include_once('modules/module.click-tracking.php');
 
 /* Inbound Core Shared Files. Lead files take presidence */
-add_action( 'plugins_loaded', 'inbound_load_shared' );
-if (!function_exists('inbound_load_shared')) {
-	function inbound_load_shared(){
+add_action( 'plugins_loaded', 'inbound_load_shared_landing_pages' );
+function inbound_load_shared_landing_pages(){
 		if (function_exists('wpleads_check_active') && file_exists( WPL_PATH.'/shared/tracking/store.lead.php')) { 
 			include_once( WPL_PATH.'/shared/tracking/store.lead.php'); // Lead Storage from leads plugin
+			include_once( WPL_PATH.'/shared/classes/form.class.php'); // Inbound Forms Module
 		} else {
 			include_once('shared/tracking/store.lead.php'); // Lead Storage from landing pages
+			include_once('shared/classes/form.class.php');  // Mirrored forms
 		}
-	}
 }
 
 if (is_admin())

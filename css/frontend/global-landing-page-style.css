@@ -1,9 +1,8 @@
 /**
  * WordPress required styles
- * Needed for editor media floats etc.
+ * Needed for editor media floats
  */
-
- * ---------------------------------------------- */
+/* ---------------------------------------------- */
 .wp-caption{
     background:#FBFBFB;
     border:1px solid #EEE;
@@ -38,3 +37,4 @@
     margin: 10px 0px;
 }
 .bypostauthor{}
+/* ---------------------------------------------- */
