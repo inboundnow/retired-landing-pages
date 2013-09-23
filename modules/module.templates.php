@@ -278,9 +278,10 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 				case 'delete':
 					if (count($_REQUEST['template'])>0)
 					{
+
 						foreach ($_REQUEST['template'] as $key=>$slug)
 						{	
-							lp_templates_delete_dir(LANDINGPAGES_UPLOADS_PATH.'templates/'.$slug, $slug);
+							lp_templates_delete_dir(LANDINGPAGES_UPLOADS_PATH.$slug, $slug);
 						}						
 					}
 					break;
@@ -415,6 +416,7 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 		$data = $lp_data[$slug];
 		
 		if (!file_exists($dir)) return true;
+
 		if (!is_dir($dir) || is_link($dir)) return unlink($dir);
 		foreach (scandir($dir) as $item) {
 			if ($item == '.' || $item == '..') continue;
