@@ -802,11 +802,11 @@ function lp_ab_testing_alter_content_area($content)
 add_filter('wp_title','lp_ab_testing_alter_title_area', 9, 2);
 add_filter('the_title','lp_ab_testing_alter_title_area', 10, 2);
 add_filter('get_the_title','lp_ab_testing_alter_title_area', 10, 2);
-function lp_ab_testing_alter_title_area($content)
+function lp_ab_testing_alter_title_area($content, $id)
 {
 	global $post;
 	
-	if ($post->post_type!='landing-page'||is_admin())
+	if ( ( $post->post_type!='landing-page'||is_admin()) || $id != $post->ID)
 		return $content;
 	
 	return lp_main_headline($post, null, true);	
