@@ -119,11 +119,15 @@ function lp_install_register_required_plugins() {
  
         // This is an example of how to include a plugin from the WordPress Plugin Repository
         array(
-            'name'      => 'WordPress Leads: ',
+            'name'      => 'WordPress Leads <span style=\'color:red !important; display:block;\'>This free landing page addon will give you the ability to track and manage incoming web leads. Gather Lead Intelligence on all Leads and Close more deals. <a href=\'http://wordpress.org/plugins/leads/\'> Learn more about WordPress Leads.</a></span>',
             'slug'      => 'leads',
             'required'  => false,
-            'description' => '<span>This free landing page addon will give you the ability to manage leads, see the pages viewed by the lead before converting, geolocation data, and much more.</span>'
         ),
+       /* array(
+            'name'      => 'WordPress Leads <span style=\'color:red !important; display:block;\'>This free landing page addon will give you the ability to manage leads, see the pages viewed by the lead before converting, geolocation data, and much more. <a href=\'http://wordpress.org/plugins/leads/\'> Learn more about WordPress Leads.</a></span>',
+            'slug'      => 'title-split-testing-for-wordpress',
+            'required'  => false,
+        ),*/
  
     );
  
