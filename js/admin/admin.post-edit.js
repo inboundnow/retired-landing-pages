@@ -27,14 +27,14 @@ jQuery(document).ready(function ($) {
         if(which_editor === null){
            setTimeout(function() {
             jQuery("#content-tmce").click();
-            jQuery(".wp-switch-editor.switch-tmce").click();
+            //jQuery(".wp-switch-editor.switch-tmce").click();
             }, 1000);
        
         }    
         if(which_editor === 'editor'){
           setTimeout(function() {
             jQuery("#content-tmce").click();
-            jQuery(".wp-switch-editor.switch-tmce").click();
+            //jQuery(".wp-switch-editor.switch-tmce").click();
             }, 1000);
         }
 
