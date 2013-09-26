@@ -105,7 +105,7 @@ function lp_remove_all_styles()
 			else
 			{
 				global $wp_styles;
-				$wp_styles->queue = array();
+				$wp_styles->queue = array('');
 				//wp_register_style( 'admin-bar' );
 				wp_enqueue_style( 'admin-bar' );
 			}	
