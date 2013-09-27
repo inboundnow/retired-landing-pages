@@ -36,10 +36,10 @@ add_action( 'plugins_loaded', 'inbound_load_shared_landing_pages' );
 function inbound_load_shared_landing_pages(){
 		if (function_exists('wpleads_check_active') && file_exists( WPL_PATH.'/shared/tracking/store.lead.php')) { 
 			include_once( WPL_PATH.'/shared/tracking/store.lead.php'); // Lead Storage from leads plugin
-			include_once( WPL_PATH.'/shared/classes/forms/form.class.php'); // Inbound Forms Module
+			include_once( WPL_PATH.'/shared/classes/form.class.php'); // Inbound Forms Module
 		} else {
 			include_once('shared/tracking/store.lead.php'); // Lead Storage from landing pages
-			include_once('shared/classes/forms/form.class.php');  // Mirrored forms
+			include_once('shared/classes/form.class.php');  // Mirrored forms
 		}
 }
 
