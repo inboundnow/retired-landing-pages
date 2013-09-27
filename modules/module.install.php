@@ -7,6 +7,7 @@ function inbound_create_default_post_type(){
     $option_key = "default_landing_pagexxx";
     $current_user = wp_get_current_user();
     add_option( $option_name, '' );
+    update_user_meta( get_current_user_id(), 'tgmpa_dismissed_notice', 0 ); // Clean dismiss settings
     //delete_option( 'lp_settings_general' );
     $lp_default_options = get_option($option_name);
     // Create Default if it doesn't exist
@@ -118,11 +119,15 @@ function lp_install_register_required_plugins() {
  
         // This is an example of how to include a plugin from the WordPress Plugin Repository
         array(
-            'name'      => 'WordPress Leads: ',
+            'name'      => 'WordPress Leads <span style=\'color:red !important; display:block;\'>This free landing page addon will give you the ability to track and manage incoming web leads. Gather Lead Intelligence on all Leads and Close more deals. <a href=\'http://wordpress.org/plugins/leads/\'> Learn more about WordPress Leads.</a></span>',
             'slug'      => 'leads',
             'required'  => false,
-            'description' => '<span>This free landing page addon will give you the ability to manage leads, see the pages viewed by the lead before converting, geolocation data, and much more.</span>'
         ),
+       /* array(
+            'name'      => 'WordPress Leads <span style=\'color:red !important; display:block;\'>This free landing page addon will give you the ability to manage leads, see the pages viewed by the lead before converting, geolocation data, and much more. <a href=\'http://wordpress.org/plugins/leads/\'> Learn more about WordPress Leads.</a></span>',
+            'slug'      => 'title-split-testing-for-wordpress',
+            'required'  => false,
+        ),*/
  
     );
  
@@ -162,7 +167,8 @@ function lp_install_register_required_plugins() {
             'activate_link'                             => _n_noop( 'Activate installed plugin', 'Activate installed plugins' ),
             'return'                                    => __( 'Return to Required Plugins Installer', $theme_text_domain ),
             'plugin_activated'                          => __( 'Plugin activated successfully.', $theme_text_domain ),
-            'complete'                                  => __( 'All plugins installed and activated successfully. %s', $theme_text_domain ) // %1$s = dashboard link
+            'complete'                                  => __( 'All plugins installed and activated successfully. %s', $theme_text_domain ),
+             // %1$s = dashboard link
         )
     );
  
