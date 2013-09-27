@@ -506,9 +506,13 @@ if (is_admin())
 		
 		$variation_id = lp_ab_testing_get_current_variation_id();
 
-		if ($variation_id>0 && !is_admin())
+		if ($variation_id>0)
 		{
-			$content = do_shortcode(get_post_meta($post->ID,'content-'.$variation_id, true));
+			$content = get_post_meta($post->ID,'content-'.$variation_id, true);
+			if ( !is_admin() )
+			{
+				$content = do_shortcode($content);
+			}
 		}
 
 		return $content;
@@ -800,7 +804,7 @@ function lp_ab_testing_alter_content_area($content)
 add_filter('wp_title','lp_ab_testing_alter_title_area', 9, 2);
 add_filter('the_title','lp_ab_testing_alter_title_area', 10, 2);
 add_filter('get_the_title','lp_ab_testing_alter_title_area', 10, 2);
-function lp_ab_testing_alter_title_area($content, $id)
+function lp_ab_testing_alter_title_area( $content , $id = null)
 {
 	global $post;
 	
