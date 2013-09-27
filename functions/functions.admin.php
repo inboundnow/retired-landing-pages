@@ -568,11 +568,9 @@ function lp_check_license_status($field)
 		'license' => $license_key, 
 		'item_name' => urlencode( $field['slug'] ) 
 	);
-	//print_r($api_params);
 	
 	// Call the custom API.
 	$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
-	//print_r($response);
 
 	if ( is_wp_error( $response ) )
 		return false;

@@ -107,8 +107,6 @@ if (is_admin())
 				$content_area = wpautop($content_area);
 			}
 			
-			//echo $content_area;exit;
-			
 			//if new variation and cloning then programatically prepare the next variation id
 			if($new_variation==1&&isset($_GET['clone']))
 			{
@@ -508,7 +506,7 @@ if (is_admin())
 		
 		$variation_id = lp_ab_testing_get_current_variation_id();
 
-		if ($variation_id>0)
+		if ($variation_id>0 && !is_admin())
 		{
 			$content = do_shortcode(get_post_meta($post->ID,'content-'.$variation_id, true));
 		}
