@@ -549,45 +549,6 @@ function lp_make_percent($rate, $return = false)
 	}
 }
 
-function lp_check_license_status($field)
-{
-
-	$date = date("Y-m-d");
-	$cache_date = get_option($field['id']."-expire");
-	$license_status = get_option('lp_license_status-'.$field['slug']);
-	
-	if (isset($cache_date)&&($date<$cache_date)&&$license_status=='valid')
-	{
-		return "valid";
-	}
-		
-	$license_key = get_option($field['id']);
-	
-	$api_params = array( 
-		'edd_action' => 'check_license', 
-		'license' => $license_key, 
-		'item_name' => urlencode( $field['slug'] ) 
-	);
-	
-	// Call the custom API.
-	$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
-
-	if ( is_wp_error( $response ) )
-		return false;
-
-	$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-	//echo $license_data;exit;
-	
-	if( $license_data->license == 'valid' ) {
-		$newDate = date('Y-m-d', strtotime("+15 days"));
-		update_option($field['id']."-expire", $newDate);
-		return 'valid';
-		// this license is still valid
-	} else {
-		return 'invalid';
-	}
-}
-
 
 function landing_page_get_version() {
 	if ( ! function_exists( 'get_plugins' ) )
