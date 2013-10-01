@@ -392,7 +392,7 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 	{
 		$api_params = array(
 			'edd_action' 	=> 'get_version',
-			'license' 		=> '',
+			'license' 		=> get_option('lp-license-keys-'.$item['ID']),
 			'name' 			=> $item['name'],
 			'slug' 			=> $item['ID'],
 			'nature' 			=> 'template',

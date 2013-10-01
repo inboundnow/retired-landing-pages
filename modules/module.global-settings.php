@@ -71,6 +71,23 @@ if (is_admin())
 		return $lp_global_settings;
 	}	
 	
+	/* Add Extensions License Key Header if Extensions are present */
+	add_filter('lp_define_global_settings', 'lp_add_extension_license_key_header',1,1);
+	function lp_add_extension_license_key_header($lp_global_settings)
+	{
+		if (array_key_exists('lp-license-keys',$lp_global_settings))
+		{
+			$lp_global_settings['lp-license-keys']['settings'][] = 	array(
+					'id'  => 'extensions-license-keys-header',
+					'description' => "Head to http://www.inboundnow.com/ to retrieve your license key for this template.",
+					'type'  => 'header',
+					'default' => '<h3 class="lp_global_settings_header">Extension License Keys</h3>'
+			);
+		}
+		
+		return $lp_global_settings;
+	}
+	
 	/* Provide backwards compatibility for older data array model */
 	add_filter('lp_define_global_settings','lp_rebuild_old_global_settings_configurations_to_suit_new_convention', 99, 1);
 	function lp_rebuild_old_global_settings_configurations_to_suit_new_convention($lp_global_settings)
@@ -329,7 +346,7 @@ if (is_admin())
 						
 						// Call the custom API.
 						$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 30, 'sslverify' => false ) );
-
+						
 						// make sure the response came back okay
 						if ( is_wp_error( $response ) )
 							break;
@@ -337,11 +354,11 @@ if (is_admin())
 						// decode the license data
 						$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 						
-						//echo $license_data->license;
-						//echo $option['slug'];exit;
 						
 						// $license_data->license will be either "active" or "inactive"						
 						$license_status = update_option('lp_license_status-'.$field['slug'], $license_data->license);
+						
+						//echo 'lp_license_status-'.$field['slug']." :".$license_data->license;exit;
 					}
 				} 
 				elseif (!$new && $old) 
@@ -374,7 +391,7 @@ if (is_admin())
 						
 						// Call the custom API.
 						$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 30, 'sslverify' => false ) );
-						//print_r($response);exit;
+						//echo $field['slug'];
 						//echo "<br>";
 						
 						// make sure the response came back okay
@@ -386,6 +403,8 @@ if (is_admin())
 						
 						// $license_data->license will be either "active" or "inactive"						
 						$license_status = update_option('lp_license_status-'.$field['slug'], $license_data->license);
+						
+						//echo 'lp_license_status-'.$field['slug']." :".$license_data->license;exit;
 					}
 				}
 				//exit;
@@ -434,115 +453,173 @@ if (is_admin())
 			$option = get_option($field['id'] , $default);
 			
 			// begin a table row with
-			echo '<tr>
-					<th class="lp-gs-th" valign="top" style="font-weight:300px;"><small>'.$field['label'].':</small></th>
-					<td>';
-					switch($field['type']) {
-						// text
-						case 'colorpicker':
-							if (!$option)
-							{
-								$option = $field['default'];
-							}
-							echo '<input type="text" class="jpicker" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="5" />
-									<div class="lp_tooltip tool_color" title="'.$field['desc'].'"></div>';
-							break;
-						case 'datepicker':
-							echo '<input id="datepicker-example2" class="Zebra_DatePicker_Icon" type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="8" />
-									<div class="lp_tooltip tool_date" title="'.$field['desc'].'"></div><p class="description">'.$field['desc'].'</p>';
-							break;	
-						case 'license-key':
-							$license_status = lp_check_license_status($field);
-							//echo $license_status;exit;
-							echo '<input type="hidden" name="lp_license_status-'.$field['slug'].'" id="'.$field['id'] .'" value="'.$license_status.'" size="30" />
-							<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="30" />
-									<div class="lp_tooltip tool_text" title="'.$field['desc'].'"></div>';
-							
-							if ($license_status=='valid')
-							{
-								echo '<div class="lp_license_status_valid">Valid</div>';
-							}
-							else
-							{
-								echo '<div class="lp_license_status_invalid">Invalid</div>';
-							}						
-							break;	
-						case 'text':
-							echo '<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="30" />
-									<div class="lp_tooltip tool_text" title="'.$field['desc'].'"></div>';
-							break;
-						// textarea
-						case 'textarea':
-							echo '<textarea name="'.$field['id'] .'" id="'.$field['id'] .'" cols="106" rows="6">'.$option.'</textarea>
-									<div class="lp_tooltip tool_textarea" title="'.$field['desc'].'"></div>';
-							break;
-						// wysiwyg
-						case 'wysiwyg':
-							wp_editor( $option, $field['id'] , $settings = array() );
-							echo	'<span class="description">'.$field['desc'].'</span><br><br>';							
-							break;
-						// media					
-							case 'media':
-							//echo 1; exit;
-							echo '<label for="upload_image">';
-							echo '<input name="'.$field['id'] .'"  id="'.$field['id'] .'" type="text" size="36" name="upload_image" value="'.$option.'" />';
-							echo '<input class="upload_image_button" id="uploader_'.$field['id'] .'" type="button" value="Upload Image" />';
-							echo '<br /><div class="lp_tooltip tool_media" title="'.$field['desc'].'"></div>'; 
-							break;
-						// checkbox
-						case 'checkbox':
-							$i = 1;
-							echo "<table>";				
-							if (!isset($option)){$option=array();}
-							elseif (!is_array($option)){
-								$option = array($option);
-							}
-							foreach ($field['options'] as $value=>$label) {
-								if ($i==5||$i==1)
-								{
-									echo "<tr>";
-									$i=1;
-								}
-									echo '<td><input type="checkbox" name="'.$field['id'] .'[]" id="'.$field['id'] .'" value="'.$value.'" ',in_array($value,$option) ? ' checked="checked"' : '','/>';
-									echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label></td>';					
-								if ($i==4)
-								{
-									echo "</tr>";
-								}
-								$i++;
-							}
-							echo "</table>";
-							echo '<br><div class="lp_tooltip tool_checkbox" title="'.$field['desc'].'"></div>';
+			echo '<tr><th class="lp-gs-th" valign="top" style="font-weight:300px;">';
+				if ($field['type']=='header')
+				{
+					echo $field['default'];
+				}
+				else
+				{
+					echo "<small>".$field['label']."</small>";
+				}
+			echo '</th><td>';
+			
+				switch($field['type']) {
+					// text
+					case 'colorpicker':
+						if (!$option)
+						{
+							$option = $field['default'];
+						}
+						echo '<input type="text" class="jpicker" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="5" />
+								<div class="lp_tooltip tool_color" title="'.$field['desc'].'"></div>';
 						break;
-						// radio
-						case 'radio':
-							foreach ($field['options'] as $value=>$label) {
-								//echo $meta.":".$field['id'] ;
-								//echo "<br>";
-								echo '<input type="radio" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$value.'" ',$option==$value ? ' checked="checked"' : '','/>';
-								echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label> &nbsp;&nbsp;&nbsp;&nbsp;';								
-							}
-							echo '<div class="lp_tooltip tool_radio" title="'.$field['desc'].'"></div>';
-						break;
-						// select
-						case 'dropdown':
-							echo '<select name="'.$field['id'] .'" id="'.$field['id'] .'">';
-							foreach ($field['options'] as $value=>$label) {
-								echo '<option', $option == $value ? ' selected="selected"' : '', ' value="'.$value.'">'.$label.'</option>';
-							}
-							echo '</select><br /><div class="lp_tooltip tool_dropdown" title="'.$field['desc'].'"></div>';
-						break;
-						case 'html':
-							//print_r($field);
-							echo $option;
-							echo '<br /><div class="lp_tooltip tool_dropdown" title="'.$field['desc'].'"></div>';
-						break;
+					case 'datepicker':
+						echo '<input id="datepicker-example2" class="Zebra_DatePicker_Icon" type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="8" />
+								<div class="lp_tooltip tool_date" title="'.$field['desc'].'"></div><p class="description">'.$field['desc'].'</p>';
+						break;	
+					case 'license-key':
+						$license_status = lp_check_license_status($field);
+
+						echo '<input type="hidden" name="lp_license_status-'.$field['slug'].'" id="'.$field['id'] .'" value="'.$license_status.'" size="30" />
+						<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="30" />
+								<div class="lp_tooltip tool_text" title="'.$field['desc'].'"></div>';
 						
+						if ($license_status=='valid')
+						{
+							echo '<div class="lp_license_status_valid">Valid</div>';
+						}
+						else
+						{
+							echo '<div class="lp_license_status_invalid">Invalid</div>';
+						}						
+						break;	
+					case 'text':
+						echo '<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="30" />
+								<div class="lp_tooltip tool_text" title="'.$field['desc'].'"></div>';
+						break;
+					// textarea
+					case 'textarea':
+						echo '<textarea name="'.$field['id'] .'" id="'.$field['id'] .'" cols="106" rows="6">'.$option.'</textarea>
+								<div class="lp_tooltip tool_textarea" title="'.$field['desc'].'"></div>';
+						break;
+					// wysiwyg
+					case 'wysiwyg':
+						wp_editor( $option, $field['id'] , $settings = array() );
+						echo	'<span class="description">'.$field['desc'].'</span><br><br>';							
+						break;
+					// media					
+						case 'media':
+						//echo 1; exit;
+						echo '<label for="upload_image">';
+						echo '<input name="'.$field['id'] .'"  id="'.$field['id'] .'" type="text" size="36" name="upload_image" value="'.$option.'" />';
+						echo '<input class="upload_image_button" id="uploader_'.$field['id'] .'" type="button" value="Upload Image" />';
+						echo '<br /><div class="lp_tooltip tool_media" title="'.$field['desc'].'"></div>'; 
+						break;
+					// checkbox
+					case 'checkbox':
+						$i = 1;
+						echo "<table>";				
+						if (!isset($option)){$option=array();}
+						elseif (!is_array($option)){
+							$option = array($option);
+						}
+						foreach ($field['options'] as $value=>$label) {
+							if ($i==5||$i==1)
+							{
+								echo "<tr>";
+								$i=1;
+							}
+								echo '<td><input type="checkbox" name="'.$field['id'] .'[]" id="'.$field['id'] .'" value="'.$value.'" ',in_array($value,$option) ? ' checked="checked"' : '','/>';
+								echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label></td>';					
+							if ($i==4)
+							{
+								echo "</tr>";
+							}
+							$i++;
+						}
+						echo "</table>";
+						echo '<br><div class="lp_tooltip tool_checkbox" title="'.$field['desc'].'"></div>';
+					break;
+					// radio
+					case 'radio':
+						foreach ($field['options'] as $value=>$label) {
+							//echo $meta.":".$field['id'] ;
+							//echo "<br>";
+							echo '<input type="radio" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$value.'" ',$option==$value ? ' checked="checked"' : '','/>';
+							echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label> &nbsp;&nbsp;&nbsp;&nbsp;';								
+						}
+						echo '<div class="lp_tooltip tool_radio" title="'.$field['desc'].'"></div>';
+					break;
+					// select
+					case 'dropdown':
+						echo '<select name="'.$field['id'] .'" id="'.$field['id'] .'">';
+						foreach ($field['options'] as $value=>$label) {
+							echo '<option', $option == $value ? ' selected="selected"' : '', ' value="'.$value.'">'.$label.'</option>';
+						}
+						echo '</select><br /><div class="lp_tooltip tool_dropdown" title="'.$field['desc'].'"></div>';
+					break;
+					case 'html':
+						//print_r($field);
+						echo $option;
+						echo '<br /><div class="lp_tooltip tool_dropdown" title="'.$field['desc'].'"></div>';
+					break;
+					
 
 
-					} //end switch
+				} //end switch
 			echo '</td></tr>';
 		} // end foreach
 		echo '</table>'; // end table
 	}
+	
+		
+	function lp_check_license_status($field)
+	{
+
+		$date = date("Y-m-d");
+		$cache_date = get_option($field['id']."-expire");
+		$license_status = get_option('lp_license_status-'.$field['slug']);
+		
+		if (isset($cache_date)&&($date<$cache_date)&&$license_status=='valid')
+		{
+			return "valid";
+		}
+			
+		$license_key = get_option($field['id']);
+		
+		if ($license_key)
+		{
+			$api_params = array( 
+				'edd_action' => 'check_license', 
+				'license' => $license_key, 
+				'key' => $license_key, 
+				'item_name' => urlencode( $field['slug'] ) 
+			);
+			
+			// Call the custom API.
+			$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
+			
+			if ( is_wp_error( $response ) )
+				return false;
+
+			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
+
+			//var_dump($license_data);exit;
+			
+			if( $license_data->license == 'valid' ) {
+				$newDate = date('Y-m-d', strtotime("+15 days"));
+				update_option($field['id']."-expire", $newDate);
+				return 'valid';
+				// this license is still valid
+			} else {
+				return 'invalid';
+			}
+		}
+		else
+		{
+			return 'invalid';
+		}
+	}
+
 }

@@ -33,9 +33,38 @@
 				$match = TRUE;
 			}
 			if ($name != ".svn" && $name != ".git" && $match === FALSE){
-			include_once($extended_templates_path."$name/config.php");
+			
+				include_once($extended_templates_path."$name/config.php");				
+				$extended_templates[$name] = array('slug'=>$name);
 			}
-		}		
+		}
+		
+		//now add license key inputs to global settings area	
+		add_filter('lp_define_global_settings', 'lp_add_template_license_keys',99,1);
+		function lp_add_template_license_keys($lp_global_settings)
+		{
+			$lp_data = lp_get_extension_data();
+			
+			$lp_global_settings['lp-license-keys']['settings'][] = 	array(
+					'id'  => 'template-license-keys-header',
+					'description' => "Head to http://www.inboundnow.com/ to retrieve your license key for this template.",
+					'type'  => 'header',
+					'default' => '<h3 class="lp_global_settings_header">Template License Keys</h3>'
+			);
+			
+			foreach ($lp_data as $key=>$data)
+			{
+				$template_name = $lp_data[$key]['info']['label'];
+				$lp_global_settings['lp-license-keys']['settings'][] = 	array(
+					'id'  => $key,
+					'label' => $template_name,
+					'description' => "Head to http://www.inboundnow.com/ to retrieve your license key for this template.",
+					'type'  => 'license-key'
+				);
+			}
+
+			return $lp_global_settings;
+		}	
 	}
 
 	//Now load all config.php files with their custom meta data
@@ -49,6 +78,7 @@
 			}
 		}		
 	}
+	
 
  /**
  * DECLARE HELPER FUNCTIONS
@@ -59,8 +89,8 @@ function lp_get_extension_data()
 {
 	global $lp_data;
 	
-	$parent_key = 'lp';
-	
+	//add core settings to main tab
+	$parent_key = 'lp';	
 	$lp_data[$parent_key]['settings'] = 
 		array(	
 			//ADD METABOX - SELECTED TEMPLATE	
