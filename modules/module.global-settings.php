@@ -472,18 +472,18 @@ if (is_admin())
 							$option = $field['default'];
 						}
 						echo '<input type="text" class="jpicker" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="5" />
-								<div class="lp_tooltip tool_color" title="'.$field['desc'].'"></div>';
+								<div class="lp_tooltip tool_color" title="'.$field['description'].'"></div>';
 						break;
 					case 'datepicker':
 						echo '<input id="datepicker-example2" class="Zebra_DatePicker_Icon" type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="8" />
-								<div class="lp_tooltip tool_date" title="'.$field['desc'].'"></div><p class="description">'.$field['desc'].'</p>';
+								<div class="lp_tooltip tool_date" title="'.$field['description'].'"></div><p class="description">'.$field['description'].'</p>';
 						break;	
 					case 'license-key':
 						$license_status = lp_check_license_status($field);
 
 						echo '<input type="hidden" name="lp_license_status-'.$field['slug'].'" id="'.$field['id'] .'" value="'.$license_status.'" size="30" />
 						<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="30" />
-								<div class="lp_tooltip tool_text" title="'.$field['desc'].'"></div>';
+								<div class="lp_tooltip tool_text" title="'.$field['description'].'"></div>';
 						
 						if ($license_status=='valid')
 						{
@@ -496,17 +496,17 @@ if (is_admin())
 						break;	
 					case 'text':
 						echo '<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="30" />
-								<div class="lp_tooltip tool_text" title="'.$field['desc'].'"></div>';
+								<div class="lp_tooltip tool_text" title="'.$field['description'].'"></div>';
 						break;
 					// textarea
 					case 'textarea':
 						echo '<textarea name="'.$field['id'] .'" id="'.$field['id'] .'" cols="106" rows="6">'.$option.'</textarea>
-								<div class="lp_tooltip tool_textarea" title="'.$field['desc'].'"></div>';
+								<div class="lp_tooltip tool_textarea" title="'.$field['description'].'"></div>';
 						break;
 					// wysiwyg
 					case 'wysiwyg':
 						wp_editor( $option, $field['id'] , $settings = array() );
-						echo	'<span class="description">'.$field['desc'].'</span><br><br>';							
+						echo	'<span class="description">'.$field['description'].'</span><br><br>';							
 						break;
 					// media					
 						case 'media':
@@ -514,7 +514,7 @@ if (is_admin())
 						echo '<label for="upload_image">';
 						echo '<input name="'.$field['id'] .'"  id="'.$field['id'] .'" type="text" size="36" name="upload_image" value="'.$option.'" />';
 						echo '<input class="upload_image_button" id="uploader_'.$field['id'] .'" type="button" value="Upload Image" />';
-						echo '<br /><div class="lp_tooltip tool_media" title="'.$field['desc'].'"></div>'; 
+						echo '<br /><div class="lp_tooltip tool_media" title="'.$field['description'].'"></div>'; 
 						break;
 					// checkbox
 					case 'checkbox':
@@ -539,7 +539,7 @@ if (is_admin())
 							$i++;
 						}
 						echo "</table>";
-						echo '<br><div class="lp_tooltip tool_checkbox" title="'.$field['desc'].'"></div>';
+						echo '<br><div class="lp_tooltip tool_checkbox" title="'.$field['description'].'"></div>';
 					break;
 					// radio
 					case 'radio':
@@ -549,7 +549,7 @@ if (is_admin())
 							echo '<input type="radio" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$value.'" ',$option==$value ? ' checked="checked"' : '','/>';
 							echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label> &nbsp;&nbsp;&nbsp;&nbsp;';								
 						}
-						echo '<div class="lp_tooltip tool_radio" title="'.$field['desc'].'"></div>';
+						echo '<div class="lp_tooltip tool_radio" title="'.$field['description'].'"></div>';
 					break;
 					// select
 					case 'dropdown':
@@ -557,12 +557,12 @@ if (is_admin())
 						foreach ($field['options'] as $value=>$label) {
 							echo '<option', $option == $value ? ' selected="selected"' : '', ' value="'.$value.'">'.$label.'</option>';
 						}
-						echo '</select><br /><div class="lp_tooltip tool_dropdown" title="'.$field['desc'].'"></div>';
+						echo '</select><br /><div class="lp_tooltip tool_dropdown" title="'.$field['description'].'"></div>';
 					break;
 					case 'html':
 						//print_r($field);
 						echo $option;
-						echo '<br /><div class="lp_tooltip tool_dropdown" title="'.$field['desc'].'"></div>';
+						echo '<br /><div class="lp_tooltip tool_dropdown" title="'.$field['description'].'"></div>';
 					break;
 					
 
