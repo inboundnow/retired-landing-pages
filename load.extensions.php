@@ -58,8 +58,9 @@
 				$lp_global_settings['lp-license-keys']['settings'][] = 	array(
 					'id'  => $key,
 					'label' => $template_name,
+					'slug' => $key,
 					'description' => "Head to http://www.inboundnow.com/ to retrieve your license key for this template.",
-					'type'  => 'license-key'
+					'type'  => 'license-key',
 				);
 			}
 

@@ -334,18 +334,18 @@ if (is_admin())
 					}
 					if ($field['type']=='license-key')
 					{						
-						// retrieve the license from the database
-						$license = trim( get_option( 'edd_sample_license_key' ) );
 						
 						// data to send in our API request
 						$api_params = array( 
 							'edd_action'=> 'activate_license', 
 							'license' 	=> $new, 
 							'item_name' =>  $field['slug'] // the name of our product in EDD
-						);
+						);						
+						//print_r($api_params);
 						
 						// Call the custom API.
 						$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 30, 'sslverify' => false ) );
+						//echo $response['body'];exit;
 						
 						// make sure the response came back okay
 						if ( is_wp_error( $response ) )
@@ -439,6 +439,7 @@ if (is_admin())
 		//print_r($custom_fields);exit;
 		foreach ($custom_fields as $field) {
 			//echo $field['type'];exit; 
+			//print_r($field);
 			// get value of this field if it exists for this post
 			if (isset($field['default']))
 			{
