@@ -50,6 +50,7 @@ include_once('functions/functions.admin.php');
 include_once('modules/module.global-settings.php');
 include_once('modules/module.clone.php');
 include_once('modules/module.extension-updater.php');
+include_once('modules/module.extension-licensing.php');
 include_once('modules/module.install.php');
 include_once('modules/module.alert.php');
 }
