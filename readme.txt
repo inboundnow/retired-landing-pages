@@ -13,6 +13,8 @@ Create landing pages for your WordPress site. Monitor and improve conversion rat
 
 == Description ==
 
+> WordPress Landing Pages works as a standalone plugin or hand in hand with [WordPress Calls to Action](http://wordpress.org/plugins/cta/ "Learn more about Calls to Action") & [WordPress Leads](http://wordpress.org/plugins/leads/ "Learn more about WordPress Leads") to create a powerful & free lead generation system for your business.
+
 This plugin creates landing pages (a.k.a. conversion or splash pages) for your WordPress site. It gives site owners the ability to monitor and track conversion rates, run a/b or multivariate split tests on landing pages, and most importantly increase lead flow!
 
 The landing page plugin was specifically designed with inbound marketing best practices in mind and will help you drive & convert more leads on your site.
