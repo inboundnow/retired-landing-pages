@@ -660,7 +660,7 @@ function lp_ab_testing_add_rewrite_rules()
 	$slug = get_option( 'main-landing-page-permalink-prefix', 'go' );
 	//echo $slug;exit;
 	add_rewrite_rule("$slug/([^/]*)?", $this_path."modules/module.redirect-ab-testing.php?permalink_name=$1 ",'top');
-	add_rewrite_rule("langing-page=([^/]*)?", $this_path.'modules/module.redirect-ab-testing.php?permalink_name=$1','top');
+	add_rewrite_rule("landing-page=([^/]*)?", $this_path.'modules/module.redirect-ab-testing.php?permalink_name=$1','top');
 	
 	add_filter('mod_rewrite_rules', 'lp_ab_testing_modify_rules', 1);
 	function lp_ab_testing_modify_rules($rules)
