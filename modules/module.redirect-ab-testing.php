@@ -33,7 +33,7 @@ else
 {
 	//echo "here";
 	//echo $_GET['permalink_name'];exit;
-	$query = "SELECT * FROM {$table_prefix}posts WHERE post_name='".$_GET['permalink_name']."' AND post_type='landing-page' LIMIT 1";
+	$query = "SELECT * FROM {$table_prefix}posts WHERE post_name='".mysql_real_escape_string($_GET['permalink_name'])."' AND post_type='landing-page' LIMIT 1";
 	$result = mysql_query($query);
 	if (!$result){ echo $query; echo mysql_error(); exit;}
 	//echo mysql_num_rows($result);
