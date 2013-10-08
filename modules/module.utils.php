@@ -13,7 +13,7 @@ if (!function_exists('inbound_meta_debug')) {
 			$wpdb->query("
 			  SELECT `meta_key`, `meta_value`
 				FROM $wpdb->postmeta
-				WHERE `post_id` = ".$_GET['post']."
+				WHERE `post_id` = ".mysql_real_escape_string($_GET['post'])."
 			");
 			foreach($wpdb->last_result as $k => $v){
 				$data[$v->meta_key] =   $v->meta_value;
