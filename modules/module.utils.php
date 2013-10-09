@@ -5,9 +5,11 @@
 
 add_action( 'init', 'inbound_meta_debug' );
 if (!function_exists('inbound_meta_debug')) {
-	function inbound_meta_debug(){
-	//print all global fields for post
-	if (isset($_GET['debug'])) {
+	function inbound_meta_debug()
+	{
+		//print all global fields for post
+		if (isset($_GET['debug']) && ( isset($_GET['post']) && is_numeric($_GET['post']) ) ) 
+		{
 			global $wpdb;
 			$data   =   array();
 			$wpdb->query("
@@ -15,6 +17,7 @@ if (!function_exists('inbound_meta_debug')) {
 				FROM $wpdb->postmeta
 				WHERE `post_id` = ".mysql_real_escape_string($_GET['post'])."
 			");
+			
 			foreach($wpdb->last_result as $k => $v){
 				$data[$v->meta_key] =   $v->meta_value;
 			};
