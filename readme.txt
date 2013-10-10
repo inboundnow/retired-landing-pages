@@ -188,5 +188,3 @@ Bug Fix: 'Clear Stats' button.
 = 1.1 =
 
 Released
-
-
