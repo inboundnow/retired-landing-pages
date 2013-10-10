@@ -66,6 +66,7 @@ class LP_EXTENSION_LICENSE {
 		$lp_global_settings['lp-license-keys']['settings'][] = array(
 
 				'id'      => $this->item_slug,
+				'slug'      => $this->item_slug,
 				'label'    => sprintf( __( '%1$s', 'lp' ), $this->item_label ),
 				'description'    => 'Head to http://www.inboundnow.com/ to retrieve your license key for Landing Page Customizer for Landing Pages',
 				'type'    => 'license-key',
