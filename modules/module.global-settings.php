@@ -16,14 +16,20 @@ if (is_admin())
 	function lp_get_global_settings()
 	{
 		global $lp_global_settings;
-		
-		// Setup navigation and display elements
-		$tab_slug = 'main';
+				
+		/* Setup Main Navigation Tab and Settings */
+		$tab_slug = 'lp-main';
 		$lp_global_settings[$tab_slug]['label'] = 'Global Settings';	
+
 		
 		$lp_global_settings[$tab_slug]['settings'] = 
-		array(	
-			//ADD METABOX - SELECTED TEMPLATE	
+		array(				
+			array(
+				'id'  => 'lp_global_settings_main_header',			
+				'type'  => 'header', 
+				'default'  => '<h4>Landing Pages Core Settings</h4>',
+				'options' => null
+			),
 			array(
 				'id'  => 'landing-page-permalink-prefix',
 				'label' => 'Default Landing Page Permalink Prefix',
@@ -66,6 +72,11 @@ if (is_admin())
 			)
 		);
 
+		
+		/* Setup License Keys Tab */
+		$tab_slug = 'lp-license-keys';
+		$lp_global_settings[$tab_slug]['label'] = 'License Keys';	
+		
 		$lp_global_settings = apply_filters('lp_define_global_settings',$lp_global_settings);
 
 		return $lp_global_settings;
@@ -127,7 +138,7 @@ if (is_admin())
 		}
 		else
 		{
-			$default_id ='main';
+			$default_id ='lp-main';
 		}
 		?>
 		<script type='text/javascript'>
@@ -163,7 +174,7 @@ if (is_admin())
 		$lp_global_settings = lp_get_global_settings();
 		
 		//print_r($lp_global_settings);
-		$active_tab = 'main'; 
+		$active_tab = 'lp-main'; 
 		if (isset($_REQUEST['open-tab']))
 		{
 			$active_tab = $_REQUEST['open-tab'];
@@ -313,11 +324,14 @@ if (is_admin())
 		foreach ($lp_global_settings as $key=>$data)
 		{	
 			$tab_settings = $lp_global_settings[$key]['settings'];		
-
 			// loop through fields and save the data
 			foreach ($tab_settings as $field) 
 			{
 				$field['id']  = $key."-".$field['id'];
+				
+				if (array_key_exists('option_name',$field) && $field['option_name'] )			
+					$field['id'] = $field['option_name'];
+				
 				$field['old_value'] = get_option($field['id'] );	
 				(isset($_POST[$field['id'] ]))? $field['new_value'] = $_POST[$field['id'] ] : $field['new_value'] = null;
 				
@@ -451,6 +465,10 @@ if (is_admin())
 			}
 			
 			$field['id'] = $key."-".$field['id'];
+			
+			if (array_key_exists('option_name',$field) && $field['option_name'] )			
+				$field['id'] = $field['option_name'];
+				
 			$field['value'] = get_option($field['id'] , $default);
 			
 			// begin a table row with

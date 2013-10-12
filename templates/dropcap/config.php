@@ -12,6 +12,7 @@ do_action('lp_global_config');
 
 $lp_data[$key]['info'] = 
 array(
+	'data_type' => 'template', // Template Data Type
 	'version' => "2.0.0", // Version Number
 	'label' => "Dropcap", // Nice Name
 	'category' => 'Miscellaneous', // Template Category

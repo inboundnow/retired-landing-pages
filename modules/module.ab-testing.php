@@ -657,7 +657,7 @@ function lp_ab_testing_add_rewrite_rules()
 	$this_path = explode('wp-content',$this_path);
 	$this_path = "wp-content".$this_path[1];
 
-	$slug = get_option( 'main-landing-page-permalink-prefix', 'go' );
+	$slug = get_option( 'lp-main-landing-page-permalink-prefix', 'go' );
 	//echo $slug;exit;
 	add_rewrite_rule("$slug/([^/]*)?", $this_path."modules/module.redirect-ab-testing.php?permalink_name=$1 ",'top');
 	add_rewrite_rule("landing-page=([^/]*)?", $this_path.'modules/module.redirect-ab-testing.php?permalink_name=$1','top');
@@ -679,7 +679,7 @@ function lp_ab_testing_add_rewrite_rules()
 			$this_path = LANDINGPAGES_PATH;
 			$this_path = explode('wp-content',$this_path);
 			$this_path = "wp-content".$this_path[1];				
-			$slug = get_option( 'main-landing-page-permalink-prefix', 'go' );
+			$slug = get_option( 'lp-main-landing-page-permalink-prefix', 'go' );
 			
 			$i = 0;
 			foreach ($rules_array as $key=>$val)

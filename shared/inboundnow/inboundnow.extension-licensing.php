@@ -186,7 +186,6 @@ if ( ! class_exists( 'INBOUNDNOW_EXTENSION_LICENSE' ) ) :
 	{
 		if ($field['type']=='inboundnow-license-key')
 		{
-			//echo $field['id'].":".$_POST['main-landing-page-auto-format-forms']."<br>";
 			$field['id']  = "inboundnow-license-keys-".$field['slug'];
 			$field['old_value'] = get_option($field['id'] );	
 			

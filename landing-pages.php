@@ -170,7 +170,7 @@ function landing_pages_add_conversion_area($content)
 			$conversion_area = lp_conversion_area(null,null,true,true);
 		
 			
-			$standardize_form = get_option( 'main-landing-page-auto-format-forms' , 0); // conditional to check for options
+			$standardize_form = get_option( 'lp-main-landing-page-auto-format-forms' , 0); // conditional to check for options
 			if ($standardize_form) 
 			{
 				$wrapper_class = lp_discover_important_wrappers($conversion_area);

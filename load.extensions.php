@@ -235,7 +235,6 @@ function lp_get_extension_data_cats($array)
 			$template_cats[$cat_value]['value'] = $cat_value;
 		}
 	}
-	//print_r($template_cats);exit;
 	
 	return $template_cats;
 }
