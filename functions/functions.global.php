@@ -51,7 +51,7 @@ function lp_fontend_enqueue_scripts($hook)
 		wp_enqueue_script( 'landing-page-view-track' , LANDINGPAGES_URLPATH . 'js/page_view_track.js', array( 'jquery','jquery-cookie'));
 		wp_localize_script( 'landing-page-view-track' , 'landing_path_info', array( 'variation' => $variation, 'admin_url' => admin_url( 'admin-ajax.php' )));
 
-		$form_prepopulation = get_option( 'main-landing-page-prepopulate-forms' , 1);
+		$form_prepopulation = get_option( 'lp-main-landing-page-prepopulate-forms' , 1);
 			
 		// load form pre-population script
 		if ($form_prepopulation)
@@ -168,7 +168,7 @@ function lp_rebuild_attributes($content=null, $wrapper_class=null, $standardize_
 	{		
 		if ($standardize_form)
 		{
-			$tag_whitelist = trim(get_option( 'main-landing-page-auto-format-forms-retain-elements' , '<button><script><textarea><style><input><form><select><label><a><p><b><u><strong><i><img><strong><span><font><h1><h2><h3><center><blockquote><embed><object><small>'));
+			$tag_whitelist = trim(get_option( 'lp-main-landing-page-auto-format-forms-retain-elements' , '<button><script><textarea><style><input><form><select><label><a><p><b><u><strong><i><img><strong><span><font><h1><h2><h3><center><blockquote><embed><object><small>'));
 			$content = strip_tags($content, $tag_whitelist);
 			
 			if (!strstr($content,'<label')&&strstr($content,'<p'))
@@ -435,7 +435,7 @@ function lp_conversion_area($post = null, $content=null,$return=false, $doshortc
 	
 	$content = apply_filters('lp_conversion_area_pre_standardize',$content, $post, $doshortcode);
 
-	$standardize_form = get_option( 'main-landing-page-auto-format-forms' , 0); // conditional to check for options	
+	$standardize_form = get_option( 'lp-main-landing-page-auto-format-forms' , 0); // conditional to check for options	
 
 	$wrapper_class = lp_discover_important_wrappers($content);	
 	

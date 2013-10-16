@@ -16,14 +16,20 @@ if (is_admin())
 	function lp_get_global_settings()
 	{
 		global $lp_global_settings;
-		
-		// Setup navigation and display elements
-		$tab_slug = 'main';
+				
+		/* Setup Main Navigation Tab and Settings */
+		$tab_slug = 'lp-main';
 		$lp_global_settings[$tab_slug]['label'] = 'Global Settings';	
+
 		
 		$lp_global_settings[$tab_slug]['settings'] = 
-		array(	
-			//ADD METABOX - SELECTED TEMPLATE	
+		array(				
+			array(
+				'id'  => 'lp_global_settings_main_header',			
+				'type'  => 'header', 
+				'default'  => '<h4>Landing Pages Core Settings</h4>',
+				'options' => null
+			),
 			array(
 				'id'  => 'landing-page-permalink-prefix',
 				'label' => 'Default Landing Page Permalink Prefix',
@@ -66,6 +72,11 @@ if (is_admin())
 			)
 		);
 
+		
+		/* Setup License Keys Tab */
+		$tab_slug = 'lp-license-keys';
+		$lp_global_settings[$tab_slug]['label'] = 'License Keys';	
+		
 		$lp_global_settings = apply_filters('lp_define_global_settings',$lp_global_settings);
 
 		return $lp_global_settings;
@@ -127,7 +138,7 @@ if (is_admin())
 		}
 		else
 		{
-			$default_id ='main';
+			$default_id ='lp-main';
 		}
 		?>
 		<script type='text/javascript'>
@@ -163,7 +174,7 @@ if (is_admin())
 		$lp_global_settings = lp_get_global_settings();
 		
 		//print_r($lp_global_settings);
-		$active_tab = 'main'; 
+		$active_tab = 'lp-main'; 
 		if (isset($_REQUEST['open-tab']))
 		{
 			$active_tab = $_REQUEST['open-tab'];
@@ -313,19 +324,22 @@ if (is_admin())
 		foreach ($lp_global_settings as $key=>$data)
 		{	
 			$tab_settings = $lp_global_settings[$key]['settings'];		
-
 			// loop through fields and save the data
 			foreach ($tab_settings as $field) 
 			{
 				$field['id']  = $key."-".$field['id'];
-				$old = get_option($field['id'] );	
-				(isset($_POST[$field['id'] ]))? $new = $_POST[$field['id'] ] : $new = null;
+				
+				if (array_key_exists('option_name',$field) && $field['option_name'] )			
+					$field['id'] = $field['option_name'];
+				
+				$field['old_value'] = get_option($field['id'] );	
+				(isset($_POST[$field['id'] ]))? $field['new_value'] = $_POST[$field['id'] ] : $field['new_value'] = null;
 				
 				
-				if ((isset($new) && ($new !== $old ) )|| !isset($old) ) 
+				if ((isset($field['new_value']) && ($field['new_value'] !== $field['old_value'] ) )|| !isset($field['old_value']) ) 
 				{
 					//echo $field['id'] ;exit;
-					$bool = update_option($field['id'] ,$new);				
+					$bool = update_option($field['id'] ,$field['new_value']);				
 					if ($field['id'] =='main-landing-page-permalink-prefix')
 					{
 						//echo "here";
@@ -338,7 +352,7 @@ if (is_admin())
 						// data to send in our API request
 						$api_params = array( 
 							'edd_action'=> 'activate_license', 
-							'license' 	=> $new, 
+							'license' 	=> $field['new_value'], 
 							'item_name' =>  $field['slug'] // the name of our product in EDD
 						);						
 						//print_r($api_params);
@@ -361,7 +375,7 @@ if (is_admin())
 						//echo 'lp_license_status-'.$field['slug']." :".$license_data->license;exit;
 					}
 				} 
-				elseif (!$new && $old) 
+				elseif (!$field['new_value'] && $field['old_value']) 
 				{
 					//echo "here: $key <br>";
 					$bool = delete_option($field['id'] );
@@ -369,12 +383,12 @@ if (is_admin())
 				else
 				{
 					//print_r($field);
-					if ($field['type']=='license-key'&& $new )
+					if ($field['type']=='license-key'&& $field['new_value'] )
 					{
 					
 						$license_status = get_option('lp_license_status-'.$field['slug']);
 						
-						if ($license_status=='valid' && $new == $old)
+						if ($license_status=='valid' && $field['new_value'] == $field['old_value'])
 						{
 							continue;
 						}
@@ -385,7 +399,7 @@ if (is_admin())
 						// data to send in our API request
 						$api_params = array( 
 							'edd_action'=> 'activate_license', 
-							'license' 	=> $new, 
+							'license' 	=> $field['new_value'], 
 							'item_name' =>  $field['slug'] // the name of our product in EDD
 						);
 						
@@ -451,7 +465,11 @@ if (is_admin())
 			}
 			
 			$field['id'] = $key."-".$field['id'];
-			$option = get_option($field['id'] , $default);
+			
+			if (array_key_exists('option_name',$field) && $field['option_name'] )			
+				$field['id'] = $field['option_name'];
+				
+			$field['value'] = get_option($field['id'] , $default);
 			
 			// begin a table row with
 			echo '<tr><th class="lp-gs-th" valign="top" style="font-weight:300px;">';
@@ -468,22 +486,22 @@ if (is_admin())
 				switch($field['type']) {
 					// text
 					case 'colorpicker':
-						if (!$option)
+						if (!$field['value'])
 						{
-							$option = $field['default'];
+							$field['value'] = $field['default'];
 						}
-						echo '<input type="text" class="jpicker" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="5" />
+						echo '<input type="text" class="jpicker" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$field['value'].'" size="5" />
 								<div class="lp_tooltip tool_color" title="'.$field['description'].'"></div>';
 						break;
 					case 'datepicker':
-						echo '<input id="datepicker-example2" class="Zebra_DatePicker_Icon" type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="8" />
+						echo '<input id="datepicker-example2" class="Zebra_DatePicker_Icon" type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$field['value'].'" size="8" />
 								<div class="lp_tooltip tool_date" title="'.$field['description'].'"></div><p class="description">'.$field['description'].'</p>';
 						break;	
 					case 'license-key':
 						$license_status = lp_check_license_status($field);
 
 						echo '<input type="hidden" name="lp_license_status-'.$field['slug'].'" id="'.$field['id'] .'" value="'.$license_status.'" size="30" />
-						<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="30" />
+						<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$field['value'].'" size="30" />
 								<div class="lp_tooltip tool_text" title="'.$field['description'].'"></div>';
 						
 						if ($license_status=='valid')
@@ -496,24 +514,24 @@ if (is_admin())
 						}						
 						break;	
 					case 'text':
-						echo '<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$option.'" size="30" />
+						echo '<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$field['value'].'" size="30" />
 								<div class="lp_tooltip tool_text" title="'.$field['description'].'"></div>';
 						break;
 					// textarea
 					case 'textarea':
-						echo '<textarea name="'.$field['id'] .'" id="'.$field['id'] .'" cols="106" rows="6">'.$option.'</textarea>
+						echo '<textarea name="'.$field['id'] .'" id="'.$field['id'] .'" cols="106" rows="6">'.$field['value'].'</textarea>
 								<div class="lp_tooltip tool_textarea" title="'.$field['description'].'"></div>';
 						break;
 					// wysiwyg
 					case 'wysiwyg':
-						wp_editor( $option, $field['id'] , $settings = array() );
+						wp_editor( $field['value'], $field['id'] , $settings = array() );
 						echo	'<span class="description">'.$field['description'].'</span><br><br>';							
 						break;
 					// media					
 						case 'media':
 						//echo 1; exit;
 						echo '<label for="upload_image">';
-						echo '<input name="'.$field['id'] .'"  id="'.$field['id'] .'" type="text" size="36" name="upload_image" value="'.$option.'" />';
+						echo '<input name="'.$field['id'] .'"  id="'.$field['id'] .'" type="text" size="36" name="upload_image" value="'.$field['value'].'" />';
 						echo '<input class="upload_image_button" id="uploader_'.$field['id'] .'" type="button" value="Upload Image" />';
 						echo '<br /><div class="lp_tooltip tool_media" title="'.$field['description'].'"></div>'; 
 						break;
@@ -521,9 +539,9 @@ if (is_admin())
 					case 'checkbox':
 						$i = 1;
 						echo "<table>";				
-						if (!isset($option)){$option=array();}
-						elseif (!is_array($option)){
-							$option = array($option);
+						if (!isset($field['value'])){$field['value']=array();}
+						elseif (!is_array($field['value'])){
+							$field['value'] = array($field['value']);
 						}
 						foreach ($field['options'] as $value=>$label) {
 							if ($i==5||$i==1)
@@ -531,7 +549,7 @@ if (is_admin())
 								echo "<tr>";
 								$i=1;
 							}
-								echo '<td><input type="checkbox" name="'.$field['id'] .'[]" id="'.$field['id'] .'" value="'.$value.'" ',in_array($value,$option) ? ' checked="checked"' : '','/>';
+								echo '<td><input type="checkbox" name="'.$field['id'] .'[]" id="'.$field['id'] .'" value="'.$value.'" ',in_array($value,$field['value']) ? ' checked="checked"' : '','/>';
 								echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label></td>';					
 							if ($i==4)
 							{
@@ -547,7 +565,7 @@ if (is_admin())
 						foreach ($field['options'] as $value=>$label) {
 							//echo $meta.":".$field['id'] ;
 							//echo "<br>";
-							echo '<input type="radio" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$value.'" ',$option==$value ? ' checked="checked"' : '','/>';
+							echo '<input type="radio" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$value.'" ',$field['value']==$value ? ' checked="checked"' : '','/>';
 							echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label> &nbsp;&nbsp;&nbsp;&nbsp;';								
 						}
 						echo '<div class="lp_tooltip tool_radio" title="'.$field['description'].'"></div>';
@@ -556,19 +574,22 @@ if (is_admin())
 					case 'dropdown':
 						echo '<select name="'.$field['id'] .'" id="'.$field['id'] .'">';
 						foreach ($field['options'] as $value=>$label) {
-							echo '<option', $option == $value ? ' selected="selected"' : '', ' value="'.$value.'">'.$label.'</option>';
+							echo '<option', $field['value'] == $value ? ' selected="selected"' : '', ' value="'.$value.'">'.$label.'</option>';
 						}
 						echo '</select><br /><div class="lp_tooltip tool_dropdown" title="'.$field['description'].'"></div>';
 					break;
 					case 'html':
 						//print_r($field);
-						echo $option;
+						echo $field['value'];
 						echo '<br /><div class="lp_tooltip tool_dropdown" title="'.$field['description'].'"></div>';
 					break;
 					
 
 
 				} //end switch
+				
+				do_action('lp_render_global_settings',$field);
+				
 			echo '</td></tr>';
 		} // end foreach
 		echo '</table>'; // end table

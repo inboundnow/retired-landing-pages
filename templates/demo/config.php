@@ -3,7 +3,7 @@
 * WordPress Landing Page Config File
 * Template Name:  Demo Template
 * @package  WordPress Landing Pages
-* @author 	David Wells
+* @author 	InboundNow
 *
 * This is a demo template for developers and designers to use as a reference for building landing page templates
 * For a boilerplate without all the markup visit: XYZ

@@ -14,6 +14,7 @@ $key = lp_get_parent_directory(dirname(__FILE__));
 
 $lp_data[$key]['info'] = 
 array(
+	'data_type' => 'template', // Template Data Type
 	'version' => "1.0.1", // Version Number
 	'label' => "Simple Two Column", // Nice Name
 	'category' => 'Miscellaneous, v1', // Template Category

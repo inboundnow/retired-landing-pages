@@ -14,6 +14,7 @@ $key = lp_get_parent_directory(dirname(__FILE__));
 
 $lp_data[$key]['info'] =  
 array(
+	'data_type' => 'template', // Template Data Type
 	'version' => "1.0.0.5", // Version Number
 	'label' => "Countdown Lander", // Nice Name
 	'category' => 'Countdown', // Template Category

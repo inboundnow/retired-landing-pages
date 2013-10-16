@@ -42,7 +42,7 @@ class lp_conversion_area_widget extends WP_Widget
 				$title = apply_filters('widget_title', $instance['title'] );
 				
 				$conversion_area = do_shortcode(get_post_meta($this_id, 'lp-conversion-area', true));
-				$standardize_form = get_option( 'main-landing-page-auto-format-forms' , 0); // conditional to check for options
+				$standardize_form = get_option( 'lp-main-landing-page-auto-format-forms' , 0); // conditional to check for options
 				if ($standardize_form) 
 				{
 					$wrapper_class = lp_discover_important_wrappers($conversion_area);

@@ -35,15 +35,10 @@ include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Sho
 /* Inbound Core Shared Files. Lead files take presidence */
 add_action( 'plugins_loaded', 'inbound_load_shared_landing_pages' );
 function inbound_load_shared_landing_pages(){
-		if (function_exists('wpleads_check_active') && file_exists( WPL_PATH.'/shared/tracking/store.lead.php')) { 
-			include_once( WPL_PATH.'/shared/tracking/store.lead.php'); // Lead Storage from leads plugin
-			include_once( WPL_PATH.'/shared/classes/form.class.php'); // Inbound Forms Module
-			
-		} else {
-			include_once('shared/tracking/store.lead.php'); // Lead Storage from landing pages
-			include_once('shared/classes/form.class.php');  // Mirrored forms
-			
-		}
+	include_once('shared/tracking/store.lead.php'); // Lead Storage from landing pages
+	include_once('shared/classes/form.class.php');  // Mirrored forms			
+	include_once('shared/inboundnow/inboundnow.extension-licensing.php'); // Inboundnow Package Licensing
+	include_once('shared/inboundnow/inboundnow.extension-updating.php'); // Inboundnow Package Updating		
 }
 
 if (is_admin())
@@ -176,7 +171,7 @@ function landing_pages_add_conversion_area($content)
 			$conversion_area = lp_conversion_area(null,null,true,true);
 		
 			
-			$standardize_form = get_option( 'main-landing-page-auto-format-forms' , 0); // conditional to check for options
+			$standardize_form = get_option( 'lp-main-landing-page-auto-format-forms' , 0); // conditional to check for options
 			if ($standardize_form) 
 			{
 				$wrapper_class = lp_discover_important_wrappers($conversion_area);
