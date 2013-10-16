@@ -241,15 +241,16 @@ add_filter('single_template', 'lp_custom_template');
 
 function lp_custom_template($single) {
     global $wp_query, $post, $query_string;
-	$template = get_post_meta($post->ID, 'lp-selected-template', true);
-	$template = apply_filters('lp_selected_template',$template); 
-		
-	
-	if (isset($template))
+	//echo 2;exit;
+	if ($post->post_type == "landing-page")
 	{
-		//echo 2;exit;
-		if ($post->post_type == "landing-page")
+		$template = get_post_meta($post->ID, 'lp-selected-template', true);
+		$template = apply_filters('lp_selected_template',$template); 
+			
+		
+		if (isset($template))
 		{
+			
 			if (strstr($template,'-slash-'))
 			{
 				$template = str_replace('-slash-','/',$template);
@@ -278,6 +279,7 @@ function lp_custom_template($single) {
 			}
 		}
 	}
+	
     return $single;
 }
 
