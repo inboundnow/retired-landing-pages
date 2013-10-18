@@ -116,7 +116,7 @@ function lp_meta_box_conversion_area(){
 
 	//Clear The Room!
 	echo "<div style='clear:both; display:block;'></div>";
-	echo "<div style='width:100%;text-align:right;margin-top:11px;'><div class='lp_tooltip'  title=\"To help track conversions Landing Pages Plugin will automatically add a tracking class to forms. If you would like to manually track an element add this class to it class='wpl-track-me'\" ></div></div>";
+	echo "<div style='width:100%;text-align:right;margin-top:11px;'><div class='lp_tooltip'  title=\"To help track conversions Landing Pages Plugin will automatically add a tracking class to forms. If you would like to track a link add this class to it class='wpl-track-me-link'\" ></div></div>";
 		
 }
 
