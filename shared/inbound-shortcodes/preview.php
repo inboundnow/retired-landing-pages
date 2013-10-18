@@ -134,26 +134,6 @@ text-align: center;
 			
 			<?php // echo "<br>". $shortcode; ?>
 			
-			 <span id="iframe-insert-shortcode" class="button-primary inbound-shortcodes-insert bottom-insert-button"><?php _e('Insert Shortcode', INBOUND_LABEL); ?></span>
-			 <script type="text/javascript">
-			 jQuery(document).ready(function($) {
-			 	jQuery("body").on('click', '#iframe-insert-shortcode', function () {
-			 		
-			 		var parent_window = jQuery(parent.document);
-			 		var form_name = parent_window.find("#inbound_shortcode_form_name").val();
-			 		console.log(form_name);
-			 		var test = parent_window.find('#_fresh_shortcodes_newoutput').html();
-					if (typeof (form_name) != "undefined" && form_name !== null && form_name !== "") {		 			
-					if(parent.window.tinyMCE) {
-						parent.window.tinyMCE.execInstanceCommand('content', 'mceInsertContent', false, test);
-						
-						parent.window.tb_remove();
-					}
-					} else {
-						alert("Please Insert a Form Name!");
-					}
-    			});
-			 });
-			</script>
+		
 		</body>
 	</html>

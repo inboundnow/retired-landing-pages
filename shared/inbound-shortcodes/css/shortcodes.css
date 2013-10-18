@@ -1,5 +1,5 @@
 #inbound-shortcodes-popup{
-	width:900px;
+	width:100%;
 	overflow:hidden;
 	position: relative;
 }
@@ -29,46 +29,89 @@
 }
 /* Form Wrap -------------------------- */
 #inbound-shortcodes-form-wrap{
-	width:565px;
+	width:65%;
 	float:left;
-	border-right: solid 1px #D0D0D0;
+	
 }
 
 #inbound-shortcodes-form-wrap #inbound-shortcodes-form-head{
-	width:585px;
-	padding:15px;
+	width: 100%;
+padding-top: 15px;
+padding-bottom: 15px;
+padding-left: 15px;
+overflow: hidden;
 	color:#fff;
 	font-weight:bold;
 	line-height:1;
 	text-shadow:0 -1px 0 #000;
 	background-color:#404040;
 }
+.no_preview #inbound-shortcodes-form-wrap, .no_preview #inbound-shortcodes-form-wrap {
+	width: 100%;
+}
 #inbound-shortcodes-popup.no_preview #inbound-shortcodes-form-wrap #inbound-shortcodes-form-head{
-	width:530px;
+	width:100%;
 }
 #inbound-shortcodes-form-wrap #inbound-shortcodes-form {
-	width:490px;
+	width:100%;
 	padding:15px;
 	padding-top: 5px;
+	padding-left: 5%;
+	padding-bottom: 50px;
 }
 #inbound-shortcodes-preview {
 height: 495px; }
 #inbound-shortcodes-preview {
-width: 317px;
+width: 31.7%;
 	max-height: 100%;
 position: fixed;
-
+height:81%;
+border-left: solid 1px #D0D0D0;
+}
+#popup-controls {
+	position: absolute;
+	border-top: 1px solid #CCC;
+bottom: -7px;
+width: 100%;
+background: #CCC;
+margin: 0px;
+padding: 0px;
+padding-top: 10px;
+padding-bottom: 10px;
+-webkit-border-bottom-right-radius: 5px;
+-moz-border-radius-bottomright: 5px;
+border-bottom-right-radius: 5px;
+-webkit-border-bottom-left-radius: 5px;
+-moz-border-radius-bottomleft: 5px;
+border-bottom-left-radius: 5px;
+background: #EEE;
+}
+#inbound_insert_shortcode_two, #shortcode_cancel {
+width: 250px;
+text-align: center;
+color: #FFF !important;
+height: 30px;
+font-size: 17px;
+line-height: 28px;
+padding: 0 12px 2px;
+margin: 0 5px;
+margin-left: 25px;
+}
+#shortcode_cancel {
+	color:#000 !important;
+}
+.need-value {
+	border: 1px #F00 solid !important;
 }
 /* Preview Wrap
  * ---------------------------------------- */
 #inbound-shortcodes-preview-wrap{
-	width: 313px;
+	width: 34%;
 background: #F7F7F7;
 border-left: solid 1px #D0D0D0;
 
 float: left;
-position: absolute;
-right: 20px;
+
 }
 .tog-hide-it {
 	display: none !important; 
@@ -197,7 +240,7 @@ padding: 3px 20px;
 }
 .form-field-row-number {
 position: absolute;
-left: 6px;
+left: 24px;
 font-size: 18px;
 }
 #inbound-shortcodes-form-table .has-child .sortable-placeholder {
@@ -267,4 +310,8 @@ margin-top: -7px;
 cursor: pointer;
 font-size: 10px;
 text-decoration: none;
+}
+/* tinmyce icons */
+.wp_themeSkin .mceIcon.mce_editor-icon-forms {
+	background: url(../images/inbound_form_ico.png) 3px;
 }

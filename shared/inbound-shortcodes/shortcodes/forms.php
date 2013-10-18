@@ -14,28 +14,35 @@
 				'type' => 'text',
 				'std' => '' 
 			),
-		'layout' => array(
-					'name' => __('Form Layout', INBOUND_LABEL),
-					'desc' => __('Choose Your Form Layout', INBOUND_LABEL),
-					'type' => 'select',
-					'options' => array(
-						"vertical" => "Vertical", 
-						"horizontal" => "Horizontal",
-						),
-					'std' => 'inline'
-				),		
-		'labels' => array(
-					'name' => __('Label Alignment', INBOUND_LABEL),
-					'desc' => __('Choose Label Layout', INBOUND_LABEL),
-					'type' => 'select',
-					'options' => array(
-						"top" => "Labels on Top", 
-						"bottom" => "Labels on Bottom",
-						"inline" => "Inline",
-						"placeholder" => "Use HTML5 Placeholder text only"
-						),
-					'std' => 'inline'
-				),	
+			'layout' => array(
+						'name' => __('Form Layout', INBOUND_LABEL),
+						'desc' => __('Choose Your Form Layout', INBOUND_LABEL),
+						'type' => 'select',
+						'options' => array(
+							"vertical" => "Vertical", 
+							"horizontal" => "Horizontal",
+							),
+						'std' => 'inline'
+					),		
+			'labels' => array(
+						'name' => __('Label Alignment', INBOUND_LABEL),
+						'desc' => __('Choose Label Layout', INBOUND_LABEL),
+						'type' => 'select',
+						'options' => array(
+							"top" => "Labels on Top", 
+							"bottom" => "Labels on Bottom",
+							"inline" => "Inline",
+							"placeholder" => "Use HTML5 Placeholder text only"
+							),
+						'std' => 'top'
+					),
+			'width' => array(
+				'name' => __('Custom Width', INBOUND_LABEL),
+				'desc' => __('This is not shown to visitors', INBOUND_LABEL),
+				'type' => 'text',
+				'std' => '',
+				'class' => 'form-advanced',
+			),
 		),
 		'child' => array(
 			'options' => array(
@@ -132,7 +139,7 @@
 			'shortcode' => '[inbound_field label="{{label}}" type="{{field_type}}" description="{{description}}" required="{{required}}" dropdown="{{dropdown_options}}" radio="{{radio_options}}" placeholder="{{placeholder}}" html="{{html_block_options}}" dynamic="{{hidden_input_options}}"]',
 			'clone' => __('Add Another Field',  INBOUND_LABEL )
 		),
-		'shortcode' => '[inbound_form_test name="{{form_name}}" layout="{{layout}}" labels="{{labels}}"]{{child}}[/inbound_form_test]',
+		'shortcode' => '[inbound_form_test name="{{form_name}}" layout="{{layout}}" labels="{{labels}}" width="{{width}}"]{{child}}[/inbound_form_test]',
 		'popup_title' => __('Insert Inbound Form Shortcode',  INBOUND_LABEL)
 	);
 
@@ -144,13 +151,15 @@
 		extract(shortcode_atts(array(
 			'name' => '',
 			'layout' => '',
-			'labels' => ''
+			'labels' => '',
+			'width' => ''
 		), $atts));
 		
 		$form_name = $name;
 		$form_layout = $layout;
 		$form_labels = $labels;
 		$form_labels_class = (isset($form_labels)) ? "inbound-label-".$form_labels : 'inbound-label-inline';
+		$form_width = (isset($width)) ? "width:".$width."px;" : '';
 		
 		//if (!preg_match_all("/(.?)\[(inbound_field)\b(.*?)(?:(\/))?\](?:(.+?)\[\/inbound_field\])?(.?)/s", $content, $matches)) {
 		if (!preg_match_all('/(.?)\[(inbound_field)(.*?)\]/s',$content, $matches)) {
@@ -168,11 +177,13 @@
 
 			$form = '<!-- This Inbound Form is Automatically Tracked -->';
         	$form .= '<div id="inbound-form-wrapper" class="">';
-        	$form .= '<form class="inbound-now-form wpl-track-me" method="post" action="">';
+        	$form .= '<form class="inbound-now-form wpl-track-me" method="post" action="" style="'.$form_width.'">';
         	$main_layout = ($form_layout != "") ? 'inbound-'.$form_layout : 'inbound-normal';
 				for($i = 0; $i < count($matches[0]); $i++) {
 
 					$label = (isset($matches[3][$i]['label'])) ? $matches[3][$i]['label'] : '';
+					$clean_label = preg_replace("/[^A-Za-z0-9 ]/", '', trim($label));
+					$formatted_label = strtolower(str_replace(array(' ','_'),'-',$clean_label));
 					$field_placeholder = (isset($matches[3][$i]['placeholder'])) ? $matches[3][$i]['placeholder'] : '';
 
 					$placeholer_use = ($field_placeholder != "") ? $field_placeholder : $label;
@@ -188,13 +199,14 @@
 					$description_block = (isset($matches[3][$i]['description'])) ? $matches[3][$i]['description'] : '';
 					$required = (isset($matches[3][$i]['required'])) ? $matches[3][$i]['required'] : '0';
 					$req = ($required === '1') ? 'required' : '';
+					$req_label = ($required === '1') ? '<span class="inbound-required">*</span>' : '';
 					$field_name = strtolower(str_replace(array(' ','_'),'-',$label));
 
           			
 					$type = (isset($matches[3][$i]['type'])) ? $matches[3][$i]['type'] : '';
 						$form .= '<div class="inbound-field '.$main_layout.'">';
-					if ($type != 'hidden' && $form_labels != "bottom"){	
-                    	$form .= '<label class="inbound-label '.$matches[3][$i]['label'].' '.$form_labels_class.'">' . $matches[3][$i]['label'] . '</label>';
+					if ($type != 'hidden' && $form_labels != "bottom" || $type === "radio"){	
+                    	$form .= '<label class="inbound-label '.$formatted_label.' '.$form_labels_class.' inbound-input-'.$type.'">' . $matches[3][$i]['label'] . $req_label . '</label>';
                     }	
           			if ($type === 'textarea'){
           				$form .=  '<textarea class="inbound-input inbound-input-textarea" name="'.$field_name.'" id="in_'.$field_name.' '.$req.'"/></textarea>'; 	
@@ -212,10 +224,11 @@
           				$radio_fields = array();
 						$radio = $matches[3][$i]['radio'];
 						$radio_fields = explode(",", $radio);
-						
+						// $clean_radio = str_replace(array(' ','_'),'-',$value) // clean leading spaces. finish
 						foreach ($radio_fields as $key => $value) { 
-							$radio_val = strtolower(str_replace(array(' ','_'),'-',$value));
-							$form .= '<input type="radio" name="'. $field_name .'" value="'. $radio_val .'">'. $value .'<br>';
+							$radio_val_trimmed =  trim($value);
+							$radio_val =  strtolower(str_replace(array(' ','_'),'-',$radio_val_1));
+							$form .= '<span class="radio-'.$main_layout.' radio-'.$form_labels_class.'"><input type="radio" name="'. $field_name .'" value="'. $radio_val .'">'. $radio_val_trimmed .'</span>';
 						}
 					} else if ($type === 'html-block'){	
 							$html = $matches[3][$i]['html'];
@@ -229,8 +242,8 @@
           				$dynamic_value = (isset($_GET[$hidden_param])) ? $_GET[$hidden_param] : '';
 		           		$form .=  '<input class="inbound-input inbound-input-text '.$matches[3][$i]['label'].'" name="'.$field_name.'" '.$form_placeholder.' value="'.$dynamic_value.'" type="'.$type.'" '.$req.'/>';
 		       		}
-		       		if ($type != 'hidden' && $form_labels === "bottom"){	
-                    	$form .= '<label class="inbound-label '.$matches[3][$i]['label'].' '.$form_labels_class.'">' . $matches[3][$i]['label'] . '</label>';
+		       		if ($type != 'hidden' && $form_labels === "bottom" && $type != "radio"){	
+                    	$form .= '<label class="inbound-label '.$formatted_label.' '.$form_labels_class.' inbound-input-'.$type.'">' . $matches[3][$i]['label'] . $req_label . '</label>';
                     }
                    
                     

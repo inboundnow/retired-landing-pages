@@ -54,15 +54,15 @@ if (cta_status > -1) {
 				// adds the tinymce button
 				btn = e.createSplitButton('InboundShortcodesButton', {
 					title: 'Insert Shortcode',
-					image: inbound_load.image_dir + 'shortcodes.png',
-					icons: false
+					image: inbound_load.image_dir + 'shortcodes-blue.png',
+					icons: true
 				});
 
 				// adds the dropdown to the button
 				btn.onRenderMenu.add(function(c, b) {
 					b.add({title : 'Inbound Shortcodes', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
 					a.addWithPopup( b, 'Insert Inbound Form', 'forms' );
-					a.addWithPopup( b, 'Insert Button Shortcode', 'button' );
+					a.addWithPopup( b, 'Insert Button Shortcode',  'button' );
 					if (cta_status > -1) {
 					b.add({title : 'Call to Action Shortcodes', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
 					a.addWithPopup( b, 'Insert Call to Action', 'button' ); // to to CTA
@@ -106,6 +106,7 @@ if (cta_status > -1) {
 		addWithPopup: function(ed, title, id) {
 			ed.add({
 				title: title,
+				icon: 'editor-icon-' + id,
 				onclick: function() {
 					tinyMCE.activeEditor.execCommand('InboundShortcodesPopup', false, {
 						title: title,
@@ -118,6 +119,7 @@ if (cta_status > -1) {
 		addImmediate: function(ed, title, sc) {
 			ed.add({
 				title: title,
+
 				onclick: function() {
 					tinyMCE.activeEditor.execCommand('mceInsertContent', false, sc);
 				}
@@ -127,9 +129,9 @@ if (cta_status > -1) {
 		getInfo: function() {
 			return {
 				longname: 'Inbound Shortcodes',
-				author: 'Rifki A.G',
-				authorurl: 'http://themeforest.net/user/rifki/',
-				infourl: 'http://wiki.moxiecode.com/',
+				author: 'David Wells',
+				authorurl: 'http://www.inboundnow.com/',
+				infourl: 'http://www.inboundnow.com/',
 				version: '1.0'
 			};
 		}

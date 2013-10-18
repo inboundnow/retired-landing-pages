@@ -2,14 +2,91 @@
 .inbound-label-top, .inbound-label-bottom {
 display: block;
 }
-.inbound-label-bottom {
-
+#inbound-form-wrapper .inbound-label.inbound-label-bottom {
+margin: 0px 0 10px 0;
+}
+#inbound-form-wrapper .inbound-label.inbound-label-inline {
+    min-width: 80px;
+display: inline-block;
+padding-right: 10px;
+} 
+.radio-inbound-vertical.radio-inbound-label-bottom, #inbound-form-wrapper .inbound-label.inbound-label-inline.inbound-input-radio, .radio-inbound-vertical.radio-inbound-label-top {
+display: block;
+}
+.radio-inbound-vertical.radio-inbound-label-bottom:last-child {
+margin: 0px 0 10px 0; 
+}
+.radio-inbound-vertical.radio-inbound-label-inline {
+padding-right: 5px;
 }
 .inbound-label-placeholder {
     display: none;
 }
 .inbound-horizontal {
     display: inline-block;
+}
+/* global fixes */
+.inbound-field {
+    margin-left: 0 !important;
+    list-style-type: none !important;
+    list-style-image: none !important;
+    list-style: none !important;
+    overflow: visible;
+}
+.inbound-field label {
+    margin: 10px 0 4px 0;
+font-weight: bold;
+line-height: 1.3em;
+clear: both;
+}
+.inbound-field input[type=radio] {
+    margin-top: 4px;
+    width: auto !important;
+}
+.inbound-field.inbound-submit-area {
+padding: 0px 0 10px 0;
+margin: 15px 0 0 0;
+clear: both;
+}
+.inbound-field.inbound-submit-area input.button, .inbound-field.inbound-submit-area input[type=submit] {
+font-size: 1em;
+}
+.inbound-description {
+    font-size: 0.85em;
+line-height: 1.5em;
+clear: both;
+font-family: sans-serif;
+letter-spacing: normal;
+padding: 10px 0 0 0;
+width: 99.8%;
+}
+textarea.inbound-input-textarea {
+height: 150px;
+width: 99.2%;
+}
+#inbound-form-wrapper {
+    overflow: inherit;
+margin: 10px 0;
+max-width: 98%;
+}
+#inbound-form-wrapper input[type=text], #inbound-form-wrapper input[type=url], #inbound-form-wrapper input[type=email], #inbound-form-wrapper input[type=tel], #inbound-form-wrapper input[type=number], #inbound-form-wrapper input[type=password] {
+    width: 47%;
+}
+.inbound-label.inbound-input-radio {
+    display: block;
+}
+.rule-done {
+margin-top: 4px;
+width: auto !important;
+float: left;
+}
+.radionotdonelabel {
+    display: block;
+margin: 0 0 0 24px;
+padding: 0;
+width: auto;
+line-height: 1.5;
+vertical-align: top;
 }
 /* Grid
  * ------------------------------------------*/
