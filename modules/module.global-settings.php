@@ -55,6 +55,14 @@ if (is_admin())
 				'options' => array('1'=>'on','0'=>'off')
 			),
 			array(
+				'id'  => 'landing-page-rotation-halt',
+				'label' => 'Sticky Variations',
+				'description' => "With this setting enabled landing pages plugin will prevent landing page version rotation for a visitor that has viewed the page. This halt on rotation will automatically expire after 30 days.",
+				'type'  => 'radio', 
+				'default'  => '0',
+				'options' => array('1'=>'on','0'=>'off')
+			),
+			array(
 				'id'  => 'landing-page-auto-format-forms',
 				'label' => 'Enable Form Standardization',
 				'description' => "With this setting enabled landing pages plugin will clean and standardize all input ids and classnames. Uncheck this setting to disable standardization.",

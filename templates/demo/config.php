@@ -40,6 +40,7 @@ $key = lp_get_parent_directory(dirname(__FILE__));
 
 $lp_data[$key]['info'] = 
 array(
+	'data_type' => "template", // Template
 	'version' => "2.0.0", // Version Number
 	'label' => "Demo", // Nice Name
 	'category' => 'Miscellaneous', // Template Category

@@ -510,7 +510,8 @@ if (is_admin())
 		{
 			$content = get_post_meta($post->ID,'content-'.$variation_id, true);
 			if ( !is_admin() )
-			{
+			{				
+				$content = wpautop($content);
 				$content = do_shortcode($content);
 			}
 		}
