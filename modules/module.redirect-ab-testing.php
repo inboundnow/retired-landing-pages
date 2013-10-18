@@ -14,20 +14,11 @@ else if ( file_exists ( './../../../../../wp-config.php' ) )
 {
 	include_once ( './../../../../../wp-config.php' );
 }
-	
-$debug = 1; 
-$debug = apply_filters('lp_ab_testing_session_check',$debug);
 
-if(session_id()=="") {
-    // session isn't started
-	//session_start();
-}
 
-//echo $_GET['permalink_name'];exit;
-//echo $_SESSION[$_GET['permalink_name']];
-if (isset($_SESSION[$_GET['permalink_name']]) && !$debug)
+if (isset($_COOKIE['lp-loaded-variation-'.$_GET['permalink_name']]) && get_option('lp-main-landing-page-rotation-halt' , 0))
 {
-	$url = $_SESSION[$_GET['permalink_name']];
+	$url = $_COOKIE['lp-loaded-variation-'.$_GET['permalink_name']];
 }
 else
 {
@@ -179,7 +170,7 @@ else
   		}
   	}
 	$url = $url."?lp-variation-id=".$variation_id.$old_params;
-	$_SESSION[$_GET['permalink_name']] = $url;
+	setcookie('lp-loaded-variation-'.$_GET['permalink_name'], $url, time()+ 60 * 60 * 24 * 30 ,"/");
 }
 //echo "<br>";
 //echo $url;

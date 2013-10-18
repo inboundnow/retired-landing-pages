@@ -56,8 +56,8 @@ if (is_admin())
 			),
 			array(
 				'id'  => 'landing-page-rotation-halt',
-				'label' => 'Disable rotation for visitor after visit.',
-				'description' => "With this setting enabled landing pages plugin will prevent landing page version rotation for a visitor that has already loaded the landing page. This halt will only be valid for 1 browsing session.",
+				'label' => 'Sticky Variations',
+				'description' => "With this setting enabled landing pages plugin will prevent landing page version rotation for a visitor that has viewed the page. This halt on rotation will automatically expire after 30 days.",
 				'type'  => 'radio', 
 				'default'  => '0',
 				'options' => array('1'=>'on','0'=>'off')
