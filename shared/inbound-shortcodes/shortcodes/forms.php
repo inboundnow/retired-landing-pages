@@ -38,7 +38,7 @@
 					),
 			'width' => array(
 				'name' => __('Custom Width', INBOUND_LABEL),
-				'desc' => __('This is not shown to visitors', INBOUND_LABEL),
+				'desc' => __('Enter in pixel width or % width. Example: 400 <u>or</u> 100%', INBOUND_LABEL),
 				'type' => 'text',
 				'std' => '',
 				'class' => 'form-advanced',
@@ -159,7 +159,19 @@
 		$form_layout = $layout;
 		$form_labels = $labels;
 		$form_labels_class = (isset($form_labels)) ? "inbound-label-".$form_labels : 'inbound-label-inline';
-		$form_width = (isset($width)) ? "width:".$width."px;" : '';
+		
+		/* Sanitize width input */
+		if (preg_match('/px/i',$width)) {
+			$fixed_width = str_replace("px", "", $width);
+	    	$width_output = "width:" . $fixed_width . "px;";
+		} elseif (preg_match('/%/i',$width)) {
+			$fixed_width_perc = str_replace("%", "", $width);
+	    	$width_output = "width:" . $fixed_width_perc . "%;";
+		} else {
+			$width_output = "width:" . $width . "px;";
+		}
+		
+		$form_width = (isset($width)) ? $width_output : '';
 		
 		//if (!preg_match_all("/(.?)\[(inbound_field)\b(.*?)(?:(\/))?\](?:(.+?)\[\/inbound_field\])?(.?)/s", $content, $matches)) {
 		if (!preg_match_all('/(.?)\[(inbound_field)(.*?)\]/s',$content, $matches)) {
@@ -173,7 +185,7 @@
 			}
 			// matches are $matches[3][$i]['label']
 
-
+			
 
 			$form = '<!-- This Inbound Form is Automatically Tracked -->';
         	$form .= '<div id="inbound-form-wrapper" class="">';
@@ -204,7 +216,7 @@
 
           			
 					$type = (isset($matches[3][$i]['type'])) ? $matches[3][$i]['type'] : '';
-						$form .= '<div class="inbound-field '.$main_layout.'">';
+						$form .= '<div class="inbound-field '.$main_layout.' label-'.$form_labels_class.'">';
 					if ($type != 'hidden' && $form_labels != "bottom" || $type === "radio"){	
                     	$form .= '<label class="inbound-label '.$formatted_label.' '.$form_labels_class.' inbound-input-'.$type.'">' . $matches[3][$i]['label'] . $req_label . '</label>';
                     }	

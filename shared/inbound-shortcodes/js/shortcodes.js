@@ -249,6 +249,7 @@
 				form = $('#inbound-shortcodes-form', popup),
 				output = $('#_fresh_shortcodes_output', form).text(),
 				popupType = $('#_fresh_shortcodes_popup', form).text(),
+				shortcode_name = jQuery("#inbound_current_shortcode").val(),
 				newoutput = '';
 				
 			InboundShortcodes.resizeTB();
@@ -260,6 +261,12 @@
 			InboundShortcodes.children();
 			InboundShortcodes.generateChild();
 			
+			// Conditional Form Only extras 
+			if ( shortcode_name === "insert_inbound_form_shortcode") {
+				var test = "<div id='form-extra-controls'>extra controls</div>";
+
+					jQuery("#inbound-shortcodes-form-table").prepend(test);
+			}
 			
 			$('body').on('change, keyup', '.inbound-shortcodes-child-input', function() {
 				InboundShortcodes.generateChild(); // runs refresh for children
@@ -274,9 +281,9 @@
 				InboundShortcodes.generateChild(); // runs refresh for fields
 			});
 
-			$(".show-advanced-fields").on('click', function () {
+			$("body").on('click', '.show-advanced-fields', function () {
 					var active = $(this).hasClass("hide-advanced-options");
-					console.log(active);
+					console.log("clicked yes");
 					if(active == false) {
 					$(this).parent().parent().parent().parent().find(".inbound-tab-class-advanced").show();
 					$(this).addClass("hide-advanced-options");
@@ -312,8 +319,10 @@
 							var insert_val = $('#_fresh_shortcodes_newoutput', form).html();
 
 							if ( shortcode_name === "insert_inbound_form_shortcode") {
-							var fixed_insert_val = insert_val.replace(/\[.*?(.*?)\]/g, "[$1]<br class='inbr'/>"); // for linebreaks in editor
+							//var fixed_insert_val = insert_val.replace(/\[.*?(.*?)\]/g, "[$1]<br class='inbr'/>"); // for linebreaks in editor
+							var fixed_insert_val = insert_val.replace(/\[.*?(.*?)\]/g, "<p>[$1]</p>"); // cleans output in editor
 							output_cleaned = fixed_insert_val.replace(/[a-zA-Z0-9_]*=""/g, ""); // remove empty shortcode fields
+							//output_cleaned = "<!-- Beginning of Form Embed -->" + output_cleaned + "<!-- End of Form Embed -->";
 							} else {
 							var fixed_insert_val = insert_val;
 							output_cleaned = fixed_insert_val.replace(/[a-zA-Z0-9_]*=""/g, ""); // remove empty shortcode fields
