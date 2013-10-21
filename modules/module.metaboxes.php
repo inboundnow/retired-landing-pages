@@ -708,9 +708,6 @@ function lp_generate_meta()
 } 
 
 
-
-
-
 function lp_render_metabox($key,$custom_fields,$post)
 {
 	// Use nonce for verification
@@ -725,7 +722,6 @@ function lp_render_metabox($key,$custom_fields,$post)
 		$label_class = $raw_option_id . "-label";
 		// get value of this field if it exists for this post
 		$meta = get_post_meta($post->ID, $field_id, true);
-
 
 		if ((!isset($meta)&&isset($field['default'])&&!is_numeric($meta))||isset($meta)&&empty($meta)&&isset($field['default'])&&!is_numeric($meta))
 		{
@@ -881,7 +877,7 @@ function lp_save_meta($post_id) {
 					}
 				}
 			}
-			else if (substr($key,0,4)=='ext-')
+			else if ( substr($key,0,4)=='ext-' || isset($data['info']['data_type']) && $data['info']['data_type']=='metabox')
 			{	
 				
 				$lp_custom_fields = $extension_data[$key]['settings'];		
