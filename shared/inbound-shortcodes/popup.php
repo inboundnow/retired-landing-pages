@@ -20,7 +20,7 @@ $shortcode = new InboundShortcodesFields( $popup );
                     <input type="hidden" id="inbound_current_shortcode" value="<?php echo $shortcode_id;?>">
                     <table id="inbound-shortcodes-form-table">
                         <?php echo $shortcode->output; ?>
-                        <tbody>
+                        <tbody style="display:none;">
                             <tr class="form-row" style="text-align: center;">
                                 <?php if( ! $shortcode->has_child ) : ?><td class="label">&nbsp;</td><?php endif; ?>
                                 <td class="field" style="width:500px;"><a href="#" id="inbound_insert_shortcode" class="button-primary inbound-shortcodes-insert"><?php _e('Insert Shortcode', INBOUND_LABEL); ?></a></td>							
@@ -42,18 +42,20 @@ $shortcode = new InboundShortcodesFields( $popup );
             </div>
             <div class="clear"></div>
         </div>
+
     </div>
+    <div id="popup-controls">
+        <a href="#" id="inbound_insert_shortcode_two" class="button-primary inbound-shortcodes-insert-two"><?php _e('Insert Shortcode', INBOUND_LABEL); ?></a>
+         <a href="#" id="shortcode_cancel" class="button inbound-shortcodes-insert-cancel">Cancel</a>
+    </div>    
     <script type="text/javascript">
     jQuery(document).ready(function($) {
+
         jQuery('.child-clone-row').first().attr('id', 'row-1');
-        var heightfix = jQuery("#inbound-shortcodes-form").height(),
-        max_height = heightfix * .80;
-        
         setTimeout(function() {
-                jQuery("#inbound-shortcodes-preview").css('height', heightfix);
-                jQuery("#inbound-shortcodes-preview").css('max-height', heightfix);
-        }, 800);
-       
+                jQuery('#inbound-shortcodes-form input:visible').first().focus();
+        }, 500);
+      
     //jQuery("body").on('click', '.child-clone-row', function () {
        // jQuery(".child-clone-row").toggle();
        // jQuery(this).show();

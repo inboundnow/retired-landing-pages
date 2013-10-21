@@ -17,6 +17,7 @@
 				if( input.is(':checkbox') ) {
 					var val = ( $(this).is(':checked') ) ? '1' : '0';
 					newoutput = newoutput.replace(re, val);
+					
 				} 
 				else {
 					newoutput = newoutput.replace(re, input.val());
@@ -93,6 +94,7 @@
 				jQuery('.child-clone-row-shrink').not( "#row-" + length + " .child-clone-row-shrink").text("Expand");
 				InboundShortcodes.generate(); // runs refresh
 				InboundShortcodes.generateChild();
+				jQuery('.child-clone-row').last().find('input').first().focus(); // focus on new input
 				//InboundShortcodes.updatePreview();
 			}
 			$('.child-clone-rows').appendo({
@@ -176,7 +178,7 @@
 				
 				console.log('updated iframe');
 				// update the height
-				$('#inbound-shortcodes-preview').height( $('#inbound-shortcodes-popup').outerHeight()-72 );
+				//$('#inbound-shortcodes-preview').height( $('#inbound-shortcodes-popup').outerHeight()-72 );
 				
 				
 			}
@@ -189,7 +191,11 @@
 				tbWindow = $('#TB_window'),
 				freshthemesPopup = $('#inbound-shortcodes-popup'),
 				no_preview = ($('#_fresh_shortcodes_preview').text() == 'false') ? true : false;
-				
+			var width = $(window).width();
+			var H = $(window).height();
+			var W = ( 1720 < width ) ? 1720 : width;
+			var this_height = ajaxCont.height();
+			console.log(this_height);	
 			if( no_preview ) {
 				ajaxCont.css({
 					paddingTop: 0,
@@ -203,7 +209,7 @@
 					width: ajaxCont.outerWidth(),
 					marginLeft: -(ajaxCont.outerWidth()/2)
 				});
-			
+				
 				$('#inbound-shortcodes-popup').addClass('no_preview');
 			} 
 			
@@ -214,14 +220,24 @@
 					height: freshthemesPopup.outerHeight()-15,
 					overflow: 'scroll' // IMPORTANT
 				});
+				// full screen fix
+				if ( tbWindow.size() ) {
+				tbWindow.width( W - 150 ).height( H - 75 );
+				ajaxCont.width( W - 150 ).height( H - 95 );
+				tbWindow.css({'margin-left': '-' + parseInt((( W - 150 ) / 2),10) + 'px'});
 				
-				tbWindow.css({
+				if ( typeof document.body.style.maxWidth != 'undefined' )
+					tbWindow.css({'top':'40px','margin-top':'0'});
+				//$('#TB_title').css({'background-color':'#fff','color':'#cfcfcf'});
+				}; 
+				// Old css
+				/*tbWindow.css({
 					width: ajaxCont.outerWidth(),
 					height: (ajaxCont.outerHeight() + 30),
 					marginLeft: -(ajaxCont.outerWidth()/2),
 					marginTop: -((ajaxCont.outerHeight() + 47)/2),
 					top: '50%'
-				});
+				}); */
 			}
 			
 		},
@@ -258,7 +274,7 @@
 				InboundShortcodes.generateChild(); // runs refresh for fields
 			});
 
-			$("body").on('click', '.show-advanced-fields', function () {
+			$(".show-advanced-fields").on('click', function () {
 					var active = $(this).hasClass("hide-advanced-options");
 					console.log(active);
 					if(active == false) {
@@ -279,21 +295,30 @@
 				jQuery(".dynamic-visable-on").hide();
 				jQuery('.reveal-' + this_val).removeClass('inbound-hidden-row').show().addClass('dynamic-visable-on');
 			});
-			
+			jQuery("body").on('click', '.inbound-shortcodes-insert-two', function () {
+				$('.inbound-shortcodes-insert').click();
+    		});
+    		jQuery("body").on('click', '.inbound-shortcodes-insert-cancel', function () {
+    			window.tb_remove();
+    		});
 			$('.inbound-shortcodes-insert', form).click(function() {    
 				var shortcode_name = jQuery("#inbound_current_shortcode").val();
 				var form_name = jQuery("#inbound_shortcode_form_name").val();
 				if ( shortcode_name === "insert_inbound_form_shortcode" && form_name == "") {
 					alert("Please Insert a Form Name!");
+					jQuery("#inbound_shortcode_form_name").addClass('need-value').focus();
 				} else {	 			
 					if(window.tinyMCE) {
 							var insert_val = $('#_fresh_shortcodes_newoutput', form).html();
+
 							if ( shortcode_name === "insert_inbound_form_shortcode") {
 							var fixed_insert_val = insert_val.replace(/\[.*?(.*?)\]/g, "[$1]<br class='inbr'/>"); // for linebreaks in editor
+							output_cleaned = fixed_insert_val.replace(/[a-zA-Z0-9_]*=""/g, ""); // remove empty shortcode fields
 							} else {
 							var fixed_insert_val = insert_val;
+							output_cleaned = fixed_insert_val.replace(/[a-zA-Z0-9_]*=""/g, ""); // remove empty shortcode fields
 							}
-							window.tinyMCE.execInstanceCommand('content', 'mceInsertContent', false, fixed_insert_val);
+							window.tinyMCE.execInstanceCommand('content', 'mceInsertContent', false, output_cleaned);
 							tb_remove();
 					}
 				}
