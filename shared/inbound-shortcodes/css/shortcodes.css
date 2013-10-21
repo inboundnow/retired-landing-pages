@@ -156,7 +156,7 @@ float: left;
 	position: relative;
 }
 #form-extra-controls {
-	position:absolute;right:0px;
+	position:absolute;right:-100px;
 }
 #inbound-shortcodes-form-table tbody tr.form-row{
 	display:block;
@@ -244,7 +244,7 @@ padding: 3px 20px;
 }
 .form-field-row-number {
 position: absolute;
-left: 24px;
+left: -12px;
 font-size: 18px;
 }
 #inbound-shortcodes-form-table .has-child .sortable-placeholder {

@@ -263,11 +263,18 @@
 			
 			// Conditional Form Only extras 
 			if ( shortcode_name === "insert_inbound_form_shortcode") {
-				var test = "<div id='form-extra-controls'>extra controls</div>";
+				var test = "<div id='form-extra-controls'><span class='insert-default-form-1'>Default Form</span></div>";
 
 					jQuery("#inbound-shortcodes-form-table").prepend(test);
 			}
-			
+			// insert default form
+			$("body").on('click', '.insert-default-form-1', function () {
+				jQuery(".form-row.has-child").html(default_form_1);
+				setTimeout(function() {
+                InboundShortcodes.generate(); // runs refresh
+				InboundShortcodes.generateChild();
+        		}, 500);
+   			});
 			$('body').on('change, keyup', '.inbound-shortcodes-child-input', function() {
 				InboundShortcodes.generateChild(); // runs refresh for children
 			});
@@ -339,8 +346,6 @@
 		}
 		
 	};
-	
-
 
 	$(document).ready( function() {
 		$('#inbound-shortcodes-popup').livequery( function() { 
