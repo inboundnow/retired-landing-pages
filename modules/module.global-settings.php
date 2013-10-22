@@ -85,6 +85,10 @@ if (is_admin())
 		$tab_slug = 'lp-license-keys';
 		$lp_global_settings[$tab_slug]['label'] = 'License Keys';	
 		
+		/* Setup Extensions Tab */
+		$tab_slug = 'lp-extensions';
+		$lp_global_settings[$tab_slug]['label'] = 'Extensions';	
+		
 		$lp_global_settings = apply_filters('lp_define_global_settings',$lp_global_settings);
 
 		return $lp_global_settings;
