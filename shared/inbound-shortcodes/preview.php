@@ -134,6 +134,6 @@ text-align: center;
 			
 			<?php // echo "<br>". $shortcode; ?>
 			
-		
+		<?php wp_footer();?>
 		</body>
 	</html>

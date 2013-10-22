@@ -1,5 +1,24 @@
 (function($) {
 
+	// Row add function
+	function row_add_callback()
+			{
+				var length = jQuery('.child-clone-row').length;
+				//jQuery('.child-clone-row').last().attr('id', 'row-'+length);
+		
+				jQuery('.form-field-row-number').each(function(i){
+					var addition = i + 1;
+					jQuery(this).text(addition);
+					jQuery(this).parent().attr('id', 'row-'+addition);
+				});
+				console.log(length);
+				jQuery('.child-clone-row .minimize-class').not( "#row-" + length + " .minimize-class").addClass('tog-hide-it');
+				jQuery('.child-clone-row-shrink').not( "#row-" + length + " .child-clone-row-shrink").text("Expand");
+				InboundShortcodes.generate(); // runs refresh
+				InboundShortcodes.generateChild();
+				jQuery('.child-clone-row').last().find('input').first().focus(); // focus on new input
+				//InboundShortcodes.updatePreview();
+			}
 
 	var InboundShortcodes = {
 		
@@ -79,24 +98,7 @@
 
 
 		children : function() {
-			function row_add_callback()
-			{
-				var length = jQuery('.child-clone-row').length;
-				//jQuery('.child-clone-row').last().attr('id', 'row-'+length);
-		
-				jQuery('.form-field-row-number').each(function(i){
-					var addition = i + 1;
-					jQuery(this).text(addition);
-					jQuery(this).parent().attr('id', 'row-'+addition);
-				});
-				console.log(length);
-				jQuery('.child-clone-row .minimize-class').not( "#row-" + length + " .minimize-class").addClass('tog-hide-it');
-				jQuery('.child-clone-row-shrink').not( "#row-" + length + " .child-clone-row-shrink").text("Expand");
-				InboundShortcodes.generate(); // runs refresh
-				InboundShortcodes.generateChild();
-				jQuery('.child-clone-row').last().find('input').first().focus(); // focus on new input
-				//InboundShortcodes.updatePreview();
-			}
+			
 			$('.child-clone-rows').appendo({
 				subSelect: '> div.child-clone-row:last-child',
 				allowDelete: false,
@@ -263,9 +265,15 @@
 			
 			// Conditional Form Only extras 
 			if ( shortcode_name === "insert_inbound_form_shortcode") {
-				var test = "<div id='form-extra-controls'><span class='insert-default-form-1'>Default Form</span></div>";
-
+				var test = "<div id='form-extra-controls'><span class='insert-default-form-1'>Insert Default Form</span></div>";
 					jQuery("#inbound-shortcodes-form-table").prepend(test);
+					jQuery(".inbound_shortcode_child_tbody, .main-design-settings").hide();
+				$('.step-item').on('click', function() {
+				  $(this).addClass('active').siblings().removeClass('active');
+				  var show = $(this).attr('data-display-options');
+				  jQuery('.inbound_tbody').hide();
+				  jQuery(show).show();
+				});	
 			}
 			// insert default form
 			$("body").on('click', '.insert-default-form-1', function () {
@@ -273,6 +281,17 @@
 				setTimeout(function() {
                 InboundShortcodes.generate(); // runs refresh
 				InboundShortcodes.generateChild();
+				$('.child-clone-rows').appendo({
+				subSelect: '> div.child-clone-row:last-child',
+				allowDelete: false,
+				focusFirst: false,
+				onAdd: row_add_callback
+				});
+				$('.child-clone-rows').sortable({
+				placeholder: 'sortable-placeholder',
+				items: '.child-clone-row',
+				stop: row_add_callback
+				});
         		}, 500);
    			});
 			$('body').on('change, keyup', '.inbound-shortcodes-child-input', function() {
@@ -319,6 +338,7 @@
 				var shortcode_name = jQuery("#inbound_current_shortcode").val();
 				var form_name = jQuery("#inbound_shortcode_form_name").val();
 				if ( shortcode_name === "insert_inbound_form_shortcode" && form_name == "") {
+					jQuery(".step-item.first").click();
 					alert("Please Insert a Form Name!");
 					jQuery("#inbound_shortcode_form_name").addClass('need-value').focus();
 				} else {	 			

@@ -26,14 +26,15 @@ require_once( 'shortcodes-includes.php' );
  *  --------------------------------------------------------- */
 if (!class_exists('InboundShortcodes')) {
 class InboundShortcodes {
-
+  static $add_script;
 /*  Contruct
  *  --------------------------------------------------------- */
-  public function __construct() {
+  static function init() {
+    self::$add_script = true;
     add_action('admin_enqueue_scripts', array( __CLASS__, 'loads' ));
     add_action('init', array( __CLASS__, 'shortcodes_tinymce' ));
     add_action( 'wp_enqueue_scripts',  array(__CLASS__, 'frontend_loads')); // load styles
-
+    add_action('wp_footer', array(__CLASS__, 'inline_my_script'));
   }
 
 /*  Loads
@@ -60,6 +61,58 @@ class InboundShortcodes {
       //add_action('admin_head', array( __CLASS__, 'shortcodes_admin_head' ));
     }
   }
+
+  // compress and move to file 
+  static function inline_my_script() {
+      if ( ! self::$add_script )
+      return;
+
+    echo '<script>
+          jQuery(document).ready(function($){ 
+          
+          function validateEmail(email) { 
+
+              var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+              return re.test(email);
+          }
+          var parent_redirect = parent.window.location.href;
+          jQuery("#inbound_parent_page").val(parent_redirect);
+
+  
+         // validate email
+           $("input.inbound-email").keyup(function() {
+               var email = $(this).val();
+                if (validateEmail(email)) {
+                  $(this).css("color", "green");
+                  $(this).addClass("valid-email");
+                  $(this).removeClass("invalid-email");
+                } else {
+                  $(this).css("color", "red");
+                  $(this).addClass("invalid-email");
+                  $(this).removeClass("valid-email");
+                }
+              if($(this).hasClass("valid-email")) {
+                   $(this).parent().parent().find("#inbound_form_submit").removeAttr("disabled");
+              }
+           });
+
+          });
+          </script>';
+
+    echo "<style type='text/css'>
+      /* Add button style options http://medleyweb.com/freebies/50-super-sleek-css-button-style-snippets/ */  
+        input.invalid-email {-webkit-box-shadow: 0 0 6px #F8B9B7;
+                          -moz-box-shadow: 0 0 6px #f8b9b7;
+                          box-shadow: 0 0 6px #F8B9B7;
+                          color: #B94A48;
+                          border-color: #E9322D;}
+        input.valid-email {-webkit-box-shadow: 0 0 6px #B7F8BA;
+                    -moz-box-shadow: 0 0 6px #f8b9b7;
+                    box-shadow: 0 0 6px #98D398;
+                    color: #008000;
+                    border-color: #008000;}                
+            </style>";
+    }
 
 
   static function frontend_loads() {
@@ -100,6 +153,5 @@ class InboundShortcodes {
 }
 /*  Initialize InboundNow Shortcodes
  *  --------------------------------------------------------- */
-$InboundShortcodes = new InboundShortcodes();
-
+InboundShortcodes::init();
 ?>

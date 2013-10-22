@@ -70,8 +70,16 @@ class InboundShortcodesFields {
 				$desc = ( isset($option['desc'])) ? $option['desc'] : '';
 				$std = ( isset($option['std']) ) ? $option['std'] : '';
 				$placeholder = (isset($option['placeholder'])) ? $option['placeholder'] : '';
-
-				$row_start  = '<tbody>';
+				$parent_class = (isset($option['class'])) ? $option['class'] : '';
+				
+				$row_start  = '<tbody class="inbound_tbody inbound_shortcode_parent_tbody parent-'.$key.' '.$parent_class.'">';
+				if ($key === "inbound_shortcode_form_name") {
+				$row_start .= '<ol class="steps">
+				  <li class="step-item first active" data-display-options=".main-form-settings"><a href="#inbound_shortcode_parent_tbody" class="step-link">Main Form Settings</a></li>
+				  <li class="step-item" data-display-options=".inbound_shortcode_child_tbody"><a href="#inbound_shortcode_child_tbody"  class="step-link">Edit/Add Fields</a></li>
+				  <li class="step-item last" data-display-options=".main-design-settings"><a href="#" class="step-link">Design & Layout</a></li>
+				</ol>';
+				}
 				$row_start .= '<tr class="form-row">';
 				$row_start .= '<td class="label">' . $name . '</td>';
 				$row_start .= '<td class="field">';
@@ -122,6 +130,11 @@ class InboundShortcodesFields {
 						$output .= $row_end;
 						$this->append_output($output);	
 						break;
+					case 'helper-block' :		
+						$output  = $row_start;
+						$output .= $row_end;
+						$this->append_output($output);	
+						break;	
 				}
 			}
 
@@ -130,7 +143,7 @@ class InboundShortcodesFields {
 				$this->child_options = $fields[$this->popup]['child']['options'];
 				$this->child_shortcode = $fields[$this->popup]['child']['shortcode'];
 				
-				$parent_row_start  = '<tbody>';
+				$parent_row_start  = '<tbody class="inbound_tbody inbound_shortcode_child_tbody">';
 				$parent_row_start .= '<tr class="form-row has-child">';
 				$parent_row_start .= '<td><a href="#" id="form-child-add" class="button button-secondary">'.$fields[$this->popup]['child']['clone'].'</a>';
 				$parent_row_start .= '<div class="child-clone-rows">';

@@ -77,6 +77,17 @@ max-width: 98%;
 width: 88%;
 }
 
+#inbound-form-wrapper .inbound-horizontal.label-inbound-label-inline input[type=text], #inbound-form-wrapper .inbound-horizontal.label-inbound-label-inline input[type=url], #inbound-form-wrapper .inbound-horizontal.label-inbound-label-inline input[type=email], #inbound-form-wrapper .inbound-horizontal.label-inbound-label-inline input[type=tel], #inbound-form-wrapper .inbound-horizontal.label-inbound-label-inline input[type=number], #inbound-form-wrapper .inbound-horizontal.label-inbound-label-inline input[type=password] {
+width: 130px;
+}
+
+#inbound-form-wrapper .inbound-horizontal.label-inbound-label-inline .inbound-label.inbound-label-inline {
+min-width: 60px;
+display: inline-block;
+padding-right: 10px;
+text-align: right;
+}
+
 .inbound-label.inbound-input-radio {
     display: block;
 }

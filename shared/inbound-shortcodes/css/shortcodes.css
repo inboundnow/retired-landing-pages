@@ -119,6 +119,7 @@ float: left;
 #field_instructions {
 	text-align: center;
 	font-size: 10px;
+	margin-top: 10px;
 }
 #inbound-shortcodes-popup.no_preview #inbound-shortcodes-preview-wrap{
 	display:none;
@@ -315,7 +316,139 @@ cursor: pointer;
 font-size: 10px;
 text-decoration: none;
 }
+.small-required-text {
+	color:red;
+	padding-left: 3px;
+}
+#inbound-shortcodes-form-table tbody.parent-inbound_shortcode_heading_design tr.form-row td.label {
+	display: none;
+}
+#inbound-shortcodes-form-table tbody.parent-inbound_shortcode_notify tr.form-row td.label {
+	line-height: 14px;
+}
+.parent-inbound_shortcode_form_name {
+	margin-top: 10px;
+}
 /* tinmyce icons */
 .wp_themeSkin .mceIcon.mce_editor-icon-forms {
 	background: url(../images/inbound_form_ico.png) 3px;
+}
+/* Step Panel */
+.steps *, .steps :after, .steps :before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* .step-link:before + .step-item padding + .step-item border */
+.steps {
+  overflow: hidden;
+  list-style: none;
+  margin: 0px;
+  margin-top: 5px;
+  padding: 0;
+  counter-reset: steps;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+.steps a:focus, .steps a:active {
+outline: none;
+}
+.step-item {
+  counter-increment: steps;
+  float: left;
+  width: 24%;
+  border-top: 0.1em solid #c7c7c7;
+  border-bottom: 0.1em solid #c7c7c7;
+  padding: .5em 0;
+  background: #efefef;
+  position: relative;
+}
+.step-item.first {
+  border-left: 0.1em solid #c7c7c7;
+}
+.step-item.last {
+  border-right: 0.1em solid #c7c7c7;
+}
+.step-item:after {
+  content: '';
+  position: absolute;
+  background: inherit;
+width: 21px;
+height: 23px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  border-right: 0.1em solid #c7c7c7;
+  border-top: 0.1em solid #c7c7c7;
+  top: .3em;
+  left: 100%;
+  margin-left: -0.95459em;
+  z-index: 2;
+}
+.step-item.last:after {
+  content: none;
+}
+
+.step-link {
+  color: #999;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+.step-link:before {
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+  content: counter(steps);
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  text-align: center;
+  background: #bcbcbc;
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1.5em;
+  color: white;
+  margin: 0 1em;
+}
+.step-link:hover {
+  color: #333;
+}
+.step-link:hover:before {
+  background: #22a4bc;
+}
+
+.step-item.active {
+  background: white;
+  border-color: #949494;
+}
+.step-item.active:after {
+  border-color: inherit;
+}
+.step-item.active .step-link {
+  color: #333;
+}
+.step-item.active .step-link:before {
+  background: #22a4bc;
+}
+
+.no-csstransforms .step-item {
+  border-right: .1em solid #ccc;
+  border-left: .1em solid #fff;
+}
+.no-csstransforms .step-item:after, .no-csstransforms .step-item:before {
+  content: none !important;
 }
