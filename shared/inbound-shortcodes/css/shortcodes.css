@@ -331,7 +331,13 @@ text-decoration: none;
 }
 /* tinmyce icons */
 .wp_themeSkin .mceIcon.mce_editor-icon-forms {
-	background: url(../images/inbound_form_ico.png) 3px;
+	background: url(../images/inbound_form_ico.png) 3px no-repeat;
+}
+.wp_themeSkin .mceIcon.mce_editor-icon-button {
+	background: url(../images/inbound_button_ico.png) 3px no-repeat;
+}
+.wp_themeSkin .mceIcon.mce_editor-icon-columns {
+	background: url(../images/inbound_columns_ico.png) 3px no-repeat;
 }
 /* Step Panel */
 .steps *, .steps :after, .steps :before {
