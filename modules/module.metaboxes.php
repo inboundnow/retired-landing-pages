@@ -669,7 +669,7 @@ function lp_generate_meta()
 
 	foreach ($extension_data as $key=>$data)
 	{
-		if ( substr($key,0,4)=='ext-' || isset($data['info']['data_type'])=='metabox' )
+		if ( substr($key,0,4)=='ext-' || isset($data['info']['data_type']) && $data['info']['data_type'] =='metabox' )
 		{
 			//echo 1; exit;
 			$id = "metabox-".$key;
