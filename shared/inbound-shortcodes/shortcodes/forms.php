@@ -1,11 +1,8 @@
 <?php
 /**
-*   Inbound Forms Shortcode
+*   Inbound Forms Shortcode Options
+*   Forms code found in /shared/classes/form.class.php
 */
-
-/* 	Shortcode generator config
- * 	----------------------------------------------------- */
-
 	$shortcodes_config['forms'] = array(
 		'no_preview' => false,
 		'options' => array(
@@ -87,7 +84,7 @@
 				'name' => __('Submit Button Text', INBOUND_LABEL),
 				'desc' => __('Enter the text you want to show on the submit button. (or a link to a custom submit button image)', INBOUND_LABEL),
 				'type' => 'text',
-				'std' => '',
+				'std' => 'Submit',
 				'class' => 'main-design-settings',
 			),
 			'width' => array(
@@ -195,171 +192,9 @@
 			'shortcode' => '[inbound_field label="{{label}}" type="{{field_type}}" description="{{description}}" required="{{required}}" dropdown="{{dropdown_options}}" radio="{{radio_options}}" placeholder="{{placeholder}}" html="{{html_block_options}}" dynamic="{{hidden_input_options}}"]',
 			'clone' => __('Add Another Field',  INBOUND_LABEL )
 		),
-		'shortcode' => '[inbound_form_test name="{{form_name}}" redirect="{{redirect}}" layout="{{layout}}" labels="{{labels}}" submit="{{submit}}" width="{{width}}"]{{child}}[/inbound_form_test]',
+		'shortcode' => '[inbound_form name="{{form_name}}" redirect="{{redirect}}" layout="{{layout}}" labels="{{labels}}" submit="{{submit}}" width="{{width}}"]{{child}}[/inbound_form]',
 		'popup_title' => __('Insert Inbound Form Shortcode',  INBOUND_LABEL)
 	);
 
-/* 	Add shortcode
- * 	----------------------------------------------------- */
-	add_shortcode('inbound_form_test', 'inbound_form_test_function');
-	
-	function inbound_form_test_function( $atts, $content = null ) {
-		extract(shortcode_atts(array(
-			'name' => '',
-			'layout' => '',
-			'labels' => '',
-			'width' => '',
-			'redirect' => '',
-			'submit' => 'Submit'
-		), $atts));
+/* 	Shortcode moved to shared form class */
 		
-		$form_name = $name;
-		$form_layout = $layout;
-		$form_labels = $labels;
-		$form_labels_class = (isset($form_labels)) ? "inbound-label-".$form_labels : 'inbound-label-inline';
-		$submit_button = ($submit != "") ? $submit : 'Submit';
-
-
-		// Check for image in submit button option
-		if (preg_match('/\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i',$submit_button)) {
-			$submit_button_type = 'style="background:url('.$submit_button.') no-repeat;color: rgba(0, 0, 0, 0);border: none;box-shadow: none;';
-		} else {
-			$submit_button_type = '';
-		}
-		
-		/* Sanitize width input */
-		if (preg_match('/px/i',$width)) {
-			$fixed_width = str_replace("px", "", $width);
-	    	$width_output = "width:" . $fixed_width . "px;";
-		} elseif (preg_match('/%/i',$width)) {
-			$fixed_width_perc = str_replace("%", "", $width);
-	    	$width_output = "width:" . $fixed_width_perc . "%;";
-		} else {
-			$width_output = "width:" . $width . "px;";
-		}
-		
-		$form_width = ($width != "") ? $width_output : '';
-		
-		//if (!preg_match_all("/(.?)\[(inbound_field)\b(.*?)(?:(\/))?\](?:(.+?)\[\/inbound_field\])?(.?)/s", $content, $matches)) {
-		if (!preg_match_all('/(.?)\[(inbound_field)(.*?)\]/s',$content, $matches)) {
-			return '';
-		} 
-		
-		else {
-
-			for($i = 0; $i < count($matches[0]); $i++) {
-				$matches[3][$i] = shortcode_parse_atts($matches[3][$i]);
-			}
-			// matches are $matches[3][$i]['label']
-
-			$clean_form_id = preg_replace("/[^A-Za-z0-9 ]/", '', trim($name));
-			$form_id = strtolower(str_replace(array(' ','_'),'-',$clean_form_id));
-
-			$form = '<!-- This Inbound Form is Automatically Tracked -->';
-        	$form .= '<div id="inbound-form-wrapper" class="">';
-        	$form .= '<form class="inbound-now-form wpl-track-me" method="post" id="'.$form_id.'" action="" style="'.$form_width.'">';
-        	$main_layout = ($form_layout != "") ? 'inbound-'.$form_layout : 'inbound-normal';
-				for($i = 0; $i < count($matches[0]); $i++) {
-
-					$label = (isset($matches[3][$i]['label'])) ? $matches[3][$i]['label'] : '';
-					$clean_label = preg_replace("/[^A-Za-z0-9 ]/", '', trim($label));
-					$formatted_label = strtolower(str_replace(array(' ','_'),'-',$clean_label));
-					$field_placeholder = (isset($matches[3][$i]['placeholder'])) ? $matches[3][$i]['placeholder'] : '';
-
-					$placeholer_use = ($field_placeholder != "") ? $field_placeholder : $label;
-					
-					if ($field_placeholder != "") {
-						$form_placeholder =	"placeholder='".$placeholer_use."'";
-					} else if (isset($form_labels) && $form_labels === "placeholder") {
-						$form_placeholder =	"placeholder='".$placeholer_use."'";
-					} else {
-						$form_placeholder = "";
-					}
-
-					$description_block = (isset($matches[3][$i]['description'])) ? $matches[3][$i]['description'] : '';
-					$required = (isset($matches[3][$i]['required'])) ? $matches[3][$i]['required'] : '0';
-					$req = ($required === '1') ? 'required' : '';
-					$req_label = ($required === '1') ? '<span class="inbound-required">*</span>' : '';
-					$field_name = strtolower(str_replace(array(' ','_'),'-',$label));
-
-		/* Map Common Fields */
-		(preg_match( '/Email|e-mail|email/i', $label, $email_input)) ? $email_input = " inbound-email" : $email_input = "";
-
-        // Match Phone
-        (preg_match( '/Phone|phone number|telephone/i', $label, $phone_input)) ? $phone_input = " inbound-phone" : $phone_input = "";
-          
-        // match name or first name. (minus: name=, last name, last_name,) 
-        (preg_match( '/(?<!((last |last_)))name(?!\=)/im', $label, $first_name_input)) ? $first_name_input = " inbound-first-name" : $first_name_input =  "";
-
-        // Match Last Name
-        (preg_match( '/(?<!((first)))(last name|last_name|last)(?!\=)/im', $label, $last_name_input)) ? $last_name_input = " inbound-last-name" : $last_name_input =  "";
-
-         $input_classes = $email_input . $first_name_input . $last_name_input . $phone_input;
-          			
-					$type = (isset($matches[3][$i]['type'])) ? $matches[3][$i]['type'] : '';
-						$form .= '<div class="inbound-field '.$main_layout.' label-'.$form_labels_class.'">';
-					if ($type != 'hidden' && $form_labels != "bottom" || $type === "radio"){	
-                    	$form .= '<label class="inbound-label '.$formatted_label.' '.$form_labels_class.' inbound-input-'.$type.'">' . $matches[3][$i]['label'] . $req_label . '</label>';
-                    }	
-          			if ($type === 'textarea'){
-          				$form .=  '<textarea class="inbound-input inbound-input-textarea" name="'.$field_name.'" id="in_'.$field_name.' '.$req.'"/></textarea>'; 	
-          			} else if ($type === 'dropdown'){
-          				$dropdown_fields = array();
-						$dropdown = $matches[3][$i]['dropdown'];
-						$dropdown_fields = explode(",", $dropdown);
-						$form .= '<select name="'. $field_name .'" id="">';
-						foreach ($dropdown_fields as $key => $value) { 
-							$dropdown_val = strtolower(str_replace(array(' ','_'),'-',$value));
-							$form .= '<option value="'. $dropdown_val .'">'. $value .'</option>';
-						}
-						$form .= '</select>';
-          			} else if ($type === 'radio'){
-          				$radio_fields = array();
-						$radio = $matches[3][$i]['radio'];
-						$radio_fields = explode(",", $radio);
-						// $clean_radio = str_replace(array(' ','_'),'-',$value) // clean leading spaces. finish
-						foreach ($radio_fields as $key => $value) { 
-							$radio_val_trimmed =  trim($value);
-							$radio_val =  strtolower(str_replace(array(' ','_'),'-',$radio_val_1));
-							$form .= '<span class="radio-'.$main_layout.' radio-'.$form_labels_class.'"><input type="radio" name="'. $field_name .'" value="'. $radio_val .'">'. $radio_val_trimmed .'</span>';
-						}
-					} else if ($type === 'html-block'){	
-							$html = $matches[3][$i]['html'];
-							echo $html;
-							$form .= "<div>" . $html . "</div>";
-
-					} else if ($type === 'editor'){	
-						//wp_editor(); // call wp editor
-          			} else {
-          				$hidden_param = (isset($matches[3][$i]['dynamic'])) ? $matches[3][$i]['dynamic'] : '';
-          				$dynamic_value = (isset($_GET[$hidden_param])) ? $_GET[$hidden_param] : '';
-		           		$form .=  '<input class="inbound-input inbound-input-text '.$formatted_label . $input_classes.'" name="'.$field_name.'" '.$form_placeholder.' value="'.$dynamic_value.'" type="'.$type.'" '.$req.'/>';
-		       		}
-		       		if ($type != 'hidden' && $form_labels === "bottom" && $type != "radio"){	
-                    	$form .= '<label class="inbound-label '.$formatted_label.' '.$form_labels_class.' inbound-input-'.$type.'">' . $matches[3][$i]['label'] . $req_label . '</label>';
-                    }
-                   
-                    
-                   
-                    
-		       		if ($description_block != "" && $type != 'hidden'){
-		       			$form .= "<div class='inbound-description'>".$description_block."</div>";
-		       		}
-
-                   		$form .= '</div>'; 
-				}
-			
-			$form .= '<div class="inbound-field inbound-submit-area">
-                      <input type="submit" '.$submit_button_type.' class="button" value="'.$submit_button.'" name="send" id="inbound_form_submit" />
-                  </div>
-                  <input type="hidden" name="inbound_submitted" value="1">';
-           if( $redirect != "") { 
-            $form .=  '<input type="hidden" id="inbound_redirect" name="inbound_redirect" value="'.$redirect.'">';
-           }
-           	$form .= '<input type="hidden" name="inbound_form_name" value="'.$form_name.'">
-                  </form>
-                  </div>';
-			$form = preg_replace('/<br class="inbr".\/>/', '', $form); // remove editor br tags
-			return $form;
-	}
-}

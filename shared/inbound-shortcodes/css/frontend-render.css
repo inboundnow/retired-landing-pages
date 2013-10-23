@@ -1,5 +1,5 @@
 
-.inbound-label-top, .inbound-label-bottom {
+.inbound-label.inbound-label-top, .inbound-label.inbound-label-bottom {
 display: block;
 }
 #inbound-form-wrapper .inbound-label.inbound-label-bottom {
@@ -19,7 +19,7 @@ margin: 0px 0 10px 0;
 .radio-inbound-vertical.radio-inbound-label-inline {
 padding-right: 5px;
 }
-.inbound-label-placeholder {
+.inbound-label.inbound-label-placeholder {
     display: none;
 }
 .inbound-horizontal {
