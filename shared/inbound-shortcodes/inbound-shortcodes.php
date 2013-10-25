@@ -45,6 +45,7 @@ class InboundShortcodes {
       wp_enqueue_script('jquery-ui-sortable' );
       wp_enqueue_script('inbound-shortcodes-plugins', INBOUND_FORMS . 'js/shortcodes-plugins.js');
       wp_enqueue_script('inbound-shortcodes', INBOUND_FORMS . 'js/shortcodes.js');
+      wp_localize_script( 'inbound-shortcodes', 'inbound_shortcodes', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'inbound_shortcode_nonce' => wp_create_nonce('inbound-shortcode-nonce') ) );
       // Check for active plugins and localize
       $plugins_loaded = array();
       if (is_plugin_active('landing-pages/landing-pages.php')) {

@@ -46,7 +46,8 @@ $shortcode = new InboundShortcodesFields( $popup );
     </div>
     <div id="popup-controls">
         <a href="#" id="inbound_insert_shortcode_two" class="button-primary inbound-shortcodes-insert-two"><?php _e('Insert Shortcode', INBOUND_LABEL); ?></a>
-         <a href="#" id="shortcode_cancel" class="button inbound-shortcodes-insert-cancel">Cancel</a>
+        <a href="#" id="shortcode_cancel" class="button inbound-shortcodes-insert-cancel">Cancel</a>
+        <a href="#" id="inbound_save_form" style="display:none;" class="button inbound-shortcodes-insert-cancel">Save As New Form</a>
     </div>    
     <script type="text/javascript">
     jQuery(document).ready(function($) {

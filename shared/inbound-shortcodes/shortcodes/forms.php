@@ -6,6 +6,20 @@
 	$shortcodes_config['forms'] = array(
 		'no_preview' => false,
 		'options' => array(
+			'insert_default' => array(
+						'name' => __('Choose Starting Template', INBOUND_LABEL),
+						'desc' => __('Start Building Your Form from premade templates', INBOUND_LABEL),
+						'type' => 'select',
+						'options' => array(
+							"none" => "None (Build Your Own)",
+							"default_form_3" => "Simple Email Form", 
+							"default_form_1" => "First, Last, Email Form",
+							"default_form_2" => "Standard Company Form",
+							// Add in other forms made here
+							),
+						'std' => 'none',
+						'class' => 'main-form-settings',
+			),	
 			'form_name' => array(
 				'name' => __('Form Name<span class="small-required-text">*</span>', INBOUND_LABEL),
 				'desc' => __('This is not shown to visitors', INBOUND_LABEL),
@@ -196,5 +210,129 @@
 		'popup_title' => __('Insert Inbound Form Shortcode',  INBOUND_LABEL)
 	);
 
+/* CPT Lead Lists */
+add_action('init', 'inbound_forms_cpt',11);
+function inbound_forms_cpt() {
+	//echo $slug;exit;
+    $labels = array(
+        'name' => _x('Forms', 'post type general name'),
+        'singular_name' => _x('Form', 'post type singular name'),
+        'add_new' => _x('Add New', 'Form'),
+        'add_new_item' => __('Create New Form'),
+        'edit_item' => __('Edit Form'),
+        'new_item' => __('New Form'),
+        'view_item' => __('View Lists'),
+        'search_items' => __('Search Lists'),
+        'not_found' =>  __('Nothing found'),
+        'not_found_in_trash' => __('Nothing found in Trash'),
+        'parent_item_colon' => ''
+    );
+
+    $args = array(
+        'labels' => $labels,
+        'public' => false,
+        'publicly_queryable' => false,
+        'show_ui' => true,
+        'query_var' => true,
+       	'show_in_menu'  => 'edit.php?post_type=wp-lead',
+        'menu_icon' => WPL_URL . '/images/lists.png',
+        'capability_type' => 'post',
+        'hierarchical' => false,
+        'menu_position' => null,
+        'supports' => array('title','custom-fields')
+      );
+
+    register_post_type( 'inbound-forms' , $args );
+	//flush_rewrite_rules( false );
+
+	/*
+	add_action('admin_menu', 'remove_list_cat_menu');
+	function remove_list_cat_menu() {
+		global $submenu;
+		unset($submenu['edit.php?post_type=wp-lead'][15]);
+		//print_r($submenu); exit;
+	} */
+}
+
 /* 	Shortcode moved to shared form class */
-		
+add_action('wp_ajax_inbound_form_save', 'inbound_form_save');
+add_action('wp_ajax_nopriv_inbound_form_save', 'inbound_form_save');
+
+function inbound_form_save() 
+{
+    // Grab form values
+    $title = $_POST['name'];
+    $content =  $_POST['rule_type'];
+    // $wp_lead_uid = $_POST['wp_lead_uid'];
+
+    (isset( $_POST['name'] )) ? $first_name = $_POST['name'] : $first_name = "";
+    (isset( $_POST['rule_type'] )) ? $rule_type = $_POST['rule_type'] : $rule_type = "";
+    (isset( $_POST['selector'] )) ? $selector = $_POST['selector'] : $selector = "";
+    (isset( $_POST['css_selector'] )) ? $css_selector = $_POST['css_selector'] : $css_selector = null;
+    (isset( $_POST['page_id'] )) ? $page_id = $_POST['page_id'] : $page_id = "";
+
+    if (isset( $_POST['selector'])&&!empty( $_POST['selector']))
+    {
+        //echo 'here';
+        global $user_ID, $wpdb;
+        $query = $wpdb->prepare(
+            'SELECT ID FROM ' . $wpdb->posts . '
+            WHERE post_content = %s
+            AND post_type = \'inbound-forms\'',
+            $_POST['selector']
+        );
+        $wpdb->query( $query );
+
+        if ( $wpdb->num_rows ) {
+            // If lead exists add data/append data to it
+            $post_ID = $wpdb->get_var( $query );
+
+            $event_data = get_post_meta( $post_ID, 'event_data', TRUE );
+            
+            if ($event_data)
+            {
+                
+                $event_data = json_decode($event_data,true);
+                $event_data[1]['id'] = $post_ID;
+                $event_data[1]['status'] = 'on';
+                $event_data[1]['event_type'] = 'clicked-element';
+                $event_data[1]['selector'] = $selector;
+                $event_data[1]['css_selector'] = $css_selector;
+                $event_data[1]['location'] = 'global';
+                $event_data = json_encode($event_data);
+            }
+            
+            update_post_meta( $post_ID, 'event_data', $event_data );
+            update_post_meta( $post_ID, 'event_click_type', $rule_type );
+            update_post_meta( $post_ID, 'jquery_selector', $selector );
+            update_post_meta( $post_ID, 'page_id', $page_id );
+            update_post_meta( $post_ID, 'wp_event_type', 'clicked-element' );
+            
+        
+        } else { 
+            // If event doesn't exist create it
+            $post = array(
+                'post_title'        => $title, 
+                'post_content'      => $selector,
+                'post_status'       => 'publish',
+                'post_type'     => 'inbound-forms',
+                'post_author'       => 1
+            );
+            
+            $post_ID = wp_insert_post($post);
+            update_post_meta( $post_ID, 'jquery_selector', $selector );
+            $event_data[1]['id'] = $post_ID;
+            $event_data[1]['status'] = 'on';
+            $event_data[1]['event_type'] = 'clicked-element';
+            $event_data[1]['selector'] = $selector;
+            $event_data[1]['css_selector'] = $css_selector;
+            $event_data[1]['location'] = 'single';
+            $event_data = json_encode($event_data);
+            update_post_meta( $post_ID, 'event_data', $event_data );
+            update_post_meta( $post_ID, 'event_click_type', $rule_type );
+            update_post_meta( $post_ID, 'wp_event_type', 'clicked-element' );
+        }
+
+    echo json_encode($post_ID);
+    }
+}

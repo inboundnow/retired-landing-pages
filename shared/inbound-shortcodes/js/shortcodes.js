@@ -178,7 +178,7 @@
 				// updates the src value
 				iframe.attr( 'src', iframeSrc + '?sc=' + InboundShortcodes.htmlEncode(shortcode) );
 				
-				console.log('updated iframe');
+				//console.log('updated iframe');
 				// update the height
 				//$('#inbound-shortcodes-preview').height( $('#inbound-shortcodes-popup').outerHeight()-72 );
 				
@@ -265,60 +265,157 @@
 			
 			// Conditional Form Only extras 
 			if ( shortcode_name === "insert_inbound_form_shortcode") {
-				var test = "<div id='form-extra-controls'><span class='insert-default-form-1'>Insert Default Form</span></div>";
-					jQuery("#inbound-shortcodes-form-table").prepend(test);
-					jQuery(".inbound_shortcode_child_tbody, .main-design-settings").hide();
+				jQuery(".inbound_shortcode_child_tbody, .main-design-settings").hide();
+				$("#inbound_save_form").show();
+
 				$('.step-item').on('click', function() {
 				  $(this).addClass('active').siblings().removeClass('active');
 				  var show = $(this).attr('data-display-options');
 				  jQuery('.inbound_tbody').hide();
 				  jQuery(show).show();
 				});	
+				// Insert default forms
+				$('body').on('change', '#inbound_shortcode_insert_default', function () {
+					var insert_form = $(this).val();
+					var form_insert = window[insert_form];
+					if ($('.child-clone-row').length != "1") {
+						if (confirm('Are you sure you want to overwrite the current form you are building? Selecting another form template will clear your current fields/settings')) {
+	            			jQuery(".form-row.has-child").html(form_insert);
+	        			} else {
+	        				$(this).val($.data(this, 'current')); // added parenthesis (edit)
+            				return false;
+	        			}
+        			} else {
+        				jQuery(".form-row.has-child").html(form_insert);
+        			}
+					
+					$.data(this, 'current', $(this).val());
+					// After change run
+					setTimeout(function() {
+	                //InboundShortcodes.generate(); // runs refresh
+					//InboundShortcodes.generateChild();
+					$('.child-clone-rows').appendo({
+					subSelect: '> div.child-clone-row:last-child',
+					allowDelete: false,
+					focusFirst: false,
+					onAdd: row_add_callback
+					});
+					$('.child-clone-rows').sortable({
+					placeholder: 'sortable-placeholder',
+					items: '.child-clone-row',
+					stop: row_add_callback
+					});
+	        		}, 500);
+				});
 			}
-			// insert default form
-			$("body").on('click', '.insert-default-form-1', function () {
-				jQuery(".form-row.has-child").html(default_form_1);
-				setTimeout(function() {
-                InboundShortcodes.generate(); // runs refresh
-				InboundShortcodes.generateChild();
-				$('.child-clone-rows').appendo({
-				subSelect: '> div.child-clone-row:last-child',
-				allowDelete: false,
-				focusFirst: false,
-				onAdd: row_add_callback
-				});
-				$('.child-clone-rows').sortable({
-				placeholder: 'sortable-placeholder',
-				items: '.child-clone-row',
-				stop: row_add_callback
-				});
-        		}, 500);
-   			});
+			// Save Shortcode Function
+			var shortcode_nonce_val = inbound_shortcodes.inbound_shortcode_nonce; // NEED CORRECT NONCE
+			$("body").on('click', '#inbound_save_form', function () {
+			  
+			        // if data exists save it
+			        //var this_meta_id = jQuery(this).attr("id");
+			        var post_id = jQuery("#post_ID").val();
+			        var current_selector = jQuery(".selected-element-name:visible").text();
+			        var current_css_selector = jQuery(".selected-element-name-css:visible").text();
+			        var rule_name = jQuery(this).parent().find(".rule_name").val();
+			        var rule_type = jQuery(this).attr('data-element-track-type');
+			        var shortcode_name = jQuery("#inbound_current_shortcode").val();
+					var form_name = jQuery("#inbound_shortcode_form_name").val();
+					if ( shortcode_name === "insert_inbound_form_shortcode" && form_name == "") {
+						jQuery(".step-item.first").click();
+						alert("Please Insert a Form Name!");
+						jQuery("#inbound_shortcode_form_name").addClass('need-value').focus();
+					} else {
+			        jQuery.ajax({
+			            type: 'POST',
+			            url: ajaxurl,
+			            context: this,
+			            data: {
+			                action: 'lead_tracking_event_create',
+			                name: rule_name,
+			                rule_type: rule_type,
+			               	selector: current_selector,
+			               	css_selector: current_css_selector,
+			                page_id: post_id,
+			                nonce: shortcode_nonce_val
+			            },
+
+			            success: function (data) {
+			                var self = this;
+
+			                console.log(data);
+			                var str = data;
+			                var new_post = str.substring(0, str.length - 1);
+			                console.log(new_post);
+			                var post_id_final = new_post.replace('"', '');
+			                var site_base = window.location.origin + '/wp-admin/post.php?post=' + post_id_final + '&action=edit';
+			                // jQuery('.lp-form').unbind('submit').submit();
+			                //var worked = '<span class="success-message-map">Success! ' + this_meta_id + ' set to ' + meta_to_save + '</span>';
+			                var worked = '<span class="lp-success-message">Event Created</span><a target="_blank" href="' + site_base  +'" class="event-view-post">View/Edit Event</a>';
+			                var s_message = jQuery(self).parent();
+			                jQuery(worked).appendTo(s_message);
+			                jQuery(self).hide();
+			                //alert("Event Created");
+			            },
+
+			            error: function (MLHttpRequest, textStatus, errorThrown) {
+			                alert("Ajax not enabled");
+			            }
+			        });
+			     }
+			        return false;
+			});
+		
 			$('body').on('change, keyup', '.inbound-shortcodes-child-input', function() {
 				InboundShortcodes.generateChild(); // runs refresh for children
+				var update_dom = $(this).val();
+				$(this).attr('value', update_dom);
 			});
 
 			$('.inbound-shortcodes-input', form).on('change, keyup', function () {
 				InboundShortcodes.generate(); // runs refresh
 				InboundShortcodes.generateChild();
+				var update_dom = $(this).val();
+				$(this).attr('value', update_dom);
 			});
 
 			$('body').on('change', 'input[type="checkbox"], input[type="radio"], select', function () {
 				InboundShortcodes.generateChild(); // runs refresh for fields
+				var input_type = jQuery(this).attr('type');
+				var update_dom = jQuery(this).val();
+				if (input_type === "checkbox") {
+					var checked = $(this).is(":checked");
+					if (checked === true){
+					  $(this).attr('checked',true);
+					} else {
+						$(this).removeAttr( "checked" );
+					}
+					
+				} else if (input_type === "radio") {
+
+				} else {
+					$(this).find("option").removeAttr( "selected" );
+					$(this).find("option[value='"+update_dom+"']").attr('selected', update_dom);
+
+				}
+				
 			});
 
 			$("body").on('click', '.show-advanced-fields', function () {
-					var active = $(this).hasClass("hide-advanced-options");
-					console.log("clicked yes");
-					if(active == false) {
+			
 					$(this).parent().parent().parent().parent().find(".inbound-tab-class-advanced").show();
+					$(this).removeClass("show-advanced-fields");
 					$(this).addClass("hide-advanced-options");
 					$(this).text("Hide advanced options");
-					} else {
+					
+    		});
+    		$("body").on('click', '.hide-advanced-options', function () {
+			
 					$(this).parent().parent().parent().parent().find(".inbound-tab-class-advanced").hide();
 					$(this).removeClass("hide-advanced-options");
-					$(this).text("Show advanced options");	
-					}
+					$(this).text("Show advanced options");
+					$(this).addClass("show-advanced-fields");	
+	
     		});
 
 

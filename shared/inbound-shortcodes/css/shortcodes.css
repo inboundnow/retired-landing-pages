@@ -15,17 +15,23 @@
 .inbound-tab-class-advanced {
 
 }
+.inbound-default-form-insert {
+	display: block;
+}
 .row-class-helper-block label {
 	display: none !important;
 }
 #inbound-shortcodes-form-table .has-child .child-clone-rows .child-clone-row .child-clone-row-form .child-clone-row-form-row.inbound-tab-class-advanced {
 	display: none;
 }
-.show-advanced-fields {
+.show-advanced-fields, .hide-advanced-options {
 	font-size: 12px;
 	color:#000;
 	font-style: normal;
 	cursor: pointer;
+}
+.hide-advanced-options {
+	color:#808080;
 }
 /* Form Wrap -------------------------- */
 #inbound-shortcodes-form-wrap{
@@ -323,7 +329,7 @@ text-decoration: none;
 #inbound-shortcodes-form-table tbody.parent-inbound_shortcode_heading_design tr.form-row td.label {
 	display: none;
 }
-#inbound-shortcodes-form-table tbody.parent-inbound_shortcode_notify tr.form-row td.label {
+#inbound-shortcodes-form-table tbody.parent-inbound_shortcode_notify tr.form-row td.label, #inbound-shortcodes-form-table tbody.parent-inbound_shortcode_insert_default tr.form-row td.label {
 	line-height: 14px;
 }
 .parent-inbound_shortcode_form_name {
