@@ -260,77 +260,51 @@ add_action('wp_ajax_nopriv_inbound_form_save', 'inbound_form_save');
 
 function inbound_form_save() 
 {
-    // Grab form values
-    $title = $_POST['name'];
-    $content =  $_POST['rule_type'];
-    // $wp_lead_uid = $_POST['wp_lead_uid'];
+    // Post Values
+    $form_name = (isset( $_POST['name'] )) ? $_POST['name'] : "";
+    $shortcode = (isset( $_POST['shortcode'] )) ? $_POST['shortcode'] : "";
+    $form_settings =  (isset( $_POST['form_settings'] )) ? $_POST['form_settings'] : "";
+    $page_id = (isset( $_POST['post_id'] )) ? $_POST['post_id'] : "";
 
-    (isset( $_POST['name'] )) ? $first_name = $_POST['name'] : $first_name = "";
-    (isset( $_POST['rule_type'] )) ? $rule_type = $_POST['rule_type'] : $rule_type = "";
-    (isset( $_POST['selector'] )) ? $selector = $_POST['selector'] : $selector = "";
-    (isset( $_POST['css_selector'] )) ? $css_selector = $_POST['css_selector'] : $css_selector = null;
-    (isset( $_POST['page_id'] )) ? $page_id = $_POST['page_id'] : $page_id = "";
-
-    if (isset( $_POST['selector'])&&!empty( $_POST['selector']))
+    if (isset( $_POST['name'])&&!empty( $_POST['name']))
     {
         //echo 'here';
         global $user_ID, $wpdb;
         $query = $wpdb->prepare(
             'SELECT ID FROM ' . $wpdb->posts . '
-            WHERE post_content = %s
+            WHERE post_title = %s
             AND post_type = \'inbound-forms\'',
-            $_POST['selector']
+            $form_name
         );
         $wpdb->query( $query );
 
         if ( $wpdb->num_rows ) {
             // If lead exists add data/append data to it
+            echo json_encode("This form already exists.");
+            exit;
             $post_ID = $wpdb->get_var( $query );
 
-            $event_data = get_post_meta( $post_ID, 'event_data', TRUE );
+            $form_settings_data = get_post_meta( $post_ID, 'form_settings', TRUE );
             
-            if ($event_data)
-            {
-                
-                $event_data = json_decode($event_data,true);
-                $event_data[1]['id'] = $post_ID;
-                $event_data[1]['status'] = 'on';
-                $event_data[1]['event_type'] = 'clicked-element';
-                $event_data[1]['selector'] = $selector;
-                $event_data[1]['css_selector'] = $css_selector;
-                $event_data[1]['location'] = 'global';
-                $event_data = json_encode($event_data);
-            }
-            
-            update_post_meta( $post_ID, 'event_data', $event_data );
-            update_post_meta( $post_ID, 'event_click_type', $rule_type );
-            update_post_meta( $post_ID, 'jquery_selector', $selector );
-            update_post_meta( $post_ID, 'page_id', $page_id );
-            update_post_meta( $post_ID, 'wp_event_type', 'clicked-element' );
+            update_post_meta( $post_ID, 'inbound_form_settings', $form_settings );
+            update_post_meta( $post_ID, 'inbound_form_created_on', $page_id );
+            update_post_meta( $post_ID, 'inbound_shortcode', $shortcode );
             
         
         } else { 
             // If event doesn't exist create it
             $post = array(
-                'post_title'        => $title, 
-                'post_content'      => $selector,
+                'post_title'        => $form_name, 
+                'post_content'      => $content,
                 'post_status'       => 'publish',
                 'post_type'     => 'inbound-forms',
                 'post_author'       => 1
             );
             
             $post_ID = wp_insert_post($post);
-            update_post_meta( $post_ID, 'jquery_selector', $selector );
-            $event_data[1]['id'] = $post_ID;
-            $event_data[1]['status'] = 'on';
-            $event_data[1]['event_type'] = 'clicked-element';
-            $event_data[1]['selector'] = $selector;
-            $event_data[1]['css_selector'] = $css_selector;
-            $event_data[1]['location'] = 'single';
-            $event_data = json_encode($event_data);
-            update_post_meta( $post_ID, 'event_data', $event_data );
-            update_post_meta( $post_ID, 'event_click_type', $rule_type );
-            update_post_meta( $post_ID, 'wp_event_type', 'clicked-element' );
+            update_post_meta( $post_ID, 'inbound_form_settings', $form_settings );
+            update_post_meta( $post_ID, 'inbound_form_created_on', $page_id );
+            update_post_meta( $post_ID, 'inbound_shortcode', $shortcode );
         }
 
     echo json_encode($post_ID);

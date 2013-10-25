@@ -280,21 +280,21 @@
 					var form_insert = window[insert_form];
 					if ($('.child-clone-row').length != "1") {
 						if (confirm('Are you sure you want to overwrite the current form you are building? Selecting another form template will clear your current fields/settings')) {
-	            			jQuery(".form-row.has-child").html(form_insert);
+	            			jQuery(".child-clone-rows.ui-sortable").html(form_insert);
 	        			} else {
 	        				$(this).val($.data(this, 'current')); // added parenthesis (edit)
             				return false;
 	        			}
         			} else {
-        				jQuery(".form-row.has-child").html(form_insert);
+        				jQuery(".child-clone-rows.ui-sortable").html(form_insert);
         			}
 					
 					$.data(this, 'current', $(this).val());
 					// After change run
-					setTimeout(function() {
+					/* setTimeout(function() {
 	                //InboundShortcodes.generate(); // runs refresh
 					//InboundShortcodes.generateChild();
-					$('.child-clone-rows').appendo({
+					 $('.child-clone-rows').appendo({
 					subSelect: '> div.child-clone-row:last-child',
 					allowDelete: false,
 					focusFirst: false,
@@ -305,21 +305,19 @@
 					items: '.child-clone-row',
 					stop: row_add_callback
 					});
-	        		}, 500);
+	        		}, 500); */
 				});
 			}
 			// Save Shortcode Function
 			var shortcode_nonce_val = inbound_shortcodes.inbound_shortcode_nonce; // NEED CORRECT NONCE
 			$("body").on('click', '#inbound_save_form', function () {
-			  
+			  		console.log('Save clicked');
 			        // if data exists save it
 			        //var this_meta_id = jQuery(this).attr("id");
 			        var post_id = jQuery("#post_ID").val();
-			        var current_selector = jQuery(".selected-element-name:visible").text();
-			        var current_css_selector = jQuery(".selected-element-name-css:visible").text();
-			        var rule_name = jQuery(this).parent().find(".rule_name").val();
-			        var rule_type = jQuery(this).attr('data-element-track-type');
+			      	var form_settings = jQuery(".child-clone-rows.ui-sortable").html();
 			        var shortcode_name = jQuery("#inbound_current_shortcode").val();
+			        var shortcode_value = jQuery('#_fresh_shortcodes_newoutput').html();
 					var form_name = jQuery("#inbound_shortcode_form_name").val();
 					if ( shortcode_name === "insert_inbound_form_shortcode" && form_name == "") {
 						jQuery(".step-item.first").click();
@@ -331,19 +329,18 @@
 			            url: ajaxurl,
 			            context: this,
 			            data: {
-			                action: 'lead_tracking_event_create',
-			                name: rule_name,
-			                rule_type: rule_type,
-			               	selector: current_selector,
-			               	css_selector: current_css_selector,
-			                page_id: post_id,
+			                action: 'inbound_form_save',
+			                name: form_name,
+			                shortcode: shortcode_value,
+			               	form_settings: form_settings,
+			                post_id: post_id,
 			                nonce: shortcode_nonce_val
 			            },
 
 			            success: function (data) {
 			                var self = this;
 
-			                console.log(data);
+						    console.log(data);
 			                var str = data;
 			                var new_post = str.substring(0, str.length - 1);
 			                console.log(new_post);
@@ -351,7 +348,7 @@
 			                var site_base = window.location.origin + '/wp-admin/post.php?post=' + post_id_final + '&action=edit';
 			                // jQuery('.lp-form').unbind('submit').submit();
 			                //var worked = '<span class="success-message-map">Success! ' + this_meta_id + ' set to ' + meta_to_save + '</span>';
-			                var worked = '<span class="lp-success-message">Event Created</span><a target="_blank" href="' + site_base  +'" class="event-view-post">View/Edit Event</a>';
+			                var worked = '<span class="lp-success-message">Form Created & Saved</span><a style="padding-left:10px;" target="_blank" href="' + site_base  +'" class="event-view-post">View/Edit Form</a>';
 			                var s_message = jQuery(self).parent();
 			                jQuery(worked).appendTo(s_message);
 			                jQuery(self).hide();
