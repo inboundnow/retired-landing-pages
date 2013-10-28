@@ -254,6 +254,7 @@ function inbound_forms_cpt() {
 	} */
 }
 
+
 /* 	Shortcode moved to shared form class */
 add_action('wp_ajax_inbound_form_save', 'inbound_form_save');
 add_action('wp_ajax_nopriv_inbound_form_save', 'inbound_form_save');
@@ -280,7 +281,7 @@ function inbound_form_save()
 
         if ( $wpdb->num_rows ) {
             // If lead exists add data/append data to it
-            echo json_encode("This form already exists.");
+            echo json_encode("Found");
             exit;
             $post_ID = $wpdb->get_var( $query );
 

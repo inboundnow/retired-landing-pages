@@ -342,6 +342,11 @@
 
 						    console.log(data);
 			                var str = data;
+			                // If form name already exists
+			                if (str === "\"Found\"") {
+			                	alert("A Form by this name already exists. Please choose another name or select your existing form from the dropdown");
+			                	 return false;
+			                }
 			                var new_post = str.substring(0, str.length - 1);
 			                console.log(new_post);
 			                var post_id_final = new_post.replace('"', '');
