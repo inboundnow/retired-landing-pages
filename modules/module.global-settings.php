@@ -239,7 +239,7 @@ if (is_admin())
 		</center>
 		</div>
 		<div id="custom-templates">
-			<center><a href="http://www.inboundnow.com/landing-pages/custom-wordpress-landing-page-setup/" target=="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>/images/custom-setup-image.png"></a>
+			<center><a href="http://docs.inboundnow.com/wordpress-landing-pages/odesk-development-process/" target=="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>/images/custom-setup-image.png"></a>
 			</center>
 		</div>
 		</div>
