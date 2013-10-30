@@ -1,6 +1,6 @@
 (function() {
 
-// Check Inbound Active Plugins	
+// Check Inbound Active Plugins
 var indexOf = function(needle) {
     if(typeof Array.prototype.indexOf === 'function') {
         indexOf = Array.prototype.indexOf;
@@ -38,7 +38,7 @@ if (lp_status > -1) {
 if (cta_status > -1) {
 	console.log("cta on");
 }
-	
+
 	tinymce.create('tinymce.plugins.InboundShortcodes', {
 
 		init: function(ed, url) {
@@ -60,18 +60,19 @@ if (cta_status > -1) {
 
 				// adds the dropdown to the button
 				btn.onRenderMenu.add(function(c, b) {
-					b.add({title : 'Inbound Shortcodes', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
+					b.add({title : 'Inbound Form Shortcodes', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
 					a.addWithPopup( b, 'Form Builder', 'forms' );
-					a.addWithPopup( b, 'Insert Button Shortcode',  'button' );
+					a.addWithPopup( b, 'Quick Form Insert', 'quick-forms' );
+
 					if (cta_status > -1) {
 					b.add({title : 'Call to Action Shortcodes', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
 					a.addWithPopup( b, 'Insert Call to Action', 'button' ); // to to CTA
 					}
 					if (lp_status > -1) {
-					b.add({title : 'Landing Page Shortcodes', 'class' : 'mceMenuItemTitle'}).setDisabled(1);	
+					b.add({title : 'Landing Page Shortcodes', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
 					a.addWithPopup( b, 'Insert Landing Page Lists', 'landing_pages' );
 					}
-					
+					a.addWithPopup( b, 'Insert Button Shortcode',  'button' );
 					//a.addWithPopup( b, 'Alert', 'alert' );
 					//a.addWithPopup( b, 'Call Out', 'callout' );
 					b.add({title : 'Layout Shortcodes', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
@@ -87,19 +88,19 @@ if (cta_status > -1) {
 					//a.addWithPopup( b, 'Lead Paragraph', 'leadp' );
 					//a.addWithPopup( b, 'List Icons', 'list_icons' );
 					//a.addWithPopup( b, 'Map', 'gmap' );
-					
+
 					//a.addWithPopup( b, 'Pricing', 'pricing' );
 					//a.addWithPopup( b, 'Profile', 'profile' );
 					//a.addWithPopup( b, 'Social Links', 'social_links' );
-				
+
 					//a.addWithPopup( b, 'Teaser', 'teaser' );
-					
+
 					//a.addWithPopup( b, 'Video', 'video' );
 				});
 
 				return btn;
 			}
-  
+
 			return null;
 		},
 
@@ -137,7 +138,7 @@ if (cta_status > -1) {
 		}
 
 	});
-	
+
 	tinymce.PluginManager.add('InboundShortcodes', tinymce.plugins.InboundShortcodes);
 
 })();

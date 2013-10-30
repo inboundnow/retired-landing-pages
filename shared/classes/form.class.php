@@ -162,6 +162,18 @@ class InboundForms {
               $radio_val =  strtolower(str_replace(array(' ','_'),'-',$radio_val_trimmed));
               $form .= '<span class="radio-'.$main_layout.' radio-'.$form_labels_class.'"><input type="radio" name="'. $field_name .'" value="'. $radio_val .'">'. $radio_val_trimmed .'</span>';
             }
+          } else if ($type === 'checkbox'){
+            $checkbox_fields = array();
+            
+            $checkbox = $matches[3][$i]['checkbox'];
+            $checkbox_fields = explode(",", $checkbox);
+            // $clean_radio = str_replace(array(' ','_'),'-',$value) // clean leading spaces. finish
+            foreach ($checkbox_fields as $key => $value) { 
+              $checkbox_val_trimmed =  trim($value);
+              $checkbox_val =  strtolower(str_replace(array(' ','_'),'-',$checkbox_val_trimmed));
+              $form .= '<input class="checkbox-'.$main_layout.' checkbox-'.$form_labels_class.'" type="checkbox" name="'. $field_name .'" value="'. $checkbox_val .'">'.$checkbox_val_trimmed.'<br>';
+         
+            }
           } else if ($type === 'html-block'){ 
               $html = $matches[3][$i]['html'];
               echo $html;

@@ -21,8 +21,17 @@
 .row-class-helper-block label {
 	display: none !important;
 }
-#inbound-shortcodes-form-table .has-child .child-clone-rows .child-clone-row .child-clone-row-form .child-clone-row-form-row.inbound-tab-class-advanced {
+#inbound-shortcodes-form-table .has-child .child-clone-rows .child-clone-row .child-clone-row-form .child-clone-row-form-row.inbound-tab-class-advanced, {
 	display: none;
+}
+.parent-inbound_shortcode_helper-block-one .label {
+	display: none !important;
+}
+.switch-to-form-builder.button {
+	font-style: normal;
+}
+#inbound_insert_shortcode_two.quick-forms.button-primary.inbound-shortcodes-insert-two {
+	color: #FFF !important;
 }
 .show-advanced-fields, .hide-advanced-options {
 	font-size: 12px;
@@ -37,7 +46,7 @@
 #inbound-shortcodes-form-wrap{
 	width:65%;
 	float:left;
-	
+
 }
 
 #inbound-shortcodes-form-wrap #inbound-shortcodes-form-head{
@@ -92,7 +101,7 @@ border-bottom-right-radius: 5px;
 border-bottom-left-radius: 5px;
 background: #EEE;
 }
-#inbound_insert_shortcode_two, #shortcode_cancel {
+#inbound_insert_shortcode_two, #shortcode_cancel, #inbound_save_form {
 width: 250px;
 text-align: center;
 color: #FFF !important;
@@ -103,7 +112,7 @@ padding: 0 12px 2px;
 margin: 0 5px;
 margin-left: 25px;
 }
-#shortcode_cancel {
+#shortcode_cancel, #inbound_insert_shortcode_two {
 	color:#000 !important;
 }
 .need-value {
@@ -120,7 +129,7 @@ float: left;
 
 }
 .tog-hide-it {
-	display: none !important; 
+	display: none !important;
 }
 #field_instructions {
 	text-align: center;
@@ -138,11 +147,11 @@ float: left;
 	line-height:1;
 	text-shadow:0 1px 0px #fff;
 	background-color:#dddddd;
-	background-image:-webkit-gradient(linear, left top, left bottom, from(#dddddd), to(#d0d0d0)); 
-	background-image:-webkit-linear-gradient(top, #dddddd, #d0d0d0); 
-	background-image:-moz-linear-gradient(top, #dddddd, #d0d0d0); 
-	background-image:-ms-linear-gradient(top, #dddddd, #d0d0d0); 
-	background-image:-o-linear-gradient(top, #dddddd, #d0d0d0); 
+	background-image:-webkit-gradient(linear, left top, left bottom, from(#dddddd), to(#d0d0d0));
+	background-image:-webkit-linear-gradient(top, #dddddd, #d0d0d0);
+	background-image:-moz-linear-gradient(top, #dddddd, #d0d0d0);
+	background-image:-ms-linear-gradient(top, #dddddd, #d0d0d0);
+	background-image:-o-linear-gradient(top, #dddddd, #d0d0d0);
 	background-image:linear-gradient(top, #dddddd, #d0d0d0);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#dddddd', EndColorStr='#d0d0d0');
 }

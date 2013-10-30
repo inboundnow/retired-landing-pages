@@ -47,8 +47,10 @@ class InboundShortcodes {
       wp_enqueue_script('inbound-shortcodes', INBOUND_FORMS . 'js/shortcodes.js');
       wp_localize_script( 'inbound-shortcodes', 'inbound_shortcodes', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'inbound_shortcode_nonce' => wp_create_nonce('inbound-shortcode-nonce') ) );
       // Forms CPT only
-      if (  ( isset($post) && 'inbound-forms' == $post->post_type ) || ( isset($_GET['post_type']) && $_GET['post_type']=='inbound-forms' ) ) { 
+      if (  ( isset($post) && 'inbound-forms' == $post->post_type ) || ( isset($_GET['post_type']) && $_GET['post_type']=='inbound-forms' ) ) {
          wp_enqueue_style('inbound-forms-css', INBOUND_FORMS . 'css/form-cpt.css');
+         wp_enqueue_script('inbound-forms-cpt-js', INBOUND_FORMS . 'js/form-cpt.js');
+         wp_localize_script( 'inbound-forms-cpt-js', 'inbound_forms', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'inbound_shortcode_nonce' => wp_create_nonce('inbound-shortcode-nonce'), 'form_cpt' => 'on' ) );
       }
       // Check for active plugins and localize
       $plugins_loaded = array();
@@ -62,13 +64,13 @@ class InboundShortcodes {
       array_push($plugins_loaded, "leads");
       }
       wp_localize_script( 'inbound-shortcodes', 'inbound_load', array( 'image_dir' => INBOUND_FORMS, 'inbound_plugins' => $plugins_loaded, 'pop_title' => 'Insert Shortcode' ));
-      if (isset($post)&&$post->post_type=='inbound-forms') 
+      if (isset($post)&&$post->post_type=='inbound-forms')
       {
       require_once( 'shortcodes-fields.php' );
       add_action( 'edit_form_after_title',  array(__CLASS__, 'inbound_forms_header_area'));
-     
+
       }
-     
+
       //add_action('admin_head', array( __CLASS__, 'shortcodes_admin_head' ));
     }
   }
@@ -91,7 +93,7 @@ class InboundShortcodes {
   static function shortcodes_tinymce() {
     if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') )
       return;
-  
+
     if ( get_user_option('rich_editing') == 'true' ) {
       add_filter( 'mce_external_plugins', array( __CLASS__, 'add_rich_plugins' ) );
       add_filter( 'mce_buttons', array( __CLASS__, 'register_rich_buttons' ) );
@@ -102,7 +104,7 @@ class InboundShortcodes {
     $plugins['InboundShortcodes'] = INBOUND_FORMS . 'js/tinymce.js';
     return $plugins;
   }
-  
+
   static function register_rich_buttons( $buttons ) {
     array_push( $buttons, "|", 'InboundShortcodesButton' );
     return $buttons;
@@ -112,12 +114,15 @@ class InboundShortcodes {
   {
     global $post;
     $post_id = $post->ID;
-    $popup = trim(get_post_meta($post->ID, 'inbound_shortcode', true)); 
-    $short_shortcode = "";   
-    $shortcode = new InboundShortcodesFields( 'forms' ); 
-    
+    $popup = trim(get_post_meta($post->ID, 'inbound_shortcode', true));
+    $form_serialize = get_post_meta($post->ID, 'inbound_form_values', true);
+    $short_shortcode = "";
+    $shortcode = new InboundShortcodesFields( 'forms' );
+
       if ( empty ( $post ) || 'inbound-forms' !== get_post_type( $GLOBALS['post'] ) )
-          return; ?> 
+          return; ?>
+  <div id="cpt-form-shortcode"><?php echo $popup;?></div>
+  <div id="cpt-form-serialize"><?php echo $form_serialize;?></div>
    <div id="short_shortcode_form">
     Shortcode: <input type="text" class="regular-text code" readonly="readonly" id="shortcode" name="shortcode" value='[inbound_forms id="<?php echo $post_id;?>"]'>
    </div>
@@ -136,21 +141,21 @@ class InboundShortcodes {
                           <tbody style="display:none;">
                               <tr class="form-row" style="text-align: center;">
                                   <?php if( ! $shortcode->has_child ) : ?><td class="label">&nbsp;</td><?php endif; ?>
-                                  <td class="field" style="width:500px;"><a href="#" id="inbound_insert_shortcode" class="button-primary inbound-shortcodes-insert"><?php _e('Insert Shortcode', INBOUND_LABEL); ?></a></td>              
+                                  <td class="field" style="width:500px;"><a href="#" id="inbound_insert_shortcode" class="button-primary inbound-shortcodes-insert"><?php _e('Insert Shortcode', INBOUND_LABEL); ?></a></td>
                               </tr>
                           </tbody>
                       </table>
                   </form>
               </div>
-              
+
               <div id="inbound-shortcodes-preview-wrap">
                   <div id="inbound-shortcodes-preview-head">
                       <?php _e('Shortcode Preview', INBOUND_LABEL); ?>
                   </div>
                   <?php if( $shortcode->no_preview ) : ?>
-                      <div id="inbound-shortcodes-nopreview"><?php _e('Shortcode has no preview', INBOUND_LABEL); ?></div>    
-                  <?php else : ?>     
-                      <iframe src="<?php echo INBOUND_FORMS; ?>preview.php?sc=" width="285" scrollbar='true' frameborder="0" id="inbound-shortcodes-preview"></iframe>
+                      <div id="inbound-shortcodes-nopreview"><?php _e('Shortcode has no preview', INBOUND_LABEL); ?></div>
+                  <?php else : ?>
+                      <iframe src='<?php echo INBOUND_FORMS; ?>preview.php?sc=' width="285" scrollbar='true' frameborder="0" id="inbound-shortcodes-preview"></iframe>
                   <?php endif; ?>
               </div>
               <div class="clear"></div>
@@ -161,7 +166,7 @@ class InboundShortcodes {
           <a href="#" id="inbound_insert_shortcode_two" class="button-primary inbound-shortcodes-insert-two"><?php _e('Insert Shortcode', INBOUND_LABEL); ?></a>
           <a href="#" id="shortcode_cancel" class="button inbound-shortcodes-insert-cancel">Cancel</a>
           <a href="#" id="inbound_save_form" style="display:none;" class="button">Save As New Form</a>
-      </div>    
+      </div>
       <script type="text/javascript">
       jQuery(document).ready(function($) {
 
@@ -169,7 +174,7 @@ class InboundShortcodes {
           setTimeout(function() {
                   jQuery('#inbound-shortcodes-form input:visible').first().focus();
           }, 500);
-        
+
       //jQuery("body").on('click', '.child-clone-row', function () {
          // jQuery(".child-clone-row").toggle();
          // jQuery(this).show();
@@ -177,7 +182,7 @@ class InboundShortcodes {
       });
   </script>
 
-      <?php 
+      <?php
   }
 }
 }
