@@ -32,6 +32,7 @@
 	require_once ('shortcodes/quick-forms.php'); // Form Builder
 	require_once ('shortcodes/column.php'); // Columned Layouts
 
+	require_once ('shortcodes/call-to-action.php');
 	require_once ('shortcodes/alert.php');
 
 	require_once ('shortcodes/button.php');

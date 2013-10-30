@@ -114,6 +114,7 @@ class InboundShortcodes {
   {
     global $post;
     $post_id = $post->ID;
+    $post_title = get_the_title( $post_id );
     $popup = trim(get_post_meta($post->ID, 'inbound_shortcode', true));
     $form_serialize = get_post_meta($post->ID, 'inbound_form_values', true);
     $short_shortcode = "";
@@ -124,7 +125,7 @@ class InboundShortcodes {
   <div id="cpt-form-shortcode"><?php echo $popup;?></div>
   <div id="cpt-form-serialize"><?php echo $form_serialize;?></div>
    <div id="short_shortcode_form">
-    Shortcode: <input type="text" class="regular-text code" readonly="readonly" id="shortcode" name="shortcode" value='[inbound_forms id="<?php echo $post_id;?>"]'>
+    Shortcode: <input type="text" class="regular-text code short-shortcode-input" readonly="readonly" id="shortcode" name="shortcode" value='[inbound_forms id="<?php echo $post_id;?>" name="<?php echo $post_title;?>"]'>
    </div>
       <div id="inbound-shortcodes-popup">
 
