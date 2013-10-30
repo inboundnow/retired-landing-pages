@@ -435,8 +435,32 @@ add_shortcode('inbound_forms', 'inbound_short_form_create');
 		), $atts));
 
 		$shortcode = get_post_meta( $id, 'inbound_shortcode', TRUE );
+		if ($id === 'default_3'){
+			$shortcode = '[inbound_form name="Form Name" layout="vertical" labels="top" submit="Submit" ][inbound_field label="Email" type="text" required="1" ][/inbound_form]';
+		}
+		if ($id === 'default_1'){
+			$shortcode = '[inbound_form name="3 Field Form" layout="vertical" labels="top" submit="Submit" ][inbound_field label="First Name" type="text" required="0" ][inbound_field label="Last Name" type="text" required="0" ][inbound_field label="Email" type="text" required="1" placeholder="Enter Your Email Address" ][/inbound_form]';
+		}
+		if ($id === 'default_2'){
+			$shortcode = '[inbound_form name="Standard Company Form" layout="vertical" labels="top" submit="Submit" ]
+
+						[inbound_field label="First Name" type="text" required="0" placeholder="Enter Your First Name" ]
+
+						[inbound_field label="Last Name" type="text" required="0" placeholder="Enter Your Last Name" ]
+
+						[inbound_field label="Email" type="text" required="1" placeholder="Enter Your Email Address" ]
+
+						[inbound_field label="Company Name" type="text" required="0" placeholder="Enter Your Company Name" ]
+
+						[inbound_field label="Job Title" type="text" required="0" placeholder="Enter Your Job Title" ]
+
+						[/inbound_form]';
+		}
 		if (empty($shortcode)) {
 			$shortcode = "Form ID: " . $id . " Not Found";
+		}
+		if ($id === 'none'){
+			$shortcode = "";
 		}
 
 		return do_shortcode( $shortcode );

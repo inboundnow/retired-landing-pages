@@ -30,6 +30,9 @@
 .switch-to-form-builder.button {
 	font-style: normal;
 }
+tbody.hidden-form-settings {
+	display: none;
+}
 #inbound_insert_shortcode_two.quick-forms.button-primary.inbound-shortcodes-insert-two {
 	color: #FFF !important;
 }

@@ -22,7 +22,15 @@
 					'std' => '',
 					'class' => 'helper-div',
 			),
+			'form_name' => array(
+				'name' => __('Form Name<span class="small-required-text">*</span>', INBOUND_LABEL),
+				'desc' => __('This is not shown to visitors', INBOUND_LABEL),
+				'type' => 'text',
+				'placeholder' => "Example: XYZ Whitepaper Download",
+				'std' => '',
+				'class' => 'hidden-form-settings',
+			),
 		),
-		'shortcode' => '[inbound_forms id="{{insert_default}}" redirect="{{insert_default}}"]',
+		'shortcode' => '[inbound_forms id="{{insert_default}}" name="{{form_name}}"]',
 		'popup_title' => __('Quick Insert Inbound Form Shortcode',  INBOUND_LABEL)
 	);

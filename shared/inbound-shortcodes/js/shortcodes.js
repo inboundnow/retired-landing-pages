@@ -386,11 +386,14 @@
 					var option_fix = option_name.replace('form_', '');
 					jQuery(this).val(option_fix);
 					if (option_name === "none") {
-						jQuery(this).remove();
+						jQuery(this).text('Choose Form');
 					}
 				});
 				// Insert default forms
 				jQuery('body').on('change', '#inbound_shortcode_insert_default', function () {
+					var val = jQuery(this).val();
+					var option = jQuery(this).find("option[value='"+val+"']").text();
+					jQuery('#inbound_shortcode_form_name').val(option);
 					InboundShortcodes.update_fields();
 				});
 			}
