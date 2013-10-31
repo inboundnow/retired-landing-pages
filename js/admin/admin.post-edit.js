@@ -9,6 +9,7 @@ jQuery(document).ready(function ($) {
 	  jQuery('#templates-container').isotope({ filter: selector });
 	  return false;
 	});
+	
 	/* Ajax loading tabs
 		jQuery.koolSwap({
 			swapBox : '#poststuff',
@@ -17,26 +18,29 @@ jQuery(document).ready(function ($) {
 	});
 	*/
 
-      jQuery("body").on('click', '#content-tmce, .wp-switch-editor.switch-tmce', function () {
-            $.cookie("lp-edit-view-choice", "editor", { path: '/', expires: 7 });
-        });
-        jQuery("body").on('click', '#content-html, .wp-switch-editor.switch-html', function () {
-            $.cookie("lp-edit-view-choice", "html", { path: '/', expires: 7 });
-        });
-        var which_editor = $.cookie("lp-edit-view-choice");
-        if(which_editor === null){
-           setTimeout(function() {
-            jQuery("#content-tmce").click();
-            //jQuery(".wp-switch-editor.switch-tmce").click();
-            }, 1000);
-       
-        }    
-        if(which_editor === 'editor'){
-          setTimeout(function() {
-            jQuery("#content-tmce").click();
-            //jQuery(".wp-switch-editor.switch-tmce").click();
-            }, 1000);
-        }
+	jQuery("body").on('click', '#content-tmce, .wp-switch-editor.switch-tmce', function () {
+		$.cookie("lp-edit-view-choice", "editor", { path: '/', expires: 7 });
+	});
+	
+	jQuery("body").on('click', '#content-html, .wp-switch-editor.switch-html', function () {
+		$.cookie("lp-edit-view-choice", "html", { path: '/', expires: 7 });
+	});
+	
+	var which_editor = $.cookie("lp-edit-view-choice");
+	if(which_editor === null){
+	   setTimeout(function() {
+		jQuery("#content-tmce").click();
+		//jQuery(".wp-switch-editor.switch-tmce").click();
+		}, 1000);
+   
+	}    
+	
+	if(which_editor === 'editor'){
+	  setTimeout(function() {
+		jQuery("#content-tmce").click();
+		//jQuery(".wp-switch-editor.switch-tmce").click();
+		}, 1000);
+	}
 
     /* Tour Start JS */
     var tourbutton = '<a class="" id="lp-tour" style="font-size:13px;">Need help? Take the tour</a>';
@@ -392,6 +396,7 @@ jQuery(document).ready(function ($) {
         //console.log(parent_el);
         jQuery(ajax_save_button).appendTo(parent_el);
     });
+	
     jQuery('#lp-notes-area input').on("change keyup", function (e) {
        var this_id = jQuery(this).attr("id");
         var parent_el = jQuery(this).parent();
