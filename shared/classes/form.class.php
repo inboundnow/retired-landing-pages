@@ -4,6 +4,14 @@
  * Creates Form Shortcode
  */
 
+/*
+Usage
+[inbound_form fields="First Name, Last Name, Email, Company, Phone" required="Company" textareas="Company"]
+*/
+
+//=============================================
+// Define constants
+//=============================================
 
 if (!class_exists('InboundForms')) {
 class InboundForms {
@@ -16,7 +24,7 @@ class InboundForms {
         add_action('init', array(__CLASS__, 'register_script'));
         add_action('wp_footer', array(__CLASS__, 'print_script'));
         add_action('wp_footer', array(__CLASS__, 'inline_my_script'));
-        add_action( 'wp_head',  array(__CLASS__, 'send_email'));
+        add_action( 'init',  array(__CLASS__, 'send_email'));
     }
 
     // Shortcode params
@@ -26,6 +34,7 @@ class InboundForms {
     extract(shortcode_atts(array(
       'name' => '',
       'layout' => '',
+      'notify' => $email,
       'labels' => '',
       'width' => '',
       'redirect' => '',
@@ -178,7 +187,7 @@ class InboundForms {
       }
       // End Loop
       $current_page = get_permalink();
-             $form .= '<div class="inbound-field inbound-submit-area">
+             $form .= '<div class="inbound-field '.$main_layout.' inbound-submit-area">
                       <input type="submit" '.$submit_button_type.' class="button" value="'.$submit_button.'" name="send" id="inbound_form_submit" />
                   </div>
                   <input type="hidden" name="inbound_submitted" value="1">';
@@ -188,6 +197,7 @@ class InboundForms {
             $form .= '<input type="hidden" name="inbound_form_name" value="'.$form_name.'">
                       <input type="hidden" name="inbound_current_page_url" value="'.$current_page.'">
                       <input type="hidden" name="inbound_furl" value="'. base64_encode($redirect) .'">
+                      <input type="hidden" name="inbound_notify" value="'. base64_encode($notify) .'">
 
                   </form>
                   </div>';
@@ -271,7 +281,10 @@ class InboundForms {
         if(isset($_POST['inbound_furl']) && $_POST['inbound_furl'] != "") {
             $redirect = base64_decode($_POST['inbound_furl']);
         }
-        print_r($_POST);
+        if(isset($_POST['inbound_notify']) && $_POST['inbound_notify'] != "") {
+            $email_to = base64_decode($_POST['inbound_notify']);
+        }
+
           foreach ( $_POST as $field => $value ) {
                 if ( get_magic_quotes_gpc() ) {
                     $value = stripslashes( $value );
@@ -297,7 +310,7 @@ class InboundForms {
                 $form_data[$field] = strip_tags( $value );
 
             }
-                // Make Option
+            /*
                 add_filter( 'wp_mail_from', 'wp_leads_mail_from' );
                 function wp_leads_mail_from( $email )
                 {
@@ -309,6 +322,7 @@ class InboundForms {
                 {
                     return 'David';
                 }
+             */
                 // Make Option
                 add_filter( 'wp_mail_content_type', 'set_html_content_type' );
                 function set_html_content_type() {
@@ -320,7 +334,7 @@ class InboundForms {
             /* Might be better email send need to test and look at html edd emails */
             if ( isset($form_data['email'])) {
                 // DO PHP LEAD SAVE HERE
-                $to = 'david@inboundnow.com'; // admin email or email from shortcode
+                $to = $email_to; // admin email or email from shortcode
                 $admin_url = get_bloginfo( 'url' ) . "/wp-admin";
                 // get the website's name and puts it in front of the subject
                 $email_subject = "[" . get_bloginfo( 'name' ) . "] " . $form_data['inbound_form_name'] . " - New Lead Conversion";
@@ -334,7 +348,7 @@ class InboundForms {
                       <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" border="0">
                         <tr>';
                 $email_message .= "<div style='padding-top: 10px; padding-left: 15px; font-size: 20px; padding-bottom: 10px; background-color:#E0E0E0; border:solid 1px #CECDCA;'>New Conversion on <strong>" . $form_data['inbound_form_name'] ."</strong></div>\n";
-                $exclude_array = array('Inbound Redirect', 'Inbound Submitted', 'Inbound Parent Page', 'Send', 'Inbound Furl' );
+                $exclude_array = array('Inbound Redirect', 'Inbound Submitted', 'Inbound Notify', 'Inbound Parent Page', 'Send', 'Inbound Furl' );
 
                 $main_count = 0;
                 $url_request = "";
@@ -347,8 +361,11 @@ class InboundForms {
                     if ( $name === "Inbound Current Page Url" ) {
                       $name = "Converted on Page";
                     }
+                    $field_data = ($form_data[$key] != "") ? $form_data[$key] : "<span style='color:#949494; font-size: 10px;'>(Field left blank)</span>";
+
+
                     if(!in_array($name, $exclude_array)) {
-                    $email_message .= "<div style='border:solid 1px #EBEBEA; padding-top:10px; padding-bottom:10px; padding-left:20px; padding-right:20px;'><strong style='min-width: 120px;display: inline-block;'>".$name . ": </strong>" . $form_data[$key] ."</div>\n";
+                    $email_message .= "<div style='border:solid 1px #EBEBEA; padding-top:10px; padding-bottom:10px; padding-left:20px; padding-right:20px;'><strong style='min-width: 120px;display: inline-block;'>".$name . ": </strong>" . $field_data ."</div>\n";
                     }
                     $main_count++;
                 }
@@ -358,22 +375,30 @@ class InboundForms {
                               </table>
                             </body>
                           </html>';
+                if (isset($form_data['first-name']) && isset($form_data['last-name'])) {
+                  $from_name = $form_data['first-name'] . " ". $form_data['last-name'];
+                } else if (isset($form_data['first-name'])) {
+                  $from_name = $form_data['first-name'];
+                } else {
+                  $from_name = get_bloginfo( 'name' );
+                }
                 // set the e-mail headers with the user's name, e-mail address and character encoding
-                $headers  = "From: " . $form_data['first-name'] . " <" . $form_data['email'] . ">\n";
+                $headers  = "From: " . $from_name . " <" . $form_data['email'] . ">\n";
                 $headers .= 'Content-type: text/html';
                 // send the e-mail with the shortcode attribute named 'email' and the POSTed data
                 wp_mail( $to, $email_subject, $email_message, $headers );
                 // and set the result text to the shortcode attribute named 'success'
-                $result = $success;
+                //$result = $success;
                 // ...and switch the $sent variable to TRUE
                 $sent = true;
-                //print_r($email_message); // preview email
+
                 //echo "email sent";
                 // Do redirect
                 //echo $redirect . $url_request;
                 if ($redirect != "") {
-                header("HTTP/1.1 302 Temporary Redirect");
-                header("Location:" . $redirect);
+
+                wp_redirect( $redirect );
+                exit();
                 }
             }
 
