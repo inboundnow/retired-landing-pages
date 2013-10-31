@@ -36,50 +36,58 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 		{
 			$lp_data = lp_get_extension_data();
 			
-			foreach ($lp_data as $key=>$value)
+			foreach ($lp_data as $key=>$data)
 			{
 				$array_core_templates = array('countdown-lander','default','demo','dropcap','half-and-half','simple-two-column','super-slick','svtle','tubelar','rsvp-envelope', 'three-column-lander');
 				
-				if ($key!='lp'&&!in_array($key,$array_core_templates)&&substr($key,0,4)!='ext-')
-				{
-					//echo $key;
-					//echo "<br>";
-					if (isset($_POST['s'])&&!empty($_POST['s']))
-					{
-						if (!stristr($value['label'],$_POST['s']))
-						{
-							continue;
-						}
-					}					
+				if ($key == 'lp' || substr($key,0,4) == 'ext-' )
+					continue;
 					
-					if (stristr($value['category'],'Theme Integrated'))
-						continue;
-					
-					if (isset($value['thumbnail']))
-						$thumbnail = $value['thumbnail'];
-					else if ($key=='default')
-						$thumbnail =  get_bloginfo('template_directory')."/screenshot.png";									
-					else
-						$thumbnail = LANDINGPAGES_UPLOADS_URLPATH.$key."/thumbnail.png";
+				if (isset($data['info']['data_type']) && $data['info']['data_type']=='metabox')
+					continue;
 				
-					$this_data['ID']  = $key;
-					$this_data['template']  = $key;
-					$this_data['name']  = $value['info']['label'];
-					$this_data['category']  = $value['info']['category'];
-					$this_data['description']  = $value['info']['description'];
-					$this_data['thumbnail']  = $thumbnail;
-					if (isset($value['version'])&&!empty($value['info']['version']))
+				if (in_array($key,$array_core_templates))
+					continue;
+				
+				//if (stristr($data['category'],'Theme Integrated'))
+					//continue;
+				
+				//echo "<br>";
+				if (isset($_POST['s'])&&!empty($_POST['s']))
+				{
+					if (!stristr($data['info']['label'],$_POST['s']))
 					{
-						$this_data['version']  = $value['info']['version'];
+						continue;
 					}
-					else
-					{
-						$this_data['version'] = "1.0.0.1";
-					}
-					$final_data[] = $this_data;
+				}					
+				
+				if (isset($data['thumbnail']))
+					$thumbnail = $data['thumbnail'];
+				else if ($key=='default')
+					$thumbnail =  get_bloginfo('template_directory')."/screenshot.png";									
+				else
+					$thumbnail = LANDINGPAGES_UPLOADS_URLPATH.$key."/thumbnail.png";
+			
+				$this_data['ID']  = $key;
+				$this_data['template']  = $key;
+				
+				( array_key_exists('info',$data) ) ? $this_data['name'] = $data['info']['label'] :  $this_data['name'] = $data['label'];
+				( array_key_exists('info',$data) ) ? $this_data['category'] = $data['info']['category'] :  $this_data['category'] = $data['category'];
+				( array_key_exists('info',$data) ) ? $this_data['description'] = $data['info']['description'] :  $this_data['description'] = $data['description'];
+				
+				$this_data['thumbnail']  = $thumbnail;
+				if (isset($data['version'])&&!empty($data['info']['version']))
+				{
+					$this_data['version']  = $data['info']['version'];
+				}
+				else
+				{
+					$this_data['version'] = "1.0.1";
 				}
 				
+				$final_data[] = $this_data;						
 			}
+			
 			//print_r($this_data);exit;
 			$this->template_data = $final_data; 
 			//$this->_args = array();
