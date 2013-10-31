@@ -139,33 +139,34 @@
 
 /* 	Add shortcode
  * 	----------------------------------------------------- */
-	add_shortcode('callout', 'fresh_shortcode_callout');
+	add_shortcode('callout', 'inbound_shortcode_callout');
+	if (!function_exists('inbound_shortcode_callout')) {
+		function inbound_shortcode_callout( $atts, $content = null ) {
+			extract(shortcode_atts(array(
+				'title' => '',
+				'subtitle' => '',
+				'button_color' => '',
+				'button_label' => '',
+				'button_icon' => '',
+				'link' => ''
+			), $atts));
 
-	function fresh_shortcode_callout( $atts, $content = null ) {
-		extract(shortcode_atts(array(
-			'title' => '',
-			'subtitle' => '',
-			'button_color' => '',
-			'button_label' => '',
-			'button_icon' => '',
-			'link' => ''
-		), $atts));
+			$icon = ($button_icon) ? '<i class="icon-'. $button_icon .'"></i>&nbsp;&nbsp;' : '';
 
-		$icon = ($button_icon) ? '<i class="icon-'. $button_icon .'"></i>&nbsp;&nbsp;' : '';
+			$out = '';
+			$out .= '<div class="callout clearfix">';
+				$out .= '<div class="left">';
+					$out .= '<h2>'. $title .'</h2>';
+					$out .= '<div class="subtitle">'. $subtitle .'</div>';
+				$out .= '</div>';
 
-		$out = '';
-		$out .= '<div class="callout clearfix">';
-			$out .= '<div class="left">';
-				$out .= '<h2>'. $title .'</h2>';
-				$out .= '<div class="subtitle">'. $subtitle .'</div>';
+				if ($link ) :
+				$out .= '<div class="right">';
+					$out .= '<a class="button '. $button_color .'" href="'. $link .'">'. $icon . $button_label .'</a>';
+				$out .= '</div>';
+				endif;
 			$out .= '</div>';
 
-			if ($link ) :
-			$out .= '<div class="right">';
-				$out .= '<a class="button '. $button_color .'" href="'. $link .'">'. $icon . $button_label .'</a>';
-			$out .= '</div>';
-			endif;
-		$out .= '</div>';
-
-		return $out;
+			return $out;
+		}
 	}

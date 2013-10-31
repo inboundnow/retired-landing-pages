@@ -17,8 +17,9 @@ if (!defined('INBOUND_FORMS_ADMIN')) {
     define('INBOUND_FORMS_ADMIN', get_bloginfo('url') . "/wp-admin");
 }
 
-
+if (!defined('INBOUND_LABEL')) {
 define( 'INBOUND_LABEL', str_replace( ' ', '_', strtolower( 'Inbound Now' ) ) );
+}
 
 require_once( 'shortcodes-includes.php' );
 
@@ -67,7 +68,7 @@ class InboundShortcodes {
       if (isset($post)&&$post->post_type=='inbound-forms')
       {
       require_once( 'shortcodes-fields.php' );
-      add_action( 'edit_form_after_title',  array(__CLASS__, 'inbound_forms_header_area'));
+      add_action( 'admin_footer',  array(__CLASS__, 'inbound_forms_header_area'));
 
       }
 
@@ -122,6 +123,7 @@ class InboundShortcodes {
 
       if ( empty ( $post ) || 'inbound-forms' !== get_post_type( $GLOBALS['post'] ) )
           return; ?>
+  <div id="entire-form-area">
   <div id="cpt-form-shortcode"><?php echo $popup;?></div>
   <div id="cpt-form-serialize"><?php echo $form_serialize;?></div>
    <div id="short_shortcode_form">
@@ -168,6 +170,8 @@ class InboundShortcodes {
           <a href="#" id="shortcode_cancel" class="button inbound-shortcodes-insert-cancel">Cancel</a>
           <a href="#" id="inbound_save_form" style="display:none;" class="button">Save As New Form</a>
       </div>
+    </div>
+
       <script type="text/javascript">
       jQuery(document).ready(function($) {
 

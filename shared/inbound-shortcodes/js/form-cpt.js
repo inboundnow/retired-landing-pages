@@ -1,13 +1,18 @@
 jQuery(document).ready(function($) {
 	//var button = '<a href="#" id="inbound_save_this_form" style="" class="button-primary">Save This Form</a>';
 	//jQuery("#inbound_save_form").before(button);
+    var form_move = jQuery("#entire-form-area");
+    jQuery("#titlediv").after(form_move);
+    jQuery("#entire-form-area").fadeIn(1000);
 	jQuery("#inbound_save_form").removeClass('button').addClass('button-primary').text('Save Form');
-
+    jQuery("#inbound-shortcodes-preview").hide().fadeIn(5000);
    	jQuery("body").on('change keyup', '#title', function () {
+        jQuery("#title-prompt-text").hide();
    		var this_val = jQuery(this).val();
    		jQuery("#inbound_shortcode_form_name").val(this_val);
     });
     jQuery("body").on('change keyup', '#inbound_shortcode_form_name', function () {
+            jQuery("#title-prompt-text").hide();
     		var this_val = jQuery(this).val();
     		jQuery("#title").val(this_val);
     });
@@ -15,6 +20,9 @@ jQuery(document).ready(function($) {
     	var post_id = jQuery("#post_ID").val();
     });
     var post_status = jQuery("#hidden_post_status").val();
+    if (post_status === 'draft') {
+        jQuery("#inbound_save_form").text("Publish Form");
+    }
     var post_id = jQuery("#post_ID").val();
     var post_title = jQuery("#title").val();
     //jQuery("#inbound_shortcode_form_name").val(post_title);

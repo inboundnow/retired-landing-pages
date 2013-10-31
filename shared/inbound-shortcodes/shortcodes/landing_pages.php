@@ -122,89 +122,90 @@
 
 /* 	Add shortcode
  * 	----------------------------------------------------- */
-	add_shortcode('landing_pages', 'fresh_shortcode_landing_pages');
+	add_shortcode('landing_pages', 'inbound_shortcode_landing_pages');
+	if (!function_exists('inbound_shortcode_landing_pages')) {
+		function inbound_shortcode_landing_pages( $atts, $content = null ) {
+			extract(shortcode_atts(array(
+				'heading' => 'Recent Posts',
+				'column' => '4',
+				'number' => '4',
+				'cat' => '',
+				'excerpt_lenght' => '30',
+				'thumbs' => '1'
+			), $atts));
 
-	function fresh_shortcode_landing_pages( $atts, $content = null ) {
-		extract(shortcode_atts(array(
-			'heading' => 'Recent Posts',
-			'column' => '4',
-			'number' => '4',
-			'cat' => '',
-			'excerpt_lenght' => '30',
-			'thumbs' => '1'
-		), $atts));
+			$grid = ' inbound-grid full';
+			if ($column == '2') $grid = ' inbound-grid one-half';
+			if ($column == '3') $grid = ' inbound-grid one-third';
+			if ($column == '4') $grid = ' inbound-grid one-fourth';
+			if ($column == '5') $grid = ' inbound-grid one-fifth';
 
-		$grid = ' inbound-grid full';
-		if ($column == '2') $grid = ' inbound-grid one-half';
-		if ($column == '3') $grid = ' inbound-grid one-third';
-		if ($column == '4') $grid = ' inbound-grid one-fourth';
-		if ($column == '5') $grid = ' inbound-grid one-fifth';
+			$out = '';
+			$i = 0;
 
-		$out = '';
-		$i = 0;
+			$out .= '<div class="inbound-row">';
+			if ($heading != '') $out .= '<div class="inbound-grid full"><div class="heading"><h3>'.$heading.'</h3><div class="sep"></div></div></div>';
 
-		$out .= '<div class="inbound-row">';
-		if ($heading != '') $out .= '<div class="inbound-grid full"><div class="heading"><h3>'.$heading.'</h3><div class="sep"></div></div></div>';
+			$number = ($number) ? $num = $number : $num = -1;
 
-		$number = ($number) ? $num = $number : $num = -1;
+			$cat = ($cat) ? "$cat" : '';
 
-		$cat = ($cat) ? "$cat" : '';
-		
-		//$args = "post_type=landing-page$number$cat"; // &post_type=landing-page
-		if ($cat === 'all' || $cat === '') {
-			$args = array(
-                        'post_type' => 'landing-page',
-                        'posts_per_page' => $number,
-        			);
-		} else {
-			$args = array(
-                        'post_type' => 'landing-page',
-                        'posts_per_page' => $number,
-                        'tax_query' => array(
-                                        array(
-                                            'taxonomy' => 'landing_page_category',
-                                            'field' => 'id',
-                                            'terms' => $cat
-                                        ))
-        		);
-		}
-		
-		$loop = new WP_Query( $args);
-		
-		if ( $loop->have_posts() ) :
-			while ( $loop->have_posts() ) : $loop->the_post(); $i++;
-			$id = $loop->post->ID;
-			$thumbnail = '';
-			$title = get_the_title($id);
-
-			if(empty($title)){
-				$title = get_post_meta( $id , 'lp-main-headline',true );
+			//$args = "post_type=landing-page$number$cat"; // &post_type=landing-page
+			if ($cat === 'all' || $cat === '') {
+				$args = array(
+	                        'post_type' => 'landing-page',
+	                        'posts_per_page' => $number,
+	        			);
+			} else {
+				$args = array(
+	                        'post_type' => 'landing-page',
+	                        'posts_per_page' => $number,
+	                        'tax_query' => array(
+	                                        array(
+	                                            'taxonomy' => 'landing_page_category',
+	                                            'field' => 'id',
+	                                            'terms' => $cat
+	                                        ))
+	        		);
 			}
 
-			if ($thumbs != 0){
-			$thumbnail = get_the_post_thumbnail($post->ID, '500x360');	
-			}
-			
-			
-			//print_r($loop);
-			$out .= '<div class="'.$grid.'">';
-			$out .= '<div class="recent-entry inbound-clearfix">'.$thumbnail.'';
-				$out .= '<header class="recent-entry-header">';
-					$out .= '<h3 class="recent-entry-title"><a class="reserve" href="'.get_permalink().'" title="" rel="bookmark">'.$title.'</a></h3>';
-				$out .= '</header>';
+			$loop = new WP_Query( $args);
 
-				$out .= '<div class="recent-entry-summary">';
-				//$out .= the_excerpt($id);
+			if ( $loop->have_posts() ) :
+				while ( $loop->have_posts() ) : $loop->the_post(); $i++;
+				$id = $loop->post->ID;
+				$thumbnail = '';
+				$title = get_the_title($id);
+
+				if(empty($title)){
+					$title = get_post_meta( $id , 'lp-main-headline',true );
+				}
+
+				if ($thumbs != 0){
+				$thumbnail = get_the_post_thumbnail($post->ID, '500x360');
+				}
+
+
+				//print_r($loop);
+				$out .= '<div class="'.$grid.'">';
+				$out .= '<div class="recent-entry inbound-clearfix">'.$thumbnail.'';
+					$out .= '<header class="recent-entry-header">';
+						$out .= '<h3 class="recent-entry-title"><a class="reserve" href="'.get_permalink().'" title="" rel="bookmark">'.$title.'</a></h3>';
+					$out .= '</header>';
+
+					$out .= '<div class="recent-entry-summary">';
+					//$out .= the_excerpt($id);
+					$out .= '</div>';
 				$out .= '</div>';
+				$out .= '</div>';
+
+				if( $i == $column ) $out .= '<div class="inbound-clear"></div>';
+
+				endwhile;
+			endif;
+			wp_reset_postdata();
 			$out .= '</div>';
-			$out .= '</div>';
 
-			if( $i == $column ) $out .= '<div class="inbound-clear"></div>';
-
-			endwhile;
-		endif;
-		wp_reset_postdata();
-		$out .= '</div>';
-
-		return $out;
+			return $out;
+		}
 	}

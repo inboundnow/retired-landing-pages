@@ -83,59 +83,60 @@
 
 /* 	Add shortcode
  * 	----------------------------------------------------- */
-	add_shortcode('landing-page-list', 'fresh_shortcode_portfolio');
+	add_shortcode('landing-page-list', 'inbound_shortcode_portfolio');
+	if (!function_exists('inbound_shortcode_portfolio')) {
+		function inbound_shortcode_portfolio( $atts, $content = null ) {
+			extract(shortcode_atts(array(
+				'heading' => 'Recent Project',
+				'column' => 4,
+				'number' => 4
+			), $atts));
 
-	function fresh_shortcode_portfolio( $atts, $content = null ) {
-		extract(shortcode_atts(array(
-			'heading' => 'Recent Project',
-			'column' => 4,
-			'number' => 4
-		), $atts));
+			global $post;
 
-		global $post;
+			$grid = ' grid one-half';
+			if ($column == '3') $grid = ' grid one-third';
+			if ($column == '4') $grid = ' grid one-fourth';
 
-		$grid = ' grid one-half';
-		if ($column == '3') $grid = ' grid one-third';
-		if ($column == '4') $grid = ' grid one-fourth';
+			$out = '';
+			$i = 0;
 
-		$out = '';
-		$i = 0;
+			$out .= '<div class="portfolio-items row">';
+			if ($heading != '') $out .= '<div class="grid full"><div class="heading"><h3>'.$heading.'</h3><div class="sep"></div></div></div>';
 
-		$out .= '<div class="portfolio-items row">';
-		if ($heading != '') $out .= '<div class="grid full"><div class="heading"><h3>'.$heading.'</h3><div class="sep"></div></div></div>';
+			$number = ($number) ? "&posts_per_page=$number" : '';
 
-		$number = ($number) ? "&posts_per_page=$number" : '';
+			$args = "post_type=portfolio$number";
+			$loop = new WP_Query( $args);
 
-		$args = "post_type=portfolio$number";
-		$loop = new WP_Query( $args);
+			if ( $loop->have_posts() ) :
+				while ( $loop->have_posts() ) : $loop->the_post(); $i++;
 
-		if ( $loop->have_posts() ) :
-			while ( $loop->have_posts() ) : $loop->the_post(); $i++;
+				$meta = get_post_meta( $post->ID, 'ft_portfolio_subtitle', true) ? get_post_meta( $post->ID, 'ft_portfolio_subtitle', true) : freshthemes_get_portfolio_categories();
 
-			$meta = get_post_meta( $post->ID, 'ft_portfolio_subtitle', true) ? get_post_meta( $post->ID, 'ft_portfolio_subtitle', true) : freshthemes_get_portfolio_categories();
+				$out .= '<div class="'.$grid.'">';
+				$out .= '<article class="item clearfix">
+							<figure class="item-thumb">
+		                        '.get_the_post_thumbnail($post->ID, '500x360').'
+		                        <div class="overlay">
+		                            <a class="view-link" href="'.get_permalink().'" rel="bookmark">'.__('View Project', INBOUND_LABEL) .'</a>
+		                        </div>
+		                    </figure>
 
-			$out .= '<div class="'.$grid.'">';
-			$out .= '<article class="item clearfix">
-						<figure class="item-thumb">
-	                        '.get_the_post_thumbnail($post->ID, '500x360').'
-	                        <div class="overlay">
-	                            <a class="view-link" href="'.get_permalink().'" rel="bookmark">'.__('View Project', INBOUND_LABEL) .'</a>
-	                        </div>
-	                    </figure>
+		                    <header class="item-header">
+		                        <h4 class="item-title"><a class="reserve" href="'.get_permalink().'" title="" rel="bookmark">'.get_the_title().'</a></h4>
+		                        <div class="item-meta">'. $meta .'</div>
+		                    </header>';
+				$out .= '</article>';
+				$out .= '</div>';
 
-	                    <header class="item-header">
-	                        <h4 class="item-title"><a class="reserve" href="'.get_permalink().'" title="" rel="bookmark">'.get_the_title().'</a></h4>
-	                        <div class="item-meta">'. $meta .'</div>
-	                    </header>';
-			$out .= '</article>';
+				if( $i == $column ) $out .= '<div class="clear"></div>';
+
+				endwhile;
+			endif;
+			wp_reset_postdata();
 			$out .= '</div>';
 
-			if( $i == $column ) $out .= '<div class="clear"></div>';
-
-			endwhile;
-		endif;
-		wp_reset_postdata();
-		$out .= '</div>';
-
-		return $out;
+			return $out;
+		}
 	}

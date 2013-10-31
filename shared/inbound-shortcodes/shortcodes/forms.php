@@ -215,220 +215,236 @@
 
 /* CPT Lead Lists */
 add_action('init', 'inbound_forms_cpt',11);
-function inbound_forms_cpt() {
-	//echo $slug;exit;
-    $labels = array(
-        'name' => _x('Forms', 'post type general name'),
-        'singular_name' => _x('Form', 'post type singular name'),
-        'add_new' => _x('Add New', 'Form'),
-        'add_new_item' => __('Create New Form'),
-        'edit_item' => __('Edit Form'),
-        'new_item' => __('New Form'),
-        'view_item' => __('View Lists'),
-        'search_items' => __('Search Lists'),
-        'not_found' =>  __('Nothing found'),
-        'not_found_in_trash' => __('Nothing found in Trash'),
-        'parent_item_colon' => ''
-    );
+if (!function_exists('inbound_forms_cpt')) {
+	function inbound_forms_cpt() {
+		//echo $slug;exit;
+	    $labels = array(
+	        'name' => _x('Forms', 'post type general name'),
+	        'singular_name' => _x('Form', 'post type singular name'),
+	        'add_new' => _x('Add New', 'Form'),
+	        'add_new_item' => __('Create New Form'),
+	        'edit_item' => __('Edit Form'),
+	        'new_item' => __('New Form'),
+	        'view_item' => __('View Lists'),
+	        'search_items' => __('Search Lists'),
+	        'not_found' =>  __('Nothing found'),
+	        'not_found_in_trash' => __('Nothing found in Trash'),
+	        'parent_item_colon' => ''
+	    );
 
-    $args = array(
-        'labels' => $labels,
-        'public' => false,
-        'publicly_queryable' => false,
-        'show_ui' => true,
-        'query_var' => true,
-       	'show_in_menu'  => 'edit.php?post_type=wp-lead',
-        'menu_icon' => WPL_URL . '/images/lists.png',
-        'capability_type' => 'post',
-        'hierarchical' => false,
-        'menu_position' => null,
-        'supports' => array('title','custom-fields')
-      );
+	    $args = array(
+	        'labels' => $labels,
+	        'public' => false,
+	        'publicly_queryable' => false,
+	        'show_ui' => true,
+	        'query_var' => true,
+	       	'show_in_menu'  => false,
+	        'capability_type' => 'post',
+	        'hierarchical' => false,
+	        'menu_position' => null,
+	        'supports' => array('title','custom-fields')
+	      );
 
-    register_post_type( 'inbound-forms' , $args );
-	//flush_rewrite_rules( false );
+	    register_post_type( 'inbound-forms' , $args );
+		//flush_rewrite_rules( false );
 
-	/*
-	add_action('admin_menu', 'remove_list_cat_menu');
-	function remove_list_cat_menu() {
-		global $submenu;
-		unset($submenu['edit.php?post_type=wp-lead'][15]);
-		//print_r($submenu); exit;
-	} */
-}
-add_action('admin_head', 'get_form_names',16);
-function get_form_names() {
-	global $post;
-
-	$loop = get_transient( 'inbound-form-names-off' );
-    if ( false === $loop ) {
-	$args = array(
-	'posts_per_page'  => -1,
-	'post_type'=> 'inbound-forms');
-	$form_list = get_posts($args);
-	//print_r($cta_list);
-	$form_array = array();
-	$default_array = array(
-							"none" => "None (Build Your Own)",
-							"default_form_3" => "Simple Email Form",
-							"default_form_1" => "First, Last, Email Form",
-							"default_form_2" => "Standard Company Form",
-							// Add in other forms made here
-						);
-	foreach ( $form_list as $form  )
-				{
-					$this_id = $form->ID;
-					$this_link = get_permalink( $this_id );
-					$title = $form->post_title;
-
-
-				    $form_array['form_' . $this_id] = $title;
-
-
-				 }
-	$result = array_merge( $default_array, $form_array);
-
-	set_transient('inbound-form-names', $result, 24 * HOUR_IN_SECONDS);
+		/*
+		add_action('admin_menu', 'remove_list_cat_menu');
+		function remove_list_cat_menu() {
+			global $submenu;
+			unset($submenu['edit.php?post_type=wp-lead'][15]);
+			//print_r($submenu); exit;
+		} */
 	}
-
 }
+if (!function_exists('inbound_forms_redirect')) {
+function inbound_forms_redirect($value){
+	    global $pagenow;
+	    $page = (isset($_REQUEST['page']) ? $_REQUEST['page'] : false);
+	    if($pagenow=='edit.php' && $page=='inbound-forms-redirect'){
+	        wp_redirect('/wp-admin/edit.php?post_type=inbound-forms');
+	        exit;
+	    }
+	}
+}
+add_action('admin_init', 'inbound_forms_redirect');
 
+add_action('admin_head', 'get_form_names',16);
+if (!function_exists('get_form_names')) {
+	function get_form_names() {
+		global $post;
+
+		$loop = get_transient( 'inbound-form-names-off' );
+	    if ( false === $loop ) {
+		$args = array(
+		'posts_per_page'  => -1,
+		'post_type'=> 'inbound-forms');
+		$form_list = get_posts($args);
+		//print_r($cta_list);
+		$form_array = array();
+		$default_array = array(
+								"none" => "None (Build Your Own)",
+								"default_form_3" => "Simple Email Form",
+								"default_form_1" => "First, Last, Email Form",
+								"default_form_2" => "Standard Company Form",
+								// Add in other forms made here
+							);
+		foreach ( $form_list as $form  )
+					{
+						$this_id = $form->ID;
+						$this_link = get_permalink( $this_id );
+						$title = $form->post_title;
+
+
+					    $form_array['form_' . $this_id] = $title;
+
+
+					 }
+		$result = array_merge( $default_array, $form_array);
+
+		set_transient('inbound-form-names', $result, 24 * HOUR_IN_SECONDS);
+		}
+
+	}
+}
 /* 	Shortcode moved to shared form class */
 add_action('wp_ajax_inbound_form_save', 'inbound_form_save');
 add_action('wp_ajax_nopriv_inbound_form_save', 'inbound_form_save');
-
+if (!function_exists('inbound_form_save')) {
 function inbound_form_save()
-{
-    // Post Values
-    $form_name = (isset( $_POST['name'] )) ? $_POST['name'] : "";
-    $shortcode = (isset( $_POST['shortcode'] )) ? $_POST['shortcode'] : "";
-    $form_settings =  (isset( $_POST['form_settings'] )) ? $_POST['form_settings'] : "";
-    $form_values =  (isset( $_POST['form_values'] )) ? $_POST['form_values'] : "";
-    $field_count =  (isset( $_POST['field_count'] )) ? $_POST['field_count'] : "";
-    $page_id = (isset( $_POST['post_id'] )) ? $_POST['post_id'] : "";
-    $redirect_value = (isset( $_POST['redirect_value'] )) ? $_POST['redirect_value'] : "";
+	{
+	    // Post Values
+	    $form_name = (isset( $_POST['name'] )) ? $_POST['name'] : "";
+	    $shortcode = (isset( $_POST['shortcode'] )) ? $_POST['shortcode'] : "";
+	    $form_settings =  (isset( $_POST['form_settings'] )) ? $_POST['form_settings'] : "";
+	    $form_values =  (isset( $_POST['form_values'] )) ? $_POST['form_values'] : "";
+	    $field_count =  (isset( $_POST['field_count'] )) ? $_POST['field_count'] : "";
+	    $page_id = (isset( $_POST['post_id'] )) ? $_POST['post_id'] : "";
+	    $post_type = (isset( $_POST['post_type'] )) ? $_POST['post_type'] : "";
+	    $redirect_value = (isset( $_POST['redirect_value'] )) ? $_POST['redirect_value'] : "";
 
-    if (isset( $_POST['name'])&&!empty( $_POST['name']))
-    {
-        //echo 'here';
-        // AND post_status = 'publish'" OR DRAFT
-        global $user_ID, $wpdb;
-        $query = $wpdb->prepare(
-            'SELECT ID FROM ' . $wpdb->posts . '
-            WHERE post_title = %s
-            AND post_type = \'inbound-forms\'',
-            $form_name
-        );
-        $wpdb->query( $query );
+	    if (isset( $_POST['name'])&&!empty( $_POST['name']))
+	    {
 
-        if ( $wpdb->num_rows ) {
-            // If lead exists add data/append data to it
-            $post_ID = $wpdb->get_var( $query );
+	        // AND post_status = 'publish'" OR DRAFT
+	        global $user_ID, $wpdb;
+	        $query = $wpdb->prepare(
+	            'SELECT ID FROM ' . $wpdb->posts . '
+	            WHERE post_title = %s
+	            AND post_type = \'inbound-forms\'',
+	            $form_name
+	        );
+	        $wpdb->query( $query );
 
-            if ($post_ID != $page_id) {
-            	echo json_encode("Found");
-            	exit;
-            } else {
+	        if ( $wpdb->num_rows ) {
+	            // If lead exists add data/append data to it
+	            $post_ID = $wpdb->get_var( $query );
 
-            $form_settings_data = get_post_meta( $post_ID, 'form_settings', TRUE );
+	            if ($post_ID != $page_id) {
+	            	// if form name exists already in popup mode
+	            	echo json_encode("Found");
+	            	exit;
+	            } else {
 
-            update_post_meta( $post_ID, 'inbound_form_settings', $form_settings );
-            update_post_meta( $post_ID, 'inbound_form_created_on', $page_id );
-            update_post_meta( $post_ID, 'inbound_shortcode', $shortcode );
-            update_post_meta( $post_ID, 'inbound_form_values', $form_values );
-            update_post_meta( $post_ID, 'inbound_form_field_count', $field_count );
-            update_post_meta( $post_ID, 'inbound_redirect_value', $redirect_value );
-        	}
+	            $form_settings_data = get_post_meta( $post_ID, 'form_settings', TRUE );
+
+	            update_post_meta( $post_ID, 'inbound_form_settings', $form_settings );
+	            update_post_meta( $post_ID, 'inbound_form_created_on', $page_id );
+	            update_post_meta( $post_ID, 'inbound_shortcode', $shortcode );
+	            update_post_meta( $post_ID, 'inbound_form_values', $form_values );
+	            update_post_meta( $post_ID, 'inbound_form_field_count', $field_count );
+	            update_post_meta( $post_ID, 'inbound_redirect_value', $redirect_value );
+	        	}
 
 
-        } else {
-            // If event doesn't exist create it
-            $post = array(
-                'post_title'        => $form_name,
-                'post_content'      => $shortcode,
-                'post_status'       => 'publish',
-                'post_type'     => 'inbound-forms',
-                'post_author'       => 1
-            );
+	        } else {
+	            // If event doesn't exist create it
+	            $post = array(
+	                'post_title'        => $form_name,
+	                'post_content'      => $shortcode,
+	                'post_status'       => 'publish',
+	                'post_type'     => 'inbound-forms',
+	                'post_author'       => 1
+	            );
 
-            $post_ID = wp_insert_post($post);
-            update_post_meta( $post_ID, 'inbound_form_settings', $form_settings );
-            update_post_meta( $post_ID, 'inbound_form_created_on', $page_id );
-            update_post_meta( $post_ID, 'inbound_shortcode', $shortcode );
-            update_post_meta( $post_ID, 'inbound_form_values', $form_values );
-            update_post_meta( $post_ID, 'inbound_form_field_count', $field_count );
-            update_post_meta( $post_ID, 'inbound_redirect_value', $redirect_value );
-        }
+	            $post_ID = wp_insert_post($post);
+	            update_post_meta( $post_ID, 'inbound_form_settings', $form_settings );
+	            update_post_meta( $post_ID, 'inbound_form_created_on', $page_id );
+	            update_post_meta( $post_ID, 'inbound_shortcode', $shortcode );
+	            update_post_meta( $post_ID, 'inbound_form_values', $form_values );
+	            update_post_meta( $post_ID, 'inbound_form_field_count', $field_count );
+	            update_post_meta( $post_ID, 'inbound_redirect_value', $redirect_value );
+	        }
 
-           	$output =  array('post_id'=> $post_ID,
-                     'form_name'=>$form_name,
-                     'redirect' => $redirect_value);
+	           	$output =  array('post_id'=> $post_ID,
+	                     'form_name'=>$form_name,
+	                     'redirect' => $redirect_value);
 
-    		echo json_encode($output,JSON_FORCE_OBJECT);
-    		wp_die();
-    }
+	    		echo json_encode($output,JSON_FORCE_OBJECT);
+	    		wp_die();
+	    }
+	}
 }
-
 /* 	Shortcode moved to shared form class */
 add_action('wp_ajax_inbound_form_get_data', 'inbound_form_get_data');
 add_action('wp_ajax_nopriv_inbound_form_get_data', 'inbound_form_get_data');
-
+if (!function_exists('inbound_form_get_data')) {
 function inbound_form_get_data()
-{
-    // Post Values
-    $post_ID = (isset( $_POST['form_id'] )) ? $_POST['form_id'] : "";
+	{
+	    // Post Values
+	    $post_ID = (isset( $_POST['form_id'] )) ? $_POST['form_id'] : "";
 
-    if (isset( $_POST['form_id'])&&!empty( $_POST['form_id']))
-    {
+	    if (isset( $_POST['form_id'])&&!empty( $_POST['form_id']))
+	    {
 
-        $form_settings_data = get_post_meta( $post_ID, 'inbound_form_settings', TRUE );
-        $field_count = get_post_meta( $post_ID, 'inbound_form_field_count', TRUE );
-        $shortcode = get_post_meta( $post_ID, 'inbound_shortcode', TRUE );
-       	$inbound_form_values = get_post_meta( $post_ID, 'inbound_form_values', TRUE );
-        /*   update_post_meta( $post_ID, 'inbound_form_created_on', $page_id );
-            update_post_meta( $post_ID, 'inbound_shortcode', $shortcode );
-            update_post_meta( $post_ID, 'inbound_form_values', $form_values );
-            update_post_meta( $post_ID, 'inbound_form_field_count', $field_count );
-        */
-       	$output =  array('inbound_shortcode'=> $shortcode,
-                 'field_count'=>$field_count,
-                 'form_settings_data' => $form_settings_data,
-                 'field_values'=>$inbound_form_values);
+	        $form_settings_data = get_post_meta( $post_ID, 'inbound_form_settings', TRUE );
+	        $field_count = get_post_meta( $post_ID, 'inbound_form_field_count', TRUE );
+	        $shortcode = get_post_meta( $post_ID, 'inbound_shortcode', TRUE );
+	       	$inbound_form_values = get_post_meta( $post_ID, 'inbound_form_values', TRUE );
+	        /*   update_post_meta( $post_ID, 'inbound_form_created_on', $page_id );
+	            update_post_meta( $post_ID, 'inbound_shortcode', $shortcode );
+	            update_post_meta( $post_ID, 'inbound_form_values', $form_values );
+	            update_post_meta( $post_ID, 'inbound_form_field_count', $field_count );
+	        */
+	       	$output =  array('inbound_shortcode'=> $shortcode,
+	                 'field_count'=>$field_count,
+	                 'form_settings_data' => $form_settings_data,
+	                 'field_values'=>$inbound_form_values);
 
-		echo json_encode($output,JSON_FORCE_OBJECT);
+			echo json_encode($output,JSON_FORCE_OBJECT);
 
-    }
-    wp_die();
+	    }
+	    wp_die();
+	}
 }
-
 /* 	Shortcode moved to shared form class */
 add_action('wp_ajax_inbound_form_auto_publish', 'inbound_form_auto_publish');
 add_action('wp_ajax_nopriv_inbound_form_auto_publish', 'inbound_form_auto_publish');
-
+if (!function_exists('inbound_form_auto_publish')) {
 function inbound_form_auto_publish()
-{
-    // Post Values
-    $post_ID = (isset( $_POST['post_id'] )) ? $_POST['post_id'] : "";
-    $post_title = (isset( $_POST['post_title'] )) ? $_POST['post_title'] : "";
+	{
+	    // Post Values
+	    $post_ID = (isset( $_POST['post_id'] )) ? $_POST['post_id'] : "";
+	    $post_title = (isset( $_POST['post_title'] )) ? $_POST['post_title'] : "";
 
-    if (isset( $_POST['post_id'])&&!empty( $_POST['post_id']))
-    {
-    	// Update Post status to published immediately
-    	// Update post 37
-    	  $my_post = array(
-    	      'ID'           => $post_ID,
-    	      'post_title'   => $post_title,
-    	      'post_status'  => 'publish'
-    	  );
+	    if (isset( $_POST['post_id'])&&!empty( $_POST['post_id']))
+	    {
+	    	// Update Post status to published immediately
+	    	// Update post 37
+	    	  $my_post = array(
+	    	      'ID'           => $post_ID,
+	    	      'post_title'   => $post_title,
+	    	      'post_status'  => 'publish'
+	    	  );
 
-    	// Update the post into the database
-    	  wp_update_post( $my_post );
-    }
-    wp_die();
+	    	// Update the post into the database
+	    	  wp_update_post( $my_post );
+	    }
+	    wp_die();
+	}
 }
-
 add_shortcode('inbound_forms', 'inbound_short_form_create');
-
+if (!function_exists('inbound_short_form_create')) {
 	function inbound_short_form_create( $atts, $content = null ) {
 		extract(shortcode_atts(array(
 			'id' => '',
@@ -465,3 +481,4 @@ add_shortcode('inbound_forms', 'inbound_short_form_create');
 
 		return do_shortcode( $shortcode );
 	}
+}

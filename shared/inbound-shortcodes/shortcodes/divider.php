@@ -98,21 +98,22 @@
 
 /* 	Add shortcode
  * 	----------------------------------------------------- */
-	add_shortcode('divider', 'fresh_shortcode_divider');
+	add_shortcode('divider', 'inbound_shortcode_divider');
+	if (!function_exists('inbound_shortcode_divider')) {
+		function inbound_shortcode_divider( $atts, $content = null ) {
+			extract(shortcode_atts(array(
+				'style' => '',
+				'margin_top' => '',
+				'margin_bottom' => '',
+				'color' => '',
+				'class' => ''
+			), $atts));
 
-	function fresh_shortcode_divider( $atts, $content = null ) {
-		extract(shortcode_atts(array(
-			'style' => '',
-			'margin_top' => '',
-			'margin_bottom' => '',
-			'color' => '',
-			'class' => ''
-		), $atts));
+			$margin_top = ($margin_top) ? $margin_top : 0;
+			$margin_bottom = ($margin_bottom) ? $margin_bottom : 0;
+			$color = ($color) ? $color : '#eaeaea';
+			$class = ($class) ? " $class" : '';
 
-		$margin_top = ($margin_top) ? $margin_top : 0;
-		$margin_bottom = ($margin_bottom) ? $margin_bottom : 0;
-		$color = ($color) ? $color : '#eaeaea';
-		$class = ($class) ? " $class" : '';
-		
-		return '<div class="divider '. $style . $class .'" style="margin-top:'. $margin_top .';margin-bottom:'. $margin_bottom .';border-color:'. $color .'"></div>';
+			return '<div class="divider '. $style . $class .'" style="margin-top:'. $margin_top .';margin-bottom:'. $margin_bottom .';border-color:'. $color .'"></div>';
+		}
 	}

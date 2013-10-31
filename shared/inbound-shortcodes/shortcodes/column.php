@@ -67,87 +67,109 @@
 /* 	Add shortcode
  * 	----------------------------------------------------- */
 	/* Columns Wrap */
-	function fresh_shortcode_columns( $atts, $content = null ) {
-		extract(shortcode_atts(array(
-			'gutter' => '20'
-		), $atts));
+	if (!function_exists('inbound_shortcode_columns')) {
+		function inbound_shortcode_columns( $atts, $content = null ) {
+			extract(shortcode_atts(array(
+				'gutter' => '20'
+			), $atts));
 
-		if( $gutter == '30') {
-			$gutter = 'row_30';
-		} else {
-			$gutter = 'row';
+			if( $gutter == '30') {
+				$gutter = 'row_30';
+			} else {
+				$gutter = 'row';
+			}
+			$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
+			return '<div class="'. $gutter .'">' . do_shortcode($content) . '</div>';
 		}
-		$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
-		return '<div class="'. $gutter .'">' . do_shortcode($content) . '</div>';
 	}
-	add_shortcode('columns', 'fresh_shortcode_columns');
-	
+	add_shortcode('columns', 'inbound_shortcode_columns');
+
 	/* Full column */
-	function fresh_shortcode_full_columns( $atts, $content = null ) {
-		$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
-		return '<div class="inbound-grid full">' . do_shortcode($content) . '</div>';
+	if (!function_exists('inbound_shortcode_full_columns')) {
+		function inbound_shortcode_full_columns( $atts, $content = null ) {
+			$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
+			return '<div class="inbound-grid full">' . do_shortcode($content) . '</div>';
+		}
 	}
-	add_shortcode('one_full', 'fresh_shortcode_full_columns');
-	
+	add_shortcode('one_full', 'inbound_shortcode_full_columns');
+
 	/* One Half */
-	function fresh_shortcode_one_half_columns( $atts, $content = null ) {
-		$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
-		return '<div class="inbound-grid one-half">' . do_shortcode($content) . '</div>';
+	if (!function_exists('inbound_shortcode_one_half_columns')) {
+		function inbound_shortcode_one_half_columns( $atts, $content = null ) {
+			$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
+			return '<div class="inbound-grid one-half">' . do_shortcode($content) . '</div>';
+		}
 	}
-	add_shortcode('one_half', 'fresh_shortcode_one_half_columns');
-	
+	add_shortcode('one_half', 'inbound_shortcode_one_half_columns');
+
 	/* One Third */
-	function fresh_shortcode_one_third_columns( $atts, $content = null ) {
-		$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
-		return '<div class="inbound-grid one-third">' . do_shortcode($content) . '</div>';
+	if (!function_exists('inbound_shortcode_one_third_columns')) {
+		function inbound_shortcode_one_third_columns( $atts, $content = null ) {
+			$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
+			return '<div class="inbound-grid one-third">' . do_shortcode($content) . '</div>';
+		}
 	}
-	add_shortcode('one_third', 'fresh_shortcode_one_third_columns');
-	
+	add_shortcode('one_third', 'inbound_shortcode_one_third_columns');
+
 	/* Two Third */
-	function fresh_shortcode_two_third_columns( $atts, $content = null ) {
-		$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
-		return '<div class="inbound-grid two-third">' . do_shortcode($content) . '</div>';
+	if (!function_exists('inbound_shortcode_two_third_columns')) {
+		function inbound_shortcode_two_third_columns( $atts, $content = null ) {
+			$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
+			return '<div class="inbound-grid two-third">' . do_shortcode($content) . '</div>';
+		}
 	}
-	add_shortcode('two_third', 'fresh_shortcode_two_third_columns');
-	
+	add_shortcode('two_third', 'inbound_shortcode_two_third_columns');
+
 	/* One Fourth */
-	function fresh_shortcode_one_fourth_columns( $atts, $content = null ) {
-		$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
-		return '<div class="inbound-grid one-fourth">' . do_shortcode($content) . '</div>';
+	if (!function_exists('inbound_shortcode_one_fourth_columns')) {
+		function inbound_shortcode_one_fourth_columns( $atts, $content = null ) {
+			$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
+			return '<div class="inbound-grid one-fourth">' . do_shortcode($content) . '</div>';
+		}
 	}
-	add_shortcode('one_fourth', 'fresh_shortcode_one_fourth_columns');
-	
+	add_shortcode('one_fourth', 'inbound_shortcode_one_fourth_columns');
+
 	/* Three Fourth */
-	function fresh_shortcode_three_fourth_columns( $atts, $content = null ) {
-		$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
-		return '<div class="inbound-grid three-fourth">' . do_shortcode($content) . '</div>';
+	if (!function_exists('inbound_shortcode_three_fourth_columns')) {
+		function inbound_shortcode_three_fourth_columns( $atts, $content = null ) {
+			$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
+			return '<div class="inbound-grid three-fourth">' . do_shortcode($content) . '</div>';
+		}
 	}
-	add_shortcode('three_fourth', 'fresh_shortcode_three_fourth_columns');
-	
+	add_shortcode('three_fourth', 'inbound_shortcode_three_fourth_columns');
+
 	/* One Fifth */
-	function fresh_shortcode_one_fifth_columns( $atts, $content = null ) {
-		$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
-		return '<div class="inbound-grid one-fifth">' . do_shortcode($content) . '</div>';
+	if (!function_exists('inbound_shortcode_one_fifth_columns')) {
+		function inbound_shortcode_one_fifth_columns( $atts, $content = null ) {
+			$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
+			return '<div class="inbound-grid one-fifth">' . do_shortcode($content) . '</div>';
+		}
 	}
-	add_shortcode('one_fifth', 'fresh_shortcode_one_fifth_columns');
-	
+	add_shortcode('one_fifth', 'inbound_shortcode_one_fifth_columns');
+
 	/* Two Fifth */
-	function fresh_shortcode_two_fifth_columns( $atts, $content = null ) {
-		$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
-		return '<div class="inbound-inbound-grid two-fifth">' . do_shortcode($content) . '</div>';
+	if (!function_exists('inbound_shortcode_two_fifth_columns')) {
+		function inbound_shortcode_two_fifth_columns( $atts, $content = null ) {
+			$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
+			return '<div class="inbound-inbound-grid two-fifth">' . do_shortcode($content) . '</div>';
+		}
 	}
-	add_shortcode('two_fifth', 'fresh_shortcode_two_fifth_columns');
-	
+	add_shortcode('two_fifth', 'inbound_shortcode_two_fifth_columns');
+
 	/* Three Fifth */
-	function fresh_shortcode_three_fifth_columns( $atts, $content = null ) {
-		$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
-		return '<div class="inbound-inbound-grid three-fifth">' . do_shortcode($content) . '</div>';
+	if (!function_exists('inbound_shortcode_three_fifth_columns')) {
+		function inbound_shortcode_three_fifth_columns( $atts, $content = null ) {
+			$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
+			return '<div class="inbound-inbound-grid three-fifth">' . do_shortcode($content) . '</div>';
+		}
 	}
-	add_shortcode('three_fifth', 'fresh_shortcode_three_fifth_columns');
+	add_shortcode('three_fifth', 'inbound_shortcode_three_fifth_columns');
 
 	/* Four Fifth */
-	function fresh_shortcode_four_fifth_columns( $atts, $content = null ) {
-		$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
-		return '<div class="inbound-inbound-grid three-four">' . do_shortcode($content) . '</div>';
+	if (!function_exists('inbound_shortcode_four_fifth_columns')) {
+		function inbound_shortcode_four_fifth_columns( $atts, $content = null ) {
+			$content = preg_replace('/<br class="inbr".\/>/', '', $content); // remove editor br tags
+			return '<div class="inbound-inbound-grid three-four">' . do_shortcode($content) . '</div>';
+		}
 	}
-	add_shortcode('three_four', 'fresh_shortcode_four_fifth_columns');
+	add_shortcode('three_four', 'inbound_shortcode_four_fifth_columns');

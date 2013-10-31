@@ -71,12 +71,13 @@
 
 /* 	Add shortcode
  * 	----------------------------------------------------- */
-	add_shortcode('content_box', 'fresh_shortcode_content_box');
+	add_shortcode('content_box', 'inbound_shortcode_content_box');
+	if (!function_exists('inbound_shortcode_content_box')) {
+		function inbound_shortcode_content_box( $atts, $content = null ) {
+			extract(shortcode_atts(array(
+				'color' => 'default'
+			), $atts));
 
-	function fresh_shortcode_content_box( $atts, $content = null ) {
-		extract(shortcode_atts(array(
-			'color' => 'default'
-		), $atts));
-
-		return '<div class="content-box '.$color.'">'.do_shortcode($content).'</div>';
+			return '<div class="content-box '.$color.'">'.do_shortcode($content).'</div>';
+		}
 	}

@@ -38,11 +38,12 @@
 /* 	Add shortcode
  * 	----------------------------------------------------- */
 	add_shortcode('leadp', 'fresh_shortcode_leadp');
+	if (!function_exists('fresh_shortcode_leadp')) {
+		function fresh_shortcode_leadp( $atts, $content = null ) {
+			extract(shortcode_atts(array(
+				'align' => ''
+			), $atts));
 
-	function fresh_shortcode_leadp( $atts, $content = null ) {
-		extract(shortcode_atts(array(
-			'align' => ''
-		), $atts));
-		
-		return '<p class="lead" style="text-align:'.$align.'">' . do_shortcode($content) . '</p>';
+			return '<p class="lead" style="text-align:'.$align.'">' . do_shortcode($content) . '</p>';
+		}
 	}

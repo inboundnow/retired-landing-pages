@@ -408,9 +408,7 @@
 			        //var this_meta_id = jQuery(this).attr("id");
 			        // run on form custom post type only. ID fix
 
-			        if (typeof (inbound_forms) != "undefined" && inbound_forms !== null) {
-			           //var form_id = jQuery("#post_ID").val();
-			        }
+
 			        var post_id = jQuery("#post_ID").val();
 			      	var form_settings = jQuery(".child-clone-rows.ui-sortable").html();
 			        var shortcode_name = jQuery("#inbound_current_shortcode").val();
@@ -419,6 +417,11 @@
 					var form_values = jQuery("#inbound-shortcodes-form").serialize();
 					var field_count = jQuery('.child-clone-row').length;
 					var redirect_value = jQuery('#inbound_shortcode_redirect').val();
+					if (typeof (inbound_forms) != "undefined" && inbound_forms !== null) {
+						var post_type = 'inbound-forms';
+					} else {
+						var post_type = 'normal';
+					}
 					if ( shortcode_name === "insert_inbound_form_shortcode" && form_name == "") {
 						jQuery(".step-item.first").click();
 						alert("Please Insert a Form Name!");
@@ -436,6 +439,7 @@
 			                form_values: form_values,
 			               	form_settings: form_settings,
 			                post_id: post_id,
+			                post_type: post_type,
 			                redirect_value: redirect_value,
 			                nonce: shortcode_nonce_val
 			            },
@@ -463,10 +467,18 @@
 			                // jQuery('.lp-form').unbind('submit').submit();
 			                //var worked = '<span class="success-message-map">Success! ' + this_meta_id + ' set to ' + meta_to_save + '</span>';
 			                var worked = '<span class="lp-success-message">Form Created & Saved</span><a style="padding-left:10px;" target="_blank" href="' + site_base  +'" class="event-view-post">View/Edit Form</a>';
-			                var s_message = jQuery(self).parent();
+
 			                var final_short_form = '[inbound_forms id="' + form_id + '" name="'+final_form_name+'"]';
-			                window.tinyMCE.execInstanceCommand('content', 'mceInsertContent', false, final_short_form);
-			                tb_remove();
+			                if (typeof (inbound_forms) != "undefined" && inbound_forms !== null) {
+			                   jQuery(self).text('Form Updated').css('font-size', '25px');
+			                   setTimeout(function() {
+			                            jQuery(self).text('Save Form').css('font-size', '17px');
+			                           }, 5000);
+			                } else {
+			                	window.tinyMCE.execInstanceCommand('content', 'mceInsertContent', false, final_short_form);
+			                	tb_remove();
+			                }
+
 			                //jQuery(worked).appendTo(s_message);
 			                //jQuery(self).hide();
 			                //alert("Event Created");

@@ -39,12 +39,13 @@
 
 /* 	Add shortcode
  * 	----------------------------------------------------- */
-	add_shortcode('alert', 'fresh_shortcode_alert');
+	add_shortcode('alert', 'inbound_shortcode_alert');
+	if (!function_exists('inbound_shortcode_alert')) {
+		function inbound_shortcode_alert( $atts, $content = null ) {
+			extract(shortcode_atts(array(
+				'color' => ''
+			), $atts));
 
-	function fresh_shortcode_alert( $atts, $content = null ) {
-		extract(shortcode_atts(array(
-			'color' => ''
-		), $atts));
-
-		return '<div class="alert-message '.$color.'">'.do_shortcode($content).'</div>';
+			return '<div class="alert-message '.$color.'">'.do_shortcode($content).'</div>';
+		}
 	}

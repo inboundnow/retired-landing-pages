@@ -12,7 +12,7 @@
  * 	----------------------------------------------------- */
 	$shortcodes_config['button'] = array(
 		'no_preview' => false,
-		
+
 		'options' => array(
 			'style' => array(
 				'name' => __('Button Style', INBOUND_LABEL),
@@ -96,47 +96,48 @@
 
 /* 	Add shortcode
  * 	----------------------------------------------------- */
-	add_shortcode('button', 'fresh_shortcode_button');
+	add_shortcode('button', 'inbound_shortcode_button');
+	if (!function_exists('inbound_shortcode_button')) {
+		function inbound_shortcode_button( $atts, $content = null ) {
+			extract(shortcode_atts(array(
+				'style'=> '',
+				'size' => '',
+				'color' => '',
+				'icon' => '',
+				'url' => '',
+				'blank' => ''
+			), $atts));
 
-	function fresh_shortcode_button( $atts, $content = null ) {
-		extract(shortcode_atts(array(
-			'style'=> '',
-			'size' => '',
-			'color' => '',
-			'icon' => '',
-			'url' => '',
-			'blank' => ''
-		), $atts));
+			$class = "button $color $size";
+			$icon_raw = 'icon-'. $icon;
+			$target = ($blank) ? ' target="_blank"' : '';
+			$button_start = "";
 
-		$class = "button $color $size";
-		$icon_raw = 'icon-'. $icon;
-		$target = ($blank) ? ' target="_blank"' : '';
-		$button_start = "";
+				switch( $style ) {
 
-			switch( $style ) {
+						case 'default':
+							$button  = $button_start;
+							$button .= '<a class="'. $class .'" href="'. $url .'"'. $target .'><i class="'.$icon_raw.'"></i>&nbsp;' . $content .'</a>';
+							$button .= $button_start;
+							break;
 
-					case 'default':
-						$button  = $button_start;
-						$button .= '<a class="'. $class .'" href="'. $url .'"'. $target .'><i class="'.$icon_raw.'"></i>&nbsp;' . $content .'</a>';
-						$button .= $button_start;
-						break;
+						case 'flat' :
+							$button  = $button_start;
+							$button .= '<a href="'. $url .'"'. $target .' class="inbound-flat-btn facebook"><span class="'.$icon_raw.' icon"></span><span>'.$content.'</span></a>';
 
-					case 'flat' :
-						$button  = $button_start;
-						$button .= '<a href="'. $url .'"'. $target .' class="inbound-flat-btn facebook"><span class="'.$icon_raw.' icon"></span><span>'.$content.'</span></a>';
-					
-						$button .= $button_start;
-						break;
-					case 'sunk' :
-						$button  = $button_start;
-						$button .= '<div class="inbound-sunk-button-wrapper">
-									<a href="'. $url .'"'. $target .' class="inbound-sunk-button inbound-sunk-light"><span class="'.$icon_raw.' icon"></span>'.$content.'</a>
-									</div>';
-					
-						$button .= $button_start;
-						break;	
-				}
-			
+							$button .= $button_start;
+							break;
+						case 'sunk' :
+							$button  = $button_start;
+							$button .= '<div class="inbound-sunk-button-wrapper">
+										<a href="'. $url .'"'. $target .' class="inbound-sunk-button inbound-sunk-light"><span class="'.$icon_raw.' icon"></span>'.$content.'</a>
+										</div>';
 
-		return $button;
+							$button .= $button_start;
+							break;
+					}
+
+
+			return $button;
+		}
 	}

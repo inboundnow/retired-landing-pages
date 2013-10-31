@@ -8,12 +8,14 @@
 	/* Include global fontawesome */
 	global $fontawesome;
 
-
-	function freshthemes_excerpt_length( $length ) {
-        $custom = '';
-        return ( $custom != '' ? $custom : 40 );
+	if (!function_exists('inbound_excerpt_length')) {
+		function inbound_excerpt_length( $length ) {
+	        $custom = '';
+	        return ( $custom != '' ? $custom : 40 );
+	    }
     }
-    add_filter( 'excerpt_length', 'freshthemes_excerpt_length' );
+    add_filter( 'excerpt_length', 'inbound_excerpt_length' );
+
 
 	$lp_cats = get_transient( 'landing-page-cats' ); // array of landing page categories
 	$form_names = get_transient( 'inbound-form-names' ); // array of landing page categories
@@ -74,16 +76,18 @@
  * 	Fix issues when shortcodes are embedded in a block of content that is filtered by wpautop.
  * 	http://www.johannheyne.de
  * 	----------------------------------------------------- */
-	function inbound_shortcode_empty_paragraph_fix($content){
-		$array = array (
-			'<p>[' => '[',
-			']</p>' => ']',
-			']<br />' => ']'
-		);
+	if (!function_exists('inbound_shortcode_empty_paragraph_fix')) {
+		function inbound_shortcode_empty_paragraph_fix($content){
+			$array = array (
+				'<p>[' => '[',
+				']</p>' => ']',
+				']<br />' => ']'
+			);
 
-		$content = strtr($content, $array);
+			$content = strtr($content, $array);
 
-		return $content;
+			return $content;
+		}
 	}
 
 	add_filter('the_content', 'inbound_shortcode_empty_paragraph_fix');
