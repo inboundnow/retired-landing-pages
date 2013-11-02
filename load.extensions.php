@@ -54,6 +54,11 @@
 			
 			foreach ($lp_data as $key=>$data)
 			{
+				if ( $key=='lp' || substr($key,0,4)=='ext-' || isset($val['info']['data_type']) && $val['info']['data_type']=='metabox' )
+					continue;
+				
+					//print_r($lp_data[$key]);
+					//echo '<hr>';
 				$template_name = $lp_data[$key]['info']['label'];
 				$lp_global_settings['lp-license-keys']['settings'][] = 	array(
 					'id'  => $key,
