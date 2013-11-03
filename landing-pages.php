@@ -225,9 +225,9 @@ if (is_admin())
 		if (current_user_can('manage_options'))
 		{
 
-			add_submenu_page('edit.php?post_type=landing-page', 'Forms', 'Forms', 'manage_options', 'inbound-forms-redirect',100);
+			add_submenu_page('edit.php?post_type=landing-page', 'Forms', 'Create Forms', 'manage_options', 'inbound-forms-redirect',100);
 
-			add_submenu_page('edit.php?post_type=landing-page', 'Templates', 'Templates', 'manage_options', 'lp_manage_templates','lp_manage_templates',100);
+			add_submenu_page('edit.php?post_type=landing-page', 'Templates', 'Manage Templates', 'manage_options', 'lp_manage_templates','lp_manage_templates',100);
 
 			add_submenu_page('edit.php?post_type=landing-page', 'Get Addons', 'Get Addons', 'manage_options', 'lp_store','lp_store_display',100);
 
