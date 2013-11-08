@@ -442,7 +442,7 @@ if (is_admin())
 	}
 	
 		
-	function lp_render_global_settings($key,$custom_fields,$active_tab)
+	function lp_render_global_settings($key,$custom_fields =  array() ,$active_tab)
 	{
 
 		//Check if active tab
