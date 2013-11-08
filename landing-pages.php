@@ -50,7 +50,7 @@ switch (is_admin()) :
 		include_once('modules/module.click-tracking.php');
 		include_once('modules/module.templates.php');
 		include_once('modules/module.store.php');
-		include_once('modules/module.ladning-page.php');
+		include_once('modules/module.landing-page.php');
 		include_once('modules/module.customizer.php');
 
 
