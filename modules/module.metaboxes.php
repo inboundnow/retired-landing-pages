@@ -699,19 +699,18 @@ function lp_generate_meta()
 
 		}
 	}
+} 
 
-	function lp_show_metabox($post,$key)
-	{
+function lp_show_metabox($post,$key) 
+{
 
-		$extension_data = lp_get_extension_data();
-		$key = $key['args']['key'];
+	$extension_data = lp_get_extension_data();
+	$key = $key['args']['key'];
 
-		$lp_custom_fields = $extension_data[$key]['settings'];
-		$lp_custom_fields = apply_filters('lp_show_metabox',$lp_custom_fields, $key);
-
-		lp_render_metabox($key,$lp_custom_fields,$post);
-	}
-
+	$lp_custom_fields = $extension_data[$key]['settings'];
+	$lp_custom_fields = apply_filters('lp_show_metabox',$lp_custom_fields, $key);
+	
+	lp_render_metabox($key,$lp_custom_fields,$post);
 }
 
 

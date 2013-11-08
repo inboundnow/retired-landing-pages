@@ -24,11 +24,11 @@ class InboundForms {
     static function inbound_forms_create( $atts, $content = null )
 	{
 		global $post;
-
+		
 		self::$add_script = true;
-
+		
 		$email = get_option('admin_email');
-
+		
 		extract(shortcode_atts(array(
 		  'id' => '',
 		  'name' => '',
@@ -43,7 +43,7 @@ class InboundForms {
 		if ( !$id && isset($_GET['post']) )
 			$id = $_GET['post'];
 
-
+		
 		$form_name = $name;
 		$form_layout = $layout;
 		$form_labels = $labels;
