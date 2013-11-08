@@ -1,5 +1,4 @@
 <?php
-
 add_action('wp_footer', 'lp_click_callback');
 
 function lp_click_callback() {
@@ -47,6 +46,7 @@ function lp_click_callback() {
 }
 
 // Register CTA Clicks
+add_action('init', 'lp_click_track_redirect', 11); // Click Tracking init'
 function lp_click_track_redirect() {
 	global $wpdb;
 	if ($qs = $_SERVER['REQUEST_URI']) {

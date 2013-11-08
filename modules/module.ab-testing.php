@@ -1,7 +1,7 @@
 <?php
 if (is_admin())
 {
-	include_once(LANDINGPAGES_PATH.'modules/module.metaboxes-ab-testing.php');
+	include_once(LANDINGPAGES_PATH.'modules/module.ab-testing.metaboxes.php');
 
 	add_action('init','lp_ab_testing_admin_init');
 
