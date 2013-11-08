@@ -39,6 +39,7 @@ function inbound_load_shared_landing_pages(){
 	include_once('shared/classes/form.class.php');  // Mirrored forms
 	include_once('shared/inboundnow/inboundnow.extension-licensing.php'); // Inboundnow Package Licensing
 	include_once('shared/inboundnow/inboundnow.extension-updating.php'); // Inboundnow Package Updating
+
 }
 include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
 
@@ -51,8 +52,10 @@ include_once('modules/module.global-settings.php');
 include_once('modules/module.clone.php');
 include_once('modules/module.extension-updater.php');
 include_once('modules/module.extension-licensing.php');
+include_once('modules/welcome.php');
 include_once('modules/module.install.php');
 include_once('modules/module.alert.php');
+
 }
 
 // REGISTER LANDING PAGES ACTIVATION
@@ -60,12 +63,12 @@ register_activation_hook(__FILE__, 'landing_page_activate');
 
 function landing_page_activate()
 {
-
+	//delete_transient( '_landing_page_activation_redirect' );
 	add_option( 'lp_global_css', '', '', 'no' );
 	add_option( 'lp_global_js', '', '', 'no' );
 	add_option( 'lp_global_lp_slug', 'go', '', 'no' );
 	update_option( 'lp_activate_rewrite_check', '1');
-
+	set_transient( '_landing_page_activation_redirect', true, 30 );
 	//global $wp_rewrite;
 	//$wp_rewrite->flush_rules();
 

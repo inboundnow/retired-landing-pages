@@ -3,10 +3,12 @@
 add_action('init', 'inbound_create_default_post_type');
 function inbound_create_default_post_type(){
     // NEED to insert custom meta as well
-    $option_name = "lp_settings_generalxxx";
-    $option_key = "default_landing_pagexxx";
+
+    $option_name = "lp_settings_general";
+    $option_key = "default_landing_page";
     $current_user = wp_get_current_user();
     add_option( $option_name, '' );
+
     //update_user_meta( get_current_user_id(), 'tgmpa_dismissed_notice', 0 ); // Clean dismiss settings
     //delete_option( 'lp_settings_general' );
     $lp_default_options = get_option($option_name);
@@ -21,7 +23,7 @@ function inbound_create_default_post_type(){
                     'post_type'      => 'landing-page',
                     'comment_status' => 'closed'
                 )
-            ); 
+            );
         // Variation A
         add_post_meta($default_lander, 'lp-main-headline', 'Main Catchy Headline (A)');
         add_post_meta($default_lander, 'lp-selected-template', 'svtle');
@@ -31,7 +33,7 @@ function inbound_create_default_post_type(){
         add_post_meta($default_lander, 'lp-selected-template-1', 'svtle');
         add_post_meta($default_lander, 'landing-page-myeditor-1', '<h2>Form B</h2><form action="" method="post">First Name: <input name="first-name" type="text" /><br>Last Name: <input name="last-name" type="text" /><br>Email:<input name="email" type="text" /><br><input name="submit" type="submit" value="Submit" /></form>');
         add_post_meta($default_lander, 'content-1', '<p>(Version B) This is the first paragraph of your landing page where you want to draw the viewer in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>');
-        
+
         // Add A/B Testing meta
         add_post_meta($default_lander, 'lp-ab-variations', '0,1');
         add_post_meta($default_lander, 'lp-ab-variation-impressions-0', 30);
@@ -64,7 +66,8 @@ function inbound_create_default_post_type(){
             $option_key => $default_lander
         );
 
-        update_option( $option_name, $options );        
+        update_option( $option_name, $options );
+
     }
 }
 
@@ -98,13 +101,13 @@ add_action( 'tgmpa_register', 'lp_install_register_required_plugins' );
  * TGM_Plugin_Activation class constructor.
  */
 function lp_install_register_required_plugins() {
- 
+
     /**
      * Array of plugin arrays. Required keys are name, slug and required.
      * If the source is NOT from the .org repo, then source is also required.
      */
     $plugins = array(
- 
+
         // This is an example of how to include a plugin pre-packaged with a theme
       /*  array(
             'name'                  => 'TGM Example Plugin', // The plugin name
@@ -116,7 +119,7 @@ function lp_install_register_required_plugins() {
             'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
             'external_url'          => '', // If set, overrides default API URL and points to an external URL
         ), */
- 
+
         // This is an example of how to include a plugin from the WordPress Plugin Repository
         array(
             'name'      => 'WordPress Leads <span style=\'color:red !important; display:block;\'>This free landing page addon will give you the ability to track and manage incoming web leads. Gather Lead Intelligence on all Leads and Close more deals. <a href=\'http://wordpress.org/plugins/leads/\'> Learn more about WordPress Leads.</a></span>',
@@ -128,12 +131,12 @@ function lp_install_register_required_plugins() {
             'slug'      => 'title-split-testing-for-wordpress',
             'required'  => false,
         ),*/
- 
+
     );
- 
+
     // Change this to your theme text domain, used for internationalising strings
     $theme_text_domain = 'tgmpa';
- 
+
     /**
      * Array of configuration settings. Amend each line as needed.
      * If you want the default strings to be available under your own theme domain,
@@ -171,7 +174,7 @@ function lp_install_register_required_plugins() {
              // %1$s = dashboard link
         )
     );
- 
+
     tgmpa( $plugins, $config );
- 
+
 }
