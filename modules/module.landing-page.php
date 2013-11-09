@@ -287,4 +287,10 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 	}
 }
 
+/* legacy function not used anymore but called in old non-core templates */
+function lp_list_feature()
+{
+	return null;
+}
+
 
