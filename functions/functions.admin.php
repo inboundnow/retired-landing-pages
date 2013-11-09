@@ -1,27 +1,6 @@
 <?php
 
 
-add_filter('admin_url','lp_add_fullscreen_param');
-function lp_add_fullscreen_param( $link ) 
-{
-	if (isset($_GET['page']))
-		return $link;
-
-	if (  ( isset($post) && 'landing-page' == $post->post_type ) || ( isset($_REQUEST['post_type']) && $_REQUEST['post_type']=='landing-page' ) ) 
-	{ 
-		$params['frontend'] = 'false';
-		if(isset($_GET['frontend']) && $_GET['frontend'] == 'true') {
-	        $params['frontend'] = 'true';
-	    }
-	    if(isset($_REQUEST['frontend']) && $_REQUEST['frontend'] == 'true') {
-	        $params['frontend'] = 'true';
-	    }
-	    $link = add_query_arg( $params, $link );
-
-	} 
-	
-	return $link;
-}
 
 
 
