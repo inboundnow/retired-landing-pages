@@ -34,6 +34,7 @@ switch (is_admin()) :
 		include_once('modules/module.clone.php');
 		include_once('modules/module.extension-updater.php');
 		include_once('modules/module.extension-licensing.php');
+		include_once('modules/module.admin-menus.php');
 		include_once('modules/welcome.php');
 		include_once('modules/module.install.php');
 		include_once('modules/module.alert.php');		
