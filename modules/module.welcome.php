@@ -164,7 +164,7 @@ class LANDINGPAGES_Welcome {
 		-moz-box-shadow: inset 1px 1px 1px rgba(255,255,255,0.5);
 		box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.5);
 		margin: 0px 0px 20px;
-		padding: 20px 20px 20px;
+		padding: 20px 15px 20px;
 		position: relative;
 		text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
 		min-height: 245px;
@@ -358,7 +358,26 @@ class LANDINGPAGES_Welcome {
 			margin-bottom: 0px;
 			margin-top: 0px;
 		}
+		.inbound-check {
+		color: #58D37B;
+		padding-right: 5px;
+		padding-top: 5px;
+
+		display: inline-block;
+		clear: both;
+		vertical-align: top;
+		}
+		.intro-p {
+			display: inline-block;
+			width: 96%;
+			vertical-align: top;
+			margin-top: 0px;
+			padding-top: 0px;
+			margin-right: -20px;
+
+		}
 		</style>
+
 		<div class="wrap about-wrap">
 			<h1><?php printf( __( 'Turbo Charge Your Marketing', 'edd' ), $display_version ); ?></h1>
 			<div class="about-text" id="in-sub-head"><?php printf( __( 'WordPress Landing Pages is only one piece of Inbound Now\'s Marketing Platform', 'edd' ), $display_version ); ?></div>
@@ -373,8 +392,9 @@ class LANDINGPAGES_Welcome {
 			<div class="content-box default">
 			<h4>Capture visitor attention with</h4>
 			<h3 style="text-align: center;">WordPress Calls to Action</h3>
-
+			<span class="inbound-check">✔</span>
 			<p class="intro-p">Convert your website traffic with visually appealing calls to action.</p>
+			<span class="inbound-check">✔</span>
 			<p class="intro-p">A/B test your marketing tactics and improve your sites conversion rates.</p>
 			<div class='dl-button'><a class="in-button" href="http://wordpress.org/plugins/cta/"><i class="icon-download"></i>&nbsp;Download</a>
 			</div>
@@ -384,8 +404,9 @@ class LANDINGPAGES_Welcome {
 			<div class="content-box default">
 			<h4>Convert website visitors with</h4>
 			<h3>WordPress Landing Pages</h3>
-
+			<span class="inbound-check">✔</span>
 			<p class="intro-p">Drive more web leads with conversion pages.</p>
+			<span class="inbound-check">✔</span>
 			<p class="intro-p">A/B Landing Page designs and improve your lead generation.</p>
 			<div class='dl-button'><a class="in-button" href="http://wordpress.org/plugins/landing-pages/"><i class="icon-download"></i>&nbsp;Download</a>
 			</div>
@@ -395,8 +416,9 @@ class LANDINGPAGES_Welcome {
 			<div class="content-box default">
 			<h4>Followup & Close the deal with</h4>
 			<h3 >WordPress Leads</h3>
-
+			<span class="inbound-check">✔</span>
 			<p class="intro-p">Gather sophisticated lead intelligence on your website visitors.</p>
+			<span class="inbound-check">✔</span>
 			<p class="intro-p">Track pages viewed, site conversions, demographics, geolocation, social media profiles and more.</p>
 			<div class='dl-button'><a class="in-button" href="http://wordpress.org/plugins/leads/"><i class="icon-download"></i>&nbsp;Download</a>
 			</div>
