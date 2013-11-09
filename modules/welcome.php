@@ -63,6 +63,14 @@ class LANDINGPAGES_Welcome {
 			'about-inboundnow',
 			array( $this, 'about_inboundnow_screen' )
 		);
+		// Developer Page
+		add_dashboard_page(
+			__( 'Developers and Designers', 'edd' ),
+			__( 'Developers and Designers', 'edd' ),
+			$this->minimum_capability,
+			'inbound-developers',
+			array( $this, 'dev_designer_screen' )
+		);
 
 	}
 
@@ -76,6 +84,7 @@ class LANDINGPAGES_Welcome {
 	public function admin_head() {
 		remove_submenu_page( 'index.php', 'lp-quick-start' );
 		remove_submenu_page( 'index.php', 'about-inboundnow' );
+		remove_submenu_page( 'index.php', 'inbound-developers' );
 
 		// Badge for welcome page
 		$badge_url = WP_PLUGIN_DIR . 'assets/images/edd-badge.png';
@@ -105,6 +114,61 @@ class LANDINGPAGES_Welcome {
 			float: right;
 			margin-left: 10px!important;
 		}
+		#inbound-plugins .grid.one-third {
+		width: 31.333333%;
+		}
+		#inbound-plugins h3 {
+			padding-top: 0px;
+			font-size: 22px;
+			margin-top: 0px;
+			text-align: center;
+		}
+		#inbound-plugins .dl-button {
+			text-align: center;
+			position: absolute;
+			bottom: 15px;
+			margin-left: 22%;
+		}
+		#inbound-plugins .in-button {
+		background: #94BA65;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
+		border-radius: 2px;
+		-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15),inset 1px 1px 1px rgba(255, 255, 255, 0.2);
+		-moz-box-shadow: 0 2px 3px rgba(0,0,0,.15),inset 1px 1px 1px rgba(255,255,255,.2);
+		box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15),inset 1px 1px 1px rgba(255, 255, 255, 0.2);
+		color: #FFF;
+		cursor: pointer;
+		display: inline-block;
+		font-family: inherit;
+		font-size: 20px;
+		font-weight: 500;
+		text-align: center;
+		padding: 8px 20px;
+		text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.15);
+		text-decoration: none;
+		}
+		#inbound-plugins .content-box.default p:first-child {
+			margin-top: 10px;
+		}
+		#inbound-plugins .grid {
+		float: left;
+		min-height: 1px;
+		padding-left: 10px;
+		padding-right: 10px;}
+		#inbound-plugins .content-box {
+		background: #F2F2F2 ;
+		border: 1px solid #EBEBEA;
+		-webkit-box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.5);
+		-moz-box-shadow: inset 1px 1px 1px rgba(255,255,255,0.5);
+		box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.5);
+		margin: 0px 0px 20px;
+		padding: 20px 20px 20px;
+		position: relative;
+		text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+		min-height: 245px;
+		}
 		#in-sub-head {
 			margin: 0px 135px 0px 0;
 		}
@@ -122,9 +186,10 @@ class LANDINGPAGES_Welcome {
 	static function render_nav_menu($active) {
 		$current_view = $_GET['page'];
 		$page_array = array('lp-quick-start' => "Quick Start Guide",
-							'about-inboundnow' => "About the Platform"
+							'about-inboundnow' => "About the Platform",
+							'inbound-developers' => 'Developers & Designers'
 							);
-		echo '<h2 class="nav-tab-wrapper">';
+		echo '<h2 class="nav-tab-wrapper" style="margin-left: -40px; padding-left: 40px;">';
 		foreach ($page_array as $key => $value) {
 			$active = ($current_view === $key) ? 'nav-tab-active' : '';
 
@@ -159,10 +224,12 @@ class LANDINGPAGES_Welcome {
 			<?php self::render_nav_menu();?>
 
 			<div id="creating-landing-page">
-			Create Your First Landing Page
+				<h4><?php _e( 'Create Your First Landing Page', 'edd' );?></h4>
+				<iframe width="640" height="360" src="//www.youtube.com/embed/-VuaBUc_yfk" frameborder="0" allowfullscreen></iframe>
 			</div>
 			<div id="creating-landing-page">
-			Creating Forms
+				<h4><?php _e( 'How to Create Forms', 'edd' );?></h4>
+				<iframe width="640" height="360" src="//www.youtube.com/embed/Y4M_g9wkRXw" frameborder="0" allowfullscreen></iframe>
 			</div>
 			<div id="creating-landing-page">
 			Running A/B Tests
@@ -285,77 +352,26 @@ class LANDINGPAGES_Welcome {
 		list( $display_version ) = explode( '-', LANDINGPAGES_CURRENT_VERSION );
 		?>
 		<style type="text/css">
-		#inbound-plugins .grid.one-third {
-		width: 31.333333%;
-		}
-		#inbound-plugins h3 {
-			padding-top: 0px;
-			font-size: 22px;
+		#inbound-plugins h4 {
+			text-align: center;
+			font-weight: 200;
+			margin-bottom: 0px;
 			margin-top: 0px;
-			text-align: center;
-		}
-		#inbound-plugins .dl-button {
-			text-align: center;
-			position: absolute;
-			bottom: 15px;
-			margin-left: 22%;
-		}
-		#inbound-plugins .in-button {
-		background: #94BA65;
-		border: 1px solid rgba(0, 0, 0, 0.15);
-		-webkit-border-radius: 2px;
-		-moz-border-radius: 2px;
-		border-radius: 2px;
-		-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15),inset 1px 1px 1px rgba(255, 255, 255, 0.2);
-		-moz-box-shadow: 0 2px 3px rgba(0,0,0,.15),inset 1px 1px 1px rgba(255,255,255,.2);
-		box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15),inset 1px 1px 1px rgba(255, 255, 255, 0.2);
-		color: #FFF;
-		cursor: pointer;
-		display: inline-block;
-		font-family: inherit;
-		font-size: 20px;
-		font-weight: 500;
-		text-align: center;
-		padding: 8px 20px;
-		text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.15);
-		text-decoration: none;
-		}
-		#inbound-plugins .content-box.default p:first-child {
-			margin-top: 10px;
-		}
-		#inbound-plugins .grid {
-		float: left;
-		min-height: 1px;
-		padding-left: 10px;
-		padding-right: 10px;}
-		#inbound-plugins .content-box {
-		background: #F2F2F2 ;
-		border: 1px solid #EBEBEA;
-		-webkit-box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.5);
-		-moz-box-shadow: inset 1px 1px 1px rgba(255,255,255,0.5);
-		box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.5);
-		margin: 0px 0px 20px;
-		padding: 20px 20px 20px;
-		position: relative;
-		text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
-		min-height: 245px;
-		}
-		#in-sub-head {
-			margin: 0px 135px 0px 0;
 		}
 		</style>
 		<div class="wrap about-wrap">
 			<h1><?php printf( __( 'Turbo Charge Your Marketing', 'edd' ), $display_version ); ?></h1>
-			<div class="about-text" id="in-sub-head"><?php printf( __( 'The WordPress Landing Pages is only one piece of Inbound Now\'s Marketing Platform', 'edd' ), $display_version ); ?></div>
+			<div class="about-text" id="in-sub-head"><?php printf( __( 'WordPress Landing Pages is only one piece of Inbound Now\'s Marketing Platform', 'edd' ), $display_version ); ?></div>
 
 			<?php self::render_nav_menu();?>
 
 
-			<p class="about-description"><?php _e( 'The WordPress Landing Pages is only one piece of Inbound Now\'s Marketing Platform for WordPress Sites.', 'edd' ); ?></p>
+			<p class="about-description"><?php _e( 'To have an effective marketing strategy for your site you need to incorporate a comprehensive conversion strategy to capture visitors attention, get them clicking, and convert them on a web form or landing page.', 'edd' ); ?></p>
 
 			<div class="row" id="inbound-plugins">
 			<div class="grid one-third">
 			<div class="content-box default">
+			<h4>Capture visitor attention with</h4>
 			<h3 style="text-align: center;">WordPress Calls to Action</h3>
 
 			<p class="intro-p">Convert your website traffic with visually appealing calls to action.</p>
@@ -366,6 +382,7 @@ class LANDINGPAGES_Welcome {
 			</div>
 			<div class="grid one-third">
 			<div class="content-box default">
+			<h4>Convert website visitors with</h4>
 			<h3>WordPress Landing Pages</h3>
 
 			<p class="intro-p">Drive more web leads with conversion pages.</p>
@@ -376,6 +393,7 @@ class LANDINGPAGES_Welcome {
 			</div>
 			<div class="grid one-third">
 			<div class="content-box default">
+			<h4>Followup & Close the deal with</h4>
 			<h3 >WordPress Leads</h3>
 
 			<p class="intro-p">Gather sophisticated lead intelligence on your website visitors.</p>
@@ -392,18 +410,18 @@ class LANDINGPAGES_Welcome {
 	}
 
 	/**
-	 * Render Credits Screen
+	 * Render Developers/Designer Screen
 	 *
 	 * @access public
 	 * @since 1.4
 	 * @return void
 	 */
-	public function credits_screen() {
+	public function dev_designer_screen() {
 		list( $display_version ) = explode( '-', LANDINGPAGES_CURRENT_VERSION );
 		?>
 		<div class="wrap about-wrap">
 			<h1><?php printf( __( 'Welcome to WordPress Landing Pages %s', 'edd' ), $display_version ); ?></h1>
-			<div class="about-text"><?php printf( __( 'Thank you for updating to the latest version! WordPress Landing Pages %s is ready to make your online store faster, safer and better!', 'edd' ), $display_version ); ?></div>
+			<div class="about-text" id="in-sub-head"><?php printf( __( 'Learn How to Build Custom Templates & Add Value to Your Clients', 'edd' ), $display_version ); ?></div>
 			<div class="edd-badge"><?php printf( __( 'Version %s', 'edd' ), $display_version ); ?></div>
 
 			<?php self::render_nav_menu();?>
