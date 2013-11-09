@@ -29,6 +29,7 @@ switch (is_admin()) :
 		/* loads admin files */			
 		include_once('functions/functions.global.php');	
 		include_once('functions/functions.admin.php');
+		include_once('modules/module.javascript-admin.php');
 		include_once('modules/module.activate.php');
 		include_once('modules/module.global-settings.php');
 		include_once('modules/module.clone.php');
