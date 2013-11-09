@@ -114,6 +114,10 @@ class LANDINGPAGES_Welcome {
 			float: right;
 			margin-left: 10px!important;
 		}
+		#inbound-plugins .grid.one-third:first-child{
+			margin-left: 0px;
+			padding-left: 0px;
+		}
 		#inbound-plugins .grid.one-third {
 		width: 31.333333%;
 		}
@@ -125,10 +129,12 @@ class LANDINGPAGES_Welcome {
 		}
 		#inbound-plugins .dl-button {
 			text-align: center;
-			position: absolute;
-			bottom: 15px;
-			margin-left: 22%;
+
 		}
+		.inbound-button-holder {
+
+		}
+
 		#inbound-plugins .in-button {
 		background: #94BA65;
 		border: 1px solid rgba(0, 0, 0, 0.15);
@@ -171,6 +177,15 @@ class LANDINGPAGES_Welcome {
 		}
 		#in-sub-head {
 			margin: 0px 135px 0px 0;
+		}
+		.grid.one-third p:last-of-type {
+			padding-bottom: 24px;
+		}
+		.grid.one-third:nth-last-of-type(1) p:last-of-type  {
+			padding-bottom: 0px;
+		}
+		#inbound-plugins .grid.one-third:nth-last-of-type(1) {
+			padding-right: 0px;
 		}
 		/*]]>*/
 		</style>
@@ -350,6 +365,23 @@ class LANDINGPAGES_Welcome {
 	 */
 	public function about_inboundnow_screen() {
 		list( $display_version ) = explode( '-', LANDINGPAGES_CURRENT_VERSION );
+		$leads_active_class = "Download For Free";
+		$lp_active_class = "Download For Free";
+		$cta_active_class = "Download For Free";
+		$active_class = "";
+		if (is_plugin_active('landing-pages/landing-pages.php')) {
+		  $lp_active_class = "Already Installed!";
+		  $lpactive = " plugin-active";
+		}
+		if (is_plugin_active('cta/wordpress-cta.php')) {
+		 	$cta_active_class = "Already Installed!";
+		 	$ctaactive = " plugin-active";
+		}
+		if (is_plugin_active('leads/wordpress-leads.php')) {
+			$leads_active_class = "Already Installed!";
+			$leadactive = " plugin-active";
+		}
+
 		?>
 		<style type="text/css">
 		#inbound-plugins h4 {
@@ -360,13 +392,14 @@ class LANDINGPAGES_Welcome {
 		}
 		.inbound-check {
 		color: #58D37B;
-		padding-right: 5px;
+		padding-right: 0px;
 		padding-top: 5px;
-
 		display: inline-block;
 		clear: both;
 		vertical-align: top;
 		}
+		#inbound-plugins .in-button.plugin-active {
+		background: #B9B9B9;}
 		.intro-p {
 			display: inline-block;
 			width: 96%;
@@ -374,7 +407,28 @@ class LANDINGPAGES_Welcome {
 			margin-top: 0px;
 			padding-top: 0px;
 			margin-right: -20px;
-
+			line-height: 1.4em;
+		}
+		.circle-wrap {
+			float: left;
+			margin-right: 0px;
+			width: 25px;
+			height: 25px;
+			margin-left: -5px;
+			margin-right: 6px;
+			margin-top: 5px;
+			border-radius: 50%;
+			background: linear-gradient(to bottom, #FFF 0%, #F7F7F7 100%);
+			box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3), inset 0 2px 0 -1px rgba(98, 98, 98, 0.3), 0 3px 7px -3px rgba(0, 0, 0, 0.4);
+			color: #ADADAD;
+			text-align: center;
+			font-size: 18px;
+			line-height: 17px;
+			cursor: default;
+			transition: color .3s ease;
+		}
+		.inbound-button-holder {
+			text-align: center;
 		}
 		</style>
 
@@ -387,44 +441,96 @@ class LANDINGPAGES_Welcome {
 
 			<p class="about-description"><?php _e( 'To have an effective marketing strategy for your site you need to incorporate a comprehensive conversion strategy to capture visitors attention, get them clicking, and convert them on a web form or landing page.', 'edd' ); ?></p>
 
-			<div class="row" id="inbound-plugins">
-			<div class="grid one-third">
-			<div class="content-box default">
-			<h4>Capture visitor attention with</h4>
-			<h3 style="text-align: center;">WordPress Calls to Action</h3>
-			<span class="inbound-check">✔</span>
-			<p class="intro-p">Convert your website traffic with visually appealing calls to action.</p>
-			<span class="inbound-check">✔</span>
-			<p class="intro-p">A/B test your marketing tactics and improve your sites conversion rates.</p>
-			<div class='dl-button'><a class="in-button" href="http://wordpress.org/plugins/cta/"><i class="icon-download"></i>&nbsp;Download</a>
-			</div>
-			</div>
-			</div>
-			<div class="grid one-third">
-			<div class="content-box default">
-			<h4>Convert website visitors with</h4>
-			<h3>WordPress Landing Pages</h3>
-			<span class="inbound-check">✔</span>
-			<p class="intro-p">Drive more web leads with conversion pages.</p>
-			<span class="inbound-check">✔</span>
-			<p class="intro-p">A/B Landing Page designs and improve your lead generation.</p>
-			<div class='dl-button'><a class="in-button" href="http://wordpress.org/plugins/landing-pages/"><i class="icon-download"></i>&nbsp;Download</a>
-			</div>
-			</div>
-			</div>
-			<div class="grid one-third">
-			<div class="content-box default">
-			<h4>Followup & Close the deal with</h4>
-			<h3 >WordPress Leads</h3>
-			<span class="inbound-check">✔</span>
-			<p class="intro-p">Gather sophisticated lead intelligence on your website visitors.</p>
-			<span class="inbound-check">✔</span>
-			<p class="intro-p">Track pages viewed, site conversions, demographics, geolocation, social media profiles and more.</p>
-			<div class='dl-button'><a class="in-button" href="http://wordpress.org/plugins/leads/"><i class="icon-download"></i>&nbsp;Download</a>
-			</div>
-			</div>
-			</div>
-			</div>
+		<div class="row" id="inbound-plugins">
+		    <div class="grid one-third">
+		        <div class="content-box default">
+		            <h4>Capture visitor attention with</h4>
+
+		            <h3 style="text-align: center;">WordPress Calls to Action</h3>
+
+		            <div class='circle-wrap'>
+		                <span class="inbound-check">✔</span>
+		            </div>
+
+		            <p class="intro-p"><b>Convert more website traffic</b> with visually
+		            appealing calls to action</p>
+
+		            <div class='circle-wrap'>
+		                <span class="inbound-check">✔</span>
+		            </div>
+
+		            <p class="intro-p">A/B test your marketing tactics and <b>improve your
+		            sites conversion rates</b></p>
+
+		            <div class="inbound-button-holder">
+		                <div class='dl-button'>
+		                    <a class="in-button<?php echo $ctaactive;?>" href=
+		                    "http://wordpress.org/plugins/cta/"><i class=
+		                    "icon-download"></i><?php echo $cta_active_class;?></a>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+
+		    <div class="grid one-third">
+		        <div class="content-box default">
+		            <h4>Convert website visitors with</h4>
+
+		            <h3>WordPress Landing Pages</h3>
+
+		            <div class='circle-wrap'>
+		                <span class="inbound-check">✔</span>
+		            </div>
+
+		            <p class="intro-p"><b>Generate more web leads</b> with pages specifically designed for conversion</p>
+
+		            <div class='circle-wrap'>
+		                <span class="inbound-check">✔</span>
+		            </div>
+
+		            <p class="intro-p">A/B Landing Page designs and improve your lead
+		            generation.</p>
+
+		            <div class="inbound-button-holder">
+		                <div class='dl-button'>
+		                    <a class="in-button<?php echo $lpactive;?>" href=
+		                    "http://wordpress.org/plugins/landing-pages/"><i class=
+		                    "icon-download"></i><?php echo $lp_active_class;?></a>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+
+		    <div class="grid one-third">
+		        <div class="content-box default">
+		            <h4>Followup &amp; Close the deal with</h4>
+
+		            <h3>WordPress Leads</h3>
+
+		            <div class='circle-wrap'>
+		                <span class="inbound-check">✔</span>
+		            </div>
+
+		            <p class="intro-p">Gather sophisticated lead intelligence on your
+		            website visitors.</p>
+
+		            <div class='circle-wrap'>
+		                <span class="inbound-check">✔</span>
+		            </div>
+
+		            <p class="intro-p">Track pages viewed, site conversions,
+		            demographics, geolocation, social media profiles and more.</p>
+
+		            <div class="inbound-button-holder">
+		                <div class='dl-button'>
+		                    <a class="in-button<?php echo $leadactive;?>" href=
+		                    "http://wordpress.org/plugins/leads/"><i class=
+		                    "icon-download"></i><?php echo $leads_active_class;?></a>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
 
 
 		</div>
