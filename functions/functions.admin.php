@@ -24,15 +24,6 @@ function lp_add_fullscreen_param( $link )
 }
 
 
-function lp_list_feature($label,$url=null)
-{	
-	return	array(
-		"label" => $label,
-		"url" => $url
-		);	
-}
-
-
 add_action('wp_trash_post', 'lp_trash_lander');
 function lp_trash_lander($post_id) {
 	global $post;
