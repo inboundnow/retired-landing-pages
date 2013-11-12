@@ -8,23 +8,23 @@
 do_action('lp_global_config'); // global config action hook
 
 //gets template directory name to use as identifier - do not edit - include in all template files
-$key = lp_get_parent_directory(dirname(__FILE__)); 
+$key = lp_get_parent_directory(dirname(__FILE__));
 
-$lp_data[$key]['info'] = 
+$lp_data[$key]['info'] =
 array(
 	'data_type' => 'template', // Template Data Type
 	'version' => "1.0.1", // Version Number
 	'label' => "Svbtle", // Nice Name
-	'category' => 'Miscellaneous, v1', // Template Category
+	'category' => 'v1, 2 column layout', // Template Category
 	'demo' => 'http://demo.inboundnow.com/go/sbvtle-lander-preview/', // Demo Link
 	'description'  => 'Clean and minimalistic design for a straight forward conversion page.' // template description
 );
 
 // Define Meta Options for template
 // These values are returned in the template's index.php file with lp_get_value($post, $key, 'field-id') function
-$lp_data[$key]['settings'] = 
+$lp_data[$key]['settings'] =
 array(
-    array(  
+    array(
         'label' => 'Display Social Media Share Buttons', // Label of field
         'description' => "Display Social Media Share Buttons", // field description
         'id' => 'display-social', // metakey.
@@ -36,7 +36,7 @@ array(
     array(
         'label' => 'Sidebar Layout',
         'description' => "Align sidebar to the left or the right",
-        'id'  => 'sidebar', 
+        'id'  => 'sidebar',
         'type'  => 'dropdown',
         'default'  => 'left',
         'options' => array('left'=>'Sidebar on left', 'right'=>'Sidebar on right'),
@@ -45,7 +45,7 @@ array(
     array(
         'label' => 'Submit Button Background Color',
         'description' => "Submit Button Background Color",
-        'id'  => 'submit-button-color', 
+        'id'  => 'submit-button-color',
         'type'  => 'colorpicker',
         'default'  => '5baa1e',
         'context'  => 'normal'
@@ -61,9 +61,9 @@ array(
     array(
         'label' => 'Content Area Background Color',
         'description' => "Content Area Background Color",
-        'id'  => 'body-color', 
+        'id'  => 'body-color',
         'type'  => 'colorpicker',
-        'default'  => 'ffffff',	
+        'default'  => 'ffffff',
         'context'  => 'normal'
         ),
     array(
@@ -107,4 +107,4 @@ array(
         'options' => array('on' => 'on','off'=>'off'),
         'context'  => 'normal'
         )
-    );		
+    );

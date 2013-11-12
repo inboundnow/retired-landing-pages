@@ -261,6 +261,7 @@ function lp_display_meta_box_select_template_container() {
 
 	unset($extension_data['lp']);
 
+	ksort($extension_data_cats);
 	$uploads = wp_upload_dir();
 	$uploads_path = $uploads['basedir'];
 	$extended_path = $uploads_path.'/landing-pages/templates/';
@@ -274,7 +275,7 @@ function lp_display_meta_box_select_template_container() {
 	echo '<a class="button-secondary" style="display:none;" id="lp-cancel-selection">Cancel Template Change</a>';
 	echo "</div>";
 		echo '<ul id="template-filter" >';
-			echo '<li><a href="#" data-filter="*">All</a></li>';
+			echo '<li class="button-primary button"><a href="#" data-filter="*">All</a></li>';
 			$categories = array();
 			foreach ($extension_data_cats as $cat)
 			{
@@ -284,7 +285,7 @@ function lp_display_meta_box_select_template_container() {
 				$cat['value'] = ucwords($cat['value']);
 				if (!in_array($cat['value'],$categories))
 				{
-					echo '<li><a href="#" data-filter=".'.$slug.'">'.$cat['value'].'</a></li>';
+					echo '<li class="button"><a href="#" data-filter=".'.$slug.'">'.$cat['value'].'</a></li>';
 					$categories[] = $cat['value'];
 				}
 
@@ -305,6 +306,7 @@ function lp_display_meta_box_select_template_container() {
 			$cats = explode( ',' , $data['info']['category'] );
 			foreach ($cats as $key => $cat)
 			{
+				$cat = trim($cat);
 				$cat = str_replace(' ', '-', $cat);
 				$cats[$key] = trim(strtolower($cat));
 			}
@@ -699,9 +701,9 @@ function lp_generate_meta()
 
 		}
 	}
-} 
+}
 
-function lp_show_metabox($post,$key) 
+function lp_show_metabox($post,$key)
 {
 
 	$extension_data = lp_get_extension_data();
@@ -709,7 +711,7 @@ function lp_show_metabox($post,$key)
 
 	$lp_custom_fields = $extension_data[$key]['settings'];
 	$lp_custom_fields = apply_filters('lp_show_metabox',$lp_custom_fields, $key);
-	
+
 	lp_render_metabox($key,$lp_custom_fields,$post);
 }
 

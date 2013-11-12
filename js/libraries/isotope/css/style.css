@@ -182,7 +182,7 @@
   font-size: 15px;
 }
 
-#options h4 { 
+#options h4 {
   font-weight: bold;
 }
 
@@ -276,23 +276,23 @@
   margin: 5px;
   float: left;
 }
- 
+
 .color-shape.round {
   -webkit-border-radius: 35px;
      -moz-border-radius: 35px;
           border-radius: 35px;
 }
- 
+
 .color-shape.big.round {
   -webkit-border-radius: 75px;
      -moz-border-radius: 75px;
           border-radius: 75px;
 }
- 
+
 .color-shape.red { background: red; }
 .color-shape.blue { background: blue; }
 .color-shape.yellow { background: yellow; }
- 
+
 .color-shape.wide, .color-shape.big { width: 150px; }
 .color-shape.tall, .color-shape.big { height: 150px; }
 
@@ -395,7 +395,7 @@
 }
 #site-nav ul a:hover,
 #site-nav ul .current a:hover { color: white; }
-  
+
 #site-nav ul .current .toc a {
   font-size: 12px;
   padding-left: 1.2em;
@@ -569,7 +569,7 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
   color: #111;
 }
 
-.super-list .example b { 
+.super-list .example b {
   font-weight: bold;
   line-height: 1.3em;
   padding: 3px;
@@ -666,7 +666,7 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
 
 .big-graph .project:hover {
   z-index: 5;
-  
+
 }
 
 .big-graph .project:hover .icon {
@@ -735,7 +735,7 @@ background-color: #A9A9A9;
 box-shadow: rgba(0, 0, 0, 0.2) 0 0 0 1px,rgba(0, 0, 0, 0.3) 0 2px 5px;
 }
 
-ul#template-filter{ margin: 0px 0; padding: 0; height: 64px; padding-left: 0px; line-height: 64px;  }
+ul#template-filter{ margin: 0px 0; padding: 0;  padding-left: 0px; line-height: 64px;  }
 ul#template-filter li{ display: inline; }
 ul#template-filter a{ margin-right: 0.5em; padding: 0em 1em;  font-weight: bold; text-decoration: none; }
 ul#template-filter .button-primary a:hover { color:#fff;}

@@ -16,3 +16,31 @@ padding: 3px 7px;
 #edit-slug-box {
 margin-top: 0px;
 }
+.lp-template-selector-container ul#template-filter li {
+display: inline-block;
+padding: 5px;
+padding-top: 0px;
+margin-right: 5px;
+text-align: center;
+}
+.lp-template-selector-container ul#template-filter {
+	line-height: 30px;
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+.lp-template-selector-container ul#template-filter a {
+margin-right: 0px;
+padding: 0px;
+font-weight: bold;
+text-decoration: none;
+}
+ul#template-filter .button-primary a {
+	color:#fff;
+}
+#more-templates-button {
+	display: inline-block;
+	margin-left: 20px;
+	vertical-align: middle;
+	float: none !important;
+	font-weight: normal;
+}

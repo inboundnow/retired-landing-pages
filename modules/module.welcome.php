@@ -488,8 +488,7 @@ class LANDINGPAGES_Welcome {
 		                <span class="inbound-check">✔</span>
 		            </div>
 
-		            <p class="intro-p">A/B Landing Page designs and improve your lead
-		            generation.</p>
+		            <p class="intro-p">A/B Test Landing Page effectiveness for <b>continual optimization & improvement</b></p>
 
 		            <div class="inbound-button-holder">
 		                <div class='dl-button'>
@@ -511,15 +510,17 @@ class LANDINGPAGES_Welcome {
 		                <span class="inbound-check">✔</span>
 		            </div>
 
-		            <p class="intro-p">Gather sophisticated lead intelligence on your
-		            website visitors.</p>
+		            <p class="intro-p">Gather & leverage lead intelligence on
+		            visitors to <b>close more deals</b></p>
 
 		            <div class='circle-wrap'>
 		                <span class="inbound-check">✔</span>
 		            </div>
 
-		            <p class="intro-p">Track pages viewed, site conversions,
-		            demographics, geolocation, social media profiles and more.</p>
+		            <p class="intro-p">Track page views, site conversions,
+		            demographics, geolocation, social media data and more.</p>
+
+					<p class="intro-p">Know everything a lead has seen and done on your site before you contact them</p>
 
 		            <div class="inbound-button-holder">
 		                <div class='dl-button'>

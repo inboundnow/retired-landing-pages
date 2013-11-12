@@ -8,14 +8,14 @@
 do_action('lp_global_config'); // global config action hook
 
 //gets template directory name to use as identifier - do not edit - include in all template files
-$key = lp_get_parent_directory(dirname(__FILE__)); 
+$key = lp_get_parent_directory(dirname(__FILE__));
 
-$lp_data[$key]['info'] = 
+$lp_data[$key]['info'] =
 array(
 	'data_type' => 'template', // Template Data Type
 	'version' => "1.0.1", // Version Number
 	'label' => "Super Slick Template", // Nice Name
-	'category' => 'Miscellaneous, v1', // Template Category
+	'category' => 'v1, 2 column layout', // Template Category
 	'demo' => 'http://demo.inboundnow.com/go/super-slick-lander-preview/', // Demo Link
 	'description'  => 'SuperSlick is great for showcasing a hero image or video on your landing page.' // template description
 );
@@ -23,9 +23,9 @@ array(
 
 // Define Meta Options for template
 // These values are returned in the template's index.php file with lp_get_value($post, $key, 'field-id') function
-$lp_data[$key]['settings'] = 
+$lp_data[$key]['settings'] =
 array(
-    array(  
+    array(
         'label' => 'Headline Text Color', // Label of field
         'description' => "Use this setting to change the template's headline text color", // field description
         'id' => 'headline-color', // metakey.
@@ -36,7 +36,7 @@ array(
     array(
         'label' => 'Sub Headline Text',
         'description' => "Sub headline text goes here",
-        'id'  => 'sub-headline', 
+        'id'  => 'sub-headline',
         'type'  => 'text',
         'default'  => 'Sub Headline Goes Here',
         'context'  => 'normal'
@@ -44,7 +44,7 @@ array(
     array(
         'label' => 'Sub Headline Text Color',
         'description' => "Sub Headline Text Color",
-        'id'  => 'sub-headline-color', 
+        'id'  => 'sub-headline-color',
         'type'  => 'colorpicker',
         'default'  => 'a3a3a3',
         'context'  => 'normal'
@@ -60,9 +60,9 @@ array(
     array(
         'label' => 'Top Area Text Color',
         'description' => "Use this setting to change the template's Top Text Color",
-        'id'  => 'top-text-color', 
+        'id'  => 'top-text-color',
         'type'  => 'colorpicker',
-        'default'  => '000000',	
+        'default'  => '000000',
         'context'  => 'normal'
         ),
     array(
@@ -115,4 +115,4 @@ array(
         'options' => array('1' => 'on','0'=>'off'),
         'context'  => 'normal'
         )
-    );	
+    );

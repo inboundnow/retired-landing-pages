@@ -6,25 +6,25 @@
  */
 
 //gets template directory name to use as identifier - do not edit - include in all template files
-$key = lp_get_parent_directory(dirname(__FILE__)); 
+$key = lp_get_parent_directory(dirname(__FILE__));
 
 do_action('lp_global_config');
 
-$lp_data[$key]['info'] = 
+$lp_data[$key]['info'] =
 array(
 	'data_type' => 'template', // Template Data Type
 	'version' => "2.0.0", // Version Number
 	'label' => "Dropcap", // Nice Name
-	'category' => 'Miscellaneous', // Template Category
+	'category' => 'v1, 1 column layout', // Template Category
 	'demo' => 'http://demo.inboundnow.com/go/dropcap-lander-preview/', // Demo Link
 	'description'  => 'Create a great looking quote styled landing page' // template description
 );
 
 // Define Meta Options for template
 // These values are returned in the template's index.php file with lp_get_value($post, $key, 'field-id') function
-$lp_data[$key]['settings'] = 
+$lp_data[$key]['settings'] =
 array(
-    array(  
+    array(
         'label' => 'Text color', // Label of field
         'description' => "Use this setting to change the Text Color", // field description
         'id' => 'text-color', // metakey.
@@ -35,7 +35,7 @@ array(
     array(
         'label' => 'Content Background Color',
         'description' => "Use this setting to change the Content Area Background Color",
-        'id'  => 'content-background', 
+        'id'  => 'content-background',
         'type'  => 'colorpicker',
         'default'  => '000000',
         'context'  => 'normal'
@@ -43,7 +43,7 @@ array(
     array(
         'label' => 'Conversion Area Text Color',
         'description' => "Use this setting to change the Conversion Area text Color",
-        'id'  => 'form-text-color', 
+        'id'  => 'form-text-color',
         'type'  => 'colorpicker',
         'default'  => 'ffffff',
         'context'  => 'normal'
@@ -61,9 +61,9 @@ array(
     array(
         'label' => 'Background Image',
         'description' => "Enter an URL or upload an image for the banner.",
-        'id'  => 'background-image', 
+        'id'  => 'background-image',
         'type'  => 'media',
-        'default'  => 'on',	
+        'default'  => 'on',
         'context'  => 'normal'
         ),
     array(
