@@ -164,6 +164,133 @@ function landing_pages_add_conversion_area($content)
 
 	}
 
-
 	return $content;
 }
+
+/* LEGACY CODE FOR ADDING LANDING PAGE TEMPLATE METABOX SETTINGS TO TEMPLATE METABOX */
+function lp_add_option($key,$type,$id,$default=null,$label=null,$description=null, $options=null)
+{
+	switch ($type)
+	{
+		case "colorpicker":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    => $id,
+			'type'  => 'colorpicker',
+			'default'  => $default
+			);
+			break;
+		case "text":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    => $id,
+			'type'  => 'text',
+			'default'  => $default
+			);
+			break;
+		case "license-key":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    => $id,
+			'type'  => 'license-key',
+			'default'  => $default,
+			'slug' => $id
+			);
+			break;
+		case "textarea":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    => $id,
+			'type'  => 'textarea',
+			'default'  => $default
+			);
+			break;
+		case "wysiwyg":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    => $id,
+			'type'  => 'wysiwyg',
+			'default'  => $default
+			);
+			break;
+		case "media":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    => $id,
+			'type'  => 'media',
+			'default'  => $default
+			);
+			break;
+		case "checkbox":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    => $id,
+			'type'  => 'checkbox',
+			'default'  => $default,
+			'options' => $options
+			);
+			break;
+		case "radio":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    =>$id,
+			'type'  => 'radio',
+			'default'  => $default,
+			'options' => $options
+			);
+			break;
+		case "dropdown":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    => $id,
+			'type'  => 'dropdown',
+			'default'  => $default,
+			'options' => $options
+			);
+			break;
+		case "datepicker":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    => $id,
+			'type'  => 'datepicker',
+			'default'  => $default
+			);
+			break;
+		case "default-content":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    => $id,
+			'type'  => 'default-content',
+			'default'  => $default
+			);
+			break;	
+		case "html":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    => $id,
+			'type'  => 'html',
+			'default'  => $default
+			);
+			break;	
+	}
+}
+
+/* legacy function not used anymore but called in old non-core templates */
+function lp_list_feature()
+{
+	return null;
+}
+
+

@@ -15,12 +15,10 @@ $key = lp_get_parent_directory(dirname(__FILE__));
 //adds template data to global array for use with landing page plugin - edit theme category and description only.
 
 //EDIT - START - defines template information - helps categorizae template and provides additional popup information
-$lp_data[$key]['category'] = "Video, v1, 2 column layout";
-$lp_data[$key]['description'] = "Tubelar Template";
-$lp_data[$key]['version'] = "1.0.0.1";
-$lp_data[$key]['features'][] = lp_list_feature("Demo Link","http://demo.inboundnow.com/go/tubelar-lander-lander-preview/");
-$lp_data[$key]['features'][] = lp_list_feature("The Tubelar Template allows you to use any youtube video as the background for your landing page");
-$lp_data[$key]['thumbnail'] = LANDINGPAGES_URLPATH.'templates/'.$key.'/thumbnail.png';
+$lp_data[$key]['category'] = "Video"; 
+$lp_data[$key]['description'] = "Tubelar Template"; 
+$lp_data[$key]['version'] = "1.0.1"; 
+$lp_data[$key]['thumbnail'] = LANDINGPAGES_URLPATH.'templates/'.$key.'/thumbnail.png'; 
 
 //DO NOT EDIT - adds template to template selection dropdown
 $lp_data[$key]['value'] = $key;

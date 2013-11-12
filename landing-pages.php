@@ -26,9 +26,11 @@ if (is_admin())
 /* load core files */
 switch (is_admin()) :
 	case true : 
-		/* loads admin files */			
+		/* loads admin files */	
+
 		include_once('functions/functions.global.php');	
 		include_once('functions/functions.admin.php');
+		include_once('modules/module.javascript-admin.php');
 		include_once('modules/module.activate.php');
 		include_once('modules/module.global-settings.php');
 		include_once('modules/module.clone.php');
@@ -36,9 +38,10 @@ switch (is_admin()) :
 		include_once('modules/module.extension-licensing.php');
 		include_once('modules/module.admin-menus.php');
 		include_once('modules/module.welcome.php');
-		include_once('modules/module.install.php');
+		include_once('modules/module.install.php');	
 		include_once('modules/module.alert.php');		
-		include_once('modules/module.metaboxes.php');
+		include_once('modules/module.metaboxes.php');		
+		include_once('modules/module.landing-page.php');
 		include_once('modules/module.load-extensions.php');		
 		include_once('modules/module.post-type.php');
 		include_once('modules/module.track.php');
@@ -47,11 +50,11 @@ switch (is_admin()) :
 		include_once('modules/module.sidebar.php');
 		include_once('modules/module.widgets.php');
 		include_once('modules/module.cookies.php');
+			
 		include_once('modules/module.ab-testing.php');
 		include_once('modules/module.click-tracking.php');
 		include_once('modules/module.templates.php');
 		include_once('modules/module.store.php');
-		include_once('modules/module.landing-page.php');
 		include_once('modules/module.customizer.php');
 
 

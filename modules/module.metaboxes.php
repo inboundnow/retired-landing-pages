@@ -24,7 +24,6 @@ function lp_display_thumbnail_metabox() {
 
 function lp_thumbnail_metabox() {
 	global $post;
-	global $plugin_path;
 
 	$template = get_post_meta($post->ID, 'lp-selected-template', true);
 	$template = apply_filters('lp_selected_template',$template);
