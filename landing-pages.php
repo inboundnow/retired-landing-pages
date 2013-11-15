@@ -56,7 +56,8 @@ switch (is_admin()) :
 		include_once('modules/module.templates.php');
 		include_once('modules/module.store.php');
 		include_once('modules/module.customizer.php');
-
+		// Singleton Shared Class Loads
+		include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
 
 	case false :
 		/* load front-end files */
@@ -84,5 +85,4 @@ function inbound_load_shared_landing_pages(){
 	include_once('shared/classes/form.class.php');  // Mirrored forms
 	include_once('shared/inboundnow/inboundnow.extension-licensing.php'); // Inboundnow Package Licensing
 	include_once('shared/inboundnow/inboundnow.extension-updating.php'); // Inboundnow Package Updating
-	include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
 }
