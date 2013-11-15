@@ -10,14 +10,14 @@
 do_action('lp_global_config'); // The lp_global_config function is for global code added by 3rd party extensions
 
 //gets template directory name to use as identifier - do not edit - include in all template files
-$key = lp_get_parent_directory(dirname(__FILE__)); 
+$key = lp_get_parent_directory(dirname(__FILE__));
 
-$lp_data[$key]['info'] = 
+$lp_data[$key]['info'] =
 array(
 	'data_type' => 'template', // Template Data Type
 	'version' => "1.0.1", // Version Number
 	'label' => "Simple Two Column", // Nice Name
-	'category' => 'Miscellaneous, v1', // Template Category
+	'category' => 'v1, 2 column layout', // Template Category
 	'demo' => 'http://demo.inboundnow.com/go/simple-two-column/', // Demo Link
 	'description'  => 'Two column landing page template.' // template description
 );
@@ -29,9 +29,9 @@ array(
 
 // Define Meta Options for template
 // These values are returned in the template's index.php file with lp_get_value($post, $key, 'field-id') function
-$lp_data[$key]['settings'] = 
+$lp_data[$key]['settings'] =
 array(
-    array(  
+    array(
         'label' => 'Display Social Media Share Buttons', // Label of field
         'description' => "Display Social Media Share Buttons", // field description
         'id' => 'display-social', // metakey.
@@ -43,7 +43,7 @@ array(
     array(
         'label' => "Sidebar Layout",
         'description' => "","Align sidebar to the left or the right",
-        'id'  => 'sidebar', 
+        'id'  => 'sidebar',
         'type'  => 'dropdown',
         'default'  => 'left',
         'options' => array('right'=>'Sidebar on right','left'=>'Sidebar on left'),
@@ -52,7 +52,7 @@ array(
     array(
         'label' => 'Sidebar Color',
         'description' => "Sidebar Background Color",
-        'id'  => 'sidebar-color', 
+        'id'  => 'sidebar-color',
         'type'  => 'colorpicker',
         'default'  => '2A4480',
         'context'  => 'normal'
@@ -60,7 +60,7 @@ array(
     array(
         'label' => 'Submit Button Color',
         'description' => "Submit Button Background Color",
-        'id'  => 'submit-button-color', 
+        'id'  => 'submit-button-color',
         'type'  => 'colorpicker',
         'default'  => '5baa1e',
         'context'  => 'normal'
@@ -68,7 +68,7 @@ array(
     array(
         'label' => 'Main Content Area Color',
         'description' => "Use this setting to change the template's main content area background color",
-        'id'  => 'content-color', 
+        'id'  => 'content-color',
         'type'  => 'colorpicker',
         'default'  => '1240AB',
         'context'  => 'normal'
@@ -76,7 +76,7 @@ array(
     array(
         'label' => 'Background Color',
         'description' => "Use this setting to change the template's background color",
-        'id'  => 'body-color', 
+        'id'  => 'body-color',
         'type'  => 'colorpicker',
         'default'  => '06266F',
         'context'  => 'normal'
@@ -97,4 +97,4 @@ array(
         'default'  => 'ffffff',
         'context'  => 'normal'
         )
-);	
+);

@@ -8,23 +8,23 @@
 do_action('lp_global_config'); // global config action hook
 
 //gets template directory name to use as identifier - do not edit - include in all template files
-$key = lp_get_parent_directory(dirname(__FILE__)); 
+$key = lp_get_parent_directory(dirname(__FILE__));
 
-$lp_data[$key]['info'] = 
+$lp_data[$key]['info'] =
 array(
 	'data_type' => 'template', // Template Data Type
 	'version' => "1.0.1", // Version Number
 	'label' => "Half and Half", // Nice Name
-	'category' => 'Miscellaneous', // Template Category
+	'category' => 'v1, 2 column layout', // Template Category
 	'demo' => 'http://demo.inboundnow.com/go/half-and-half-lander-preview/', // Demo Link
 	'description'  => 'Half and Half is a template with two content areas on each side of the page. One side has your conversion area and the other your content on the page.' // template description
 );
 
 // Define Meta Options for template
 // These values are returned in the template's index.php file with lp_get_value($post, $key, 'field-id') function
-$lp_data[$key]['settings'] = 
+$lp_data[$key]['settings'] =
 array(
-    array(  
+    array(
         'label' => 'Display Social Media Share Buttons', // Label of field
         'description' => "Display Social Media Share Buttons", // field description
         'id' => 'display-social', // metakey.
@@ -36,7 +36,7 @@ array(
     array(
         'label' => "Page Layout",
         'description' => "Align Conversion/Form Area to the left or the right",
-        'id'  => 'sidebar', 
+        'id'  => 'sidebar',
         'type'  => 'dropdown',
         'default'  => 'left',
         'options' => array('right'=>'Conversion Area on right','left'=>'Conversion Area on left'),
@@ -45,7 +45,7 @@ array(
     array(
         'label' => 'Content Background Color',
         'description' => "Content Background Color",
-        'id'  => 'content-color', 
+        'id'  => 'content-color',
         'type'  => 'colorpicker',
         'default'  => 'ffffff',
         'context'  => 'normal'
@@ -61,9 +61,9 @@ array(
     array(
         'label' => 'Conversion Area Background Color',
         'description' => "Conversion Area Background Color",
-        'id'  => 'sidebar-color', 
+        'id'  => 'sidebar-color',
         'type'  => 'colorpicker',
-        'default'  => 'EE6E4C',	
+        'default'  => 'EE6E4C',
         'context'  => 'normal'
         ),
     array(
@@ -82,4 +82,4 @@ array(
         'default'  => 'ffffff',
         'context'  => 'normal'
         )
-);	
+);

@@ -54,10 +54,10 @@ min-width: 320px;
 	min-height: 200px;
 }
 
-#adminmenu .wp-menu-arrow div { 
+#adminmenu .wp-menu-arrow div {
 	left: -2px;
 }
-  
+
 #add-lp-notes {
 	display: none;
 	vertical-align: middle;
@@ -67,7 +67,7 @@ min-width: 320px;
 
 .add-new-h2, #lp-current-view, #switch-lp, #preview-action {
   display: none;
-} 
+}
 
 #lp-notes-area {
 	position: relative;
@@ -110,7 +110,7 @@ min-width: 320px;
 }
 
 #main-title-area .button-primary.new-save-lp {
-	padding-top: 6px !important; 
+	padding-top: 6px !important;
 }
 
 #main-title-area .lp-success-message {
