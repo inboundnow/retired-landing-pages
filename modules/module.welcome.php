@@ -121,6 +121,9 @@ class LANDINGPAGES_Welcome {
 		#inbound-plugins .grid.one-third {
 		width: 31.333333%;
 		}
+		#inbound-plugins .grid.two-third {
+		width: 64.333333%;
+		}
 		#inbound-plugins h3 {
 			padding-top: 0px;
 			font-size: 22px;
@@ -187,6 +190,44 @@ class LANDINGPAGES_Welcome {
 		#inbound-plugins .grid.one-third:nth-last-of-type(1) {
 			padding-right: 0px;
 		}
+		#recommended-other-plugins {
+			background: #F5F5F5;
+			background-image: -webkit-gradient(linear,left bottom,left top,from(#F5F5F5),to(#F9F9F9));
+			background-image: -webkit-linear-gradient(bottom,#F5F5F5,#F9F9F9);
+			background-image: -moz-linear-gradient(bottom,#f5f5f5,#f9f9f9);
+			background-image: -o-linear-gradient(bottom,#f5f5f5,#f9f9f9);
+			background-image: linear-gradient(to top,#F5F5F5,#F9F9F9);
+			border-color: #DFDFDF;
+			-webkit-box-shadow: inset 0 1px 0 #FFF;
+			box-shadow: inset 0 1px 0 #FFF;
+			-webkit-border-radius: 3px;
+			border-radius: 3px;
+			margin-bottom: 20px;
+			margin-top: 20px;
+			padding: 0;
+			border-width: 1px;
+			border-style: solid;
+			line-height: 1;
+			padding-bottom: 10px;
+		}
+		#recommended-other-plugins img {
+			padding-left: 10px;
+			margin-top: 10px;
+			width: 93%;
+		}
+		#recommended-other-plugins h4{
+			margin-top: 0px;
+			padding-top: 10px;
+			padding-left: 10px;
+			margin-bottom: 5px;
+			font-size: 1.2em;
+
+			text-decoration: underline;
+		}
+		#inbound-setting-links {
+			list-style: disc;
+			padding-left: 25px;
+		}
 		/*]]>*/
 		</style>
 		<?php
@@ -226,18 +267,35 @@ class LANDINGPAGES_Welcome {
 	 */
 	public function quick_start_screen() {
 		list( $display_version ) = explode( '-', LANDINGPAGES_CURRENT_VERSION );
+		$Recommended = "";
+		$cta_install = "";
+		$leads_install = "";
+		$rec_end = "";
+		if (!is_plugin_active('cta/wordpress-cta.php')) {
+			$Recommended = "<div id='recommended-other-plugins'><h4>Recommended Other Plugins</h4>";
+		 	$cta_install = "<a href='".esc_url( admin_url( add_query_arg( array( 'tab' => 'search', 's' => 'wordpress+call+to+action' ), 'plugin-install.php' ) ) )."'><img src='".LANDINGPAGES_URLPATH."images/cta-install.png'></a>";
+		 	$rec_end = "</div>";
+
+		}
+		if (!is_plugin_active('leads/wordpress-leads.php')) {
+			$Recommended = "<div id='recommended-other-plugins'><h4>Install Recommended Plugins</h4>";
+			$leads_install = "<a href='".esc_url( admin_url( add_query_arg( array( 'tab' => 'search', 's' => 'WordPress%20Leads' ), 'plugin-install.php' ) ) )."'><img src='".LANDINGPAGES_URLPATH."images/leads-install.png'></a>";
+			$rec_end = "</div>";
+
+		}
 		?>
 		<style type="text/css">
 		.about-text {
 		font-size: 19px;
 			}</style>
-		<div class="wrap about-wrap">
+		<div class="wrap about-wrap" id="inbound-plugins">
 			<h1><?php printf( __( 'Welcome to WordPress Landing Pages %s', 'edd' ), $display_version ); ?></h1>
 			<div class="about-text" id="in-sub-head"><?php printf( __( 'Thank you for updating to the latest version! WordPress Landing Pages %s is help you convert more leads!', 'edd' ), $display_version ); ?></div>
 			<div class="edd-badge"><?php printf( __( 'Version %s', 'edd' ), $display_version ); ?></div>
 
 			<?php self::render_nav_menu();?>
-
+			<div class="row">
+			<div class='grid two-third'>
 			<div id="creating-landing-page">
 				<h4><?php _e( 'Create Your First Landing Page', 'edd' );?></h4>
 				<iframe width="640" height="360" src="//www.youtube.com/embed/-VuaBUc_yfk" frameborder="0" allowfullscreen></iframe>
@@ -256,103 +314,34 @@ class LANDINGPAGES_Welcome {
 
 			</div>
 
-			<div class="changelog">
-				<h3><?php _e( 'A Great Checkout Experience', 'edd' );?></h3>
 
-				<div class="feature-section">
 
-					<img src="<?php echo WP_PLUGIN_DIR . 'assets/images/screenshots/17checkout.png'; ?>" class="edd-welcome-screenshots"/>
-
-					<h4><?php _e( 'Simple, Beautiful Checkout', 'edd' );?></h4>
-					<p><?php _e( 'We have worked tirelessly to continually improve the checkout experience of WordPress Landing Pages, and with just a few subtle tweaks, we have made the experience in WordPress Landing Pages version 1.8 even better than before.', 'edd' );?></p>
-
-					<h4><?php _e( 'Better Checkout Layout', 'edd' );?></h4>
-					<p><?php _e( 'The position of each field on the checkout has been carefully reconsidered to ensure it is in the proper location so as to best create high conversion rates.', 'edd' );?></p>
-
-				</div>
 			</div>
+			<div class='grid one-third'>
 
-			<div class="changelog">
-				<h3><?php _e( 'Cart Saving', 'edd' );?></h3>
+				<?php echo $Recommended . $leads_install . $cta_install . $rec_end; ?>
 
-				<div class="feature-section">
-
-					<img src="<?php echo WP_PLUGIN_DIR . 'assets/images/screenshots/18cart-saving.png'; ?>" class="edd-welcome-screenshots"/>
-
-					<h4><?php _e( 'Allow Customers to Save Their Carts for Later','edd' );?></h4>
-					<p><?php _e( 'With Cart Saving, customers can save their shopping carts and then come back and restore them at a later point.', 'edd' );?></p>
-
-					<h4><?php _e( 'Encourage Customers to Come Back', 'edd' );?></h4>
-					<p><?php _e( 'By making it easier for customers to save their cart and return later, you can increase the conversion rate of the customers that need time to think about their purchase.', 'edd' );?></p>
-
-
-				</div>
+			<h4>Quick Links</h4>
+			<ul id="inbound-setting-links">
+				<li>
+					<a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'landing-page', 'page' => 'lp_global_settings' ), 'edit.php' ) ) ); ?>"><?php _e( 'Go to WordPress Landing Pages Settings', 'edd' ); ?></a>
+				</li>
+				<li>
+					<a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'landing-page', 'page' => 'lp_manage_templates' ), 'edit.php' ) ) ); ?>"><?php _e( 'Manage Your Landing Page Templates', 'edd' ); ?></a>
+				</li>
+				<li>
+					<a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'landing-page' ), 'post-new.php' ) ) ); ?>"><?php _e( 'Create New Landing Page', 'edd' ); ?></a>
+				</li>
+				<li>
+					<a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'landing-page', 'page' => 'inbound-forms-redirect' ), 'edit.php' ) ) ); ?>"><?php _e( 'Create Landing Page Forms', 'edd' ); ?></a>
+				</li>
+			</ul>
 			</div>
+			</div> <!-- end row -->
 
-			<div class="changelog">
-				<h3><?php _e( 'Better Purchase Button Colors', 'edd' );?></h3>
 
-				<div class="feature-section">
 
-					<img src="<?php echo WP_PLUGIN_DIR . 'assets/images/screenshots/18-button-colors.png'; ?>" class="edd-welcome-screenshots"/>
 
-					<h4><?php _e( 'Eight Button Colors', 'edd' );?></h4>
-					<p><?php _e( 'With eight beautifully button colors to choose from, you will almost certainly find the color to match your site.', 'edd' );?></p>
-
-					<h4><?php _e( 'Simpler; Cleaner', 'edd' );?></h4>
-					<p><?php _e( 'Purchase buttons are cleaner, simpler, and just all around better with WordPress Landing Pages 1.8.', 'edd' );?></p>
-					<p><?php _e( 'By simplifying one of the most important aspects of your digital store, we ensure better compatibility with more themes and easier customization for advanced users and developers.', 'edd' );?></p>
-
-				</div>
-			</div>
-
-			<div class="changelog">
-				<h3><?php _e( 'Better APIs for Developers', 'edd' );?></h3>
-
-				<div class="feature-section">
-
-					<h4><?php _e( 'EDD_Payment_Stats','edd' );?></h4>
-					<p><?php _e( 'The new EDD_Payment_Stats class provides a simple way to retrieve earnings and sales stats for the store, or any specific Download product, for any date range. Get sales or earnings for this month, last month, this year, or even any custom date range.', 'edd' );?></p>
-
-					<h4><?php _e( 'EDD_Payments_Query', 'edd' ); ?></h4>
-					<p><?php _e( 'Easily retrieve payment data for any Download product or the entire store. EDD_Payments_Query even allows you to pass in any date range to retrieve payments for a specific period. EDD_Payments_Query works nearly identical to WP_Query, so it is simple and familiar.', 'edd' ); ?></p>
-
-				</div>
-			</div>
-
-			<div class="changelog">
-				<h3><?php _e( 'Additional Updates', 'edd' );?></h3>
-
-				<div class="feature-section col three-col">
-					<div>
-						<h4><?php _e( 'Retina Ready Checkout', 'edd' );?></h4>
-						<p><?php _e( 'Every icon and image asset used by the WordPress Landing Pages checkout is now fully retina ready to ensure your most important page always looks great.', 'edd' );?></p>
-
-						<h4><?php _e( 'Improved Settings API', 'edd' );?></h4>
-						<p><?php _e( 'The EDD settings API has been dramatically simplified to be more performant, provide better filters, and even support custom settings tabs.', 'edd' );?></p>
-					</div>
-
-					<div>
-						<h4><?php _e( 'Live Dashboard Updates', 'edd' );?></h4>
-						<p><?php _e( 'The Dashboard summary widget now updates live with the WP Heartbeat API, meaning you can literally watch your stats update live as sales come in.', 'edd' );?></p>
-
-						<h4><?php _e( 'Category Filters for Downloads Reports', 'edd' );?></h4>
-						<p><?php _e( 'The Downloads Reports view now supports filtering Downloads by category, making it easier to see earnings and sales based on product categories.', 'edd' );?></p>
-					</div>
-
-					<div class="last-feature">
-						<h4><?php _e( 'Tools Menu', 'edd' );?></h4>
-						<p><?php _e( 'A new Tools submenu has been added to the main Downloads menu that houses settings import / export, as well as other utilities added by extensions.' ,'edd' );?></p>
-
-						<h4><?php _e( 'Bulk Payment History Update','edd' );?></h4>
-						<p><?php _e( 'The bulk update options for Payments have been updated to include all payment status options, making it easier to manage payment updates in bulk.', 'edd' );?></p>
-					</div>
-				</div>
-			</div>
-
-			<div class="return-to-dashboard">
-				<a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'download', 'page' => 'edd-settings' ), 'edit.php' ) ) ); ?>"><?php _e( 'Go to WordPress Landing Pages Settings', 'edd' ); ?></a>
-			</div>
 		</div>
 		<?php
 	}
@@ -548,17 +537,38 @@ class LANDINGPAGES_Welcome {
 	public function dev_designer_screen() {
 		list( $display_version ) = explode( '-', LANDINGPAGES_CURRENT_VERSION );
 		?>
-		<div class="wrap about-wrap">
+		<style type="text/css">
+		#create-templates {
+			text-decoration: none;
+			text-align: center;
+			font-size: 38px;
+			padding: 38px;
+			vertical-align: top;
+			padding-top: 24px;
+			padding-bottom: 46px;
+			color: #21759B;
+			}</style>
+		<div class="wrap about-wrap" id="inbound-plugins">
 			<h1><?php printf( __( 'Welcome to WordPress Landing Pages %s', 'edd' ), $display_version ); ?></h1>
 			<div class="about-text" id="in-sub-head"><?php printf( __( 'Learn How to Build Custom Templates & Add Value to Your Clients', 'edd' ), $display_version ); ?></div>
 			<div class="edd-badge"><?php printf( __( 'Version %s', 'edd' ), $display_version ); ?></div>
 
 			<?php self::render_nav_menu();?>
+			<div class="row">
+			<div class='grid two-third'>
+			<p class="about-description"><?php _e( 'WordPress Landing Pages was built as a platform to allow anyone to create and use their own landing page designs.', 'edd' ); ?></p>
 
+			<p class="about-description"><?php _e( 'Infuse your designs with powerful A/B testing functionality and give clients the ability to edit options on the backend with ease.', 'edd' ); ?></p>
 
-			<p class="about-description"><?php _e( 'WordPress Landing Pages is created by a worldwide team of developers who aim to provide the #1 eCommerce platform for selling digital goods through WordPress.', 'edd' ); ?></p>
+			<h1 style="text-decoration: none; text-align: center;"><a target="_blank" id="create-templates" class='button' href="http://docs.inboundnow.com/landing-pages/dev/creating-templates">Create Your Own Templates</a></h1>
 
-
+			<p class="about-description">WordPress Landing Pages is third party extendable. We have a variety of <a href="http://docs.inboundnow.com/landing-pages/dev/core-hooks-filters/hooks">hooks</a>, actions, and filters to add your own functionality</p>
+			</div>
+			<div class='grid one-third' style="text-align: center;">
+			<p class="about-description" style="font-size: 15px;margin-top: 30px;"><b>Contribute Code</b> + Submit <b>Feature Requests</b></p>
+			<a href="https://github.com/inboundnow/landing-pages"><img src="<?php echo LANDINGPAGES_URLPATH;?>images/github-help.jpg"></a>
+			</div>
+			</div>
 		</div>
 		<?php
 	}

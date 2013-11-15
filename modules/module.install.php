@@ -101,6 +101,7 @@ add_action( 'tgmpa_register', 'lp_install_register_required_plugins' );
  * TGM_Plugin_Activation class constructor.
  */
 function lp_install_register_required_plugins() {
+    //
 
     /**
      * Array of plugin arrays. Required keys are name, slug and required.
@@ -126,11 +127,11 @@ function lp_install_register_required_plugins() {
             'slug'      => 'leads',
             'required'  => false,
         ),
-       /* array(
-            'name'      => 'WordPress Leads <span style=\'color:red !important; display:block;\'>This free landing page addon will give you the ability to manage leads, see the pages viewed by the lead before converting, geolocation data, and much more. <a href=\'http://wordpress.org/plugins/leads/\'> Learn more about WordPress Leads.</a></span>',
-            'slug'      => 'title-split-testing-for-wordpress',
-            'required'  => false,
-        ),*/
+       array(
+           'name'      => 'WordPress Calls to Action <span style=\'color:red !important; display:block;\'>This free landing page addon will give you the ability to track and manage incoming web leads. Gather Lead Intelligence on all Leads and Close more deals. <a href=\'http://wordpress.org/plugins/cta/\'> Learn more about WordPress Leads.</a></span>',
+           'slug'      => 'cta',
+           'required'  => false,
+       ),
 
     );
 
