@@ -1,40 +1,40 @@
 <?php
 
 if (is_admin())
-{	
+{
 	//define main tabs and bind display functions
 	if (isset($_GET['page'])&&($_GET['page']=='lp_global_settings'&&$_GET['page']=='lp_global_settings'))
 	{
 		add_action('admin_init','lp_global_settings_enqueue');
 		function lp_global_settings_enqueue()
-		{		
-			wp_enqueue_style('lp-css-global-settings-here', LANDINGPAGES_URLPATH . 'css/admin-global-settings.css');			
+		{
+			wp_enqueue_style('lp-css-global-settings-here', LANDINGPAGES_URLPATH . 'css/admin-global-settings.css');
 		}
 	}
-	
-	
+
+
 	function lp_get_global_settings()
 	{
 		global $lp_global_settings;
-				
+
 		/* Setup Main Navigation Tab and Settings */
 		$tab_slug = 'lp-main';
-		$lp_global_settings[$tab_slug]['label'] = 'Global Settings';	
+		$lp_global_settings[$tab_slug]['label'] = 'Global Settings';
 
-		
-		$lp_global_settings[$tab_slug]['settings'] = 
-		array(				
+
+		$lp_global_settings[$tab_slug]['settings'] =
+		array(
 			array(
-				'id'  => 'lp_global_settings_main_header',			
-				'type'  => 'header', 
+				'id'  => 'lp_global_settings_main_header',
+				'type'  => 'header',
 				'default'  => '<h4>Landing Pages Core Settings</h4>',
 				'options' => null
 			),
 			array(
 				'id'  => 'landing-page-permalink-prefix',
 				'label' => 'Default Landing Page Permalink Prefix',
-				'description' => "Enter in the 'prefix' for landing page permalinks. eg: /prefix/pemalink-name",
-				'type'  => 'text', 
+				'description' => "Enter in the <span style='color:red;'>prefix</span> for landing page URLs (aka permalinks).<br><br>This is the URL Slug that will be in the landing page URL.<br><br> Example: http://www.yoursite.com/<span style='color:red;'>PREFIX</span>/landing-page .  Enter in a single word like 'go'",
+				'type'  => 'text',
 				'default'  => 'go',
 				'options' => null
 			),
@@ -42,7 +42,7 @@ if (is_admin())
 				'id'  => 'landing-page-prepopulate-forms',
 				'label' => 'Enable Form Prepopulation',
 				'description' => "With this setting enabled landing pages plugin will remember form input data that the user submits to a form and attempt to pre-populate all other forms with the same user's data when applicable.",
-				'type'  => 'radio', 
+				'type'  => 'radio',
 				'default'  => '1',
 				'options' => array('1'=>'on','0'=>'off')
 			),
@@ -50,15 +50,15 @@ if (is_admin())
 				'id'  => 'landing-page-disable-admin-tracking',
 				'label' => 'Disable Admin Impression/Conversion Tracking',
 				'description' => "With this setting enabled landing pages plugin will not record visits and conversions for administrative users that are logged in.",
-				'type'  => 'radio', 
+				'type'  => 'radio',
 				'default'  => '0',
 				'options' => array('1'=>'on','0'=>'off')
 			),
 			array(
 				'id'  => 'landing-page-rotation-halt',
 				'label' => 'Sticky Variations',
-				'description' => "With this setting enabled landing pages plugin will prevent landing page version rotation for a visitor that has viewed the page. This halt on rotation will automatically expire after 30 days.",
-				'type'  => 'radio', 
+				'description' => "With this setting enabled the landing pages plugin will prevent landing page version a/b rotation for a specific visitor that has viewed the page.<br><br>This pause on the a/b rotation will automatically expire after 30 days.",
+				'type'  => 'radio',
 				'default'  => '0',
 				'options' => array('1'=>'on','0'=>'off')
 			),
@@ -66,7 +66,7 @@ if (is_admin())
 				'id'  => 'landing-page-auto-format-forms',
 				'label' => 'Enable Form Standardization',
 				'description' => "With this setting enabled landing pages plugin will clean and standardize all input ids and classnames. Uncheck this setting to disable standardization.",
-				'type'  => 'radio', 
+				'type'  => 'radio',
 				'default'  => '0',
 				'options' => array('1'=>'on','0'=>'off')
 			),
@@ -74,26 +74,26 @@ if (is_admin())
 				'id'  => 'main-landing-page-auto-format-forms-retain-elements',
 				'label' => 'Form Standardization Element Whitelist',
 				'description' => "Form standardization strips the conversion area content of html elements. Add the elements you do not want to be stripped to this list.",
-				'type'  => 'textarea', 
+				'type'  => 'textarea',
 				'default'  => '<button><script><textarea><style><input><form><select><label><a><p><b><u><strong><i><img><strong><span><font><h1><h2><h3><center><blockquote><embed><object><small>',
-				'options' => null 
+				'options' => null
 			)
 		);
 
-		
+
 		/* Setup License Keys Tab */
 		$tab_slug = 'lp-license-keys';
-		$lp_global_settings[$tab_slug]['label'] = 'License Keys';	
-		
+		$lp_global_settings[$tab_slug]['label'] = 'License Keys';
+
 		/* Setup Extensions Tab */
 		$tab_slug = 'lp-extensions';
-		$lp_global_settings[$tab_slug]['label'] = 'Extensions';	
-		
+		$lp_global_settings[$tab_slug]['label'] = 'Extensions';
+
 		$lp_global_settings = apply_filters('lp_define_global_settings',$lp_global_settings);
 
 		return $lp_global_settings;
-	}	
-	
+	}
+
 	/* Add Extensions License Key Header if Extensions are present */
 	add_filter('lp_define_global_settings', 'lp_add_extension_license_key_header',1,1);
 	function lp_add_extension_license_key_header($lp_global_settings)
@@ -107,10 +107,10 @@ if (is_admin())
 					'default' => '<h3 class="lp_global_settings_header">Extension License Keys</h3>'
 			);
 		}
-		
+
 		return $lp_global_settings;
 	}
-	
+
 	/* Provide backwards compatibility for older data array model */
 	add_filter('lp_define_global_settings','lp_rebuild_old_global_settings_configurations_to_suit_new_convention', 99, 1);
 	function lp_rebuild_old_global_settings_configurations_to_suit_new_convention($lp_global_settings)
@@ -120,7 +120,7 @@ if (is_admin())
 		{
 			if (is_array($aa))
 			{
-				
+
 				foreach ($aa as $k=>$aaa)
 				{
 					/* change 'options' key to 'settings' */
@@ -131,19 +131,19 @@ if (is_admin())
 							foreach ($aaa as $kk => $aaaa)
 							{
 								$lp_global_settings[$parent_tab]['settings'][] = $aaaa;
-							}							
-						}						
+							}
+						}
 						unset($lp_global_settings[$parent_tab][$k]);
 					}
-			
+
 				}
 			}
-		}		
+		}
 		return $lp_global_settings;
 	}
-	
+
 	function lp_display_global_settings_js()
-	{	
+	{
 		if (isset($_GET['tab']))
 		{
 			$default_id = $_GET['tab'];
@@ -154,7 +154,7 @@ if (is_admin())
 		}
 		?>
 		<script type='text/javascript'>
-			jQuery(document).ready(function() 
+			jQuery(document).ready(function()
 			{
 				//jQuery('#<? echo $default_id; ?>').css('display','block');
 				//jQuery('#<? echo $default_id; ?>').css('display','block');
@@ -171,38 +171,38 @@ if (is_admin())
 					jQuery('#'+this_id).css('display','block');
 					jQuery('.lp-nav-tab').removeClass('nav-tab-special-active');
 					jQuery('.lp-nav-tab').addClass('nav-tab-special-inactive');
-					jQuery('#tabs-'+this_id).addClass('nav-tab-special-active');						
+					jQuery('#tabs-'+this_id).addClass('nav-tab-special-active');
 					jQuery('#id-open-tab').val(this_id);
 				});
-	
-			});			
+
+			});
 		</script>
 		<?php
 	}
-	
+
 	function lp_display_global_settings()
-	{	
+	{
 		global $wpdb;
 		$lp_global_settings = lp_get_global_settings();
-		
+
 		//print_r($lp_global_settings);
-		$active_tab = 'lp-main'; 
+		$active_tab = 'lp-main';
 		if (isset($_REQUEST['open-tab']))
 		{
 			$active_tab = $_REQUEST['open-tab'];
 		}
 
 		//echo $active_tab;exit;
-		
+
 		lp_display_global_settings_js();
 		lp_save_global_settings();
 
-		echo '<h2 class="nav-tab-wrapper">';		
-	
+		echo '<h2 class="nav-tab-wrapper">';
+
 		foreach ($lp_global_settings as $key => $data)
 		{
 			?>
-			<a  id='tabs-<?php echo $key; ?>' class="lp-nav-tab nav-tab nav-tab-special<?php echo $active_tab == $key ? '-active' : '-inactive'; ?>"><?php echo $data['label']; ?></a> 
+			<a  id='tabs-<?php echo $key; ?>' class="lp-nav-tab nav-tab nav-tab-special<?php echo $active_tab == $key ? '-active' : '-inactive'; ?>"><?php echo $data['label']; ?></a>
 			<?php
 		}
 		echo "</h2><div class='lp-settings-tab-sidebar'><div class='lp-sidebar-settings'><h2 style='font-size:17px;'>Like the Plugin? Leave us a review</h2><center><a class='review-button' href='http://wordpress.org/support/view/plugin-reviews/landing-pages?rate=5#postform' target='_blank'>Leave a Review</a></center><small>Reviews help constantly improve the plugin & keep us motivated! <strong>Thank you for your support!</strong></small></div><div class='lp-sidebar-settings'><h2>Help keep the plugin up to date, awesome & free!</h2><form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>
@@ -214,12 +214,12 @@ if (is_admin())
 		echo "<form action='edit.php?post_type=landing-page&page=lp_global_settings' method='POST'>
 		<input type='hidden' name='nature' value='lp-global-settings-save'>
 		<input type='hidden' name='open-tab' id='id-open-tab' value='{$active_tab}'>";
-		
+
 		foreach ($lp_global_settings as $key => $data)
 		{
 			lp_render_global_settings($key,$data['settings'], $active_tab);
 		}
-		
+
 		echo '<div style="float:left;padding-left:9px;padding-top:20px;">
 				<input type="submit" value="Save Settings" tabindex="5" id="lp-button-create-new-group-open" class="button-primary" >
 			</div>';
@@ -230,7 +230,7 @@ if (is_admin())
 		<div id="more-templates">
 			<center>
 			<a href="http://www.inboundnow.com/landing-pages/downloads/category/templates/" target="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>/images/templates-image.png"></a>
-			
+
 			</center>
 		</div>
 		<div id="more-addons">
@@ -321,37 +321,37 @@ if (is_admin())
                 </tr>
             </table>
         </div>
-	<?php	
+	<?php
 	}
-	
-	function lp_save_global_settings() 
+
+	function lp_save_global_settings()
 	{
-		
+
 		$lp_global_settings = lp_get_global_settings();
-		
+
 		if (!isset($_POST['nature']))
 			return;
-	
-		
+
+
 		foreach ($lp_global_settings as $key=>$data)
-		{	
-			$tab_settings = $lp_global_settings[$key]['settings'];		
+		{
+			$tab_settings = $lp_global_settings[$key]['settings'];
 			// loop through fields and save the data
-			foreach ($tab_settings as $field) 
+			foreach ($tab_settings as $field)
 			{
 				$field['id']  = $key."-".$field['id'];
-				
-				if (array_key_exists('option_name',$field) && $field['option_name'] )			
+
+				if (array_key_exists('option_name',$field) && $field['option_name'] )
 					$field['id'] = $field['option_name'];
-				
-				$field['old_value'] = get_option($field['id'] );	
+
+				$field['old_value'] = get_option($field['id'] );
 				(isset($_POST[$field['id'] ]))? $field['new_value'] = $_POST[$field['id'] ] : $field['new_value'] = null;
-				
-				
-				if ((isset($field['new_value']) && ($field['new_value'] !== $field['old_value'] ) )|| !isset($field['old_value']) ) 
+
+
+				if ((isset($field['new_value']) && ($field['new_value'] !== $field['old_value'] ) )|| !isset($field['old_value']) )
 				{
 					//echo $field['id'] ;exit;
-					$bool = update_option($field['id'] ,$field['new_value']);				
+					$bool = update_option($field['id'] ,$field['new_value']);
 					if ($field['id'] =='main-landing-page-permalink-prefix')
 					{
 						//echo "here";
@@ -359,35 +359,35 @@ if (is_admin())
 						$wp_rewrite->flush_rules();
 					}
 					if ($field['type']=='license-key')
-					{						
-						
+					{
+
 						// data to send in our API request
-						$api_params = array( 
-							'edd_action'=> 'activate_license', 
-							'license' 	=> $field['new_value'], 
+						$api_params = array(
+							'edd_action'=> 'activate_license',
+							'license' 	=> $field['new_value'],
 							'item_name' =>  $field['slug'] // the name of our product in EDD
-						);						
+						);
 						//print_r($api_params);
-						
+
 						// Call the custom API.
 						$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 30, 'sslverify' => false ) );
 						//echo $response['body'];exit;
-						
+
 						// make sure the response came back okay
 						if ( is_wp_error( $response ) )
 							break;
 
 						// decode the license data
 						$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-						
-						
-						// $license_data->license will be either "active" or "inactive"						
+
+
+						// $license_data->license will be either "active" or "inactive"
 						$license_status = update_option('lp_license_status-'.$field['slug'], $license_data->license);
-						
+
 						//echo 'lp_license_status-'.$field['slug']." :".$license_data->license;exit;
 					}
-				} 
-				elseif (!$field['new_value'] && $field['old_value']) 
+				}
+				elseif (!$field['new_value'] && $field['old_value'])
 				{
 					//echo "here: $key <br>";
 					$bool = delete_option($field['id'] );
@@ -397,9 +397,9 @@ if (is_admin())
 					//print_r($field);
 					if ($field['type']=='license-key'&& $field['new_value'] )
 					{
-					
+
 						$license_status = get_option('lp_license_status-'.$field['slug']);
-						
+
 						if ($license_status=='valid' && $field['new_value'] == $field['old_value'])
 						{
 							continue;
@@ -407,41 +407,41 @@ if (is_admin())
 
 						// retrieve the license from the database
 						$license = trim( get_option( 'edd_sample_license_key' ) );
-						
+
 						// data to send in our API request
-						$api_params = array( 
-							'edd_action'=> 'activate_license', 
-							'license' 	=> $field['new_value'], 
+						$api_params = array(
+							'edd_action'=> 'activate_license',
+							'license' 	=> $field['new_value'],
 							'item_name' =>  $field['slug'] // the name of our product in EDD
 						);
-						
+
 						// Call the custom API.
 						$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 30, 'sslverify' => false ) );
 						//echo $field['slug'];
 						//echo "<br>";
-						
+
 						// make sure the response came back okay
 						if ( is_wp_error( $response ) )
 							break;
 
 						// decode the license data
 						$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-						
-						// $license_data->license will be either "active" or "inactive"						
+
+						// $license_data->license will be either "active" or "inactive"
 						$license_status = update_option('lp_license_status-'.$field['slug'], $license_data->license);
-						
+
 						//echo 'lp_license_status-'.$field['slug']." :".$license_data->license;exit;
 					}
 				}
 				//exit;
 				do_action('lp_save_global_settings',$field);
-			} // end foreach		
-			
+			} // end foreach
+
 		}
 		//exit;
 	}
-	
-		
+
+
 	function lp_render_global_settings($key,$custom_fields =  array() ,$active_tab)
 	{
 
@@ -454,9 +454,9 @@ if (is_admin())
 		{
 			$display = 'none';
 		}
-		
+
 		//echo $display;
-		
+
 		// Use nonce for verification
 		echo "<input type='hidden' name='lp_{$key}_custom_fields_nonce' value='".wp_create_nonce('lp-nonce')."' />";
 
@@ -464,7 +464,7 @@ if (is_admin())
 		echo '<table class="lp-tab-display" id="'.$key.'" style="display:'.$display.'">';
 		//print_r($custom_fields);exit;
 		foreach ($custom_fields as $field) {
-			//echo $field['type'];exit; 
+			//echo $field['type'];exit;
 			//print_r($field);
 			// get value of this field if it exists for this post
 			if (isset($field['default']))
@@ -475,14 +475,14 @@ if (is_admin())
 			{
 				$default = null;
 			}
-			
+
 			$field['id'] = $key."-".$field['id'];
-			
-			if (array_key_exists('option_name',$field) && $field['option_name'] )			
+
+			if (array_key_exists('option_name',$field) && $field['option_name'] )
 				$field['id'] = $field['option_name'];
-				
+
 			$field['value'] = get_option($field['id'] , $default);
-			
+
 			// begin a table row with
 			echo '<tr><th class="lp-gs-th" valign="top" style="font-weight:300px;">';
 				if ($field['type']=='header')
@@ -494,7 +494,7 @@ if (is_admin())
 					echo "<small>".$field['label']."</small>";
 				}
 			echo '</th><td>';
-			
+
 				switch($field['type']) {
 					// text
 					case 'colorpicker':
@@ -508,14 +508,14 @@ if (is_admin())
 					case 'datepicker':
 						echo '<input id="datepicker-example2" class="Zebra_DatePicker_Icon" type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$field['value'].'" size="8" />
 								<div class="lp_tooltip tool_date" title="'.$field['description'].'"></div><p class="description">'.$field['description'].'</p>';
-						break;	
+						break;
 					case 'license-key':
 						$license_status = lp_check_license_status($field);
 
 						echo '<input type="hidden" name="lp_license_status-'.$field['slug'].'" id="'.$field['id'] .'" value="'.$license_status.'" size="30" />
 						<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$field['value'].'" size="30" />
 								<div class="lp_tooltip tool_text" title="'.$field['description'].'"></div>';
-						
+
 						if ($license_status=='valid')
 						{
 							echo '<div class="lp_license_status_valid">Valid</div>';
@@ -523,8 +523,8 @@ if (is_admin())
 						else
 						{
 							echo '<div class="lp_license_status_invalid">Invalid</div>';
-						}						
-						break;	
+						}
+						break;
 					case 'text':
 						echo '<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$field['value'].'" size="30" />
 								<div class="lp_tooltip tool_text" title="'.$field['description'].'"></div>';
@@ -537,20 +537,20 @@ if (is_admin())
 					// wysiwyg
 					case 'wysiwyg':
 						wp_editor( $field['value'], $field['id'] , $settings = array() );
-						echo	'<span class="description">'.$field['description'].'</span><br><br>';							
+						echo	'<span class="description">'.$field['description'].'</span><br><br>';
 						break;
-					// media					
+					// media
 						case 'media':
 						//echo 1; exit;
 						echo '<label for="upload_image">';
 						echo '<input name="'.$field['id'] .'"  id="'.$field['id'] .'" type="text" size="36" name="upload_image" value="'.$field['value'].'" />';
 						echo '<input class="upload_image_button" id="uploader_'.$field['id'] .'" type="button" value="Upload Image" />';
-						echo '<br /><div class="lp_tooltip tool_media" title="'.$field['description'].'"></div>'; 
+						echo '<br /><div class="lp_tooltip tool_media" title="'.$field['description'].'"></div>';
 						break;
 					// checkbox
 					case 'checkbox':
 						$i = 1;
-						echo "<table>";				
+						echo "<table>";
 						if (!isset($field['value'])){$field['value']=array();}
 						elseif (!is_array($field['value'])){
 							$field['value'] = array($field['value']);
@@ -562,7 +562,7 @@ if (is_admin())
 								$i=1;
 							}
 								echo '<td><input type="checkbox" name="'.$field['id'] .'[]" id="'.$field['id'] .'" value="'.$value.'" ',in_array($value,$field['value']) ? ' checked="checked"' : '','/>';
-								echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label></td>';					
+								echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label></td>';
 							if ($i==4)
 							{
 								echo "</tr>";
@@ -578,7 +578,7 @@ if (is_admin())
 							//echo $meta.":".$field['id'] ;
 							//echo "<br>";
 							echo '<input type="radio" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$value.'" ',$field['value']==$value ? ' checked="checked"' : '','/>';
-							echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label> &nbsp;&nbsp;&nbsp;&nbsp;';								
+							echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label> &nbsp;&nbsp;&nbsp;&nbsp;';
 						}
 						echo '<div class="lp_tooltip tool_radio" title="'.$field['description'].'"></div>';
 					break;
@@ -595,52 +595,52 @@ if (is_admin())
 						echo $field['value'];
 						echo '<br /><div class="lp_tooltip tool_dropdown" title="'.$field['description'].'"></div>';
 					break;
-					
+
 
 
 				} //end switch
-				
+
 				do_action('lp_render_global_settings',$field);
-				
+
 			echo '</td></tr>';
 		} // end foreach
 		echo '</table>'; // end table
 	}
-	
-		
+
+
 	function lp_check_license_status($field)
 	{
 
 		$date = date("Y-m-d");
 		$cache_date = get_option($field['id']."-expire");
 		$license_status = get_option('lp_license_status-'.$field['slug']);
-		
+
 		if (isset($cache_date)&&($date<$cache_date)&&$license_status=='valid')
 		{
 			return "valid";
 		}
-			
+
 		$license_key = get_option($field['id']);
-		
+
 		if ($license_key)
 		{
-			$api_params = array( 
-				'edd_action' => 'check_license', 
-				'license' => $license_key, 
-				'key' => $license_key, 
-				'item_name' => urlencode( $field['slug'] ) 
+			$api_params = array(
+				'edd_action' => 'check_license',
+				'license' => $license_key,
+				'key' => $license_key,
+				'item_name' => urlencode( $field['slug'] )
 			);
-			
+
 			// Call the custom API.
 			$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
-			
+
 			if ( is_wp_error( $response ) )
 				return false;
 
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
 			//var_dump($license_data);exit;
-			
+
 			if( $license_data->license == 'valid' ) {
 				$newDate = date('Y-m-d', strtotime("+15 days"));
 				update_option($field['id']."-expire", $newDate);
