@@ -53,8 +53,7 @@ switch (is_admin()) :
 		include_once('modules/module.store.php');
 		include_once('modules/module.customizer.php');
 		
-		// Singleton Shared Class Loads
-		include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
+		
 		BREAK;
 
 	case false :
@@ -75,6 +74,8 @@ switch (is_admin()) :
 		BREAK;
 endswitch;
 
+/* Singleton Shared Class Loads */
+include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
 
 /* Inbound Core Shared Files. Lead files take presidence */
 add_action( 'plugins_loaded', 'inbound_load_shared_landing_pages' );
