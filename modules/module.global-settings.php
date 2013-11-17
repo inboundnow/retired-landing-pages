@@ -369,6 +369,7 @@ if (is_admin())
 add_action('admin_footer', 'landing_pages_load_sys_info');
 function landing_pages_load_sys_info() {
 	global $wpdb;
+	if (isset($_GET['page']) && $_GET['page'] === 'lp_global_settings') {
 	if ( get_bloginfo( 'version' ) < '3.4' ) {
 		$theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
 		$theme      = $theme_data['Name'] . ' ' . $theme_data['Version'];
@@ -502,7 +503,7 @@ endif;
 ### End System Info ###</textarea>
 </form>
 
-<?	}
+<?	} }
 
 	add_action( 'init', 'inboundnow_generate_sysinfo_download' );
 	//Generates the System Info Download File
