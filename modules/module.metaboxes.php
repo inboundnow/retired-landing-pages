@@ -30,7 +30,7 @@ function lp_thumbnail_metabox() {
 
 	$permalink = get_permalink($post->ID);
 	$datetime = the_modified_date('YmjH',null,null,false);
-	$permalink = $permalink.'?dt='.$datetime;
+	$permalink = lp_ready_screenshot_url($permalink,$datetime);
 	$thumbnail = 'http://s.wordpress.com/mshots/v1/' . urlencode(esc_url($permalink)) . '?w=250';
 	$permalink = apply_filters('lp_live_screenshot_url', $permalink);
 	?>
@@ -133,38 +133,31 @@ function lp_wysiwyg_save_meta(){
 	}
 }
 
-
 // Add in Main Headline
 add_action( 'edit_form_after_title', 'lp_landing_page_header_area' );
 add_action( 'save_post', 'lp_save_header_area' );
 add_action( 'save_post', 'lp_save_notes_area' );
+
 function lp_landing_page_header_area()
 {
 	global $post;
 	$lp_variation = (isset($_GET['lp-variation-id'])) ? $_GET['lp-variation-id'] : '0';
 	$main_title = get_post_meta( $post->ID , 'lp-main-headline', true );
 	$varaition_notes = get_post_meta( $post->ID , 'lp-variation-notes', true );
-   
-   if ( empty ( $post ) || 'landing-page' !== get_post_type( $GLOBALS['post'] ) )
+    if ( empty ( $post ) || 'landing-page' !== get_post_type( $GLOBALS['post'] ) )
         return;
 
     if ( ! $main_title = get_post_meta( $post->ID , 'lp-main-headline',true ) )
         $main_title = '';
 
     if ( ! $varaition_notes = get_post_meta( $post->ID , 'lp-variation-notes',true ) )
-		$varaition_notes = '';
-	
+    $varaition_notes = '';
 	$main_title = apply_filters('lp_edit_main_headline', $main_title, 1);
 	$varaition_notes = apply_filters('lp_edit_varaition_notes', $varaition_notes, 1);
-	$variation_id = apply_filters('lp_display_notes_input_id',$id);
-	
-	echo "<div id='lp-notes-area'>";
-
-	echo "<span id='add-lp-notes'>Notes:</span><input placeholder='Add Notes to your variation. Example: This version is testing a green submit button' type='text' class='lp-notes' name='{$variation_id}' id='{$variation_id}' value='{$variation_notes}' size='30'>";
-
-	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="Primary Headline Goes here. This will be visible on the page" id="lp-main-headline" value="'.$main_title.'" title="This headline will appear in the landing page template."></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
-	
-	// Frontend params
+		echo "<div id='lp-notes-area'>";
+   		lp_display_notes_input('lp-variation-notes',$varaition_notes);
+    	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="Primary Headline Goes here. This will be visible on the page" id="lp-main-headline" value="'.$main_title.'" title="This headline will appear in the landing page template."></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
+    // Frontend params
     if(isset($_REQUEST['frontend']) && $_REQUEST['frontend'] == 'true') {
     echo('<input type="hidden" name="frontend" id="frontend-on" value="true" />');
 }
