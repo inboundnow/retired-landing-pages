@@ -212,8 +212,16 @@
 					'class' => 'advanced',
 					//'reveal_on' => 'hidden' // on select choice show this
 				),
+				'map_to' => array(
+							'name' => __('Map Field To', INBOUND_LABEL),
+							'desc' => __('Map this field to Leads Value', INBOUND_LABEL),
+							'type' => 'select',
+							'options' => $lead_mapping_fields,
+							'std' => 'none',
+							'class' => 'advanced',
+				),
 			),
-			'shortcode' => '[inbound_field label="{{label}}" type="{{field_type}}" description="{{description}}" required="{{required}}" dropdown="{{dropdown_options}}" radio="{{radio_options}}"  checkbox="{{checkbox_options}}" placeholder="{{placeholder}}" html="{{html_block_options}}" dynamic="{{hidden_input_options}}"]',
+			'shortcode' => '[inbound_field label="{{label}}" type="{{field_type}}" description="{{description}}" required="{{required}}" dropdown="{{dropdown_options}}" radio="{{radio_options}}"  checkbox="{{checkbox_options}}" placeholder="{{placeholder}}" html="{{html_block_options}}" dynamic="{{hidden_input_options}}" map_to="{{map_to}}"]',
 			'clone' => __('Add Another Field',  INBOUND_LABEL )
 		),
 		'shortcode' => '[inbound_form name="{{form_name}}" redirect="{{redirect}}" notify="{{notify}}" layout="{{layout}}" labels="{{labels}}" submit="{{submit}}" width="{{width}}"]{{child}}[/inbound_form]',
@@ -361,7 +369,7 @@ if (!function_exists('inbound_get_form_names')) {
 
 	}
 }
-if (!function_exists('inbound_form_save')) 
+if (!function_exists('inbound_form_save'))
 {
 	/* 	Shortcode moved to shared form class */
 	add_action('wp_ajax_inbound_form_save', 'inbound_form_save');
@@ -497,7 +505,7 @@ if (!function_exists('inbound_form_get_data')) {
 	}
 }
 
-if (!function_exists('inbound_form_auto_publish')) 
+if (!function_exists('inbound_form_auto_publish'))
 {
 	/* 	Shortcode moved to shared form class */
 	add_action('wp_ajax_inbound_form_auto_publish', 'inbound_form_auto_publish');
@@ -523,51 +531,5 @@ if (!function_exists('inbound_form_auto_publish'))
 	    	  wp_update_post( $my_post );
 	    }
 	    wp_die();
-	}
-}
-
-if (!function_exists('inbound_short_form_create')) 
-{
-	add_shortcode('inbound_forms', 'inbound_short_form_create');
-	function inbound_short_form_create( $atts, $content = null ) 
-	{
-		extract(shortcode_atts(array(
-			'id' => '',
-		), $atts));
-
-		$shortcode = get_post_meta( $id, 'inbound_shortcode', TRUE );
-		// If form id missing add it
-		if (!preg_match('/id="/', $shortcode)) {
-		$shortcode = str_replace("[inbound_form", "[inbound_form id=\"" . $id . "\"", $shortcode);
-		}
-		if ($id === 'default_3'){
-			$shortcode = '[inbound_form name="Form Name" layout="vertical" labels="top" submit="Submit" ][inbound_field label="Email" type="text" required="1" ][/inbound_form]';
-		}
-		if ($id === 'default_1'){
-			$shortcode = '[inbound_form name="3 Field Form" layout="vertical" labels="top" submit="Submit" ][inbound_field label="First Name" type="text" required="0" ][inbound_field label="Last Name" type="text" required="0" ][inbound_field label="Email" type="text" required="1" placeholder="Enter Your Email Address" ][/inbound_form]';
-		}
-		if ($id === 'default_2'){
-			$shortcode = '[inbound_form name="Standard Company Form" layout="vertical" labels="top" submit="Submit" ]
-
-						[inbound_field label="First Name" type="text" required="0" placeholder="Enter Your First Name" ]
-
-						[inbound_field label="Last Name" type="text" required="0" placeholder="Enter Your Last Name" ]
-
-						[inbound_field label="Email" type="text" required="1" placeholder="Enter Your Email Address" ]
-
-						[inbound_field label="Company Name" type="text" required="0" placeholder="Enter Your Company Name" ]
-
-						[inbound_field label="Job Title" type="text" required="0" placeholder="Enter Your Job Title" ]
-
-						[/inbound_form]';
-		}
-		if (empty($shortcode)) {
-			$shortcode = "Form ID: " . $id . " Not Found";
-		}
-		if ($id === 'none'){
-			$shortcode = "";
-		}
-
-		return do_shortcode( $shortcode );
 	}
 }
