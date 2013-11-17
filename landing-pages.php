@@ -25,8 +25,16 @@ if (is_admin())
 
 /* load core files */
 switch (is_admin()) :
+<<<<<<< HEAD
 	case true : 
 		/* loads admin files */		
+=======
+	case true :
+		/* loads admin files */
+
+		include_once('functions/functions.global.php');
+		include_once('functions/functions.admin.php');
+>>>>>>> 3fe84fd5f4dcc9a419090d18211721149a7f797e
 		include_once('modules/module.javascript-admin.php');
 		include_once('modules/module.activate.php');
 		include_once('modules/module.global-settings.php');
@@ -35,25 +43,36 @@ switch (is_admin()) :
 		include_once('modules/module.extension-licensing.php');
 		include_once('modules/module.admin-menus.php');
 		include_once('modules/module.welcome.php');
-		include_once('modules/module.install.php');	
-		include_once('modules/module.alert.php');		
-		include_once('modules/module.metaboxes.php');		
+		include_once('modules/module.install.php');
+		include_once('modules/module.alert.php');
+		include_once('modules/module.metaboxes.php');
 		include_once('modules/module.landing-page.php');
-		include_once('modules/module.load-extensions.php');		
+		include_once('modules/module.load-extensions.php');
 		include_once('modules/module.post-type.php');
 		include_once('modules/module.track.php');
 		include_once('modules/module.ajax-setup.php');
 		include_once('modules/module.utils.php');
 		include_once('modules/module.sidebar.php');
 		include_once('modules/module.widgets.php');
+<<<<<<< HEAD
 		include_once('modules/module.cookies.php');			
+=======
+		include_once('modules/module.cookies.php');
+
+>>>>>>> 3fe84fd5f4dcc9a419090d18211721149a7f797e
 		include_once('modules/module.ab-testing.php');
 		include_once('modules/module.click-tracking.php');
 		include_once('modules/module.templates.php');
 		include_once('modules/module.store.php');
 		include_once('modules/module.customizer.php');
+<<<<<<< HEAD
 
 		BREAK;
+=======
+		// Singleton Shared Class Loads
+		include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
+
+>>>>>>> 3fe84fd5f4dcc9a419090d18211721149a7f797e
 	case false :
 		/* load front-end files */	
 		include_once('modules/module.javascript-frontend.php');
@@ -69,10 +88,14 @@ switch (is_admin()) :
 		include_once('modules/module.landing-page.php');
 		include_once('modules/module.customizer.php');
 
+<<<<<<< HEAD
 		BREAK;
+=======
+
+>>>>>>> 3fe84fd5f4dcc9a419090d18211721149a7f797e
 endswitch;
-	
-	
+
+
 /* Inbound Core Shared Files. Lead files take presidence */
 add_action( 'plugins_loaded', 'inbound_load_shared_landing_pages' );
 function inbound_load_shared_landing_pages(){
@@ -80,5 +103,4 @@ function inbound_load_shared_landing_pages(){
 	include_once('shared/classes/form.class.php');  // Mirrored forms
 	include_once('shared/inboundnow/inboundnow.extension-licensing.php'); // Inboundnow Package Licensing
 	include_once('shared/inboundnow/inboundnow.extension-updating.php'); // Inboundnow Package Updating
-	include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
 }
