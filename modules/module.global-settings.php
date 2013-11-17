@@ -367,8 +367,12 @@ function lp_display_global_settings()
 
 add_action('admin_footer', 'landing_pages_load_sys_info');
 function landing_pages_load_sys_info() 
-	{
+{
 	global $wpdb;
+	
+	if (isset($_GET['page']) && $_GET['page'] != 'lp_global_settings')
+		return;
+		
 	if ( get_bloginfo( 'version' ) < '3.4' ) {
 		$theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
 		$theme      = $theme_data['Name'] . ' ' . $theme_data['Version'];
