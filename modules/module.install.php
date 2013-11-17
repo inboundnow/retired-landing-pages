@@ -101,6 +101,7 @@ add_action( 'tgmpa_register', 'lp_install_register_required_plugins' );
  * TGM_Plugin_Activation class constructor.
  */
 function lp_install_register_required_plugins() {
+    //
 
     /**
      * Array of plugin arrays. Required keys are name, slug and required.
@@ -122,20 +123,20 @@ function lp_install_register_required_plugins() {
 
         // This is an example of how to include a plugin from the WordPress Plugin Repository
         array(
-            'name'      => 'WordPress Leads <span style=\'color:red !important; display:block;\'>This free landing page addon will give you the ability to track and manage incoming web leads. Gather Lead Intelligence on all Leads and Close more deals. <a href=\'http://wordpress.org/plugins/leads/\'> Learn more about WordPress Leads.</a></span>',
+            'name'      => 'WordPress Leads <span class=\'inbound-install-notice\'> - This <b>free</b> landing page addon will give you the ability to track and manage incoming web leads. Gather advanced Lead Intelligence and close more deals. <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/leads/\'> Learn more about WordPress Leads</a></span>',
             'slug'      => 'leads',
             'required'  => false,
         ),
-       /* array(
-            'name'      => 'WordPress Leads <span style=\'color:red !important; display:block;\'>This free landing page addon will give you the ability to manage leads, see the pages viewed by the lead before converting, geolocation data, and much more. <a href=\'http://wordpress.org/plugins/leads/\'> Learn more about WordPress Leads.</a></span>',
-            'slug'      => 'title-split-testing-for-wordpress',
-            'required'  => false,
-        ),*/
+       array(
+           'name'      => 'WordPress Calls to Action <span class=\'inbound-install-notice\'> - This <b>free</b> landing page addon will drive more traffic into your Landing Pages with Targeted Calls to Action in your sites sidebars & content. Create popups to capture visitor attention and convert more leads. <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/cta/\'> Learn more about WordPress Calls to Action</a></span>',
+           'slug'      => 'cta',
+           'required'  => false,
+       ),
 
     );
 
     // Change this to your theme text domain, used for internationalising strings
-    $theme_text_domain = 'tgmpa';
+    $theme_text_domain = 'inboundnow';
 
     /**
      * Array of configuration settings. Amend each line as needed.
@@ -149,7 +150,7 @@ function lp_install_register_required_plugins() {
         'default_path'      => '',                           // Default absolute path to pre-packaged plugins
         'parent_menu_slug'  => 'themes.php',         // Default parent menu slug
         'parent_url_slug'   => 'themes.php',         // Default parent URL slug
-        'menu'              => 'install-required-plugins',   // Menu slug
+        'menu'              => 'install-inbound-plugins',   // Menu slug
         'has_notices'       => true,                         // Show admin notices or not
         'is_automatic'      => false,            // Automatically activate plugins after installation or not
         'message'           => '',               // Message to output right before the plugins table
@@ -159,7 +160,7 @@ function lp_install_register_required_plugins() {
             'installing'                                => __( 'Installing Plugin: %s', $theme_text_domain ), // %1$s = plugin name
             'oops'                                      => __( 'Something went wrong with the plugin API.', $theme_text_domain ),
             'notice_can_install_required'               => _n_noop( 'WordPress Landing Pages requires the following plugin: %1$s', 'WordPress Landing Pages highly requires the following plugins: %1$s.' ), // %1$s = plugin name(s)
-            'notice_can_install_recommended'            => _n_noop( 'WordPress Landing Pages highly recommends the following plugin: %1$s', 'WordPress Landing Pages highly recommends the following plugins: %1$s.' ), // %1$s = plugin name(s)
+            'notice_can_install_recommended'            => _n_noop( 'WordPress Landing Pages highly recommends the following complimentary plugin: %1$s', 'WordPress Landing Pages highly recommends the following complimentary plugins: %1$s.' ), // %1$s = plugin name(s)
             'notice_cannot_install'                     => _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.' ), // %1$s = plugin name(s)
             'notice_can_activate_required'              => _n_noop( 'The following required plugin is currently inactive: %1$s', 'The following required plugins are currently inactive: %1$s' ), // %1$s = plugin name(s)
             'notice_can_activate_recommended'           => _n_noop( 'The following recommended plugin is currently inactive: %1$s', 'The following recommended plugins are currently inactive: %1$s' ), // %1$s = plugin name(s)
