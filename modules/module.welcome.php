@@ -228,6 +228,18 @@ class LANDINGPAGES_Welcome {
 			list-style: disc;
 			padding-left: 25px;
 		}
+		#inbound-contribute p {
+			font-size: 31px; margin-top: 30px; line-height: 30px;margin-bottom: 15px;
+		}
+		#inbound-contribute a { color:#000; text-decoration: none; -webkit-transition:color .25s ease-in;
+		   -moz-transition:color .25s ease-in;
+		   -o-transition:color .25s ease-in;
+		   transition:color .25s ease-in;}
+		#inbound-contribute a:hover { color:#21759B;
+			-webkit-transition:color .25s ease-in;
+					   -moz-transition:color .25s ease-in;
+					   -o-transition:color .25s ease-in;
+					   transition:color .25s ease-in;  }
 		/*]]>*/
 		</style>
 		<?php
@@ -358,6 +370,8 @@ class LANDINGPAGES_Welcome {
 		$lp_active_class = "Download For Free";
 		$cta_active_class = "Download For Free";
 		$active_class = "";
+		$leadactive = "";
+		$ctaactive = "";
 		if (is_plugin_active('landing-pages/landing-pages.php')) {
 		  $lp_active_class = "Already Installed!";
 		  $lpactive = " plugin-active";
@@ -564,10 +578,10 @@ class LANDINGPAGES_Welcome {
 
 			<p class="about-description">WordPress Landing Pages is third party extendable. We have a variety of <a href="http://docs.inboundnow.com/landing-pages/dev/core-hooks-filters/hooks">hooks</a>, actions, and filters to add your own functionality</p>
 			</div>
-			<div class='grid one-third' style="text-align: center;">
-			<p class="about-description" style="font-size: 15px;margin-top: 30px;"><b>Contribute Code</b> + Submit <b>Feature Requests</b></p>
-			<a href="https://github.com/inboundnow/landing-pages"><img src="<?php echo LANDINGPAGES_URLPATH;?>images/github-help.jpg"></a>
-			</div>
+		<div class='grid one-third' id="inbound-contribute" style="text-align: center;">
+		<p class="about-description" style=""><a href="https://github.com/inboundnow/landing-pages" target="_blank"><b>Contribute Code</b> + <span style="font-size:21px"><b>Submit Feature Requests</b></span></a></p>
+		<a href="https://github.com/inboundnow/landing-pages"  target="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>images/github-help.jpg"></a>
+		</div>
 			</div>
 		</div>
 		<?php
