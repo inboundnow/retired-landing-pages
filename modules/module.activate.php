@@ -24,10 +24,16 @@ function landing_page_activate($wp = '3.6', $php = '5.2.4', $cta = '1.1.1', $lea
 		wp_die('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version '.$leads.' or greater. <br><br>Please Update WordPress Leads Plugin to update WordPress Landing Pages</p>','Plugin Activation Error',  array( 'response'=>200, 'back_link'=>TRUE ) );
 	} else {
 	// Activate Plugin
+	// Add Upgraded From Option
+	$current_version = get_option( 'landing_page_version' );
+	if ( $current_version ) {
+		update_option( 'lp_version_upgraded_from', $current_version );
+	}
 	add_option( 'lp_global_css', '', '', 'no' );
 	add_option( 'lp_global_js', '', '', 'no' );
 	add_option( 'lp_global_lp_slug', 'go', '', 'no' );
 	update_option( 'lp_activate_rewrite_check', '1');
+	update_option( 'landing_page_version', LANDINGPAGES_CURRENT_VERSION );
 	set_transient( '_landing_page_activation_redirect', true, 30 );
 	//global $wp_rewrite;
 	//$wp_rewrite->flush_rules();

@@ -190,21 +190,7 @@ if (is_admin())
 	{
 		global $wpdb;
 
-		if ( get_bloginfo( 'version' ) < '3.4' ) {
-			$theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
-			$theme      = $theme_data['Name'] . ' ' . $theme_data['Version'];
-		} else {
-			$theme_data = wp_get_theme();
-			$theme      = $theme_data->Name . ' ' . $theme_data->Version;
-		}
 
-		// Try to identifty the hosting provider
-		$host = false;
-		if( defined( 'WPE_APIKEY' ) ) {
-			$host = 'WP Engine';
-		} elseif( defined( 'PAGELYBIN' ) ) {
-			$host = 'Pagely';
-		}
 		$lp_global_settings = lp_get_global_settings();
 		$htaccess = "";
 		if ( (isset($_SERVER['SERVER_SOFTWARE']) && stristr($_SERVER['SERVER_SOFTWARE'], 'nginx') === false) && file_exists( get_home_path() . ".htaccess" ) ) {
@@ -218,7 +204,7 @@ if (is_admin())
 				echo $content;
 				}
 			else {
-				$htaccess = '<textarea disabled="disabled" style="width: 90%;" rows="15" name="robotsnew">' . $contentht . '</textarea><br/>';
+				$htaccess = '<textarea readonly="readonly" onclick="this.focus();this.select()" style="width: 90%;" rows="15" name="robotsnew">' . $contentht . '</textarea><br/>';
 			}
 		}
 		//print_r($lp_global_settings);
@@ -372,7 +358,7 @@ if (is_admin())
         	<div id="htaccess-contents">
 
         	<?php if ($htaccess != "") {
-        		echo "<h3>The contents of Your Htaccess File:</h3>";
+        		echo "<h3>The contents of your .htaccess file:</h3>";
         		echo $htaccess;
         	}	?>
         	</div>
@@ -381,7 +367,25 @@ if (is_admin())
 	}
 
 add_action('admin_footer', 'landing_pages_load_sys_info');
-function landing_pages_load_sys_info() { ?>
+function landing_pages_load_sys_info() {
+	global $wpdb;
+	if ( get_bloginfo( 'version' ) < '3.4' ) {
+		$theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
+		$theme      = $theme_data['Name'] . ' ' . $theme_data['Version'];
+	} else {
+		$theme_data = wp_get_theme();
+		$theme      = $theme_data->Name . ' ' . $theme_data->Version;
+	}
+
+	// Try to identifty the hosting provider
+	$host = false;
+	if( defined( 'WPE_APIKEY' ) ) {
+		$host = 'WP Engine';
+	} elseif( defined( 'PAGELYBIN' ) ) {
+		$host = 'Pagely';
+	}
+
+?>
 
 <form id="sys-inbound-form" action="<?php echo esc_url( admin_url( 'edit.php?post_type=landing-page&page=lp_global_settings' ) ); ?>" method="post" dir="ltr">
 	<h2><?php _e( 'System Information', 'inboundnow' ) ?></h2>
@@ -397,8 +401,8 @@ Multisite:					<?php echo is_multisite() ? 'Yes' . "\n" : 'No' . "\n" ?>
 SITE_URL:					<?php echo site_url() . "\n"; ?>
 HOME_URL:					<?php echo home_url() . "\n"; ?>
 
-Landing Page Version:		<?php echo EDD_VERSION . "\n"; ?>
-Upgraded From:				<?php echo get_option( 'edd_version_upgraded_from', 'None' ) . "\n"; ?>
+Landing Page Version:		<?php echo LANDINGPAGES_CURRENT_VERSION . "\n"; ?>
+Upgraded From:				<?php echo get_option( 'lp_version_upgraded_from', 'None' ) . "\n"; ?>
 WordPress Version:			<?php echo get_bloginfo( 'version' ) . "\n"; ?>
 Permalink Structure:			<?php echo get_option( 'permalink_structure' ) . "\n"; ?>
 Active Theme:				<?php echo $theme . "\n"; ?>
