@@ -22,7 +22,6 @@ $current_url = "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]."";
 if (is_admin())
 	if(!isset($_SESSION)){@session_start();}
 
-
 /* load core files */
 switch (is_admin()) :
 	case true :
@@ -56,8 +55,7 @@ switch (is_admin()) :
 		include_once('modules/module.templates.php');
 		include_once('modules/module.store.php');
 		include_once('modules/module.customizer.php');
-		// Singleton Shared Class Loads
-		include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
+
 
 	case false :
 		/* load front-end files */
@@ -77,6 +75,8 @@ switch (is_admin()) :
 
 endswitch;
 
+// Singleton Shared Class Loads. Do not put in conditional
+include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
 
 /* Inbound Core Shared Files. Lead files take presidence */
 add_action( 'plugins_loaded', 'inbound_load_shared_landing_pages' );
