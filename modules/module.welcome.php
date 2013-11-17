@@ -239,7 +239,7 @@ class LANDINGPAGES_Welcome {
 	 * @since 1.4
 	 * @return void
 	 */
-	static function render_nav_menu($active) {
+	static function render_nav_menu() {
 		$current_view = $_GET['page'];
 		$page_array = array('lp-quick-start' => "Quick Start Guide",
 							'about-inboundnow' => "About the Platform",

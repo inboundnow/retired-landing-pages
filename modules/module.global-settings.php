@@ -89,6 +89,10 @@ if (is_admin())
 		$tab_slug = 'lp-extensions';
 		$lp_global_settings[$tab_slug]['label'] = 'Extensions';
 
+		/* Setup Debug Tab */
+		$tab_slug = 'lp-debug';
+		$lp_global_settings[$tab_slug]['label'] = 'Debug';
+
 		$lp_global_settings = apply_filters('lp_define_global_settings',$lp_global_settings);
 
 		return $lp_global_settings;
@@ -184,7 +188,21 @@ if (is_admin())
 	{
 		global $wpdb;
 		$lp_global_settings = lp_get_global_settings();
+		$htaccess = "";
+		if ( (isset($_SERVER['SERVER_SOFTWARE']) && stristr($_SERVER['SERVER_SOFTWARE'], 'nginx') === false) && file_exists( get_home_path() . ".htaccess" ) ) {
+			$htaccess_file = get_home_path() . "/.htaccess";
+			$f             = fopen( $htaccess_file, 'r' );
+			$contentht     = fread( $f, filesize( $htaccess_file ) );
+			$contentht     = esc_textarea( $contentht );
 
+			if ( !is_writable( $htaccess_file ) ) {
+				$content = " <div class=\"error\"><h3>" . __( "Oh no! Your .htaccess is not writable and A/B testing won't work unless you make your .htaccess file writable.", 'inboundnow' ) . "</h3></div>";
+				echo $content;
+				}
+			else {
+				$htaccess = '<textarea disabled="disabled" style="width: 90%;" rows="15" name="robotsnew">' . $contentht . '</textarea><br/>';
+			}
+		}
 		//print_r($lp_global_settings);
 		$active_tab = 'lp-main';
 		if (isset($_REQUEST['open-tab']))
@@ -243,9 +261,18 @@ if (is_admin())
 			</center>
 		</div>
 		</div>
-		<div class="clear" id="php-sql-lp-version">
+		<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			var debug = jQuery("#php-sql-lp-version");
+		   jQuery(debug).prependTo("#lp-debug");
+		   jQuery("#php-sql-lp-version").show();
+		 });
+
+		</script>
+		<div id="php-sql-lp-version" style="display:none;">
+		<div id="inbound-install-status">
 		 <h3>Installation Status</h3>
-              <table class="form-table" id="lp-wordpress-site-status">
+              <table  id="lp-wordpress-site-status">
 
                 <tr valign="top">
                    <th scope="row"><label>PHP Version</label></th>
@@ -313,13 +340,22 @@ if (is_admin())
                  <tr valign="top">
                    <th scope="row"><label>Landing Page Version</label></th>
                     <td class="installation_item_cell">
-                        <strong>Version <?php echo landing_page_get_version();?></strong>
+                        <strong>Version <?php echo LANDINGPAGES_CURRENT_VERSION;?></strong>
                     </td>
                     <td>
 
                     </td>
                 </tr>
             </table>
+        	</div>
+
+        	<div id="htaccess-contents">
+
+        	<?php if ($htaccess != "") {
+        		echo "<h3>The contents of Your Htaccess File</h3>";
+        		echo $htaccess;
+        	}	?>
+        	</div>
         </div>
 	<?php
 	}

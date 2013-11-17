@@ -30,7 +30,7 @@
     text-shadow: 0 1px 0 #FFFFFF;
 	cursor:pointer;
     background: white;
-	
+
 }
 
 .lp-tab-display textarea {
@@ -44,7 +44,7 @@
     float: right;
     width: 26%; }
 
-.lp-sidebar-settings {    
+.lp-sidebar-settings {
     background: #f2f2f2 url('/wp-content/plugins/landing-pages/images/gradient.png') repeat-x top left;
 border: 1px solid #EBEBEA;
 -webkit-box-shadow: inset 1px 1px 1px #f9f9f9;
@@ -100,7 +100,26 @@ opacity: .7;
 border: 1px solid;
 }
 #lp-wordpress-site-status {
-    width: 25%;
+
+   color: #000;
+}
+#php-sql-lp-version h3{
+    color: #000;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-top: 0px;
+    font-size: 1.5em;
+}
+.lp-tab-display #php-sql-lp-version th {
+padding: 10px;
+padding-left: 0px;
+}
+#lp-main h4 {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+#htaccess-contents {
+    margin-top: 20px;
 }
 #more-templates , #more-addons, #custom-templates {
     width: 29%;
@@ -118,7 +137,7 @@ position: relative;
 margin: auto;
 }
 #php-sql-lp-version {
-    margin-top:25px; display:block; padding-top: 10px;margin-left:10px;postion:relative;color:#a9a9a9
+ display:block;
 }
 .lp-tab-display
 {
@@ -142,7 +161,7 @@ margin: auto;
 	text-align:left;
 }
 
-.lp_license_status_invalid{ 
+.lp_license_status_invalid{
 	display:inline;
 	padding-left:10px;
 	color:red;
