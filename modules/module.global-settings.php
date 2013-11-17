@@ -178,7 +178,9 @@ if (is_admin())
 					jQuery('#tabs-'+this_id).addClass('nav-tab-special-active');
 					jQuery('#id-open-tab').val(this_id);
 				});
-
+				var form_sys = jQuery("#sys-inbound-form");
+				jQuery("#in-sys-info").after(form_sys);
+				jQuery("#sys-inbound-form").show();
 			});
 		</script>
 		<?php
@@ -187,6 +189,22 @@ if (is_admin())
 	function lp_display_global_settings()
 	{
 		global $wpdb;
+
+		if ( get_bloginfo( 'version' ) < '3.4' ) {
+			$theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
+			$theme      = $theme_data['Name'] . ' ' . $theme_data['Version'];
+		} else {
+			$theme_data = wp_get_theme();
+			$theme      = $theme_data->Name . ' ' . $theme_data->Version;
+		}
+
+		// Try to identifty the hosting provider
+		$host = false;
+		if( defined( 'WPE_APIKEY' ) ) {
+			$host = 'WP Engine';
+		} elseif( defined( 'PAGELYBIN' ) ) {
+			$host = 'Pagely';
+		}
 		$lp_global_settings = lp_get_global_settings();
 		$htaccess = "";
 		if ( (isset($_SERVER['SERVER_SOFTWARE']) && stristr($_SERVER['SERVER_SOFTWARE'], 'nginx') === false) && file_exists( get_home_path() . ".htaccess" ) ) {
@@ -281,7 +299,7 @@ if (is_admin())
                     </td>
                     <td>
                         <?php
-                            if(version_compare(phpversion(), '5.0.0', '>')){
+                            if(version_compare(phpversion(), '5.2.4', '>')){
                                 ?>
                                 <img src="<?php echo LANDINGPAGES_URLPATH;?>/images/tick.png"/>
                                 <?php
@@ -323,7 +341,7 @@ if (is_admin())
                     </td>
                     <td>
                         <?php
-                            if(version_compare(get_bloginfo("version"), '3.3', '>')){
+                            if(version_compare(get_bloginfo("version"), '3.6', '>')){
                                 ?>
                                 <img src="<?php echo LANDINGPAGES_URLPATH;?>/images/tick.png"/>
                                 <?php
@@ -348,11 +366,13 @@ if (is_admin())
                 </tr>
             </table>
         	</div>
-
+			<div id="inbound-sys-info">
+				<span id="in-sys-info"></span>
+			</div>
         	<div id="htaccess-contents">
 
         	<?php if ($htaccess != "") {
-        		echo "<h3>The contents of Your Htaccess File</h3>";
+        		echo "<h3>The contents of Your Htaccess File:</h3>";
         		echo $htaccess;
         	}	?>
         	</div>
@@ -360,6 +380,145 @@ if (is_admin())
 	<?php
 	}
 
+add_action('admin_footer', 'landing_pages_load_sys_info');
+function landing_pages_load_sys_info() { ?>
+
+<form id="sys-inbound-form" action="<?php echo esc_url( admin_url( 'edit.php?post_type=landing-page&page=lp_global_settings' ) ); ?>" method="post" dir="ltr">
+	<h2><?php _e( 'System Information', 'inboundnow' ) ?></h2>
+	<input type="hidden" name="inbound-action" value="inbound-download-sysinfo" />
+	<?php submit_button( __( 'Download System Info File for Support Requests', 'inboundnow' ), 'primary', 'inbound-download-sysinfo', false ); ?>
+<textarea readonly="readonly" onclick="this.focus();this.select()" id="copy-inbound-info" name="landing_pages_sysinfo" title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'edd' ); ?>">
+### Begin System Info ###
+
+## Please include this information when posting support requests ##
+
+Multisite:					<?php echo is_multisite() ? 'Yes' . "\n" : 'No' . "\n" ?>
+
+SITE_URL:					<?php echo site_url() . "\n"; ?>
+HOME_URL:					<?php echo home_url() . "\n"; ?>
+
+Landing Page Version:		<?php echo EDD_VERSION . "\n"; ?>
+Upgraded From:				<?php echo get_option( 'edd_version_upgraded_from', 'None' ) . "\n"; ?>
+WordPress Version:			<?php echo get_bloginfo( 'version' ) . "\n"; ?>
+Permalink Structure:			<?php echo get_option( 'permalink_structure' ) . "\n"; ?>
+Active Theme:				<?php echo $theme . "\n"; ?>
+<?php if( $host ) : ?>
+Host:						<?php echo $host . "\n"; ?>
+<?php endif; ?>
+
+Registered Post Stati:			<?php echo implode( ', ', get_post_stati() ) . "\n\n"; ?>
+
+PHP Version:				<?php echo PHP_VERSION . "\n"; ?>
+MySQL Version:				<?php echo mysql_get_server_info() . "\n"; ?>
+Web Server Info:				<?php echo $_SERVER['SERVER_SOFTWARE'] . "\n"; ?>
+
+PHP Safe Mode:				<?php echo ini_get( 'safe_mode' ) ? "Yes" : "No\n"; ?>
+PHP Memory Limit:			<?php echo ini_get( 'memory_limit' ) . "\n"; ?>
+PHP Upload Max Size:		<?php echo ini_get( 'upload_max_filesize' ) . "\n"; ?>
+PHP Post Max Size:			<?php echo ini_get( 'post_max_size' ) . "\n"; ?>
+PHP Upload Max Filesize:		<?php echo ini_get( 'upload_max_filesize' ) . "\n"; ?>
+PHP Time Limit:				<?php echo ini_get( 'max_execution_time' ) . "\n"; ?>
+PHP Max Input Vars:			<?php echo ini_get( 'max_input_vars' ) . "\n"; ?>
+
+WP_DEBUG:				<?php echo defined( 'WP_DEBUG' ) ? WP_DEBUG ? 'Enabled' . "\n" : 'Disabled' . "\n" : 'Not set' . "\n" ?>
+
+WP Table Prefix:				<?php echo "Length: ". strlen( $wpdb->prefix ); echo " Status:"; if ( strlen( $wpdb->prefix )>16 ) {echo " ERROR: Too Long";} else {echo " Acceptable";} echo "\n"; ?>
+
+Show On Front:				<?php echo get_option( 'show_on_front' ) . "\n" ?>
+Page On Front:				<?php $id = get_option( 'page_on_front' ); echo get_the_title( $id ) . ' (#' . $id . ')' . "\n" ?>
+Page For Posts:				<?php $id = get_option( 'page_for_posts' ); echo get_the_title( $id ) . ' (#' . $id . ')' . "\n" ?>
+
+Session:						<?php echo isset( $_SESSION ) ? 'Enabled' : 'Disabled'; ?><?php echo "\n"; ?>
+Session Name:				<?php echo esc_html( ini_get( 'session.name' ) ); ?><?php echo "\n"; ?>
+Cookie Path:					<?php echo esc_html( ini_get( 'session.cookie_path' ) ); ?><?php echo "\n"; ?>
+Save Path:					<?php echo esc_html( ini_get( 'session.save_path' ) ); ?><?php echo "\n"; ?>
+Use Cookies:				<?php echo ini_get( 'session.use_cookies' ) ? 'On' : 'Off'; ?><?php echo "\n"; ?>
+Use Only Cookies:			<?php echo ini_get( 'session.use_only_cookies' ) ? 'On' : 'Off'; ?><?php echo "\n"; ?>
+
+WordPress Memory Limit:		<?php echo ( edd_let_to_num( WP_MEMORY_LIMIT )/( 1024 ) )."MB"; ?><?php echo "\n"; ?>
+DISPLAY ERRORS:			<?php echo ( ini_get( 'display_errors' ) ) ? 'On (' . ini_get( 'display_errors' ) . ')' : 'N/A'; ?><?php echo "\n"; ?>
+FSOCKOPEN:				<?php echo ( function_exists( 'fsockopen' ) ) ? __( 'Your server supports fsockopen.', 'edd' ) : __( 'Your server does not support fsockopen.', 'edd' ); ?><?php echo "\n"; ?>
+cURL:						<?php echo ( function_exists( 'curl_init' ) ) ? __( 'Your server supports cURL.', 'edd' ) : __( 'Your server does not support cURL.', 'edd' ); ?><?php echo "\n"; ?>
+SOAP Client:					<?php echo ( class_exists( 'SoapClient' ) ) ? __( 'Your server has the SOAP Client enabled.', 'edd' ) : __( 'Your server does not have the SOAP Client enabled.', 'edd' ); ?><?php echo "\n"; ?>
+SUHOSIN:					<?php echo ( extension_loaded( 'suhosin' ) ) ? __( 'Your server has SUHOSIN installed.', 'edd' ) : __( 'Your server does not have SUHOSIN installed.', 'edd' ); ?><?php echo "\n"; ?>
+
+- INSTALLED LP TEMPLATES:
+<?php
+// Show templates that have been copied to the theme's edd_templates dir
+$dir = LANDINGPAGES_UPLOADS_PATH. '/*';
+if (!empty($dir)){
+	foreach ( glob( $dir ) as $file ) {
+		echo "Template: " . basename( $file ) . "\n";
+	}
+}
+else {
+	echo 'No overrides found';
+}
+?>
+
+- ACTIVE PLUGINS:
+<?php
+$plugins = get_plugins();
+$active_plugins = get_option( 'active_plugins', array() );
+
+foreach ( $plugins as $plugin_path => $plugin ) {
+	// If the plugin isn't active, don't show it.
+	if ( ! in_array( $plugin_path, $active_plugins ) )
+		continue;
+
+	echo $plugin['Name'] . ': ' . $plugin['Version'] ."\n";
+}
+
+if ( is_multisite() ) :
+?>
+
+- NETWORK ACTIVE PLUGINS:
+
+<?php
+$plugins = wp_get_active_network_plugins();
+$active_plugins = get_site_option( 'active_sitewide_plugins', array() );
+
+foreach ( $plugins as $plugin_path ) {
+	$plugin_base = plugin_basename( $plugin_path );
+
+	// If the plugin isn't active, don't show it.
+	if ( ! array_key_exists( $plugin_base, $active_plugins ) )
+		continue;
+
+	$plugin = get_plugin_data( $plugin_path );
+
+	echo $plugin['Name'] . ' :' . $plugin['Version'] ."\n";
+}
+
+endif;
+
+
+?>
+
+### End System Info ###</textarea>
+</form>
+
+<?	}
+
+	add_action( 'init', 'inboundnow_generate_sysinfo_download' );
+	//Generates the System Info Download File
+	function inboundnow_generate_sysinfo_download() {
+
+		if (isset($_POST['inbound-action']) && $_POST['inbound-action'] === 'inbound-download-sysinfo') {
+			nocache_headers();
+			header( "Content-type: text/plain" );
+			header( 'Content-Disposition: attachment; filename="inbound-system-info.txt"' );
+
+			echo wp_strip_all_tags( $_POST['landing_pages_sysinfo'] );
+			inbound_die();
+		}
+
+	}
+	function inbound_die() {
+	 add_filter( 'wp_die_ajax_handler', '_edd_die_handler', 10, 3 );
+	 add_filter( 'wp_die_handler', '_edd_die_handler', 10, 3 );
+	 wp_die('');
+	 }
 	function lp_save_global_settings()
 	{
 
