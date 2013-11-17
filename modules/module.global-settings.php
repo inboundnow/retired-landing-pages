@@ -63,14 +63,6 @@ if (is_admin())
 				'options' => array('1'=>'on','0'=>'off')
 			),
 			array(
-				'id'  => 'landing-page-auto-format-forms',
-				'label' => 'Enable Form Standardization',
-				'description' => "With this setting enabled landing pages plugin will clean and standardize all input ids and classnames. Uncheck this setting to disable standardization.",
-				'type'  => 'radio', 
-				'default'  => '0',
-				'options' => array('1'=>'on','0'=>'off')
-			),
-			array(
 				'id'  => 'main-landing-page-auto-format-forms-retain-elements',
 				'label' => 'Form Standardization Element Whitelist',
 				'description' => "Form standardization strips the conversion area content of html elements. Add the elements you do not want to be stripped to this list.",
@@ -179,6 +171,19 @@ if (is_admin())
 		</script>
 		<?php
 	}
+	
+		
+	function landing_page_get_version() 
+	{
+		if ( ! function_exists( 'get_plugins' ) )
+			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			
+		$plugin_folder = get_plugins( '/' . plugin_basename( dirname( __FILE__ ) ) );
+		$plugin_file = basename( ( __FILE__ ) );
+		
+		return $plugin_folder[$plugin_file]['Version'];
+	}
+
 	
 	function lp_display_global_settings()
 	{	

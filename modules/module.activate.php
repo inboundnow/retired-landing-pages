@@ -24,3 +24,9 @@ function landing_page_deactivate()
 	global $wp_rewrite;
 	$wp_rewrite->flush_rules();
 }
+
+/* CHECKS TO MAKE SURE THIS PLUGIN IS EXISTS - LEGACY CODE USED BY OTHER INBOUNDNOW PLUGINS AND EXTENSIONS */
+function lp_check_active()
+{	
+	return 1;
+}

@@ -1,7 +1,35 @@
 <?php
+
 /**
  * Utility Functions
  */
+ 
+/* REMOTE CURL CONNECTION - WE MAY SHOULD DEPRECIATE IN FAVOR OF WP_REMOTE_GET*/
+if (!function_exists('lp_remote_connect')) {
+function lp_remote_connect($url)
+{
+	$method1 = ini_get('allow_url_fopen') ? "Enabled" : "Disabled";
+	if ($method1 == 'Disabled')
+	{
+		//do curl
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "$url");
+		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_COOKIEJAR, 'cookie.txt');
+		curl_setopt($ch, CURLOPT_COOKIEFILE, 'cookie.txt');
+		curl_setopt ($ch, CURLOPT_TIMEOUT, 60);
+		$string = curl_exec($ch);
+	}
+	else
+	{
+		$string = file_get_contents($url);
+	}
+	
+	return $string;
+}
+}
+
 
 add_action( 'init', 'inbound_meta_debug' );
 if (!function_exists('inbound_meta_debug')) {
@@ -31,7 +59,7 @@ if (!function_exists('inbound_meta_debug')) {
 	}
 }
 
-// Fix SEO Title Tags to not use the_title
+/* Fix SEO Title Tags to not use the_title */
 //add_action('wp','landingpage_seo_title_filters');
 function landingpage_seo_title_filters() {
 
@@ -58,7 +86,7 @@ function lp_fix_seo_title()
 	return $seotitle;
 }
 
-// Add Custom Class to Landing Page Nav Menu to hide/remove
+/* Add Custom Class to Landing Page Nav Menu to hide/remove */
 // remove_filter( 'wp_nav_menu_args', 'lp_wp_nav_menu_args' ); // Removes navigation hide
 add_filter( 'wp_nav_menu_args', 'lp_wp_nav_menu_args' );
 function lp_wp_nav_menu_args( $args = '' )
@@ -82,8 +110,8 @@ function lp_wp_nav_menu_args( $args = '' )
 	return $args;
 }
 
-///////// Remove all base css from the current active wordpress theme in landing pages
-//currently removes all css from wp_head and re-enqueues the admin bar css.
+/* Remove all base css from the current active wordpress theme in landing pages */
+/* currently removes all css from wp_head and re-enqueues the admin bar css. */
 add_action('wp_print_styles', 'lp_remove_all_styles', 100);
 function lp_remove_all_styles()
 {
@@ -116,9 +144,9 @@ function lp_remove_all_styles()
 	}
 
 }
-// Remove all body_classes from custom landing page templates - disabled but you can use the function above to model native v non-native template conditionals.
-//add_action('wp','landingpage_remove_plugin_filters');
 
+/* Remove all body_classes from custom landing page templates - disabled but you can use the function above to model native v non-native template conditionals. */
+//add_action('wp','landingpage_remove_plugin_filters');
 function landingpage_remove_plugin_filters() {
 
     global $wp_filter;
@@ -129,7 +157,8 @@ function landingpage_remove_plugin_filters() {
     }
 }
 
-function landing_body_class_names($classes) {
+function landing_body_class_names($classes)
+{
 	global $post;
 
 	if('landing-page' == get_post_type() )
@@ -141,5 +170,22 @@ function landing_body_class_names($classes) {
 
     return $arr;
 }
+
+
+add_filter( 'wpseo_metabox_prio', 'lp_wpseo_priority'); 
+function lp_wpseo_priority(){return 'low';}
+
+add_action( 'in_admin_header', 'lp_in_admin_header');
+function lp_in_admin_header() 
+{
+	global $post; 
+	global $wp_meta_boxes;
+	
+	if (isset($post)&&$post->post_type=='landing-page') 
+	{
+		unset( $wp_meta_boxes[get_current_screen()->id]['normal']['core']['postcustom'] ); 
+	}
+}
+
 
 ?>
