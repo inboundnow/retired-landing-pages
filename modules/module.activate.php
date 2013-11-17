@@ -47,3 +47,9 @@ function landing_page_deactivate()
 	global $wp_rewrite;
 	$wp_rewrite->flush_rules();
 }
+
+/* LEGACY CALLBACK TO CHECK IF LANDING PAGE PLUGIN EXISTS */
+function lp_check_active()
+{
+	return 1;
+}

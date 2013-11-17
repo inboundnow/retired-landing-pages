@@ -1,10 +1,54 @@
 <?php
+
+/* ADMIN ONLY AB TESTING FUNCTIONS */
 if (is_admin())
 {
 	include_once(LANDINGPAGES_PATH.'modules/module.ab-testing.metaboxes.php');
 
-	add_action('init','lp_ab_testing_admin_init');
+	/**
+	 * [lp_ab_unset_variation description]
+	 * @param  [type] $variations [description]
+	 * @param  [type] $vid        [description]
+	 * @return [type]             [description]
+	 */
+	function lp_ab_unset_variation($variations,$vid)
+	{
+			if(($key = array_search($vid, $variations)) !== false) {
+					unset($variations[$key]);
+			}
+			
+			return $variations;
+	}
+	
+	/**
+	 * [lp_ab_get_lp_active_status returns if landing page is in rotation or not]
+	 * @param  [OBJ] $post [description]
+	 * @param  [INT] $vid  [description]
+	 * @return [INT] 
+	 */
+	function lp_ab_get_lp_active_status($post,$vid=null)
+	{
+			if ($vid==0)
+			{
+					$variation_status = get_post_meta( $post->ID , 'lp_ab_variation_status' , true);
+			}
+			else
+			{
+					$variation_status = get_post_meta( $post->ID , 'lp_ab_variation_status-'.$vid , true);
+			}
+			
+			if (!is_numeric($variation_status))
+			{
+					return 1;
+			}
+			else
+			{        
+					return $variation_status;
+			}
+	}
 
+	
+	add_action('init','lp_ab_testing_admin_init');
 	function lp_ab_testing_admin_init($hook)
 	{
 		if (!is_admin()||!isset($_GET['post']))
@@ -520,7 +564,7 @@ if (is_admin())
 	}
 }
 
-//PERFORM FRONT-END ONLY ACTIONS
+/* PERFORM FRONT-END ONLY ACTIONS */
 else
 {
 
@@ -560,7 +604,61 @@ else
 
 }
 
-//PERFORM ACTIONS REQUIRED ON BOTH FRONT AND BACKEND
+/*PERFORM ACTIONS REQUIRED ON BOTH FRONT AND BACKEND */
+
+
+/* RETURN LETTER FROM ARRAY KEY */
+function lp_ab_key_to_letter($key) {
+    $alphabet = array( 'A', 'B', 'C', 'D', 'E',
+                       'F', 'G', 'H', 'I', 'J',
+                       'K', 'L', 'M', 'N', 'O',
+                       'P', 'Q', 'R', 'S', 'T',
+                       'U', 'V', 'W', 'X', 'Y',
+                       'Z'
+                       );
+
+	if (isset($alphabet[$key]))
+		return $alphabet[$key];
+}
+
+/* GET CURRENT VARIATION ID */
+function lp_ab_testing_get_current_variation_id()
+{
+	if (!isset($_GET['lp-variation-id'])&&isset($_SESSION['lp_ab_test_open_variation'])&&is_admin())
+	{
+		//$current_variation_id = $_SESSION['lp_ab_test_open_variation'];
+	}
+
+	if (!isset($_SESSION['lp_ab_test_open_variation'])&&!isset($_GET['lp-variation-id']))
+	{
+		$current_variation_id = 0;
+	}
+	//echo $_GET['lp-variation-id'];
+	if (isset($_GET['lp-variation-id']))
+	{
+		$_SESSION['lp_ab_test_open_variation'] = $_GET['lp-variation-id'];
+		$current_variation_id = $_GET['lp-variation-id'];
+		//echo "setting session $current_variation_id";
+	}
+
+	if (isset($_GET['message'])&&$_GET['message']==1&&isset( $_SESSION['lp_ab_test_open_variation'] ))
+	{
+		$current_variation_id = $_SESSION['lp_ab_test_open_variation'];
+
+		//echo "here:".$_SESSION['lp_ab_test_open_variation'];
+	}
+
+	if (isset($_GET['ab-action'])&&$_GET['ab-action']=='delete-variation')
+	{
+		$current_variation_id = 0;
+		$_SESSION['lp_ab_test_open_variation'] = 0;
+	}
+
+	if (!isset($current_variation_id))
+		$current_variation_id = 0 ;
+
+	return $current_variation_id;
+}
 
 //ready conversion area for displaying ab variations
 add_filter('lp_conversion_area_pre_standardize','lp_ab_testing_prepare_conversion_area' , 10 , 2 );

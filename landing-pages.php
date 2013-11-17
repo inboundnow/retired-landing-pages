@@ -27,9 +27,6 @@ if (is_admin())
 switch (is_admin()) :
 	case true :
 		/* loads admin files */
-
-		include_once('functions/functions.global.php');
-		include_once('functions/functions.admin.php');
 		include_once('modules/module.javascript-admin.php');
 		include_once('modules/module.activate.php');
 		include_once('modules/module.global-settings.php');
@@ -50,18 +47,19 @@ switch (is_admin()) :
 		include_once('modules/module.sidebar.php');
 		include_once('modules/module.widgets.php');
 		include_once('modules/module.cookies.php');
-
 		include_once('modules/module.ab-testing.php');
 		include_once('modules/module.click-tracking.php');
 		include_once('modules/module.templates.php');
 		include_once('modules/module.store.php');
 		include_once('modules/module.customizer.php');
+		
 		// Singleton Shared Class Loads
 		include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
+		BREAK;
 
 	case false :
-		/* load front-end files */
-		include_once('functions/functions.global.php');
+		/* load front-end files */		
+		include_once('modules/module.javascript-frontend.php');
 		include_once('modules/module.post-type.php');
 		include_once('modules/module.track.php');
 		include_once('modules/module.ajax-setup.php');
@@ -74,7 +72,7 @@ switch (is_admin()) :
 		include_once('modules/module.landing-page.php');
 		include_once('modules/module.customizer.php');
 
-
+		BREAK;
 endswitch;
 
 
