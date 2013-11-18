@@ -381,12 +381,13 @@ function lp_display_global_settings()
 }
 
 add_action('admin_footer', 'landing_pages_load_sys_info');
-function landing_pages_load_sys_info()
+function landing_pages_load_sys_info($hook)
 {
 	global $wpdb;
-
-	if (!isset($_GET['page']) && isset($_GET['page']) != 'lp_global_settings')
-		return; // return if not global settings
+	$screen = get_current_screen();
+	//echo $screen->id;
+	if ( $screen->id != 'landing-page_page_lp_global_settings')
+	        return; // return if not global settings
 
 	if ( get_bloginfo( 'version' ) < '3.4' ) {
 		$theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
