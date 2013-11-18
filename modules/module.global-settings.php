@@ -440,7 +440,7 @@ Save Path:					<?php echo esc_html( ini_get( 'session.save_path' ) ); ?><?php ec
 Use Cookies:				<?php echo ini_get( 'session.use_cookies' ) ? 'On' : 'Off'; ?><?php echo "\n"; ?>
 Use Only Cookies:			<?php echo ini_get( 'session.use_only_cookies' ) ? 'On' : 'Off'; ?><?php echo "\n"; ?>
 
-WordPress Memory Limit:		<?php echo ( edd_let_to_num( WP_MEMORY_LIMIT )/( 1024 ) )."MB"; ?><?php echo "\n"; ?>
+WordPress Memory Limit:		<?php echo ( inbound_let_to_num( WP_MEMORY_LIMIT )/( 1024 ) )."MB"; ?><?php echo "\n"; ?>
 DISPLAY ERRORS:			<?php echo ( ini_get( 'display_errors' ) ) ? 'On (' . ini_get( 'display_errors' ) . ')' : 'N/A'; ?><?php echo "\n"; ?>
 FSOCKOPEN:				<?php echo ( function_exists( 'fsockopen' ) ) ? __( 'Your server supports fsockopen.', 'edd' ) : __( 'Your server does not support fsockopen.', 'edd' ); ?><?php echo "\n"; ?>
 cURL:						<?php echo ( function_exists( 'curl_init' ) ) ? __( 'Your server supports cURL.', 'edd' ) : __( 'Your server does not support cURL.', 'edd' ); ?><?php echo "\n"; ?>
@@ -518,6 +518,25 @@ endif;
 			inbound_die();
 		}
 
+	}
+
+	function inbound_let_to_num( $v ) {
+		$l   = substr( $v, -1 );
+		$ret = substr( $v, 0, -1 );
+
+		switch ( strtoupper( $l ) ) {
+		case 'P': // fall-through
+		case 'T': // fall-through
+		case 'G': // fall-through
+		case 'M': // fall-through
+		case 'K': // fall-through
+			$ret *= 1024;
+			break;
+		default:
+			break;
+		}
+
+		return $ret;
 	}
 	function inbound_die() {
 	 add_filter( 'wp_die_ajax_handler', '_edd_die_handler', 10, 3 );
