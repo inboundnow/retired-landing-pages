@@ -5,7 +5,7 @@ function lp_ab_display_stats_metabox() {
 
 		add_meta_box( 
 		'lp_ab_display_stats_metabox', 
-		__( 'A/B Testing', 'bab' ),
+		__( 'A/B Testing', INBOUNDNOW_LABEL ),
 		'lp_ab_stats_metabox',
 		'landing-page' , 
 		'side', 
@@ -100,41 +100,41 @@ function lp_ab_stats_metabox() {
 
 					<div id="lp-variation-<?php echo lp_ab_key_to_letter($key); ?>" class="bab-variation-row <?php echo $variation_status_class;?>" >
 						<div class='bab-varation-header'>
-								<span class='bab-variation-name'>Variation <span class='bab-stat-letter'><?php echo lp_ab_key_to_letter($vid); ?></span>
+								<span class='bab-variation-name'><?php _e('Variation', INBOUNDNOW_LABEL ); ?> <span class='bab-stat-letter'><?php _e(lp_ab_key_to_letter($vid), INBOUNDNOW_LABEL ); ?></span>
 								<?php 
 								if($variation_status!=1)
 								{
 								?>
-									<span class='is-paused'>(Paused)</span>
+									<span class='is-paused'>(<?php _e('Paused', INBOUNDNOW_LABEL ) ?>)</span>
 								<?php
 								}
 								?>
 								</span> 
 									
 									
-								<span class="lp-delete-var-stats" data-letter='<?php echo lp_ab_key_to_letter($vid); ?>' data-vid='<?php echo $vid; ?>' rel='<?php echo $post->ID;?>' title="Delete this variations stats">Clear Stats</span>
+								<span class="lp-delete-var-stats" data-letter='<?php echo lp_ab_key_to_letter($vid); ?>' data-vid='<?php echo $vid; ?>' rel='<?php echo $post->ID;?>' title="<?php _e('Delete this variations stats' , INBOUNDNOW_LABEL ); ?>"><?php _e('Clear Stats' , INBOUNDNOW_LABEL); ?></span>
 							</div>
 						<div class="bab-stat-row">	
 							<div class='bab-stat-stats' colspan='2'>
 								<div class='bab-stat-container-impressions bab-number-box'>
 									<span class='bab-stat-span-impressions'><?php echo $impressions; ?></span>
-									<span class="bab-stat-id">Views</span>
+									<span class="bab-stat-id"><?php _e( 'Views' , INBOUNDNOW_LABEL); ?> </span>
 								</div>
 								<div class='bab-stat-container-conversions bab-number-box'>
 									<span class='bab-stat-span-conversions'><?php echo $conversions; ?></span>
-									<span class="bab-stat-id">Conversions</span></span>
+									<span class="bab-stat-id"><?php _e('Conversions' , INBOUNDNOW_LABEL); ?></span></span>
 								</div>
 								<div class='bab-stat-container-conversion_rate bab-number-box'>
 									<span class='bab-stat-span-conversion_rate'><?php echo $conversion_rate; ?></span>
-									<span class="bab-stat-id bab-rate">Conversion Rate</span>
+									<span class="bab-stat-id bab-rate"><?php _e('Conversion Rate' , INBOUNDNOW_LABEL); ?></span>
 								</div>
 								<div class='bab-stat-control-container'>
-									<span class='bab-stat-control-pause'><a title="Pause this variation" href='?post=<?php echo $post->ID; ?>&action=edit&lp-variation-id=<?php echo $vid; ?>&ab-action=pause-variation'>Pause</a></span> <span class='bab-stat-seperator pause-sep'>|</span>
-									<span class='bab-stat-control-play'><a title="Turn this variation on" href='?post=<?php echo $post->ID; ?>&action=edit&lp-variation-id=<?php echo $vid; ?>&ab-action=play-variation'>Play</a></span> <span class='bab-stat-seperator play-sep'>|</span>
-									<span class='bab-stat-menu-edit'><a title="Edit this variation" href='?post=<?php echo $post->ID; ?>&action=edit&lp-variation-id=<?php echo $vid; ?>'>Edit</a></span> <span class='bab-stat-seperator'>|</span>
-									<span class='bab-stat-menu-preview'><a title="Preview this variation" class='thickbox' href='<?php echo $permalink; ?>&iframe_window=on&post_id=<?php echo $post->ID;?>&TB_iframe=true&width=1503&height=467' target='_blank'>Preview</a></span> <span class='bab-stat-seperator'>|</span>
-									<span class='bab-stat-menu-clone'><a title="Clone this variation" href='?post=<?php echo $post->ID; ?>&action=edit&new-variation=1&clone=<?php echo $vid; ?>&new_meta_key=<?php echo $howmany; ?>'>Clone</a></span> <span class='bab-stat-seperator'>|</span>
-									<span class='bab-stat-control-delete'><a title="Delete this variation" href='?post=<?php echo $post->ID; ?>&action=edit&lp-variation-id=<?php echo $vid; ?>&ab-action=delete-variation'>Delete</a></span> 
+									<span class='bab-stat-control-pause'><a title="<?php _e('Pause this variation' , INBOUNDNOW_LABEL ); ?>" href='?post=<?php echo $post->ID; ?>&action=edit&lp-variation-id=<?php echo $vid; ?>&ab-action=pause-variation'><?php _e('Pause' , INBOUNDNOW_LABEL); ?></a></span> <span class='bab-stat-seperator pause-sep'>|</span>
+									<span class='bab-stat-control-play'><a title="<?php _e('Turn this variation on' , INBOUNDNOW_LABEL ); ?>" href='?post=<?php echo $post->ID; ?>&action=edit&lp-variation-id=<?php echo $vid; ?>&ab-action=play-variation'><?php _e('Play' , INBOUNDNOW_LABEL); ?></a></span> <span class='bab-stat-seperator play-sep'>|</span>
+									<span class='bab-stat-menu-edit'><a title="<?php _e('Edit this variation' , INBOUNDNOW_LABEL ); ?>" href='?post=<?php echo $post->ID; ?>&action=edit&lp-variation-id=<?php echo $vid; ?>'><?php _e('Edit' , INBOUNDNOW_LABEL); ?></a></span> <span class='bab-stat-seperator'>|</span>
+									<span class='bab-stat-menu-preview'><a title="<?php _e('Preview this variation' , INBOUNDNOW_LABEL ); ?>" class='thickbox' href='<?php echo $permalink; ?>&iframe_window=on&post_id=<?php echo $post->ID;?>&TB_iframe=true&width=1503&height=467' target='_blank'><?php _e('Preview' , INBOUNDNOW_LABEL); ?></a></span> <span class='bab-stat-seperator'>|</span>
+									<span class='bab-stat-menu-clone'><a title="<?php _e('Clone this variation' , INBOUNDNOW_LABEL ); ?>" href='?post=<?php echo $post->ID; ?>&action=edit&new-variation=1&clone=<?php echo $vid; ?>&new_meta_key=<?php echo $howmany; ?>'><?php _e('Clone' , INBOUNDNOW_LABEL); ?></a></span> <span class='bab-stat-seperator'>|</span>
+									<span class='bab-stat-control-delete'><a title="<?php _e('Delete this variation' , INBOUNDNOW_LABEL ); ?>" href='?post=<?php echo $post->ID; ?>&action=edit&lp-variation-id=<?php echo $vid; ?>&ab-action=delete-variation'><?php _e('Delete' , INBOUNDNOW_LABEL); ?></a></span> 
 								</div>
 							</div>
 						</div>
@@ -193,7 +193,7 @@ function lp_ab_testing_add_tabs()
 		}
 		
 		echo '<h2 class="nav-tab-wrapper a_b_tabs">';
-		echo '<a href="?post='.$post->ID.'&lp-variation-id=0&action=edit" class="lp-ab-tab nav-tab nav-tab-special-'.$first_class.'" id="tabs-0">A</a>';					
+		echo '<a href="?post='.$post->ID.'&lp-variation-id=0&action=edit" class="lp-ab-tab nav-tab nav-tab-special-'.$first_class.'" id="tabs-0">'.__("A",INBOUNDNOW_LABEL).'</a>';					
 
 		$var_id_marker = 1;
 
@@ -214,25 +214,25 @@ function lp_ab_testing_add_tabs()
 				{
 					$cur_class = 'inactive';
 				}
-				echo '<a href="?post='.$post->ID.'&lp-variation-id='.$vid.'&action=edit" class="lp-nav-tab nav-tab nav-tab-special-'.$cur_class.'" id="tabs-add-variation">'.$letter.'</a>';
+				echo '<a href="?post='.$post->ID.'&lp-variation-id='.$vid.'&action=edit" class="lp-nav-tab nav-tab nav-tab-special-'.$cur_class.'" id="tabs-add-variation">'.__($letter , INBOUNDNOW_LABEL ) .'</a>';
 				
 			}					
 		} 
 		
 		if (!isset($_GET['new-variation']))
 		{
-			echo '<a href="?post='.$post->ID.'&lp-variation-id='.$new_variation_id.'&action=edit&new-variation=1" class="lp-nav-tab nav-tab nav-tab-special-inactive nav-tab-add-new-variation" id="tabs-add-variation">Add New Variation</a>';
+			echo '<a href="?post='.$post->ID.'&lp-variation-id='.$new_variation_id.'&action=edit&new-variation=1" class="lp-nav-tab nav-tab nav-tab-special-inactive nav-tab-add-new-variation" id="tabs-add-variation">'.__('Add New Variation' , INBOUNDNOW_LABEL).'</a>';
 		}
 		else
 		{
 			$variation_count = count($array_variations);
 			$letter = lp_ab_key_to_letter($variation_count);
-			echo '<a href="?post='.$post->ID.'&lp-variation-id='.$new_variation_id.'&action=edit" class="lp-nav-tab nav-tab nav-tab-special-active" id="tabs-add-variation">'.$letter.'</a>';
+			echo '<a href="?post='.$post->ID.'&lp-variation-id='.$new_variation_id.'&action=edit" class="lp-nav-tab nav-tab nav-tab-special-active" id="tabs-add-variation">'.__($letter , INBOUNDNOW_LABEL).'</a>';
 		}
 		$edit_link = (isset($_GET['lp-variation-id'])) ? '?lp-variation-id='.$_GET['lp-variation-id'].'' : '?lp-variation-id=0';
 		$post_link = get_permalink($post->ID);
 		$post_link = preg_replace('/\?.*/', '', $post_link);
-		echo "<a rel='".$post_link."' id='launch-visual-editer' class='button-primary new-save-lp-frontend' href='$post_link$edit_link&template-customize=on'>Launch Visual Editor</a>";
+		echo "<a rel='".$post_link."' id='launch-visual-editer' class='button-primary new-save-lp-frontend' href='$post_link$edit_link&template-customize=on'>".__('Launch Visual Editor' , INBOUNDNOW_LABEL)."</a>";
 		echo '</h2>';
 	} 
 	
