@@ -649,10 +649,11 @@ function lp_save_global_settings()
 }
 
 
-function lp_render_global_settings($key,$custom_fields =  array() ,$active_tab)
+function lp_render_global_settings($key,$custom_fields,$active_tab)
 {
-
-	//Check if active tab
+	if (!$custom_fields)
+		return;
+		
 	if ($key==$active_tab)
 	{
 		$display = 'block';
