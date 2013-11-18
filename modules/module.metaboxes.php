@@ -30,7 +30,7 @@ function lp_thumbnail_metabox() {
 
 	$permalink = get_permalink($post->ID);
 	$datetime = the_modified_date('YmjH',null,null,false);
-	$permalink = lp_ready_screenshot_url($permalink,$datetime);
+	$permalink = $permalink.'?dt='.$datetime;
 	$thumbnail = 'http://s.wordpress.com/mshots/v1/' . urlencode(esc_url($permalink)) . '?w=250';
 	$permalink = apply_filters('lp_live_screenshot_url', $permalink);
 	?>
@@ -154,10 +154,13 @@ function lp_landing_page_header_area()
     $varaition_notes = '';
 	$main_title = apply_filters('lp_edit_main_headline', $main_title, 1);
 	$varaition_notes = apply_filters('lp_edit_varaition_notes', $varaition_notes, 1);
-		echo "<div id='lp-notes-area'>";
-   		lp_display_notes_input('lp-variation-notes',$varaition_notes);
-    	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="Primary Headline Goes here. This will be visible on the page" id="lp-main-headline" value="'.$main_title.'" title="This headline will appear in the landing page template."></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
-    // Frontend params
+	$varaition_id = apply_filters( 'lp_display_notes_input_id' , 'lp-variation-notes' );
+	
+	echo "<div id='lp-notes-area'>";
+	echo "<span id='add-lp-notes'>Notes:</span><input placeholder='Add Notes to your variation. Example: This version is testing a green submit button' type='text' class='lp-notes' name='{$varaition_id}' id='{$varaition_id}' value='{$variation_notes}' size='30'>";
+	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="Primary Headline Goes here. This will be visible on the page" id="lp-main-headline" value="'.$main_title.'" title="This headline will appear in the landing page template."></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
+   
+   // Frontend params
     if(isset($_REQUEST['frontend']) && $_REQUEST['frontend'] == 'true') {
     echo('<input type="hidden" name="frontend" id="frontend-on" value="true" />');
 }

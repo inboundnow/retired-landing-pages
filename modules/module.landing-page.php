@@ -131,14 +131,6 @@ function landing_pages_add_conversion_area($content)
 
 			$conversion_area = lp_conversion_area(null,null,true,true);
 
-
-			$standardize_form = get_option( 'lp-main-landing-page-auto-format-forms' , 0); // conditional to check for options
-			if ($standardize_form)
-			{
-				$wrapper_class = lp_discover_important_wrappers($conversion_area);
-				$conversion_area = lp_rebuild_attributes($conversion_area);
-			}
-
 			$conversion_area = "<div id='lp_container' class='$wrapper_class'>".$conversion_area."</div>";
 
 			if ($position=='top')
@@ -162,6 +154,304 @@ function landing_pages_add_conversion_area($content)
 
 		}
 
+	}
+
+	return $content;
+}
+
+/* DISPLAY LANDING PAGE CONVERSION AREA */
+function lp_conversion_area($post = null, $content=null,$return=false, $doshortcode = true, $rebuild_attributes = true)
+{
+	if (!isset($post))
+		global $post;
+
+	$wrapper_class = "";
+
+	$content = get_post_meta($post->ID, 'lp-conversion-area', true);
+
+	$content = apply_filters('lp_conversion_area_pre_standardize',$content, $post, $doshortcode);
+
+	$wrapper_class = lp_discover_important_wrappers($content);
+
+	if ($doshortcode)
+	{
+		$content = do_shortcode($content);
+	}
+
+	if ($rebuild_attributes)
+	{
+		$content = lp_rebuild_attributes( $content, $wrapper_class );
+	}
+
+
+	$content = apply_filters('lp_conversion_area_post',$content, $post);
+
+	if(!$return)
+	{
+
+		echo do_shortcode($content);
+	}
+	else
+	{
+		return $content;
+	}
+
+}
+
+/* ADD SHORTCODE TO DISPLAY LANDING PAGE CONVERSION AREA */
+add_shortcode( 'lp_conversion_area', 'lp_conversion_area_shortcode');
+function lp_conversion_area_shortcode( $atts, $content = null ) 
+{
+	extract(shortcode_atts(array(
+		'id' => '',
+		'align' => ''
+		//'style' => ''
+	), $atts));
+
+	$conversion_area = "";
+	$conversion_area .= lp_conversion_area($post = null, $content=null,$return=true, $doshortcode = true, $rebuild_attributes = true);
+
+
+	return $conversion_area;
+}
+
+/* DISPLAY MAIN HEADLINE OF CALLING TEMPLATE */
+function lp_main_headline($post = null, $headline=null,$return=false)
+{
+	if (!isset($post))
+		global $post;
+
+	if (!$headline)
+	{
+		$main_headline =  lp_get_value($post, 'lp', 'main-headline');
+		$main_headline = apply_filters('lp_main_headline',$main_headline, $post);
+
+		if(!$return)
+		{
+			echo $main_headline;
+
+		}
+		else
+		{
+			return $main_headline;
+		}
+	}
+	else
+	{
+		$main_headline = apply_filters('lp_main_headline',$main_headline, $post);
+		if(!$return)
+		{
+			echo $headline;
+		}
+		else
+		{
+			return $headline;
+		}
+	}
+}
+
+/* DISPLAY MAIN CONTENT AREA OF LANDING PAGE TEMPLATE */
+function lp_content_area($post = null, $content=null,$return=false )
+{
+	if (!isset($post))
+		global $post;
+
+	if (!$content)
+	{
+		global $post;
+
+		if (!isset($post)&&isset($_REQUEST['post']))
+		{
+
+			$post = get_post($_REQUEST['post']);
+		}
+
+		else if (!isset($post)&&isset($_REQUEST['lp_id']))
+		{
+			$post = get_post($_REQUEST['lp_id']);
+		}
+
+		//var_dump($post);
+		$content_area = $post->post_content;
+
+		if (!is_admin())
+			$content_area = apply_filters('the_content', $content_area);
+
+		$content_area = apply_filters('lp_content_area',$content_area, $post);
+
+		if(!$return)
+		{
+			echo $content_area;
+
+		}
+		else
+		{
+			return $content_area;
+		}
+	}
+	else
+	{
+		if(!$return)
+		{
+			echo $content_area;
+		}
+		else
+		{
+			return $content_area;
+		}
+	}
+}
+
+/* ADD BODY CLASS TO LANDING PAGE TEMPLATE */
+function lp_body_class()
+{
+	global $post;
+	global $lp_data;
+	// Need to add in lp_right or lp_left classes based on the meta to float forms
+	// like $conversion_layout = lp_get_value($post, $key, 'conversion-area-placement');
+	if (get_post_meta($post->ID, 'lp-selected-template', true))
+	{
+		$lp_body_class = "template-" . get_post_meta($post->ID, 'lp-selected-template', true);
+		 $postid = "page-id-" . get_the_ID();
+		echo 'class="';
+		echo $lp_body_class . " " . $postid . " wordpress-landing-page";
+		echo '"';
+	}
+	return $lp_body_class;
+}
+
+/* GET PARENT DIRECTORY OF CALLING TEMPLATE */
+function lp_get_parent_directory($path)
+{
+	if(stristr($_SERVER['SERVER_SOFTWARE'], 'Win32')){
+		$array = explode('\\',$path);
+		$count = count($array);
+		$key = $count -1;
+		$parent = $array[$key];
+		return $parent;
+    } else if(stristr($_SERVER['SERVER_SOFTWARE'], 'IIS')){
+        $array = explode('\\',$path);
+		$count = count($array);
+		$key = $count -1;
+		$parent = $array[$key];
+		return $parent;
+    }else {
+		$array = explode('/',$path);
+		$count = count($array);
+		$key = $count -1;
+		$parent = $array[$key];
+		return $parent;
+	}
+}
+
+/* GET META VALUE FOR LANDING PAGE TEMPLATE SETTING */
+function lp_get_value($post, $key, $id)
+{
+	//echo 1; exit;
+	if (isset($post))
+	{
+		$return = get_post_meta($post->ID, $key.'-'.$id , true);
+		$return = apply_filters('lp_get_value',$return,$post,$key,$id);
+
+		return $return;
+	}
+}
+
+/* CLEAN URL OF VARIATION GET TAGS */
+add_action('wp_head', 'lp_header_load');
+function lp_header_load(){
+	global $post;
+	if (isset($post)&&$post->post_type=='landing-page')
+	{
+		wp_enqueue_style('inbound-wordpress-base', LANDINGPAGES_URLPATH . 'css/frontend/global-landing-page-style.css');
+		wp_enqueue_style('inbound-shortcodes', INBOUND_FORMS.'css/frontend-render.css');
+		if (isset($_GET['lp-variation-id']) && !isset($_GET['template-customize']) && !isset($_GET['iframe_window']) && !isset($_GET['live-preview-area'])) { ?>
+		<script type="text/javascript">
+		if (typeof window.history.pushState == 'function') {
+		var current=window.location.href;var cleanparams=current.split("?");var clean_url=cleanparams[0];history.replaceState({},"landing page",clean_url);
+		//console.log("push state supported.");
+		}</script>
+		<?php }
+	}
+}
+
+
+/* CALLBACK TO GENERATE DROPDOWN OF LANDING PAGES - MAY BE UNUSED */
+function lp_generate_drowndown($select_id, $post_type, $selected = 0, $width = 400, $height = 230,$font_size = 13,$multiple=true) 
+{
+	$post_type_object = get_post_type_object($post_type);
+	$label = $post_type_object->label;
+	
+	if ($multiple==true)
+	{
+		$multiple = "multiple='multiple'";
+	}
+	else
+	{
+		$multiple = "";
+	}
+	
+	$posts = get_posts(array('post_type'=> $post_type, 'post_status'=> 'publish', 'suppress_filters' => false, 'posts_per_page'=>-1));
+	echo '<select name="'. $select_id .'" id="'.$select_id.'" class="lp-multiple-select" style="width:'.$width.'px;height:'.$height.'px;font-size:'.$font_size.'px;"  '.$multiple.'>';
+	foreach ($posts as $post) {
+		echo '<option value="', $post->ID, '"', $selected == $post->ID ? ' selected="selected"' : '', '>', $post->post_title, '</option>';
+	}
+	echo '</select>';
+}
+
+/* REMOVE CUSTOM FIELDS METABOX FROM LANDING PAGE CPT */
+add_action( 'in_admin_header', 'lp_in_admin_header');
+function lp_in_admin_header() 
+{
+	global $post; 
+	global $wp_meta_boxes;
+	
+	if (isset($post)&&$post->post_type=='landing-page') 
+	{
+		unset( $wp_meta_boxes[get_current_screen()->id]['normal']['core']['postcustom'] ); 
+	}
+}
+
+/* DETECTION FOR GRAVITY FORM CLASS AND OTHER IMPORTANT CLASSES */
+function lp_discover_important_wrappers($content)
+{
+	$wrapper_class = "";
+	if (strstr($content,'gform_wrapper'))
+	{
+		$wrapper_class = 'gform_wrapper';
+	}
+	return $wrapper_class;
+}
+
+/* ADDS IN TRACKING SUPPORT FOR LINKS FOUND IN CONVERSION AREA WHEN THERE ARE NO FORMS DETECTED */
+function lp_rebuild_attributes( $content=null , $wrapper_class=null )
+{
+	if (strstr($content,'<form'))
+		return $content;
+
+	// Standardize all links
+	$inputs = preg_match_all('/\<a(.*?)\>/s',$content, $matches);
+	if (!empty($matches[0]))
+	{
+		foreach ($matches[0] as $key => $value)
+		{
+			if ($key==0)
+			{
+				$new_value = $value;
+				$new_value = preg_replace('/ class=(["\'])(.*?)(["\'])/','class="$2 wpl-track-me-link"', $new_value);
+
+
+
+				$content = str_replace($value, $new_value, $content);
+				break;
+			}
+		}
+	}
+
+	$check_wrap = preg_match_all('/lp_container_noform/s',$content, $check);
+	if (empty($check[0]))
+	{
+		$content = "<div id='lp_container_noform'  class='$wrapper_class link-click-tracking'>{$content}</div>";
 	}
 
 	return $content;
@@ -287,10 +577,33 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 	}
 }
 
-/* legacy function not used anymore but called in old non-core templates */
+
+/* LEGACY CALLBACKS -- STILL USED BY SOME OLDER EXTENSIONS AND TEMPLATES */
 function lp_list_feature()
 {
 	return null;
 }
+
+
+function lp_global_config()
+{
+	do_action('lp_global_config');
+}
+
+function lp_init()
+{
+	do_action('lp_init');
+}
+
+function lp_head()
+{
+	do_action('lp_head');
+}
+
+function lp_footer()
+{
+	do_action('lp_footer');
+}
+
 
 
