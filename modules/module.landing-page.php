@@ -57,7 +57,7 @@ function lp_custom_template($single) {
 
 /* LOAD & PRINT CUSTOM JS AND CSS */
 add_action('wp_head','landing_pages_insert_custom_head');
-function landing_pages_insert_custom_head() 
+function landing_pages_insert_custom_head()
 {
 	global $post;
 
@@ -200,7 +200,7 @@ function lp_conversion_area($post = null, $content=null,$return=false, $doshortc
 
 /* ADD SHORTCODE TO DISPLAY LANDING PAGE CONVERSION AREA */
 add_shortcode( 'lp_conversion_area', 'lp_conversion_area_shortcode');
-function lp_conversion_area_shortcode( $atts, $content = null ) 
+function lp_conversion_area_shortcode( $atts, $content = null )
 {
 	extract(shortcode_atts(array(
 		'id' => '',
@@ -357,31 +357,12 @@ function lp_get_value($post, $key, $id)
 	}
 }
 
-/* CLEAN URL OF VARIATION GET TAGS */
-add_action('wp_head', 'lp_header_load');
-function lp_header_load(){
-	global $post;
-	if (isset($post)&&$post->post_type=='landing-page')
-	{
-		wp_enqueue_style('inbound-wordpress-base', LANDINGPAGES_URLPATH . 'css/frontend/global-landing-page-style.css');
-		wp_enqueue_style('inbound-shortcodes', INBOUND_FORMS.'css/frontend-render.css');
-		if (isset($_GET['lp-variation-id']) && !isset($_GET['template-customize']) && !isset($_GET['iframe_window']) && !isset($_GET['live-preview-area'])) { ?>
-		<script type="text/javascript">
-		if (typeof window.history.pushState == 'function') {
-		var current=window.location.href;var cleanparams=current.split("?");var clean_url=cleanparams[0];history.replaceState({},"landing page",clean_url);
-		//console.log("push state supported.");
-		}</script>
-		<?php }
-	}
-}
-
-
 /* CALLBACK TO GENERATE DROPDOWN OF LANDING PAGES - MAY BE UNUSED */
-function lp_generate_drowndown($select_id, $post_type, $selected = 0, $width = 400, $height = 230,$font_size = 13,$multiple=true) 
+function lp_generate_drowndown($select_id, $post_type, $selected = 0, $width = 400, $height = 230,$font_size = 13,$multiple=true)
 {
 	$post_type_object = get_post_type_object($post_type);
 	$label = $post_type_object->label;
-	
+
 	if ($multiple==true)
 	{
 		$multiple = "multiple='multiple'";
@@ -390,7 +371,7 @@ function lp_generate_drowndown($select_id, $post_type, $selected = 0, $width = 4
 	{
 		$multiple = "";
 	}
-	
+
 	$posts = get_posts(array('post_type'=> $post_type, 'post_status'=> 'publish', 'suppress_filters' => false, 'posts_per_page'=>-1));
 	echo '<select name="'. $select_id .'" id="'.$select_id.'" class="lp-multiple-select" style="width:'.$width.'px;height:'.$height.'px;font-size:'.$font_size.'px;"  '.$multiple.'>';
 	foreach ($posts as $post) {
@@ -401,14 +382,14 @@ function lp_generate_drowndown($select_id, $post_type, $selected = 0, $width = 4
 
 /* REMOVE CUSTOM FIELDS METABOX FROM LANDING PAGE CPT */
 add_action( 'in_admin_header', 'lp_in_admin_header');
-function lp_in_admin_header() 
+function lp_in_admin_header()
 {
-	global $post; 
+	global $post;
 	global $wp_meta_boxes;
-	
-	if (isset($post)&&$post->post_type=='landing-page') 
+
+	if (isset($post)&&$post->post_type=='landing-page')
 	{
-		unset( $wp_meta_boxes[get_current_screen()->id]['normal']['core']['postcustom'] ); 
+		unset( $wp_meta_boxes[get_current_screen()->id]['normal']['core']['postcustom'] );
 	}
 }
 
@@ -564,7 +545,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			'type'  => 'default-content',
 			'default'  => $default
 			);
-			break;	
+			break;
 		case "html":
 			return array(
 			'label' => $label,
@@ -573,7 +554,7 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			'type'  => 'html',
 			'default'  => $default
 			);
-			break;	
+			break;
 	}
 }
 
