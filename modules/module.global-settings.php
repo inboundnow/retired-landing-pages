@@ -85,12 +85,27 @@ function lp_get_global_settings()
 	$lp_global_settings[$tab_slug]['label'] = 'License Keys';
 
 	/* Setup Extensions Tab */
-	$tab_slug = 'lp-extensions';
-	$lp_global_settings[$tab_slug]['label'] = 'Extensions';
+	$lp_global_settings['lp-extensions']['label'] = 'Extensions';
+	$lp_global_settings['lp-extensions']['settings'] = array(
+													array(
+														'id'  => 'lp-ext-header',
+														'type'  => 'header',
+														'default'  => '',
+														'options' => null
+													)
+												);
 
 	/* Setup Debug Tab */
-	$tab_slug = 'lp-debug';
-	$lp_global_settings[$tab_slug]['label'] = 'Debug';
+
+	$lp_global_settings['lp-debug']['label'] = 'Debug';
+	$lp_global_settings['lp-debug']['settings'] = array(
+													array(
+														'id'  => 'lp-debug-header',
+														'type'  => 'header',
+														'default'  => '',
+														'options' => null
+													)
+												);
 
 	$lp_global_settings = apply_filters('lp_define_global_settings',$lp_global_settings);
 
@@ -366,13 +381,13 @@ function lp_display_global_settings()
 }
 
 add_action('admin_footer', 'landing_pages_load_sys_info');
-function landing_pages_load_sys_info() 
+function landing_pages_load_sys_info()
 {
 	global $wpdb;
-	
+
 	if (isset($_GET['page']) && $_GET['page'] != 'lp_global_settings')
 		return;
-		
+
 	if ( get_bloginfo( 'version' ) < '3.4' ) {
 		$theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
 		$theme      = $theme_data['Name'] . ' ' . $theme_data['Version'];
@@ -395,119 +410,119 @@ function landing_pages_load_sys_info()
 	<h2><?php _e( 'System Information', 'inboundnow' ) ?></h2>
 	<input type="hidden" name="inbound-action" value="inbound-download-sysinfo" />
 	<?php submit_button( __( 'Download System Info File for Support Requests', 'inboundnow' ), 'primary', 'inbound-download-sysinfo', false ); ?>
-	<textarea readonly="readonly" onclick="this.focus();this.select()" id="copy-inbound-info" name="landing_pages_sysinfo" title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'edd' ); ?>">
-	### Begin System Info ###
+<textarea readonly="readonly" onclick="this.focus();this.select()" id="copy-inbound-info" name="landing_pages_sysinfo" title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'edd' ); ?>">
+### Begin System Info ###
 
-	## Please include this information when posting support requests ##
+## Please include this information when posting support requests ##
 
-	Multisite:					<?php echo is_multisite() ? 'Yes' . "\n" : 'No' . "\n" ?>
+Multisite:					<?php echo is_multisite() ? 'Yes' . "\n" : 'No' . "\n" ?>
 
-	SITE_URL:					<?php echo site_url() . "\n"; ?>
-	HOME_URL:					<?php echo home_url() . "\n"; ?>
+SITE_URL:					<?php echo site_url() . "\n"; ?>
+HOME_URL:					<?php echo home_url() . "\n"; ?>
 
-	Landing Page Version:		<?php echo LANDINGPAGES_CURRENT_VERSION . "\n"; ?>
-	Upgraded From:				<?php echo get_option( 'lp_version_upgraded_from', 'None' ) . "\n"; ?>
-	WordPress Version:			<?php echo get_bloginfo( 'version' ) . "\n"; ?>
-	Permalink Structure:			<?php echo get_option( 'permalink_structure' ) . "\n"; ?>
-	Active Theme:				<?php echo $theme . "\n"; ?>
-	<?php if( $host ) : ?>
-	Host:						<?php echo $host . "\n"; ?>
-	<?php endif; ?>
+Landing Page Version:		<?php echo LANDINGPAGES_CURRENT_VERSION . "\n"; ?>
+Upgraded From:				<?php echo get_option( 'lp_version_upgraded_from', 'None' ) . "\n"; ?>
+WordPress Version:			<?php echo get_bloginfo( 'version' ) . "\n"; ?>
+Permalink Structure:			<?php echo get_option( 'permalink_structure' ) . "\n"; ?>
+Active Theme:				<?php echo $theme . "\n"; ?>
+<?php if( $host ) : ?>
+Host:						<?php echo $host . "\n"; ?>
+<?php endif; ?>
 
-	Registered Post Stati:			<?php echo implode( ', ', get_post_stati() ) . "\n\n"; ?>
+Registered Post Stati:			<?php echo implode( ', ', get_post_stati() ) . "\n\n"; ?>
 
-	PHP Version:				<?php echo PHP_VERSION . "\n"; ?>
-	MySQL Version:				<?php echo mysql_get_server_info() . "\n"; ?>
-	Web Server Info:				<?php echo $_SERVER['SERVER_SOFTWARE'] . "\n"; ?>
+PHP Version:				<?php echo PHP_VERSION . "\n"; ?>
+MySQL Version:				<?php echo mysql_get_server_info() . "\n"; ?>
+Web Server Info:				<?php echo $_SERVER['SERVER_SOFTWARE'] . "\n"; ?>
 
-	PHP Safe Mode:				<?php echo ini_get( 'safe_mode' ) ? "Yes" : "No\n"; ?>
-	PHP Memory Limit:			<?php echo ini_get( 'memory_limit' ) . "\n"; ?>
-	PHP Upload Max Size:		<?php echo ini_get( 'upload_max_filesize' ) . "\n"; ?>
-	PHP Post Max Size:			<?php echo ini_get( 'post_max_size' ) . "\n"; ?>
-	PHP Upload Max Filesize:		<?php echo ini_get( 'upload_max_filesize' ) . "\n"; ?>
-	PHP Time Limit:				<?php echo ini_get( 'max_execution_time' ) . "\n"; ?>
-	PHP Max Input Vars:			<?php echo ini_get( 'max_input_vars' ) . "\n"; ?>
+PHP Safe Mode:				<?php echo ini_get( 'safe_mode' ) ? "Yes" : "No\n"; ?>
+PHP Memory Limit:			<?php echo ini_get( 'memory_limit' ) . "\n"; ?>
+PHP Upload Max Size:		<?php echo ini_get( 'upload_max_filesize' ) . "\n"; ?>
+PHP Post Max Size:			<?php echo ini_get( 'post_max_size' ) . "\n"; ?>
+PHP Upload Max Filesize:		<?php echo ini_get( 'upload_max_filesize' ) . "\n"; ?>
+PHP Time Limit:				<?php echo ini_get( 'max_execution_time' ) . "\n"; ?>
+PHP Max Input Vars:			<?php echo ini_get( 'max_input_vars' ) . "\n"; ?>
 
-	WP_DEBUG:				<?php echo defined( 'WP_DEBUG' ) ? WP_DEBUG ? 'Enabled' . "\n" : 'Disabled' . "\n" : 'Not set' . "\n" ?>
+WP_DEBUG:				<?php echo defined( 'WP_DEBUG' ) ? WP_DEBUG ? 'Enabled' . "\n" : 'Disabled' . "\n" : 'Not set' . "\n" ?>
 
-	WP Table Prefix:				<?php echo "Length: ". strlen( $wpdb->prefix ); echo " Status:"; if ( strlen( $wpdb->prefix )>16 ) {echo " ERROR: Too Long";} else {echo " Acceptable";} echo "\n"; ?>
+WP Table Prefix:				<?php echo "Length: ". strlen( $wpdb->prefix ); echo " Status:"; if ( strlen( $wpdb->prefix )>16 ) {echo " ERROR: Too Long";} else {echo " Acceptable";} echo "\n"; ?>
 
-	Show On Front:				<?php echo get_option( 'show_on_front' ) . "\n" ?>
-	Page On Front:				<?php $id = get_option( 'page_on_front' ); echo get_the_title( $id ) . ' (#' . $id . ')' . "\n" ?>
-	Page For Posts:				<?php $id = get_option( 'page_for_posts' ); echo get_the_title( $id ) . ' (#' . $id . ')' . "\n" ?>
+Show On Front:				<?php echo get_option( 'show_on_front' ) . "\n" ?>
+Page On Front:				<?php $id = get_option( 'page_on_front' ); echo get_the_title( $id ) . ' (#' . $id . ')' . "\n" ?>
+Page For Posts:				<?php $id = get_option( 'page_for_posts' ); echo get_the_title( $id ) . ' (#' . $id . ')' . "\n" ?>
 
-	Session:						<?php echo isset( $_SESSION ) ? 'Enabled' : 'Disabled'; ?><?php echo "\n"; ?>
-	Session Name:				<?php echo esc_html( ini_get( 'session.name' ) ); ?><?php echo "\n"; ?>
-	Cookie Path:					<?php echo esc_html( ini_get( 'session.cookie_path' ) ); ?><?php echo "\n"; ?>
-	Save Path:					<?php echo esc_html( ini_get( 'session.save_path' ) ); ?><?php echo "\n"; ?>
-	Use Cookies:				<?php echo ini_get( 'session.use_cookies' ) ? 'On' : 'Off'; ?><?php echo "\n"; ?>
-	Use Only Cookies:			<?php echo ini_get( 'session.use_only_cookies' ) ? 'On' : 'Off'; ?><?php echo "\n"; ?>
+Session:						<?php echo isset( $_SESSION ) ? 'Enabled' : 'Disabled'; ?><?php echo "\n"; ?>
+Session Name:				<?php echo esc_html( ini_get( 'session.name' ) ); ?><?php echo "\n"; ?>
+Cookie Path:					<?php echo esc_html( ini_get( 'session.cookie_path' ) ); ?><?php echo "\n"; ?>
+Save Path:					<?php echo esc_html( ini_get( 'session.save_path' ) ); ?><?php echo "\n"; ?>
+Use Cookies:				<?php echo ini_get( 'session.use_cookies' ) ? 'On' : 'Off'; ?><?php echo "\n"; ?>
+Use Only Cookies:			<?php echo ini_get( 'session.use_only_cookies' ) ? 'On' : 'Off'; ?><?php echo "\n"; ?>
 
-	WordPress Memory Limit:		<?php echo ( edd_let_to_num( WP_MEMORY_LIMIT )/( 1024 ) )."MB"; ?><?php echo "\n"; ?>
-	DISPLAY ERRORS:			<?php echo ( ini_get( 'display_errors' ) ) ? 'On (' . ini_get( 'display_errors' ) . ')' : 'N/A'; ?><?php echo "\n"; ?>
-	FSOCKOPEN:				<?php echo ( function_exists( 'fsockopen' ) ) ? __( 'Your server supports fsockopen.', 'edd' ) : __( 'Your server does not support fsockopen.', 'edd' ); ?><?php echo "\n"; ?>
-	cURL:						<?php echo ( function_exists( 'curl_init' ) ) ? __( 'Your server supports cURL.', 'edd' ) : __( 'Your server does not support cURL.', 'edd' ); ?><?php echo "\n"; ?>
-	SOAP Client:					<?php echo ( class_exists( 'SoapClient' ) ) ? __( 'Your server has the SOAP Client enabled.', 'edd' ) : __( 'Your server does not have the SOAP Client enabled.', 'edd' ); ?><?php echo "\n"; ?>
-	SUHOSIN:					<?php echo ( extension_loaded( 'suhosin' ) ) ? __( 'Your server has SUHOSIN installed.', 'edd' ) : __( 'Your server does not have SUHOSIN installed.', 'edd' ); ?><?php echo "\n"; ?>
+WordPress Memory Limit:		<?php echo ( edd_let_to_num( WP_MEMORY_LIMIT )/( 1024 ) )."MB"; ?><?php echo "\n"; ?>
+DISPLAY ERRORS:			<?php echo ( ini_get( 'display_errors' ) ) ? 'On (' . ini_get( 'display_errors' ) . ')' : 'N/A'; ?><?php echo "\n"; ?>
+FSOCKOPEN:				<?php echo ( function_exists( 'fsockopen' ) ) ? __( 'Your server supports fsockopen.', 'edd' ) : __( 'Your server does not support fsockopen.', 'edd' ); ?><?php echo "\n"; ?>
+cURL:						<?php echo ( function_exists( 'curl_init' ) ) ? __( 'Your server supports cURL.', 'edd' ) : __( 'Your server does not support cURL.', 'edd' ); ?><?php echo "\n"; ?>
+SOAP Client:					<?php echo ( class_exists( 'SoapClient' ) ) ? __( 'Your server has the SOAP Client enabled.', 'edd' ) : __( 'Your server does not have the SOAP Client enabled.', 'edd' ); ?><?php echo "\n"; ?>
+SUHOSIN:					<?php echo ( extension_loaded( 'suhosin' ) ) ? __( 'Your server has SUHOSIN installed.', 'edd' ) : __( 'Your server does not have SUHOSIN installed.', 'edd' ); ?><?php echo "\n"; ?>
 
-	- INSTALLED LP TEMPLATES:
-	<?php
-	// Show templates that have been copied to the theme's edd_templates dir
-	$dir = LANDINGPAGES_UPLOADS_PATH. '/*';
-	if (!empty($dir)){
-	foreach ( glob( $dir ) as $file ) {
-		echo "Template: " . basename( $file ) . "\n";
-	}
-	}
-	else {
-	echo 'No overrides found';
-	}
+- INSTALLED LP TEMPLATES:
+<?php
+// Show templates that have been copied to the theme's edd_templates dir
+$dir = LANDINGPAGES_UPLOADS_PATH. '/*';
+if (!empty($dir)){
+foreach ( glob( $dir ) as $file ) {
+	echo "Template: " . basename( $file ) . "\n";
+}
+}
+else {
+echo 'No overrides found';
+}
+?>
+
+- ACTIVE PLUGINS:
+<?php
+$plugins = get_plugins();
+$active_plugins = get_option( 'active_plugins', array() );
+
+foreach ( $plugins as $plugin_path => $plugin ) {
+// If the plugin isn't active, don't show it.
+if ( ! in_array( $plugin_path, $active_plugins ) )
+	continue;
+
+echo $plugin['Name'] . ': ' . $plugin['Version'] ."\n";
+}
+
+if ( is_multisite() )
+{
 	?>
 
-	- ACTIVE PLUGINS:
+	- NETWORK ACTIVE PLUGINS:
+
 	<?php
-	$plugins = get_plugins();
-	$active_plugins = get_option( 'active_plugins', array() );
+	$plugins = wp_get_active_network_plugins();
+	$active_plugins = get_site_option( 'active_sitewide_plugins', array() );
 
-	foreach ( $plugins as $plugin_path => $plugin ) {
-	// If the plugin isn't active, don't show it.
-	if ( ! in_array( $plugin_path, $active_plugins ) )
-		continue;
-
-	echo $plugin['Name'] . ': ' . $plugin['Version'] ."\n";
-	}
-
-	if ( is_multisite() ) 
+	foreach ( $plugins as $plugin_path )
 	{
-		?>
+		$plugin_base = plugin_basename( $plugin_path );
 
-		- NETWORK ACTIVE PLUGINS:
+		// If the plugin isn't active, don't show it.
+		if ( ! array_key_exists( $plugin_base, $active_plugins ) )
+			continue;
 
-		<?php
-		$plugins = wp_get_active_network_plugins();
-		$active_plugins = get_site_option( 'active_sitewide_plugins', array() );
+		$plugin = get_plugin_data( $plugin_path );
 
-		foreach ( $plugins as $plugin_path ) 
-		{
-			$plugin_base = plugin_basename( $plugin_path );
-
-			// If the plugin isn't active, don't show it.
-			if ( ! array_key_exists( $plugin_base, $active_plugins ) )
-				continue;
-
-			$plugin = get_plugin_data( $plugin_path );
-
-			echo $plugin['Name'] . ' :' . $plugin['Version'] ."\n";
-		}
-
+		echo $plugin['Name'] . ' :' . $plugin['Version'] ."\n";
 	}
 
+}
 
-	?>
 
-	### End System Info ###</textarea>
-	</form>
-	<?php	
+?>
+
+### End System Info ###</textarea>
+</form>
+	<?php
 }
 
 add_action( 'init', 'inboundnow_generate_sysinfo_download' );
@@ -525,7 +540,7 @@ function inboundnow_generate_sysinfo_download() {
 
 }
 
-function inbound_die() 
+function inbound_die()
 {
 	add_filter( 'wp_die_ajax_handler', '_edd_die_handler', 10, 3 );
 	add_filter( 'wp_die_handler', '_edd_die_handler', 10, 3 );
@@ -653,7 +668,7 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 {
 	if (!$custom_fields)
 		return;
-		
+
 	if ($key==$active_tab)
 	{
 		$display = 'block';
