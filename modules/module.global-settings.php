@@ -381,12 +381,13 @@ function lp_display_global_settings()
 }
 
 add_action('admin_footer', 'landing_pages_load_sys_info');
-function landing_pages_load_sys_info()
+function landing_pages_load_sys_info($hook)
 {
 	global $wpdb;
-
-	if (!isset($_GET['page']) && isset($_GET['page']) != 'lp_global_settings')
-		return; // return if not global settings
+	$screen = get_current_screen();
+	//echo $screen->id;
+	if ( $screen->id != 'landing-page_page_lp_global_settings')
+	        return; // exit if incorrect screen id
 
 	if ( get_bloginfo( 'version' ) < '3.4' ) {
 		$theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
@@ -409,6 +410,7 @@ function landing_pages_load_sys_info()
 	<form id="sys-inbound-form" action="<?php echo esc_url( admin_url( 'edit.php?post_type=landing-page&page=lp_global_settings' ) ); ?>" method="post" dir="ltr">
 	<h2><?php _e( 'System Information', 'inboundnow' ) ?></h2>
 	<input type="hidden" name="inbound-action" value="inbound-download-sysinfo" />
+	<style type="text/css">#inbound-download-sysinfo {display: none;}</style>
 	<?php submit_button( __( 'Download System Info File for Support Requests', 'inboundnow' ), 'primary', 'inbound-download-sysinfo', false ); ?>
 <textarea readonly="readonly" onclick="this.focus();this.select()" id="copy-inbound-info" name="landing_pages_sysinfo" title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'edd' ); ?>">
 ### Begin System Info ###
