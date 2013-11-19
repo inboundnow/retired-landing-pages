@@ -251,7 +251,9 @@ add_action('admin_notices', 'lp_display_meta_box_select_template_container');
 
 // Render select template box
 function lp_display_meta_box_select_template_container() {
-	global $post, $current_url;
+	global $post;
+	
+	$current_url = "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]."";
 
 	if (isset($post)&&$post->post_type!='landing-page'||!isset($post)){ return false; }
 
