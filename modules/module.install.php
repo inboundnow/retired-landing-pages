@@ -13,7 +13,8 @@ function inbound_create_default_post_type(){
     //delete_option( 'lp_settings_general' );
     $lp_default_options = get_option($option_name);
     // Create Default if it doesn't exist
-    if ( ! isset( $lp_default_options[$option_key] ) ) {
+    if ( ! isset( $lp_default_options[$option_key] ) ) 
+	{
         $default_lander = wp_insert_post(
                 array(
                     'post_title'     => __( 'A/B Testing Landing Page Example' , INBOUNDNOW_LABEL ),
@@ -24,13 +25,14 @@ function inbound_create_default_post_type(){
                     'comment_status' => 'closed'
                 )
             );
+			
         // Variation A
-        add_post_meta($default_lander, 'lp-main-headline', __( 'Main Catchy Headline (A)' , INBOUNDNOW_LABEL );
+        add_post_meta($default_lander, 'lp-main-headline', __( 'Main Catchy Headline (A)' , INBOUNDNOW_LABEL ) );
         add_post_meta($default_lander, 'lp-selected-template', 'svtle');
-        add_post_meta($default_lander, 'lp-conversion-area', '<h2>'.__( 'Form a' , INBOUNDNOW_LABEL ) .'</h2><form action="" method="post">'. __( 'First Name' , INBOUNDNOW_LABEL ) .': <input name="first-name" type="text" /><br>'. __('Last Name' , INBOUNDNOW_LABEL ) .': <input name="last-name" type="text" /><br>'.__('Email' , INBOUNDNOW_LABEL) .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , INBOUNDNOW_LABEL ).'" /></form>' , INBOUNDNOW_LABEL );
+        add_post_meta($default_lander, 'lp-conversion-area', '<h2>'.__( 'Form a' , INBOUNDNOW_LABEL ) .'</h2><form action="" method="post">'. __( 'First Name' , INBOUNDNOW_LABEL ) .': <input name="first-name" type="text" /><br>'. __('Last Name' , INBOUNDNOW_LABEL ) .': <input name="last-name" type="text" /><br>'.__('Email' , INBOUNDNOW_LABEL) .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , INBOUNDNOW_LABEL ).'" /></form>' );
        
 		// Varaition B
-        add_post_meta($default_lander, 'lp-main-headline-1', __('Main Catchy Headline Two (B)' , INBOUNDNOW_LABEL );
+        add_post_meta($default_lander, 'lp-main-headline-1', __('Main Catchy Headline Two (B)' , INBOUNDNOW_LABEL ) );
         add_post_meta($default_lander, 'lp-selected-template-1', 'svtle');
         add_post_meta($default_lander, 'landing-page-myeditor-1', '<h2>'.__( 'Form B' , INBOUNDNOW_LABEL ) .'</h2><form action="" method="post">'. __( 'First Name' , INBOUNDNOW_LABEL ) .': <input name="first-name" type="text" /><br>'. __('Last Name' , INBOUNDNOW_LABEL ) .': <input name="last-name" type="text" /><br>'.__('Email' , INBOUNDNOW_LABEL) .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , INBOUNDNOW_LABEL ).'" /></form>' , INBOUNDNOW_LABEL );
         add_post_meta($default_lander, 'content-1', '<p>(Version B) This is the first paragraph of your landing page where you want to draw the viewer in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>');
