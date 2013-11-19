@@ -16,8 +16,8 @@ function inbound_create_default_post_type(){
     if ( ! isset( $lp_default_options[$option_key] ) ) {
         $default_lander = wp_insert_post(
                 array(
-                    'post_title'     => 'A/B Testing Landing Page Example',
-                    'post_content'   => '<p>This is the first paragraph of your landing page where you want to draw the viewer in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>',
+                    'post_title'     => __( 'A/B Testing Landing Page Example' , INBOUNDNOW_LABEL ),
+                    'post_content'   => __( '<p>This is the first paragraph of your landing page where you want to draw the viewer in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>' , INBOUNDNOW_LABEL ),
                     'post_status'    => 'publish',
                     'post_author'    => $current_user->ID,
                     'post_type'      => 'landing-page',
@@ -25,13 +25,14 @@ function inbound_create_default_post_type(){
                 )
             );
         // Variation A
-        add_post_meta($default_lander, 'lp-main-headline', 'Main Catchy Headline (A)');
+        add_post_meta($default_lander, 'lp-main-headline', __( 'Main Catchy Headline (A)' , INBOUNDNOW_LABEL );
         add_post_meta($default_lander, 'lp-selected-template', 'svtle');
-        add_post_meta($default_lander, 'lp-conversion-area', '<h2>Form A</h2><form action="" method="post">First Name: <input name="first-name" type="text" /><br>Last Name: <input name="last-name" type="text" /><br>Email:<input name="email" type="text" /><br><input name="submit" type="submit" value="Submit" /></form>');
-        // Varaition B
-        add_post_meta($default_lander, 'lp-main-headline-1', 'Main Catchy Headline Two (B)');
+        add_post_meta($default_lander, 'lp-conversion-area', '<h2>'.__( 'Form a' , INBOUNDNOW_LABEL ) .'</h2><form action="" method="post">'. __( 'First Name' , INBOUNDNOW_LABEL ) .': <input name="first-name" type="text" /><br>'. __('Last Name' , INBOUNDNOW_LABEL ) .': <input name="last-name" type="text" /><br>'.__('Email' , INBOUNDNOW_LABEL) .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , INBOUNDNOW_LABEL ).'" /></form>' , INBOUNDNOW_LABEL );
+       
+		// Varaition B
+        add_post_meta($default_lander, 'lp-main-headline-1', __('Main Catchy Headline Two (B)' , INBOUNDNOW_LABEL );
         add_post_meta($default_lander, 'lp-selected-template-1', 'svtle');
-        add_post_meta($default_lander, 'landing-page-myeditor-1', '<h2>Form B</h2><form action="" method="post">First Name: <input name="first-name" type="text" /><br>Last Name: <input name="last-name" type="text" /><br>Email:<input name="email" type="text" /><br><input name="submit" type="submit" value="Submit" /></form>');
+        add_post_meta($default_lander, 'landing-page-myeditor-1', '<h2>'.__( 'Form B' , INBOUNDNOW_LABEL ) .'</h2><form action="" method="post">'. __( 'First Name' , INBOUNDNOW_LABEL ) .': <input name="first-name" type="text" /><br>'. __('Last Name' , INBOUNDNOW_LABEL ) .': <input name="last-name" type="text" /><br>'.__('Email' , INBOUNDNOW_LABEL) .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , INBOUNDNOW_LABEL ).'" /></form>' , INBOUNDNOW_LABEL );
         add_post_meta($default_lander, 'content-1', '<p>(Version B) This is the first paragraph of your landing page where you want to draw the viewer in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>');
 
         // Add A/B Testing meta
@@ -40,6 +41,7 @@ function inbound_create_default_post_type(){
         add_post_meta($default_lander, 'lp-ab-variation-impressions-1', 35);
         add_post_meta($default_lander, 'lp-ab-variation-conversions-0', 10);
         add_post_meta($default_lander, 'lp-ab-variation-conversions-1', 15);
+		
         // Add template meta A
         add_post_meta($default_lander, 'svtle-submit-button-color', '5baa1e');
         add_post_meta($default_lander, 'svtle-display-social', '0');
@@ -50,6 +52,7 @@ function inbound_create_default_post_type(){
         add_post_meta($default_lander, 'svtle-sidebar-color', 'ffffff');
         add_post_meta($default_lander, 'svtle-sidebar-text-color', '000000');
         add_post_meta($default_lander, 'svtle-header-color', 'ffffff');
+		
         // Add template meta B
         add_post_meta($default_lander, 'svtle-submit-button-color-1', 'ff0c00');
         add_post_meta($default_lander, 'svtle-display-social-1', '0');
@@ -60,6 +63,7 @@ function inbound_create_default_post_type(){
         add_post_meta($default_lander, 'svtle-sidebar-color-1', '51b0ef');
         add_post_meta($default_lander, 'svtle-sidebar-text-color-1', '000000');
         add_post_meta($default_lander, 'svtle-header-color-1', '51b0ef');
+		
 
         // Store our page IDs
         $options = array(
@@ -123,12 +127,12 @@ function lp_install_register_required_plugins() {
 
         // This is an example of how to include a plugin from the WordPress Plugin Repository
         array(
-            'name'      => 'WordPress Leads <span class=\'inbound-install-notice\'> - This <b>free</b> landing page addon will give you the ability to track and manage incoming web leads. Gather advanced Lead Intelligence and close more deals. <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/leads/\'> Learn more about WordPress Leads</a></span>',
+            'name'      => __('WordPress Leads' , INBOUNDNOW_LABEL ) .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will give you the ability to track and manage incoming web leads. Gather advanced Lead Intelligence and close more deals.' , INBOUNDNOW_LABEL ) .' <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/leads/\'> '. __('Learn more about WordPress Leads' , INBOUNDNOW_LABEL ) .'</a></span>',
             'slug'      => 'leads',
             'required'  => false,
         ),
        array(
-           'name'      => 'WordPress Calls to Action <span class=\'inbound-install-notice\'> - This <b>free</b> landing page addon will drive more traffic into your Landing Pages with Targeted Calls to Action in your sites sidebars & content. Create popups to capture visitor attention and convert more leads. <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/cta/\'> Learn more about WordPress Calls to Action</a></span>',
+           'name'      => __('WordPress Calls to Action' , INBOUNDNOW_LABEL ) .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will drive more traffic into your Landing Pages with Targeted Calls to Action in your sites sidebars & content. Create popups to capture visitor attention and convert more leads.' , INBOUNDNOW_LABEL ) . ' <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/cta/\'> ' . __('Learn more about WordPress Calls to Action' , INBOUNDNOW_LABEL ) . '</a></span>',
            'slug'      => 'cta',
            'required'  => false,
        ),
@@ -136,7 +140,7 @@ function lp_install_register_required_plugins() {
     );
 
     // Change this to your theme text domain, used for internationalising strings
-    $theme_text_domain = 'inboundnow';
+    $theme_text_domain = INBOUNDNOW_LABEL;
 
     /**
      * Array of configuration settings. Amend each line as needed.
