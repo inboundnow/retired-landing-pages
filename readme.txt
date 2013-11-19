@@ -5,9 +5,9 @@ Donate link: mailto:Hudson.Atwell@gmail.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: landing pages, inbound marketing, conversion pages, split testing, a b test, a b testing, a/b test, a/b testing, coming soon page, email list, landing page, list building, maintenance page, squeeze page, inbound now, landing-pages, splash pages, cpa, click tracking, goal tracking, analytics, free landing page templates
-Requires at least: 3.4
+Requires at least: 3.6
 Tested up to: 3.5
-Stable Tag: 1.3.1
+Stable Tag: 1.3.5
 
 Create landing pages for your WordPress site. Monitor and improve conversion rates, run A/B split tests, customize your own templates and more.
 
@@ -41,7 +41,7 @@ Recommended form plugins (Gravity forms, Ninja Forms or Contact form 7)
 
 http://www.youtube.com/watch?v=BzcD6PgvLP4
 
-= Developers & Designers = 
+= Developers & Designers =
 
 We built the landing page plugin as a framework! Need A/B testing out of the box implemented for your existing designs? Use WordPress Landing Pages to quickly spin up new landing pages that have all the functionality your clients will need.
 
@@ -69,49 +69,57 @@ The plugin is also fully extendable and has a number of <a href='http://docs.inb
 
 == Changelog ==
 
+= 1.3.5 =
+
+* Added: New Shortcodes! Fancy List and Column shortcodes
+* Added: Added email confirmation support to Inbound Forms tool
+* Added: Added New Welcome Page with Tutorial Video on Getting Started
+* Added: New Debug Tab for faster support requests/debugging
+* Fixed: CSS conflicts with button classes
+
 =  1.3.1 =
- 
+
 * Added: Added InboundNow form creation and management system (beta)
 * Added: Support for InboundNow cross plugin extensions
 * Added: 'Sticky Variations' to global settings.
 * Added: Easier way for extension developers to license their extensions.
 * Added: 'header' setting component to global settings.
 * Fixed: Security issues
-* Improvement: Improved data management for global settings, metaboxes, and extensions. 
+* Improvement: Improved data management for global settings, metaboxes, and extensions.
 
 =  1.2.3 =
- 
-* Fixed: Security issue with vulnerability to sql injection. 
+
+* Fixed: Security issue with vulnerability to sql injection.
 
 =  1.2.1 =
- 
-* Fixed: Issues with shortcodes rendering in wp-admin for variations. 
+
+* Fixed: Issues with shortcodes rendering in wp-admin for variations.
 
 =  1.1.9 =
- 
+
 * Fixed: Issues with navigation menu items breaking on landing pages with the default template selected.
 
 =  1.1.8 =
- 
+
 * Fixed: Issue with post_content not saving for variations.
 * Added: [lp_conversion_area] Shortcode. It renders form conversion area anywhere on landing page
 * Fixed: Restored the ability to delete custom templates from 'Templates' section.
 
 =  1.1.7 =
- 
+
 * Fixed: Issue with extension license keys not validating
 * Fixed: Issue with shortcodes not firing on select core templates
 * Improvement: Converted global settings data array to new easier to read format for development, added in legacy support.
 
 =  1.1.0.1 =
- 
-* Fixed: Variation saves for custom css and custom js. 
-* Fixed: jQuery error related to wysiwyg content formatting. 
+
+* Fixed: Variation saves for custom css and custom js.
+* Fixed: jQuery error related to wysiwyg content formatting.
 
 = 1.0.9.9 =
 * Improved extension metabox loading for quicker load times and optimized meta data storage.
 * Phased out more 'old method' split testing components.
-* Improved .htaccess parsing. 
+* Improved .htaccess parsing.
 * Addressed issue with line breaks being removed from WYSIWYG editors.
 
 = 1.0.9.4 =
@@ -136,7 +144,7 @@ The plugin is also fully extendable and has a number of <a href='http://docs.inb
 
 = 1.0.8.5 =
 
-Providing better conversion and impression tracking for landing pages that are set as homepage. 
+Providing better conversion and impression tracking for landing pages that are set as homepage.
 
 = 1.0.8.4 =
 
@@ -172,19 +180,19 @@ Introducing version control system for extensions.
 
 = 1.0.4.4 =
 
-Migrating store to new location.  Updating version control systems   
+Migrating store to new location.  Updating version control systems
 
 = 1.0.4.2 =
 
-Added new defitions to form standardization parser. Limited .htaccess rewrites to plugin activation to try and mitigate .htaccess corruptions. 
+Added new defitions to form standardization parser. Limited .htaccess rewrites to plugin activation to try and mitigate .htaccess corruptions.
 
 = 1.0.4.1 =
 
-Fixed issue with conversions not recording on some servers by forcing form submittal to wait until ajax has completely finnished loading before continuing to process form.  
+Fixed issue with conversions not recording on some servers by forcing form submittal to wait until ajax has completely finnished loading before continuing to process form.
 
 = 1.0.3.9 =
 
-Fixed issue with plugins and wp core refusing to update on some installations when landing page plugin is activated. 
+Fixed issue with plugins and wp core refusing to update on some installations when landing page plugin is activated.
 
 = 1.0.3.8 =
 
