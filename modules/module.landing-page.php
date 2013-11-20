@@ -4,7 +4,7 @@
 add_action('lp_init', 'inbound_include_template_functions');
 if (!function_exists('inbound_include_template_functions')) {
 	function inbound_include_template_functions(){
-		include_once('shared/functions.templates.php');
+		include_once(LANDINGPAGES_PATH.'shared/functions.templates.php');
 	}
 }
 

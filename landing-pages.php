@@ -3,12 +3,12 @@
 Plugin Name: Landing Pages
 Plugin URI: http://www.inboundnow.com/landing-pages/
 Description: The first true all-in-one Landing Page solution for WordPress, including ongoing conversion metrics, a/b split testing, unlimited design options and so much more!
-Version:  1.3.5
+Version:  1.3.6
 Author: David Wells, Hudson Atwell
 Author URI: http://www.inboundnow.com/
 */
 
-define('LANDINGPAGES_CURRENT_VERSION', '1.3.5' );
+define('LANDINGPAGES_CURRENT_VERSION', '1.3.6' );
 define('LANDINGPAGES_URLPATH', WP_PLUGIN_URL.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 define('LANDINGPAGES_PLUGIN_SLUG', 'landing-pages' );
@@ -17,7 +17,6 @@ define('LANDINGPAGES_STORE_URL', 'http://www.inboundnow.com/landing-pages/' );
 $uploads = wp_upload_dir();
 define('LANDINGPAGES_UPLOADS_PATH', $uploads['basedir'].'/landing-pages/templates/' );
 define('LANDINGPAGES_UPLOADS_URLPATH', $uploads['baseurl'].'/landing-pages/templates/' );
-$current_url = "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]."";
 
 if (is_admin())
 	if(!isset($_SESSION)){@session_start();}

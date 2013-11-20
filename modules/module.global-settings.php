@@ -26,53 +26,53 @@ function lp_get_global_settings()
 		array(
 			'id'  => 'lp_global_settings_main_header',
 			'type'  => 'header',
-			'default'  => '<h4>Landing Pages Core Settings</h4>',
+			'default'  => __('<h4>Landing Pages Core Settings</h4>' , INBOUNDNOW_LABEL ) ,
 			'options' => null
 		),
 		array(
 			'id'  => 'landing-page-permalink-prefix',
-			'label' => 'Default Landing Page Permalink Prefix',
-			'description' => "Enter in the <span style='color:red;'>prefix</span> for landing page URLs (aka permalinks).<br><br>This is the URL Slug that will be in the landing page URL.<br><br> Example: http://www.yoursite.com/<span style='color:red;'>PREFIX</span>/landing-page .  Enter in a single word like 'go'",
+			'label' => __( 'Default Landing Page Permalink Prefix' , INBOUNDNOW_LABEL ),
+			'description' => __("Enter in the <span style='color:red;'>prefix</span> for landing page URLs (aka permalinks).<br><br>This is the URL Slug that will be in the landing page URL.<br><br> Example: http://www.yoursite.com/<span style='color:red;'>PREFIX</span>/landing-page .  Enter in a single word like 'go'" , INBOUNDNOW_LABEL ) ,
 			'type'  => 'text',
 			'default'  => 'go',
 			'options' => null
 		),
 		array(
 			'id'  => 'landing-page-prepopulate-forms',
-			'label' => 'Enable Form Prepopulation',
-			'description' => "With this setting enabled landing pages plugin will remember form input data that the user submits to a form and attempt to pre-populate all other forms with the same user's data when applicable.",
+			'label' =>  __( 'Enable Form Prepopulation' , INBOUNDNOW_LABEL) ,
+			'description' => __("With this setting enabled landing pages plugin will remember form input data that the user submits to a form and attempt to pre-populate all other forms with the same user's data when applicable." , INBOUNDNOW_LABEL ),
 			'type'  => 'radio',
 			'default'  => '1',
 			'options' => array('1'=>'on','0'=>'off')
 		),
 		array(
 			'id'  => 'landing-page-disable-admin-tracking',
-			'label' => 'Disable Admin Impression/Conversion Tracking',
-			'description' => "With this setting enabled landing pages plugin will not record visits and conversions for administrative users that are logged in.",
+			'label' => __('Disable Admin Impression/Conversion Tracking' , INBOUNDNOW_LABEL ) ,
+			'description' => __("With this setting enabled landing pages plugin will not record visits and conversions for administrative users that are logged in." , INBOUNDNOW_LABEL ),
 			'type'  => 'radio',
 			'default'  => '0',
 			'options' => array('1'=>'on','0'=>'off')
 		),
 		array(
 			'id'  => 'landing-page-rotation-halt',
-			'label' => 'Sticky Variations',
-			'description' => "With this setting enabled the landing pages plugin will prevent landing page version a/b rotation for a specific visitor that has viewed the page.<br><br>This pause on the a/b rotation will automatically expire after 30 days.",
+			'label' => __('Sticky Variations' , INBOUNDNOW_LABEL ),
+			'description' => __("With this setting enabled the landing pages plugin will prevent landing page version a/b rotation for a specific visitor that has viewed the page.<br><br>This pause on the a/b rotation will automatically expire after 30 days." , INBOUNDNOW_LABEL ),
 			'type'  => 'radio',
 			'default'  => '0',
 			'options' => array('1'=>'on','0'=>'off')
 		),
 		array(
 			'id'  => 'landing-page-auto-format-forms',
-			'label' => 'Enable Form Standardization',
-			'description' => "With this setting enabled landing pages plugin will clean and standardize all input ids and classnames. Uncheck this setting to disable standardization.",
+			'label' => __('Enable Form Standardization' , INBOUNDNOW_LABEL ),
+			'description' => __("With this setting enabled landing pages plugin will clean and standardize all input ids and classnames. Uncheck this setting to disable standardization." , INBOUNDNOW_LABEL ),
 			'type'  => 'radio',
 			'default'  => '0',
 			'options' => array('1'=>'on','0'=>'off')
 		),
 		array(
 			'id'  => 'main-landing-page-auto-format-forms-retain-elements',
-			'label' => 'Form Standardization Element Whitelist',
-			'description' => "Form standardization strips the conversion area content of html elements. Add the elements you do not want to be stripped to this list.",
+			'label' => __('Form Standardization Element Whitelist' , INBOUNDNOW_LABEL),
+			'description' =>  __("Form standardization strips the conversion area content of html elements. Add the elements you do not want to be stripped to this list." , INBOUNDNOW_LABEL ) ,
 			'type'  => 'textarea',
 			'default'  => '<button><script><textarea><style><input><form><select><label><a><p><b><u><strong><i><img><strong><span><font><h1><h2><h3><center><blockquote><embed><object><small>',
 			'options' => null
@@ -82,10 +82,10 @@ function lp_get_global_settings()
 
 	/* Setup License Keys Tab */
 	$tab_slug = 'lp-license-keys';
-	$lp_global_settings[$tab_slug]['label'] = 'License Keys';
+	$lp_global_settings[$tab_slug]['label'] = __( 'License Keys' , INBOUNDNOW_LABEL );
 
 	/* Setup Extensions Tab */
-	$lp_global_settings['lp-extensions']['label'] = 'Extensions';
+	$lp_global_settings['lp-extensions']['label'] = __( 'Extensions' , INBOUNDNOW_LABEL );
 	$lp_global_settings['lp-extensions']['settings'] = array(
 													array(
 														'id'  => 'lp-ext-header',
@@ -97,7 +97,7 @@ function lp_get_global_settings()
 
 	/* Setup Debug Tab */
 
-	$lp_global_settings['lp-debug']['label'] = 'Debug';
+	$lp_global_settings['lp-debug']['label'] = __( 'Debug' , INBOUNDNOW_LABEL );
 	$lp_global_settings['lp-debug']['settings'] = array(
 													array(
 														'id'  => 'lp-debug-header',
@@ -120,9 +120,9 @@ function lp_add_extension_license_key_header($lp_global_settings)
 	{
 		$lp_global_settings['lp-license-keys']['settings'][] = 	array(
 				'id'  => 'extensions-license-keys-header',
-				'description' => "Head to http://www.inboundnow.com/ to retrieve your license key for this template.",
+				'description' => __( "Head to http://www.inboundnow.com/ to retrieve your license key for this template." , INBOUNDNOW_LABEL ),
 				'type'  => 'header',
-				'default' => '<h3 class="lp_global_settings_header">Extension License Keys</h3>'
+				'default' => '<h3 class="lp_global_settings_header">'. __( 'Extension License Keys' , INBOUNDNOW_LABEL ) .'</h3>'
 		);
 	}
 
@@ -214,7 +214,7 @@ function lp_display_global_settings()
 		$contentht     = esc_textarea( $contentht );
 
 		if ( !is_writable( $htaccess_file ) ) {
-			$content = " <div class=\"error\"><h3>" . __( "Oh no! Your .htaccess is not writable and A/B testing won't work unless you make your .htaccess file writable.", 'inboundnow' ) . "</h3></div>";
+			$content = " <div class=\"error\"><h3>" . __( "Oh no! Your .htaccess is not writable and A/B testing won't work unless you make your .htaccess file writable.", INBOUNDNOW_LABEL ) . "</h3></div>";
 			echo $content;
 			}
 		else {
@@ -289,11 +289,11 @@ function lp_display_global_settings()
 	</script>
 	<div id="php-sql-lp-version" style="display:none;">
 	<div id="inbound-install-status">
-	 <h3>Installation Status</h3>
+	 <h3><?php _e( 'Installation Status' , INBOUNDNOW_LABEL ); ?></h3>
 		  <table  id="lp-wordpress-site-status">
 
 			<tr valign="top">
-			   <th scope="row"><label>PHP Version</label></th>
+			   <th scope="row"><label><?php _e( 'PHP Version' , INBOUNDNOW_LABEL ); ?></label></th>
 				<td class="installation_item_cell">
 					<strong><?php echo phpversion(); ?></strong>
 				</td>
@@ -314,7 +314,7 @@ function lp_display_global_settings()
 				</td>
 			</tr>
 			<tr valign="top">
-			   <th scope="row"><label>MySQL Version</label></th>
+			   <th scope="row"><label><?php _e( 'MySQL Version' , INBOUNDNOW_LABEL ); ?></label></th>
 				<td class="installation_item_cell">
 					<strong><?php echo $wpdb->db_version();?></strong>
 				</td>
@@ -335,7 +335,7 @@ function lp_display_global_settings()
 				</td>
 			</tr>
 			<tr valign="top">
-			   <th scope="row"><label>WordPress Version</label></th>
+			   <th scope="row"><label><?php _e( 'WordPress Version' , INBOUNDNOW_LABEL ); ?></label></th>
 				<td class="installation_item_cell">
 					<strong><?php echo get_bloginfo("version"); ?></strong>
 				</td>
@@ -349,16 +349,16 @@ function lp_display_global_settings()
 						else{
 							?>
 							<img src="<?php echo LANDINGPAGES_URLPATH;?>/images/cross.png"/>
-							<span class="installation_item_message">landing pages requires version X or higher</span>
+							<span class="installation_item_message"><?php _e( 'landing pages requires version X or higher' , INBOUNDNOW_LABEL ); ?></span>
 							<?php
 						}
 					?>
 				</td>
 			</tr>
 			 <tr valign="top">
-			   <th scope="row"><label>Landing Page Version</label></th>
+			   <th scope="row"><label><?php _e( 'Landing Page Version' , INBOUNDNOW_LABEL ); ?></label></th>
 				<td class="installation_item_cell">
-					<strong>Version <?php echo LANDINGPAGES_CURRENT_VERSION;?></strong>
+					<strong><?php _e('Version' , INBOUNDNOW_LABEL); ?> <?php echo LANDINGPAGES_CURRENT_VERSION;?></strong>
 				</td>
 				<td>
 
@@ -372,7 +372,7 @@ function lp_display_global_settings()
 		<div id="htaccess-contents">
 
 		<?php if ($htaccess != "") {
-			echo "<h3>The contents of your .htaccess file:</h3>";
+			echo "<h3>". __('The contents of your .htaccess file' , INBOUNDNOW_LABEL ) .":</h3>";
 			echo $htaccess;
 		}	?>
 		</div>
