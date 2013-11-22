@@ -59,6 +59,8 @@ class InboundShortcodesFields {
 
 			$this->append_output('<div id="_inbound_shortcodes_output" class="hidden">'.$this->shortcode.'</div>');
 			$this->append_output('<div id="_inbound_shortcodes_popup" class="hidden">'.$this->popup.'</div>');
+			$this->append_output('<div id="cpt-form-serialize" class="hidden"></div>');
+
 
 			if( isset( $fields[$this->popup]['no_preview'] ) && $fields[$this->popup]['no_preview'] ) {
 				$this->append_output( "\n" . '<div id="_inbound_shortcodes_preview" class="hidden">false</div>' );
@@ -184,11 +186,11 @@ class InboundShortcodesFields {
 				$parent_row_start .= '<ul class="child-clone-row-form">';
 
 				$this->append_output( $parent_row_start );
-				$count = 0;
+				$count = 1;
 				foreach( $this->child_options as $key => $option ) {
 					$first = $key;
 					$uniquekey = 'inbound_shortcode_' . $first . "_" . $count;
-					$hide_class = ($count > 0) ? 'minimize-class' : '';
+					$hide_class = ($count > 1) ? 'minimize-class' : '';
 					$original_key = $key;
 					$key = 'inbound_shortcode_' . $key;
 					$name = ( isset($option['name'])) ? $option['name'] : '';
@@ -241,7 +243,7 @@ class InboundShortcodesFields {
 
 						case 'select' :
 							$child_output  = $child_row_start;
-							$child_output .= '<select data-field-name="'.$original_key.'" name="'. $uniquekey .'" id="'. $key .'" class="inbound-shortcodes-child-input select inbound-shortcodes-select">';
+							$child_output .= '<select data-field-name="'.$original_key.'" name="'. $uniquekey .'" id="'. $key .'" class="inbound-shortcodes-child-input select inbound-shortcodes-select '.$field_class.'">';
 							foreach( $option['options'] as $value => $option ) {
 								$selected = ( $std == $value ) ? ' selected="selected"' : '';
 								$child_output .= '<option'. $selected .' value="'. $value .'">'. $option .'</option>';

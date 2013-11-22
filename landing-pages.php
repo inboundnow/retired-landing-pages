@@ -17,6 +17,9 @@ define('LANDINGPAGES_STORE_URL', 'http://www.inboundnow.com/landing-pages/' );
 $uploads = wp_upload_dir();
 define('LANDINGPAGES_UPLOADS_PATH', $uploads['basedir'].'/landing-pages/templates/' );
 define('LANDINGPAGES_UPLOADS_URLPATH', $uploads['baseurl'].'/landing-pages/templates/' );
+if (!defined('INBOUNDNOW_LABEL')) {
+define( 'INBOUNDNOW_LABEL', 'inbound_now' ); // language namespace
+}
 
 if (is_admin())
 	if(!isset($_SESSION)){@session_start();}

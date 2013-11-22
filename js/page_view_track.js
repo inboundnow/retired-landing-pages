@@ -1,4 +1,8 @@
  jQuery(document).ready(function($) {
+
+    jQuery('form').each(function(){
+    	jQuery(this).addClass('wpl-track-me');
+	});
  	// Saves variation page views
  	var variation_id = landing_path_info.variation;
  	// Save page view count
@@ -9,10 +13,10 @@
 			action: 'lp_record_impression',
 			current_url: window.location.href,
 			variation_id: variation_id
-			// add date?	
+			// add date?
 		},
 		success: function(user_id){
-			//console.log('LP Page View Fired');	
+			//console.log('LP Page View Fired');
 			   },
 		error: function(MLHttpRequest, textStatus, errorThrown){
 				//alert(MLHttpRequest+' '+errorThrown+' '+textStatus);
@@ -21,4 +25,4 @@
 
 	});
 
- });	
+ });
