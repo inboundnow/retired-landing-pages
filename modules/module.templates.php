@@ -107,10 +107,10 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 		{
 			$columns = array(
 			'cb'        => '<input type="checkbox" />',
-			'template' => 'Template',
-			'description' => 'Description',
-			'category' => 'Category',
-			'version' => 'Current Version'
+			'template' => __( 'Template' , INBOUNDNOW_LABEL ),
+			'description' => __( 'Description' , INBOUNDNOW_LABEL ),
+			'category' => __( 'Category' , INBOUNDNOW_LABEL ),
+			'version' => __( 'Current Version' , INBOUNDNOW_LABEL )
 			
 			);
 			return $columns;
@@ -216,15 +216,15 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 	 
 		function no_items() 
 		{
-			_e( 'No premium templates installed. Templates included in the Landing Pages core plugin will not be listed here.' );
+			_e( 'No premium templates installed. Templates included in the Landing Pages core plugin will not be listed here.' , INBOUNDNOW_LABEL );
 		}
 		
 		function get_bulk_actions() 
 		{
 			$actions = array(
 			
-				'upgrade'    => 'Upgrade',
-				'delete'    => 'Delete',
+				'upgrade'    => __( 'Upgrade' , INBOUNDNOW_LABEL ),
+				'delete'    => __( 'Delete' , INBOUNDNOW_LABEL ),
 				
 			);
 			

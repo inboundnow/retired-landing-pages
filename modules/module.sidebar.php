@@ -9,8 +9,8 @@ function lp_register_sidebars()
 	{
 		register_sidebar(array(
 			'id' => 'lp_sidebar',
-			'name' => __( 'Landing Pages Sidebar' ),
-			'description' => __( 'Landing Pages Sidebar Area: For default and native theme templates only.' ),
+			'name' => __( 'Landing Pages Sidebar' , INBOUNDNOW_LABEL ),
+			'description' => __( 'Landing Pages Sidebar Area: For default and native theme templates only.' , INBOUNDNOW_LABEL),
 			'before_widget' => '<div id="%1$s" class="widget %2$s">',
 			'after_widget' => '</div>',
 			'before_title' => '<h3 class="widget-title">',

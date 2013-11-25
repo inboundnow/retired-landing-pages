@@ -17,9 +17,7 @@ define('LANDINGPAGES_STORE_URL', 'http://www.inboundnow.com/landing-pages/' );
 $uploads = wp_upload_dir();
 define('LANDINGPAGES_UPLOADS_PATH', $uploads['basedir'].'/landing-pages/templates/' );
 define('LANDINGPAGES_UPLOADS_URLPATH', $uploads['baseurl'].'/landing-pages/templates/' );
-if (!defined('INBOUNDNOW_LABEL')) {
-define( 'INBOUNDNOW_LABEL', 'inbound_now' ); // language namespace
-}
+
 
 if (is_admin())
 	if(!isset($_SESSION)){@session_start();}
@@ -31,6 +29,7 @@ switch (is_admin()) :
 		/* loads admin files */
 		include_once('modules/module.javascript-admin.php');
 		include_once('modules/module.activate.php');
+		include_once('modules/module.language-support.php');
 		include_once('modules/module.global-settings.php');
 		include_once('modules/module.clone.php');
 		include_once('modules/module.extension-updater.php');
@@ -88,7 +87,7 @@ function inbound_load_shared_landing_pages(){
 	include_once('shared/inboundnow/inboundnow.extension-updating.php'); // Inboundnow Package Updating
 }
 
-// Conditional check LP active
+/* lagacy - Conditional check LP active */
 function lp_check_active()
 {
 	return 1;
