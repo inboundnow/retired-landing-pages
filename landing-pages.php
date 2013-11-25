@@ -87,3 +87,9 @@ function inbound_load_shared_landing_pages(){
 	include_once('shared/inboundnow/inboundnow.extension-licensing.php'); // Inboundnow Package Licensing
 	include_once('shared/inboundnow/inboundnow.extension-updating.php'); // Inboundnow Package Updating
 }
+
+// Conditional check LP active
+function lp_check_active()
+{
+	return 1;
+}
