@@ -16,15 +16,15 @@ if (is_admin())
 			if(($key = array_search($vid, $variations)) !== false) {
 					unset($variations[$key]);
 			}
-			
+
 			return $variations;
 	}
-	
+
 	/**
 	 * [lp_ab_get_lp_active_status returns if landing page is in rotation or not]
 	 * @param  [OBJ] $post [description]
 	 * @param  [INT] $vid  [description]
-	 * @return [INT] 
+	 * @return [INT]
 	 */
 	function lp_ab_get_lp_active_status($post,$vid=null)
 	{
@@ -36,18 +36,18 @@ if (is_admin())
 			{
 					$variation_status = get_post_meta( $post->ID , 'lp_ab_variation_status-'.$vid , true);
 			}
-			
+
 			if (!is_numeric($variation_status))
 			{
 					return 1;
 			}
 			else
-			{        
+			{
 					return $variation_status;
 			}
 	}
 
-	
+
 	add_action('init','lp_ab_testing_admin_init');
 	function lp_ab_testing_admin_init($hook)
 	{
@@ -906,10 +906,10 @@ add_filter('get_the_title','lp_ab_testing_alter_title_area', 10, 2);
 function lp_ab_testing_alter_title_area( $content , $id = null)
 {
 	global $post;
-	
+
 	if (!isset($post))
 		return $content;
-		
+
 	if ( ( $post->post_type!='landing-page'||is_admin()) || $id != $post->ID)
 		return $content;
 
@@ -940,25 +940,3 @@ function lp_ab_testing_customizer_enqueue($post)
 	wp_localize_script( 'lp_ab_testing_customizer_js', 'ab_customizer', array( 'lp_id' => $post->ID ,'permalink' => $permalink , 'randomstring' => $randomstring));
 	wp_enqueue_style('lp_ab_testing_customizer_css', LANDINGPAGES_URLPATH . 'css/customizer-ab-testing.css');
 }
-
-add_action('lp_frontend_editor_screen_pre','ab_testing_frontend_editor_screen_pre');
-function ab_testing_frontend_editor_screen_pre($post)
-{
-	$lp_variation = (isset($_GET['lp-variation-id'])) ? $_GET['lp-variation-id'] : '0';
-	$letter = lp_ab_key_to_letter($lp_variation);
-	echo '<div id="current_variation_id">'.$lp_variation.'</div>';
-	?>
-	<script type='text/javascript'>
-	jQuery(document).ready(function ($) {
-		//append letter
-		var letterexists = jQuery(".variation-letter-top").length;
-		console.log(letterexists);
-		if (letterexists === 0){
-		jQuery('#lp-frontend-options-container h1:first').prepend('<span class="variation-letter-top"><?php echo $letter; ?></span>');
-		}
-	});
-	</script>
-	<?php
-}
-
-?>

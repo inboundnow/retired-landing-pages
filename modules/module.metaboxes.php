@@ -155,11 +155,11 @@ function lp_landing_page_header_area()
 	$main_title = apply_filters('lp_edit_main_headline', $main_title, 1);
 	$varaition_notes = apply_filters('lp_edit_varaition_notes', $varaition_notes, 1);
 	$varaition_id = apply_filters( 'lp_display_notes_input_id' , 'lp-variation-notes' );
-	
+
 	echo "<div id='lp-notes-area'>";
-	echo "<span id='add-lp-notes'>". __('Notes' , INBOUNDNOW_LABEL ) .":</span><input placeholder='". __('Add Notes to your variation. Example: This version is testing a green submit button ' , INBOUNDNOW_LABEL ) ."' type='text' class='lp-notes' name='{$varaition_id}' id='{$varaition_id}' value='{$variation_notes}' size='30'>";
+	echo "<span id='add-lp-notes'>". __('Notes' , INBOUNDNOW_LABEL ) .":</span><input placeholder='". __('Add Notes to your variation. Example: This version is testing a green submit button ' , INBOUNDNOW_LABEL ) ."' type='text' class='lp-notes' name='{$varaition_id}' id='{$varaition_id}' value='{$varaition_notes}' size='30'>";
 	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="'. __('Primary Headline Goes here. This will be visible on the page' , INBOUNDNOW_LABEL ) .'" id="lp-main-headline" value="'.$main_title.'" title="'. __('This headline will appear in the landing page template.' , INBOUNDNOW_LABEL ) .'"></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
-   
+
    // Frontend params
     if(isset($_REQUEST['frontend']) && $_REQUEST['frontend'] == 'true') {
     echo('<input type="hidden" name="frontend" id="frontend-on" value="true" />');
@@ -252,7 +252,7 @@ add_action('admin_notices', 'lp_display_meta_box_select_template_container');
 // Render select template box
 function lp_display_meta_box_select_template_container() {
 	global $post;
-	
+
 	$current_url = "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]."";
 
 	if (isset($post)&&$post->post_type!='landing-page'||!isset($post)){ return false; }
@@ -348,7 +348,7 @@ function lp_display_meta_box_select_template_container() {
 				<p>
 					<div id="template-title"><?php echo $data['info']['label']; ?></div>
 					<a href='#' label='<?php echo $data['info']['label']; ?>' id='<?php echo $this_extension; ?>' class='lp_select_template'><?php _e( 'Select' , INBOUNDNOW_LABEL ); ?> </a> |
-					<a class='thickbox <?php echo $cat_slug;?>' href='<?php echo $data['info']['demo'];?>' id='lp_preview_this_template'><?php _e( 'Preview' , INBOUNTNOW_LABEL); ?></a>
+					<a class='thickbox <?php echo $cat_slug;?>' href='<?php echo $data['info']['demo'];?>' id='lp_preview_this_template'><?php _e( 'Preview' , INBOUNDNOW_LABEL); ?></a>
 				</p>
 				</div>
 			</div>

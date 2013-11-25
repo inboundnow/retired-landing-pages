@@ -17,8 +17,5 @@ function lp_add_menu()
 
 		add_submenu_page('edit.php?post_type=landing-page', __('Global Settings' , INBOUNDNOW_LABEL ), __('Global Settings' , INBOUNDNOW_LABEL ), 'manage_options', 'lp_global_settings','lp_display_global_settings');
 
-		add_submenu_page('edit.php?post_type=landing-page', __('Editor', INBOUNDNOW_LABEL ) , __('Editor' , INBOUNDNOW_LABEL ), 'manage_options', 'lp-frontend-editor', 'lp_frontend_editor_screen');
-
 	}
 }
-	
