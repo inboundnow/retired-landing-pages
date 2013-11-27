@@ -15,7 +15,7 @@ function lp_display_thumbnail_metabox() {
 
 		add_meta_box(
 		'lp-thumbnail-sidebar-preview',
-		__( 'Template Preview', INBOUNDNOW_LABEL ),
+		__( 'Template Preview', LANDINGPAGES_TEXT_DOMAIN),
 		'lp_thumbnail_metabox',
 		'landing-page' ,
 		'side',
@@ -41,7 +41,7 @@ function lp_thumbnail_metabox() {
 					<td>
 						<?php
 
-							echo "<a href='$permalink' target='_blank' ><img src='$thumbnail' style='width:250px;height:250px;' title='". __( 'Preveiw this theme' , INBOUNDNOW_LABEL ) ." ,  ({$template})'></a>";
+							echo "<a href='$permalink' target='_blank' ><img src='$thumbnail' style='width:250px;height:250px;' title='". __( 'Preveiw this theme' , LANDINGPAGES_TEXT_DOMAIN) ." ,  ({$template})'></a>";
 						?>
 					</td>
 				</tr>
@@ -56,7 +56,7 @@ function lp_thumbnail_metabox() {
 
 add_action('add_meta_boxes', 'lp_display_meta_box_lp_conversion_area');
 function lp_display_meta_box_lp_conversion_area(){
-	add_meta_box( WYSIWYG_META_BOX_ID, __('Landing Page Form or Conversion Button', INBOUNDNOW_LABEL ), 'lp_meta_box_conversion_area', 'landing-page', 'normal', 'high' );
+	add_meta_box( WYSIWYG_META_BOX_ID, __('Landing Page Form or Conversion Button', LANDINGPAGES_TEXT_DOMAIN), 'lp_meta_box_conversion_area', 'landing-page', 'normal', 'high' );
 	//add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
 }
 
@@ -115,7 +115,7 @@ function lp_meta_box_conversion_area(){
 
 	//Clear The Room!
 	echo "<div style='clear:both; display:block;'></div>";
-	echo "<div style='width:100%;text-align:right;margin-top:11px;'><div class='lp_tooltip'  title=\"". __('To help track conversions Landing Pages Plugin will automatically add a tracking class to forms. If you would like to track a link add this class to it' , INBOUNDNOW_LABEL ) ." class='wpl-track-me-link'\" ></div></div>";
+	echo "<div style='width:100%;text-align:right;margin-top:11px;'><div class='lp_tooltip'  title=\"". __('To help track conversions Landing Pages Plugin will automatically add a tracking class to forms. If you would like to track a link add this class to it' , LANDINGPAGES_TEXT_DOMAIN) ." class='wpl-track-me-link'\" ></div></div>";
 
 }
 
@@ -157,8 +157,8 @@ function lp_landing_page_header_area()
 	$varaition_id = apply_filters( 'lp_display_notes_input_id' , 'lp-variation-notes' );
 
 	echo "<div id='lp-notes-area'>";
-	echo "<span id='add-lp-notes'>". __('Notes' , INBOUNDNOW_LABEL ) .":</span><input placeholder='". __('Add Notes to your variation. Example: This version is testing a green submit button ' , INBOUNDNOW_LABEL ) ."' type='text' class='lp-notes' name='{$varaition_id}' id='{$varaition_id}' value='{$varaition_notes}' size='30'>";
-	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="'. __('Primary Headline Goes here. This will be visible on the page' , INBOUNDNOW_LABEL ) .'" id="lp-main-headline" value="'.$main_title.'" title="'. __('This headline will appear in the landing page template.' , INBOUNDNOW_LABEL ) .'"></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
+	echo "<span id='add-lp-notes'>". __('Notes' , LANDINGPAGES_TEXT_DOMAIN) .":</span><input placeholder='". __('Add Notes to your variation. Example: This version is testing a green submit button ' , LANDINGPAGES_TEXT_DOMAIN) ."' type='text' class='lp-notes' name='{$varaition_id}' id='{$varaition_id}' value='{$varaition_notes}' size='30'>";
+	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="'. __('Primary Headline Goes here. This will be visible on the page' , LANDINGPAGES_TEXT_DOMAIN) .'" id="lp-main-headline" value="'.$main_title.'" title="'. __('This headline will appear in the landing page template.' , LANDINGPAGES_TEXT_DOMAIN) .'"></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
 
    // Frontend params
     if(isset($_REQUEST['frontend']) && $_REQUEST['frontend'] == 'true') {
@@ -204,7 +204,7 @@ add_filter( 'enter_title_here', 'lp_change_enter_title_text', 10, 2 );
 function lp_change_enter_title_text( $text, $post ) {
 	if ($post->post_type=='landing-page')
 	{
-        return __( 'Enter Landing Page Description' , INBOUNDNOW_LABEL );
+        return __( 'Enter Landing Page Description' , LANDINGPAGES_TEXT_DOMAIN);
 	}
 	else
 	{
@@ -218,7 +218,7 @@ function add_custom_meta_box_select_templates() {
 
 	add_meta_box(
 		'lp_metabox_select_template', // $id
-		__( 'Landing Page Templates', INBOUNDNOW_LABEL ),
+		__( 'Landing Page Templates', LANDINGPAGES_TEXT_DOMAIN),
 		'lp_display_meta_box_select_template', // $callback
 		'landing-page', // $page
 		'normal', // $context
@@ -240,7 +240,7 @@ function lp_display_meta_box_select_template() {
 	echo "<input type='hidden' name='lp_lp_custom_fields_nonce' value='".wp_create_nonce('lp-nonce')."' />";
 	?>
 
-	<div id="lp_template_change"><h2><a class="button-primary" id="lp-change-template-button"><?php _e( 'Choose Another Template' , INBOUNDNOW_LABEL ); ?></a></div>
+	<div id="lp_template_change"><h2><a class="button-primary" id="lp-change-template-button"><?php _e( 'Choose Another Template' , LANDINGPAGES_TEXT_DOMAIN); ?></a></div>
 	<input type='hidden' id='lp_select_template' name='<?php echo $name; ?>' value='<?php echo $template; ?>'>
 		<div id="template-display-options"></div>
 
@@ -275,11 +275,11 @@ function lp_display_meta_box_select_template_container() {
 
 	echo "<div class='lp-template-selector-container' style='{$toggle}'>";
 	echo "<div class='lp-selection-heading'>";
-	echo "<h1>". __( 'Select Your Landing Page Template!' , INBOUNDNOW_LABEL ) ."</h1>";
-	echo '<a class="button-secondary" style="display:none;" id="lp-cancel-selection">'. __('Cancel Template Change' , INBOUNDNOW_LABEL ) .'</a>';
+	echo "<h1>". __( 'Select Your Landing Page Template!' , LANDINGPAGES_TEXT_DOMAIN) ."</h1>";
+	echo '<a class="button-secondary" style="display:none;" id="lp-cancel-selection">'. __('Cancel Template Change' , LANDINGPAGES_TEXT_DOMAIN) .'</a>';
 	echo "</div>";
 		echo '<ul id="template-filter" >';
-			echo '<li class="button-primary button"><a href="#" data-filter="*">'. __( 'All' , INBOUNDNOW_LABEL ) .'</a></li>';
+			echo '<li class="button-primary button"><a href="#" data-filter="*">'. __( 'All' , LANDINGPAGES_TEXT_DOMAIN) .'</a></li>';
 			$categories = array();
 			foreach ($extension_data_cats as $cat)
 			{
@@ -347,8 +347,8 @@ function lp_display_meta_box_select_template_container() {
 				</a>
 				<p>
 					<div id="template-title"><?php echo $data['info']['label']; ?></div>
-					<a href='#' label='<?php echo $data['info']['label']; ?>' id='<?php echo $this_extension; ?>' class='lp_select_template'><?php _e( 'Select' , INBOUNDNOW_LABEL ); ?> </a> |
-					<a class='thickbox <?php echo $cat_slug;?>' href='<?php echo $data['info']['demo'];?>' id='lp_preview_this_template'><?php _e( 'Preview' , INBOUNDNOW_LABEL); ?></a>
+					<a href='#' label='<?php echo $data['info']['label']; ?>' id='<?php echo $this_extension; ?>' class='lp_select_template'><?php _e( 'Select' , LANDINGPAGES_TEXT_DOMAIN); ?> </a> |
+					<a class='thickbox <?php echo $cat_slug;?>' href='<?php echo $data['info']['demo'];?>' id='lp_preview_this_template'><?php _e( 'Preview' , LANDINGPAGES_TEXT_DOMAIN); ?></a>
 				</p>
 				</div>
 			</div>
@@ -357,7 +357,7 @@ function lp_display_meta_box_select_template_container() {
 	echo '</div>';
 	echo "<div class='clear'></div>";
 	echo "</div>";
-	echo "<div style='display:none;' class='currently_selected'>". __( 'This is Currently Selected' , INBOUNDNOW_LABEL ) ."</a></div>";
+	echo "<div style='display:none;' class='currently_selected'>". __( 'This is Currently Selected' , LANDINGPAGES_TEXT_DOMAIN) ."</a></div>";
 }
 
 // Custom CSS Widget
@@ -365,13 +365,13 @@ add_action('add_meta_boxes', 'add_custom_meta_box_lp_custom_css');
 add_action('save_post', 'landing_pages_save_custom_css');
 
 function add_custom_meta_box_lp_custom_css() {
-   add_meta_box('lp_3_custom_css', __( 'Custom CSS' , INBOUNDNOW_LABEL ) , 'lp_custom_css_input', 'landing-page', 'normal', 'low');
+   add_meta_box('lp_3_custom_css', __( 'Custom CSS' , LANDINGPAGES_TEXT_DOMAIN) , 'lp_custom_css_input', 'landing-page', 'normal', 'low');
 }
 
 function lp_custom_css_input() {
 	global $post;
 
-	_e("<em>Custom CSS may be required to remove sidebars, increase the widget of the post content container to 100%, and sometimes to manually remove comment boxes.</em>" , INBOUNDNOW_LABEL );
+	_e("<em>Custom CSS may be required to remove sidebars, increase the widget of the post content container to 100%, and sometimes to manually remove comment boxes.</em>" , LANDINGPAGES_TEXT_DOMAIN);
 	echo '<input type="hidden" name="lp-custom-css-noncename" id="lp_custom_css_noncename" value="'.wp_create_nonce(basename(__FILE__)).'" />';
 	$custom_css_name = apply_filters('lp_custom_css_name','lp-custom-css');
 	echo '<textarea name="'.$custom_css_name.'" id="lp-custom-css" rows="5" cols="30" style="width:100%;">'.get_post_meta($post->ID,$custom_css_name,true).'</textarea>';
@@ -398,7 +398,7 @@ add_action('add_meta_boxes', 'add_custom_meta_box_lp_custom_js');
 add_action('save_post', 'landing_pages_save_custom_js');
 
 function add_custom_meta_box_lp_custom_js() {
-   add_meta_box('lp_3_custom_js', __('Custom JS' , INBOUNDNOW_LABEL ) , 'lp_custom_js_input', 'landing-page', 'normal', 'low');
+   add_meta_box('lp_3_custom_js', __('Custom JS' , LANDINGPAGES_TEXT_DOMAIN) , 'lp_custom_js_input', 'landing-page', 'normal', 'low');
 }
 
 function lp_custom_js_input() {
@@ -430,7 +430,7 @@ function landing_pages_save_custom_js($post_id) {
 add_action('add_meta_boxes', 'add_custom_meta_box_lp_conversion_log');
 
 function add_custom_meta_box_lp_conversion_log() {
-   add_meta_box('lp_conversion_log_metabox', __( 'Lead Captures' , INBOUNDNOW_LABEL ) , 'lp_conversion_log_metabox', 'landing-page', 'normal', 'low');
+   add_meta_box('lp_conversion_log_metabox', __( 'Lead Captures' , LANDINGPAGES_TEXT_DOMAIN) , 'lp_conversion_log_metabox', 'landing-page', 'normal', 'low');
 }
 
 function lp_conversion_log_metabox() {
@@ -591,12 +591,12 @@ function lp_conversion_log_metabox() {
 				case 'email':
 					return "<a href='mailto:".$item[ $column_name ]."'>".$item[ $column_name ]."</a>";
 				case 'details':
-					echo '<a href="' . 	LANDINGPAGES_URLPATH.'modules/module.lead-splash.php?lead_id=' . $item[ 'ID' ] . '&post_id=' . $post->ID . '&height=400&width=600&TB_iframe=true" class="thickbox">' . __( 'View Lead' ,INBOUNDNOW_LABEL ) .'</a>';
+					echo '<a href="' . 	LANDINGPAGES_URLPATH.'modules/module.lead-splash.php?lead_id=' . $item[ 'ID' ] . '&post_id=' . $post->ID . '&height=400&width=600&TB_iframe=true" class="thickbox">' . __( 'View Lead' ,LANDINGPAGES_TEXT_DOMAIN) .'</a>';
 					echo '&nbsp;&nbsp;';
 					//print_r($item);
 					if ($item[ 'first_time' ]==1)
 					{
-						echo '<img src="'.LANDINGPAGES_URLPATH.'images/new-lead.png" title="' . __( 'First timer!' , INBOUNDNOW_LABEL ) .'" style="float:right;">';
+						echo '<img src="'.LANDINGPAGES_URLPATH.'images/new-lead.png" title="' . __( 'First timer!' , LANDINGPAGES_TEXT_DOMAIN) .'" style="float:right;">';
 					}
 					do_action('lp_lead_table_data_is_details_column',$item);
 					return;
@@ -616,7 +616,7 @@ function lp_conversion_log_metabox() {
 
 		function no_items()
 		{
-			_e( 'No conversions recorded yet...' , INBOUNDNOW_LABEL);
+			_e( 'No conversions recorded yet...' , LANDINGPAGES_TEXT_DOMAIN);
 		}
 
 		function get_bulk_actions()
@@ -633,7 +633,7 @@ function lp_conversion_log_metabox() {
 
 	}
 	echo '<div id="leads-table-container">';
-	echo '<h2 id="convert-header">'. __( 'Conversion logs:' , INBOUNDNOW_LABEL) .'</h2>';
+	echo '<h2 id="convert-header">'. __( 'Conversion logs:' , LANDINGPAGES_TEXT_DOMAIN) .'</h2>';
 	echo '<div id="leads-table-container-inside">';
 	$myListTable = new LP_LEAD_LOG();
 	$myListTable->prepare_items();
@@ -670,7 +670,7 @@ function lp_generate_meta()
 			//echo $key."<br>";
 			add_meta_box(
 				"lp_{$id}_custom_meta_box", // $id
-				__( "<small>$template_name Options:</small>", INBOUNDNOW_LABEL ),
+				__( "<small>$template_name Options:</small>", LANDINGPAGES_TEXT_DOMAIN),
 				'lp_show_metabox', // $callback
 				'landing-page', // post-type
 				'normal', // $context
@@ -695,7 +695,7 @@ function lp_generate_meta()
 			//echo $key."<br>";
 			add_meta_box(
 				"lp_{$id}_custom_meta_box", // $id
-				__( "$name", INBOUNDNOW_LABEL ),
+				__( "$name", LANDINGPAGES_TEXT_DOMAIN),
 				'lp_show_metabox', // $callback
 				'landing-page', // post-type
 				$position , // $context

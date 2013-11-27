@@ -9,13 +9,13 @@ function lp_add_menu()
 	if (current_user_can('manage_options'))
 	{
 
-		add_submenu_page('edit.php?post_type=landing-page', __('Forms' , INBOUNDNOW_LABEL ), __('Create Forms' , INBOUNDNOW_LABEL ), 'manage_options', 'inbound-forms-redirect',100);
+		add_submenu_page('edit.php?post_type=landing-page', __('Forms' , LANDINGPAGES_TEXT_DOMAIN), __('Create Forms' , LANDINGPAGES_TEXT_DOMAIN), 'manage_options', 'inbound-forms-redirect',100);
 
-		add_submenu_page('edit.php?post_type=landing-page',__('Templates' , INBOUNDNOW_LABEL ), __('Manage Templates' , INBOUNDNOW_LABEL ), 'manage_options', 'lp_manage_templates','lp_manage_templates',100);
+		add_submenu_page('edit.php?post_type=landing-page',__('Templates' , LANDINGPAGES_TEXT_DOMAIN), __('Manage Templates' , LANDINGPAGES_TEXT_DOMAIN), 'manage_options', 'lp_manage_templates','lp_manage_templates',100);
 
-		add_submenu_page('edit.php?post_type=landing-page', __('Get Addons' , INBOUNDNOW_LABEL ), __('Get Addons' , INBOUNDNOW_LABEL ), 'manage_options', 'lp_store','lp_store_display',100);
+		add_submenu_page('edit.php?post_type=landing-page', __('Get Addons' , LANDINGPAGES_TEXT_DOMAIN), __('Get Addons' , LANDINGPAGES_TEXT_DOMAIN), 'manage_options', 'lp_store','lp_store_display',100);
 
-		add_submenu_page('edit.php?post_type=landing-page', __('Global Settings' , INBOUNDNOW_LABEL ), __('Global Settings' , INBOUNDNOW_LABEL ), 'manage_options', 'lp_global_settings','lp_display_global_settings');
+		add_submenu_page('edit.php?post_type=landing-page', __('Global Settings' , LANDINGPAGES_TEXT_DOMAIN), __('Global Settings' , LANDINGPAGES_TEXT_DOMAIN), 'manage_options', 'lp_global_settings','lp_display_global_settings');
 
 	}
 }
