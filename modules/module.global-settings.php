@@ -590,7 +590,8 @@ function lp_save_global_settings()
 					$api_params = array(
 						'edd_action'=> 'activate_license',
 						'license' 	=> $field['new_value'],
-						'item_name' =>  $field['slug'] // the name of our product in EDD
+						'item_name' =>  $field['slug'] ,
+						'cache_bust'=> substr(md5(rand()),0,7)
 					);
 					//print_r($api_params);
 
@@ -637,7 +638,8 @@ function lp_save_global_settings()
 					$api_params = array(
 						'edd_action'=> 'activate_license',
 						'license' 	=> $field['new_value'],
-						'item_name' =>  $field['slug'] // the name of our product in EDD
+						'item_name' =>  $field['slug'] ,
+						'cache_bust'=> substr(md5(rand()),0,7)				
 					);
 
 					// Call the custom API.
@@ -853,7 +855,8 @@ function lp_check_license_status($field)
 			'edd_action' => 'check_license',
 			'license' => $license_key,
 			'key' => $license_key,
-			'item_name' => urlencode( $field['slug'] )
+			'item_name' => urlencode( $field['slug'] ),
+			'cache_bust'=> substr(md5(rand()),0,7)
 		);
 
 		// Call the custom API.
