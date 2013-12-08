@@ -11,24 +11,24 @@ function landing_page_activate($wp = '3.6', $php = '5.2.4', $cta = '1.1.1', $lea
 	{
 	    $flag = 'PHP';
 	    $version = 'PHP' == $flag ? $php : $wp;
-		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires'.$flag.'  version '.$php.' or greater.</p>' , INBOUNDNOW_LABEL ) , __( 'Plugin Activation Error' , INBOUNDNOW_LABEL ) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
+		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires'.$flag.'  version '.$php.' or greater.</p>' , LANDINGPAGES_TEXT_DOMAIN) , __( 'Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
 		deactivate_plugins( basename( __FILE__ ) );
 	}
 	elseif ( version_compare( $wp_version, $wp, '<' ) )
 	{
 	    $flag = 'WordPress';
-	    wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires'.$flag.'  version '.$wp.' or greater.</p>' , INBOUNDNOW_LABEL ), __('Plugin Activation Error' , INBOUNDNOW_LABEL ),  array( 'response'=>200, 'back_link'=>TRUE ) );
+	    wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires'.$flag.'  version '.$wp.' or greater.</p>' , LANDINGPAGES_TEXT_DOMAIN), __('Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN),  array( 'response'=>200, 'back_link'=>TRUE ) );
 	    deactivate_plugins( basename( __FILE__ ) );
 	}
 	elseif (defined('WP_CTA_CURRENT_VERSION') && version_compare( WP_CTA_CURRENT_VERSION, $cta, '<' ))
 	{
-		$flag = __('WordPress Calls to Action' , INBOUNDNOW_LABEL);
-		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version '.$cta.' or greater. <br><br>Please Update WordPress Call to Action Plugin to update WordPress Landing Pages</p>' , INBOUNDNOW_LABEL ) , __('Plugin Activation Error' , INBOUNDNOW_LABEL) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
+		$flag = __('WordPress Calls to Action' , LANDINGPAGES_TEXT_DOMAIN);
+		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version '.$cta.' or greater. <br><br>Please Update WordPress Call to Action Plugin to update WordPress Landing Pages</p>' , LANDINGPAGES_TEXT_DOMAIN) , __('Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
 	}
 	elseif (defined('LEADS_CURRENT_VERSION') && version_compare( LEADS_CURRENT_VERSION, $leads, '<' ))
 	{
 		$flag = 'WordPress Leads';
-		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version '.$leads.' or greater. <br><br>Please Update WordPress Leads Plugin to update WordPress Landing Pages</p>' , INBOUDNOW_LABEL ) , __( 'Plugin Activation Error' , INBOUNDNOW_LABEL ) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
+		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version '.$leads.' or greater. <br><br>Please Update WordPress Leads Plugin to update WordPress Landing Pages</p>' , INBOUDNOW_LABEL ) , __( 'Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
 	}
 	else
 	{

@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('INBOUNDNOW_LABEL'))
-	define( 'INBOUNDNOW_LABEL', 'inbound_now' ); 
+if (!defined('LANDINGPAGES_TEXT_DOMAIN'))
+	define( 'LANDINGPAGES_TEXT_DOMAIN', 'inbound_now' ); 
 	
-load_plugin_textdomain(INBOUNDNOW_LABEL,false, LANDINGPAGES_PATH . 'shared/language/' );
+load_plugin_textdomain(LANDINGPAGES_TEXT_DOMAIN,false, LANDINGPAGES_PATH . 'shared/language/' );

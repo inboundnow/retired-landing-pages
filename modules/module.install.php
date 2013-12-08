@@ -17,8 +17,8 @@ function inbound_create_default_post_type(){
 	{
         $default_lander = wp_insert_post(
                 array(
-                    'post_title'     => __( 'A/B Testing Landing Page Example' , INBOUNDNOW_LABEL ),
-                    'post_content'   => __( '<p>This is the first paragraph of your landing page where you want to draw the viewer in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>' , INBOUNDNOW_LABEL ),
+                    'post_title'     => __( 'A/B Testing Landing Page Example' , LANDINGPAGES_TEXT_DOMAIN),
+                    'post_content'   => __( '<p>This is the first paragraph of your landing page where you want to draw the viewer in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>' , LANDINGPAGES_TEXT_DOMAIN),
                     'post_status'    => 'publish',
                     'post_author'    => $current_user->ID,
                     'post_type'      => 'landing-page',
@@ -27,14 +27,14 @@ function inbound_create_default_post_type(){
             );
 			
         // Variation A
-        add_post_meta($default_lander, 'lp-main-headline', __( 'Main Catchy Headline (A)' , INBOUNDNOW_LABEL ) );
+        add_post_meta($default_lander, 'lp-main-headline', __( 'Main Catchy Headline (A)' , LANDINGPAGES_TEXT_DOMAIN) );
         add_post_meta($default_lander, 'lp-selected-template', 'svtle');
-        add_post_meta($default_lander, 'lp-conversion-area', '<h2>'.__( 'Form a' , INBOUNDNOW_LABEL ) .'</h2><form action="" method="post">'. __( 'First Name' , INBOUNDNOW_LABEL ) .': <input name="first-name" type="text" /><br>'. __('Last Name' , INBOUNDNOW_LABEL ) .': <input name="last-name" type="text" /><br>'.__('Email' , INBOUNDNOW_LABEL) .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , INBOUNDNOW_LABEL ).'" /></form>' );
+        add_post_meta($default_lander, 'lp-conversion-area', '<h2>'.__( 'Form a' , LANDINGPAGES_TEXT_DOMAIN) .'</h2><form action="" method="post">'. __( 'First Name' , LANDINGPAGES_TEXT_DOMAIN) .': <input name="first-name" type="text" /><br>'. __('Last Name' , LANDINGPAGES_TEXT_DOMAIN) .': <input name="last-name" type="text" /><br>'.__('Email' , LANDINGPAGES_TEXT_DOMAIN) .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , LANDINGPAGES_TEXT_DOMAIN).'" /></form>' );
        
 		// Varaition B
-        add_post_meta($default_lander, 'lp-main-headline-1', __('Main Catchy Headline Two (B)' , INBOUNDNOW_LABEL ) );
+        add_post_meta($default_lander, 'lp-main-headline-1', __('Main Catchy Headline Two (B)' , LANDINGPAGES_TEXT_DOMAIN) );
         add_post_meta($default_lander, 'lp-selected-template-1', 'svtle');
-        add_post_meta($default_lander, 'landing-page-myeditor-1', '<h2>'.__( 'Form B' , INBOUNDNOW_LABEL ) .'</h2><form action="" method="post">'. __( 'First Name' , INBOUNDNOW_LABEL ) .': <input name="first-name" type="text" /><br>'. __('Last Name' , INBOUNDNOW_LABEL ) .': <input name="last-name" type="text" /><br>'.__('Email' , INBOUNDNOW_LABEL) .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , INBOUNDNOW_LABEL ).'" /></form>' , INBOUNDNOW_LABEL );
+        add_post_meta($default_lander, 'landing-page-myeditor-1', '<h2>'.__( 'Form B' , LANDINGPAGES_TEXT_DOMAIN) .'</h2><form action="" method="post">'. __( 'First Name' , LANDINGPAGES_TEXT_DOMAIN) .': <input name="first-name" type="text" /><br>'. __('Last Name' , LANDINGPAGES_TEXT_DOMAIN) .': <input name="last-name" type="text" /><br>'.__('Email' , LANDINGPAGES_TEXT_DOMAIN) .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , LANDINGPAGES_TEXT_DOMAIN).'" /></form>' , LANDINGPAGES_TEXT_DOMAIN);
         add_post_meta($default_lander, 'content-1', '<p>(Version B) This is the first paragraph of your landing page where you want to draw the viewer in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>');
 
         // Add A/B Testing meta
@@ -129,12 +129,12 @@ function lp_install_register_required_plugins() {
 
         // This is an example of how to include a plugin from the WordPress Plugin Repository
         array(
-            'name'      => __('WordPress Leads' , INBOUNDNOW_LABEL ) .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will give you the ability to track and manage incoming web leads. Gather advanced Lead Intelligence and close more deals.' , INBOUNDNOW_LABEL ) .' <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/leads/\'> '. __('Learn more about WordPress Leads' , INBOUNDNOW_LABEL ) .'</a></span>',
+            'name'      => __('WordPress Leads' , LANDINGPAGES_TEXT_DOMAIN) .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will give you the ability to track and manage incoming web leads. Gather advanced Lead Intelligence and close more deals.' , LANDINGPAGES_TEXT_DOMAIN) .' <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/leads/\'> '. __('Learn more about WordPress Leads' , LANDINGPAGES_TEXT_DOMAIN) .'</a></span>',
             'slug'      => 'leads',
             'required'  => false,
         ),
        array(
-           'name'      => __('WordPress Calls to Action' , INBOUNDNOW_LABEL ) .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will drive more traffic into your Landing Pages with Targeted Calls to Action in your sites sidebars & content. Create popups to capture visitor attention and convert more leads.' , INBOUNDNOW_LABEL ) . ' <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/cta/\'> ' . __('Learn more about WordPress Calls to Action' , INBOUNDNOW_LABEL ) . '</a></span>',
+           'name'      => __('WordPress Calls to Action' , LANDINGPAGES_TEXT_DOMAIN) .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will drive more traffic into your Landing Pages with Targeted Calls to Action in your sites sidebars & content. Create popups to capture visitor attention and convert more leads.' , LANDINGPAGES_TEXT_DOMAIN) . ' <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/cta/\'> ' . __('Learn more about WordPress Calls to Action' , LANDINGPAGES_TEXT_DOMAIN) . '</a></span>',
            'slug'      => 'cta',
            'required'  => false,
        ),
@@ -142,7 +142,7 @@ function lp_install_register_required_plugins() {
     );
 
     // Change this to your theme text domain, used for internationalising strings
-    $theme_text_domain = INBOUNDNOW_LABEL;
+    $theme_text_domain = LANDINGPAGES_TEXT_DOMAIN;
 
     /**
      * Array of configuration settings. Amend each line as needed.

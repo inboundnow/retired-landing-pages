@@ -49,24 +49,24 @@ class LANDINGPAGES_Welcome {
 	public function admin_menus() {
 		// About Page
 		add_dashboard_page(
-			__( 'Welcome to WordPress Landing Pages', INBOUNDNOW_LABEL ),
-			__( 'Welcome to WordPress Landing Pages', INBOUNDNOW_LABEL ),
+			__( 'Welcome to WordPress Landing Pages', LANDINGPAGES_TEXT_DOMAIN),
+			__( 'Welcome to WordPress Landing Pages', LANDINGPAGES_TEXT_DOMAIN),
 			$this->minimum_capability,
 			'lp-quick-start',
 			array( $this, 'quick_start_screen' )
 		);
 		// About InboundNow Page
 		add_dashboard_page(
-			__( 'About the Inbound Now Marketing Platform', INBOUNDNOW_LABEL ),
-			__( 'About the Inbound Now Marketing Platform', INBOUNDNOW_LABEL ),
+			__( 'About the Inbound Now Marketing Platform', LANDINGPAGES_TEXT_DOMAIN),
+			__( 'About the Inbound Now Marketing Platform', LANDINGPAGES_TEXT_DOMAIN),
 			$this->minimum_capability,
 			'about-inboundnow',
 			array( $this, 'about_inboundnow_screen' )
 		);
 		// Developer Page
 		add_dashboard_page(
-			__( 'Developers and Designers', INBOUNDNOW_LABEL ),
-			__( 'Developers and Designers', INBOUNDNOW_LABEL ),
+			__( 'Developers and Designers', LANDINGPAGES_TEXT_DOMAIN),
+			__( 'Developers and Designers', LANDINGPAGES_TEXT_DOMAIN),
 			$this->minimum_capability,
 			'inbound-developers',
 			array( $this, 'dev_designer_screen' )
@@ -262,7 +262,7 @@ class LANDINGPAGES_Welcome {
 			$active = ($current_view === $key) ? 'nav-tab-active' : '';
 
 		echo '<a class="nav-tab '.$active.'" href="'.esc_url( admin_url( add_query_arg( array( 'page' => $key ), 'index.php' ) ) ).'">';
-		echo _e( $value, INBOUNDNOW_LABEL );
+		echo _e( $value, LANDINGPAGES_TEXT_DOMAIN);
 		echo '</a>';
 
 		}
@@ -301,19 +301,19 @@ class LANDINGPAGES_Welcome {
 		font-size: 19px;
 			}</style>
 		<div class="wrap about-wrap" id="inbound-plugins">
-			<h1><?php printf( __( 'Welcome to WordPress Landing Pages %s', INBOUNDNOW_LABEL ), $display_version ); ?></h1>
-			<div class="about-text" id="in-sub-head"><?php printf( __( 'Thank you for updating to the latest version! WordPress Landing Pages %s is help you convert more leads!', INBOUNDNOW_LABEL ), $display_version ); ?></div>
-			<div class="edd-badge"><?php printf( __( 'Version %s', INBOUNDNOW_LABEL ), $display_version ); ?></div>
+			<h1><?php printf( __( 'Welcome to WordPress Landing Pages %s', LANDINGPAGES_TEXT_DOMAIN), $display_version ); ?></h1>
+			<div class="about-text" id="in-sub-head"><?php printf( __( 'Thank you for updating to the latest version! WordPress Landing Pages %s is help you convert more leads!', LANDINGPAGES_TEXT_DOMAIN), $display_version ); ?></div>
+			<div class="edd-badge"><?php printf( __( 'Version %s', LANDINGPAGES_TEXT_DOMAIN), $display_version ); ?></div>
 
 			<?php self::render_nav_menu();?>
 			<div class="row">
 			<div class='grid two-third'>
 			<div id="creating-landing-page">
-				<h4><?php _e( 'Create Your First Landing Page', INBOUNDNOW_LABEL );?></h4>
+				<h4><?php _e( 'Create Your First Landing Page', LANDINGPAGES_TEXT_DOMAIN);?></h4>
 				<iframe width="640" height="360" src="//www.youtube.com/embed/-VuaBUc_yfk" frameborder="0" allowfullscreen></iframe>
 			</div>
 			<div id="creating-landing-page">
-				<h4><?php _e( 'How to Create Forms', INBOUNDNOW_LABEL );?></h4>
+				<h4><?php _e( 'How to Create Forms', LANDINGPAGES_TEXT_DOMAIN);?></h4>
 				<iframe width="640" height="360" src="//www.youtube.com/embed/Y4M_g9wkRXw" frameborder="0" allowfullscreen></iframe>
 			</div>
 			<div id="creating-landing-page">
@@ -336,16 +336,16 @@ class LANDINGPAGES_Welcome {
 			<h4>Quick Links</h4>
 			<ul id="inbound-setting-links">
 				<li>
-					<a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'landing-page', 'page' => 'lp_global_settings' ), 'edit.php' ) ) ); ?>"><?php _e( 'Go to WordPress Landing Pages Settings', INBOUNDNOW_LABEL ); ?></a>
+					<a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'landing-page', 'page' => 'lp_global_settings' ), 'edit.php' ) ) ); ?>"><?php _e( 'Go to WordPress Landing Pages Settings', LANDINGPAGES_TEXT_DOMAIN); ?></a>
 				</li>
 				<li>
-					<a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'landing-page', 'page' => 'lp_manage_templates' ), 'edit.php' ) ) ); ?>"><?php _e( 'Manage Your Landing Page Templates', INBOUNDNOW_LABEL ); ?></a>
+					<a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'landing-page', 'page' => 'lp_manage_templates' ), 'edit.php' ) ) ); ?>"><?php _e( 'Manage Your Landing Page Templates', LANDINGPAGES_TEXT_DOMAIN); ?></a>
 				</li>
 				<li>
-					<a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'landing-page' ), 'post-new.php' ) ) ); ?>"><?php _e( 'Create New Landing Page', INBOUNDNOW_LABEL ); ?></a>
+					<a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'landing-page' ), 'post-new.php' ) ) ); ?>"><?php _e( 'Create New Landing Page', LANDINGPAGES_TEXT_DOMAIN); ?></a>
 				</li>
 				<li>
-					<a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'landing-page', 'page' => 'inbound-forms-redirect' ), 'edit.php' ) ) ); ?>"><?php _e( 'Create Landing Page Forms', INBOUNDNOW_LABEL ); ?></a>
+					<a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'landing-page', 'page' => 'inbound-forms-redirect' ), 'edit.php' ) ) ); ?>"><?php _e( 'Create Landing Page Forms', LANDINGPAGES_TEXT_DOMAIN); ?></a>
 				</li>
 			</ul>
 			</div>
@@ -436,18 +436,18 @@ class LANDINGPAGES_Welcome {
 		</style>
 
 		<div class="wrap about-wrap">
-			<h1><?php printf( __( 'Turbo Charge Your Marketing', INBOUNDNOW_LABEL ), $display_version ); ?></h1>
-			<div class="about-text" id="in-sub-head"><?php printf( __( 'WordPress Landing Pages is only one piece of Inbound Now\'s Marketing Platform', INBOUNDNOW_LABEL ), $display_version ); ?></div>
+			<h1><?php printf( __( 'Turbo Charge Your Marketing', LANDINGPAGES_TEXT_DOMAIN), $display_version ); ?></h1>
+			<div class="about-text" id="in-sub-head"><?php printf( __( 'WordPress Landing Pages is only one piece of Inbound Now\'s Marketing Platform', LANDINGPAGES_TEXT_DOMAIN), $display_version ); ?></div>
 
 			<?php self::render_nav_menu();?>
 
 
-			<p class="about-description"><?php _e( 'To have an effective marketing strategy for your site you need to incorporate a comprehensive conversion strategy to capture visitors attention, get them clicking, and convert them on a web form or landing page.', INBOUNDNOW_LABEL ); ?></p>
+			<p class="about-description"><?php _e( 'To have an effective marketing strategy for your site you need to incorporate a comprehensive conversion strategy to capture visitors attention, get them clicking, and convert them on a web form or landing page.', LANDINGPAGES_TEXT_DOMAIN); ?></p>
 
 		<div class="row" id="inbound-plugins">
 		    <div class="grid one-third">
 		        <div class="content-box default">
-		            <h4><?php _e('Capture visitor attention with' , INBOUNDNOW_LABEL ); ?></h4>
+		            <h4><?php _e('Capture visitor attention with' , LANDINGPAGES_TEXT_DOMAIN); ?></h4>
 
 		            <h3 style="text-align: center;">WordPress Calls to Action</h3>
 
@@ -456,14 +456,14 @@ class LANDINGPAGES_Welcome {
 		            </div>
 
 		            <p class="intro-p"><?php _e('<b>Convert more website traffic</b> with visually
-		            appealing calls to action' , INBOUNDNOW_LABEL ); ?></p>
+		            appealing calls to action' , LANDINGPAGES_TEXT_DOMAIN); ?></p>
 
 		            <div class='circle-wrap'>
 		                <span class="inbound-check">✔</span>
 		            </div>
 
 		            <p class="intro-p"><?php _e('A/B test your marketing tactics and <b>improve your
-		            sites conversion rates' , INBOUNDNOW_LABEL); ?></b></p>
+		            sites conversion rates' , LANDINGPAGES_TEXT_DOMAIN); ?></b></p>
 
 		            <div class="inbound-button-holder">
 		                <div class='dl-button'>
@@ -477,7 +477,7 @@ class LANDINGPAGES_Welcome {
 
 		    <div class="grid one-third">
 		        <div class="content-box default">
-		            <h4><?php _e( 'Convert website visitors with' , INBOUNDNOW_LABEL ); ?></h4>
+		            <h4><?php _e( 'Convert website visitors with' , LANDINGPAGES_TEXT_DOMAIN); ?></h4>
 
 		            <h3>WordPress Landing Pages</h3>
 
@@ -485,13 +485,13 @@ class LANDINGPAGES_Welcome {
 		                <span class="inbound-check">✔</span>
 		            </div>
 
-		            <p class="intro-p"><?php _e('<b>Generate more web leads</b> with pages specifically designed for conversion' , INBOUNDNOW_LABEL ); ?></p>
+		            <p class="intro-p"><?php _e('<b>Generate more web leads</b> with pages specifically designed for conversion' , LANDINGPAGES_TEXT_DOMAIN); ?></p>
 
 		            <div class='circle-wrap'>
 		                <span class="inbound-check">✔</span>
 		            </div>
 
-		            <p class="intro-p"><?php _e('A/B Test Landing Page effectiveness for <b>continual optimization & improvement</b>' , INBOUNDNOW_LABEL ); ?></p>
+		            <p class="intro-p"><?php _e('A/B Test Landing Page effectiveness for <b>continual optimization & improvement</b>' , LANDINGPAGES_TEXT_DOMAIN); ?></p>
 
 		            <div class="inbound-button-holder">
 		                <div class='dl-button'>
@@ -505,7 +505,7 @@ class LANDINGPAGES_Welcome {
 
 		    <div class="grid one-third">
 		        <div class="content-box default">
-		            <h4><?php _e('Followup &amp; Close the deal with' , INBOUNDNOW_LABEL ); ?></h4>
+		            <h4><?php _e('Followup &amp; Close the deal with' , LANDINGPAGES_TEXT_DOMAIN); ?></h4>
 
 		            <h3>WordPress Leads</h3>
 
@@ -514,16 +514,16 @@ class LANDINGPAGES_Welcome {
 		            </div>
 
 		            <p class="intro-p"><?php _e('Gather & leverage lead intelligence on
-		            visitors to <b>close more deals</b>' , INBOUNDNOW_LABEL ); ?></p>
+		            visitors to <b>close more deals</b>' , LANDINGPAGES_TEXT_DOMAIN); ?></p>
 
 		            <div class='circle-wrap'>
 		                <span class="inbound-check">✔</span>
 		            </div>
 
 		            <p class="intro-p"><?php _e('Track page views, site conversions,
-		            demographics, geolocation, social media data and more.' , INBOUNDNOW_LABEL); ?></p>
+		            demographics, geolocation, social media data and more.' , LANDINGPAGES_TEXT_DOMAIN); ?></p>
 
-					<p class="intro-p"><?php _e('Know everything a lead has seen and done on your site before you contact them' , INBOUNDNOW_LABEL ); ?></p>
+					<p class="intro-p"><?php _e('Know everything a lead has seen and done on your site before you contact them' , LANDINGPAGES_TEXT_DOMAIN); ?></p>
 
 		            <div class="inbound-button-holder">
 		                <div class='dl-button'>
@@ -563,16 +563,16 @@ class LANDINGPAGES_Welcome {
 			color: #21759B;
 			}</style>
 		<div class="wrap about-wrap" id="inbound-plugins">
-			<h1><?php printf( __( 'Welcome to WordPress Landing Pages %s', INBOUNDNOW_LABEL ), $display_version ); ?></h1>
-			<div class="about-text" id="in-sub-head"><?php printf( __( 'Learn How to Build Custom Templates & Add Value to Your Clients', INBOUNDNOW_LABEL ), $display_version ); ?></div>
-			<div class="edd-badge"><?php printf( __( 'Version %s', INBOUNDNOW_LABEL ), $display_version ); ?></div>
+			<h1><?php printf( __( 'Welcome to WordPress Landing Pages %s', LANDINGPAGES_TEXT_DOMAIN), $display_version ); ?></h1>
+			<div class="about-text" id="in-sub-head"><?php printf( __( 'Learn How to Build Custom Templates & Add Value to Your Clients', LANDINGPAGES_TEXT_DOMAIN), $display_version ); ?></div>
+			<div class="edd-badge"><?php printf( __( 'Version %s', LANDINGPAGES_TEXT_DOMAIN), $display_version ); ?></div>
 
 			<?php self::render_nav_menu();?>
 			<div class="row">
 			<div class='grid two-third'>
-			<p class="about-description"><?php _e( 'WordPress Landing Pages was built as a platform to allow anyone to create and use their own landing page designs.', INBOUNDNOW_LABEL ); ?></p>
+			<p class="about-description"><?php _e( 'WordPress Landing Pages was built as a platform to allow anyone to create and use their own landing page designs.', LANDINGPAGES_TEXT_DOMAIN); ?></p>
 
-			<p class="about-description"><?php _e( 'Infuse your designs with powerful A/B testing functionality and give clients the ability to edit options on the backend with ease.', INBOUNDNOW_LABEL ); ?></p>
+			<p class="about-description"><?php _e( 'Infuse your designs with powerful A/B testing functionality and give clients the ability to edit options on the backend with ease.', LANDINGPAGES_TEXT_DOMAIN); ?></p>
 
 			<h1 style="text-decoration: none; text-align: center;"><a target="_blank" id="create-templates" class='button' href="http://docs.inboundnow.com/landing-pages/dev/creating-templates">Create Your Own Templates</a></h1>
 

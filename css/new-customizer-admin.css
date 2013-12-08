@@ -135,3 +135,31 @@ border-right-color: transparent !important;
 .wp-media-buttons .insert-media {
 margin-left: 15px !important;
 }
+#inbound-shortcodes-preview-wrap {
+	display: none !important;
+}
+#inbound-shortcodes-form-wrap {
+width: 96% !important;}
+#inbound-shortcodes-form-wrap tbody tr.form-row td.label {
+line-height: 29px !important;
+display: block !important;
+}
+#popup-controls {
+position: fixed;
+border-top: 1px solid transparent !important;
+bottom: 90px !important;
+width: 300px !important;
+left: 15% !important;
+background: transparent !important;}
+#inbound-shortcodes-form-table tbody tr.form-row {
+display: block;
+padding: 0px !important;
+border-bottom: none !important;}
+#inbound-shortcodes-form-wrap #inbound-shortcodes-form {
+padding-bottom: 300px !important;
+}
+#inbound-shortcodes-form-table input[type="text"], #inbound-shortcodes-form-table input[type="email"], #inbound-shortcodes-form-table input[type="url"], #inbound-shortcodes-form-table input[type="number"], #inbound-shortcodes-form-table input[type="password"], #inbound-shortcodes-form-table textarea {
+width: 100% !important;
+}
+#inbound_insert_shortcode_two, #shortcode_cancel, #inbound_save_form {
+margin-bottom: 10px !important; }

@@ -31,18 +31,37 @@ jQuery(document).ready(function ($) {
 	var which_editor = $.cookie("lp-edit-view-choice");
 	if(which_editor === null){
 	   setTimeout(function() {
-		jQuery("#content-tmce").click();
+		//jQuery("#content-tmce").click();
 		//jQuery(".wp-switch-editor.switch-tmce").click();
 		}, 1000);
 
 	}
+    /*
 
+        var chtml= jQuery('#content-html');
+        var ctmce= jQuery('#content-tmce');
+        var c= jQuery('#content'); // textarea
+        var vismode= c.css('display')=='none';
+        switchEditors.switchto(chtml[0]); // switch to html
+        switchEditors.switchto(ctmce[0]); // switch to tinymce
+
+     */
 	if(which_editor === 'editor'){
 	  setTimeout(function() {
-		jQuery("#content-tmce").click();
+
+        var ctmce= jQuery('#content-tmce');
+        switchEditors.switchto(ctmce[0]); // switch to tinymce
+
+        var conversion_area = jQuery("#landing-page-myeditor-tmce");
+        switchEditors.switchto(conversion_area[0]); // switch to tinymce
+		//jQuery("#content-tmce").click();
 		//jQuery(".wp-switch-editor.switch-tmce").click();
-        jQuery('.switch-tmce').not("#content-tmce").each(function(){
-        jQuery(this).click();
+        jQuery('.inbound-wysiwyg-option textarea').each(function(){
+            var chtml= "#" + jQuery(this).attr('id') + '-html';
+            var ctmce= "#" + jQuery(this).attr('id') + '-tmce';
+            var html_box = jQuery(chtml);
+            var tinymce_box = jQuery(ctmce);
+            switchEditors.switchto(tinymce_box[0]); // switch to tinymce
         });
 		}, 1000);
 	}
