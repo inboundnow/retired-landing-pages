@@ -1,7 +1,8 @@
 jQuery(document).ready(function ($) {
 
 	jQuery('#templates-container').isotope();
-
+    // Isotope Styling
+    jQuery('#template-filter li').first().addClass('button-primary');
 	// filter items when filter link is clicked
 	jQuery('#template-filter a').click(function(){
 	  var selector = jQuery(this).attr('data-filter');
@@ -40,6 +41,9 @@ jQuery(document).ready(function ($) {
 	  setTimeout(function() {
 		jQuery("#content-tmce").click();
 		//jQuery(".wp-switch-editor.switch-tmce").click();
+        jQuery('.switch-tmce').not("#content-tmce").each(function(){
+        jQuery(this).click();
+        });
 		}, 1000);
 	}
 
@@ -148,12 +152,8 @@ jQuery(document).ready(function ($) {
         $(window).resize( function() { tb_position() } );
     });
 
-    // Isotope Styling
-    jQuery('#template-filter a').first().addClass('button-primary');
-    jQuery('#template-filter a').click(function(){
-        jQuery("#template-filter a.button-primary").removeClass("button-primary");
-        jQuery(this).addClass('button-primary');
-    });
+
+
 
     jQuery('.lp_select_template').click(function(){
         var template = jQuery(this).attr('id');
@@ -239,50 +239,46 @@ jQuery(document).ready(function ($) {
     });
 
     // the_content default overwrite
-    jQuery('#overwrite-content').click(function(){
+    jQuery('body').on('click', '#overwrite-content', function(){
         if (confirm('Are you sure you want to overwrite what is currently in the main edit box above?')) {
-            var default_content = jQuery(".default-content").text();
+            var default_content = jQuery(".over-write-default-content").first().text();
            jQuery("#content_ifr").contents().find("body").html(default_content);
         }
     });
 
     // Colorpicker fix
-    jQuery(document).on('mouseenter', '.jpicker', function (e) {
-		if(jQuery(e.target).data('mouseovered')!='yes')
-		{
+    jQuery('.jpicker').one('mouseenter', function () {
+        jQuery(this).jPicker({
+            window: // used to define the position of the popup window only useful in binded mode
+            {
+                title: null, // any title for the jPicker window itself - displays "Drag Markers To Pick A Color" if left null
+                position: {
+                    x: 'screenCenter', // acceptable values "left", "center", "right", "screenCenter", or relative px value
+                    y: 'center', // acceptable values "top", "bottom", "center", or relative px value
+                },
+                expandable: false, // default to large static picker - set to true to make an expandable picker (small icon with popup) - set
+                // automatically when binded to input element
+                liveUpdate: true, // set false if you want the user to click "OK" before the binded input box updates values (always "true"
+                // for expandable picker)
+                alphaSupport: false, // set to true to enable alpha picking
+                alphaPrecision: 0, // set decimal precision for alpha percentage display - hex codes do not map directly to percentage
+                // integers - range 0-2
+                updateInputColor: true // set to false to prevent binded input colors from changing
+            }
+        },
+        function(color, context)
+        {
+          var all = color.val('all');
+         // alert('Color chosen - hex: ' + (all && '#' + all.hex || 'none') + ' - alpha: ' + (all && all.a + '%' || 'none'));
+           //jQuery(this).attr('rel', all.hex);
 
-			jQuery(this).jPicker({
-				window: // used to define the position of the popup window only useful in binded mode
-				{
-					title: null, // any title for the jPicker window itself - displays "Drag Markers To Pick A Color" if left null
-					position: {
-						x: 'screenCenter', // acceptable values "left", "center", "right", "screenCenter", or relative px value
-						y: 'center', // acceptable values "top", "bottom", "center", or relative px value
-					},
-					expandable: false, // default to large static picker - set to true to make an expandable picker (small icon with popup) - set
-					// automatically when binded to input element
-					liveUpdate: true, // set false if you want the user to click "OK" before the binded input box updates values (always "true"
-					// for expandable picker)
-					alphaSupport: false, // set to true to enable alpha picking
-					alphaPrecision: 0, // set decimal precision for alpha percentage display - hex codes do not map directly to percentage
-					// integers - range 0-2
-					updateInputColor: true // set to false to prevent binded input colors from changing
-				}
-			},
-			function(color, context)
-			{
-			  var all = color.val('all');
-			 // alert('Color chosen - hex: ' + (all && '#' + all.hex || 'none') + ' - alpha: ' + (all && all.a + '%' || 'none'));
-			   //jQuery(this).attr('rel', all.hex);
-			   jQuery(this).parent().find(".lp-success-message").remove();
-			   jQuery(this).parent().find(".new-save-lp").show();
-			   jQuery(this).parent().find(".new-save-lp-frontend").show();
-
-			   //jQuery(this).attr('value', all.hex);
-			});
-			jQuery(e.target).data('mouseovered','yes');
-		}
+           jQuery(this).parent().find(".lp-success-message").remove();
+           jQuery(this).parent().find(".new-save-lp").show();
+           jQuery(this).parent().find(".new-save-lp-frontend").show();
+           //jQuery(this).attr('value', all.hex);
+        });
     });
+
 
     if (jQuery(".lp-template-selector-container").css("display") == "none"){
         jQuery(".currently_selected").hide(); }
