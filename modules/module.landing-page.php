@@ -350,7 +350,7 @@ function lp_get_value($post, $key, $id)
 	//echo 1; exit;
 	if (isset($post))
 	{
-		$return = get_post_meta($post->ID, $key.'-'.$id , true);
+		$return = do_shortcode(get_post_meta($post->ID, $key.'-'.$id , true));
 		$return = apply_filters('lp_get_value',$return,$post,$key,$id);
 
 		return $return;
@@ -555,9 +555,52 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 			'default'  => $default
 			);
 			break;
+		case "custom-css":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    => $id,
+			'type'  => 'turn-off-editor',
+			'default'  => $default // inline css
+			);
+			break;
+		case "description-block":
+			return array(
+			'label' => $label,
+			'description'  => $description,
+			'id'    => $key.'-'.$id,
+			'type'  => 'description-block',
+			'default'  => $default
+			);
+			break;
 	}
 }
 
+
+function get_all_template_categories($extension_data) {
+
+	//$extension_data = lp_get_extension_data();
+	//$extension_data_cats = lp_get_extension_data_cats($extension_data);
+	//print_r($extension_data_cats);
+
+	$cat_array = array();
+	foreach ($extension_data as $name => $options) {
+		//echo $options['info'];
+		foreach ($options as $value) {
+			if ($value['category'] != "" && strlen ($value['category']) > 1 ){
+				$new_cat = explode(",", $value['category']);
+				foreach ($new_cat as $test => $zzz) {
+					$cat_array[] = trim($zzz);
+				}
+
+			}
+
+		}
+	}
+	echo "<pre>";
+	print_r(array_unique($cat_array));
+	echo "<pre>";
+}
 
 /* LEGACY CALLBACKS -- STILL USED BY SOME OLDER EXTENSIONS AND TEMPLATES */
 function lp_list_feature()
@@ -585,6 +628,3 @@ function lp_footer()
 {
 	do_action('lp_footer');
 }
-
-
-

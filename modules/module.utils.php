@@ -1,4 +1,7 @@
 <?php
+/*
+*	Utilities functions used throughout the plugin
+*/
 
 /* GET POST ID FROM URL FOR LANDING PAGES */
 function lp_url_to_postid($url)
@@ -58,7 +61,7 @@ function lp_url_to_postid($url)
 }
 
 /* REMOTE CONNECT  - MAY NEED TO BE REPLACED WITH WP_REMOTE_GET */
-if (!function_exists('lp_remote_connect')) 
+if (!function_exists('lp_remote_connect'))
 {
 	function lp_remote_connect($url)
 	{
@@ -115,7 +118,7 @@ if (!function_exists('inbound_meta_debug')) {
 
 
 /* YOAST SEO PLUGIN - MAKE METABOX LOW PRIORITY */
-add_filter( 'wpseo_metabox_prio', 'lp_wpseo_priority'); 
+add_filter( 'wpseo_metabox_prio', 'lp_wpseo_priority');
 function lp_wpseo_priority(){return 'low';}
 
 // Fix SEO Title Tags to not use the_title
@@ -229,5 +232,39 @@ function landing_body_class_names($classes) {
     return $arr;
 }
 
+add_action('admin_head', 'inbound_build_template_options');
+function inbound_build_template_options() {
+	global $lp_data;
+	global $post;
+
+	if (isset($post)&&$post->post_type=='landing-page' && (isset($_GET['lp-config']))) {
+	//$lp_data = lp_get_extension_data(); // Not Working
+	$key = get_post_meta( $post->ID, $key = 'lp-selected-template', true );
+
+	$options_array = $lp_data[$key]['settings'];
+
+	    foreach ($options_array as $key => $value) {
+	      $name = str_replace(array('-'),'_', $value['id']);
+	      echo "$" . $name  . " = " .  'lp_get_value(' . '$'. 'post, ' . '$'. 'key, '. " '" . $value['id'] . "' " . ');' . "\n";
+	      echo "<br>";
+	    }
+	    echo "<pre>";
+	    foreach ($options_array as $key => $value) {
+	      $name = str_replace(array('-'),'_', $value['id']);
+	      if($value['type'] === 'colorpicker') {
+	    // echo "$" . $name  . " = " .  'wp_cta_get_value(' . '$'. 'post, ' . '$'. 'key, '. " '" . $value['id'] . "' " . ');' . "\n";
+	     //echo "<br>";
+	      echo "\n";
+	      echo "if (" . " $" . "$name " . "!= \"\" ) {";
+	      echo "\n";
+	      echo "echo \".css_element { color: #$" . "".$name."" . ";}\"; \n"; // change sidebar color
+	      echo "}";
+	      echo "\n";
+	      }
+	    }
+	    echo "</pre>";
+	    /**/
+	}
+}
 
 ?>

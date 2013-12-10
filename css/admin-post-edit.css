@@ -6,7 +6,9 @@
 #wpbody-content {
 	overflow: visible !important;
 }
-
+h2#convert-header {
+	margin-bottom: 0px;
+}
 #lp-notes-area input {
 	width: 95%;
 	color: #AAAAAA;

@@ -69,6 +69,13 @@ The plugin is also fully extendable and has a number of <a href='http://docs.inb
 
 == Changelog ==
 
+= 1.3.7 =
+* Added: Shortcode now automatically render in landing page option echos in templates
+* Updated: Visual Editor tool
+* Updated: Template selection interface
+* Fixed: Shortcode insert into correct editor box
+* Fixed: editor always on HTML view
+
 = 1.3.6 =
 
 * Added: New Shortcodes! Fancy List and Column shortcodes
