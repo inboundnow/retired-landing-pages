@@ -48,8 +48,87 @@ function landing_page_activate($wp = '3.6', $php = '5.2.4', $cta = '1.1.1', $lea
 		//global $wp_rewrite;
 		//$wp_rewrite->flush_rules();
 	}
+	
+	do_action('lp_activate_update_db');
 }
 
+/* DB & FILESTRUCTURE MODIFIFCATION ACTIONS */
+add_action('lp_activate_update_db', 'landing_pages_migrate_depreciated_templates');
+function landing_pages_migrate_depreciated_templates()
+{	
+	/* move copy of legacy core templates to the uploads folder and delete from core templates directory */
+	$templates_to_move = array('rsvp-envelope','super-slick');
+	chmod(LANDINGPAGES_UPLOADS_PATH, 0755);
+	
+	$template_paths = lp_get_core_template_paths();	
+	if (count($template_paths)>0)
+	{
+		foreach ($template_paths as $name)
+		{
+			if (in_array( $name, $templates_to_move ))
+			{
+				$old_path = LANDINGPAGES_PATH."templates/$name/";
+				$new_path = LANDINGPAGES_UPLOADS_PATH."$name/";
+				
+				/*
+				echo "oldpath: $old_path<br>";
+				echo "newpath: $new_path<br>";
+				*/
+				
+				@mkdir($new_path , 0775);
+				chmod($old_path , 0775);
+				
+				lp_move_template_files( $old_path , $new_path );	
+
+				rmdir($old_path);
+			}
+		}
+	}
+}
+
+function lp_move_template_files( $old_path , $new_path )
+{
+
+	$files = scandir($old_path);
+	
+	if (!$files)
+		return;
+		
+	foreach ($files as $file) {
+		if (in_array($file, array(".",".."))) continue;
+		
+		if ($file==".DS_Store")
+		{
+			unlink($old_path.$file);
+			continue;
+		}
+		
+		if (is_dir($old_path.$file))
+		{
+			@mkdir($new_path.$file.'/' , 0775);			
+			chmod($old_path.$file.'/' , 0775);
+			lp_move_template_files( $old_path.$file.'/' , $new_path.$file.'/' );
+			rmdir($old_path.$file);
+			continue;
+		}
+		
+		/*
+		echo "oldfile:".$old_path.$file."<br>";
+		echo "newfile:".$new_path.$file."<br>";
+		*/
+		
+		if (copy($old_path.$file, $new_path.$file)) {
+			unlink($old_path.$file);
+		}
+	}
+	
+	if (!$delete)
+		return;
+		
+}
+
+
+/* DEACTIVATION FUNCTIONS */
 register_deactivation_hook( LANDINGPAGES_FILE , 'landing_page_deactivate');
 
 function landing_page_deactivate()
