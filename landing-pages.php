@@ -20,6 +20,7 @@ $uploads = wp_upload_dir();
 define('LANDINGPAGES_UPLOADS_PATH', $uploads['basedir'].'/landing-pages/templates/' );
 define('LANDINGPAGES_UPLOADS_URLPATH', $uploads['baseurl'].'/landing-pages/templates/' );
 define('LANDINGPAGES_TEXT_DOMAIN', 'landing-pages' );
+define('INBOUNDNOW_LABEL', 'inboundnow-legacy' );
 
 
 if (is_admin())
