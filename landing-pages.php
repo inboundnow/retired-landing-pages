@@ -6,8 +6,8 @@ Description: The first true all-in-one Landing Page solution for WordPress, incl
 Version:  1.3.6
 Author: David Wells, Hudson Atwell
 Author URI: http://www.inboundnow.com/
-Text Domain: landing-pahe
-Domain Path: shared/languages
+Text Domain: landing-pages
+Domain Path: shared/languages/landing-pages/
 */
 
 define('LANDINGPAGES_CURRENT_VERSION', '1.3.6' );
@@ -29,10 +29,10 @@ if (is_admin())
 /* load core files */
 switch (is_admin()) :
 	case true :
-		/* loads admin files */
+		/* loads admin files */		
+		include_once('modules/module.language-support.php');
 		include_once('modules/module.javascript-admin.php');
 		include_once('modules/module.activate.php');
-		include_once('modules/module.language-support.php');
 		include_once('modules/module.global-settings.php');
 		include_once('modules/module.clone.php');
 		include_once('modules/module.extension-updater.php');
