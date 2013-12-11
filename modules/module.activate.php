@@ -4,7 +4,7 @@
 // REGISTER LANDING PAGES ACTIVATION
 register_activation_hook( LANDINGPAGES_FILE , 'landing_page_activate');
 
-function landing_page_activate($wp = '3.6', $php = '5.3.4', $cta = '1.2.1', $leads = '1.2.1')
+function landing_page_activate($wp = '3.6', $php = '5.3', $cta = '1.2.1', $leads = '1.2.1')
 {
 	global $wp_version;
 	if ( version_compare( PHP_VERSION, $php, '<' ) )
@@ -29,6 +29,11 @@ function landing_page_activate($wp = '3.6', $php = '5.3.4', $cta = '1.2.1', $lea
 	{
 		$flag = 'WordPress Leads';
 		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version '.$leads.' or greater. <br><br>Please Update WordPress Leads Plugin to update & install WordPress Landing Pages</p>' , INBOUDNOW_LABEL ) , __( 'Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
+	}
+	elseif (defined('LP_HOMEPAGE_CURRENT_VERSION') && version_compare( LP_HOMEPAGE_CURRENT_VERSION, '1.0.8', '<' ))
+	{
+		$flag = 'Homepage Addon';
+		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version 1.0.8 or greater. <br><br>Please Update Homepage Addon to update & install WordPress Landing Pages</p>' , INBOUDNOW_LABEL ) , __( 'Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
 	}
 	else
 	{
