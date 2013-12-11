@@ -260,7 +260,7 @@ jQuery(document).ready(function ($) {
     // the_content default overwrite
     jQuery('body').on('click', '#overwrite-content', function(){
         if (confirm('Are you sure you want to overwrite what is currently in the main edit box above?')) {
-            var default_content = jQuery(".over-write-default-content").first().text();
+            var default_content = jQuery(".inbound-default-content-option textarea").first().text();
            jQuery("#content_ifr").contents().find("body").html(default_content);
         }
     });
@@ -333,26 +333,26 @@ jQuery(document).ready(function ($) {
     jQuery('#main-title-area').after(slugs.show());
     */
     // Background Options
-    jQuery('.current_lander .background-style').live('change', function () {
-        var input = jQuery(".current_lander .background-style option:selected").val();
+    jQuery('.background-style').on('change', function () {
+        var input = jQuery(".background-style option:selected").val();
         if (input == 'color') {
-            jQuery('.current_lander tr.background-color').show();
-            jQuery('.current_lander tr.background-image').hide();
+            jQuery('.background-color').show();
+            jQuery('.background-image').hide();
             jQuery('.background_tip').hide();
         }
         else if (input == 'default') {
-            jQuery('.current_lander tr.background-color').hide();
-            jQuery('.current_lander tr.background-image').hide();
+            jQuery('.background-color').hide();
+            jQuery('.background-image').hide();
             jQuery('.background_tip').hide();
         }
         else if (input == 'custom') {
-            var obj = jQuery(".current_lander tr.background-style td .lp_tooltip");
+            var obj = jQuery(".background-style .lp_tooltip");
             obj.removeClass("lp_tooltip").addClass("background_tip").html("Use the custom css block at the bottom of this page to set up custom CSS rules");
             jQuery('.background_tip').show();
         }
         else {
-            jQuery('.current_lander tr.background-color').hide();
-            jQuery('.current_lander tr.background-image').show();
+            jQuery('.background-color').hide();
+            jQuery('.background-image').show();
             jQuery('.background_tip').hide();
         }
 
@@ -360,21 +360,27 @@ jQuery(document).ready(function ($) {
 
     // Check BG options on page load
     jQuery(document).ready(function () {
-        var input2 = jQuery(".current_lander .background-style option:selected").val();
-        if (input2 == 'color') {
-            jQuery('.current_lander tr.background-color').show();
-            jQuery('.current_lander tr.background-image').hide();
-        } else if (input2 == 'custom') {
-            var obj = jQuery(".current_lander tr.background-style td .lp_tooltip");
-            obj.removeClass("lp_tooltip").addClass("background_tip").html("Use the custom css block at the bottom of this page to set up custom CSS rules");
-            jQuery('.background_tip').show();
-        } else if (input2 == 'default') {
-            jQuery('.current_lander tr.background-color').hide();
-            jQuery('.current_lander tr.background-image').hide();
-        } else {
-            jQuery('.current_lander tr.background-color').hide();
-            jQuery('.current_lander tr.background-image').show();
-        }
+        var input = jQuery(".background-style option:selected").val();
+        if (input == 'color') {
+                 jQuery('.background-color').show();
+                 jQuery('.background-image').hide();
+                 jQuery('.background_tip').hide();
+             }
+             else if (input == 'default') {
+                 jQuery('.background-color').hide();
+                 jQuery('.background-image').hide();
+                 jQuery('.background_tip').hide();
+             }
+             else if (input == 'custom') {
+                 var obj = jQuery(".background-style .lp_tooltip");
+                 obj.removeClass("lp_tooltip").addClass("background_tip").html("Use the custom css block at the bottom of this page to set up custom CSS rules");
+                 jQuery('.background_tip').show();
+             }
+             else {
+                 jQuery('.background-color').hide();
+                 jQuery('.background-image').show();
+                 jQuery('.background_tip').hide();
+             }
     });
 
     //Stylize lead's wp-list-table

@@ -63,7 +63,7 @@ array(
         'description' => "Enter an URL or upload an image for the banner.",
         'id'  => 'background-image',
         'type'  => 'media',
-        'default'  => 'on',
+        'default'  => '/path-to-bg-image',
         'context'  => 'normal'
         ),
     array(
