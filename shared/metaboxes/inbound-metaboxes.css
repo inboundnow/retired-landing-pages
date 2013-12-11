@@ -22,7 +22,7 @@ position: absolute;
 	display: none;
 }
 .inbound-description-block-option {
-	max-width: 55%;
+max-width: 87%;
 }
 .inbound-media-row .button-primary.new-save-wp-cta {
 	position: absolute;
@@ -54,7 +54,7 @@ display: inline-block;
 }
 .inbound-wysiwyg, .inbound-media, .inbound-datepicker, .inbound-textarea {
 	vertical-align: top;
-} 
+}
 .inbound-textarea-option .wp-cta-success-message {
 	position: absolute;
 margin-top: 0px;

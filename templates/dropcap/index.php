@@ -5,7 +5,7 @@
 /*****************************************/
 
 /* Declare Template Key */
-$key = lp_get_parent_directory(dirname(__FILE__)); 
+$key = lp_get_parent_directory(dirname(__FILE__));
 $path = LANDINGPAGES_URLPATH.'templates/'.$key.'/';
 $url = plugins_url();
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
@@ -13,7 +13,7 @@ do_action('lp_init');
 
 /* Load $post data */
 if (have_posts()) : while (have_posts()) : the_post();
-	
+
 /* Pre-load meta data into variables */
 // Text color: Use this setting to change the Text Color
 $text_color = lp_get_value($post, $key, 'text-color');
@@ -30,7 +30,7 @@ $background_color = lp_get_value($post, $key, 'background-color');
 
 
 if ( $background_style === "fullscreen" ) {
-	$bg_style = 'background: url('.$background_image.') no-repeat center center fixed; 
+	$bg_style = 'background: url('.$background_image.') no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -39,25 +39,20 @@ if ( $background_style === "fullscreen" ) {
 	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.$background_image.'", sizingMethod="scale")";';
 	};
 
-if ( $background_style === "color" ) {
-	$bg_style = 'background: #'.$background_color.';';
-	};
+else if( $background_style === "color" ) {
+	$bg_style = 'background: #'.$background_color.';'; }
 
-if ( $background_style === "tile" ) {
-	$bg_style = 'background: url('.$background_image.') repeat; ';
-	};
+else if( $background_style === "tile" ) {
+	$bg_style = 'background: url('.$background_image.') repeat; '; }
 
-if ( $background_style === "repeat-x" ) {
-	$bg_style = 'background: url('.$background_image.') repeat-x; ';
-	};	
+else if( $background_style === "repeat-x" ) {
+	$bg_style = 'background: url('.$background_image.') repeat-x; ';}
 
-if ( $background_style === "repeat-y" ) {
-	$bg_style = 'background: url('.$background_image.') repeat-y; ';
-	};
+else if( $background_style === "repeat-y" ) {
+	$bg_style = 'background: url('.$background_image.') repeat-y; ';}
 
-if ( $background_style === "repeat-y" ) {
-	$bg_style = 'background: url('.$background_image.') repeat-y; ';
-	};	
+else if( $background_style === "repeat-y" ) {
+	$bg_style = 'background: url('.$background_image.') repeat-y; ';}
 
 $content = lp_content_area(null,null,true);
 
@@ -74,7 +69,7 @@ $content = lp_content_area(null,null,true);
 
 
 	<?php wp_head(); // Load Regular WP Head ?>
-		
+
 
 <style type="text/css">
 @font-face {font-family: Chunk;
@@ -86,12 +81,12 @@ $content = lp_content_area(null,null,true);
 
 body { <?php echo $bg_style; ?> }
 <?php if ($text_color != "") { ?>
-#textspot p { color: #<?php echo $text_color;?>;} 
+#textspot p { color: #<?php echo $text_color;?>;}
 <?php } ?>
 <?php if ($content_background != "") { ?>
 #content { background: url('/wp-content/plugins/landing-pages/images/image.php?hex=<?php echo $content_background;?>'); border-radius: 8px; }
 <?php } ?>
-<?php if ($form_text_color != "") { echo "#lp_container {color: #$form_text_color;}"; } ?>	
+<?php if ($form_text_color != "") { echo "#lp_container {color: #$form_text_color;}"; } ?>
 </style>
 <?php do_action('lp_head'); // Load Custom Landing Page Specific Header Items ?>
 </head>
@@ -112,11 +107,11 @@ echo $rebuild_form_options; ?>
 	<?php lp_conversion_area(); /* Print out form content */ ?>
 </div>
 </div>
-</div> 
+</div>
 <?php break; endwhile; endif; // end wordpress loop
 
 do_action('lp_footer'); // Load Landing Page Footer Hook
 wp_footer();
-?> 
+?>
 	<link href="<?php echo $path; ?>assets/css/form.css" rel="stylesheet">
 </body></html>
