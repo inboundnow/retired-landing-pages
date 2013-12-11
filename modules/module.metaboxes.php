@@ -445,10 +445,12 @@ function lp_conversion_log_metabox() {
 		private $plural;
 		private $post;
 		private $wpdb;
+		
 		function __construct()
 		{
 			global $post;
 			global $wpdb;
+			
 			$final_data = array();
 			$query = "SELECT
 				wposts.*
@@ -503,6 +505,7 @@ function lp_conversion_log_metabox() {
 			//print_r($args);exit;
 			$args['plural'] = sanitize_key( '' );
 			$args['singular'] = sanitize_key( '' );
+			$this->screen = get_current_screen();
 			$this->_args = $args;
 		}
 
@@ -576,8 +579,8 @@ function lp_conversion_log_metabox() {
 				'per_page'    => $per_page                     //WE have to determine how many items to show on a page
 			) );
 
-
 			$this->items = $this->found_data;
+
 		}
 
 		function column_default( $item, $column_name )
