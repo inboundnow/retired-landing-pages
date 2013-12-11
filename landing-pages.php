@@ -6,8 +6,8 @@ Description: The first true all-in-one Landing Page solution for WordPress, incl
 Version:  1.3.7
 Author: David Wells, Hudson Atwell
 Author URI: http://www.inboundnow.com/
-Text Domain: landing-page
-Domain Path: shared/languages
+Text Domain: landing-pages
+Domain Path: shared/languages/landing-pages
 */
 
 define('LANDINGPAGES_CURRENT_VERSION', '1.3.7' );
