@@ -37,22 +37,18 @@ if ( $background_style === "fullscreen" ) {
 	background-size: cover;
 	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.$background_image.'", sizingMethod="scale");
 	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.$background_image.'", sizingMethod="scale")";';
-	};
+} else if( $background_style === "color" ) {
+	$bg_style = 'background: #'.$background_color.';';
 
-else if( $background_style === "color" ) {
-	$bg_style = 'background: #'.$background_color.';'; }
-
-else if( $background_style === "tile" ) {
-	$bg_style = 'background: url('.$background_image.') repeat; '; }
-
-else if( $background_style === "repeat-x" ) {
-	$bg_style = 'background: url('.$background_image.') repeat-x; ';}
-
-else if( $background_style === "repeat-y" ) {
-	$bg_style = 'background: url('.$background_image.') repeat-y; ';}
-
-else if( $background_style === "repeat-y" ) {
-	$bg_style = 'background: url('.$background_image.') repeat-y; ';}
+} else if( $background_style === "tile" ) {
+	$bg_style = 'background: url('.$background_image.') repeat; ';
+} else if( $background_style === "repeat-x" ) {
+	$bg_style = 'background: url('.$background_image.') repeat-x; ';
+} else if( $background_style === "repeat-y" ) {
+	$bg_style = 'background: url('.$background_image.') repeat-y; ';
+} else if( $background_style === "repeat-y" ) {
+	$bg_style = 'background: url('.$background_image.') repeat-y; ';
+}
 
 $content = lp_content_area(null,null,true);
 
@@ -87,6 +83,23 @@ body { <?php echo $bg_style; ?> }
 #content { background: url('/wp-content/plugins/landing-pages/images/image.php?hex=<?php echo $content_background;?>'); border-radius: 8px; }
 <?php } ?>
 <?php if ($form_text_color != "") { echo "#lp_container {color: #$form_text_color;}"; } ?>
+p {
+	margin-bottom: 20px;
+	letter-spacing: 1px;
+}
+#wrapper {
+padding-top: 110px;
+}
+body { font-family: arial;}
+#textspot p {
+	font-family: "Chunk", Sans-Serif;
+}
+ul { margin-bottom: 20px;}
+#main-content-area {
+padding-left: 0px;
+width: 89%;
+margin: auto;
+}
 </style>
 <?php do_action('lp_head'); // Load Custom Landing Page Specific Header Items ?>
 </head>
@@ -97,13 +110,10 @@ body { <?php echo $bg_style; ?> }
 <div id="wrapper">
 <div id="content">
 <div id="textspot">
-	<p><?php lp_main_headline(); ?>
-<?php $rebuild_form_options = get_option( 'landing-page-auto-format-forms' ); // conditional to check for options
-echo $rebuild_form_options; ?>
-	</p>
+	<p><?php lp_main_headline(); ?></p>
 </div>
 <div id="main-content-area">
-	<?php echo $content; ?>
+	<?php the_content(); ?>
 	<?php lp_conversion_area(); /* Print out form content */ ?>
 </div>
 </div>

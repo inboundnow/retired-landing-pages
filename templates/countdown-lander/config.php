@@ -25,6 +25,27 @@ array(
 // Define Meta Options for template
 $lp_data[$key]['settings'] =
 array(
+     array(
+           'label' => "Default Content",
+           'description' => "This is the default content from template.",
+           'id' => "default-content",
+           'type' => "default-content",
+           'default' => '<p>This is the first paragraph of your landing page. You want to grab the visitors attention and describe a commonly felt problem that they might be experiencing. Try and relate to your target audience and draw them in.</p>
+
+    <strong>In this guide you will learn:</strong>
+
+    [list icon="ok-sign" font_size="16" icon_color="#00a319" text_color="" bottom_margin="10"]
+    <ul>
+        <li>This list was created with the list icon shortcode.</li>
+        <li>Click on the power icon in your editor to customize your own</li>
+        <li>Explain why users will want to fill out the form</li>
+        <li>Keep it short and sweet.</li>
+        <li>This list should be easily scannable</li>
+    </ul>
+    [/list]
+
+    <p>This is the final sentence or paragraph reassuring the visitor of the benefits of filling out the form and how their data will be safe.</p>'
+         ),
     array(
         'label' => 'Countdown Date', // Name of field
         'description' => "What date are we counting down to?", // what field does
