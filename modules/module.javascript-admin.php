@@ -76,7 +76,7 @@ function lp_admin_enqueue($hook)
 		{
 			wp_enqueue_script('lp-post-edit-ui', LANDINGPAGES_URLPATH . 'js/admin/admin.post-edit.js');
 			wp_localize_script( 'lp-post-edit-ui', 'lp_post_edit_ui', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID , 'wp_landing_page_meta_nonce' => wp_create_nonce('wp-landing-page-meta-nonce'),  'lp_template_nonce' => wp_create_nonce('lp-nonce') ) );
-			wp_enqueue_style('admin-post-edit-css', LANDINGPAGES_URLPATH . '/css/admin-post-edit.css');
+			wp_enqueue_style('admin-post-edit-css', LANDINGPAGES_URLPATH . 'css/admin-post-edit.css');
 
 			wp_enqueue_script('jqueryui');
 			// jquery datepicker
@@ -91,7 +91,7 @@ function lp_admin_enqueue($hook)
 			// New frontend editor
 			if (isset($_GET['frontend']) && $_GET['frontend'] === 'true') {
 				//show_admin_bar( false ); // doesnt work
-				wp_enqueue_style('new-customizer-admin', LANDINGPAGES_URLPATH . '/css/new-customizer-admin.css');
+				wp_enqueue_style('new-customizer-admin', LANDINGPAGES_URLPATH . 'css/new-customizer-admin.css');
 				wp_enqueue_script('new-customizer-admin', LANDINGPAGES_URLPATH . 'js/admin/new-customizer-admin.js');
 			}
 		}
