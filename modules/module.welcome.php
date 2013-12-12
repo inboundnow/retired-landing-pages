@@ -317,7 +317,8 @@ class LANDINGPAGES_Welcome {
 				<iframe width="640" height="360" src="//www.youtube.com/embed/Y4M_g9wkRXw" frameborder="0" allowfullscreen></iframe>
 			</div>
 			<div id="creating-landing-page">
-			<!-- Running A/B Tests -->
+			<h4><?php _e( 'Creating Landing Pages with your Current Theme Template', LANDINGPAGES_TEXT_DOMAIN);?></h4>
+			<iframe width="640" height="360" src="//www.youtube.com/embed/pQzmx4ooL1M?list=UUCqiE-EcfDjaKGXSxtegcyg" frameborder="0" allowfullscreen></iframe>
 			</div>
 			<div id="creating-landing-page">
 			<!-- Creating Landing Page with current active Theme -->
