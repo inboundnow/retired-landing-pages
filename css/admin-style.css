@@ -237,7 +237,7 @@ th.landing-page-table-header {width:230px; line-height: 22px;}
 
 #lp_template_change {
 margin-left: 17px;
-margin-top: -25px;
+margin-top: -20px;
 float: right;
 }
 
@@ -401,7 +401,7 @@ div#lp-store-iframe-container > iframe {
 	position: absolute;
 	font-size: 13px;
 top: -3px;
-right: 148px;
+right: 170px;
 }
 .lp-success-message
 {

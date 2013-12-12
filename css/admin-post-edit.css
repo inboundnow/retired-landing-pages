@@ -10,7 +10,7 @@ h2#convert-header {
 	margin-bottom: 0px;
 }
 #lp-notes-area input {
-	width: 95%;
+	width: 100%;
 	color: #AAAAAA;
 }
 #local-storage-notice {
@@ -19,7 +19,10 @@ h2#convert-header {
 #lp-notes-area input:focus{
 	color: #000;
 }
-
+#template-display-options .hndle {
+	background-color: transparent;
+	background-image: none !important;
+}
 #titlediv #title:focus, #lp-notes-area input:focus{
   border: solid 1px #dfdfdf;
 }
