@@ -4,7 +4,7 @@
 // REGISTER LANDING PAGES ACTIVATION
 register_activation_hook( LANDINGPAGES_FILE , 'landing_page_activate');
 
-function landing_page_activate($wp = '3.6', $php = '5.2.4', $cta = '1.1.1', $leads = '1.1.1')
+function landing_page_activate($wp = '3.6', $php = '5.3', $cta = '1.2.1', $leads = '1.2.1')
 {
 	global $wp_version;
 	if ( version_compare( PHP_VERSION, $php, '<' ) )
@@ -23,12 +23,17 @@ function landing_page_activate($wp = '3.6', $php = '5.2.4', $cta = '1.1.1', $lea
 	elseif (defined('WP_CTA_CURRENT_VERSION') && version_compare( WP_CTA_CURRENT_VERSION, $cta, '<' ))
 	{
 		$flag = __('WordPress Calls to Action' , LANDINGPAGES_TEXT_DOMAIN);
-		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version '.$cta.' or greater. <br><br>Please Update WordPress Call to Action Plugin to update WordPress Landing Pages</p>' , LANDINGPAGES_TEXT_DOMAIN) , __('Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
+		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version '.$cta.' or greater. <br><br>Please Update WordPress Call to Action Plugin to update & install WordPress Landing Pages</p>' , LANDINGPAGES_TEXT_DOMAIN) , __('Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
 	}
 	elseif (defined('LEADS_CURRENT_VERSION') && version_compare( LEADS_CURRENT_VERSION, $leads, '<' ))
 	{
 		$flag = 'WordPress Leads';
-		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version '.$leads.' or greater. <br><br>Please Update WordPress Leads Plugin to update WordPress Landing Pages</p>' , INBOUDNOW_LABEL ) , __( 'Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
+		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version '.$leads.' or greater. <br><br>Please Update WordPress Leads Plugin to update & install WordPress Landing Pages</p>' , INBOUDNOW_LABEL ) , __( 'Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
+	}
+	elseif (defined('LP_HOMEPAGE_CURRENT_VERSION') && version_compare( LP_HOMEPAGE_CURRENT_VERSION, '1.0.8', '<' ))
+	{
+		$flag = 'Homepage Addon';
+		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version 1.0.8 or greater. <br><br>Please Update Homepage Addon to update & install WordPress Landing Pages</p>' , INBOUDNOW_LABEL ) , __( 'Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
 	}
 	else
 	{
@@ -48,19 +53,19 @@ function landing_page_activate($wp = '3.6', $php = '5.2.4', $cta = '1.1.1', $lea
 		//global $wp_rewrite;
 		//$wp_rewrite->flush_rules();
 	}
-	
+
 	do_action('lp_activate_update_db');
 }
 
 /* DB & FILESTRUCTURE MODIFIFCATION ACTIONS */
 add_action('lp_activate_update_db', 'landing_pages_migrate_depreciated_templates');
 function landing_pages_migrate_depreciated_templates()
-{	
+{
 	/* move copy of legacy core templates to the uploads folder and delete from core templates directory */
 	$templates_to_move = array('rsvp-envelope','super-slick');
 	chmod(LANDINGPAGES_UPLOADS_PATH, 0755);
-	
-	$template_paths = lp_get_core_template_paths();	
+
+	$template_paths = lp_get_core_template_paths();
 	if (count($template_paths)>0)
 	{
 		foreach ($template_paths as $name)
@@ -69,16 +74,16 @@ function landing_pages_migrate_depreciated_templates()
 			{
 				$old_path = LANDINGPAGES_PATH."templates/$name/";
 				$new_path = LANDINGPAGES_UPLOADS_PATH."$name/";
-				
+
 				/*
 				echo "oldpath: $old_path<br>";
 				echo "newpath: $new_path<br>";
 				*/
-				
+
 				@mkdir($new_path , 0775);
 				chmod($old_path , 0775);
-				
-				lp_move_template_files( $old_path , $new_path );	
+
+				lp_move_template_files( $old_path , $new_path );
 
 				rmdir($old_path);
 			}
@@ -90,41 +95,41 @@ function lp_move_template_files( $old_path , $new_path )
 {
 
 	$files = scandir($old_path);
-	
+
 	if (!$files)
 		return;
-		
+
 	foreach ($files as $file) {
 		if (in_array($file, array(".",".."))) continue;
-		
+
 		if ($file==".DS_Store")
 		{
 			unlink($old_path.$file);
 			continue;
 		}
-		
+
 		if (is_dir($old_path.$file))
 		{
-			@mkdir($new_path.$file.'/' , 0775);			
+			@mkdir($new_path.$file.'/' , 0775);
 			chmod($old_path.$file.'/' , 0775);
 			lp_move_template_files( $old_path.$file.'/' , $new_path.$file.'/' );
 			rmdir($old_path.$file);
 			continue;
 		}
-		
+
 		/*
 		echo "oldfile:".$old_path.$file."<br>";
 		echo "newfile:".$new_path.$file."<br>";
 		*/
-		
+
 		if (copy($old_path.$file, $new_path.$file)) {
 			unlink($old_path.$file);
 		}
 	}
-	
+
 	if (!$delete)
 		return;
-		
+
 }
 
 

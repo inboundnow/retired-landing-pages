@@ -56,7 +56,7 @@ function lp_thumbnail_metabox() {
 
 add_action('add_meta_boxes', 'lp_display_meta_box_lp_conversion_area');
 function lp_display_meta_box_lp_conversion_area(){
-	add_meta_box( WYSIWYG_META_BOX_ID, __('Landing Page Form or Conversion Button', LANDINGPAGES_TEXT_DOMAIN), 'lp_meta_box_conversion_area', 'landing-page', 'normal', 'high' );
+	add_meta_box( WYSIWYG_META_BOX_ID, __('Landing Page Form or Conversion Button - <em>click the black & blue power button icon to build forms/buttons</em>', LANDINGPAGES_TEXT_DOMAIN), 'lp_meta_box_conversion_area', 'landing-page', 'normal', 'high' );
 	//add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
 }
 
@@ -373,7 +373,7 @@ function add_custom_meta_box_lp_custom_css() {
 function lp_custom_css_input() {
 	global $post;
 
-	_e("<em>Custom CSS may be required to remove sidebars, increase the widget of the post content container to 100%, and sometimes to manually remove comment boxes.</em>" , LANDINGPAGES_TEXT_DOMAIN);
+	_e("<em>Custom CSS may be required to customize this landing page.</em><strong> <u>Format</u>: #element-id { display:none !important; }</strong>" , LANDINGPAGES_TEXT_DOMAIN);
 	echo '<input type="hidden" name="lp-custom-css-noncename" id="lp_custom_css_noncename" value="'.wp_create_nonce(basename(__FILE__)).'" />';
 	$custom_css_name = apply_filters('lp_custom_css_name','lp-custom-css');
 	echo '<textarea name="'.$custom_css_name.'" id="lp-custom-css" rows="5" cols="30" style="width:100%;">'.get_post_meta($post->ID,$custom_css_name,true).'</textarea>';
@@ -445,12 +445,12 @@ function lp_conversion_log_metabox() {
 		private $plural;
 		private $post;
 		private $wpdb;
-		
+
 		function __construct()
 		{
 			global $post;
 			global $wpdb;
-			
+
 			$final_data = array();
 			$query = "SELECT
 				wposts.*
