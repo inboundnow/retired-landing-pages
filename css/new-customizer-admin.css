@@ -13,7 +13,7 @@ margin-left: 10px !important;
 /* Need to test */
 #wpbody-content {
 padding-bottom: 60px !important;
-width: 76% !important;
+width: 100% !important;
 }
 #submitdiv .handlediv , #submitdiv .hndle {
 	display: none !important;
