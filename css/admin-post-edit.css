@@ -12,6 +12,7 @@ h2#convert-header {
 #lp-notes-area input {
 	width: 100%;
 	color: #AAAAAA;
+	padding-top: 7px;
 }
 #local-storage-notice {
 	display: none !important;
@@ -44,7 +45,7 @@ min-width: 320px;
 #post-body-content .a_b_tabs {
 	padding: 0px;
 	margin-bottom: 9px;
-	margin-left: -18px;
+	margin-left: -22px;
 	padding-left: 22px;
 	margin-top: 5px;
 	margin-right: -20px;
@@ -130,4 +131,9 @@ min-width: 320px;
 	height: 30px;
 	float:right;
 	margin-right:19px;
+}
+@media screen and (max-width: 782px) {
+#launch-visual-editer {
+display: none;
+}
 }
