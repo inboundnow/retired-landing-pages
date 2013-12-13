@@ -7,7 +7,7 @@ Version:  1.3.7
 Author: David Wells, Hudson Atwell
 Author URI: http://www.inboundnow.com/
 Text Domain: landing-pages
-Domain Path: shared/languages/landing-pages
+Domain Path: shared/languages/landing-pages/
 */
 
 define('LANDINGPAGES_CURRENT_VERSION', '1.3.7' );
@@ -20,6 +20,7 @@ $uploads = wp_upload_dir();
 define('LANDINGPAGES_UPLOADS_PATH', $uploads['basedir'].'/landing-pages/templates/' );
 define('LANDINGPAGES_UPLOADS_URLPATH', $uploads['baseurl'].'/landing-pages/templates/' );
 define('LANDINGPAGES_TEXT_DOMAIN', 'landing-pages' );
+define('INBOUNDNOW_LABEL', 'inboundnow-legacy' );
 
 
 if (is_admin())
@@ -30,9 +31,9 @@ if (is_admin())
 switch (is_admin()) :
 	case true :
 		/* loads admin files */
+		include_once('modules/module.language-support.php');
 		include_once('modules/module.javascript-admin.php');
 		include_once('modules/module.activate.php');
-		include_once('modules/module.language-support.php');
 		include_once('modules/module.global-settings.php');
 		include_once('modules/module.clone.php');
 		include_once('modules/module.extension-updater.php');
@@ -94,4 +95,14 @@ function inbound_load_shared_landing_pages(){
 function lp_check_active()
 {
 	return 1;
+}
+
+/** Load Translation */
+if (!defined('LANDINGPAGES_TEXT_DOMAIN'))
+	define( 'LANDINGPAGES_TEXT_DOMAIN', 'landing-pages' );
+
+add_action('init' , 'lp_load_text_domain_1');
+function lp_load_text_domain_1()
+{
+	load_plugin_textdomain( LANDINGPAGES_TEXT_DOMAIN , false , dirname( plugin_basename( __FILE__ ) ) . '/shared/languages/landing-pages/' );
 }

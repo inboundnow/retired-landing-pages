@@ -53,7 +53,7 @@ function lp_template_page_get_more(){
     $page_string = isset($_GET["page"]) ? $_GET["page"] : "null";
         if ( (($pagenow == 'edit.php') && ($page_string == "lp_manage_templates")) || (($pagenow == "post-new.php") &&  (isset($_GET['post_type']) && $_GET['post_type'] == "landing-page")) ) {
              echo '<div id="more-templates-button" style="display:none;">
-                 <a target="_blank" href="/wp-admin/edit.php?post_type=landing-page&page=lp_store" class="button new-lp-button button-primary button-large">Download Additional Landing Page Templates</a>
+                 <a target="_blank" href="/wp-admin/edit.php?post_type=landing-page&page=lp_store&inbound-store=templates" class="button new-lp-button button-primary button-large">Download Additional Landing Page Templates</a>
              </div><script type="text/javascript">jQuery(document).ready(function($) { var moretemp = jQuery("#more-templates-button");
 jQuery("#bulk_actions").prepend(moretemp); jQuery(".lp-selection-heading h1").append(moretemp); jQuery(".lp-selection-heading #more-templates").css("float","right"); jQuery(moretemp).show(); });</script>';
         }

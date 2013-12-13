@@ -26,6 +26,29 @@ padding-top: 5px;
 padding-left: 10px;
 
 }
+@font-face {
+	font-family: 'FontAwesome';
+	src: url('../shared/fonts/fontawesome/fontawesome-webfont.eot?v=3.0.2');
+	src: url('../shared/fonts/fontawesome/fontawesome-webfont.eot?#iefix&v=3.0.2') format('embedded-opentype'),
+	url('../shared/fonts/fontawesome/fontawesome-webfont.woff?v=3.0.2') format('woff'),
+	url('../shared/fonts/fontawesome/fontawesome-webfont.ttf?v=3.0.2') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+#adminmenu .menu-icon-landing-page div.wp-menu-image:before {
+	font-family: "FontAwesome" !important;
+	content: "\f15c";
+
+}
+.branch-3-7 #adminmenu .menu-icon-landing-page div.wp-menu-image:before {
+display: none;
+}
+#adminmenu .menu-icon-landing-page div.wp-menu-image img{
+	display: none;
+}
+.branch-3-7 #adminmenu .menu-icon-landing-page div.wp-menu-image img {
+	display: block;
+}
 #setting-error-tgmpa p {
 	text-decoration: bold;
 }
@@ -237,7 +260,7 @@ th.landing-page-table-header {width:230px; line-height: 22px;}
 
 #lp_template_change {
 margin-left: 17px;
-margin-top: -25px;
+margin-top: -20px;
 float: right;
 }
 
@@ -401,7 +424,7 @@ div#lp-store-iframe-container > iframe {
 	position: absolute;
 	font-size: 13px;
 top: -3px;
-right: 148px;
+right: 170px;
 }
 .lp-success-message
 {

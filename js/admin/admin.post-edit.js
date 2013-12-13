@@ -112,7 +112,7 @@ jQuery(document).ready(function ($) {
     var current_template_meta = "#lp_" + current_template + "_custom_meta_box";
     jQuery(current_template_meta).removeClass("postbox").appendTo("#template-display-options").addClass("Old-Template");
     var current_template_h3 = "#lp_" + current_template + "_custom_meta_box h3";
-    jQuery(current_template_h3).css("background","#f8f8f8");
+   // jQuery(current_template_h3).css("background","#f8f8f8");
     jQuery(current_template_meta +' .handlediv').hide();
     jQuery(current_template_meta +' .hndle').css('cursor','default');
 
@@ -218,7 +218,7 @@ jQuery(document).ready(function ($) {
 						//alert(response);
 						var html = '<input id="lp_select_template" type="hidden" value="'+template+'" name="lp-selected-template'+variation_tag+'">'
 								 + '<input type="hidden" value="'+lp_post_edit_ui.lp_template_nonce+'" name="lp_lp_custom_fields_nonce">'
-								 + '<h3 class="hndle" style="background: none repeat scroll 0% 0% rgb(248, 248, 248); cursor: default;">'
+								 + '<h3 class="hndle" style="cursor: default;">'
 								 + '<span>'
 								 + '<small>'+ template +' Options:</small>'
 								 +	'</span>'
@@ -238,12 +238,12 @@ jQuery(document).ready(function ($) {
         });
 
         jQuery(current_template_meta).appendTo("#template-display-options");
-        jQuery('#lp_metabox_select_template h3').first().html('Current Active Template: '+label);
+
         jQuery('#lp_select_template').val(template);
         jQuery(".Old-Template").hide();
 
         jQuery(current_template_div).css("display","none");
-        jQuery(current_template_h3).css("background","#f8f8f8");
+        //jQuery(current_template_h3).css("background","#f8f8f8");
         jQuery(current_template_meta).show().appendTo("#template-display-options").removeClass("postbox").addClass("Old-Template");
         //alert(template);
         //alert(label);
