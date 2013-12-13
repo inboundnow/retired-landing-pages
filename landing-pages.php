@@ -104,5 +104,5 @@ if (!defined('LANDINGPAGES_TEXT_DOMAIN'))
 add_action('init' , 'lp_load_text_domain_1');
 function lp_load_text_domain_1()
 {
-	load_plugin_textdomain( LANDINGPAGES_TEXT_DOMAIN , false , dirname( plugin_basename( FILE ) ) . '/shared/languages/landing-pages/' );
+	load_plugin_textdomain( LANDINGPAGES_TEXT_DOMAIN , false , dirname( plugin_basename( __FILE__ ) ) . '/shared/languages/landing-pages/' );
 }
