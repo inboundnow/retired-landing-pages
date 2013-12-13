@@ -13,7 +13,7 @@ Domain Path: shared/languages/landing-pages/
 define('LANDINGPAGES_CURRENT_VERSION', '1.3.7' );
 define('LANDINGPAGES_URLPATH', WP_PLUGIN_URL.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
-define('LANDINGPAGES_PLUGIN_SLUG', 'landing-pages' );
+define('LANDINGPAGES_PLUGIN_SLUG', plugin_basename( dirname(__FILE__) ) );
 define('LANDINGPAGES_FILE', __FILE__ );
 define('LANDINGPAGES_STORE_URL', 'http://www.inboundnow.com/landing-pages/' );
 $uploads = wp_upload_dir();
@@ -97,12 +97,4 @@ function lp_check_active()
 	return 1;
 }
 
-/** Load Translation */
-if (!defined('LANDINGPAGES_TEXT_DOMAIN'))
-	define( 'LANDINGPAGES_TEXT_DOMAIN', 'landing-pages' );
 
-add_action('init' , 'lp_load_text_domain_1');
-function lp_load_text_domain_1()
-{
-	load_plugin_textdomain( LANDINGPAGES_TEXT_DOMAIN , false , dirname( plugin_basename( __FILE__ ) ) . '/shared/languages/landing-pages/' );
-}
