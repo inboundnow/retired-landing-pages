@@ -20,6 +20,9 @@ h2#convert-header {
 #lp-notes-area input:focus{
 	color: #000;
 }
+#date-picking span {
+	vertical-align: bottom;
+}
 #template-display-options .hndle {
 	background-color: transparent;
 	background-image: none !important;

@@ -817,80 +817,80 @@ ul.tabs-nav li:last-child{
 /* Buttons
  * ------------------------------------------*/
 #respond #submit, .inbound-button{
-	background:#c8232b url('../images/gradient.png') repeat-x top left;
-	border:1px solid rgba(0,0,0,0.15);
-	-webkit-border-radius:2px;
-	   -moz-border-radius:2px;
-	        border-radius:2px;
-	-webkit-box-shadow:0px 2px 3px rgba(0,0,0,0.15), inset 1px 1px 1px rgba(255,255,255,0.2);
-	   -moz-box-shadow:0px 2px 3px rgba(0,0,0,0.15), inset 1px 1px 1px rgba(255,255,255,0.2);
-			box-shadow:0px 2px 3px rgba(0,0,0,0.15), inset 1px 1px 1px rgba(255,255,255,0.2);
-	color:#fff;
-	cursor:pointer;
-	display:inline-block;
-	font-family:inherit;
-	font-size:14px;
-	font-weight:bold;
-	padding:8px 15px;
-	text-shadow:-1px -1px 1px rgba(0,0,0,0.15);
-	text-decoration: none;
+    background:#c8232b url('../images/gradient.png') repeat-x top left;
+    border:1px solid rgba(0,0,0,0.15);
+    -webkit-border-radius:2px;
+       -moz-border-radius:2px;
+            border-radius:2px;
+    -webkit-box-shadow:0px 2px 3px rgba(0,0,0,0.15), inset 1px 1px 1px rgba(255,255,255,0.2);
+       -moz-box-shadow:0px 2px 3px rgba(0,0,0,0.15), inset 1px 1px 1px rgba(255,255,255,0.2);
+            box-shadow:0px 2px 3px rgba(0,0,0,0.15), inset 1px 1px 1px rgba(255,255,255,0.2);
+    color:#fff;
+    cursor:pointer;
+    display:inline-block;
+    font-family:inherit;
+    font-size:14px;
+    font-weight:bold;
+    padding:8px 15px;
+    text-shadow:-1px -1px 1px rgba(0,0,0,0.15);
+    text-decoration: none;
 }
 .inbound-button:hover{
-	background-image: url('../images/gradient-hover.png');
-	color:#fff;
+    background-image: url('../images/gradient-hover.png');
+    color:#fff;
 }
 .inbound-button.small{
-	font-size: 100%;
-	padding:4px 10px;
+    font-size: 100%;
+    padding:4px 10px;
 }
 .inbound-button.large{
-	font-size:18px;
-	padding:12px 30px;
+    font-size:18px;
+    padding:12px 30px;
 }
 input[type=submit].inbound-button, button.inbound-button{
-	-webkit-appearance:none;
+    -webkit-appearance:none;
 }
 .inbound-button.black{
-	background-color: #4A4845;
+    background-color: #4A4845;
 }
 .inbound-button.blue{
-	background-color: #707ef9;
+    background-color: #707ef9;
 }
 .inbound-button.brown{
-	background-color: #5e3d1d;
+    background-color: #5e3d1d;
 }
 .inbound-button.green{
-	background-color: #65b20e;
+    background-color: #65b20e;
 }
 .inbound-button.orange{
-	background-color: #ff9900;
+    background-color: #ff9900;
 }
 .inbound-button.pink{
-	background-color: #fc149f;
+    background-color: #fc149f;
 }
 .inbound-button.purple{
-	background-color: #993d9e;
+    background-color: #993d9e;
 }
 .inbound-button.red{
-	background-color: #fc5a5a;
+    background-color: #fc5a5a;
 }
 .inbound-button.silver{
-	background-color: #858585;
+    background-color: #858585;
 }
 .inbound-button.yellow{
-	background-color: #f7c707;
+    background-color: #f7c707;
 }
 .inbound-button.white{
-	background-color: #f4f4f4;
-	border-color: #ccc;
+    background-color: #f4f4f4;
+    border-color: #ccc;
     -webkit-box-shadow:0px 1px 2px rgba(0,0,0,0.08), inset 1px 1px 1px rgba(255,255,255,0.2);
        -moz-box-shadow:0px 1px 2px rgba(0,0,0,0.08), inset 1px 1px 1px rgba(255,255,255,0.2);
             box-shadow:0px 1px 2px rgba(0,0,0,0.08), inset 1px 1px 1px rgba(255,255,255,0.2);
-	color: #666;
-	text-shadow: none;
+    color: #666;
+    text-shadow: none;
 }
 .inbound-button.white:hover{
-	color: #4A4845;
+    color: #4A4845;
 }
 
 /*!

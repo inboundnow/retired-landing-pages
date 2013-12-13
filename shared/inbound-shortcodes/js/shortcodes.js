@@ -196,8 +196,7 @@
 						var shortcode = shortcode.replace(/#/g, '');
 				}
 				// updates the src value
-				var file_paths = inbound_load.inbound_plugins[0];
-				iframe.attr( 'src', iframeSrc + '?post='+inbound_shortcodes.form_id+'&sc=' + InboundShortcodes.htmlEncode(shortcode) + '&file-path=' + file_paths );
+				iframe.attr( 'src', iframeSrc + '?post='+inbound_shortcodes.form_id+'&sc=' + InboundShortcodes.htmlEncode(shortcode) );
 
 				//console.log('updated iframe');
 				// update the height
