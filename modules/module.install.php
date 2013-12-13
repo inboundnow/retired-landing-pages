@@ -31,7 +31,7 @@ function inbound_create_default_post_type(){
         add_post_meta($default_lander, 'lp-selected-template', 'svtle');
         add_post_meta($default_lander, 'lp-conversion-area', '<h2>'.__( 'Form a' , LANDINGPAGES_TEXT_DOMAIN) .'</h2><form action="" method="post">'. __( 'First Name' , LANDINGPAGES_TEXT_DOMAIN) .': <input name="first-name" type="text" /><br>'. __('Last Name' , LANDINGPAGES_TEXT_DOMAIN) .': <input name="last-name" type="text" /><br>'.__('Email' , LANDINGPAGES_TEXT_DOMAIN) .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , LANDINGPAGES_TEXT_DOMAIN).'" /></form>' );
        
-		// Varaition B
+		// Variation B
         add_post_meta($default_lander, 'lp-main-headline-1', __('Main Catchy Headline Two (B)' , LANDINGPAGES_TEXT_DOMAIN) );
         add_post_meta($default_lander, 'lp-selected-template-1', 'svtle');
         add_post_meta($default_lander, 'landing-page-myeditor-1', '<h2>'.__( 'Form B' , LANDINGPAGES_TEXT_DOMAIN) .'</h2><form action="" method="post">'. __( 'First Name' , LANDINGPAGES_TEXT_DOMAIN) .': <input name="first-name" type="text" /><br>'. __('Last Name' , LANDINGPAGES_TEXT_DOMAIN) .': <input name="last-name" type="text" /><br>'.__('Email' , LANDINGPAGES_TEXT_DOMAIN) .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , LANDINGPAGES_TEXT_DOMAIN).'" /></form>' , LANDINGPAGES_TEXT_DOMAIN);
