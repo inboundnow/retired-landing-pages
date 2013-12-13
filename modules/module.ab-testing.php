@@ -242,8 +242,8 @@ if (is_admin())
 	}
 
 
-	add_filter('lp_edit_varaition_notes','lp_ab_testing_admin_prepare_notes');
-	function lp_ab_testing_admin_prepare_notes($varaition_notes)
+	add_filter('lp_edit_variation_notes','lp_ab_testing_admin_prepare_notes');
+	function lp_ab_testing_admin_prepare_notes($variation_notes)
 	{
 		$current_variation_id = lp_ab_testing_get_current_variation_id();
 
@@ -260,20 +260,20 @@ if (is_admin())
 
 		if ($current_variation_id>0&&!isset($_REQUEST['new-variation'])&&!isset($_REQUEST['clone']))
 		{
-			$varaition_notes = get_post_meta($post_id,'lp-variation-notes-'.$current_variation_id, true);
+			$variation_notes = get_post_meta($post_id,'lp-variation-notes-'.$current_variation_id, true);
 		}
 		else if (isset($_GET['clone'])&&$_GET['clone']>0)
 		{
-			$varaition_notes = get_post_meta($post_id,'lp-variation-notes-'.$_GET['clone'], true);
+			$variation_notes = get_post_meta($post_id,'lp-variation-notes-'.$_GET['clone'], true);
 		}
 
-		if (!$varaition_notes&&isset($_REQUEST['post']))
+		if (!$variation_notes&&isset($_REQUEST['post']))
 		{
 			//echo 1;exit;
 			get_post_meta($_REQUEST['post'],'lp-variation-notes', true);
 		}
 
-		return $varaition_notes;
+		return $variation_notes;
 	}
 
 	add_filter('lp_selected_template_id','lp_ab_testing_prepare_id');//prepare name id for hidden selected template input
