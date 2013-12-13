@@ -26,13 +26,13 @@ jQuery(".nav-tab-wrapper.a_b_tabs a").on('click', function (event) {
 });	
 
 
-var open_varaition = jQuery("#open_variation").val();
-var link_varaition = jQuery("#view-post-btn a").attr('href');
+var open_variation = jQuery("#open_variation").val();
+var link_variation = jQuery("#view-post-btn a").attr('href');
 
 var preview_window = jQuery(parent.document).find("#lp-live-preview").attr('src');
 console.log(preview_window);
 
-console.log(link_varaition);
+console.log(link_variation);
 
 	// reload the iframe preview page (for option toggles)
 	//jQuery('.reload').on('click', function (event) {

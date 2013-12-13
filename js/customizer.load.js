@@ -5,14 +5,14 @@ jQuery(document).ready(function ($) {
 				
 	// reload the iframe preview page (for option toggles)
 	jQuery('.variation-lp').on('click', function (event) {
-		varaition_is = jQuery(this).attr("id");
+		variation_is = jQuery(this).attr("id");
 		var original_url = jQuery(parent.document).find("#TB_iframeContent").attr("src");
 		var current_id = jQuery("#current-post-id").text();
 		someURL = original_url;
 
 		splitURL = someURL.split('?'); 
 		someURL = splitURL[0];
-		new_url = someURL + "?lp-variation-id=" + varaition_is + "&iframe_window=on&post_id=" + current_id;
+		new_url = someURL + "?lp-variation-id=" + variation_is + "&iframe_window=on&post_id=" + current_id;
 		jQuery(parent.document).find("#TB_iframeContent").attr("src", new_url);
 
 	});
