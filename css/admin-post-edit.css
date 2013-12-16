@@ -10,6 +10,12 @@ box-shadow: none;
 h2#convert-header {
 	margin-bottom: 0px;
 }
+.quicktags-toolbar, .wp_themeSkin tr.mceFirst td.mceToolbar {
+	height: 38px;
+}
+.mceIframeContainer.mceFirst.mceLast iframe{
+	height: 335px !important;
+}
 #lp-notes-area input {
 	width: 100%;
 	color: #AAAAAA;
