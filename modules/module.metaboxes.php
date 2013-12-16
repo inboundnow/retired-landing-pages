@@ -144,21 +144,21 @@ function lp_landing_page_header_area()
 	global $post;
 	$lp_variation = (isset($_GET['lp-variation-id'])) ? $_GET['lp-variation-id'] : '0';
 	$main_title = get_post_meta( $post->ID , 'lp-main-headline', true );
-	$varaition_notes = get_post_meta( $post->ID , 'lp-variation-notes', true );
+	$variation_notes = get_post_meta( $post->ID , 'lp-variation-notes', true );
     if ( empty ( $post ) || 'landing-page' !== get_post_type( $GLOBALS['post'] ) )
         return;
 
     if ( ! $main_title = get_post_meta( $post->ID , 'lp-main-headline',true ) )
         $main_title = '';
 
-    if ( ! $varaition_notes = get_post_meta( $post->ID , 'lp-variation-notes',true ) )
-    $varaition_notes = '';
+    if ( ! $variation_notes = get_post_meta( $post->ID , 'lp-variation-notes',true ) )
+    $variation_notes = '';
 	$main_title = apply_filters('lp_edit_main_headline', $main_title, 1);
-	$varaition_notes = apply_filters('lp_edit_varaition_notes', $varaition_notes, 1);
-	$varaition_id = apply_filters( 'lp_display_notes_input_id' , 'lp-variation-notes' );
+	$variation_notes = apply_filters('lp_edit_variation_notes', $variation_notes, 1);
+	$variation_id = apply_filters( 'lp_display_notes_input_id' , 'lp-variation-notes' );
 
 	echo "<div id='lp-notes-area'>";
-	echo "<span id='add-lp-notes'>". __('Notes' , LANDINGPAGES_TEXT_DOMAIN) .":</span><input placeholder='". __('Click to add notes to this version. Example: This version is testing a green submit button' , LANDINGPAGES_TEXT_DOMAIN) ."' type='text' class='lp-notes' name='{$varaition_id}' id='{$varaition_id}' value='{$varaition_notes}' size='30'>";
+	echo "<span id='add-lp-notes'>". __('Notes' , LANDINGPAGES_TEXT_DOMAIN) .":</span><input placeholder='". __('Add Notes to your variation. Example: This version is testing a green submit button ' , LANDINGPAGES_TEXT_DOMAIN) ."' type='text' class='lp-notes' name='{$variation_id}' id='{$variation_id}' value='{$variation_notes}' size='30'>";
 	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="'. __('Primary Headline Goes here. This will be visible on the page' , LANDINGPAGES_TEXT_DOMAIN) .'" id="lp-main-headline" value="'.$main_title.'" title="'. __('This headline will appear in the landing page template.' , LANDINGPAGES_TEXT_DOMAIN) .'"></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
 
    // Frontend params
