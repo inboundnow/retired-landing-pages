@@ -1,10 +1,13 @@
-jQuery('.lp_tooltip').live('mouseover', function(event) {
+jQuery(document).ready(function($) {
+
+
+jQuery('.lp_tooltip').on('mouseover', function(event) {
 	// Bind the qTip within the event handler
 	jQuery(this).qtip({
 		overwrite: false, // Make sure the tooltip won't be overridden once created
 			content: {
 					title: {
-						text: '<u>What does this do?</u>'
+						text: 'What does this do?'
 					}
 				},
 		position: {
@@ -24,7 +27,7 @@ jQuery('.lp_tooltip').live('mouseover', function(event) {
 	}, event); // Pass through our original event to qTip
 })
 
-jQuery('.lp_tooltip_templates').live('mouseover', function(event) {
+jQuery('.lp_tooltip_templates').on('mouseover', function(event) {
 	// Bind the qTip within the event handler
 	jQuery(this).qtip({
 		overwrite: false, // Make sure the tooltip won't be overridden once created
@@ -49,3 +52,5 @@ jQuery('.lp_tooltip_templates').live('mouseover', function(event) {
 		hide: 'unfocus'
 	}, event); // Pass through our original event to qTip
 })
+  // put all your jQuery goodness in here.
+});

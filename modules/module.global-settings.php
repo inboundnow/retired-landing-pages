@@ -299,7 +299,7 @@ function lp_display_global_settings()
 				</td>
 				<td>
 					<?php
-						if(version_compare(phpversion(), '5.2.4', '>')){
+						if(version_compare(phpversion(), '5.3.3', '>')){
 							?>
 							<img src="<?php echo LANDINGPAGES_URLPATH;?>/images/tick.png"/>
 							<?php
@@ -307,7 +307,7 @@ function lp_display_global_settings()
 						else{
 							?>
 							<img src="<?php echo LANDINGPAGES_URLPATH;?>/images/cross.png"/>
-							<span class="installation_item_message"><?php _e("Gravity Forms requires PHP 5 or above.", "gravityforms"); ?></span>
+							<span class="installation_item_message"><?php _e("Landing Pages requires PHP 5 or above.", "gravityforms"); ?></span>
 							<?php
 						}
 					?>

@@ -10,8 +10,15 @@ padding-left: 0px;
 width: 200px;
 padding-right: 20px;
 }
-.inbound-wysiwyg-option, .inbound-textarea-option {
+.inbound-textarea-option {
 	width: 75%;
+}
+.inbound-wysiwyg-option {
+	width: 100%;
+
+}
+.inbound-wysiwyg {
+	margin-bottom: 10px;
 }
 .inbound-meta-box-option {
 	position: relative;
@@ -22,6 +29,7 @@ position: absolute;
 .inbound-datepicker .button-primary.new-save-wp-cta {
 	display: none;
 }
+
 .inbound-description-block-option {
 max-width: 87%;
 }
@@ -55,6 +63,10 @@ display: inline-block;
 }
 .inbound-wysiwyg, .inbound-media, .inbound-datepicker, .inbound-textarea {
 	vertical-align: top;
+
+}
+.inbound-wysiwyg label {
+	margin-bottom: 5px;
 }
 .inbound-textarea-option .wp-cta-success-message {
 	position: absolute;

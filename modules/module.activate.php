@@ -7,7 +7,7 @@ register_activation_hook( LANDINGPAGES_FILE , 'landing_page_activate');
 function landing_page_activate($wp = '3.6', $php = '5.3', $cta = '1.2.1', $leads = '1.2.1')
 {
 	global $wp_version;
-	if ( version_compare( PHP_VERSION, $php, '<' ) )
+	if ( version_compare( phpversion(), $php, '<' ) )
 	{
 	    $flag = 'PHP';
 	    $version = 'PHP' == $flag ? $php : $wp;
