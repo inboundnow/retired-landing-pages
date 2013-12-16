@@ -69,6 +69,11 @@ The plugin is also fully extendable and has a number of <a href='http://docs.inb
 
 == Changelog ==
 
+= 1.3.8 =
+* Updated styles to 3.8 wordpress
+* Streamlined form creation
+* fixed rogue PHP errors
+
 = 1.3.7 =
 * Added: Shortcode now automatically render in landing page option echos in templates
 * Updated: Visual Editor tool
