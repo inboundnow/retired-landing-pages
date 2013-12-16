@@ -8,7 +8,7 @@
 	$lp_cats = get_transient( 'landing-page-cats' ); // array of landing page categories
 	$form_names = get_transient( 'inbound-form-names' ); // array of landing page categories
 	$lead_mapping_fields = get_transient( 'wp-lead-fields' );
-	delete_transient( 'wp-lead-fields' );
+
 	/* Include global fontawesome */
 	global $fontawesome, $form_names;
 
