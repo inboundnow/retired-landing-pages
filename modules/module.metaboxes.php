@@ -159,8 +159,8 @@ function lp_landing_page_header_area()
 
 	$page_conversion_data = get_post_meta( $post->ID, 'inbound_conversion_data', TRUE );
 	$page_conversion_data = json_decode($page_conversion_data,true);
-	print_r($page_conversion_data);
-	echo "TEST";
+	//print_r($page_conversion_data);
+	//echo "TEST";
 	echo "<div id='lp-notes-area'>";
 	echo "<span id='add-lp-notes'>". __('Notes' , LANDINGPAGES_TEXT_DOMAIN) .":</span><input placeholder='". __('Add Notes to your variation. Example: This version is testing a green submit button ' , LANDINGPAGES_TEXT_DOMAIN) ."' type='text' class='lp-notes' name='{$variation_id}' id='{$variation_id}' value='{$variation_notes}' size='30'>";
 	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="'. __('Primary Headline Goes here. This will be visible on the page' , LANDINGPAGES_TEXT_DOMAIN) .'" id="lp-main-headline" value="'.$main_title.'" title="'. __('This headline will appear in the landing page template.' , LANDINGPAGES_TEXT_DOMAIN) .'"></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
