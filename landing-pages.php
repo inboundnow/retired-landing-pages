@@ -31,6 +31,7 @@ if (is_admin())
 switch (is_admin()) :
 	case true :
 		/* loads admin files */
+		include_once('modules/module.cron.php');
 		include_once('modules/module.language-support.php');
 		include_once('modules/module.javascript-admin.php');
 		include_once('modules/module.activate.php');
