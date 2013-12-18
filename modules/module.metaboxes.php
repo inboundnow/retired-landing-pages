@@ -157,6 +157,10 @@ function lp_landing_page_header_area()
 	$variation_notes = apply_filters('lp_edit_variation_notes', $variation_notes, 1);
 	$variation_id = apply_filters( 'lp_display_notes_input_id' , 'lp-variation-notes' );
 
+	$page_conversion_data = get_post_meta( $post->ID, 'inbound_conversion_data', TRUE );
+	$page_conversion_data = json_decode($page_conversion_data,true);
+	print_r($page_conversion_data);
+	echo "TEST";
 	echo "<div id='lp-notes-area'>";
 	echo "<span id='add-lp-notes'>". __('Notes' , LANDINGPAGES_TEXT_DOMAIN) .":</span><input placeholder='". __('Add Notes to your variation. Example: This version is testing a green submit button ' , LANDINGPAGES_TEXT_DOMAIN) ."' type='text' class='lp-notes' name='{$variation_id}' id='{$variation_id}' value='{$variation_notes}' size='30'>";
 	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="'. __('Primary Headline Goes here. This will be visible on the page' , LANDINGPAGES_TEXT_DOMAIN) .'" id="lp-main-headline" value="'.$main_title.'" title="'. __('This headline will appear in the landing page template.' , LANDINGPAGES_TEXT_DOMAIN) .'"></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
@@ -350,7 +354,7 @@ function lp_display_meta_box_select_template_container() {
 				<p>
 					<div id="template-title"><?php echo $data['info']['label']; ?></div>
 					<a href='#' label='<?php echo $data['info']['label']; ?>' id='<?php echo $this_extension; ?>' class='lp_select_template'><?php _e( 'Select' , LANDINGPAGES_TEXT_DOMAIN); ?> </a> |
-					<a class='thickbox <?php echo $cat_slug;?>' href='<?php echo $data['info']['demo'];?>' id='lp_preview_this_template'><?php _e( 'Preview' , LANDINGPAGES_TEXT_DOMAIN); ?></a>
+					<a class='thickbox <?php echo $cat_slug;?>' href='<?php echo $demo_link;?>' id='lp_preview_this_template'><?php _e( 'Preview' , LANDINGPAGES_TEXT_DOMAIN); ?></a>
 				</p>
 				</div>
 			</div>
@@ -496,6 +500,24 @@ function lp_conversion_log_metabox() {
 
 					$final_data[] = $this_data;
 				}
+				/* Port Old Conversion Logs to new inbound_conversion_data. Not Finished
+				$page_conversion_data = get_post_meta( $post->ID, 'inbound_conversion_data', TRUE );
+				$page_conversion_data = json_decode($page_conversion_data,true);
+				$version = '0';
+				if (is_array($page_conversion_data)){
+					$convert_count = count($page_conversion_data) + 1;
+					$page_conversion_data[$convert_count]['lead_id'] = $row['ID'];
+					$page_conversion_data[$convert_count]['variation'] = $version;
+					$page_conversion_data[$convert_count]['datetime'] = $datetime;
+				} else {
+					$convert_count = 1;
+					$page_conversion_data[$convert_count]['lead_id'] = $row['ID'];
+					$page_conversion_data[$convert_count]['variation'] = $version;
+					$page_conversion_data[$convert_count]['datetime'] = $datetime;
+				}
+				$page_conversion_data = json_encode($page_conversion_data);
+				update_post_meta($post->ID, 'inbound_conversion_data', $page_conversion_data);
+				*/
 			}
 			//print_r($final_data);
 			$this->table_data = $final_data;

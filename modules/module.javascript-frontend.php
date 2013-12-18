@@ -27,12 +27,10 @@ function lp_fontend_enqueue_scripts($hook)
 	// Load funnel tracking. Force Leads to load its version if active
 	if ($post_type!=='wp-call-to-action')
 	{
-
+	/* Global Lead Data */
 	$lead_cpt_id = (isset($_COOKIE['wp_lead_id'])) ? $_COOKIE['wp_lead_id'] : false;
     $lead_email = (isset($_COOKIE['wp_lead_email'])) ? $_COOKIE['wp_lead_email'] : false;
     $lead_unique_key = (isset($_COOKIE['wp_lead_uid'])) ? $_COOKIE['wp_lead_uid'] : false;
-
-	// Localize lead data
 	$lead_data_array = array();
 		if ($lead_cpt_id) {
 			$lead_data_array['lead_id'] = $lead_cpt_id;
@@ -46,10 +44,10 @@ function lp_fontend_enqueue_scripts($hook)
 		}
 		wp_register_script('funnel-tracking',LANDINGPAGES_URLPATH . 'js/funnel-tracking.js', array( 'jquery', 'jquery-cookie'));
 		wp_enqueue_script('funnel-tracking');
-
 		$time = current_time( 'timestamp', 0 ); // Current wordpress time from settings
 		$wordpress_date_time = date("Y-m-d G:i:s T", $time);
 		wp_localize_script( 'funnel-tracking' , 'wplft', array( 'post_id' => $post_id, 'ip_address' => $ip_address, 'wp_lead_data' => $lead_data_array, 'admin_url' => admin_url( 'admin-ajax.php' ), 'track_time' => $wordpress_date_time));
+		/* End Global Lead Data */
 	}
 
 	if (isset($post)&&$post->post_type=='landing-page')
