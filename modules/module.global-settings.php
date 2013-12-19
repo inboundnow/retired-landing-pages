@@ -275,7 +275,7 @@ function lp_display_global_settings()
 	</center>
 	</div>
 	<div id="custom-templates">
-		<center><a href="http://docs.inboundnow.com/wordpress-landing-pages/odesk-development-process/" target=="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>/images/custom-setup-image.png"></a>
+		<center><a href="http://www.inboundnow.com/custom-wordpress-landing-page-setup/" target=="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>/images/custom-setup-image.png"></a>
 		</center>
 	</div>
 	</div>
