@@ -134,6 +134,7 @@ function lp_wysiwyg_save_meta(){
 	}
 }
 
+
 // Add in Main Headline
 add_action( 'edit_form_after_title', 'lp_landing_page_header_area' );
 add_action( 'save_post', 'lp_save_header_area' );
@@ -164,7 +165,9 @@ function lp_landing_page_header_area()
 	echo "<div id='lp-notes-area'>";
 	echo "<span id='add-lp-notes'>". __('Notes' , LANDINGPAGES_TEXT_DOMAIN) .":</span><input placeholder='". __('Add Notes to your variation. Example: This version is testing a green submit button ' , LANDINGPAGES_TEXT_DOMAIN) ."' type='text' class='lp-notes' name='{$variation_id}' id='{$variation_id}' value='{$variation_notes}' size='30'>";
 	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="'. __('Primary Headline Goes here. This will be visible on the page' , LANDINGPAGES_TEXT_DOMAIN) .'" id="lp-main-headline" value="'.$main_title.'" title="'. __('This headline will appear in the landing page template.' , LANDINGPAGES_TEXT_DOMAIN) .'"></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
+	echo ""; ?>
 
+	<?php
    // Frontend params
     if(isset($_REQUEST['frontend']) && $_REQUEST['frontend'] == 'true') {
     echo('<input type="hidden" name="frontend" id="frontend-on" value="true" />');
