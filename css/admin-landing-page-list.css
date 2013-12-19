@@ -83,7 +83,7 @@ margin-right: 8px;
 }
 
 .lp-pop-controls {
-    display: inline-block; 
+    display: inline-block;
     margin-top: 8px;
 }
 
@@ -107,18 +107,18 @@ margin-right: 8px;
 }
 
 .lp-pop-preview a, .lp-pop-edit a {
-   text-decoration: none; 
+   text-decoration: none;
 }
 
-.qtip-titlebar 
+.qtip-titlebar
 {
 	position: relative;
 	padding: 0px;
 }
 
-.qtip-jtools 
+.qtip-jtools
 {
-	border: 2px solid rgba(172, 172, 172, 1); 
+	border: 2px solid rgba(172, 172, 172, 1);
 }
 
 .qtip-title {
@@ -146,7 +146,7 @@ margin-right: 8px;
 	padding-right: 5px;
 }
 
-.stats li:hover 
+.stats li:hover
 {
 	background:#e0e0e0;
 }
@@ -170,7 +170,7 @@ td.stats.column-stats {
 .wp-list-table td.stats {
     padding-left: 0px;
 	padding-right: 0px;
-} 
+}
 
 .lp-current-winner{
   background-color: rgb(226, 255, 201);
@@ -253,6 +253,7 @@ display: none;
 	margin-bottom: -2px;
 	padding-bottom: 0px;
 	display: inline-block;
+	margin-top: 0px;
 }
 .lp-numbers {
 	font-size: 13px;
@@ -344,7 +345,7 @@ color: #ccc;
 box-shadow: none;
 -webkit-box-shadow: none;
 }
- a.cr-number:hover { 
+ a.cr-number:hover {
     background-color: #278ab7;
 	background-image: -webkit-gradient(linear,left top,left bottom,from(#2e9fd2),to(#21759b));
 	background-image: -webkit-linear-gradient(top,#2e9fd2,#21759b);

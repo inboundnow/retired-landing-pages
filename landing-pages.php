@@ -3,14 +3,14 @@
 Plugin Name: Landing Pages
 Plugin URI: http://www.inboundnow.com/landing-pages/
 Description: The first true all-in-one Landing Page solution for WordPress, including ongoing conversion metrics, a/b split testing, unlimited design options and so much more!
-Version:  1.3.9
+Version:  1.4.0
 Author: David Wells, Hudson Atwell
 Author URI: http://www.inboundnow.com/
 Text Domain: landing-pages
 Domain Path: shared/languages/landing-pages/
 */
 
-define('LANDINGPAGES_CURRENT_VERSION', '1.3.9' );
+define('LANDINGPAGES_CURRENT_VERSION', '1.4.0' );
 define('LANDINGPAGES_URLPATH', WP_PLUGIN_URL.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 define('LANDINGPAGES_PLUGIN_SLUG', plugin_basename( dirname(__FILE__) ) );
@@ -85,7 +85,7 @@ endswitch;
 /* Singleton Shared Class Loads */
 include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
 include_once('shared/classes/menu.class.php');  // Inbound Marketing Menu
-include_once('shared/classes/feedback.class.php');  // Inbound Marketing Menu
+include_once('shared/classes/feedback.class.php');  // Inbound Feedback Form
 
 /* Inbound Core Shared Files. Lead files take presidence */
 add_action( 'plugins_loaded', 'inbound_load_shared_landing_pages' );

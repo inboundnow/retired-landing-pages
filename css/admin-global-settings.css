@@ -16,7 +16,7 @@
 }
 
 .nav-tab-special-active{
-	border-color: #DFDFDF #DFDFDF #FFFFFF !important;
+	border-color: #DFDFDF #DFDFDF transparent !important;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     border-width: 1px 1px 1px;
