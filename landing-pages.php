@@ -84,6 +84,7 @@ endswitch;
 
 /* Singleton Shared Class Loads */
 include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
+include_once('shared/classes/menu.class.php');  // Inbound Marketing Menu
 
 /* Inbound Core Shared Files. Lead files take presidence */
 add_action( 'plugins_loaded', 'inbound_load_shared_landing_pages' );
