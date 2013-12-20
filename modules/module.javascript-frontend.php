@@ -42,7 +42,7 @@ function lp_fontend_enqueue_scripts($hook)
 	    	$lead_data_array['lead_uid'] = $lead_unique_key;
 			$type = 'wpluid';
 		}
-		wp_register_script('funnel-tracking',LANDINGPAGES_URLPATH . 'js/page-tracking.js', array( 'jquery', 'jquery-cookie'));
+		wp_register_script('funnel-tracking',LANDINGPAGES_URLPATH . 'shared/tracking/page-tracking.js', array( 'jquery', 'jquery-cookie'));
 		wp_enqueue_script('funnel-tracking');
 		$time = current_time( 'timestamp', 0 ); // Current wordpress time from settings
 		$wordpress_date_time = date("Y-m-d G:i:s T", $time);
