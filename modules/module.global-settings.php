@@ -711,14 +711,14 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 		$field['value'] = get_option($field['id'] , $default);
 
 		// begin a table row with
-		echo '<tr><th class="lp-gs-th" valign="top" style="font-weight:300px;">';
+		echo '<tr><th class="lp-gs-th" valign="top" style="font-weight:300;">';
 			if ($field['type']=='header')
 			{
 				echo $field['default'];
 			}
 			else
 			{
-				echo "<small>".$field['label']."</small>";
+				echo "<div class='inbound-setting-label'>".$field['label']."</div>";
 			}
 		echo '</th><td>';
 
