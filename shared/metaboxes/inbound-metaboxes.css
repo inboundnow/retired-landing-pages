@@ -6,16 +6,22 @@ padding-left: 0px;
 .inbound-meta-box-label, .inbound-meta-box-option {
 	display: inline-block;
 }
+.upload_image_button {
+	font-size: 25px;
+}
 .inbound-meta-box-label {
 width: 200px;
 padding-right: 20px;
 }
 .inbound-textarea-option {
-	width: 75%;
+	width: 73%;
 }
 .inbound-wysiwyg-option {
 	width: 100%;
 
+}
+.inbound-meta-box-option.inbound-dropdown-option {
+width: 95%;
 }
 .inbound-wysiwyg {
 	margin-bottom: 10px;
