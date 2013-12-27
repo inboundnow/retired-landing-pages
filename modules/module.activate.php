@@ -126,7 +126,7 @@ function lp_move_template_files( $old_path , $new_path )
 			unlink($old_path.$file);
 		}
 	}
-
+	$delete = (isset($delete)) ? $delete : false;
 	if (!$delete)
 		return;
 

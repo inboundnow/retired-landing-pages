@@ -356,8 +356,8 @@ function lp_display_meta_box_select_template_container() {
 				</a>
 				<p>
 					<div id="template-title"><?php echo $data['info']['label']; ?></div>
-					<a href='#' label='<?php echo $data['info']['label']; ?>' id='<?php echo $this_extension; ?>' class='lp_select_template'><?php _e( 'Select' , LANDINGPAGES_TEXT_DOMAIN); ?> </a> |
-					<a class='thickbox <?php echo $cat_slug;?>' href='<?php echo $demo_link;?>' id='lp_preview_this_template'><?php _e( 'Preview' , LANDINGPAGES_TEXT_DOMAIN); ?></a>
+					<a href='#' label='<?php echo $data['info']['label']; ?>' id='<?php echo $this_extension; ?>' class='lp_select_template'><?php _e( 'Select' , LANDINGPAGES_TEXT_DOMAIN); ?></a> |
+					<a class='<?php echo $cat_slug;?>' target="_blank" href='<?php echo $demo_link;?>' id='lp_preview_this_template'><?php _e( 'Preview' , LANDINGPAGES_TEXT_DOMAIN); ?></a>
 				</p>
 				</div>
 			</div>

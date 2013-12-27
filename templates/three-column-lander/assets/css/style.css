@@ -21,7 +21,7 @@ body,
 .wrapper{
     height: 100%;
     overflow: hidden;
-    font-family: Rosario, arial, sans-serif;
+
 }
 
 h1, h2, h3 {
@@ -44,23 +44,25 @@ h1, h2, h3 {
     width: 50%;
     background: #f3f1ef;
     margin-left: 25%;
+    font-weight: 300;
 
 }
 
-.sidebar {    
+.sidebar {
     position: relative;
     height: 100%;
     width: 25%;
     background: #a39485;
     color: #fff;
+    font-weight: 300;
 }
 
 .sidebar.left {
-    margin-left: -75%;  
+    margin-left: -75%;
 }
 
 .sidebar.right {
-    float: right;            
+    float: right;
 }
 
 .btn {
@@ -80,13 +82,13 @@ h1, h2, h3 {
     left: .1em;
     top: 5px;
     font-size: 2.5em;
-    line-height: .5; 
-}  
+    line-height: .5;
+}
 
 .btn.right span {
     left: auto;
     right: 0;
-} 
+}
 
 .btn.left {
     left: 1.5em;
@@ -114,9 +116,9 @@ h1, h2, h3 {
         float: none;
         right: 0;
         margin: 0;
-        transition: .5s left ease, .5s right ease;  
-        box-shadow: 0 0 10px rgba(0,0,0,.5) ; 
-        z-index: 5 ;    
+        transition: .5s left ease, .5s right ease;
+        box-shadow: 0 0 10px rgba(0,0,0,.5) ;
+        z-index: 5 ;
     }
 
     .right .main, .right .sidebar.left {
@@ -136,9 +138,9 @@ h1, h2, h3 {
         height: 100%;
         margin: 0;
         right: 0;
-        top: 0;   
-        z-index: 1;   
-        transition:  .5s right ease, .5s left ease;        
+        top: 0;
+        z-index: 1;
+        transition:  .5s right ease, .5s left ease;
     }
 
     .sidebar.left {
