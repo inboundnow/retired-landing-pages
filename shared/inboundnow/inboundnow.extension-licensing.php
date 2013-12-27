@@ -89,6 +89,7 @@ if ( ! class_exists( 'INBOUNDNOW_EXTENSION_LICENSE' ) ) :
 		public function wp_cta_settings( $wp_cta_global_settings ) {
 		
 			$wp_cta_global_settings['wp-cta-license-keys']['settings'][] = array(
+
 					'id'      => $this->item_slug,					
 					'slug'      => $this->item_slug,
 					'label'    => sprintf( __( '%1$s', 'lp' ), $this->item_label ),
@@ -200,7 +201,8 @@ if ( ! class_exists( 'INBOUNDNOW_EXTENSION_LICENSE' ) ) :
 				$api_params = array( 
 					'edd_action'=> 'activate_license', 
 					'license' 	=> $field['new_value'], 
-					'item_name' =>  $field['slug'] // the name of our product in EDD
+					'item_name' =>  $field['slug'] ,
+					'cache_bust'=> substr(md5(rand()),0,7)
 				);						
 				//print_r($api_params);
 				
@@ -249,7 +251,8 @@ if ( ! class_exists( 'INBOUNDNOW_EXTENSION_LICENSE' ) ) :
 		$api_params = array( 
 			'edd_action' => 'check_license', 
 			'license' => $license_key, 
-			'item_name' => urlencode( $field['slug'] ) 
+			'item_name' => urlencode( $field['slug'] ) ,
+			'cache_bust'=> substr(md5(rand()),0,7)
 		);
 		//print_r($api_params);
 		
