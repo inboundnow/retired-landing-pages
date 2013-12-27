@@ -29,6 +29,9 @@ padding-top: 5px !important;
 .wrap div.updated, .wrap div.error, .media-upload-form div.error {
 margin: 5px 0 0px !important;
 }
+.inbound-meta-box-option.inbound-dropdown-option {
+width: 95% !important;
+}
 #publishing-action {
 text-align: center !important;
 float: none !important;
