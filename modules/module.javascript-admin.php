@@ -31,6 +31,8 @@ function lp_admin_enqueue($hook)
 		//wp_enqueue_script('lp-js-store', LANDINGPAGES_URLPATH . 'js/admin/admin.store.js');
 	}
 
+
+
 	// Admin enqueue - Landing Page CPT only
 	if (  ( isset($post) && 'landing-page' == $post->post_type ) || ( isset($_GET['post_type']) && $_GET['post_type']=='landing-page' ) )
 	{
@@ -70,6 +72,10 @@ function lp_admin_enqueue($hook)
 			wp_enqueue_script('jquery-tinymce', LANDINGPAGES_URLPATH . 'js/libraries/tiny_mce/jquery.tinymce.js');
 			wp_enqueue_style('inbound-metaboxes', LANDINGPAGES_URLPATH . 'shared/metaboxes/inbound-metaboxes.css');
 
+		}
+
+		if (isset($_GET['page']) && $_GET['page'] === 'lp_global_settings') {
+			wp_enqueue_script('lp-settings-js', LANDINGPAGES_URLPATH . 'js/admin/admin.global-settings.js');
 		}
 		// Edit Screen
 		if ( $hook == 'post.php' )
