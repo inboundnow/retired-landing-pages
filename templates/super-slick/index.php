@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*****************************************/
 // Template Title: Super Slick
 // Plugin: Landing Pages - Inboundnow.com
@@ -8,7 +8,7 @@
 include_once(LANDINGPAGES_PATH.'libraries/library.shareme.php');
 
 /* Declare Template Key */
-$key = lp_get_parent_directory(dirname(__FILE__)); 
+$key = lp_get_parent_directory(dirname(__FILE__));
 $path = LANDINGPAGES_URLPATH.'templates/'.$key.'/';
 $url = plugins_url();
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
@@ -19,29 +19,29 @@ if (have_posts()) : while (have_posts()) : the_post();
 
 /**
  * Step 2: Pre-load meta data into variables.
- * - These are defined in this templates config.php file 
+ * - These are defined in this templates config.php file
  * - The config.php values create the metaboxes visible to the user.
  * - We define those meta-keys here to use them in the template.
- */ 
+ */
 	//prepare content
 	$content = lp_content_area($post,null,true);
 	$headline_color = lp_get_value($post, $key, 'headline-color');
-	$sub_headline_color = lp_get_value($post, $key, 'sub-headline-color'); 
-	$sub_headline = lp_get_value($post, $key, 'sub-headline'); 
+	$sub_headline_color = lp_get_value($post, $key, 'sub-headline-color');
+	$sub_headline = lp_get_value($post, $key, 'sub-headline');
 	$top_color = lp_get_value($post, $key, 'top-color');
 	$top_text_color = lp_get_value($post, $key, 'top-text-color');
 	$bottom_text_color = lp_get_value($post, $key, 'bottom-text-color');
-	$bottom_color = lp_get_value($post, $key, 'bottom-color'); 
-	$bottom_content = lp_get_value($post, $key, 'wysiwyg-content'); 
-	$form_placement = lp_get_value($post, $key, 'form-placement'); 	
+	$bottom_color = lp_get_value($post, $key, 'bottom-color');
+	$bottom_content = lp_get_value($post, $key, 'wysiwyg-content');
+	$form_placement = lp_get_value($post, $key, 'form-placement');
 	$social_display = lp_get_value($post, $key, 'display-social');
-	$submit_button_color = lp_get_value($post, $key, 'submit-button-color');   
+	$submit_button_color = lp_get_value($post, $key, 'submit-button-color');
 
 	// Convert Hex to RGB Value for submit button
 function Hex_2_RGB($hex) {
         $hex = preg_replace("/#/", "", $hex);
         $color = array();
- 
+
         if(strlen($hex) == 3) {
             $color['r'] = hexdec(substr($hex, 0, 1) . $r);
             $color['g'] = hexdec(substr($hex, 1, 1) . $g);
@@ -52,16 +52,16 @@ function Hex_2_RGB($hex) {
             $color['g'] = hexdec(substr($hex, 2, 2));
             $color['b'] = hexdec(substr($hex, 4, 2));
         }
- 
+
         return $color;
-        
+
 }
 $RBG_array = Hex_2_RGB($submit_button_color);
 $red = $RBG_array['r'];
 $green = $RBG_array["g"];
 $blue = $RBG_array["b"];
 
-?>	
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head profile="http://gmpg.org/xfn/11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -90,7 +90,7 @@ $blue = $RBG_array["b"];
         ?>
 
 
-<?php if ($form_placement==="right") { echo"#slideshow-inleft {float: right;} #slideshow1 {float: left;}";}?> 
+<?php if ($form_placement==="right") { echo"#slideshow-inleft {float: right;} #slideshow1 {float: left;}";}?>
 
 <?php if ($submit_button_color != "") {
 		  echo"input[type='submit'] {
@@ -100,13 +100,13 @@ $blue = $RBG_array["b"];
 		       background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba($red,$green,$blue, 0.5)), to(rgba($red,$green,$blue, 0.7)));
 		       background: -webkit-linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
 		       background: linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));}";
-            }?> 
+            }?>
 <?php if ($bottom_text_color !="") {
 			// change bottom text color
-            echo"#footer {color: #$bottom_text_color;}";  } ?> 
+            echo"#footer {color: #$bottom_text_color;}";  } ?>
 <?php if ($bottom_color !="") {
-			// Change Body BG color 
-            echo "body, #footer-outside {background-color: #$bottom_color;}"; } ?>           
+			// Change Body BG color
+            echo "body, #footer-outside {background-color: #$bottom_color;}"; } ?>
  </style>
 <!--
                -->
@@ -119,7 +119,7 @@ jQuery(document).ready(
      render_minis(jQuery('.mini_verse'));
      jQuery('#hi p').widtherize({'width': 200});
      jQuery('#logotopend h1').widtherize({'width': 980});
-     
+
      var lineheight = parseInt(jQuery('#logotopend h1').css("font-size"));
      var newlineheight = lineheight * .851;
      jQuery('#logotopend h1').css("line-height", newlineheight + "px" );
@@ -131,50 +131,50 @@ jQuery(document).ready(
 </script>
 </head>
 
-<body class="home blog slick-lander"> 
-<div id="body_wrapper">		
+<body class="home blog slick-lander">
+<div id="body_wrapper">
 <div id="header">
-     
-   
+
+
 	<div class="social">
-		
-		<div class="social-icon-rss">	
+
+		<div class="social-icon-rss">
 		<a href="http://wp-themes.com/?feed=rss2"></a>
 		</div>
-				
-		
-				
-	
+
+
+
+
 	</div>
-			
+
 	<div id="logotopend"><h1><?php lp_main_headline(); ?></h1>
 	</div>
 	<div id="tagline"><?php echo $sub_headline;?></div>
 
 </div>
-		
-	
+
+
 
 <div id="slideshow-inner">
 
 	<div id="slideshow-inleft">
 
 <?php lp_conversion_area(); /* echos out form/conversion area content */ ?>
-	
+
 		</div>
 <div id="slideshow1">
-	
+
 		<div id="slideshow-inright">
 
 		<?php if ($content != "") {
             echo $content;
         }
      else {
-			echo "<img src='/wp-content/plugins/landing-pages/templates/super-slick/assets/images/placeholder-hero.png'>"; 
+			echo "<img src='/wp-content/plugins/landing-pages/templates/super-slick/assets/images/placeholder-hero.png'>";
 		} ?>
-		  
+
 		</div>
-	</div> 
+	</div>
 <?php if ($social_display==="1" ) { // Show Social Media Icons?>
 	<?php lp_social_media(); // print out social media buttons?>
 	<style type="text/css">
@@ -204,32 +204,32 @@ margin-right: -14px;}
 	width: 960px;
 	padding-bottom: 10px;
 	}
-	</style> 	
-<?php  } ?>	
+	</style>
+<?php  } ?>
 
 	</div>
 
 </div> <!-- end body_wrapper -->
-	 
 
-<div id="footer-outside" class="slick-footer"> 
+
+<div id="footer-outside" class="slick-footer">
 
 <div id="footer">
 
 <div id="bottom-content">
-	 <?php echo  wpautop($bottom_content);?> 
+	 <?php echo  wpautop($bottom_content);?>
 </div> <!-- end bottom-content -->
-	
+
 </div> <!-- end footer -->
 
 </div> <!-- end footer-outside -->
 
 
-<?php 
+<?php
 break; endwhile; endif; // End wordpress loop
 
 do_action('lp_footer');
 wp_footer();
-?> 
+?>
 
 </body></html>
