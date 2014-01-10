@@ -243,7 +243,10 @@ function lp_display_global_settings()
 		<a  id='tabs-<?php echo $key; ?>' class="lp-nav-tab nav-tab nav-tab-special<?php echo $active_tab == $key ? '-active' : '-inactive'; ?>"><?php echo $data['label']; ?></a>
 		<?php
 	}
-	echo "</h2><div class='lp-settings-tab-sidebar'><div class='lp-sidebar-settings'><h2 style='font-size:16px;'>Like the Plugin? Leave us a review</h2><center><a class='review-button' href='http://wordpress.org/support/view/plugin-reviews/landing-pages?rate=5#postform' target='_blank'>Leave a Quick Review</a></center><small>Reviews help constantly improve the plugin & keep us motivated! <strong>Thank you for your support!</strong></small></div><div class='lp-sidebar-settings'><h2>Help keep the plugin up to date, awesome & free!</h2><form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>
+
+	echo "</h2><div class='lp-settings-tab-sidebar'>";
+	echo $test;
+	echo "<div class='lp-sidebar-settings'><h2 style='font-size:16px;'>Like the Plugin? Leave us a review</h2><center><a class='review-button' href='http://wordpress.org/support/view/plugin-reviews/landing-pages?rate=5#postform' target='_blank'>Leave a Quick Review</a></center><small>Reviews help constantly improve the plugin & keep us motivated! <strong>Thank you for your support!</strong></small></div><div class='lp-sidebar-settings'><h2>Help keep the plugin up to date, awesome & free!</h2><form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>
 		<input type='hidden' name='cmd' value='_s-xclick'>
 		<input type='hidden' name='hosted_button_id' value='GKQ2BR3RKB3YQ'>
 		<input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'>
@@ -252,6 +255,7 @@ function lp_display_global_settings()
 	echo "<form action='edit.php?post_type=landing-page&page=lp_global_settings' method='POST'>
 	<input type='hidden' name='nature' value='lp-global-settings-save'>
 	<input type='hidden' name='open-tab' id='id-open-tab' value='{$active_tab}'>";
+
 
 	foreach ($lp_global_settings as $key => $data)
 	{

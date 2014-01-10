@@ -191,22 +191,6 @@ th.landing-page-table-header {width:230px; line-height: 22px;}
 	box-shadow: inset 0px 0px 12px 1px rgba(82, 168, 238, 1);
 }
 
-.currently_selected
-{
-	position: absolute;
-	top: 72px;
-	left: 16px;
-	font-size: 22px;
-	line-height: 26px;
-	text-align: center;
-	background: black;
-	width: 180px;
-	height: 56px;
-	color: white;
-	opacity: 0.5;
-	border-radius: 7px;
-}
-
 .lp-selection-heading{width: 89%; margin-top: 20px;}
 .lp-selection-heading h1 {display: inline;}
 
