@@ -20,6 +20,7 @@ class LP_EXTENSION_LICENSE {
 	private $item_slug;
 	private $item_shortname;
 	private $version;
+	private $global_license;
 	
 	/**
 	 * Class constructor
@@ -37,7 +38,8 @@ class LP_EXTENSION_LICENSE {
 
 		$this->item_label      = $_item_label;
 		$this->item_slug      = $_item_slug;
-
+		$this->global_license = get_option('inboundnow_master_license_key' , '');
+		
 		// Setup hooks		
 		$this->hooks();
 	}
@@ -51,7 +53,7 @@ class LP_EXTENSION_LICENSE {
 	 
 	private function hooks() {
 		// Register settings
-		add_filter( 'lp_define_global_settings', array( $this, 'settings' ), 1 );
+		add_filter( 'lp_define_global_settings', array( $this, 'settings' ), 2 );
 
 	}
 
@@ -70,7 +72,7 @@ class LP_EXTENSION_LICENSE {
 				'label'    => sprintf( __( '%1$s', 'lp' ), $this->item_label ),
 				'description'    => 'Head to http://www.inboundnow.com/ to retrieve your license key for Landing Page Customizer for Landing Pages',
 				'type'    => 'license-key',
-				'default'    => '',
+				'default'    => $this->global_license
 			);
 		
 		//print_r($lp_global_settings);exit;
