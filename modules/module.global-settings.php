@@ -112,8 +112,9 @@ function lp_get_global_settings()
 	return $lp_global_settings;
 }
 
+
 /* Add Extensions License Key Header if Extensions are present */
-add_filter('lp_define_global_settings', 'lp_add_extension_license_key_header',1,1);
+add_filter('lp_define_global_settings', 'lp_add_extension_license_key_header', 2, 1);
 function lp_add_extension_license_key_header($lp_global_settings)
 {
 	if (array_key_exists('lp-license-keys',$lp_global_settings))
@@ -122,7 +123,7 @@ function lp_add_extension_license_key_header($lp_global_settings)
 				'id'  => 'extensions-license-keys-header',
 				'description' => __( "Head to http://www.inboundnow.com/ to retrieve your license key for this template." , LANDINGPAGES_TEXT_DOMAIN),
 				'type'  => 'header',
-				'default' => '<h3 class="lp_global_settings_header">'. __( 'Extension License Keys' , LANDINGPAGES_TEXT_DOMAIN) .'</h3>'
+				'default' => '<h3 class="lp_global_settings_header">'. __( 'Extension Licensing' , LANDINGPAGES_TEXT_DOMAIN) .'</h3>'
 		);
 	}
 
@@ -228,8 +229,9 @@ function lp_display_global_settings()
 		$active_tab = $_REQUEST['open-tab'];
 	}
 
-	//echo $active_tab;exit;
 
+	do_action('lp_pre_display_global_settings');
+	
 	lp_display_global_settings_js();
 	lp_save_global_settings();
 
@@ -577,10 +579,10 @@ function lp_save_global_settings()
 			(isset($_POST[$field['id'] ]))? $field['new_value'] = $_POST[$field['id'] ] : $field['new_value'] = null;
 
 
-			if ((isset($field['new_value']) && ($field['new_value'] !== $field['old_value'] ) )|| !isset($field['old_value']) )
+			if ((!empty($field['new_value']) && ($field['new_value'] !== $field['old_value'] ) ) || !isset($field['old_value']) )
 			{
 				//echo $field['id'] ;exit;
-				$bool = update_option($field['id'] ,$field['new_value']);
+				update_option($field['id'] ,$field['new_value']);
 				if ($field['id'] =='main-landing-page-permalink-prefix')
 				{
 					//echo "here";
@@ -601,7 +603,13 @@ function lp_save_global_settings()
 
 					// Call the custom API.
 					$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 30, 'sslverify' => false ) );
-					//echo $response['body'];exit;
+					
+					if ($field['slug']=='clean-professional')
+					{
+						//print_r($api_params);
+						//echo "<br>";
+						//echo $response['body'];exit;
+					}
 
 					// make sure the response came back okay
 					if ( is_wp_error( $response ) )
@@ -631,9 +639,7 @@ function lp_save_global_settings()
 					$license_status = get_option('lp_license_status-'.$field['slug']);
 
 					if ($license_status=='valid' && $field['new_value'] == $field['old_value'])
-					{
 						continue;
-					}
 
 					// retrieve the license from the database
 					$license = trim( get_option( 'edd_sample_license_key' ) );
@@ -648,7 +654,12 @@ function lp_save_global_settings()
 
 					// Call the custom API.
 					$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 30, 'sslverify' => false ) );
-					//echo $field['slug'];
+					if ($field['slug']=='clean-professional')
+					{
+						//rint_r($api_params);
+						//echo "<br>";
+						//echo $response['body'];exit;
+					}
 					//echo "<br>";
 
 					// make sure the response came back okay
@@ -677,6 +688,8 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 	if (!$custom_fields)
 		return;
 
+	$master_license_key = get_option('inboundnow_master_license_key' , '');
+			
 	if ($key==$active_tab)
 	{
 		$display = 'block';
@@ -705,6 +718,7 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 		else
 		{
 			$default = null;
+
 		}
 
 		$field['id'] = $key."-".$field['id'];
@@ -735,41 +749,51 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 					}
 					echo '<input type="text" class="jpicker" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$field['value'].'" size="5" />
 							<div class="lp_tooltip tool_color" title="'.$field['description'].'"></div>';
-					break;
+					continue 2;
 				case 'datepicker':
 					echo '<input id="datepicker-example2" class="Zebra_DatePicker_Icon" type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$field['value'].'" size="8" />
 							<div class="lp_tooltip tool_date" title="'.$field['description'].'"></div><p class="description">'.$field['description'].'</p>';
-					break;
+					continue 2;
 				case 'license-key':
+					
+					
 					$license_status = lp_check_license_status($field);
-
-					echo '<input type="hidden" name="lp_license_status-'.$field['slug'].'" id="'.$field['id'] .'" value="'.$license_status.'" size="30" />
-					<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$field['value'].'" size="30" />
-							<div class="lp_tooltip tool_text" title="'.$field['description'].'"></div>';
-
+					
+					
+					if ( $field['value'] && $field['value'] != $master_license_key  ) {
+						echo '<input type="text" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$field['value'].'" size="30" />';
+					} else {
+						echo '<input  type="hidden" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$master_license_key.'" size="30" />';
+					}
+					
+					echo '<input type="hidden" name="lp_license_status-'.$field['slug'].'" id="'.$field['id'] .'" value="'.$license_status.'" size="30" />';
+							
 					if ($license_status=='valid')
 					{
-						echo '<div class="lp_license_status_valid">Valid</div>';
+						echo '<div class="lp_license_status_valid">Enabled</div>';
 					}
 					else
 					{
-						echo '<div class="lp_license_status_invalid">Invalid</div>';
+						echo '<div class="lp_license_status_invalid">Disabled</div>';
 					}
-					break;
+					
+					echo '<div class="lp_tooltip tool_text" title="'.$field['description'].'"></div>';
+
+					continue 2;
 				case 'text':
 					echo '<input type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$field['value'].'" size="30" />
 							<div class="lp_tooltip tool_text" title="'.$field['description'].'"></div>';
-					break;
+					continue 2;
 				// textarea
 				case 'textarea':
 					echo '<textarea name="'.$field['id'] .'" id="'.$field['id'] .'" cols="106" rows="6">'.$field['value'].'</textarea>
 							<div class="lp_tooltip tool_textarea" title="'.$field['description'].'"></div>';
-					break;
+					continue 2;
 				// wysiwyg
 				case 'wysiwyg':
 					wp_editor( $field['value'], $field['id'] , $settings = array() );
 					echo	'<span class="description">'.$field['description'].'</span><br><br>';
-					break;
+					continue 2;
 				// media
 					case 'media':
 					//echo 1; exit;
@@ -777,7 +801,7 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 					echo '<input name="'.$field['id'] .'"  id="'.$field['id'] .'" type="text" size="36" name="upload_image" value="'.$field['value'].'" />';
 					echo '<input class="upload_image_button" id="uploader_'.$field['id'] .'" type="button" value="Upload Image" />';
 					echo '<br /><div class="lp_tooltip tool_media" title="'.$field['description'].'"></div>';
-					break;
+					continue 2;
 				// checkbox
 				case 'checkbox':
 					$i = 1;
@@ -802,7 +826,7 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 					}
 					echo "</table>";
 					echo '<br><div class="lp_tooltip tool_checkbox" title="'.$field['description'].'"></div>';
-				break;
+					continue 2;
 				// radio
 				case 'radio':
 					foreach ($field['options'] as $value=>$label) {
@@ -812,7 +836,7 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 						echo '<label for="'.$value.'">&nbsp;&nbsp;'.$label.'</label> &nbsp;&nbsp;&nbsp;&nbsp;';
 					}
 					echo '<div class="lp_tooltip tool_radio" title="'.$field['description'].'"></div>';
-				break;
+					continue 2;
 				// select
 				case 'dropdown':
 					echo '<select name="'.$field['id'] .'" id="'.$field['id'] .'">';
@@ -820,12 +844,12 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 						echo '<option', $field['value'] == $value ? ' selected="selected"' : '', ' value="'.$value.'">'.$label.'</option>';
 					}
 					echo '</select><br /><div class="lp_tooltip tool_dropdown" title="'.$field['description'].'"></div>';
-				break;
+					continue 2;
 				case 'html':
 					//print_r($field);
 					echo $field['value'];
 					echo '<br /><div class="lp_tooltip tool_dropdown" title="'.$field['description'].'"></div>';
-				break;
+				continue 2;
 
 
 
@@ -851,7 +875,10 @@ function lp_check_license_status($field)
 		return "valid";
 	}
 
-	$license_key = get_option($field['id']);
+	if ($license_status!='valid'||!$license_status)
+		return 'invalid';
+		
+	(isset($field['option_name'])) ? $license_key = get_option($field['option_name']) : $license_key = get_option($field['id']);
 
 	if ($license_key)
 	{
@@ -866,15 +893,16 @@ function lp_check_license_status($field)
 		// Call the custom API.
 		$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
 
+		//echo $response['body']; 
+		
 		if ( is_wp_error( $response ) )
 			return false;
 
 		$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-
-		//var_dump($license_data);exit;
+		
 
 		if( $license_data->license == 'valid' ) {
-			$newDate = date('Y-m-d', strtotime("+15 days"));
+			$newDate = date('Y-m-d', $license_data->expires );
 			update_option($field['id']."-expire", $newDate);
 			return 'valid';
 			// this license is still valid

@@ -22,15 +22,15 @@ class LP_EXTENSION_UPDATER {
 	 * @uses hook()
 	 *
 	 * @param string $_api_url The URL pointing to the custom API endpoint.
-	 * @param string $_plugin_file Path to the plugin file.
+	 * @param string $_remote_key permalink slug of remote download
 	 * @param array $_api_data Optional data to send with API calls.
 	 * @return void
 	 */
-	function __construct( $_api_url, $_plugin_file, $_api_data = null ) {
+	function __construct( $_api_url, $_remote_key, $_api_data = null ) {
 		$this->api_url  = trailingslashit( $_api_url );
 		$this->api_data = urlencode_deep( $_api_data );
-		$this->name     = plugin_basename( $_plugin_file );
-		$this->slug     = basename( $_plugin_file, '.php');
+		$this->name     = plugin_basename( $_remote_key );
+		$this->slug     = basename( $_remote_key, '.php');
 		$this->version  = $_api_data['version'];
 
 		// Set up hooks.
@@ -47,8 +47,8 @@ class LP_EXTENSION_UPDATER {
 	private function hook() {
 		//update_option('_site_transient_update_plugins',''); //uncomment to force upload update check
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'pre_set_site_transient_update_plugins_filter' ) );
-		add_filter( 'plugins_api', array( $this, 'plugins_api_filter' ), 10, 3);
-		//echo 1; exit;
+		add_filter( 'plugins_api', array( $this, 'plugins_api_filter' ), 10, 3);		
+		//print_r($this);exit;
 	}
 
 	/**
@@ -143,7 +143,6 @@ class LP_EXTENSION_UPDATER {
 			'license' 		=> $data['license'],
 			'name' 			=> $data['item_name'],
 			'slug' 			=> $this->slug,
-			//'author'		=> $data['author'],
 			'nature'		=> 'extension',
 		);
 		$request = wp_remote_post( $this->api_url, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
