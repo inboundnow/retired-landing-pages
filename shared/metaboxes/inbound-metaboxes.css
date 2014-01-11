@@ -6,23 +6,11 @@ padding-left: 0px;
 .inbound-meta-box-label, .inbound-meta-box-option {
 	display: inline-block;
 }
-.upload_image_button {
-	font-size: 25px;
-}
 .inbound-meta-box-label {
-width: 200px;
-padding-right: 20px;
+	width: 18%;
 }
-.inbound-textarea-option {
-	width: 73%;
-}
-.inbound-wysiwyg-option {
-	width: 100%;
-
-}
-
-.inbound-wysiwyg {
-	margin-bottom: 10px;
+.inbound-wysiwyg-option, .inbound-textarea-option {
+	width: 75%;
 }
 .inbound-meta-box-option {
 	position: relative;
@@ -33,9 +21,8 @@ position: absolute;
 .inbound-datepicker .button-primary.new-save-wp-cta {
 	display: none;
 }
-
 .inbound-description-block-option {
-max-width: 87%;
+	max-width: 55%;
 }
 .inbound-media-row .button-primary.new-save-wp-cta {
 	position: absolute;
@@ -67,11 +54,7 @@ display: inline-block;
 }
 .inbound-wysiwyg, .inbound-media, .inbound-datepicker, .inbound-textarea {
 	vertical-align: top;
-
-}
-.inbound-wysiwyg label {
-	margin-bottom: 5px;
-}
+} 
 .inbound-textarea-option .wp-cta-success-message {
 	position: absolute;
 margin-top: 0px;
