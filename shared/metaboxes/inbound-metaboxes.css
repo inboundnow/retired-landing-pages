@@ -20,7 +20,9 @@ padding-right: 20px;
 	width: 100%;
 
 }
-
+.inbound-wysiwyg-option textarea {
+	height: 24em;
+}
 .inbound-wysiwyg {
 	margin-bottom: 10px;
 }
