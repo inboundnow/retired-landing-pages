@@ -245,7 +245,7 @@ function lp_display_global_settings()
 	}
 
 	echo "</h2><div class='lp-settings-tab-sidebar'>";
-	echo $test;
+
 	echo "<div class='lp-sidebar-settings'><h2 style='font-size:16px;'>Like the Plugin? Leave us a review</h2><center><a class='review-button' href='http://wordpress.org/support/view/plugin-reviews/landing-pages?rate=5#postform' target='_blank'>Leave a Quick Review</a></center><small>Reviews help constantly improve the plugin & keep us motivated! <strong>Thank you for your support!</strong></small></div><div class='lp-sidebar-settings'><h2>Help keep the plugin up to date, awesome & free!</h2><form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>
 		<input type='hidden' name='cmd' value='_s-xclick'>
 		<input type='hidden' name='hosted_button_id' value='GKQ2BR3RKB3YQ'>

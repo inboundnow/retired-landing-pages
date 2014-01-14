@@ -196,6 +196,12 @@ margin-left: -10px !important;
 .mceIframeContainer.mceFirst.mceLast iframe {
 	width: 100% !important;
 }
+.mceIframeContainer.mceFirst.mceLast {
+	margin-top: 30px;
+}
+.mceToolbar.mceLeft.mceFirst.mceLast div {
+background: #F5F5F5;
+}
 #lp_metabox_select_template {
 margin-left: -20px !important;
 width: 108%;

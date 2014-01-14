@@ -1,7 +1,7 @@
 jQuery(document).ready(function ($) {
 
 	jQuery('.time-picker').timepicker({ 'timeFormat': 'H:i' });
-	
+
 	if ($('.current_lander .new-date').length) { // implies *not* zero
 		var current_val = jQuery(".current_lander .new-date").val();
   	} else {
@@ -12,12 +12,12 @@ jQuery(document).ready(function ($) {
   		var current_val = '';
   	}
 
-  	
+
 	var ret = current_val.split(" ");
 	var current_date = ret[0];
 	var current_time = ret[1];
-	jQuery(".date").val(current_date);
-	jQuery(".time").val(current_time);
+	jQuery(".jquery-date-picker .date.start").val(current_date);
+	jQuery(".jquery-date-picker .time-picker").val(current_time);
 
 	jQuery('.lp_select_template').live('click', function() {
 		var template = jQuery(this).attr('id');
@@ -25,9 +25,9 @@ jQuery(document).ready(function ($) {
 		jQuery("#time-picker-"+template).val(current_time).addClass("live_time");
 	});
 
-	jQuery('.current_lander .date, .current_lander .time').live('change', function () {
-		var date_chosen = jQuery(".current_lander .date").val();
-		var time_chosen = jQuery(".current_lander .time").val();
+	jQuery("body").on('change', '.jquery-date-picker .date.start, .jquery-date-picker .time-picker', function () {
+		var date_chosen = jQuery(".jquery-date-picker .date.start").val();
+		var time_chosen = jQuery(".jquery-date-picker .time-picker").val();
 		var total_time = date_chosen + " " + time_chosen;
 		jQuery(".new-date").val(total_time);
 

@@ -189,7 +189,11 @@ function lp_conversion_area($post = null, $content=null,$return=false, $doshortc
 	if(!$return)
 	{
 
+		$content = str_replace('<p><div id="inbound-form-wrapper"', '<div id="inbound-form-wrapper"',  $content);
+		$content = preg_replace('/<p[^>]*><\/p[^>]*>/', '', $content); // remove empty p tags
+		$content = preg_replace('/<\/p>/', '', $content); // remove last empty p tag
 		echo do_shortcode($content);
+
 	}
 	else
 	{
@@ -208,8 +212,8 @@ function lp_conversion_area_shortcode( $atts, $content = null )
 		//'style' => ''
 	), $atts));
 
-	$conversion_area = "";
-	$conversion_area .= lp_conversion_area($post = null, $content=null,$return=true, $doshortcode = true, $rebuild_attributes = true);
+
+	$conversion_area = lp_conversion_area($post = null, $content=null,$return=true, $doshortcode = true, $rebuild_attributes = true);
 
 
 	return $conversion_area;
