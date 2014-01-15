@@ -627,8 +627,22 @@ function lp_save_global_settings()
 			}
 			elseif (!$field['new_value'] && $field['old_value'])
 			{
-				//echo "here: $key <br>";
-				$bool = delete_option($field['id'] );
+				if ($field['type']=='license-key')
+				{
+					$master_key = get_option('inboundnow_master_license_key' , '');
+					if ($master_key) 
+					{
+						$bool = update_option($field['id'], $master_key );
+					}
+					else
+					{
+						update_option($field['id'], '' );
+					}	
+				}
+				else
+				{
+					$bool = update_option($field['id'],$field['default']);
+				}	
 			}
 			else
 			{
