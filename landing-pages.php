@@ -87,7 +87,19 @@ endswitch;
 /* Inbound Core Shared Files. Lead files take presidence */
 add_action( 'plugins_loaded', 'inbound_load_shared_landing_pages' , 11 );
 function inbound_load_shared_landing_pages(){
-
+	
+	/* Check if Shared Files Already Loaded */
+	if (defined('INBOUDNOW_SHARED'))
+		return;
+	
+	/* Define Shared Constant for Load Prevention*/
+	define('INBOUDNOW_SHARED','loaded');
+	
+	/* Singleton Shared Class Loads */
+	include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
+	include_once('shared/classes/menu.class.php');  // Inbound Marketing Menu
+	include_once('shared/classes/feedback.class.php');  // Inbound Feedback Form
+	
 	include_once('shared/tracking/store.lead.php'); // Lead Storage from landing pages
 	include_once('shared/classes/form.class.php');  // Mirrored forms
 	include_once('shared/inboundnow/inboundnow.extend.php'); // Legacy
@@ -95,10 +107,7 @@ function inbound_load_shared_landing_pages(){
 	include_once('shared/inboundnow/inboundnow.extension-updating.php'); // Inboundnow Package Updating
 	include_once('shared/inboundnow/inboundnow.global-settings.php'); // Inboundnow Global Settings 
 	
-	/* Singleton Shared Class Loads */
-	include_once('shared/inbound-shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
-	include_once('shared/classes/menu.class.php');  // Inbound Marketing Menu
-	include_once('shared/classes/feedback.class.php');  // Inbound Feedback Form
+	
 }
 
 /* lagacy - Conditional check LP active */

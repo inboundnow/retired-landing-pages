@@ -559,7 +559,7 @@ function lp_save_global_settings()
 {
 
 	$lp_global_settings = lp_get_global_settings();
-
+	
 	if (!isset($_POST['nature']))
 		return;
 
@@ -603,13 +603,7 @@ function lp_save_global_settings()
 
 					// Call the custom API.
 					$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 30, 'sslverify' => false ) );
-					
-					if ($field['slug']=='clean-professional')
-					{
-						//print_r($api_params);
-						//echo "<br>";
-						//echo $response['body'];exit;
-					}
+
 
 					// make sure the response came back okay
 					if ( is_wp_error( $response ) )
@@ -625,18 +619,20 @@ function lp_save_global_settings()
 					//echo 'lp_license_status-'.$field['slug']." :".$license_data->license;exit;
 				}
 			}
-			elseif (!$field['new_value'] && $field['old_value'])
+			else if (!$field['new_value'] && $field['old_value'])
 			{
 				if ($field['type']=='license-key')
 				{
 					$master_key = get_option('inboundnow_master_license_key' , '');
 					if ($master_key) 
 					{
-						$bool = update_option($field['id'], $master_key );
+						$bool = update_option($field['id'], $master_key );						
+						$license_status = update_option('lp_license_status-'.$field['slug'], $license_data->license);
 					}
 					else
 					{
-						update_option($field['id'], '' );
+						update_option($field['id'], '' );						
+						$license_status = update_option('lp_license_status-'.$field['slug'], $license_data->license);
 					}	
 				}
 				else
@@ -646,18 +642,16 @@ function lp_save_global_settings()
 			}
 			else
 			{
-				//print_r($field);
-				if ($field['type']=='license-key'&& $field['new_value'] )
+				
+				if ($field['type']=='license-key' && $field['new_value'] )
 				{
-
 					$license_status = get_option('lp_license_status-'.$field['slug']);
-
+					
 					if ($license_status=='valid' && $field['new_value'] == $field['old_value'])
 						continue;
 
-					// retrieve the license from the database
-					$license = trim( get_option( 'edd_sample_license_key' ) );
-
+					//echo 'here:'.$license_status;
+					
 					// data to send in our API request
 					$api_params = array(
 						'edd_action'=> 'activate_license',
@@ -665,17 +659,16 @@ function lp_save_global_settings()
 						'item_name' =>  $field['slug'] ,
 						'cache_bust'=> substr(md5(rand()),0,7)
 					);
-
+				
 					// Call the custom API.
 					$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 30, 'sslverify' => false ) );
-					if ($field['slug']=='clean-professional')
-					{
-						//rint_r($api_params);
-						//echo "<br>";
-						//echo $response['body'];exit;
-					}
-					//echo "<br>";
-
+					
+					print_r($field);
+					echo '<br>';
+					echo $response['body'];
+					echo "<hr>";
+					
+					
 					// make sure the response came back okay
 					if ( is_wp_error( $response ) )
 						break;
@@ -768,17 +761,22 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 					echo '<input id="datepicker-example2" class="Zebra_DatePicker_Icon" type="text" name="'.$field['id'] .'" id="'.$field['id'] .'" value="'.$field['value'].'" size="8" />
 							<div class="lp_tooltip tool_date" title="'.$field['description'].'"></div><p class="description">'.$field['description'].'</p>';
 					continue 2;
-				case 'license-key':
-					
+				case 'license-key':					
+
+					if ($master_license_key)
+					{							
+						$field['value'] = $master_license_key;
+						$input_type = 'hidden';
+					}
+					else
+					{
+						$input_type = 'text';
+					}
 					
 					$license_status = lp_check_license_status($field);
-					
-					
-					if ( $field['value'] && $field['value'] != $master_license_key  ) {
-						echo '<input type="text" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$field['value'].'" size="30" />';
-					} else {
-						echo '<input  type="hidden" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$master_license_key.'" size="30" />';
-					}
+
+					echo '<input  type="'.$input_type.'" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$field['value'].'" size="30" />';
+
 					
 					echo '<input type="hidden" name="lp_license_status-'.$field['slug'].'" id="'.$field['id'] .'" value="'.$license_status.'" size="30" />';
 							
@@ -889,34 +887,26 @@ function lp_check_license_status($field)
 		return "valid";
 	}
 
-	if ($license_status!='valid'||!$license_status)
-		return 'invalid';
-		
-	(isset($field['option_name'])) ? $license_key = get_option($field['option_name']) : $license_key = get_option($field['id']);
-
-	if ($license_key)
+	if ($field['value'])
 	{
 		$api_params = array(
 			'edd_action' => 'check_license',
-			'license' => $license_key,
-			'key' => $license_key,
+			'license' => $field['value'],
+			'key' => $field['value'],
 			'item_name' => urlencode( $field['slug'] ),
 			'cache_bust'=> substr(md5(rand()),0,7)
 		);
 
 		// Call the custom API.
 		$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
-
-		//echo $response['body']; 
 		
 		if ( is_wp_error( $response ) )
 			return false;
 
 		$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-		
 
 		if( $license_data->license == 'valid' ) {
-			$newDate = date('Y-m-d', $license_data->expires );
+			$newDate = date('Y-m-d', strtotime($license_data->expires) );			
 			update_option($field['id']."-expire", $newDate);
 			return 'valid';
 			// this license is still valid
