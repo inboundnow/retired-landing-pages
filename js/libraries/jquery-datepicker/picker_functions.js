@@ -1,5 +1,7 @@
 jQuery(document).ready(function ($) {
 
+/* Populates timepicker values */
+
 	jQuery('.time-picker').timepicker({ 'timeFormat': 'H:i' });
 
 	if ($('.current_lander .new-date').length) { // implies *not* zero
@@ -12,24 +14,34 @@ jQuery(document).ready(function ($) {
   		var current_val = '';
   	}
 
+  	jQuery('.new-date').each(function(){
+  		var the_val = $(this).val();
+  		if (typeof (the_val) == "undefined" || the_val === null || the_val == "") {
+  			var the_val = '';
+  		}
+  		var ret = the_val.split(" ");
+  		var current_date = ret[0];
+  		var current_time = ret[1];
+  		jQuery(this).parent().parent().find(".date.start").val(current_date);
+  		jQuery(this).parent().parent().find(".time-picker").val(current_time);
+  	});
 
-	var ret = current_val.split(" ");
-	var current_date = ret[0];
-	var current_time = ret[1];
-	jQuery(".jquery-date-picker .date.start").val(current_date);
-	jQuery(".jquery-date-picker .time-picker").val(current_time);
+	jQuery("body").on('change', '.jquery-date-picker .date.start', function () {
+		var date_chosen = jQuery(this).val();
+		var time_chosen = jQuery(this).parent().parent().find(".jquery-date-picker .time-picker").val();
+		var total_time = date_chosen + " " + time_chosen;
+		jQuery(this).parent().parent().find(".new-date").val(total_time);
 
-	jQuery('.lp_select_template').live('click', function() {
-		var template = jQuery(this).attr('id');
-		jQuery("#date-picker-"+template).val(current_date).addClass("live_date");
-		jQuery("#time-picker-"+template).val(current_time).addClass("live_time");
 	});
 
-	jQuery("body").on('change', '.jquery-date-picker .date.start, .jquery-date-picker .time-picker', function () {
-		var date_chosen = jQuery(".jquery-date-picker .date.start").val();
-		var time_chosen = jQuery(".jquery-date-picker .time-picker").val();
+	jQuery("body").on('change', '.jquery-date-picker .time-picker', function () {
+		var date_chosen = jQuery(this).parent().parent().find(".jquery-date-picker .date.start").val();
+		var time_chosen = jQuery(this).val();
+		if (typeof (time_chosen) === "undefined" && time_chosen == null && time_chosen === "") {
+		var time_chosen = "00:00";
+		}
 		var total_time = date_chosen + " " + time_chosen;
-		jQuery(".new-date").val(total_time);
+		jQuery(this).parent().find(".new-date").val(total_time);
 
 	});
 
