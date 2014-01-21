@@ -71,7 +71,7 @@ class InboundShortcodes {
 		{
 			wp_enqueue_script('inbound-shortcodes', $final_path.'shared/inbound-shortcodes/js/shortcodes.js');
 			$form_id = (isset($_GET['post'])) ? $_GET['post'] : '';
-			wp_localize_script( 'inbound-shortcodes', 'inbound_shortcodes', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'inbound_shortcode_nonce' => wp_create_nonce('inbound-shortcode-nonce') , 'form_id' => $form_id ) );
+			wp_localize_script( 'inbound-shortcodes', 'inbound_shortcodes', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) , 'adminurl' => admin_url(), 'inbound_shortcode_nonce' => wp_create_nonce('inbound-shortcode-nonce') , 'form_id' => $form_id ) );
 			wp_enqueue_script('selectjs', $final_path.'shared/inbound-shortcodes/js/select2.min.js');
 			wp_enqueue_style('selectjs', $final_path.'shared/inbound-shortcodes/css/select2.css');
 		}
@@ -256,7 +256,8 @@ class InboundShortcodes {
         $alignment = 'inline-block';
         $margin_setting = 'margin-right';
         if($heading_align == 'inline' ){
-          $header_align = "display:inline-block; padding-right: 10px; height: 32px; vertical-align: top;";
+          $header_align = "display:inline-block; padding-right: 10px; height: 32px;
+  vertical-align: top;";
           $float = "float: left;";
         }
 

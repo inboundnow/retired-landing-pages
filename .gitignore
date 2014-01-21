@@ -2,3 +2,6 @@
 /shared/_DelSyncFiles/
 
 /deploy.sh
+shared/languages/landing-pages/.tx/CONFIG
+shared/languages/landing-pages/get-translations.bat
+.tx

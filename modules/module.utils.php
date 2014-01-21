@@ -267,4 +267,8 @@ function inbound_build_template_options() {
 	}
 }
 
-?>
+if (is_admin())
+{
+	add_filter( 'wpseo_metabox_prio', 'wp_cta_wpseo_priority');
+	function wp_cta_wpseo_priority(){return 'low';}
+}
