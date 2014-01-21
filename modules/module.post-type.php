@@ -321,6 +321,7 @@ if (is_admin())
 		}
 		else if ("stats" == $column)
 		{
+			$lp_impressions = lp_get_page_views($post->ID);
 			$lp_impressions =  apply_filters('lp_col_impressions',$lp_impressions);
 
 			lp_show_stats_list();
