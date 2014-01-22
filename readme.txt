@@ -68,6 +68,8 @@ The plugin is also fully extendable and has a number of <a href='http://docs.inb
 4. Choose from a ton of pre-made templates, use your existing design, or design your own theme!
 
 == Changelog ==
+= 1.4.6 =
+* Fixed Email Sending Error on forms
 = 1.4.5 =
 * Added New HTML Lead Email Template with clickable links for faster lead management
 * Added Button Shortcodes!

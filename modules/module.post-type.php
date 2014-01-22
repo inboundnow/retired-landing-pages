@@ -306,6 +306,9 @@ if (is_admin())
 			$datetime = the_modified_date('YmjH',null,null,false);
 			$permalink = $permalink = $permalink.'?dt='.$datetime;
 			$thumbnail = 'http://s.wordpress.com/mshots/v1/' . urlencode(esc_url($permalink)) . '?w=140';
+			if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
+			    $thumbnail = LANDINGPAGES_URLPATH . '/images/localhost.png';
+			}
 			echo "<a title='".__('Click to Preview this variation' , LANDINGPAGES_TEXT_DOMAIN) ."' class='thickbox' href='".$permalink."?lp-variation-id=0&iframe_window=on&post_id=".$post->ID."&TB_iframe=true&width=640&height=703' target='_blank'><img src=".$thumbnail."' style='width:150px;height:110px;' title='Click to Preview'></a>";
 
 		}
@@ -321,6 +324,7 @@ if (is_admin())
 		}
 		else if ("stats" == $column)
 		{
+			$lp_impressions = lp_get_page_views($post->ID);
 			$lp_impressions =  apply_filters('lp_col_impressions',$lp_impressions);
 
 			lp_show_stats_list();
