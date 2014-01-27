@@ -116,11 +116,6 @@ if (!function_exists('inbound_meta_debug')) {
 	}
 }
 
-
-/* YOAST SEO PLUGIN - MAKE METABOX LOW PRIORITY */
-add_filter( 'wpseo_metabox_prio', 'lp_wpseo_priority');
-function lp_wpseo_priority(){return 'low';}
-
 // Fix SEO Title Tags to not use the_title
 //add_action('wp','landingpage_seo_title_filters');
 function landingpage_seo_title_filters() {
