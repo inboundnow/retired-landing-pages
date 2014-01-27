@@ -269,6 +269,6 @@ function inbound_build_template_options() {
 
 if (is_admin())
 {
-	add_filter( 'wpseo_metabox_prio', 'wp_cta_wpseo_priority');
-	function wp_cta_wpseo_priority(){return 'low';}
+	add_filter( 'wpseo_metabox_prio', 'lp_wpseo_priority');
+	function lp_wpseo_priority(){return 'low';}
 }
