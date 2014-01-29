@@ -663,11 +663,12 @@ function lp_save_global_settings()
 					// Call the custom API.
 					$response = wp_remote_get( add_query_arg( $api_params, LANDINGPAGES_STORE_URL ), array( 'timeout' => 30, 'sslverify' => false ) );
 					
+					/*
 					print_r($field);
 					echo '<br>';
 					echo $response['body'];
 					echo "<hr>";
-					
+					*/
 					
 					// make sure the response came back okay
 					if ( is_wp_error( $response ) )
