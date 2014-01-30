@@ -69,7 +69,10 @@ The plugin is also fully extendable and has a number of <a href='http://docs.inb
 
 == Changelog ==
 = 1.4.6 =
+* Added new compatibility options to fix third party plugin conflicts!
+* Added new debugging javascript debugging tools for users
 * Fixed Email Sending Error on forms
+
 = 1.4.5 =
 * Added New HTML Lead Email Template with clickable links for faster lead management
 * Added Button Shortcodes!
