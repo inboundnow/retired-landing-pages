@@ -25,7 +25,7 @@ function landing_page_activate($wp = '3.6', $php = '5.3', $cta = '1.2.1', $leads
 		$flag = __('WordPress Calls to Action' , LANDINGPAGES_TEXT_DOMAIN);
 		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version '.$cta.' or greater. <br><br>Please Update WordPress Call to Action Plugin to update & install WordPress Landing Pages</p>' , LANDINGPAGES_TEXT_DOMAIN) , __('Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
 	}
-	elseif (defined('LEADS_CURRENT_VERSION') && version_compare( LEADS_CURRENT_VERSION, $leads, '<' ))
+	elseif (defined('WPL_CURRENT_VERSION') && version_compare( WPL_CURRENT_VERSION, $leads, '<' ))
 	{
 		$flag = 'WordPress Leads';
 		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version '.$leads.' or greater. <br><br>Please Update WordPress Leads Plugin to update & install WordPress Landing Pages</p>' , INBOUDNOW_LABEL ) , __( 'Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );

@@ -45,12 +45,14 @@ class InboundShortcodes {
 
   // Set Consistant File Paths for inbound now plugins
   static function set_file_path(){
-    if (is_plugin_active('leads/wordpress-leads.php')) {
-      $final_path = WPL_URL . "/";
-    } else if (is_plugin_active('landing-pages/landing-pages.php')) {
-      $final_path = LANDINGPAGES_URLPATH;
-    } else if (is_plugin_active('cta/wordpress-cta.php')) {
-      $final_path = WP_CTA_URLPATH;
+    if (function_exists('is_plugin_active')) {
+      if (is_plugin_active('leads/wordpress-leads.php')) {
+        $final_path = WPL_URL . "/";
+      } else if (is_plugin_active('landing-pages/landing-pages.php')) {
+        $final_path = LANDINGPAGES_URLPATH;
+      } else if (is_plugin_active('cta/wordpress-cta.php')) {
+        $final_path = WP_CTA_URLPATH;
+      }
     }
     return $final_path;
   }
@@ -63,9 +65,9 @@ class InboundShortcodes {
     if ( $hook == 'post.php' || $hook == 'post-new.php' || $hook == 'page-new.php' || $hook == 'page.php' )
 	{
 
-		 wp_enqueue_style('inbound-shortcodes', $final_path.'shared/inbound-shortcodes/css/shortcodes.css');
-		  wp_enqueue_script('jquery-ui-sortable' );
-		  wp_enqueue_script('inbound-shortcodes-plugins', $final_path.'shared/inbound-shortcodes/js/shortcodes-plugins.js');
+		wp_enqueue_style('inbound-shortcodes', $final_path.'shared/inbound-shortcodes/css/shortcodes.css');
+		wp_enqueue_script('jquery-ui-sortable' );
+		wp_enqueue_script('inbound-shortcodes-plugins', $final_path.'shared/inbound-shortcodes/js/shortcodes-plugins.js');
 
 		if (isset($post) && post_type_supports( $post->post_type, 'editor') )
 		{
@@ -256,8 +258,7 @@ class InboundShortcodes {
         $alignment = 'inline-block';
         $margin_setting = 'margin-right';
         if($heading_align == 'inline' ){
-          $header_align = "display:inline-block; padding-right: 10px; height: 32px;
-  vertical-align: top;";
+          $header_align = "display:inline-block; padding-right: 10px; height: 32px; vertical-align: top;";
           $float = "float: left;";
         }
 
