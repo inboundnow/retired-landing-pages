@@ -7,7 +7,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: landing pages, inbound marketing, conversion pages, split testing, a b test, a b testing, a/b test, a/b testing, coming soon page, email list, landing page, list building, maintenance page, squeeze page, inbound now, landing-pages, splash pages, cpa, click tracking, goal tracking, analytics, free landing page templates
 Requires at least: 3.7
 Tested up to: 3.8
-Stable Tag: 1.4.5
+Stable Tag: 1.4.6
 
 Create landing pages for your WordPress site. Monitor and improve conversion rates, run A/B split tests, customize your own templates and more.
 
@@ -69,9 +69,12 @@ The plugin is also fully extendable and has a number of <a href='http://docs.inb
 
 == Changelog ==
 = 1.4.6 =
+* New Feature: Bulk Lead management with leads plugin wordpress.org/plugins/leads/
+* Added tags to lead profiles for improved management/categorization
 * Added new compatibility options to fix third party plugin conflicts!
 * Added new debugging javascript debugging tools for users
 * Fixed Email Sending Error on forms
+* Improved support for master license keys
 
 = 1.4.5 =
 * Added New HTML Lead Email Template with clickable links for faster lead management
