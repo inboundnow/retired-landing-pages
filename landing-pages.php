@@ -106,6 +106,7 @@ function inbound_load_shared_landing_pages(){
 	include_once('shared/inboundnow/inboundnow.extension-licensing.php'); // Inboundnow Package Licensing
 	include_once('shared/inboundnow/inboundnow.extension-updating.php'); // Inboundnow Package Updating
 	include_once('shared/inboundnow/inboundnow.global-settings.php'); // Inboundnow Global Settings 
+	include_once('shared/metaboxes/template.metaboxes.php');  // Shared Shortcodes
 	
 	
 }
