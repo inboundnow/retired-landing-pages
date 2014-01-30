@@ -99,6 +99,7 @@ if (!class_exists('InboundMenu')) {
         $inboundsupportsections = $prefix . 'inboundsupportsections';   // third level: support sections
         $inboundsupportaccount = $prefix . 'inboundsupportaccount';   // third level: support user account
         $inboundsites = $prefix . 'inboundsites';       // sub level: edd sites
+        $inbounddebug = $prefix . 'inbounddebug';
         $inboundsitesaccount = $prefix . 'inboundsitesaccount';
         $inboundsitesextensions = $prefix . 'inboundsitesextensions';   // third level: edd extensions
         $landingpages_menu = $prefix . 'landingpages';
@@ -414,6 +415,42 @@ if (!class_exists('InboundMenu')) {
               'meta'   => array( 'title' => $eddtb_edd_name_tooltip . ' ' . __( 'Plugin HQ', 'edd-toolbar' ) )
             );
 
+            /** Easy Digital Downloads HQ menu items */
+            $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+            $param = (preg_match("/\?/", $actual_link)) ? "&" : '?';
+            if (preg_match("/inbound-dequeue-scripts/", $actual_link)) {
+              $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            } else {
+              $actual_link = $actual_link . $param .'inbound-dequeue-scripts';
+            }
+            $actual_link_two = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            $param_two = (preg_match("/\?/", $actual_link_two)) ? "&" : '?';
+            if (preg_match("/inbound_js/", $actual_link_two)) {
+              $actual_link_two = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            } else {
+              $actual_link_two = $actual_link_two . $param_two .'inbound_js';
+            }
+            $inboundsecondary_menu_items['inbounddebug'] = array(
+              'parent' => $inboundgroup,
+              'title'  => __( '<span style="color:red;">Debug Tools</span>', 'edd-toolbar' ),
+              'href'   => "#",
+              'meta'   => ""
+            );
+            $inboundsecondary_menu_items['inbounddebug-checkjs'] = array(
+              'parent' => $inbounddebug,
+              'title'  => __( 'Check for Javascript Errors', 'edd-toolbar' ),
+              'href'   => $actual_link_two,
+              'meta'   => array( 'title' =>  __( 'Click here to check javascript errors on this page', 'edd-toolbar' ) )
+            );
+
+            $inboundsecondary_menu_items['inbounddebug-turnoffscripts'] = array(
+              'parent' => $inbounddebug,
+              'title'  => __( 'Remove Javascript Errors', 'edd-toolbar' ),
+              'href'   => $actual_link,
+              'meta'   => array( 'title' =>  __( 'Click here to remove broken javascript to fix issues', 'edd-toolbar' ) )
+            );
+
             /** HQ: GitHub */
             $inboundsecondary_menu_items['inboundsites-dev'] = array(
               'parent' => $inboundsites,
@@ -557,7 +594,7 @@ if (!class_exists('InboundMenu')) {
           'meta'   => array( 'class' => 'ab-sub-secondary' )
         ) );
 
-
+      if (is_array($inboundsecondary_menu_items)) {
         // Load grey secondary items
         foreach ( $inboundsecondary_menu_items as $id => $inboundgroup_menu_item ) {
 
@@ -583,7 +620,7 @@ if (!class_exists('InboundMenu')) {
           $wp_admin_bar->add_menu( $inboundgroup_menu_item );
 
         }  // end foreach EDD Group
-
+      }
 
         /**
          * Action Hook 'eddtb_custom_group_items'

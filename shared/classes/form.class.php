@@ -102,8 +102,8 @@ class InboundForms {
 			$clean_form_id = preg_replace("/[^A-Za-z0-9 ]/", '', trim($name));
 			$form_id = strtolower(str_replace(array(' ','_'),'-',$clean_form_id));
 
-			$form = '<!-- This Inbound Form is Automatically Tracked -->';
-			$form .= '<div id="inbound-form-wrapper" class="">';
+
+			$form = '<div id="inbound-form-wrapper" class="">';
 			$form .= '<form class="inbound-now-form wpl-track-me" method="post" id="'.$form_id.'" action="" style="'.$form_width.'">';
 			$main_layout = ($form_layout != "") ? 'inbound-'.$form_layout : 'inbound-normal';
 			for($i = 0; $i < count($matches[0]); $i++)
@@ -248,29 +248,17 @@ class InboundForms {
 		  // End Loop
 
 			$current_page = get_permalink();
-			$form .= '<div class="inbound-field '.$main_layout.' inbound-submit-area">
-					<button type="submit" class="inbound-button-submit inbound-submit-action" value="'.$submit_button.'" name="send" id="inbound_form_submit" style="'.$font_size.'">
-					  '.$icon_insert.''.$submit_button.'
-					</button>
-					<!--<input type="submit" '.$submit_button_type.' class="button" value="'.$submit_button.'" name="send" id="inbound_form_submit" />-->
-					</div>
-					<input type="hidden" name="inbound_submitted" value="1">';
-
-			if( $redirect != "")
-			{
+			$form .= '<div class="inbound-field '.$main_layout.' inbound-submit-area"><button type="submit" class="inbound-button-submit inbound-submit-action" value="'.$submit_button.'" name="send" id="inbound_form_submit" style="'.$font_size.'">
+					  '.$icon_insert.''.$submit_button.'</button></div><input type="hidden" name="inbound_submitted" value="1">';
+					// <!--<input type="submit" '.$submit_button_type.' class="button" value="'.$submit_button.'" name="send" id="inbound_form_submit" />-->
+			if( $redirect != ""){
 				$form .=  '<input type="hidden" id="inbound_redirect" name="inbound_redirect" value="'.$redirect.'">';
 			}
 
-			$form .= '<input type="hidden" name="inbound_form_name" value="'.$form_name.'">
-					  <input type="hidden" name="inbound_form_id" value="'.$id.'">
-					  <input type="hidden" name="inbound_current_page_url" value="'.$current_page.'">
-					  <input type="hidden" name="inbound_furl" value="'. base64_encode($redirect) .'">
-					  <input type="hidden" name="inbound_notify" value="'. base64_encode($notify) .'">
-
-				  </form>
-				  </div>';
+			$form .= '<input type="hidden" name="inbound_form_name" value="'.$form_name.'"><input type="hidden" name="inbound_form_id" value="'.$id.'"><input type="hidden" name="inbound_current_page_url" value="'.$current_page.'"><input type="hidden" name="inbound_furl" value="'. base64_encode($redirect) .'"><input type="hidden" name="inbound_notify" value="'. base64_encode($notify) .'"></form></div>';
 
 			$form = preg_replace('/<br class="inbr".\/>/', '', $form); // remove editor br tags
+
 			return $form;
 		}
 	}
@@ -339,7 +327,7 @@ class InboundForms {
 
 		echo '<script type="text/javascript">
           jQuery(document).ready(function($){
-
+			jQuery("#inbound_form_submit br").remove(); // remove br tags
           function validateEmail(email) {
 
               var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -413,24 +401,10 @@ class InboundForms {
 		//print_r($form_meta_data); exit;
 		//print_r($form_data); exit;
 
-		 $form_email = false;
-		 foreach ($form_data as $key => $value) {
-		 	if (preg_match('/email|e-mail/i', $key)) {
-		 		$form_email = $form_data[$key];
-		 	}
+		$form_email = (isset($form_data['email'])) ? $form_data['email'] : false;
 
-		 }
-
-		 if (!$form_email) {
-			if (isset($form_data['email'])) {
-				$form_email = $form_data['email'];
-			} else if (isset($form_data['e-mail'])) {
-				$form_email = $form_data['e-mail'];
-			} else if (isset($form_data['wpleads_email_address'])) {
-				$form_email = $form_data['wpleads_email_address'];
-			} else {
-				$form_email = 'null map email field';
-			}
+		if (!$form_email) {
+		$form_email = (isset($form_data['e-mail'])) ? $form_data['e-mail'] : false;
 		}
 
 		/* Might be better email send need to test and look at html edd emails */
@@ -716,7 +690,7 @@ class InboundForms {
 			$content_post = get_post($my_postid);
 			$content = $content_post->post_content;
 			$confirm_subject = get_post_meta( $my_postid, 'inbound_confirmation_subject', TRUE );
-			//$content = apply_filters('the_content', $content);
+			$content = apply_filters('the_content', $content);
 			$content = str_replace(']]>', ']]&gt;', $content);
 			$confirm_email_message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 			  <html>
