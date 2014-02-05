@@ -11,7 +11,7 @@ function lp_load_widgets() {
 class LandingPages_Widget_ConversionArea extends WP_Widget
 {
 
-	function lp_conversion_area_widget() {
+	function LandingPages_Widget_ConversionArea() {
 
 		/* Widget settings. */
 		$widget_ops = array( 'classname' => 'class_LandingPages_Widget_ConversionArea', 'description' => __('Use this widget on your landing page sidebar. This sidebar replaces the normal sidebar while using your default theme as a template, or other inactive themes as landing page templates.', LANDINGPAGES_TEXT_DOMAIN) );
