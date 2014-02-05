@@ -4,7 +4,7 @@ add_action( 'widgets_init', 'lp_load_widgets' );
 
 function lp_load_widgets() {
 
-	register_widget( 'lp_conversion_area_widget' );
+	register_widget( 'LandingPages_Widget_ConversionArea' );
 
 }
 
