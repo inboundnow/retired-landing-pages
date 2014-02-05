@@ -14,13 +14,13 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * LANDINGPAGES_Welcome Class
+ * LandingPages_Welcome Class
  *
  * A general class for About and Credits page.
  *
  * @since 1.4
  */
-class LANDINGPAGES_Welcome {
+class LandingPages_Welcome {
 
 	/**
 	 * @var string The capability users should have to view the page
@@ -614,4 +614,4 @@ class LANDINGPAGES_Welcome {
 		wp_safe_redirect( admin_url( 'index.php?page=lp-quick-start' ) ); exit;
 	}
 }
-new LANDINGPAGES_Welcome();
+new LandingPages_Welcome();

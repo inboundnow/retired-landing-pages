@@ -4,17 +4,17 @@ add_action( 'widgets_init', 'lp_load_widgets' );
 
 function lp_load_widgets() {
 
-	register_widget( 'lp_conversion_area_widget' );
+	register_widget( 'LandingPages_Widget_ConversionArea' );
 
 }
 
-class lp_conversion_area_widget extends WP_Widget
+class LandingPages_Widget_ConversionArea extends WP_Widget
 {
 
 	function lp_conversion_area_widget() {
 
 		/* Widget settings. */
-		$widget_ops = array( 'classname' => 'class_lp_conversion_area_widget', 'description' => __('Use this widget on your landing page sidebar. This sidebar replaces the normal sidebar while using your default theme as a template, or other inactive themes as landing page templates.', LANDINGPAGES_TEXT_DOMAIN) );
+		$widget_ops = array( 'classname' => 'class_LandingPages_Widget_ConversionArea', 'description' => __('Use this widget on your landing page sidebar. This sidebar replaces the normal sidebar while using your default theme as a template, or other inactive themes as landing page templates.', LANDINGPAGES_TEXT_DOMAIN) );
 
 		/* Widget control settings. */
 		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'id_lp_conversion_area_widget' );
