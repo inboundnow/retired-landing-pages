@@ -39,7 +39,7 @@ Recommended form plugins (Gravity forms, Ninja Forms or Contact form 7)
 
 = About the Plugin =
 
-http://www.youtube.com/watch?v=BzcD6PgvLP4
+http://www.youtube.com/watch?v=flEd0sRTFUo
 
 = Developers & Designers =
 

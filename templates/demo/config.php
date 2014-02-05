@@ -3,10 +3,10 @@
 * WordPress Landing Page Config File
 * Template Name:  Demo Template
 * @package  WordPress Landing Pages
-* @author 	InboundNow
+* @author 	Inbound Now
 *
 * This is a demo template for developers and designers to use as a reference for building landing page templates
-* For a boilerplate without all the markup visit: XYZ
+* for Wordpress Landing Pages Plugin http://wordpress.org/plugins/landing-pages/
 *
 */
 
@@ -14,13 +14,12 @@ do_action('lp_global_config'); // The lp_global_config function is for global co
 
 //gets template directory name to use as identifier - do not edit - include in all template files
 $key = lp_get_parent_directory(dirname(__FILE__));
+$path = (preg_match("/uploads/", dirname(__FILE__))) ? LANDINGPAGES_UPLOADS_URLPATH . $key .'/' : LANDINGPAGES_URLPATH.'templates/'.$key.'/'; // This defines the path to your template folder. /wp-content/uploads/landing-pages/templates by default
 
 /**
- * $lp_data[$key]['info']
- * Configures Template Information
- */
-
-/* $lp_data[$key]['settings'] Parameters
+ * Landing Page Main Setup Params
+ *
+   $lp_data[$key]['info'] Parameters
 
     'version' => (string) (required)
     - Version Number. default = "1.0"
@@ -38,6 +37,7 @@ $key = lp_get_parent_directory(dirname(__FILE__));
     - Link to demo url.
 */
 
+/* DEMO TEMPLATE INFO SETUP */
 $lp_data[$key]['info'] =
 array(
 	'data_type' => "template", // Template
@@ -51,11 +51,10 @@ array(
 
 /**
  * $lp_data[$key]['settings']
- * Adds metabox options to landing page template
- * http://plugins.inboundnow.com/docs/dev/creating-templates/template-config/
- */
+ * Landing Page Main Setting Params
+ * - Creates template metaboxes
+    $lp_data[$key]['settings'] Parameters
 
-/* Parameters
     'label' => (string) (required)
     - Label for Meta Fields.
 
@@ -80,8 +79,8 @@ array(
 
 */
 
-// Define Meta Options for template
-// These values are returned in the template's index.php file with lp_get_value($post, $key, 'text-box-id') function
+/* DEMO TEMPLATE Metabox SETUP */
+// These values are returned in the template's index.php file with the lp_get_value($post, $key, 'text-box-id')
 $lp_data[$key]['settings'] =
 array(
 	/* Text field Example */

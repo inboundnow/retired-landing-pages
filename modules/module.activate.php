@@ -10,8 +10,9 @@ function landing_page_activate($wp = '3.6', $php = '5.3', $cta = '1.2.1', $leads
 	if ( version_compare( phpversion(), $php, '<' ) )
 	{
 	    $flag = 'PHP';
-	    $version = 'PHP' == $flag ? $php : $wp;
-		wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires'.$flag.'  version '.$php.' or greater.</p>' , LANDINGPAGES_TEXT_DOMAIN) , __( 'Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
+        $php_version = phpversion();
+        $version = 'PHP' == $flag ? $php : $wp;
+    	wp_die( __('<p>The <strong>WordPress Landing Pages</strong> plugin requires '.$flag.'  version '.$php.' or greater.</p> Your server is running version '. $php_version . '. Please Contact your hosting provider to update your PHP version. PHP 5.3 came out in December of 2010.'  , LANDINGPAGES_TEXT_DOMAIN) , __( 'Plugin Activation Error' , LANDINGPAGES_TEXT_DOMAIN) ,  array( 'response'=>200, 'back_link'=>TRUE ) );
 		deactivate_plugins( basename( __FILE__ ) );
 	}
 	elseif ( version_compare( $wp_version, $wp, '<' ) )
