@@ -1,5 +1,10 @@
 jQuery(document).ready(function ($) {
 
+    var cookies = (typeof (jQuery.cookie) != "undefined" ? true : false); // Check for JQuery Cookie
+    function cookie_notice() {
+        alert('Oh no! jQuery Cookie not loaded. Your Server Might be Blocking this. Some functionality may be impaired');
+    }
+
 	jQuery('#templates-container').isotope();
     // Isotope Styling
     jQuery('#template-filter li').first().addClass('button-primary');
@@ -21,14 +26,27 @@ jQuery(document).ready(function ($) {
 	*/
 
 	jQuery("body").on('click', '#content-tmce, .wp-switch-editor.switch-tmce', function () {
-		$.cookie("lp-edit-view-choice", "editor", { path: '/', expires: 7 });
+        if(cookies) {
+		  $.cookie("lp-edit-view-choice", "editor", { path: '/', expires: 7 });
+        } else {
+          cookie_notice();
+        }
 	});
 
 	jQuery("body").on('click', '#content-html, .wp-switch-editor.switch-html', function () {
+        if(cookies) {
 		$.cookie("lp-edit-view-choice", "html", { path: '/', expires: 7 });
+        } else {
+        cookie_notice();
+        }
 	});
 
-	var which_editor = $.cookie("lp-edit-view-choice");
+    if(cookies) {
+	   var which_editor = $.cookie("lp-edit-view-choice");
+    } else {
+        var which_editor = 'editor';
+        cookie_notice();
+    }
 	if(which_editor === null){
 	   setTimeout(function() {
 		//jQuery("#content-tmce").click();
