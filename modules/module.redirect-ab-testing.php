@@ -62,10 +62,16 @@ else
 			{
 				$variation_status = get_post_meta( $pid , 'lp_ab_variation_status-'.$vid , true );
 			}
-			//echo "Status:".$variation_status."ID".$vid;
-			//echo "<br>";
+
 			if (!is_numeric($variation_status)||$variation_status==1)
+			{
 				$live_variations[] = $vid;
+			}
+		}
+		
+		if (!$live_variations)
+		{
+			$live_variations[] = 0;
 		}
 		
 		$keys_as_values = array_flip($live_variations);
