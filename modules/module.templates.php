@@ -76,7 +76,7 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 				( array_key_exists('info',$data) ) ? $this_data['description'] = $data['info']['description'] :  $this_data['description'] = $data['description'];
 
 				$this_data['thumbnail']  = $thumbnail;
-				if (isset($data['version'])&&!empty($data['info']['version']))
+				if (isset($data['info']['version'])&&!empty($data['info']['version']))
 				{
 					$this_data['version']  = $data['info']['version'];
 				}
