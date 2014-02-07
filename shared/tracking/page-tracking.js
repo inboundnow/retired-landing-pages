@@ -343,7 +343,6 @@ var lead_email = jQuery.cookie("wp_lead_email");
 This is a sessionless object with a 30 second timeout on identical page views */
 var pageviewObj = jQuery.totalStorage('page_views');
 var current_page_id = wplft.post_id;
-var referrer_is = document.referrer;
 if (typeof pageviewObj =='object' && pageviewObj)
 {
       // If pageviewObj exists, do this
@@ -451,4 +450,7 @@ if (typeof data_block =='object' && data_block) {
   data_block = {items: [{id: '1', current_page: current_page,timestamp: datetime, referrer: referrer, original_referrer: referrer},]};
   jQuery.cookie('user_data_json', JSON.stringify(data_block), { expires: 1, path: '/' });
 }
+
+console.log(referrer);
+
 /* End Legacy Cookie Storage */

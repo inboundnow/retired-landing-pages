@@ -10,31 +10,27 @@ function lp_admin_enqueue($hook)
 	//enqueue styles and scripts
 	wp_enqueue_style('lp-admin-css', LANDINGPAGES_URLPATH . 'css/admin-style.css');
 
-	//jquery cookie
-	wp_dequeue_script('jquery-cookie');
-	wp_enqueue_script('jquery-cookie', LANDINGPAGES_URLPATH . 'js/jquery.lp.cookie.js');
+	/* Globally used scripts moved to /shared/assets loader */
 
 	// Frontend Editor
 	if ((isset($_GET['page']) == 'lp-frontend-editor')) {
 	// scripts soon
 	}
+
 	if ((isset($_GET['page']) == 'install-inbound-plugins')) {
 	wp_enqueue_script('inbound-install-plugins', LANDINGPAGES_URLPATH . 'js/admin/admin.install-plugins.js');
 	wp_enqueue_style('inbound-install-plugins-css', LANDINGPAGES_URLPATH . 'css/admin-install-plugins.css');
 	}
 
 	// Store Options Page
-	if (isset($_GET['page']) && (($_GET['page'] == 'lp_store') || ($_GET['page'] == 'lp_addons')))
-	{
+	if (isset($_GET['page']) && (($_GET['page'] == 'lp_store') || ($_GET['page'] == 'lp_addons'))) {
 		wp_dequeue_script('easyXDM');
 		wp_enqueue_script('easyXDM', LANDINGPAGES_URLPATH . 'js/libraries/easyXDM.debug.js');
 		//wp_enqueue_script('lp-js-store', LANDINGPAGES_URLPATH . 'js/admin/admin.store.js');
 	}
 
-
-
 	// Admin enqueue - Landing Page CPT only
-	if (  ( isset($post) && 'landing-page' == $post->post_type ) || ( isset($_GET['post_type']) && $_GET['post_type']=='landing-page' ) )
+	if (( isset($post) && 'landing-page' == $post->post_type ) || ( isset($_GET['post_type']) && $_GET['post_type']=='landing-page' ))
 	{
 
 		wp_enqueue_script('jpicker', LANDINGPAGES_URLPATH . 'js/libraries/jpicker/jpicker-1.1.6.min.js');
@@ -49,8 +45,7 @@ function lp_admin_enqueue($hook)
 		wp_localize_script( 'lp-admin-clear-stats-ajax-request', 'ajaxadmin', array( 'ajaxurl' => admin_url('admin-ajax.php'), 'lp_clear_nonce' => wp_create_nonce('lp-clear-nonce') ) );
 
 		// Add New and Edit Screens
-		if ( $hook == 'post-new.php' || $hook == 'post.php' )
-		{
+		if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
 			add_filter( 'wp_default_editor', 'lp_ab_testing_force_default_editor' ); // force html view
 			//admin.metaboxes.js - Template Selector - Media Uploader
 			wp_enqueue_script('lp-js-metaboxes', LANDINGPAGES_URLPATH . 'js/admin/admin.metaboxes.js');
@@ -78,16 +73,13 @@ function lp_admin_enqueue($hook)
 			wp_enqueue_script('lp-settings-js', LANDINGPAGES_URLPATH . 'js/admin/admin.global-settings.js');
 		}
 		// Edit Screen
-		if ( $hook == 'post.php' )
-		{
+		if ( $hook == 'post.php' ){
 			wp_enqueue_script('lp-post-edit-ui', LANDINGPAGES_URLPATH . 'js/admin/admin.post-edit.js');
 			wp_localize_script( 'lp-post-edit-ui', 'lp_post_edit_ui', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID , 'wp_landing_page_meta_nonce' => wp_create_nonce('wp-landing-page-meta-nonce'),  'lp_template_nonce' => wp_create_nonce('lp-nonce') ) );
 			wp_enqueue_style('admin-post-edit-css', LANDINGPAGES_URLPATH . 'css/admin-post-edit.css');
-
 			wp_enqueue_script('jqueryui');
 			// jquery datepicker
 			wp_enqueue_script('jquery-datepicker', LANDINGPAGES_URLPATH . 'js/libraries/jquery-datepicker/jquery.timepicker.min.js');
-
 			wp_enqueue_script('jquery-datepicker-base', LANDINGPAGES_URLPATH . 'js/libraries/jquery-datepicker/lib/base.js');
 			wp_enqueue_script('jquery-datepicker-datepair', LANDINGPAGES_URLPATH . 'js/libraries/jquery-datepicker/lib/datepair.js');
 			wp_localize_script( 'jquery-datepicker', 'jquery_datepicker', array( 'thispath' => LANDINGPAGES_URLPATH.'js/libraries/jquery-datepicker/' ));
@@ -103,8 +95,7 @@ function lp_admin_enqueue($hook)
 		}
 
 		// Add New Screen
-		if ( $hook == 'post-new.php'  )
-		{
+		if ( $hook == 'post-new.php'  ) {
 			// Create New Landing Jquery UI
 			wp_enqueue_script('lp-js-create-new-lander', LANDINGPAGES_URLPATH . 'js/admin/admin.post-new.js', array('jquery'), '1.0', true );
 			wp_localize_script( 'lp-js-create-new-lander', 'lp_post_new_ui', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID , 'wp_landing_page_meta_nonce' => wp_create_nonce('lp_nonce')  , 'LANDINGPAGES_URLPATH' => LANDINGPAGES_URLPATH ) );
@@ -112,8 +103,7 @@ function lp_admin_enqueue($hook)
 		}
 
 		// List Screen
-		if ( $screen->id == 'edit-landing-page' )
-		{
+		if ( $screen->id == 'edit-landing-page' ) {
 			wp_enqueue_script(array('jquery', 'editor', 'thickbox', 'media-upload'));
 			wp_enqueue_script('landing-page-list', LANDINGPAGES_URLPATH . 'js/admin/admin.landing-page-list.js');
 			wp_enqueue_style('landing-page-list-css', LANDINGPAGES_URLPATH.'css/admin-landing-page-list.css');

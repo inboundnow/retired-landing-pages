@@ -170,30 +170,42 @@ function lp_wp_nav_menu_args( $args = '' )
 ///////// Remove all base css from the current active wordpress theme in landing pages
 //currently removes all css from wp_head and re-enqueues the admin bar css.
 add_action('wp_print_styles', 'lp_remove_all_styles', 100);
-function lp_remove_all_styles()
-{
-	if (!is_admin())
-	{
-		if ( 'landing-page' == get_post_type() )
-		{
+function lp_remove_all_styles() {
+	if (!is_admin()) {
+		if ( 'landing-page' == get_post_type() ) {
 			global $post;
 			$template = get_post_meta($post->ID, 'lp-selected-template', true);
 
-			if (strstr($template,'-slash-'))
-			{
+			if (strstr($template,'-slash-')) {
 				$template = str_replace('-slash-','/',$template);
 			}
 
 			$my_theme =  wp_get_theme($template);
 
-			if ($my_theme->exists()||$template=='default')
-			{
+			if ($my_theme->exists()||$template=='default') {
 				return;
-			}
-			else
-			{
+			} else {
 				global $wp_styles;
-				$wp_styles->queue = array('');
+				//print_r($wp_styles);
+				$registered_scripts = $wp_styles->registered;
+				$inbound_white_list = array();
+				foreach ($registered_scripts as $handle) {
+				    if(preg_match("/\/plugins\/leads\//", $handle->src)) {
+				      //echo $handle->handle;
+				      $inbound_white_list[] = $handle->handle;
+				    }
+				    if(preg_match("/\/plugins\/cta\//", $handle->src)) {
+				      //echo $handle->handle;
+				      $inbound_white_list[]= $handle->handle;
+				    }
+				    if(preg_match("/\/plugins\/landing-pages\//", $handle->src)) {
+				      //echo $handle->handle;
+				      $inbound_white_list[]= $handle->handle;
+				    }
+				}
+				//print_r($inbound_white_list);
+				$wp_styles->queue = $inbound_white_list;
+				//$wp_styles->queue = array(''); // removes all styles
 				//wp_register_style( 'admin-bar' );
 				wp_enqueue_style( 'admin-bar' );
 			}

@@ -58,7 +58,7 @@ The plugin is also fully extendable and has a number of <a href='http://docs.inb
 
 == Frequently Asked Questions ==
 *Can I create my own landing page designs?,
-*Yes! You can learn how to <a href="http://docs.inboundnow.com/landing-pages/dev/creating-templates">create your own landing page template here</a>.
+*Yes! You can learn how to <a href="http://docs.inboundnow.com/guide/creating-landing-page-templates/">create your own landing page template here</a>.
 
 == Screenshots ==
 
