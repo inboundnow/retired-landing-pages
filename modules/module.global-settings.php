@@ -279,13 +279,13 @@ function lp_display_global_settings()
 		<hr>
 	<div id="more-templates">
 		<center>
-		<a href="http://www.inboundnow.com/landing-pages/downloads/category/templates/" target="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>/images/templates-image.png"></a>
+		<a href="http://www.inboundnow.com/products/landing-pages/templates/" target="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>/images/templates-image.png"></a>
 
 		</center>
 	</div>
 	<div id="more-addons">
 		<center>
-		<a href="http://www.inboundnow.com/landing-pages/downloads/category/add-ons/" target="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>/images/add-on-image.png"></a>
+		<a href="http://www.inboundnow.com/products/landing-pages/extensions/" target="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>/images/add-on-image.png"></a>
 	</center>
 	</div>
 	<div id="custom-templates">

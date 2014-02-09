@@ -193,7 +193,7 @@ function lp_ab_testing_add_tabs()
 		}
 
 		echo '<h2 class="nav-tab-wrapper a_b_tabs">';
-		echo '<a href="?post='.$post->ID.'&lp-variation-id=0&action=edit" class="lp-ab-tab nav-tab nav-tab-special-'.$first_class.'" id="tabs-0">'.__("A",LANDINGPAGES_TEXT_DOMAIN).'</a>';
+		echo '<a href="?post='.$post->ID.'&lp-variation-id=0&action=edit" class="lp-ab-tab nav-tab nav-tab-special-'.$first_class.'" id="tabs-0">'.__("<span>Version</span> <b>A</b>",LANDINGPAGES_TEXT_DOMAIN).'</a>';
 
 		$var_id_marker = 1;
 

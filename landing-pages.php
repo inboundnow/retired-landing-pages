@@ -107,8 +107,8 @@ function inbound_load_shared_landing_pages(){
 	include_once('shared/inboundnow/inboundnow.extension-licensing.php'); // Inboundnow Package Licensing
 	include_once('shared/inboundnow/inboundnow.extension-updating.php'); // Inboundnow Package Updating
 	include_once('shared/inboundnow/inboundnow.global-settings.php'); // Inboundnow Global Settings
-
-
+	include_once('shared/functions/global.shared.functions.php'); // Global Shared Utility functions
+	include_once('shared/assets/assets.loader.class.php');  // Load Shared CSS and JS Assets
 }
 
 /* lagacy - Conditional check LP active */
