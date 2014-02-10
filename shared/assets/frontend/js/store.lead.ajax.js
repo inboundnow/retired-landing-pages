@@ -167,13 +167,25 @@ jQuery(document).ready(function($) {
 		jQuery.cookie("wp_lead_email", email, { path: '/', expires: 365 });
 
 
-
+		var source = jQuery.cookie("wp_lead_referral_site");
 		/* Timeout Fallback
 		setTimeout(function() {
 			console.log('more than 10 seconds has passed. Release form')
 			release_form_sub();
 		}, 10000);
 		*/
+
+		// Ensure global _gaq Google Analytics queue has been initialized.
+		 var _gaq = _gaq || [];
+
+		function inbound_ga_log_event(category, action, label) {
+		  _gaq.push(['_trackEvent', category, action, label]);
+		}
+
+		var lp_check = (inbound_ajax.post_type === 'landing-page') ? 'Landing Page' : "";
+		var cta_check = (inbound_ajax.post_type === 'wp-call-to-action') ? 'Call to Action' : "";
+		var page_type = (!cta_check && !lp_check) ? inbound_ajax.post_type : lp_check + cta_check;
+
 		jQuery.ajax({
 			type: 'POST',
 			url: inbound_ajax.admin_url,
@@ -194,7 +206,8 @@ jQuery(document).ready(function($) {
 				lp_variation: lp_variation,
 				json: tracking_obj, // replace with page_view_obj
 				raw_post_values_json : post_values_json,
-				lp_id: page_id
+				lp_id: page_id,
+				source: source
 				/* Replace with jquery hook
 					do_action('wpl-lead-collection-add-ajax-data');
 				*/
@@ -204,7 +217,7 @@ jQuery(document).ready(function($) {
 					jQuery.cookie("wp_lead_id", user_id, { path: '/', expires: 365 });
 					jQuery.totalStorage('wp_lead_id', user_id);
 					this_form.addClass('lead_processed');
-
+					inbound_ga_log_event('Inbound Form Conversions', 'Conversion', "Conversion on "+ page_type + ' ID: ' + page_id + ' on ' + window.location.href); // GA push
 
 					// Unbind form
 					this_form.unbind('click');
@@ -291,12 +304,6 @@ jQuery(document).ready(function($) {
 			var lp_variation = null;
 		}
 
-		/* Timeout Fallback
-		setTimeout(function() {
-			console.log('more than 10 seconds has passed. Release form')
-			release_form_sub();
-		}, 10000);
-		*/
 		jQuery.ajax({
 			type: 'POST',
 			url: inbound_ajax.admin_url,
@@ -418,6 +425,32 @@ jQuery(document).ready(function($) {
 	}
 
  });
+
+/* GA functions */
+/* _trackEvent(category, action, opt_label, opt_value, opt_noninteraction)
+
+<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" onclick="log_event('Newsletter', 'Subscribe', 'Footer Newsletter Subscribe');" class="button">
+
+// Ensure global _gaq Google Analytics queue has been initialized.
+ var _gaq = _gaq || [];
+
+function log_event(category, action, label) {
+  _gaq.push(['_trackEvent', category, action, label]);
+}
+
+log_event('Newsletter', 'Subscribe', 'Footer Newsletter Subscribe');
+
+function log_click(category, link) {
+  log_event(category, 'Click', $(link).text());
+}
+
+$(document).ready(function() {
+  $('nav a').click(function() {
+    log_click('Navigation', this);
+  });
+})
+
+*/
 
 function release_form_sub(this_form , element_type){
 	jQuery('button, input[type="button"]').css('cursor', 'default');

@@ -32,8 +32,14 @@ class Inbound_Asset_Loader {
 		/* Frontent and Backend Files */
 		self::load_file('jquery-cookie', 'global/js/jquery.cookie.js', array( 'jquery' ));
 		self::load_file('jquery-total-storage', 'global/js/jquery.total-storage.min.js', array( 'jquery' ));
+
+		if(is_user_logged_in()){
+		  self::load_file('inbound-admin', 'admin/css/global-inbound-admin.css');
+		}
+
 		/* Conditionals for admin or frontend */
 		if(is_admin()) {
+
 			$inbound_now_screens = InboundCompatibility::return_inbound_now_screens(); // list of inbound now screens
 			$screen = get_current_screen();
 			/* Target Specific screen with // echo $screen->id;
@@ -41,15 +47,15 @@ class Inbound_Asset_Loader {
 
 			} */
 	  		//self::load_file('script-test', 'admin/js/test.js');
-			self::load_file('inbound-admin', 'admin/css/global-inbound-admin.css');
 		} else {
-			/* Target Specific post type with
-			if ( is_singular( 'landing-page' ) ) {
 
-			} */
 	  		self::load_file('funnel-tracking', 'frontend/js/page-tracking.js', array(), 'wplft', self::localize_lead_data());
 	  		// TODO: Merge Localize of wplft into inbound_ajax
 	  		self::load_file('store-lead-ajax', 'frontend/js/store.lead.ajax.js', array( 'jquery','jquery-cookie'), 'inbound_ajax', self::localize_lead_data());
+	  		/* Target Specific post type with
+	  		if ( is_singular( 'landing-page' ) ) {
+
+	  		} */
 			//self::load_file('test-css', 'frontend/css/test.css');
 		}
 	} // end register_scripts_and_styles

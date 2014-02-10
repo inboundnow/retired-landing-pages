@@ -68,6 +68,14 @@ The plugin is also fully extendable and has a number of <a href='http://docs.inb
 4. Choose from a ton of pre-made templates, use your existing design, or design your own theme!
 
 == Changelog ==
+= 1.4.7 =
+* Added Google Analytics Custom Event Tracking for form submissions
+* Improved Social Media Buttons called with lp_social_media() function
+* Fixed qTranslate plugin bug
+* Fixed Genesis Title tag conflict
+* Added improved asset loader
+* Updated main docs.inboundnow.com site. Check it out!
+
 = 1.4.6 =
 * New Feature: Bulk Lead management with leads plugin wordpress.org/plugins/leads/
 * Added tags to lead profiles for improved management/categorization

@@ -498,4 +498,9 @@ var expire_time = jQuery.cookie("lead_session_expire"); //
 //console.log(expire_time);
 });
 
+var referrer_cookie = jQuery.cookie("wp_lead_referral_site");
+if (typeof (referrer_cookie) != "undefined" && referrer_cookie != null && referrer_cookie != "") {
+  var referrer = document.referrer;
+  jQuery.cookie("wp_lead_referral_site", referrer, {expires: e_date, path: '/' }); // Set referral cookie
+}
 /* End Legacy Cookie Storage */

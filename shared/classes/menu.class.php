@@ -225,8 +225,8 @@ if (!class_exists('InboundMenu')) {
             $leads_search_text = "Search All Leads";
             $menu_items['leads-search'] = array(
               'parent' => $leads_menu,
-              'title' => '<form method="get" action="'.admin_url( 'edit.php?post_type=wp-lead' ).'" class=" " target="_blank">
-              <input type="text" placeholder="' . $leads_search_text . '" onblur="this.value=(this.value==\'\') ? \'' . $leads_search_text . '\' : this.value;" onfocus="this.value=(this.value==\'' . $leads_search_text . '\') ? \'\' : this.value;" value="' . $leads_search_text . '" name="s" value="' . esc_attr( 'Search Leads', 'edd-toolbar' ) . '" class="text eddtb-search-input" />
+              'title' => '<form id="inbound-menu-form" method="get" action="'.admin_url( 'edit.php?post_type=wp-lead' ).'" class=" " target="_blank">
+              <input id="search-inbound-menu" type="text" placeholder="' . $leads_search_text . '" onblur="this.value=(this.value==\'\') ? \'' . $leads_search_text . '\' : this.value;" onfocus="this.value=(this.value==\'' . $leads_search_text . '\') ? \'\' : this.value;" value="' . $leads_search_text . '" name="s" value="' . esc_attr( 'Search Leads', 'edd-toolbar' ) . '" class="text eddtb-search-input" />
               <input type="hidden" name="post_type" value="wp-lead" />
               <input type="hidden" name="post_status" value="all" />
               ' . $eddtb_go_button,
@@ -399,8 +399,8 @@ if (!class_exists('InboundMenu')) {
             /** Docs search form */
             $inboundsecondary_menu_items['inbounddocs-searchform'] = array(
               'parent' => $inboundgroup,
-              'title' => '<form method="get" action="http://www.inboundnow.com/support/search/?action=bbp-search-request" class=" " target="_blank">
-              <input type="text" placeholder="' . $eddtb_search_docs . '" onblur="this.value=(this.value==\'\') ? \'' . $eddtb_search_docs . '\' : this.value;" onfocus="this.value=(this.value==\'' . $eddtb_search_docs . '\') ? \'\' : this.value;" value="' . $eddtb_search_docs . '" name="bbp_search" value="' . esc_attr( 'Search Docs', 'edd-toolbar' ) . '" class="text eddtb-search-input" />
+              'title' => '<form method="get" id="inbound-menu-form" action="http://www.inboundnow.com/support/search/?action=bbp-search-request" class=" " target="_blank">
+              <input id="search-inbound-menu" type="text" placeholder="' . $eddtb_search_docs . '" onblur="this.value=(this.value==\'\') ? \'' . $eddtb_search_docs . '\' : this.value;" onfocus="this.value=(this.value==\'' . $eddtb_search_docs . '\') ? \'\' : this.value;" value="' . $eddtb_search_docs . '" name="bbp_search" value="' . esc_attr( 'Search Docs', 'edd-toolbar' ) . '" class="text eddtb-search-input" />
               <input type="hidden" name="post_type[]" value="docs" />
               <input type="hidden" name="post_type[]" value="page" />' . $eddtb_go_button,
               'href'   => false,
@@ -433,7 +433,7 @@ if (!class_exists('InboundMenu')) {
             }
             $inboundsecondary_menu_items['inbounddebug'] = array(
               'parent' => $inboundgroup,
-              'title'  => __( '<span style="color:red;">Debug Tools</span>', 'edd-toolbar' ),
+              'title'  => __( '<span style="color:#fff;font-size: 13px;margin-top: -1px;display: inline-block;">Debug Tools</span>', 'edd-toolbar' ),
               'href'   => "#",
               'meta'   => ""
             );
