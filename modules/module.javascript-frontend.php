@@ -107,9 +107,13 @@ function lp_header_load(){
 		wp_enqueue_style('inbound-shortcodes', INBOUND_FORMS.'css/frontend-render.css');
 		if (isset($_GET['lp-variation-id']) && !isset($_GET['template-customize']) && !isset($_GET['iframe_window']) && !isset($_GET['live-preview-area'])) { ?>
 		<script type="text/javascript">
-		if (typeof window.history.pushState == 'function') {
-		var current=window.location.href;var cleanparams=current.split("?");var clean_url=cleanparams[0];history.replaceState({},"landing page",clean_url);
-		//console.log("push state supported.");
+		//var inbound_param_overide = 'off';
+		if (typeof (inbound_param_overide) === "undefined" || inbound_param_overide === null || inbound_param_overide === "") {
+			var inbound_param_overide = 'on';
+		}
+		var inbound_show_params = inbound_param_overide || true;
+		if (typeof window.history.pushState == 'function' && inbound_show_params != 'off') {
+				var current=window.location.href;var cleanparams=current.split("?");var clean_url=cleanparams[0];history.replaceState({},"landing page",clean_url);
 		}</script>
 		<?php }
 	}
