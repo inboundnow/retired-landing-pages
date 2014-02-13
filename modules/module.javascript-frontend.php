@@ -97,7 +97,6 @@ function lp_fontend_enqueue_scripts($hook) {
 
 }
 
-
 /* CLEAN URL OF VARIATION GET TAGS */
 add_action('wp_head', 'lp_header_load');
 function lp_header_load(){
@@ -105,9 +104,12 @@ function lp_header_load(){
 	if (isset($post) && $post->post_type=='landing-page') {
 		wp_enqueue_style('inbound-wordpress-base', LANDINGPAGES_URLPATH . 'css/frontend/global-landing-page-style.css');
 		wp_enqueue_style('inbound-shortcodes', INBOUND_FORMS.'css/frontend-render.css');
-		if (isset($_GET['lp-variation-id']) && !isset($_GET['template-customize']) && !isset($_GET['iframe_window']) && !isset($_GET['live-preview-area'])) { ?>
+		if (isset($_GET['lp-variation-id']) && !isset($_GET['template-customize']) && !isset($_GET['iframe_window']) && !isset($_GET['live-preview-area'])) {
+		do_action('landing_page_header_script');
+		?>
 		<script type="text/javascript">
 		//var inbound_param_overide = 'off';
+		// Automation pass params to GA. Look for documentation
 		if (typeof (inbound_param_overide) === "undefined" || inbound_param_overide === null || inbound_param_overide === "") {
 			var inbound_param_overide = 'on';
 		}
