@@ -75,7 +75,7 @@
 			), */
 			'notify' => array(
 				'name' => __('Notify on Form Completions<span class="small-required-text">*</span>', INBOUND_LABEL),
-				'desc' => __('Who should get admin notifications on this form?', INBOUND_LABEL),
+				'desc' => __('Who should get admin notifications on this form?<br>For multiple notifications separate email addresses with commas', INBOUND_LABEL),
 				'type' => 'text',
 				'placeholder' => "youremail@email.com",
 				'std' => '',
