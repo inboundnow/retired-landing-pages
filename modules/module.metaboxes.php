@@ -348,7 +348,7 @@ function lp_display_meta_box_select_template_container() {
 			}
 			$demo_link = (isset($data['info']['demo'])) ? $data['info']['demo'] : '';
 			?>
-			<div id='template-item' class="<?php echo $cat_slug; ?>">
+			<div id='template-item' class="<?php echo $cat_slug; ?> template-item-boxes">
 				<div id="template-box">
 					<div class="lp_tooltip_templates" title="<?php echo $data['info']['description']; ?>"></div>
 				<a class='lp_select_template' href='#' label='<?php echo $data['info']['label']; ?>' id='<?php echo $this_extension; ?>'>

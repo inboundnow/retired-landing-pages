@@ -8,7 +8,7 @@ jQuery(document).ready(function ($) {
     });
 
 	jQuery("#submitdiv").siblings().hide();
-	jQuery('#templates-container').isotope();
+
     jQuery("#title-prompt-text").text("Name Your New Landing Page");
 
     var titledescription = jQuery("<span id='descriptor'>This will be the administrative title your landing page, the main headline is created in the next step</span>");
@@ -52,7 +52,7 @@ jQuery(document).ready(function ($) {
 
 	jQuery('#lp-change-template-button').live('click', function () {
         jQuery(".wrap").fadeOut(500,function(){
-            jQuery('#templates-container').isotope();
+
             jQuery(".lp-template-selector-container").fadeIn(500, function(){
                 jQuery('#lp-cancel-selection').show();
             });
@@ -65,7 +65,11 @@ jQuery(document).ready(function ($) {
       var selector = jQuery(this).attr('data-filter');
       jQuery("ul#template-filter li").removeClass('button-primary');
       jQuery(this).parent().addClass('button-primary');
-      jQuery('#templates-container').isotope({ filter: selector });
+      $(".template-item-boxes").fadeOut(500);
+      setTimeout(function() {
+       $(selector).fadeIn(500);
+      }, 500);
+
       return false;
     });
 

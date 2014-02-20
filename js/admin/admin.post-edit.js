@@ -1,19 +1,23 @@
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
 
     var cookies = (typeof (jQuery.cookie) != "undefined" ? true : false); // Check for JQuery Cookie
     function cookie_notice() {
         alert('Oh no! jQuery Cookie not loaded. Your Server Might be Blocking this. Some functionality may be impaired');
     }
 
-	jQuery('#templates-container').isotope();
-    // Isotope Styling
+
+    // Filter Styling
     jQuery('#template-filter li').first().addClass('button-primary');
 	// filter items when filter link is clicked
 	jQuery('#template-filter a').click(function(){
 	  var selector = jQuery(this).attr('data-filter');
 	  jQuery("ul#template-filter li").removeClass('button-primary');
       jQuery(this).parent().addClass('button-primary');
-	  jQuery('#templates-container').isotope({ filter: selector });
+      $(".template-item-boxes").fadeOut(500);
+      setTimeout(function() {
+       $(selector).fadeIn(500);
+      }, 500);
+
 	  return false;
 	});
 
@@ -203,19 +207,18 @@ jQuery(document).ready(function ($) {
         var current_template_div = "#lp_" + current_template + "_custom_meta_box .handlediv";
         var open_variation = jQuery("#open_variation").val();
 
-		if (open_variation>0)
-		{
+		if (open_variation>0) {
 			var variation_tag = "-"+open_variation;
-		}
-		else
-		{
+		} else {
 			var variation_tag = "";
 		}
 
 	    jQuery("#template-box.default_template_highlight").removeClass("default_template_highlight");
 
         jQuery(selected_template_id).parent().addClass("default_template_highlight").prepend(currentlabel);
-
+        function capitaliseFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
 	    jQuery(".lp-template-selector-container").fadeOut(500,function(){
 			jQuery('#lp_metabox_select_template input').remove();
 			jQuery('#lp_metabox_select_template .form-table').remove();
@@ -236,15 +239,13 @@ jQuery(document).ready(function ($) {
 						//alert(response);
 						var html = '<input id="lp_select_template" type="hidden" value="'+template+'" name="lp-selected-template'+variation_tag+'">'
 								 + '<input type="hidden" value="'+lp_post_edit_ui.lp_template_nonce+'" name="lp_lp_custom_fields_nonce">'
-								 + '<h3 class="hndle" style="cursor: default;">'
-								 + '<span>'
-								 + '<small>'+ template +' Options:</small>'
-								 +	'</span>'
-								 +	'</h3>'
 								 + response;
 
 						jQuery('#lp_metabox_select_template #template-display-options').html(html);
 						jQuery('.time-picker').timepicker({ 'timeFormat': 'H:i' });
+                        var template_name = capitaliseFirstLetter(template).replace("-", " ");
+                        var template_name = template_name.replace("_", " ");
+                        jQuery("#lp_metabox_select_template .hndle").first().text(template_name + " Template Options");
 
 					},
 					error: function(request, status, err) {
@@ -342,12 +343,12 @@ jQuery(document).ready(function ($) {
 
     jQuery('#lp-change-template-button').live('click', function () {
         jQuery(".wrap").fadeOut(500,function(){
-            jQuery('#templates-container').isotope();
+
             jQuery(".lp-template-selector-container").fadeIn(500, function(){
                 jQuery(".currently_selected").show();
                 jQuery('#lp-cancel-selection').show();
             });
-            jQuery("#template-filter li a").first().click();
+
         });
     });
 

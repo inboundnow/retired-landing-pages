@@ -1,12 +1,10 @@
 <?php
 
 add_action('admin_init', 'lp_rebuild_permalinks');
-function lp_rebuild_permalinks()
-{
+function lp_rebuild_permalinks() {
 	$activation_check = get_option('lp_activate_rewrite_check',0);
 
-	if ($activation_check)
-	{
+	if ($activation_check) {
 		global $wp_rewrite;
 		$wp_rewrite->flush_rules();
 		update_option( 'lp_activate_rewrite_check', '0');
@@ -88,8 +86,7 @@ function lp_change_excerpt_to_summary() {
 
 /*  This piece is for the customizer? I'm not sure - H */
 add_filter('admin_url','lp_add_fullscreen_param');
-function lp_add_fullscreen_param( $link )
-{
+function lp_add_fullscreen_param( $link ) {
 	if (isset($_GET['page']))
 		return $link;
 
@@ -110,8 +107,7 @@ function lp_add_fullscreen_param( $link )
 }
 
 /*********PREPARE COLUMNS FOR IMPRESSIONS AND CONVERSIONS***************/
-if (is_admin())
-{
+if (is_admin()) {
 
 	//include_once(LANDINGPAGES_PATH.'filters/filters.post-type.php');
 
@@ -491,39 +487,7 @@ if (is_admin())
 
 }
 
-if (!post_type_exists('wp-lead'))
-{
-	add_action('init', 'lp_wpleads_register');
-	function lp_wpleads_register() {
-		//echo $slug;exit;
-		$labels = array(
-			'name' => _x('Leads', 'post type general name'),
-			'singular_name' => _x('Lead', 'post type singular name' , LANDINGPAGES_TEXT_DOMAIN),
-			'add_new' => _x('Add New', 'Lead' , LANDINGPAGES_TEXT_DOMAIN),
-			'add_new_item' => __('Add New Lead' , LANDINGPAGES_TEXT_DOMAIN),
-			'edit_item' => __('Edit Lead' , LANDINGPAGES_TEXT_DOMAIN),
-			'new_item' => __('New Leads' , LANDINGPAGES_TEXT_DOMAIN),
-			'view_item' => __('View Leads' , LANDINGPAGES_TEXT_DOMAIN),
-			'search_items' => __('Search Leads' , LANDINGPAGES_TEXT_DOMAIN),
-			'not_found' =>  __('Nothing found' , LANDINGPAGES_TEXT_DOMAIN),
-			'not_found_in_trash' => __('Nothing found in Trash' , LANDINGPAGES_TEXT_DOMAIN),
-			'parent_item_colon' => ''
-		);
-
-		$args = array(
-			'labels' => $labels,
-			'public' => false,
-			'publicly_queryable' => false,
-			'show_ui' => false,
-			'query_var' => true,
-			'capability_type' => 'post',
-			'hierarchical' => false,
-			'menu_position' => null,
-			'supports' => array('custom-fields','thumbnail')
-		  );
-
-		register_post_type( 'wp-lead' , $args );
-		//flush_rewrite_rules( false );
-
-	}
+if (!post_type_exists('wp-lead')) {
+	//add_action('plugins_loaded', 'inbound_leads_register');
+	// moved to /shared/functions/lead.cpt.php
 }

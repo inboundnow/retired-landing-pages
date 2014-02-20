@@ -58,10 +58,6 @@ function lp_admin_enqueue($hook)
 			$params = array('selected_template'=>$template, 'templates'=>$template_data);
 			wp_localize_script('lp-js-metaboxes', 'data', $params);
 
-			// Isotope sorting
-			wp_enqueue_script('isotope', LANDINGPAGES_URLPATH . 'js/libraries/isotope/jquery.isotope.js', array('jquery'), '1.0', true );
-			wp_enqueue_style('isotope', LANDINGPAGES_URLPATH . 'js/libraries/isotope/css/style.css');
-
 			// Conditional TINYMCE for landing pages
 			wp_dequeue_script('jquery-tinymce');
 			wp_enqueue_script('jquery-tinymce', LANDINGPAGES_URLPATH . 'js/libraries/tiny_mce/jquery.tinymce.js');
