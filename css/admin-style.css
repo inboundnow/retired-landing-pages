@@ -26,6 +26,9 @@ padding-top: 5px;
 padding-left: 10px;
 
 }
+#menu-posts-landing-page .wp-submenu.wp-submenu-wrap {
+z-index: 99999999999;
+}
 @font-face {
 	font-family: 'FontAwesome';
 	src: url('../shared/assets/global/fonts/fontawesome/fontawesome-webfont.eot?v=3.0.2');
