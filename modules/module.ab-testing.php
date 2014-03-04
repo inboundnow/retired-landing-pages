@@ -339,12 +339,14 @@ if (is_admin())
 			foreach ($lp_custom_fields as $key=>$field)
 			{
 				$default = get_post_meta($post_id, $field['id'], true);
-				//echo $post_id.'-'.$field['id'].":".$default;
-				//echo "<br>";
+				
 				$id = $field['id'];
 				$field['id'] = $id.'-'.$current_variation_id ;
-				$field['default'] = $default;
-
+				
+				if ($default) {
+					$field['default'] = $default;
+				}
+				
 				$lp_custom_fields[$key] = $field;
 			}
 			return $lp_custom_fields;

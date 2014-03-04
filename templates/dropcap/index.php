@@ -80,7 +80,7 @@ body { <?php echo $bg_style; ?> }
 #textspot p { color: #<?php echo $text_color;?>;}
 <?php } ?>
 <?php if ($content_background != "") { ?>
-#content { background: url('/wp-content/plugins/landing-pages/images/image.php?hex=<?php echo $content_background;?>'); border-radius: 8px; }
+#content { background: url('<?php echo LANDINGPAGES_URLPATH; ?>/images/image.php?hex=<?php echo $content_background;?>'); border-radius: 8px; }
 <?php } ?>
 <?php if ($form_text_color != "") { echo "#lp_container {color: #$form_text_color;}"; } ?>
 p {
