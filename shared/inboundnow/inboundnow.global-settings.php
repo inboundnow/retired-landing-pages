@@ -13,15 +13,15 @@ if (!function_exists('inboundnow_add_master_license'))
 		{
 			case 'lp_define_global_settings':
 				$key = 'lp-license-keys';
-				$text_domain = LANDINGPAGES_TEXT_DOMAIN;
+				$text_domain = 'landing-pages';
 				break;
 			case 'wpleads_define_global_settings':
 				$key = 'wpleads-license-keys';
-				$text_domain = WPL_TEXT_DOMAIN;
+				$text_domain = 'leads';
 				break;
 			case 'wp_cta_define_global_settings':
 				$key = 'wp-cta-license-keys';
-				$text_domain = WP_CTA_TEXT_DOMAIN;
+				$text_domain = 'cta';
 				break;	
 		}
 		

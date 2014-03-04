@@ -16,8 +16,6 @@ if (!defined('INBOUND_FORMS_BASENAME'))
 if (!defined('INBOUND_FORMS_ADMIN'))
     define('INBOUND_FORMS_ADMIN', get_bloginfo('url') . "/wp-admin");
 
-if (!defined('INBOUND_LABEL'))
-	define( 'INBOUND_LABEL', str_replace( ' ', '_', strtolower( 'Inbound Now' ) ) );
 
 
 require_once( 'shortcodes-includes.php' );
@@ -52,6 +50,8 @@ class InboundShortcodes {
         $final_path = LANDINGPAGES_URLPATH;
       } else if (is_plugin_active('cta/wordpress-cta.php')) {
         $final_path = WP_CTA_URLPATH;
+      } else if (is_plugin_active('calls-to-action/calls-to-action.php')) {
+        $final_path = WP_CTA_URLPATH;
       }
 
       if ( force_ssl_admin() ) {
@@ -73,7 +73,7 @@ class InboundShortcodes {
 		wp_enqueue_script('jquery-ui-sortable' );
 		wp_enqueue_script('inbound-shortcodes-plugins', $final_path.'shared/inbound-shortcodes/js/shortcodes-plugins.js');
 
-		if (isset($post) && post_type_supports( $post->post_type, 'editor') )
+		if (isset($post) && post_type_supports( $post->post_type, 'editor') || isset($post) && 'wp-call-to-action' === $post->post_type )
 		{
 			wp_enqueue_script('inbound-shortcodes', $final_path.'shared/inbound-shortcodes/js/shortcodes.js');
 			$form_id = (isset($_GET['post'])) ? $_GET['post'] : '';
@@ -103,7 +103,7 @@ class InboundShortcodes {
 		  array_push($plugins_loaded, "leads");
 		}
 
-		wp_localize_script( 'inbound-shortcodes', 'inbound_load', array( 'image_dir' => $final_path.'shared/inbound-shortcodes/', 'inbound_plugins' => $plugins_loaded, 'pop_title' => 'Insert Shortcode' ));
+		wp_localize_script( 'inbound-shortcodes-plugins', 'inbound_load', array( 'image_dir' => $final_path.'shared/inbound-shortcodes/', 'inbound_plugins' => $plugins_loaded, 'pop_title' => 'Insert Shortcode' ));
 
 		if (isset($post)&&$post->post_type=='inbound-forms')
 		{
@@ -125,7 +125,7 @@ class InboundShortcodes {
   static function shortcodes_admin_head() { ?>
   <script type="text/javascript">
   /* <![CDATA[ */
-  // Load inline scripts var freshthemes_theme_dir = "<?php // echo INBOUND_FORMS; ?>", test = "<?php // _e('Insert Shortcode', INBOUND_LABEL); ?>";
+  // Load inline scripts var image_dir = "<?php // echo INBOUND_FORMS; ?>", test = "<?php // _e('Insert Shortcode', 'leads'); ?>";
   /* ]]> */
   </script>
  <?php }
@@ -641,7 +641,7 @@ class InboundShortcodes {
                           <tbody style="display:none;">
                               <tr class="form-row" style="text-align: center;">
                                   <?php if( ! $shortcode->has_child ) : ?><td class="label">&nbsp;</td><?php endif; ?>
-                                  <td class="field" style="width:500px;"><a href="#" id="inbound_insert_shortcode" class="button-primary inbound-shortcodes-insert"><?php _e('Insert Shortcode', INBOUND_LABEL); ?></a></td>
+                                  <td class="field" style="width:500px;"><a href="#" id="inbound_insert_shortcode" class="button-primary inbound-shortcodes-insert"><?php _e('Insert Shortcode', 'leads'); ?></a></td>
                               </tr>
                           </tbody>
                       </table>
@@ -650,10 +650,10 @@ class InboundShortcodes {
 
               <div id="inbound-shortcodes-preview-wrap">
                   <div id="inbound-shortcodes-preview-head">
-                      <?php _e('Form Preview', INBOUND_LABEL); ?>
+                      <?php _e('Form Preview', 'leads'); ?>
                   </div>
                   <?php if( $shortcode->no_preview ) : ?>
-                      <div id="inbound-shortcodes-nopreview"><?php _e('Shortcode has no preview', INBOUND_LABEL); ?></div>
+                      <div id="inbound-shortcodes-nopreview"><?php _e('Shortcode has no preview', 'leads'); ?></div>
                   <?php else : ?>
                       <iframe src='<?php echo $final_path . 'shared/inbound-shortcodes/'; ?>preview.php?sc=&post=<?php echo $_GET['post']; ?>' width="285" scrollbar='true' frameborder="0" id="inbound-shortcodes-preview"></iframe>
                   <?php endif; ?>
@@ -663,7 +663,7 @@ class InboundShortcodes {
 
       </div>
       <div id="popup-controls">
-          <a href="#" id="inbound_insert_shortcode_two" class="button-primary inbound-shortcodes-insert-two"><?php _e('Insert Shortcode', INBOUND_LABEL); ?></a>
+          <a href="#" id="inbound_insert_shortcode_two" class="button-primary inbound-shortcodes-insert-two"><?php _e('Insert Shortcode', 'leads'); ?></a>
           <a href="#" id="shortcode_cancel" class="button inbound-shortcodes-insert-cancel">Cancel</a>
           <a href="#" id="inbound_save_form" style="display:none;" class="button">Save As New Form</a>
       </div>

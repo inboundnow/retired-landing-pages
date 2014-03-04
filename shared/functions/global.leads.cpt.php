@@ -3,7 +3,7 @@
  * Lead CPT functionality used across plugins
  */
 
-add_action( 'init', 'inbound_leads_register' , 11 );
+add_action( 'init', 'inbound_leads_register' , 10 );
 if (!function_exists('inbound_leads_register')) {
 function inbound_leads_register() {
 
@@ -31,7 +31,7 @@ function inbound_leads_register() {
         'publicly_queryable' => true,
         'show_ui' => true,
         'query_var' => true,
-        'menu_icon' => INBOUND_SHARED_ASSETS_PATH . '/global/images/leads.png',
+        'menu_icon' => INBOUND_SHARED_ASSETS . '/global/images/leads.png',
         'capability_type' => 'post',
         'hierarchical' => false,
         'menu_position' => null,
@@ -44,75 +44,75 @@ function inbound_leads_register() {
 
     // Lead Lists
     $list_labels = array(
-    	'name'                       => _x( 'Lead Lists', 'taxonomy general name' ),
-    	'singular_name'              => _x( 'Lead List', 'taxonomy singular name' ),
-    	'search_items'               => __( 'Search Lead Lists' ),
-    	'popular_items'              => __( 'Popular Lead Lists' ),
-    	'all_items'                  => __( 'All Lead Lists' ),
-    	'parent_item'                => null,
-    	'parent_item_colon'          => null,
-    	'edit_item'                  => __( 'Edit Lead List' ),
-    	'update_item'                => __( 'Update Lead List' ),
-    	'add_new_item'               => __( 'Add New Lead List' ),
-    	'new_item_name'              => __( 'New Lead List' ),
-    	'separate_items_with_commas' => __( 'Separate Lead Lists with commas' ),
-    	'add_or_remove_items'        => __( 'Add or remove Lead Lists' ),
-    	'choose_from_most_used'      => __( 'Choose from the most used lead List' ),
-    	'not_found'                  => __( 'No Lead Lists found.' ),
-    	'menu_name'                  => __( 'Lead Lists' ),
+        'name'                       => _x( 'Lead Lists', 'taxonomy general name' ),
+        'singular_name'              => _x( 'Lead List', 'taxonomy singular name' ),
+        'search_items'               => __( 'Search Lead Lists' ),
+        'popular_items'              => __( 'Popular Lead Lists' ),
+        'all_items'                  => __( 'All Lead Lists' ),
+        'parent_item'                => null,
+        'parent_item_colon'          => null,
+        'edit_item'                  => __( 'Edit Lead List' ),
+        'update_item'                => __( 'Update Lead List' ),
+        'add_new_item'               => __( 'Add New Lead List' ),
+        'new_item_name'              => __( 'New Lead List' ),
+        'separate_items_with_commas' => __( 'Separate Lead Lists with commas' ),
+        'add_or_remove_items'        => __( 'Add or remove Lead Lists' ),
+        'choose_from_most_used'      => __( 'Choose from the most used lead List' ),
+        'not_found'                  => __( 'No Lead Lists found.' ),
+        'menu_name'                  => __( 'Lead Lists' ),
     );
 
-	$list_args = array(
-		'hierarchical'          => true,
-		'labels'                => $list_labels,
-		'singular_label' => "List Management",
-		'show_ui'               => true,
-		'show_in_menu' => true,
-		'show_in_nav_menus' => true,
-		'show_admin_column'     => true,
-		'query_var'             => true,
-		'rewrite'               => false,
-	);
+    $list_args = array(
+        'hierarchical'          => true,
+        'labels'                => $list_labels,
+        'singular_label' => "List Management",
+        'show_ui'               => true,
+        'show_in_menu' => true,
+        'show_in_nav_menus' => true,
+        'show_admin_column'     => true,
+        'query_var'             => true,
+        'rewrite'               => false,
+    );
 
-	register_taxonomy('wplead_list_category','wp-lead', $list_args );
+    register_taxonomy('wplead_list_category','wp-lead', $list_args );
 
     // Lead Tags
     $labels = array(
-    	'name'                       => _x( 'Lead Tags', 'taxonomy general name' ),
-    	'singular_name'              => _x( 'Lead Tag', 'taxonomy singular name' ),
-    	'search_items'               => __( 'Search Lead Tags' ),
-    	'popular_items'              => __( 'Popular Lead Tags' ),
-    	'all_items'                  => __( 'All Lead Tags' ),
-    	'parent_item'                => null,
-    	'parent_item_colon'          => null,
-    	'edit_item'                  => __( 'Edit Lead Tag' ),
-    	'update_item'                => __( 'Update Lead Tag' ),
-    	'add_new_item'               => __( 'Add New Lead Tag' ),
-    	'new_item_name'              => __( 'New Lead Tag' ),
-    	'separate_items_with_commas' => __( 'Separate Lead Tags with commas' ),
-    	'add_or_remove_items'        => __( 'Add or remove Lead Tags' ),
-    	'choose_from_most_used'      => __( 'Choose from the most used lead tags' ),
-    	'not_found'                  => __( 'No lead tags found.' ),
-    	'menu_name'                  => __( 'Lead Tags' ),
+        'name'                       => _x( 'Lead Tags', 'taxonomy general name' ),
+        'singular_name'              => _x( 'Lead Tag', 'taxonomy singular name' ),
+        'search_items'               => __( 'Search Lead Tags' ),
+        'popular_items'              => __( 'Popular Lead Tags' ),
+        'all_items'                  => __( 'All Lead Tags' ),
+        'parent_item'                => null,
+        'parent_item_colon'          => null,
+        'edit_item'                  => __( 'Edit Lead Tag' ),
+        'update_item'                => __( 'Update Lead Tag' ),
+        'add_new_item'               => __( 'Add New Lead Tag' ),
+        'new_item_name'              => __( 'New Lead Tag' ),
+        'separate_items_with_commas' => __( 'Separate Lead Tags with commas' ),
+        'add_or_remove_items'        => __( 'Add or remove Lead Tags' ),
+        'choose_from_most_used'      => __( 'Choose from the most used lead tags' ),
+        'not_found'                  => __( 'No lead tags found.' ),
+        'menu_name'                  => __( 'Lead Tags' ),
     );
 
     $args = array(
-    	'hierarchical'          => false,
-    	'labels'                => $labels,
-    	'show_ui'               => true,
-    	'show_admin_column'     => true,
-    	'update_count_callback' => '_update_post_term_count',
-    	'query_var'             => true,
-    	'rewrite'               => array( 'slug' => 'lead-tag' ),
+        'hierarchical'          => false,
+        'labels'                => $labels,
+        'show_ui'               => true,
+        'show_admin_column'     => true,
+        'update_count_callback' => '_update_post_term_count',
+        'query_var'             => true,
+        'rewrite'               => array( 'slug' => 'lead-tag' ),
     );
 
     register_taxonomy( 'lead-tags', 'wp-lead', $args );
 
     add_action('admin_menu', 'remove_lead_tag_menu');
     function remove_lead_tag_menu() {
-    	global $submenu;
-    	unset($submenu['edit.php?post_type=wp-lead'][16]);
-    	//print_r($submenu); exit;
+        global $submenu;
+        unset($submenu['edit.php?post_type=wp-lead'][16]);
+        //print_r($submenu); exit;
     }
 }
 }
