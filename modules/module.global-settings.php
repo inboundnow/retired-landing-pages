@@ -598,7 +598,12 @@ function lp_save_global_settings()
 				}
 				if ($field['type']=='license-key')
 				{
-
+					$master_key = get_option('inboundnow_master_license_key' );
+					
+					if ($master_key) {
+						$field['new_value'] = $master_key;
+					}
+					
 					$api_params = array(
 						'edd_action'=> 'activate_license',
 						'license' 	=> $field['new_value'],
@@ -620,20 +625,21 @@ function lp_save_global_settings()
 
 				}
 			}
-			else if ($field['new_value'] !== null)
+			else if ($field['new_value'] == null)
 			{
 				if ($field['type']=='license-key')
 				{
-					$master_key = get_option('inboundnow_master_license_key' , '');
+					$master_key = get_option('inboundnow_master_license_key' );
+
 					if ($master_key)
-					{
+					{		
 						$bool = update_option($field['id'], $master_key );
-						$license_status = update_option('lp_license_status-'.$field['slug'], $license_data->license);
+						$license_status = update_option('lp_license_status-'.$field['slug'], '');
 					}
 					else
 					{
 						update_option($field['id'], '' );
-						$license_status = update_option('lp_license_status-'.$field['slug'], $license_data->license);
+						$license_status = update_option('lp_license_status-'.$field['slug'], '');
 					}
 				}
 			}
@@ -718,7 +724,6 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 							<div class="lp_tooltip tool_date" title="'.$field['description'].'"></div><p class="description">'.$field['description'].'</p>';
 					continue 2;
 				case 'license-key':
-
 					if ($master_license_key)
 					{
 						$field['value'] = $master_license_key;
