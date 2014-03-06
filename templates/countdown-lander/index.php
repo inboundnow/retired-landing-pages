@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*****************************************/
 // Template Title:  Countdown Lander Template
 // Plugin: Landing Pages - Inboundnow.com
@@ -8,7 +8,7 @@
 include_once(LANDINGPAGES_PATH.'libraries/library.shareme.php');
 
 /* Declare Template Key */
-$key = lp_get_parent_directory(dirname(__FILE__)); 
+$key = lp_get_parent_directory(dirname(__FILE__));
 $path = LANDINGPAGES_URLPATH.'templates/'.$key.'/';
 $url = plugins_url();
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
@@ -16,20 +16,20 @@ do_action('lp_init');
 
 /* Load $post data */
 if (have_posts()) : while (have_posts()) : the_post();
-    
+
     /* Pre-load meta data into variables */
-    $body_color = lp_get_value($post, $key, 'body-color'); 
+    $body_color = lp_get_value($post, $key, 'body-color');
     $headline_color = lp_get_value($post, $key, 'headline-color');
     $text_color = lp_get_value($post, $key, 'other-text-color');
     $content_color = lp_get_value($post, $key, 'content-background');
     $background_on = lp_get_value($post, $key, 'background-on');
-    
-    $date_picker = lp_get_value($post, $key, 'date-picker'); 
-    $social_display = lp_get_value($post, $key, 'display-social'); 
-    $countdown_message = lp_get_value($post, $key, 'countdown-message'); 
+
+    $date_picker = lp_get_value($post, $key, 'date-picker');
+    $social_display = lp_get_value($post, $key, 'display-social');
+    $countdown_message = lp_get_value($post, $key, 'countdown-message');
     $bg_image = lp_get_value($post, $key, 'bg-image');
-    $submit_button_color = lp_get_value($post, $key, 'submit-button-color'); 
-	
+    $submit_button_color = lp_get_value($post, $key, 'submit-button-color');
+
 	// Date Formatting
 	$new_value = str_replace('-',' ', $date_picker);
 	$js_date = str_replace(':',' ', $new_value);
@@ -37,12 +37,12 @@ if (have_posts()) : while (have_posts()) : the_post();
 	$arr = preg_split('/\s+/', $res, 6);
 	$imploded = implode(',', array_slice($arr, 0, 5));
 	$date_array = explode(",", $imploded);
-	
+
 // Convert Hex to RGB Value for submit button
 function lp_Hex_2_RGB($hex) {
         $hex = @preg_replace("/#/", "", $hex);
         $color = array();
- 
+
         if(strlen($hex) == 3) {
             $color['r'] = hexdec(substr($hex, 0, 1) . $r);
             $color['g'] = hexdec(substr($hex, 1, 1) . $g);
@@ -53,9 +53,9 @@ function lp_Hex_2_RGB($hex) {
             $color['g'] = hexdec(substr($hex, 2, 2));
             $color['b'] = hexdec(substr($hex, 4, 2));
         }
- 
+
         return $color;
-        
+
 }
 $RBG_array = lp_Hex_2_RGB($submit_button_color);
 $red = $RBG_array['r'];
@@ -76,7 +76,7 @@ $content = lp_content_area($post,null,true);
         wp_head(); // Load Regular WP Head
         do_action('lp_head'); // Load Custom Landing Page Specific Header Items
 		?>
-        
+
         <!-- Our CSS stylesheet file -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" />
         <link rel="stylesheet" href="<?php echo $path; ?>assets/css/styles.css" />
@@ -86,8 +86,8 @@ $content = lp_content_area($post,null,true);
 
 <?php if ($bg_image != "") { ?>
     html { background: none;}
-  
-body {  background: url(<?php echo $bg_image; ?>) no-repeat center center fixed; 
+
+body {  background: url(<?php echo $bg_image; ?>) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -96,10 +96,10 @@ body {  background: url(<?php echo $bg_image; ?>) no-repeat center center fixed;
     ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?php echo $bg_image; ?>', sizingMethod='scale')";}
 <?php } ?>
 
-<?php if ($text_color != "") { echo "p, #note, label, #lp_container  { color: #$text_color;} 
+<?php if ($text_color != "") { echo "p, #note, label, #lp_container  { color: #$text_color;}
                                         .countDiv::before, .countDiv::after {
-                                        background-color: #$text_color;} "; } ?> 
-<?php if ($headline_color != "") { echo "h1 {color: #$headline_color;}"; } ?> 
+                                        background-color: #$text_color;} "; } ?>
+<?php if ($headline_color != "") { echo "h1 {color: #$headline_color;}"; } ?>
 <?php if ($background_on === "on") { echo "#content-background{background: url('".$path."image.php?hex=$content_color');}"; }?>
  <?php if ($submit_button_color != "") {
           echo"input[type='submit'] {
@@ -111,15 +111,21 @@ body {  background: url(<?php echo $bg_image; ?>) no-repeat center center fixed;
                background: linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
                 border: 1px solid #000;}";
            }
-        ?>     
+        ?>
+       footer #inbound-social-inbound-social-buttons {
+        text-align: center;
+        background: rgba(0,0,0,0);
+        padding: 0;
+        margin: auto;
+        margin-top: 10px;}
 </style>
         <!--[if lt IE 9]>
           <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
     </head>
-    
+
     <body <?php lp_body_class();?>>
-<div id="page-wrapper">     
+<div id="page-wrapper">
 <div id="heading-area">
     <h1><?php lp_main_headline(); ?></h1>
 </div>
@@ -135,13 +141,13 @@ body {  background: url(<?php echo $bg_image; ?>) no-repeat center center fixed;
             <?php echo $content;?>
         </div> <!-- end content area -->
         </div>
-</div>  
-</div>  
-  <?php if ($social_display==="1" ) { // Show Social Media Icons?>    
+</div>
+</div>
+  <?php if ($social_display==="1" ) { // Show Social Media Icons?>
         <footer>
 
 
-        <?php lp_social_media(); // print out social media buttons?>   
+        <?php lp_social_media(); // print out social media buttons?>
   <style type="text/css">
   #lp-social-buttons {width: 517px;
 margin: auto;
@@ -161,59 +167,59 @@ width: 106px;}
 margin-right: -14px;
 }</style>
         </footer>
-   <?php } ?>     
+   <?php } ?>
         <!-- JavaScript includes -->
-        
+
         <script src="<?php echo $path; ?>assets/countdown/jquery.countdown.js"></script>
-  
+
         <script>
 jQuery(function(){
-    
+
     var note = jQuery('#note'),
     // year, month-1, date
         ts = new Date(<?php if (isset($date_array[0])) { echo $date_array[0] ; } ?>,<?php if (isset($date_array[1])) { echo $date_array[1] - 1 ; } ?>,<?php if (isset($date_array[2])) { echo $date_array[2] ; } ?><?php if ($date_array[3] != "") { echo "," . $date_array[3] ; } ?>),
         newYear = false;
-   
+
     jQuery('#countdown').countdown({
         timestamp   : ts,
         callback    : function(days, hours, minutes, seconds){
-            
+
             var message = "";
-            
+
             message += days + " day" + ( days==1 ? '':'s' ) + ", ";
             message += hours + " hour" + ( hours==1 ? '':'s' ) + ", ";
             message += minutes + " minute" + ( minutes==1 ? '':'s' ) + " and ";
             message += seconds + " second" + ( seconds==1 ? '':'s' ) + " <br />";
-            
+
             if(newYear){
                 message += "left until the new year!";
             }
             else {
                 message += "until <?php echo $countdown_message;?>";
             }
-            
+
             note.html(message);
         }
     });
-    
+
 });
 /*jQuery.fn.center = function () {
     this.css("position","absolute");
-    this.css("top", Math.max(0, ((jQuery(window).height() - this.outerHeight()) / 2) + 
+    this.css("top", Math.max(0, ((jQuery(window).height() - this.outerHeight()) / 2) +
                                                 jQuery(window).scrollTop()) + "px");
-    this.css("left", Math.max(0, ((jQuery(window).width() - this.outerWidth()) / 2) + 
+    this.css("left", Math.max(0, ((jQuery(window).width() - this.outerWidth()) / 2) +
                                                 jQuery(window).scrollLeft()) + "px");
     return this;
 }
 jQuery('#lp_container').center();*/
         </script>
-<?php 
-break; endwhile; endif; 
+<?php
+break; endwhile; endif;
 
 do_action('lp_footer');
 wp_footer();
-?> 
-</div> 
+?>
+</div>
 
 
     </body>

@@ -287,7 +287,7 @@ function lp_display_meta_box_select_template_container() {
 	echo '<a class="button-secondary" style="display:none;" id="lp-cancel-selection">'. __('Cancel Template Change' , LANDINGPAGES_TEXT_DOMAIN) .'</a>';
 	echo "</div>";
 		echo '<ul id="template-filter" >';
-			echo '<li class="button-primary button"><a href="#" data-filter="*">'. __( 'All' , LANDINGPAGES_TEXT_DOMAIN) .'</a></li>';
+			echo '<li class="button-primary button"><a href="#" data-filter=".template-item-boxes">'. __( 'All' , LANDINGPAGES_TEXT_DOMAIN) .'</a></li>';
 			echo '<li class="button-primary button"><a href="#" data-filter=".theme">'. __( 'Theme' , LANDINGPAGES_TEXT_DOMAIN ) .'</a></li>';
 			$categories = array('Theme');
 			foreach ($extension_data_cats as $cat)
@@ -764,7 +764,7 @@ function lp_render_metabox($key,$custom_fields,$post)
 	echo '<div class="form-table" id="inbound-meta">';
 
 	foreach ($custom_fields as $field) {
-	
+
 		$field_id = $key . "-" .$field['id'];
 		$field_name = $field['id'];
 		$label_class = $field['id'] . "-label";
@@ -799,7 +799,7 @@ function lp_render_metabox($key,$custom_fields,$post)
 
 			// begin a table row with
 			echo '<div class="'.$field['id'].$type_class_row.' div-'.$option_class.' wp-call-to-action-option-row inbound-meta-box-row">';
-					
+
 					if ($field['type'] != "description-block" && $field['type'] != "custom-css" ) {
 						echo '<div id="inbound-'.$field_id.'" data-actual="'.$field_id.'" class="inbound-meta-box-label wp-call-to-action-table-header '.$label_class.$type_class.'"><label for="'.$field_id.'">'.$field['label'].'</label></div>';
 					}

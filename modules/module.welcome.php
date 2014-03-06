@@ -575,7 +575,7 @@ class LandingPages_Welcome {
 
 			<p class="about-description"><?php _e( 'Infuse your designs with powerful A/B testing functionality and give clients the ability to edit options on the backend with ease.', LANDINGPAGES_TEXT_DOMAIN); ?></p>
 
-			<h1 style="text-decoration: none; text-align: center;"><a target="_blank" id="create-templates" class='button' href="http://docs.inboundnow.com/landing-pages/dev/creating-templates">Create Your Own Templates</a></h1>
+			<h1 style="text-decoration: none; text-align: center;"><a target="_blank" id="create-templates" class='button' href="http://docs.inboundnow.com/guide/creating-landing-page-templates/">Create Your Own Templates</a></h1>
 
 			<p class="about-description">WordPress Landing Pages is third party extendable. We have a variety of <a href="http://docs.inboundnow.com/landing-pages/dev/core-hooks-filters/hooks">hooks</a>, actions, and filters to add your own functionality</p>
 			</div>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*****************************************/
 // Template Title:  Simple Two Column Template
 // Plugin: Landing Pages - Inboundnow.com
@@ -8,7 +8,7 @@
 include_once(LANDINGPAGES_PATH.'libraries/library.shareme.php');
 
 /* Declare Template Key */
-$key = lp_get_parent_directory(dirname(__FILE__)); 
+$key = lp_get_parent_directory(dirname(__FILE__));
 $path = LANDINGPAGES_URLPATH.'templates/'.$key.'/';
 $url = plugins_url();
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
@@ -16,24 +16,24 @@ do_action('lp_init');
 
 /* Load $post data */
 if (have_posts()) : while (have_posts()) : the_post();
-    
+
     /* Pre-load meta data into variables */
-    
-    $content_color = lp_get_value($post, $key, 'content-color'); 
+
+    $content_color = lp_get_value($post, $key, 'content-color');
     $body_color = lp_get_value($post, $key, 'body-color');
-    $sidebar_color = lp_get_value($post, $key, 'sidebar-color'); 
+    $sidebar_color = lp_get_value($post, $key, 'sidebar-color');
     $text_color = lp_get_value($post, $key, 'content-text-color');
     $sidebar_text_color = lp_get_value($post, $key, 'sidebar-text-color');
     $headline_color = lp_get_value($post, $key, 'headline-color');
     $logo = lp_get_value($post, $key, 'logo');
-    $sidebar = lp_get_value($post, $key, 'sidebar'); 
+    $sidebar = lp_get_value($post, $key, 'sidebar');
     $social_display = lp_get_value($post, $key, 'display-social');
-    $submit_button_color = lp_get_value($post, $key, 'submit-button-color'); 
+    $submit_button_color = lp_get_value($post, $key, 'submit-button-color');
 	//prepare content
 	$content = lp_content_area($post,null,true);
     // Get Colorscheme
     $submit_color_scheme = inbound_color_scheme($submit_button_color, 'int');
-   
+
     // Get lighter submit color
     $top_grad_submit = inbound_color($submit_color_scheme, 35);
 
@@ -41,7 +41,7 @@ if (have_posts()) : while (have_posts()) : the_post();
     $red = $RBG_array['r'];
     $green = $RBG_array["g"];
     $blue = $RBG_array["b"];
-    
+
     $RBG_array_1 = inbound_Hex_2_RGB($top_grad_submit);
     $red_1 = $RBG_array_1['r'];
     $green_1 = $RBG_array_1["g"];
@@ -64,7 +64,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             echo "#left {background-color: #$content_color;}"; // change header color
         }
         ?> <?php if ($body_color !="") {
-            echo "body {background-color: #$body_color;}"; // Change Body BG color 
+            echo "body {background-color: #$body_color;}"; // Change Body BG color
         }
         ?> <?php if ($text_color !="") {
             echo "#left-content {color: #$text_color;}";
@@ -76,7 +76,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                                         opacity: 0.8;} ";
         }
         ?>
-        <?php if ($sidebar === "left" ) {  echo "#right {left:0px; -webkit-box-shadow: 18px 0px 29px rgba(50, 50, 50, 0.55); -moz-box-shadow:    18px 0px 29px rgba(50, 50, 50, 0.55); box-shadow: 18px 0px 29px rgba(50, 50, 50, 0.55);} #left {right: 0;} #left-content {padding-left: 40px;} #social-share-buttons {margin-left: -115px !important;}";
+        <?php if ($sidebar === "left" ) {  echo "#right {left:0px;} #left {right: 0;} #left-content {padding-left: 40px;} #social-share-buttons {margin-left: -115px !important;}";
         } else { echo "#left {left: 0;}"; }
         ?>
          <?php if ($submit_button_color != "") {
@@ -89,25 +89,54 @@ if (have_posts()) : while (have_posts()) : the_post();
                background: linear-gradient(rgba($red_1,$green_1,$blue_1, 0.5), rgba($red,$green,$blue, 0.7));
                 border: 1px solid #000;}";
            }
-        ?> 
+        ?>
+        #inbound-social-inbound-social-buttons {
+       text-align: center;
+       background: rgba(0,0,0,.6) !important;
+       padding: 0;
+       margin-top: 10px !important;
+       padding-bottom: 10px !important;
+       padding-top: 10px !important;
+       width: 470px !important;
+        z-index: 99999999999999;
+        /* position: fixed; */
+        /* bottom: 0px; */
+        margin: auto !important;
+        }
+        #social-holder {
+            position: fixed;
+            bottom: 0px;
+            width: 100%;
+            z-index: 9999999999999999;
+
+        }
+        .inbound-social-facebook.inbound-social-button {
+            padding-left: 12px;
+        }
 </style>
 <?php /* Load all functions hooked to lp_head including global js and global css */
 			wp_head(); // Load Regular WP Head
 			do_action('lp_head'); // Load Custom Landing Page Specific Header Items
 		?>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+       var h = jQuery(document).height();
+       $("#right").height(h + 200);
+       $("#left").height(h + 200);
+     });
 
+</script>
 </head>
 <body>
-     
+    <?php if ($social_display==="1" ) { // Show Social Media Icons?>
+    <div id="social-holder">
+       <?php lp_social_media(); // print out social media buttons?>
+    </div>
+    <?php  } ?>
 <div class="container">
-         
+
 
 <div id="content-wrapper">
-
- <?php if ($social_display==="1" ) { // Show Social Media Icons?>
-    <?php lp_social_media("vertical"); // print out social media buttons?>
- <?php  } ?>
-
 
 <div id="right">
 	<div id="right-content">
@@ -127,7 +156,8 @@ if (have_posts()) : while (have_posts()) : the_post();
 width: 60px;
 padding: 4px;
 }
-</style> 
+</style>
+
 
 </div><!-- end content-wrapper -->
 
