@@ -278,8 +278,9 @@ function lp_content_area($post = null, $content=null,$return=false )
 		//var_dump($post);
 		$content_area = $post->post_content;
 
-		if (!is_admin())
+		if (!is_admin()) {
 			$content_area = apply_filters('the_content', $content_area);
+		}
 
 		$content_area = apply_filters('lp_content_area',$content_area, $post);
 

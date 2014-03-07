@@ -63,16 +63,12 @@ function lp_replace_sidebars()
 			{
 				unset($_wp_sidebars_widgets[$key]);
 			}
-			else
+			else if (isset($_wp_sidebars_widgets['lp_sidebar']))
 			{
-				//unset($_wp_sidebars_widgets[$key]);
 				$_wp_sidebars_widgets[$key] = $_wp_sidebars_widgets['lp_sidebar'];
 				$stop =1;
 			}
-			//echo $key;
 		}
-
-		//print_r($_wp_sidebars_widgets);exit;
 	}
 
 }

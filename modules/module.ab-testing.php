@@ -544,26 +544,6 @@ if (is_admin())
 		}
 	}
 
-	//not sure if this is needed
-	add_filter('lp_content_area','lp_ab_testing_alter_content_area_admin', 10, 2);
-	function lp_ab_testing_alter_content_area_admin($content)
-	{
-		global $post;
-
-		$variation_id = lp_ab_testing_get_current_variation_id();
-
-		if ($variation_id>0)
-		{
-			$content = get_post_meta($post->ID,'content-'.$variation_id, true);
-			if ( !is_admin() )
-			{
-				$content = wpautop($content);
-				$content = do_shortcode($content);
-			}
-		}
-
-		return $content;
-	}
 }
 
 /* PERFORM FRONT-END ONLY ACTIONS */
@@ -608,6 +588,25 @@ else
 
 /*PERFORM ACTIONS REQUIRED ON BOTH FRONT AND BACKEND */
 
+add_filter('lp_content_area','lp_ab_testing_alter_content_area_admin', 10, 2);
+function lp_ab_testing_alter_content_area_admin($content)
+{
+	global $post;
+
+	$variation_id = lp_ab_testing_get_current_variation_id();
+
+	if ($variation_id>0)
+	{
+		$content = get_post_meta($post->ID,'content-'.$variation_id, true);
+		if ( !is_admin() )
+		{
+			$content = wpautop($content);
+			$content = do_shortcode($content);
+		}
+	}
+
+	return $content;
+}
 
 /* RETURN LETTER FROM ARRAY KEY */
 function lp_ab_key_to_letter($key) {
@@ -619,27 +618,28 @@ function lp_ab_key_to_letter($key) {
                        'Z'
                        );
 
-	if (isset($alphabet[$key]))
+	if (isset($alphabet[$key])) {
 		return $alphabet[$key];
+	}
 }
 
 /* GET CURRENT VARIATION ID */
 function lp_ab_testing_get_current_variation_id()
 {
-	if (!isset($_GET['lp-variation-id'])&&isset($_SESSION['lp_ab_test_open_variation'])&&is_admin())
+	if (!isset($_REQUEST['lp-variation-id'])&&isset($_SESSION['lp_ab_test_open_variation'])&&is_admin())
 	{
 		//$current_variation_id = $_SESSION['lp_ab_test_open_variation'];
 	}
 
-	if (!isset($_SESSION['lp_ab_test_open_variation'])&&!isset($_GET['lp-variation-id']))
+	if (!isset($_SESSION['lp_ab_test_open_variation'])&&!isset($_REQUEST['lp-variation-id']))
 	{
 		$current_variation_id = 0;
 	}
-	//echo $_GET['lp-variation-id'];
-	if (isset($_GET['lp-variation-id']))
+	//echo $_REQUEST['lp-variation-id'];
+	if (isset($_REQUEST['lp-variation-id']))
 	{
-		$_SESSION['lp_ab_test_open_variation'] = $_GET['lp-variation-id'];
-		$current_variation_id = $_GET['lp-variation-id'];
+		$_SESSION['lp_ab_test_open_variation'] = $_REQUEST['lp-variation-id'];
+		$current_variation_id = $_REQUEST['lp-variation-id'];
 		//echo "setting session $current_variation_id";
 	}
 
