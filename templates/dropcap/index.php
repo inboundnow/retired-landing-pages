@@ -85,14 +85,14 @@ body { <?php echo $bg_style; ?> }
 <?php if ($form_text_color != "") { echo "#lp_container {color: #$form_text_color;}"; } ?>
 p {
 	margin-bottom: 20px;
-	letter-spacing: 1px;
+	font-weight: 100;
 }
 #wrapper {
-padding-top: 110px;
+padding-top: 70px;
 }
-body { font-family: arial;}
+body { font-family: 'Open Sans', sans-serif;}
 #textspot p {
-	font-family: "Chunk", Sans-Serif;
+	font-family: "Chunk", Sans-Serif; letter-spacing: 1px;
 }
 ul { margin-bottom: 20px;}
 #main-content-area {

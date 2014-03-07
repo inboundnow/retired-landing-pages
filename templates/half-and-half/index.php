@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*****************************************/
 // Template Title:  Half and Half Template
 // Plugin: Landing Pages - Inboundnow.com
@@ -17,20 +17,20 @@ do_action('lp_init');
 
 /* Start WordPress Loop and Load $post data */
 if (have_posts()) : while (have_posts()) : the_post();
-    
+
 /* Pre-load meta data into variables. These are defined in the templates config.php file */
-    
-    $social_display = lp_get_value($post, $key, 'display-social'); 
-    $sidebar = lp_get_value($post, $key, 'sidebar'); 
-    $logo = lp_get_value($post, $key, 'logo'); 
-    $content_color = lp_get_value($post, $key, 'content-color'); 
-    $content_text_color = lp_get_value($post, $key, 'content-text-color'); 
-    $sidebar_color = lp_get_value($post, $key, 'sidebar-color'); 
-    $sidebar_text_color = lp_get_value($post, $key, 'sidebar-text-color'); 
-    $submit_button_color = lp_get_value($post, $key, 'submit-button-color');  
+
+    $social_display = lp_get_value($post, $key, 'display-social');
+    $sidebar = lp_get_value($post, $key, 'sidebar');
+    $logo = lp_get_value($post, $key, 'logo');
+    $content_color = lp_get_value($post, $key, 'content-color');
+    $content_text_color = lp_get_value($post, $key, 'content-text-color');
+    $sidebar_color = lp_get_value($post, $key, 'sidebar-color');
+    $sidebar_text_color = lp_get_value($post, $key, 'sidebar-text-color');
+    $submit_button_color = lp_get_value($post, $key, 'submit-button-color');
 	$content = lp_content_area(null,null,true);
 
-  
+
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -43,20 +43,20 @@ if (have_posts()) : while (have_posts()) : the_post();
     <title>
         <?php wp_title(); // Load WordPress Page Title ?>
     </title>
-    
+
     <link rel="stylesheet" href="<?php echo $path; ?>assets/css/normalize.css">
     <link rel="stylesheet" href="<?php echo $path; ?>assets/css/style.css">
-    
+
     <script src="<?php echo $path; ?>assets/js/modernizr-2.6.2.min.js"></script>
-    
+
     <style type="text/css">
         /* Inline Styling for Template Changes based off user input */
         <?php if ($sidebar_color != "") {
             echo "#right { background-color: #$sidebar_color;} "; // change sidebar color
-        } ?> 
+        } ?>
         <?php if ($content_color != "") {
             echo "body {background-color: #$content_color;}"; // change content background color
-        } ?> 
+        } ?>
         <?php if ($content_text_color != "") {
             echo "#area, ul {color: #$content_text_color; opacity: .9;}"; // change content text color
         } ?>
@@ -67,20 +67,30 @@ if (have_posts()) : while (have_posts()) : the_post();
             echo "input[type='submit'] {background: #$submit_button_color;} "; // change sidebar text color
         } ?>
         <?php // change css layout if left selected
-             if ($sidebar === "left" ) {  
-            echo "#right {left:0; 
+             if ($sidebar === "left" ) {
+            echo "#right {left:0;
                  -webkit-box-shadow: inset -2em 0 3em rgba(172, 49, 16, .7);
-                 -moz-box-shadow: inset -2em 0 3em rgba(50, 50, 50, .5); 
-                 box-shadow: inset -2em 0 3em rgba(50, 50, 50, .5); 
-                 border-right: .1em solid rgba(255, 255, 255, .8);} 
-                 #content {right: 0;} 
-                 #social-share-buttons {margin-left: -115px !important;}"; 
-            } else { 
-            echo "#right {right: 0;}"; 
+                 -moz-box-shadow: inset -2em 0 3em rgba(50, 50, 50, .5);
+                 box-shadow: inset -2em 0 3em rgba(50, 50, 50, .5);
+                 border-right: .1em solid rgba(255, 255, 255, .8);}
+                 #content {right: 0;}
+                 #social-share-buttons {margin-left: -115px !important;}";
+            } else {
+            echo "#right {right: 0;}";
             }
         ?>
+        #share-toggle #inbound-social-inbound-social-buttons {
+        width: 476px;
+        margin-bottom: 10px;
+        margin-left: -6px;
+        }
+        #area_two #inbound-form-wrapper {
+
+        max-width: 75%;
+        margin: auto;
+        }
         /* Import Google Font Stylesheet */
-        @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300); 
+        @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
     </style>
     <?php wp_head(); // Load Regular WP Head ?>
     <?php do_action('lp_head'); // Load Landing Page Specific Header Items ?>
@@ -111,7 +121,7 @@ if (have_posts()) : while (have_posts()) : the_post();
         <?php lp_social_media(); // Template helper to print out social media buttons ?>
     </div>
     <!--end #share-toggle -->
-    <?php } ?> 
+    <?php } ?>
     <style type="text/css">
         .gform_wrapper .gsection .gfield_label, .gform_wrapper h2.gsection_title, .gform_wrapper h3.gform_title, .gform_wrapper span.gform_description {
             font-weight: 100;
@@ -127,8 +137,8 @@ if (have_posts()) : while (have_posts()) : the_post();
             margin-left: -240px;
         }
     </style>
-    <?php break; endwhile; endif; // end WordPress Loop 
-    do_action('lp_footer'); // load landing pages footer hook 
+    <?php break; endwhile; endif; // end WordPress Loop
+    do_action('lp_footer'); // load landing pages footer hook
     wp_footer(); // load normal wordpress footer
     ?>
 </body>

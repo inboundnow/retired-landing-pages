@@ -49,14 +49,7 @@ array(
         'options' => array('right'=>'Sidebar on right','left'=>'Sidebar on left'),
         'context'  => 'normal'
         ),
-    array(
-        'label' => 'Sidebar Color',
-        'description' => "Sidebar Background Color",
-        'id'  => 'sidebar-color',
-        'type'  => 'colorpicker',
-        'default'  => '2A4480',
-        'context'  => 'normal'
-        ),
+
     array(
         'label' => 'Submit Button Color',
         'description' => "Submit Button Background Color",
@@ -66,27 +59,27 @@ array(
         'context'  => 'normal'
         ),
     array(
-        'label' => 'Main Content Area Color',
+        'label' => 'Main Content Area Background Color',
         'description' => "Use this setting to change the template's main content area background color",
         'id'  => 'content-color',
         'type'  => 'colorpicker',
-        'default'  => '1240AB',
+        'default'  => 'ffffff',
         'context'  => 'normal'
         ),
     array(
-        'label' => 'Background Color',
-        'description' => "Use this setting to change the template's background color",
-        'id'  => 'body-color',
-        'type'  => 'colorpicker',
-        'default'  => '06266F',
-        'context'  => 'normal'
-        ),
-    array(
-        'label' => 'Content Text Color',
+        'label' => 'Main Content Area Text Color',
         'description' => "Content Text Color",
         'id'  => 'content-text-color',
         'type'  => 'colorpicker',
-        'default'  => 'ffffff',
+        'default'  => '6F6F6F',
+        'context'  => 'normal'
+        ),
+    array(
+        'label' => 'Sidebar Background Color',
+        'description' => "Sidebar Background Color",
+        'id'  => 'sidebar-color',
+        'type'  => 'colorpicker',
+        'default'  => '2A4480',
         'context'  => 'normal'
         ),
     array(
@@ -96,5 +89,13 @@ array(
         'type'  => 'colorpicker',
         'default'  => 'ffffff',
         'context'  => 'normal'
-        )
+        ),
+    array(
+        'label' => 'Background Color',
+        'description' => "Use this setting to change the template's background color",
+        'id'  => 'body-color',
+        'type'  => 'colorpicker',
+        'default'  => 'BABBBE',
+        'context'  => 'normal'
+        ),
 );

@@ -177,12 +177,9 @@ if (is_admin()) {
 
 				$conversions += get_post_meta($post->ID,'lp-ab-variation-conversions-'.$vid, true);
 
-				if ($each_impression != 0)
-				{
+				if ($each_impression != 0) {
 					$conversion_rate = $final_conversion / $each_impression;
-				}
-				else
-				{
+				} else {
 					$conversion_rate = 0;
 				}
 
@@ -219,9 +216,7 @@ if (is_admin()) {
 			}
 			//echo "Total Visits: " . $impressions;
 			//echo "Total Conversions: " . $conversions;
-		}
-		else
-		{
+		} else {
 			$notes = get_post_meta($post->ID,'lp-variation-notes', true); // Get Notes
 			$cr = lp_show_aggregated_stats("cr");
 			(($notes === "")) ? $notes = __( 'No notes' , LANDINGPAGES_TEXT_DOMAIN) : $notes = $notes;
@@ -234,8 +229,7 @@ if (is_admin()) {
 		}
 	}
 
-	function lp_show_aggregated_stats($type_of_stat)
-	{
+	function lp_show_aggregated_stats($type_of_stat){
 		global $post;
 
 		$variations = get_post_meta($post->ID, 'lp-ab-variations', true);
@@ -306,16 +300,6 @@ if (is_admin()) {
 			}
 			echo "<a title='".__('Click to Preview this variation' , LANDINGPAGES_TEXT_DOMAIN) ."' class='thickbox' href='".$permalink."?lp-variation-id=0&iframe_window=on&post_id=".$post->ID."&TB_iframe=true&width=640&height=703' target='_blank'><img src=".$thumbnail."' style='width:150px;height:110px;' title='Click to Preview'></a>";
 
-		}
-		else if ('cr' == $column)
-		{
-			$lp_impressions = lp_get_page_views($post->ID);
-			$lp_conversions = lp_get_conversions($post->ID);
-			if ($lp_conversions>0){
-				$lp_cr = round(($lp_conversions/$lp_impressions), 2);
-			} else {
-				$lp_cr = "0.0";
-			}
 		}
 		else if ("stats" == $column)
 		{

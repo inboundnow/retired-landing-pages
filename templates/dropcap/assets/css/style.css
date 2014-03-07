@@ -7,7 +7,9 @@ h1, h2, h3, h4, h5, h6, p {
 }
 h3 {font-size: 2em;}
 body {
+
 	font-family: "Chunk", Sans-Serif; color: #fff;
+	font-family: 'Open Sans', sans-serif;
 	/*background: #566074 url(bg1.png); */
 }
 #wrapper {
@@ -18,16 +20,16 @@ body {
 	width: 780px; margin: 0px auto 0px;
 }
 
-#textspot p { 
+#textspot p {
 	font-size: 50px; line-height: 80px;
-	text-transform: uppercase; 
+
 	text-shadow: 10px 10px 0 rgba(255,255,255,0.07);
 }
 #textspot p:first-child:first-letter {
 		font-size: 160px; float: left; margin: 20px 20px 0 0;  line-height: 0.8;
 		text-shadow: 4px 4px 0 #566074, 7px 7px 0 #fff;
 	}
-	
+
 #content {margin: auto; width:800px; padding:20px;}
 #main-content-area {padding-left: 0px;}
 form {font-family: Sans-Serif;}
@@ -89,7 +91,7 @@ margin: auto;}
 #lp-field .lp-radio-area { display: inline;}
 #lp-input-container .lp-form-radio input { display: inline;}
 .lp-form-radio {display: inline-block;}
-input[type="text"], input[type="email"], textarea {
+input[type="text"], input[type="email"], textarea, #inbound-form-wrapper input[type=text], #inbound-form-wrapper input[type=url], #inbound-form-wrapper input[type=email], #inbound-form-wrapper input[type=tel], #inbound-form-wrapper input[type=number], #inbound-form-wrapper input[type=password] {
 font-family: 'Lato', Calibri, Arial, sans-serif;
 font-size: 13px;
 font-weight: 400;
@@ -105,7 +107,7 @@ border-radius: 5px;
 -o-transition: all 0.3s ease-out;
 transition: all 0.3s ease-out;
 }
-.lp-input-submit, input[type="submit"] {
+.lp-input-submit, input[type="submit"], button[type="submit"] {
 	background: url("../../assets/images/button-green.png") repeat scroll 0 0 #83A736;
 border: 1px solid #202020;
 font-family: Arial, Helvetica, sans-serif;

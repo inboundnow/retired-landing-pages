@@ -11,7 +11,7 @@
 include_once(LANDINGPAGES_PATH.'libraries/library.shareme.php');
 
 /* Declare Template Key */
-$key = lp_get_parent_directory(dirname(__FILE__)); 
+$key = lp_get_parent_directory(dirname(__FILE__));
 $path = LANDINGPAGES_URLPATH.'templates/'.$key.'/';
 $url = plugins_url();
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
@@ -19,29 +19,29 @@ do_action('lp_init');
 
 /* Load $post data */
 if (have_posts()) : while (have_posts()) : the_post();
-    
+
     /* Pre-load meta data into variables */
-    
-    $sidebar_color = lp_get_value($post, $key, 'sidebar-color'); 
+
+    $sidebar_color = lp_get_value($post, $key, 'sidebar-color');
     $sidebar_text_color = lp_get_value($post, $key, 'sidebar-text-color');
-    $header_color = lp_get_value($post, $key, 'header-color'); 
+    $header_color = lp_get_value($post, $key, 'header-color');
     $body_color = lp_get_value($post, $key, 'body-color');
     $text_color = lp_get_value($post, $key, 'page-text-color');
     $headline_color = lp_get_value($post, $key, 'headline-color');
     $logo = lp_get_value($post, $key, 'logo');
-    $sidebar = lp_get_value($post, $key, 'sidebar'); 
-    $social_display = lp_get_value($post, $key, 'display-social'); 
+    $sidebar = lp_get_value($post, $key, 'sidebar');
+    $social_display = lp_get_value($post, $key, 'display-social');
     $bg_image = lp_get_value($post, $key, 'bg-image');
     $mobile_form = lp_get_value($post, $key, 'mobile-form');
-    $submit_button_color = lp_get_value($post, $key, 'submit-button-color'); 
+    $submit_button_color = lp_get_value($post, $key, 'submit-button-color');
     //prepare content
 	$content = lp_content_area($post,null,true);
-	
+
     // Convert Hex to RGB Value for submit button
 function Hex_2_RGB($hex) {
         $hex = preg_replace("/#/", "", $hex);
         $color = array();
- 
+
         if(strlen($hex) == 3) {
             $color['r'] = hexdec(substr($hex, 0, 1) . $r);
             $color['g'] = hexdec(substr($hex, 1, 1) . $g);
@@ -52,14 +52,14 @@ function Hex_2_RGB($hex) {
             $color['g'] = hexdec(substr($hex, 2, 2));
             $color['b'] = hexdec(substr($hex, 4, 2));
         }
- 
+
         return $color;
-        
+
 }
 $RBG_array = Hex_2_RGB($submit_button_color);
-$red = $RBG_array['r'];
-$green = $RBG_array["g"];
-$blue = $RBG_array["b"];
+$red = (isset($RBG_array['r'])) ? $RBG_array['r'] : '0';
+$green = (isset($RBG_array['g'])) ? $RBG_array['g'] : '0';
+$blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
 
 ?>
 <!DOCTYPE html>
@@ -72,7 +72,7 @@ $blue = $RBG_array["b"];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.5, minimum-scale=0.5">
     <title><?php wp_title(); ?></title>
-  
+
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -91,23 +91,23 @@ $blue = $RBG_array["b"];
             echo "header#begin {background: #$header_color;}"; // change header color
         }
         ?> <?php if ($body_color !="") {
-            echo "article.post {background-color: #$body_color;} section#river {background-color: #$body_color;}"; // Change Body BG color 
+            echo "article.post {background-color: #$body_color;} section#river {background-color: #$body_color;}"; // Change Body BG color
         }
         ?>
         <?php if ($sidebar_text_color !="") {
             echo "header#sidebar {color: #$sidebar_text_color ;}
-            input[type=\"text\"], input[type=\"email\"] {
+            input[type=\"text\"], input[type=\"email\"], button[type='submit'] {
                 border: 1px solid #$sidebar_text_color;
             border: 1px solid #$sidebar_text_color;
-            opacity: 0.8;}"; // Change Body BG color 
+            opacity: 0.8;}"; // Change Body BG color
         }
-        ?> 
+        ?>
         <?php if ($text_color !="") {
-            echo "p {color: #$text_color;} html, button, input, select, textarea {color: #$text_color;} 
+            echo "p {color: #$text_color;} html, button, input, select, textarea {color: #$text_color;}
             ";
         } ?>
         <?php if ($submit_button_color != "") {
-          echo"input[type='submit'] {
+          echo"input[type='submit'], button[type='submit'] {
                background: -moz-linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
                background: -ms-linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
                background: -o-linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
@@ -117,6 +117,12 @@ $blue = $RBG_array["b"];
                 border: 1px solid #000;}";
            }
         ?>
+
+            #inbound-form-wrapper input[type=text], #inbound-form-wrapper input[type=url], #inbound-form-wrapper input[type=email], #inbound-form-wrapper input[type=tel], #inbound-form-wrapper input[type=number], #inbound-form-wrapper input[type=password] {
+            width: 90%;
+            color:#000;
+            }
+        }
     </style>
     <script type="text/javascript">
         jQuery(document).ready(function () {
@@ -127,7 +133,7 @@ $blue = $RBG_array["b"];
             jQuery("#river").height(window_size);
         });
     </script>
-      <?php wp_head(); // Load Regular WP Head 
+      <?php wp_head(); // Load Regular WP Head
             do_action('lp_head'); // Load Custom Landing Page Specific Header Items ?>
     <?php if ($sidebar === "right" ) { echo
     "<link rel='stylesheet' href='". $path . "assets/css/flipped-layout.css' type='text/css' media='screen'>"; } ?>
@@ -192,11 +198,11 @@ $blue = $RBG_array["b"];
                     jQuery(window).resize(function () {
                         delay(function () {
                             var width = jQuery(window).width();
-                            // If on desktop and window is less than 630px show the form at bottom  
+                            // If on desktop and window is less than 630px show the form at bottom
                             if (width < 630) {
                                 jQuery("#lp_container").addClass("form-move").appendTo("article").show();
                             } else {
-                                // Put the form back up top    
+                                // Put the form back up top
                                 jQuery("#lp_container").removeClass("form-move").appendTo("#form-area").show();
                             }
                         }, pause);
@@ -205,8 +211,8 @@ $blue = $RBG_array["b"];
                 });
             });
         </script>
-    <?php } // end mobile form conditional 
-    break; endwhile; endif; 
+    <?php } // end mobile form conditional
+    break; endwhile; endif;
     do_action('lp_footer'); // load landing pages footer hook
     wp_footer(); // load normal wordpress footer ?>
 </body>

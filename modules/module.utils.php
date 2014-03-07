@@ -159,14 +159,23 @@ function lp_fix_seo_title()
 // Add Custom Class to Landing Page Nav Menu to hide/remove
 // remove_filter( 'wp_nav_menu_args', 'lp_wp_nav_menu_args' ); // Removes navigation hide
 add_filter( 'wp_nav_menu_args', 'lp_wp_nav_menu_args' );
-function lp_wp_nav_menu_args( $args = '' )
-{
+function lp_wp_nav_menu_args( $args = '' ) {
 	global $post;
+
+	$variations = get_post_meta($post->ID, 'lp-ab-variations', true);
+	$var = (isset($_GET['lp-variation-id'])) ? $_GET['lp-variation-id'] : '';
+	if ($var === "0"){
+		$template_name = 'lp-selected-template';
+	} else {
+		$template_name = 'lp-selected-template-'.$var;
+	}
+	$template_name = get_post_meta($post->ID, $template_name, true);
+
 	if ( 'landing-page' == get_post_type() ) {
 		$nav_status = get_post_meta($post->ID, 'default-lp_hide_nav', true);
-		if ($nav_status === 'off' || empty($nav_status)) {
-			if (isset($args['container_class']))
-			{
+
+		if ($nav_status === 'off' && $template_name === 'default' || empty($nav_status) && $template_name === 'default') {
+			if (isset($args['container_class'])) {
 				$current_class = " ".$args['container_class'];
 			}
 
