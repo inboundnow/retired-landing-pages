@@ -107,10 +107,10 @@ function inbound_load_shared_landing_pages(){
 	include_once('shared/classes/compatibility.class.php');  // Inbound Compatibility Class
 	include_once('shared/tracking/store.lead.php'); // Lead Storage from landing pages
 	include_once('shared/classes/form.class.php');  // Mirrored forms
-	include_once('shared/inboundnow/inboundnow.extend.php'); // Legacy
-	include_once('shared/inboundnow/inboundnow.extension-licensing.php'); // Inboundnow Package Licensing
-	include_once('shared/inboundnow/inboundnow.extension-updating.php'); // Inboundnow Package Updating
-	include_once('shared/inboundnow/inboundnow.global-settings.php'); // Inboundnow Global Settings
+	include_once('shared/extend/inboundnow.extend.php');
+	include_once('shared/extend/inboundnow.extension-licensing.php'); // Legacy - Inboundnow Package Licensing
+	include_once('shared/extend/inboundnow.extension-updating.php'); // Legacy -Inboundnow Package Updating
+	include_once('shared/extend/inboundnow.global-settings.php'); // Inboundnow Global Settings
 	include_once('shared/assets/assets.loader.class.php');  // Load Shared CSS and JS Assets
 	include_once('shared/functions/global.shared.functions.php'); // Global Shared Utility functions
 	include_once('shared/functions/global.leads.cpt.php'); // Shared Lead functionality
