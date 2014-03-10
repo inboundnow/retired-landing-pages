@@ -16,16 +16,16 @@ function landing_page_register() {
 
 	$slug = get_option( 'lp-main-landing-page-permalink-prefix', 'go' );
     $labels = array(
-        'name' => _x('Landing Pages', 'post type general name' , LANDINGPAGES_TEXT_DOMAIN),
-        'singular_name' => _x('Landing Page', 'post type singular name' , LANDINGPAGES_TEXT_DOMAIN),
-        'add_new' => _x('Add New', 'Landing Page' , LANDINGPAGES_TEXT_DOMAIN),
-        'add_new_item' => __('Add New Landing Page' , LANDINGPAGES_TEXT_DOMAIN),
-        'edit_item' => __('Edit Landing Page' , LANDINGPAGES_TEXT_DOMAIN),
-        'new_item' => __('New Landing Page' , LANDINGPAGES_TEXT_DOMAIN),
-        'view_item' => __('View Landing Page' , LANDINGPAGES_TEXT_DOMAIN),
-        'search_items' => __('Search Landing Page' , LANDINGPAGES_TEXT_DOMAIN),
-        'not_found' =>  __('Nothing found' , LANDINGPAGES_TEXT_DOMAIN),
-        'not_found_in_trash' => __('Nothing found in Trash' , LANDINGPAGES_TEXT_DOMAIN),
+        'name' => _x('Landing Pages', 'post type general name' , 'landing-pages'),
+        'singular_name' => _x('Landing Page', 'post type singular name' , 'landing-pages'),
+        'add_new' => _x('Add New', 'Landing Page' , 'landing-pages'),
+        'add_new_item' => __('Add New Landing Page' , 'landing-pages'),
+        'edit_item' => __('Edit Landing Page' , 'landing-pages'),
+        'new_item' => __('New Landing Page' , 'landing-pages'),
+        'view_item' => __('View Landing Page' , 'landing-pages'),
+        'search_items' => __('Search Landing Page' , 'landing-pages'),
+        'not_found' =>  __('Nothing found' , 'landing-pages'),
+        'not_found_in_trash' => __('Nothing found in Trash' , 'landing-pages'),
         'parent_item_colon' => ''
     );
 
@@ -52,8 +52,8 @@ add_action('init', 'landing_page_category_registerTaxonomy');
 function landing_page_category_registerTaxonomy() {
     $args = array(
             'hierarchical' => true,
-            'label' => __("Categories" , LANDINGPAGES_TEXT_DOMAIN),
-            'singular_label' => __("Landing Page Category" , LANDINGPAGES_TEXT_DOMAIN),
+            'label' => __("Categories" , 'landing-pages'),
+            'singular_label' => __("Landing Page Category" , 'landing-pages'),
             'show_ui' => true,
             'query_var' => true,
 			"rewrite" => true
@@ -65,7 +65,7 @@ function landing_page_category_registerTaxonomy() {
     $lp_cats = get_transient( 'landing-page-cats' );
 	if ( false === $lp_cats ) {
 		$options_categories = array();
-		$options_categories['all'] = __('All Landing Page Categories' , LANDINGPAGES_TEXT_DOMAIN);
+		$options_categories['all'] = __('All Landing Page Categories' , 'landing-pages');
 		    foreach ($terms as $term) {
 		    	$options_categories[$term->term_id] = $term->name;
 		    }
@@ -79,7 +79,7 @@ add_action( 'admin_init', 'lp_change_excerpt_to_summary' );
 function lp_change_excerpt_to_summary() {
 	$post_type = "landing-page";
 	if ( post_type_supports($post_type, 'excerpt') ) {
-	add_meta_box('postexcerpt', __('Short Description' , LANDINGPAGES_TEXT_DOMAIN), 'post_excerpt_meta_box', $post_type, 'normal', 'core'); }
+	add_meta_box('postexcerpt', __('Short Description' , 'landing-pages'), 'post_excerpt_meta_box', $post_type, 'normal', 'core'); }
 }
 
 
@@ -125,12 +125,12 @@ if (is_admin()) {
 		$columns = array(
 			"cb" => "<input type=\"checkbox\" />",
 						//"ID" => "ID",
-			"thumbnail-lander" => __( "Preview"  , LANDINGPAGES_TEXT_DOMAIN),
-			"title" => __( "Landing Page Title" , LANDINGPAGES_TEXT_DOMAIN),
-			"stats" => __( "Variation Testing Stats"  , LANDINGPAGES_TEXT_DOMAIN),
-			"impressions" => __( "Total<br>Visits"  , LANDINGPAGES_TEXT_DOMAIN),
-			"actions" => __( "Total<br>Conversions" , LANDINGPAGES_TEXT_DOMAIN),
-			"cr" => __( "Total<br>Conversion Rate"  , LANDINGPAGES_TEXT_DOMAIN)
+			"thumbnail-lander" => __( "Preview"  , 'landing-pages'),
+			"title" => __( "Landing Page Title" , 'landing-pages'),
+			"stats" => __( "Variation Testing Stats"  , 'landing-pages'),
+			"impressions" => __( "Total<br>Visits"  , 'landing-pages'),
+			"actions" => __( "Total<br>Conversions" , 'landing-pages'),
+			"cr" => __( "Total<br>Conversion Rate"  , 'landing-pages')
 
 		);
 		return $columns;
@@ -188,7 +188,7 @@ if (is_admin()) {
 
 				if ($v_status === "0")
 				{
-					$final_status = __( "(Paused)" , LANDINGPAGES_TEXT_DOMAIN);
+					$final_status = __( "(Paused)" , 'landing-pages');
 				}
 				else
 				{
@@ -198,9 +198,9 @@ if (is_admin()) {
 				$largest = $cr_array[$i];
 				 }
 				(($largest === $conversion_rate)) ? $winner_class = 'lp-current-winner' : $winner_class = ""; */
-				(($final_conversion === "1")) ? $c_text = __( 'conversion'  , LANDINGPAGES_TEXT_DOMAIN) : $c_text = __( "conversions" , LANDINGPAGES_TEXT_DOMAIN);
-				(($each_impression === "1")) ? $i_text = __( 'visit' , LANDINGPAGES_TEXT_DOMAIN) : $i_text = __( "visits" , LANDINGPAGES_TEXT_DOMAIN);
-				(($each_notes === "")) ? $each_notes = __( 'No notes' , LANDINGPAGES_TEXT_DOMAIN) : $each_notes = $each_notes;
+				(($final_conversion === "1")) ? $c_text = __( 'conversion'  , 'landing-pages') : $c_text = __( "conversions" , 'landing-pages');
+				(($each_impression === "1")) ? $i_text = __( 'visit' , 'landing-pages') : $i_text = __( "visits" , 'landing-pages');
+				(($each_notes === "")) ? $each_notes = __( 'No notes' , 'landing-pages') : $each_notes = $each_notes;
 				$data_letter = "data-letter=\"".$letter."\"";
 				$popup = "data-notes=\"<span class='lp-pop-description'>".$each_notes."</span><span class='lp-pop-controls'><span class='lp-pop-edit button-primary'><a href='/wp-admin/post.php?post=".$post->ID."&lp-variation-id=".$vid."&action=edit'>Edit This variation</a></span><span class='lp-pop-preview button'><a title='Click to Preview this variation' class='thickbox' href='".$permalink."?lp-variation-id=".$vid."&iframe_window=on&post_id=".$post->ID."&TB_iframe=true&width=640&height=703' target='_blank'>Preview This variation</a></span><span class='lp-bottom-controls'><span class='lp-delete-var-stats' data-letter='".$letter."' data-vid='".$vid."' rel='".$post->ID."'>Clear These Stats</span></span></span>\"";
 
@@ -219,11 +219,11 @@ if (is_admin()) {
 		} else {
 			$notes = get_post_meta($post->ID,'lp-variation-notes', true); // Get Notes
 			$cr = lp_show_aggregated_stats("cr");
-			(($notes === "")) ? $notes = __( 'No notes' , LANDINGPAGES_TEXT_DOMAIN) : $notes = $notes;
-			$popup = "data-notes=\"<span class='lp-pop-description'>".$notes."</span><span class='lp-pop-controls'><span class='lp-pop-edit button-primary'><a href='/wp-admin/post.php?post=".$post->ID."&lp-variation-id=0&action=edit'>Edit This variation</a></span><span class='lp-pop-preview button'><a title='Click to Preview this variation' class='thickbox' href='".$permalink."?lp-variation-id=0&iframe_window=on&post_id=".$post->ID."&TB_iframe=true&width=640&height=703' target='_blank'>". __( 'Preview This variation' , LANDINGPAGES_TEXT_DOMAIN) ."</a></span><span class='lp-bottom-controls'><span class='lp-delete-var-stats' data-letter='A' data-vid='0' rel='".$post->ID."'>". __( 'Clear These Stats' , LANDINGPAGES_TEXT_DOMAIN) ."</span></span></span>\"";
+			(($notes === "")) ? $notes = __( 'No notes' , 'landing-pages') : $notes = $notes;
+			$popup = "data-notes=\"<span class='lp-pop-description'>".$notes."</span><span class='lp-pop-controls'><span class='lp-pop-edit button-primary'><a href='/wp-admin/post.php?post=".$post->ID."&lp-variation-id=0&action=edit'>Edit This variation</a></span><span class='lp-pop-preview button'><a title='Click to Preview this variation' class='thickbox' href='".$permalink."?lp-variation-id=0&iframe_window=on&post_id=".$post->ID."&TB_iframe=true&width=640&height=703' target='_blank'>". __( 'Preview This variation' , 'landing-pages') ."</a></span><span class='lp-bottom-controls'><span class='lp-delete-var-stats' data-letter='A' data-vid='0' rel='".$post->ID."'>". __( 'Clear These Stats' , 'landing-pages') ."</span></span></span>\"";
 
 			echo "<ul class='lp-varation-stat-ul'><li rel='' data-postid='".$post->ID."' data-letter='A' data-lp=''><a ".$popup." data-letter=\"A\" class='lp-letter' title='click to edit this variation' href='/wp-admin/post.php?post=".$post->ID."&lp-variation-id=0&action=edit'>A</a><span class='lp-numbers'> <span class='lp-impress-num'>" . lp_show_aggregated_stats("impressions") . "</span><span class='visit-text'>visits with</span><span class='lp-con-num'>". lp_show_aggregated_stats("actions") . "</span> conversions</span><a class='cr-number cr-empty-".$cr."' href='/wp-admin/post.php?post=".$post->ID."&lp-variation-id=0&action=edit'>". $cr . "%</a></li></ul>";
-			echo "<div class='no-stats-yet'>". __('No A/B Tests running for this landing page' , LANDINGPAGES_TEXT_DOMAIN).". <a href='/wp-admin/post.php?post=".$post->ID."&lp-variation-id=1&action=edit&new-variation=1&lp-message=go'>". __('Start one' , LANDINGPAGES_TEXT_DOMAIN) ."</a></div>";
+			echo "<div class='no-stats-yet'>". __('No A/B Tests running for this landing page' , 'landing-pages').". <a href='/wp-admin/post.php?post=".$post->ID."&lp-variation-id=1&action=edit&new-variation=1&lp-message=go'>". __('Start one' , 'landing-pages') ."</a></div>";
 
 
 		}
@@ -298,7 +298,7 @@ if (is_admin()) {
 			if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
 			    $thumbnail = LANDINGPAGES_URLPATH . '/images/localhost.png';
 			}
-			echo "<a title='".__('Click to Preview this variation' , LANDINGPAGES_TEXT_DOMAIN) ."' class='thickbox' href='".$permalink."?lp-variation-id=0&iframe_window=on&post_id=".$post->ID."&TB_iframe=true&width=640&height=703' target='_blank'><img src=".$thumbnail."' style='width:150px;height:110px;' title='Click to Preview'></a>";
+			echo "<a title='".__('Click to Preview this variation' , 'landing-pages') ."' class='thickbox' href='".$permalink."?lp-variation-id=0&iframe_window=on&post_id=".$post->ID."&TB_iframe=true&width=640&height=703' target='_blank'><img src=".$thumbnail."' style='width:150px;height:110px;' title='Click to Preview'></a>";
 
 		}
 		else if ("stats" == $column)
@@ -395,8 +395,8 @@ if (is_admin()) {
 			if ($post->post_type=='landing-page')
 			{
 				$actions['clear'] = '<a href="#clear-stats" id="lp_clear_'.$post->ID.'" class="clear_stats" title="'
-				. esc_attr(__("Clear impression and conversion records", LANDINGPAGES_TEXT_DOMAIN))
-				. '" >' .  __('Clear All Stats', LANDINGPAGES_TEXT_DOMAIN) . '</a><span class="hover-description">'. __('Hover over the letters to the right for more options' , LANDINGPAGES_TEXT_DOMAIN) .'</span>';
+				. esc_attr(__("Clear impression and conversion records", 'landing-pages'))
+				. '" >' .  __('Clear All Stats', 'landing-pages') . '</a><span class="hover-description">'. __('Hover over the letters to the right for more options' , 'landing-pages') .'</span>';
 			}
 			return $actions;
 	}
