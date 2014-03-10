@@ -63,7 +63,6 @@ if (is_admin())
 			//echo $current_variation_id;
 			$variations = get_post_meta($post->ID,'lp-ab-variations', true);
 
-			//echo $variations;exit;
 			//remove landing page's main save_post action
 			if ($current_variation_id>0)
 			{
@@ -75,12 +74,23 @@ if (is_admin())
 			{
 				$array_variations = explode(',',$variations);
 				$array_variations = lp_ab_unset_variation($array_variations,$_GET['lp-variation-id']);
+				
+				/* set next variation to be open */
+				$current_variation_id = current($array_variations);				
+				$_SESSION['lp_ab_test_open_variation'] = $current_variation_id;
+				
 				$variations = implode(',' , $array_variations);
 				update_post_meta($post->ID,'lp-ab-variations', $variations);
-
-				$suffix = '-'.$_GET['lp-variation-id'];
-				$len = strlen($suffix);
-
+				
+				
+				if (isset($_GET['lp-variation-id']) && $_GET['lp-variation-id'] > 0 ) {
+					$suffix = '-'.$_GET['lp-variation-id'];
+					$len = strlen($suffix);
+				} else {
+					$suffix = '';
+					$len = strlen($suffix);
+				}
+				
 				//delete each meta value associated with variation
 				global $wpdb;
 				$data   =   array();
@@ -101,9 +111,8 @@ if (is_admin())
 						delete_post_meta($_GET['post'], $key, $value);
 					}
 				}
-
-				$current_variation_id = 0;
-				$_SESSION['lp_ab_test_open_variation'] = 0;
+				
+				$_GET['lp-variation-id'] = $current_variation_id;
 			}
 
 			//check for pause command
@@ -133,7 +142,6 @@ if (is_admin())
 			}
 
 			//return;
-			//echo $current_variation_id;;
 
 			(isset($_GET['new-variation'])&&$_GET['new-variation']==1) ? $new_variation = 1 : $new_variation = 0;
 
@@ -207,7 +215,6 @@ if (is_admin())
 
 		if (!$main_headline&&isset($_REQUEST['post']))
 		{
-			//echo 1;exit;
 			get_post_meta($_REQUEST['post'],'lp-main-headline', true);
 		}
 
@@ -269,7 +276,6 @@ if (is_admin())
 
 		if (!$variation_notes&&isset($_REQUEST['post']))
 		{
-			//echo 1;exit;
 			get_post_meta($_REQUEST['post'],'lp-variation-notes', true);
 		}
 
@@ -330,8 +336,9 @@ if (is_admin())
 
 		$current_variation_id = lp_ab_testing_get_current_variation_id();
 
-		if (isset($_GET['clone']))
+		if (isset($_GET['clone'])) {
 			$current_variation_id = $_GET['clone'];
+		}
 
 		if ($current_variation_id>0)
 		{
@@ -626,9 +633,9 @@ function lp_ab_key_to_letter($key) {
 /* GET CURRENT VARIATION ID */
 function lp_ab_testing_get_current_variation_id()
 {
-	if (!isset($_REQUEST['lp-variation-id'])&&isset($_SESSION['lp_ab_test_open_variation'])&&is_admin())
+	if ( isset($_GET['ab-action']) &&is_admin())
 	{
-		//$current_variation_id = $_SESSION['lp_ab_test_open_variation'];
+		return $_SESSION['lp_ab_test_open_variation'];
 	}
 
 	if (!isset($_SESSION['lp_ab_test_open_variation'])&&!isset($_REQUEST['lp-variation-id']))

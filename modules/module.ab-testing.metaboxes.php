@@ -54,9 +54,10 @@ function lp_ab_stats_metabox() {
 				$howmany = count($variations);
 				foreach ($variations as $key=>$vid)
 				{
-					if (!is_numeric($vid)&&$key==0)
+					if (!is_numeric($vid)&&$key==0) {
 						$vid = 0;
-
+					}
+					
 					$variation_status = lp_ab_get_lp_active_status($post,$vid);
 					$variation_status_class = ($variation_status ==1) ? "variation-on" : 'variation-off';
 
@@ -100,7 +101,7 @@ function lp_ab_stats_metabox() {
 
 					<div id="lp-variation-<?php echo lp_ab_key_to_letter($key); ?>" class="bab-variation-row <?php echo $variation_status_class;?>" >
 						<div class='bab-varation-header'>
-								<span class='bab-variation-name'><?php _e('Variation', 'landing-pages'); ?> <span class='bab-stat-letter'><?php _e(lp_ab_key_to_letter($vid), 'landing-pages'); ?></span>
+								<span class='bab-variation-name'><?php _e('Variation', 'landing-pages'); ?> <span class='bab-stat-letter'><?php _e(lp_ab_key_to_letter($key), 'landing-pages'); ?></span>
 								<?php
 								if($variation_status!=1)
 								{
@@ -112,7 +113,7 @@ function lp_ab_stats_metabox() {
 								</span>
 
 
-								<span class="lp-delete-var-stats" data-letter='<?php echo lp_ab_key_to_letter($vid); ?>' data-vid='<?php echo $vid; ?>' rel='<?php echo $post->ID;?>' title="<?php _e('Delete this variations stats' , 'landing-pages'); ?>"><?php _e('Clear Stats' , 'landing-pages'); ?></span>
+								<span class="lp-delete-var-stats" data-letter='<?php echo lp_ab_key_to_letter($key); ?>' data-vid='<?php echo $vid; ?>' rel='<?php echo $post->ID;?>' title="<?php _e('Delete this variations stats' , 'landing-pages'); ?>"><?php _e('Clear Stats' , 'landing-pages'); ?></span>
 							</div>
 						<div class="bab-stat-row">
 							<div class='bab-stat-stats' colspan='2'>
@@ -170,8 +171,10 @@ function lp_ab_testing_add_tabs()
 	if ($post_type_is === "landing-page")
 	{
 		$current_variation_id = lp_ab_testing_get_current_variation_id();
-		if (isset($_GET['new_meta_key']))
+		
+		if (isset($_GET['new_meta_key'])) {
 			$current_variation_id = $_GET['new_meta_key'];
+		}
 
 		echo "<input type='hidden' id='open_variation' value='{$current_variation_id}'>";
 
@@ -192,31 +195,26 @@ function lp_ab_testing_add_tabs()
 			$first_class = 'active';
 		}
 
-		echo '<h2 class="nav-tab-wrapper a_b_tabs">';
-		echo '<a href="?post='.$post->ID.'&lp-variation-id=0&action=edit" class="lp-ab-tab nav-tab nav-tab-special-'.$first_class.'" id="tabs-0">'.__("<span>Version</span> <b>A</b>",'landing-pages').'</a>';
-
+		
 		$var_id_marker = 1;
-
+		
+		
+		echo '<h2 class="nav-tab-wrapper a_b_tabs">';
 
 		foreach ($array_variations as $i => $vid)
 		{
+			$letter = lp_ab_key_to_letter($i);
+			($i<1) ?  $pre = __( 'Version ' , 'landing-pages' ) : $pre = '';
 
-			if ($vid!=0)
+			if ($current_variation_id==$vid&&!isset($_GET['new-variation']))
 			{
-				$letter = lp_ab_key_to_letter($vid);
-
-				//alert (variation.new_variation);
-				if ($current_variation_id==$vid&&!isset($_GET['new-variation']))
-				{
-					$cur_class = 'active';
-				}
-				else
-				{
-					$cur_class = 'inactive';
-				}
-				echo '<a href="?post='.$post->ID.'&lp-variation-id='.$vid.'&action=edit" class="lp-nav-tab nav-tab nav-tab-special-'.$cur_class.'" id="tabs-add-variation">'.__($letter , 'landing-pages') .'</a>';
-
+				$cur_class = 'active';
 			}
+			else
+			{
+				$cur_class = 'inactive';
+			}
+			echo '<a href="?post='.$post->ID.'&lp-variation-id='.$vid.'&action=edit" class="lp-nav-tab nav-tab nav-tab-special-'.$cur_class.'" id="tabs-add-variation">'. $pre.$letter .'</a>';
 		}
 
 		if (!isset($_GET['new-variation']))
@@ -225,9 +223,9 @@ function lp_ab_testing_add_tabs()
 		}
 		else
 		{
-			$variation_count = count($array_variations);
+			$variation_count = $i + 1;
 			$letter = lp_ab_key_to_letter($variation_count);
-			echo '<a href="?post='.$post->ID.'&lp-variation-id='.$new_variation_id.'&action=edit" class="lp-nav-tab nav-tab nav-tab-special-active" id="tabs-add-variation">'.__($letter , 'landing-pages').'</a>';
+			echo '<a href="?post='.$post->ID.'&lp-variation-id='.$new_variation_id.'&action=edit" class="lp-nav-tab nav-tab nav-tab-special-active" id="tabs-add-variation">'.$letter.'</a>';
 		}
 		$edit_link = (isset($_GET['lp-variation-id'])) ? '?lp-variation-id='.$_GET['lp-variation-id'].'' : '?lp-variation-id=0';
 		$post_link = get_permalink($post->ID);
