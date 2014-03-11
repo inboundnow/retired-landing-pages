@@ -6,7 +6,14 @@ function lp_admin_enqueue($hook)
 {
 	global $post;
 	$screen = get_current_screen(); //print_r($screen);
-
+	/* dequeue third party scripts */
+	global $wp_scripts;
+	if ( !empty( $wp_scripts->queue ) ) {
+	      $store = $wp_scripts->queue; // store the scripts
+	      foreach ( $wp_scripts->queue as $handle ) {
+	          wp_dequeue_script( $handle );
+	      }
+	}
 	//enqueue styles and scripts
 	wp_enqueue_style('lp-admin-css', LANDINGPAGES_URLPATH . 'css/admin-style.css');
 
@@ -30,9 +37,8 @@ function lp_admin_enqueue($hook)
 	}
 
 	// Admin enqueue - Landing Page CPT only
-	if (( isset($post) && 'landing-page' == $post->post_type ) || ( isset($_GET['post_type']) && $_GET['post_type']=='landing-page' ))
-	{
-
+	if ((isset($post) && 'landing-page'== $post->post_type)|| (isset($_GET['post_type']) && $_GET['post_type']=='landing-page' )) {
+		wp_enqueue_script(array('jquery', 'editor', 'thickbox', 'media-upload'));
 		wp_enqueue_script('jpicker', LANDINGPAGES_URLPATH . 'js/libraries/jpicker/jpicker-1.1.6.min.js');
 		wp_localize_script( 'jpicker', 'jpicker', array( 'thispath' => LANDINGPAGES_URLPATH.'js/libraries/jpicker/images/' ));
 		wp_enqueue_style('jpicker-css', LANDINGPAGES_URLPATH . 'js/libraries/jpicker/css/jPicker-1.1.6.min.css');
@@ -108,5 +114,9 @@ function lp_admin_enqueue($hook)
 			add_thickbox();
 		}
 
+	}
+	/* Requeue third party scripts */
+	foreach ( $store as $handle ) {
+	    wp_enqueue_script( $handle );
 	}
 }
