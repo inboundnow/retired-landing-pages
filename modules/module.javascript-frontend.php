@@ -7,7 +7,14 @@ function lp_fontend_enqueue_scripts($hook) {
 
 	if (!isset($post))
 		return;
-
+	/* dequeue third party scripts */
+	global $wp_scripts;
+	if ( !empty( $wp_scripts->queue ) ) {
+	      $store = $wp_scripts->queue; // store the scripts
+	      foreach ( $wp_scripts->queue as $handle ) {
+	          wp_dequeue_script( $handle );
+	      }
+	}
 	$post_type = $post->post_type;
 	wp_enqueue_script('jquery');
 
@@ -93,6 +100,10 @@ function lp_fontend_enqueue_scripts($hook) {
 				return $content;
 			} */
 		}
+	}
+	/* Requeue third party scripts */
+	foreach ( $store as $handle ) {
+	    wp_enqueue_script( $handle );
 	}
 
 }
