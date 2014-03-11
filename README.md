@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/inboundnow/landing-pages.png?branch=master)](https://travis-ci.org/inboundnow/landing-pages)
+
 landing-pages
 =============
 
@@ -44,7 +46,7 @@ Recommended form plugins (Gravity forms, Ninja Forms or Contact form 7)
 
 http://www.youtube.com/watch?v=BzcD6PgvLP4
 
-= Developers & Designers = 
+= Developers & Designers =
 
 We built the landing page plugin as a framework! Need A/B testing out of the box implemented for your existing designs? Use WordPress Landing Pages to quickly spin up new landing pages that have all the functionality your clients will need.
 
@@ -71,14 +73,14 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 == Changelog ==
 
 =  1.1.0.1 =
- 
-* Fixed: Variation saves for custom css and custom js. 
-* Fixed: jQuery error related to wysiwyg content formatting. 
+
+* Fixed: Variation saves for custom css and custom js.
+* Fixed: jQuery error related to wysiwyg content formatting.
 
 = 1.0.9.9 =
 * Improved extension metabox loading for quicker load times and optimized meta data storage.
 * Phased out more 'old method' split testing components.
-* Improved .htaccess parsing. 
+* Improved .htaccess parsing.
 * Addressed issue with line breaks being removed from WYSIWYG editors.
 
 = 1.0.9.4 =
@@ -103,7 +105,7 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 
 = 1.0.8.5 =
 
-Providing better conversion and impression tracking for landing pages that are set as homepage. 
+Providing better conversion and impression tracking for landing pages that are set as homepage.
 
 = 1.0.8.4 =
 
@@ -139,19 +141,19 @@ Introducing version control system for extensions.
 
 = 1.0.4.4 =
 
-Migrating store to new location.  Updating version control systems   
+Migrating store to new location.  Updating version control systems
 
 = 1.0.4.2 =
 
-Added new defitions to form standardization parser. Limited .htaccess rewrites to plugin activation to try and mitigate .htaccess corruptions. 
+Added new defitions to form standardization parser. Limited .htaccess rewrites to plugin activation to try and mitigate .htaccess corruptions.
 
 = 1.0.4.1 =
 
-Fixed issue with conversions not recording on some servers by forcing form submittal to wait until ajax has completely finnished loading before continuing to process form.  
+Fixed issue with conversions not recording on some servers by forcing form submittal to wait until ajax has completely finnished loading before continuing to process form.
 
 = 1.0.3.9 =
 
-Fixed issue with plugins and wp core refusing to update on some installations when landing page plugin is activated. 
+Fixed issue with plugins and wp core refusing to update on some installations when landing page plugin is activated.
 
 = 1.0.3.8 =
 
