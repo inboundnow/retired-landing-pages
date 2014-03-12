@@ -15,182 +15,145 @@ else if ( file_exists ( './../../../../../wp-config.php' ) )
 	include_once ( './../../../../../wp-config.php' );
 }
 
+$VariationRoation = new LP_Variation_Rotation; 
 
-if (isset($_COOKIE['lp-loaded-variation-'.$_GET['permalink_name']]) && get_option('lp-main-landing-page-rotation-halt' , 0))
-{
-	$url = $_COOKIE['lp-loaded-variation-'.$_GET['permalink_name']];
-}
-else
-{
-	//echo "here";
-	//echo $_GET['permalink_name'];exit;
-	$query = "SELECT * FROM {$table_prefix}posts WHERE post_name='".mysql_real_escape_string($_GET['permalink_name'])."' AND post_type='landing-page' LIMIT 1";
-	$result = mysql_query($query);
-	if (!$result){ echo $query; echo mysql_error(); exit;}
-	//echo mysql_num_rows($result);
+class LP_Variation_Rotation {
 
-	$arr = mysql_fetch_array($result);
-	$pid = $arr['ID'];
+	private $permalink_name;
+	private $post_id;
+	private $last_loaded_variation;
+	private $variations; 
+	private $marker;
+	private $next_marker;
+	private $destination_url;
 	
-	$variations = get_post_meta($pid,'lp-ab-variations', true);
-	$marker = get_post_meta($pid,'lp-ab-variations-marker', true);
-	if (!is_numeric($marker))
-		$marker = 0;
+	
+	function __construct() {
+	
+		self::load_variables();
+		//self::run_debug();
+		self::redirect();		
+		
+	}
 	
 	
-	//echo "marker$marker";
-	//echo "<br>";
-	//echo $variations;
+	function load_variables()
+	{
 	
-	$variations = explode(',',$variations);
-	$variations = array_filter($variations,'is_numeric');
+		$this->permalink_name = (isset($_GET['permalink_name'])) ? $_GET['permalink_name'] : null;
+		$this->post_id = $this->load_post_id();
+		$this->last_loaded_variation = ( isset( $_COOKIE['lp-loaded-variation-'.$this->permalink_name] ) ) ? $_COOKIE['lp-loaded-variation-'.$this->permalink_name] : null;
+		$this->variations = $this->load_variations();
+		$this->marker = $this->load_marker();
+		$this->next_marker = $this->discover_next_variation();
+		$this->destination_url = $this->build_destination_url();
+	}
 	
-	//echo "<br>";
-	//echo count($variations);
-	//echo "<br>";
 	
-	if ($variations)
-	{		
-		foreach ($variations as $key=>$vid)
-		{
+	function run_debug() {
+		print_r($this);exit;
+	}
+	
+	
+	function load_post_id() {
+		global $table_prefix;
+		
+		$query = "SELECT * FROM {$table_prefix}posts WHERE post_name='".mysql_real_escape_string($_GET['permalink_name'])."' AND post_type='landing-page' LIMIT 1";
+		$result = mysql_query($query);
+		if (!$result){ echo $query; echo mysql_error(); exit;}	
 
-			if ($vid==0)
-			{
+		$array = mysql_fetch_array($result);
+		$post_id = $array['ID'];
+		
+		return $post_id;		
+	}
+	
+	
+	function load_variations() {
+		
+		$live_variations = array();
+		
+		$variations_string = get_post_meta( $this->post_id , 'lp-ab-variations' , true );	
+		$variations = explode(',',$variations_string);
+		$variations = array_filter($variations,'is_numeric');
+		
+		/* Check the Status of Each Variation and Keep Live Ones */
+		foreach ($variations as $key=>$vid) {
+		
+			if ($vid==0) {
 				$variation_status = get_post_meta( $pid , 'lp_ab_variation_status' , true );
-			}
-			else
-			{
+			} else 	{
 				$variation_status = get_post_meta( $pid , 'lp_ab_variation_status-'.$vid , true );
 			}
 
-			if (!is_numeric($variation_status)||$variation_status==1)
-			{
+			if (!is_numeric($variation_status) || $variation_status==1) {
 				$live_variations[] = $vid;
 			}
-		}
-		
-		if (!$live_variations)
-		{
-			$live_variations[] = 0;
-		}
-		
-		$keys_as_values = array_flip($live_variations);
-		
-		//set pointer to beginning of array;
-		reset($keys_as_values);
-		
-		//print_r($live_variations);
-		
-		if (!isset($live_variations[$marker]))
-		{
-			//echo "reset pointer!"; exit;
-			//echo "<br>";
-			$marker= reset($keys_as_values);
-			//echo  next($live_variations);
-		}
-		
-		//if ($marker == end($live_variations))
-		//{
-			//echo "reset pointer!"; 
-			//echo "<br>";
-			//$marker= reset($live_variations);
-			//echo  next($live_variations);
-		//}
-		
-		
-		//echo key($live_variations);exit;
-		$i = 0;
-		if (key($keys_as_values)!=$marker)
-		{
-			while ((next($keys_as_values) != $marker ))
-			{		
-				if ($i>100)
-					break;
-				
-				//echo "here";	
 			
-				//next($live_variations);
-				//echo "<br>";
-				//echo "key:".key($live_variations);
-				//echo "<br>";
-				//echo "marker:$marker <br>";
-				$i++;
+		}		
+		
+		return $live_variations;		
+	}
+	
+	
+	function load_marker() {
+		
+		$marker = get_post_meta( $this->post_id , 'lp-ab-variations-marker' , true );
+		
+		if ( !is_numeric($marker) || !in_array( $marker , $this->variations ) ) {
+
+			$marker = current($this->variations);
+		}
+		
+		return $marker;
+	}
+	
+	function discover_next_variation() {
+	
+		/* Set Pointer to Correct Location in Variations Array */
+		while ( $this->marker != current( $this->variations) ) {
+			next($this->variations);
+		}
+		
+		/* Discover the next variation in the array */
+		next($this->variations);
+		
+		/* If the pointer is empty then reset array */
+		if ( !is_numeric(current( $this->variations ) ) ) {
+			reset( $this->variations );
+		}
+		
+		/* Save as Historical Data */		
+		update_post_meta( $this->post_id , 'lp-ab-variations-marker' , current( $this->variations ) );
+		
+		return current( $this->variations );
+		
+	}
+	
+	function build_destination_url() {
+		
+		/* Load Base URL */
+		$url = get_permalink($this->post_id);
+		
+		/* Keep GET Params */
+		foreach ($_GET as $key=>$value) {
+			if ($key != "permalink_name"){
+				$old_params .= "&$key=" . $value;
 			}
 		}
-
-		//echo "<br>";
-		//echo "Marker:".$marker;
-		//echo "<br>";
 		
-		$variation_id = $live_variations[$marker];
-		//echo "first vid:$variation_id";
-		//echo "<br>";
-		//echo $variation_status;
-		//echo "<br>";
+		/* Build Final URL and Set Memory Cookies */
+		$url = $url."?lp-variation-id=".$this->next_marker.$old_params;
 		
-		//echo "fire:";
-		//set next marker
-		//print_r($live_variations);
-		//echo "<br>";
+		/* Set Memory Cookies */
+		setcookie('lp-loaded-variation-'.$this->permalink_name , $url , time()+ 60 * 60 * 24 * 30 , "/" );
+		setcookie( 'lp-variation-id' , $this->variation_id , time()+3600 , "/" );
 		
-		//echo "premarker:".$marker;
-		//echo "<br>";
-		//echo current($live_variations);
-		//echo each($live_variations);
-		//next($live_variations);
-		$marker = next($keys_as_values);
-		//echo $marker;exit;
-		//echo "<br>";
-		//echo next($live_variations);
-		//echo "<br>";
-		//echo next($live_variations);
-		//echo "<br>";
-		//echo "final marker: $marker";
-		//echo "<br>";
-		//
-		//exit;
-		if (!$marker)
-		{
-			//echo "here";exit;
-			$marker = reset($keys_as_values);
-		}
-			
-		//echo "final marker:$marker";
-		//echo "<br>";
-		
-		update_post_meta($pid, 'lp-ab-variations-marker', $marker);
-		
+		return $url;
 	}
-	else
-	{
-		$variation_id = 0;
+
+	function redirect() {
+		@header("HTTP/1.1 307 Temporary Redirect");
+		@header("Location: ".$this->destination_url);
 	}
-		
-	//echo "<br>";
-	//echo "final vid:".$variation_id;exit;
-	$url = get_permalink($pid);
-	$old_params = "";
-	foreach ($_GET as $key=>$value) {
-		if ($key != "permalink_name"){
-  	$old_params .= "&$key=" . $value;
-  		}
-  	}
-	$url = $url."?lp-variation-id=".$variation_id.$old_params;
-	setcookie('lp-loaded-variation-'.$_GET['permalink_name'], $url, time()+ 60 * 60 * 24 * 30 ,"/");
-}
-//echo "<br>";
-//echo $url;
-setcookie('lp-variation-id', $variation_id,time()+3600,"/");
-//$page = lp_remote_connect($url);
-
-@header("HTTP/1.1 307 Temporary Redirect");
-@header("Location: $url");
-
-function lp_get_next($array, $key) {
-   $currentKey = key($array);
-   while ($currentKey !== null && $currentKey != $key) {
-       next($array);
-       $currentKey = key($array);
-   }
-   return next($array);
 }
