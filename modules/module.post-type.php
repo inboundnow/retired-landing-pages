@@ -156,9 +156,9 @@ if (is_admin()) {
 			$i = 0;
 			$impressions = 0;
 			$conversions = 0;
-			foreach ($variations as $vid)
+			foreach ($variations as $key => $vid)
 			{
-				$letter = lp_ab_key_to_letter($vid); // convert to letter
+				$letter = lp_ab_key_to_letter($key); // convert to letter
 				$each_impression = get_post_meta($post->ID,'lp-ab-variation-impressions-'.$vid, true); // get impressions
 				$v_status = get_post_meta($post->ID,'lp_ab_variation_status-'.$vid, true); // Current status
 
