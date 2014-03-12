@@ -27,7 +27,7 @@ class LP_Variation_Rotation {
 	private $next_marker;
 	private $destination_url;
 	
-	
+	/* Exectutes Class */
 	function __construct() {
 	
 		self::load_variables();
@@ -36,10 +36,9 @@ class LP_Variation_Rotation {
 		
 	}
 	
-	
+	/* Loads Variables */
 	function load_variables()
-	{
-	
+	{	
 		$this->permalink_name = (isset($_GET['permalink_name'])) ? $_GET['permalink_name'] : null;
 		$this->post_id = $this->load_post_id();
 		$this->last_loaded_variation = ( isset( $_COOKIE['lp-loaded-variation-'.$this->permalink_name] ) ) ? $_COOKIE['lp-loaded-variation-'.$this->permalink_name] : null;
@@ -49,13 +48,13 @@ class LP_Variation_Rotation {
 		$this->destination_url = $this->build_destination_url();
 	}
 	
-	
-	function run_debug() {
+	/* Debug Information - Prints Class Variable Data */
+	private function run_debug() {
 		print_r($this);exit;
 	}
 	
-	
-	function load_post_id() {
+	/* Loads the ID of the Landing Page */
+	private function load_post_id() {
 		global $table_prefix;
 		
 		$query = "SELECT * FROM {$table_prefix}posts WHERE post_name='".mysql_real_escape_string($_GET['permalink_name'])."' AND post_type='landing-page' LIMIT 1";
@@ -68,8 +67,8 @@ class LP_Variation_Rotation {
 		return $post_id;		
 	}
 	
-	
-	function load_variations() {
+	/* Loads an Array of Active Variations Associated with Landing Page */
+	private function load_variations() {
 		
 		$live_variations = array();
 		
@@ -95,8 +94,8 @@ class LP_Variation_Rotation {
 		return $live_variations;		
 	}
 	
-	
-	function load_marker() {
+	/* Loads Variation ID of Last Variation Loaded */
+	private function load_marker() {
 		
 		$marker = get_post_meta( $this->post_id , 'lp-ab-variations-marker' , true );
 		
@@ -108,7 +107,8 @@ class LP_Variation_Rotation {
 		return $marker;
 	}
 	
-	function discover_next_variation() {
+	/* Discovers Next Variation in Line */
+	private function discover_next_variation() {
 	
 		/* Set Pointer to Correct Location in Variations Array */
 		while ( $this->marker != current( $this->variations) ) {
@@ -130,7 +130,8 @@ class LP_Variation_Rotation {
 		
 	}
 	
-	function build_destination_url() {
+	/* Builds Redirect URL & Stores Cookie Data */
+	private function build_destination_url() {
 		
 		/* Load Base URL */
 		$url = get_permalink($this->post_id);
@@ -152,7 +153,8 @@ class LP_Variation_Rotation {
 		return $url;
 	}
 
-	function redirect() {
+	/* Redirects to Correct Variation */
+	private function redirect() {
 		@header("HTTP/1.1 307 Temporary Redirect");
 		@header("Location: ".$this->destination_url);
 	}
