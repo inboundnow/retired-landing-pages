@@ -565,7 +565,7 @@ else
 		{
 			(isset($_REQUEST['lp-variation-id'])) ? $variation_id = $_REQUEST['lp-variation-id'] : $variation_id = $_COOKIE['lp-variation-id'];
 			if ($variation_id>0)
-					return get_post_meta($post->ID, $key.'-'.$id. '-' .$variation_id , true);
+					return do_shortcode(get_post_meta($post->ID, $key.'-'.$id. '-' .$variation_id , true));
 			else
 				return $return;
 		}

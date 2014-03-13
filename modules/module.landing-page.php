@@ -352,9 +352,10 @@ function lp_get_parent_directory($path)
 /* GET META VALUE FOR LANDING PAGE TEMPLATE SETTING */
 function lp_get_value($post, $key, $id)
 {
-	//echo 1; exit;
+
 	if (isset($post))
 	{
+
 		$return = do_shortcode(get_post_meta($post->ID, $key.'-'.$id , true));
 		$return = apply_filters('lp_get_value',$return,$post,$key,$id);
 

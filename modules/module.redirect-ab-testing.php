@@ -80,9 +80,9 @@ class LP_Variation_Rotation {
 		foreach ($variations as $key=>$vid) {
 		
 			if ($vid==0) {
-				$variation_status = get_post_meta( $pid , 'lp_ab_variation_status' , true );
+				$variation_status = get_post_meta( $this->post_id , 'lp_ab_variation_status' , true );
 			} else 	{
-				$variation_status = get_post_meta( $pid , 'lp_ab_variation_status-'.$vid , true );
+				$variation_status = get_post_meta( $this->post_id , 'lp_ab_variation_status-'.$vid , true );
 			}
 
 			if (!is_numeric($variation_status) || $variation_status==1) {
