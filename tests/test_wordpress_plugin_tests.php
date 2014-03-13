@@ -21,10 +21,16 @@ class WP_Test_WordPress_Plugin_Tests extends WP_UnitTestCase {
    */
   function test_plugin_activated() {
 
-    $this->assertTrue( is_plugin_active( 'plugin-slug/main-plugin-file.php' ) );
+    $this->assertTrue( is_plugin_active( 'landing-pages/landing-pages.php' ) );
 
   }
 
+  /**
+   * If the plugin is active lets see if we can return a simple test function
+   */
+  function test_landingpages_return_true() {
+    $this->assertTrue( landingpages_is_active() );
+  }
 }
 
 ?>

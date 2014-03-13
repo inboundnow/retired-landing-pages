@@ -47,7 +47,5 @@ before_script:
     - sed -i "s/yourpasswordhere//" wp-tests-config.php
     - cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
     - ls -l
-    - cd ..
-    - ls -l
 
 script: phpunit
