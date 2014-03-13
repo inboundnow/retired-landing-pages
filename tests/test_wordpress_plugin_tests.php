@@ -31,6 +31,13 @@ class WP_Test_WordPress_Plugin_Tests extends WP_UnitTestCase {
   function test_landingpages_return_true() {
     $this->assertTrue( landingpages_is_active() );
   }
+
+  /**
+   * Echo something out to Travis so we know our tests are running with plugin *activated
+   */
+  function test_echo_travis() {
+    $this->assertTrue( inbound_travis_check() );
+  }
 }
 
 ?>

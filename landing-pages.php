@@ -128,3 +128,9 @@ function lp_check_active()
 function landingpages_is_active() {
   return true;
 }
+
+/* Function to check plugin code is running in travis */
+function inbound_travis_check() {
+  echo '*** Landing Pages Plugin is Running on Travis ***';
+  return true;
+}
