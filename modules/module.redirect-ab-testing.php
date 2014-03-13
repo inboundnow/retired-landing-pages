@@ -36,7 +36,7 @@ class LP_Variation_Rotation {
 		
 	}
 	
-	/* Loads Variables */
+	/* Loads Static Variables */
 	function load_variables()
 	{	
 		$this->permalink_name = (isset($_GET['permalink_name'])) ? $_GET['permalink_name'] : null;
