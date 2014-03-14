@@ -61,8 +61,8 @@ function landing_pages_insert_custom_head()
 {
 	global $post;
 
-   if (isset($post)&&'landing-page'==$post->post_type)
-   {
+	if (isset($post)&&'landing-page'==$post->post_type)
+	{
 
 		$custom_css_name = apply_filters('lp_custom_css_name','lp-custom-css');
 		$custom_js_name = apply_filters('lp_custom_js_name','lp-custom-js');
