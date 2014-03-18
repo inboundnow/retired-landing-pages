@@ -116,7 +116,9 @@ function lp_admin_enqueue($hook)
 
 	}
 	/* Requeue third party scripts */
-	foreach ( $store as $handle ) {
-	    wp_enqueue_script( $handle );
+	if(is_array($store)) {
+		foreach ( $store as $handle ) {
+		    wp_enqueue_script( $handle );
+		}
 	}
 }

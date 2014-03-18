@@ -12,8 +12,7 @@ if (isset($_GET['page'])&&($_GET['page']=='lp_global_settings'&&$_GET['page']=='
 }
 
 
-function lp_get_global_settings()
-{
+function lp_get_global_settings() {
 	global $lp_global_settings;
 
 	/* Setup Main Navigation Tab and Settings */
@@ -599,11 +598,11 @@ function lp_save_global_settings()
 				if ($field['type']=='license-key')
 				{
 					$master_key = get_option('inboundnow_master_license_key' );
-					
+
 					if ($master_key) {
 						$field['new_value'] = $master_key;
 					}
-					
+
 					$api_params = array(
 						'edd_action'=> 'activate_license',
 						'license' 	=> $field['new_value'],
@@ -617,7 +616,7 @@ function lp_save_global_settings()
 					if ( is_wp_error( $response ) ) {
 						break;
 					}
-					
+
 
 					$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
@@ -632,7 +631,7 @@ function lp_save_global_settings()
 					$master_key = get_option('inboundnow_master_license_key' );
 
 					if ($master_key)
-					{		
+					{
 						$bool = update_option($field['id'], $master_key );
 						$license_status = update_option('lp_license_status-'.$field['slug'], '');
 					}
