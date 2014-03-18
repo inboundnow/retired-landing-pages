@@ -61,8 +61,8 @@ function landing_pages_insert_custom_head()
 {
 	global $post;
 
-   if (isset($post)&&'landing-page'==$post->post_type)
-   {
+	if (isset($post)&&'landing-page'==$post->post_type)
+	{
 
 		$custom_css_name = apply_filters('lp_custom_css_name','lp-custom-css');
 		$custom_js_name = apply_filters('lp_custom_js_name','lp-custom-js');
@@ -352,9 +352,10 @@ function lp_get_parent_directory($path)
 /* GET META VALUE FOR LANDING PAGE TEMPLATE SETTING */
 function lp_get_value($post, $key, $id)
 {
-	//echo 1; exit;
+
 	if (isset($post))
 	{
+
 		$return = do_shortcode(get_post_meta($post->ID, $key.'-'.$id , true));
 		$return = apply_filters('lp_get_value',$return,$post,$key,$id);
 
