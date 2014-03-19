@@ -120,16 +120,14 @@ function lp_header_load(){
 		if (isset($_GET['lp-variation-id']) && !isset($_GET['template-customize']) && !isset($_GET['iframe_window']) && !isset($_GET['live-preview-area'])) {
 		do_action('landing_page_header_script');
 		?>
+		<?php if(!defined('Inbound_Now_Disable_URL_CLEAN')) { ?>
 		<script type="text/javascript">
 		//var inbound_param_overide = 'off';
 		// Automation pass params to GA. Look for documentation
-		if (typeof (inbound_param_overide) === "undefined" || inbound_param_overide === null || inbound_param_overide === "") {
-			var inbound_param_overide = 'on';
-		}
-		var inbound_show_params = inbound_param_overide || true;
-		if (typeof window.history.pushState == 'function' && inbound_show_params != 'off') {
+		if (typeof window.history.pushState == 'function') {
 				var current=window.location.href;var cleanparams=current.split("?");var clean_url=cleanparams[0];history.replaceState({},"landing page",clean_url);
 		}</script>
+		<?php } ?>
 		<?php }
 	}
 }
