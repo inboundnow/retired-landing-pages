@@ -161,7 +161,11 @@ function lp_fix_seo_title()
 add_filter( 'wp_nav_menu_args', 'lp_wp_nav_menu_args' );
 function lp_wp_nav_menu_args( $args = '' ) {
 	global $post;
-
+	
+	if (!isset($post)) {
+		return $args;
+	}
+	
 	$variations = get_post_meta($post->ID, 'lp-ab-variations', true);
 	$var = (isset($_GET['lp-variation-id'])) ? $_GET['lp-variation-id'] : '';
 	if ($var === "0"){

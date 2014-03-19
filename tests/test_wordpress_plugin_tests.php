@@ -29,7 +29,7 @@ class WP_Test_WordPress_Plugin_Tests extends WP_UnitTestCase {
    * If the plugin is active lets see if we can return a simple test function
    */
   function test_landingpages_return_true() {
-    $this->assertTrue( landingpages_is_active() );
+		$this->assertTrue( landingpages_is_active() );
   }
 
   /**
@@ -37,6 +37,12 @@ class WP_Test_WordPress_Plugin_Tests extends WP_UnitTestCase {
    */
   function test_echo_travis() {
     $this->assertTrue( inbound_travis_check() );
+  }
+  
+  function test_impression_check() {
+		$args = array()
+
+		$this->assertEquals( $meta , wp_remote_post( $url , $args ) );
   }
 }
 
