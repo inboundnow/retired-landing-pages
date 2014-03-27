@@ -41,7 +41,7 @@ function lp_thumbnail_metabox() {
 					<td>
 						<?php
 
-							echo "<a href='$permalink' target='_blank' ><img src='$thumbnail' style='width:250px;height:250px;' title='". __( 'Preveiw this theme' , 'landing-pages') ." ,  ({$template})'></a>";
+							echo "<a href='$permalink' target='_blank' ><img src='$thumbnail' style='width:250px;height:250px;' title='". __( 'Preview this theme' , 'landing-pages') ." ,  ({$template})'></a>";
 						?>
 					</td>
 				</tr>
