@@ -900,7 +900,7 @@ function lp_ab_testing_alter_content_area($content)
 	global $post;
 
 	if ( $post->post_type != 'landing-page' ) {
-		return;
+		return $content;
 	}
 	
 	$variation_id = lp_ab_testing_get_current_variation_id();
