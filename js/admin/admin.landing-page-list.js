@@ -73,7 +73,7 @@ jQuery("body").on('mouseleave', 'tr.type-landing-page', function () {
       jQuery(this).hide();
       jQuery(this).parent().find(".lp-varation-stat-ul").show();
     });
- 
+
 	jQuery('.lp-letter, .cr-number, .qtip').on('mouseenter', function(event) {
 	  // Bind the qTip within the event handler
 	  var text_in_tip = jQuery(this).attr("data-notes");
@@ -99,13 +99,13 @@ jQuery("body").on('mouseleave', 'tr.type-landing-page', function () {
 		show: {
 		  event: event.type, // Use the same show event as the one that triggered the event handler
 		  ready: true, // Show the tooltip as soon as it's bound, vital so it shows up the first time you hover!
-		  solo: true  
+		  solo: true
 		},
-		//hide: 'unfocus'
-    hide: { when: { event: 'inactive' }, delay: 1200 } 
+		hide: 'unfocus'
+    //hide: { when: { event: 'inactive' }, delay: 1200 }
 	  }, event); // Pass through our original event to qTip
 	})
-	
+
 	jQuery('.lp-letter').on('mouseleave', function(event) {
 
 
@@ -114,7 +114,7 @@ jQuery("body").on('mouseleave', 'tr.type-landing-page', function () {
 	jQuery("body").on("click", ".lp-pop-close", function(event) {
 		jQuery(this).parent().parent().parent().hide();
 	});
-	
+
 	jQuery("body").on("click", ".lp-pop-preview a", function(event) {
 		jQuery(this).parent().parent().parent().parent().hide();
 	});
@@ -151,7 +151,7 @@ jQuery("body").on('mouseleave', 'tr.type-landing-page', function () {
                 tinyMCE.get('content').focus();
                 tinyMCE.activeEditor.windowManager.bookmark = tinyMCE.activeEditor.selection.getBookmark('simple');
             }
-           
+
         });
 
         $(window).resize( function() { tb_position() } );
