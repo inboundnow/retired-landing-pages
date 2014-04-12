@@ -246,8 +246,9 @@ function lp_display_global_settings()
 
 	foreach ($lp_global_settings as $key => $data)
 	{
+		$label = (isset($data['label'])) ? $data['label'] : 'Main';
 		?>
-		<a  id='tabs-<?php echo $key; ?>' class="lp-nav-tab nav-tab nav-tab-special<?php echo $active_tab == $key ? '-active' : '-inactive'; ?>"><?php echo $data['label']; ?></a>
+		<a  id='tabs-<?php echo $key; ?>' class="lp-nav-tab nav-tab nav-tab-special<?php echo $active_tab == $key ? '-active' : '-inactive'; ?>"><?php echo $label; ?></a>
 		<?php
 	}
 
@@ -288,7 +289,7 @@ function lp_display_global_settings()
 	</center>
 	</div>
 	<div id="custom-templates">
-		<center><a href="http://www.inboundnow.com/custom-wordpress-landing-page-setup/" target=="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>/images/custom-setup-image.png"></a>
+		<center><a href="http://dev.inboundnow.com/submit-a-work-request/" target=="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>/images/custom-setup-image.png"></a>
 		</center>
 	</div>
 	</div>
