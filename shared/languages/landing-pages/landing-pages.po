@@ -670,7 +670,7 @@ msgid "Template Preview"
 msgstr ""
 
 #: modules/module.metaboxes.php:44
-msgid "Preview this theme"
+msgid "Preveiw this theme"
 msgstr ""
 
 #: modules/module.metaboxes.php:59

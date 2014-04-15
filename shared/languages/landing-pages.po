@@ -1,18 +1,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Landing Pages\n"
-"POT-Creation-Date: 2014-04-10 14:40-0600\n"
-"PO-Revision-Date: 2014-04-10 14:40-0600\n"
+"POT-Creation-Date: 2013-11-25 15:59-0600\n"
+"PO-Revision-Date: 2013-11-25 16:00-0600\n"
 "Last-Translator: \n"
 "Language-Team: InboundNow <support@inboundnow.com>\n"
-"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ../../\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: modules\n"
 
@@ -220,117 +218,114 @@ msgid "Installing Plugin %1$s (%2$d/%3$d)"
 msgstr ""
 
 #: modules/module.ab-testing.metaboxes.php:8
-#: modules/module.metaboxes-ab-testing.php:8
 msgid "A/B Testing"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:104
+#: modules/module.ab-testing.metaboxes.php:103
 msgid "Variation"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:109
+#: modules/module.ab-testing.metaboxes.php:108
 msgid "Paused"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:116
+#: modules/module.ab-testing.metaboxes.php:115
 msgid "Delete this variations stats"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:116
+#: modules/module.ab-testing.metaboxes.php:115
 msgid "Clear Stats"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:122
+#: modules/module.ab-testing.metaboxes.php:121
 msgid "Views"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:126
+#: modules/module.ab-testing.metaboxes.php:125
 msgid "Conversions"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:130
+#: modules/module.ab-testing.metaboxes.php:129
 msgid "Conversion Rate"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:133
+#: modules/module.ab-testing.metaboxes.php:132
 msgid "Pause this variation"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:133
+#: modules/module.ab-testing.metaboxes.php:132
 msgid "Pause"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:134
+#: modules/module.ab-testing.metaboxes.php:133
 msgid "Turn this variation on"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:134
+#: modules/module.ab-testing.metaboxes.php:133
 msgid "Play"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:135
+#: modules/module.ab-testing.metaboxes.php:134
 msgid "Edit this variation"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:135
+#: modules/module.ab-testing.metaboxes.php:134
 msgid "Edit"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:136
+#: modules/module.ab-testing.metaboxes.php:135
 msgid "Preview this variation"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:136
-#: modules/module.metaboxes.php:360 modules/module.post-type.php:128
+#: modules/module.ab-testing.metaboxes.php:135
+#: modules/module.metaboxes.php:351
 msgid "Preview"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:137
+#: modules/module.ab-testing.metaboxes.php:136
 msgid "Clone this variation"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:137 modules/module.clone.php:1
+#: modules/module.ab-testing.metaboxes.php:136 modules/module.clone.php:1
 msgid "Clone"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:138
+#: modules/module.ab-testing.metaboxes.php:137
 msgid "Delete this variation"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:138
+#: modules/module.ab-testing.metaboxes.php:137
 #: modules/module.templates.php:227
 msgid "Delete"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:207
-msgid "Version "
+#: modules/module.ab-testing.metaboxes.php:196
+msgid "A"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:222
+#: modules/module.ab-testing.metaboxes.php:224
 msgid "Add New Variation"
 msgstr ""
 
-#: modules/module.ab-testing.metaboxes.php:233
+#: modules/module.ab-testing.metaboxes.php:235
 msgid "Launch Visual Editor"
 msgstr ""
 
-#: modules/module.activate.php:14 modules/module.activate.php:22
-#: modules/module.activate.php:25 modules/module.activate.php:28
-msgid "<p>The <strong>WordPress Landing Pages</strong> plugin requires "
-msgstr ""
-
-#: modules/module.activate.php:14 modules/module.activate.php:18
-#: modules/module.activate.php:22 modules/module.activate.php:25
-#: modules/module.activate.php:28
-msgid "Plugin Activation Error"
-msgstr ""
-
-#: modules/module.activate.php:18
+#: modules/module.activate.php:14 modules/module.activate.php:20
 msgid "<p>The <strong>WordPress Landing Pages</strong> plugin requires"
 msgstr ""
 
-#: modules/module.activate.php:21 modules/module.install.php:137
+#: modules/module.activate.php:14 modules/module.activate.php:20
+#: modules/module.activate.php:26 modules/module.activate.php:31
+msgid "Plugin Activation Error"
+msgstr ""
+
+#: modules/module.activate.php:25 modules/module.install.php:137
 msgid "WordPress Calls to Action"
+msgstr ""
+
+#: modules/module.activate.php:26 modules/module.activate.php:31
+msgid "<p>The <strong>WordPress Landing Pages</strong> plugin requires "
 msgstr ""
 
 #: modules/module.admin-menus.php:12
@@ -346,7 +341,6 @@ msgid "Templates"
 msgstr ""
 
 #: modules/module.admin-menus.php:14 modules/module.templates.php:243
-#: shared/classes/menu.class.php:354
 msgid "Manage Templates"
 msgstr ""
 
@@ -354,24 +348,12 @@ msgstr ""
 msgid "Get Addons"
 msgstr ""
 
-#: modules/module.admin-menus.php:18 shared/classes/menu.class.php:397
+#: modules/module.admin-menus.php:18
 msgid "Global Settings"
 msgstr ""
 
 #: modules/module.clone.php:1
 msgid "Clone this item"
-msgstr ""
-
-#: modules/module.clone.php:1
-msgid "Copy creation failed, could not find original:"
-msgstr ""
-
-#: modules/module.clone.php:1
-msgid "New Blank Landing Page"
-msgstr ""
-
-#: modules/module.cron.php:7
-msgid "Every 3 minutes"
 msgstr ""
 
 #: modules/module.customizer.php:1
@@ -382,20 +364,23 @@ msgstr ""
 msgid "Variations"
 msgstr ""
 
-#: modules/module.extension-licensing.php:72
+#: modules/module.extension-licensing.php:70
+#: shared/inboundnow/inboundnow.extension-licensing.php:73
+#: shared/inboundnow/inboundnow.extension-licensing.php:94
+#: shared/inboundnow/inboundnow.extension-licensing.php:116
 #, php-format
 msgid "%1$s"
 msgstr ""
 
-#: modules/module.global-settings.php:28
+#: modules/module.global-settings.php:29
 msgid "<h4>Landing Pages Core Settings</h4>"
 msgstr ""
 
-#: modules/module.global-settings.php:33
+#: modules/module.global-settings.php:34
 msgid "Default Landing Page Permalink Prefix"
 msgstr ""
 
-#: modules/module.global-settings.php:34
+#: modules/module.global-settings.php:35
 msgid ""
 "Enter in the <span style='color:red;'>prefix</span> for landing page URLs "
 "(aka permalinks).<br><br>This is the URL Slug that will be in the landing "
@@ -403,32 +388,32 @@ msgid ""
 "red;'>PREFIX</span>/landing-page .  Enter in a single word like 'go'"
 msgstr ""
 
-#: modules/module.global-settings.php:41
+#: modules/module.global-settings.php:42
 msgid "Enable Form Prepopulation"
 msgstr ""
 
-#: modules/module.global-settings.php:42
+#: modules/module.global-settings.php:43
 msgid ""
 "With this setting enabled landing pages plugin will remember form input data "
 "that the user submits to a form and attempt to pre-populate all other forms "
 "with the same user's data when applicable."
 msgstr ""
 
-#: modules/module.global-settings.php:49
+#: modules/module.global-settings.php:50
 msgid "Disable Admin Impression/Conversion Tracking"
 msgstr ""
 
-#: modules/module.global-settings.php:50
+#: modules/module.global-settings.php:51
 msgid ""
 "With this setting enabled landing pages plugin will not record visits and "
 "conversions for administrative users that are logged in."
 msgstr ""
 
-#: modules/module.global-settings.php:57
+#: modules/module.global-settings.php:58
 msgid "Sticky Variations"
 msgstr ""
 
-#: modules/module.global-settings.php:58
+#: modules/module.global-settings.php:59
 msgid ""
 "With this setting enabled the landing pages plugin will prevent landing page "
 "version a/b rotation for a specific visitor that has viewed the page."
@@ -436,138 +421,138 @@ msgid ""
 "days."
 msgstr ""
 
-#: modules/module.global-settings.php:65
+#: modules/module.global-settings.php:66
 msgid "Enable Form Standardization"
 msgstr ""
 
-#: modules/module.global-settings.php:66
+#: modules/module.global-settings.php:67
 msgid ""
 "With this setting enabled landing pages plugin will clean and standardize "
 "all input ids and classnames. Uncheck this setting to disable "
 "standardization."
 msgstr ""
 
-#: modules/module.global-settings.php:73
+#: modules/module.global-settings.php:74
 msgid "Form Standardization Element Whitelist"
 msgstr ""
 
-#: modules/module.global-settings.php:74
+#: modules/module.global-settings.php:75
 msgid ""
 "Form standardization strips the conversion area content of html elements. "
 "Add the elements you do not want to be stripped to this list."
 msgstr ""
 
-#: modules/module.global-settings.php:92
+#: modules/module.global-settings.php:85
 msgid "License Keys"
 msgstr ""
 
-#: modules/module.global-settings.php:95
+#: modules/module.global-settings.php:88
 msgid "Extensions"
 msgstr ""
 
-#: modules/module.global-settings.php:107
+#: modules/module.global-settings.php:100
 msgid "Debug"
 msgstr ""
 
-#: modules/module.global-settings.php:131
+#: modules/module.global-settings.php:123
 msgid ""
 "Head to http://www.inboundnow.com/ to retrieve your license key for this "
 "template."
 msgstr ""
 
-#: modules/module.global-settings.php:133
-msgid "Extension Licensing"
+#: modules/module.global-settings.php:125
+msgid "Extension License Keys"
 msgstr ""
 
-#: modules/module.global-settings.php:225
+#: modules/module.global-settings.php:217
 msgid ""
 "Oh no! Your .htaccess is not writable and A/B testing won't work unless you "
 "make your .htaccess file writable."
 msgstr ""
 
-#: modules/module.global-settings.php:305
+#: modules/module.global-settings.php:292
 msgid "Installation Status"
 msgstr ""
 
-#: modules/module.global-settings.php:309
+#: modules/module.global-settings.php:296
 msgid "PHP Version"
 msgstr ""
 
-#: modules/module.global-settings.php:323
-msgid "Landing Pages requires PHP 5 or above."
+#: modules/module.global-settings.php:310
+msgid "Gravity Forms requires PHP 5 or above."
 msgstr ""
 
-#: modules/module.global-settings.php:330
+#: modules/module.global-settings.php:317
 msgid "MySQL Version"
 msgstr ""
 
-#: modules/module.global-settings.php:344
+#: modules/module.global-settings.php:331
 msgid "Gravity Forms requires MySQL 5 or above."
 msgstr ""
 
-#: modules/module.global-settings.php:351
+#: modules/module.global-settings.php:338
 msgid "WordPress Version"
 msgstr ""
 
-#: modules/module.global-settings.php:365
+#: modules/module.global-settings.php:352
 msgid "landing pages requires version X or higher"
 msgstr ""
 
-#: modules/module.global-settings.php:372
+#: modules/module.global-settings.php:359
 msgid "Landing Page Version"
 msgstr ""
 
-#: modules/module.global-settings.php:374
+#: modules/module.global-settings.php:361
 msgid "Version"
 msgstr ""
 
-#: modules/module.global-settings.php:388
+#: modules/module.global-settings.php:375
 msgid "The contents of your .htaccess file"
 msgstr ""
 
-#: modules/module.global-settings.php:424
+#: modules/module.global-settings.php:411
 msgid "System Information"
 msgstr ""
 
-#: modules/module.global-settings.php:427
+#: modules/module.global-settings.php:414
 msgid "Download System Info File for Support Requests"
 msgstr ""
 
-#: modules/module.global-settings.php:428
+#: modules/module.global-settings.php:415
 msgid ""
 "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C "
 "(Mac)."
 msgstr ""
 
-#: modules/module.global-settings.php:478
+#: modules/module.global-settings.php:465
 msgid "Your server supports fsockopen."
 msgstr ""
 
-#: modules/module.global-settings.php:478
+#: modules/module.global-settings.php:465
 msgid "Your server does not support fsockopen."
 msgstr ""
 
-#: modules/module.global-settings.php:479
+#: modules/module.global-settings.php:466
 msgid "Your server supports cURL."
 msgstr ""
 
-#: modules/module.global-settings.php:479
+#: modules/module.global-settings.php:466
 msgid "Your server does not support cURL."
 msgstr ""
 
-#: modules/module.global-settings.php:480
+#: modules/module.global-settings.php:467
 msgid "Your server has the SOAP Client enabled."
 msgstr ""
 
-#: modules/module.global-settings.php:480
+#: modules/module.global-settings.php:467
 msgid "Your server does not have the SOAP Client enabled."
 msgstr ""
 
-#: modules/module.global-settings.php:481
+#: modules/module.global-settings.php:468
 msgid "Your server has SUHOSIN installed."
 msgstr ""
 
-#: modules/module.global-settings.php:481
+#: modules/module.global-settings.php:468
 msgid "Your server does not have SUHOSIN installed."
 msgstr ""
 
@@ -685,236 +670,133 @@ msgid "Template Preview"
 msgstr ""
 
 #: modules/module.metaboxes.php:44
-msgid "Preview this theme"
+msgid "Preveiw this theme"
 msgstr ""
 
 #: modules/module.metaboxes.php:59
-msgid ""
-"Landing Page Form or Conversion Button - <em>click the black & blue power "
-"button icon to build forms/buttons</em>"
+msgid "Landing Page Form or Conversion Button"
 msgstr ""
 
-#: modules/module.metaboxes.php:119
+#: modules/module.metaboxes.php:118
 msgid ""
 "To help track conversions Landing Pages Plugin will automatically add a "
 "tracking class to forms. If you would like to track a link add this class to "
 "it"
 msgstr ""
 
-#: modules/module.metaboxes.php:166
+#: modules/module.metaboxes.php:160
 msgid "Notes"
 msgstr ""
 
-#: modules/module.metaboxes.php:166
+#: modules/module.metaboxes.php:160
 msgid ""
 "Add Notes to your variation. Example: This version is testing a green submit "
 "button "
 msgstr ""
 
-#: modules/module.metaboxes.php:167
+#: modules/module.metaboxes.php:161
 msgid "Primary Headline Goes here. This will be visible on the page"
 msgstr ""
 
-#: modules/module.metaboxes.php:167
+#: modules/module.metaboxes.php:161
 msgid "This headline will appear in the landing page template."
 msgstr ""
 
-#: modules/module.metaboxes.php:215
+#: modules/module.metaboxes.php:207
 msgid "Enter Landing Page Description"
 msgstr ""
 
-#: modules/module.metaboxes.php:229 shared/classes/menu.class.php:371
-#: shared/classes/menu.class.php:373
+#: modules/module.metaboxes.php:221
 msgid "Landing Page Templates"
 msgstr ""
 
-#: modules/module.metaboxes.php:251
+#: modules/module.metaboxes.php:243
 msgid "Choose Another Template"
 msgstr ""
 
-#: modules/module.metaboxes.php:286
+#: modules/module.metaboxes.php:278
 msgid "Select Your Landing Page Template!"
 msgstr ""
 
-#: modules/module.metaboxes.php:287
+#: modules/module.metaboxes.php:279
 msgid "Cancel Template Change"
 msgstr ""
 
-#: modules/module.metaboxes.php:290
+#: modules/module.metaboxes.php:282
 msgid "All"
 msgstr ""
 
-#: modules/module.metaboxes.php:291
-msgid "Theme"
-msgstr ""
-
-#: modules/module.metaboxes.php:359
+#: modules/module.metaboxes.php:350
 msgid "Select"
 msgstr ""
 
-#: modules/module.metaboxes.php:369
+#: modules/module.metaboxes.php:360
 msgid "This is Currently Selected"
 msgstr ""
 
-#: modules/module.metaboxes.php:377
+#: modules/module.metaboxes.php:368
 msgid "Custom CSS"
 msgstr ""
 
-#: modules/module.metaboxes.php:383
+#: modules/module.metaboxes.php:374
 msgid ""
-"<em>Custom CSS may be required to customize this landing page.</em><strong> "
-"<u>Format</u>: #element-id { display:none !important; }</strong>"
+"<em>Custom CSS may be required to remove sidebars, increase the widget of "
+"the post content container to 100%, and sometimes to manually remove comment "
+"boxes.</em>"
 msgstr ""
 
-#: modules/module.metaboxes.php:410
+#: modules/module.metaboxes.php:401
 msgid "Custom JS"
 msgstr ""
 
-#: modules/module.metaboxes.php:442
+#: modules/module.metaboxes.php:433
 msgid "Lead Captures"
 msgstr ""
 
-#: modules/module.metaboxes.php:624
+#: modules/module.metaboxes.php:594
 msgid "View Lead"
 msgstr ""
 
-#: modules/module.metaboxes.php:629
+#: modules/module.metaboxes.php:599
 msgid "First timer!"
 msgstr ""
 
-#: modules/module.metaboxes.php:649
+#: modules/module.metaboxes.php:619
 msgid "No conversions recorded yet..."
 msgstr ""
 
-#: modules/module.metaboxes.php:666
+#: modules/module.metaboxes.php:636
 msgid "Conversion logs:"
 msgstr ""
 
-#: modules/module.post-type.php:22 shared/classes/menu.class.php:268
+#: modules/module.post-type.php:1
 msgid "Add New Landing Page"
 msgstr ""
 
-#: modules/module.post-type.php:23
+#: modules/module.post-type.php:1
 msgid "Edit Landing Page"
 msgstr ""
 
-#: modules/module.post-type.php:24
+#: modules/module.post-type.php:1
 msgid "New Landing Page"
 msgstr ""
 
-#: modules/module.post-type.php:25
+#: modules/module.post-type.php:1
 msgid "View Landing Page"
 msgstr ""
 
-#: modules/module.post-type.php:26
+#: modules/module.post-type.php:1
 msgid "Search Landing Page"
 msgstr ""
 
-#: modules/module.post-type.php:27 shared/functions/global.leads.cpt.php:23
-#: shared/inbound-shortcodes/shortcodes/forms.php:347
+#: modules/module.post-type.php:1
+#: shared/inbound-shortcodes/shortcodes/forms.php:252
 msgid "Nothing found"
 msgstr ""
 
-#: modules/module.post-type.php:28 shared/functions/global.leads.cpt.php:24
-#: shared/inbound-shortcodes/shortcodes/forms.php:348
+#: modules/module.post-type.php:1
+#: shared/inbound-shortcodes/shortcodes/forms.php:253
 msgid "Nothing found in Trash"
-msgstr ""
-
-#: modules/module.post-type.php:55 shared/classes/menu.class.php:220
-#: shared/classes/menu.class.php:276
-msgid "Categories"
-msgstr ""
-
-#: modules/module.post-type.php:56
-msgid "Landing Page Category"
-msgstr ""
-
-#: modules/module.post-type.php:68
-msgid "All Landing Page Categories"
-msgstr ""
-
-#: modules/module.post-type.php:82
-msgid "Short Description"
-msgstr ""
-
-#: modules/module.post-type.php:129
-msgid "Landing Page Title"
-msgstr ""
-
-#: modules/module.post-type.php:130
-msgid "Variation Testing Stats"
-msgstr ""
-
-#: modules/module.post-type.php:131
-msgid "Total<br>Visits"
-msgstr ""
-
-#: modules/module.post-type.php:132
-msgid "Total<br>Conversions"
-msgstr ""
-
-#: modules/module.post-type.php:133
-msgid "Total<br>Conversion Rate"
-msgstr ""
-
-#: modules/module.post-type.php:191
-msgid "(Paused)"
-msgstr ""
-
-#: modules/module.post-type.php:201
-msgid "conversion"
-msgstr ""
-
-#: modules/module.post-type.php:201
-msgid "conversions"
-msgstr ""
-
-#: modules/module.post-type.php:202
-msgid "visit"
-msgstr ""
-
-#: modules/module.post-type.php:202
-msgid "visits"
-msgstr ""
-
-#: modules/module.post-type.php:203 modules/module.post-type.php:225
-msgid "No notes"
-msgstr ""
-
-#: modules/module.post-type.php:226
-msgid "Preview This variation"
-msgstr ""
-
-#: modules/module.post-type.php:226
-msgid "Clear These Stats"
-msgstr ""
-
-#: modules/module.post-type.php:229
-msgid "No A/B Tests running for this landing page"
-msgstr ""
-
-#: modules/module.post-type.php:229
-msgid "Start one"
-msgstr ""
-
-#: modules/module.post-type.php:304
-msgid "Click to Preview this variation"
-msgstr ""
-
-#: modules/module.post-type.php:349
-msgid "Show All "
-msgstr ""
-
-#: modules/module.post-type.php:401
-msgid "Clear impression and conversion records"
-msgstr ""
-
-#: modules/module.post-type.php:402
-msgid "Clear All Stats"
-msgstr ""
-
-#: modules/module.post-type.php:402
-msgid "Hover over the letters to the right for more options"
 msgstr ""
 
 #: modules/module.sidebar.php:12
@@ -1018,7 +900,7 @@ msgstr ""
 msgid "Developers and Designers"
 msgstr ""
 
-#: modules/module.welcome.php:304 modules/module.welcome.php:567
+#: modules/module.welcome.php:304 modules/module.welcome.php:566
 #, php-format
 msgid "Welcome to WordPress Landing Pages %s"
 msgstr ""
@@ -1030,8 +912,7 @@ msgid ""
 "help you convert more leads!"
 msgstr ""
 
-#: modules/module.welcome.php:306 modules/module.welcome.php:569
-#: shared/classes/welcome.class.php:169
+#: modules/module.welcome.php:306 modules/module.welcome.php:568
 #, php-format
 msgid "Version %s"
 msgstr ""
@@ -1044,106 +925,102 @@ msgstr ""
 msgid "How to Create Forms"
 msgstr ""
 
-#: modules/module.welcome.php:320
-msgid "Creating Landing Pages with your Current Theme Template"
-msgstr ""
-
-#: modules/module.welcome.php:340
+#: modules/module.welcome.php:339
 msgid "Go to WordPress Landing Pages Settings"
 msgstr ""
 
-#: modules/module.welcome.php:343
+#: modules/module.welcome.php:342
 msgid "Manage Your Landing Page Templates"
 msgstr ""
 
-#: modules/module.welcome.php:346
+#: modules/module.welcome.php:345
 msgid "Create New Landing Page"
 msgstr ""
 
-#: modules/module.welcome.php:349
+#: modules/module.welcome.php:348
 msgid "Create Landing Page Forms"
 msgstr ""
 
-#: modules/module.welcome.php:440
+#: modules/module.welcome.php:439
 msgid "Turbo Charge Your Marketing"
 msgstr ""
 
-#: modules/module.welcome.php:441
+#: modules/module.welcome.php:440
 msgid ""
 "WordPress Landing Pages is only one piece of Inbound Now's Marketing Platform"
 msgstr ""
 
-#: modules/module.welcome.php:446
+#: modules/module.welcome.php:445
 msgid ""
 "To have an effective marketing strategy for your site you need to "
 "incorporate a comprehensive conversion strategy to capture visitors "
 "attention, get them clicking, and convert them on a web form or landing page."
 msgstr ""
 
-#: modules/module.welcome.php:451
+#: modules/module.welcome.php:450
 msgid "Capture visitor attention with"
 msgstr ""
 
-#: modules/module.welcome.php:459
+#: modules/module.welcome.php:458
 msgid ""
 "<b>Convert more website traffic</b> with visually\n"
 "\t\t            appealing calls to action"
 msgstr ""
 
-#: modules/module.welcome.php:466
+#: modules/module.welcome.php:465
 msgid ""
 "A/B test your marketing tactics and <b>improve your\n"
 "\t\t            sites conversion rates"
 msgstr ""
 
-#: modules/module.welcome.php:481
+#: modules/module.welcome.php:480
 msgid "Convert website visitors with"
 msgstr ""
 
-#: modules/module.welcome.php:489
+#: modules/module.welcome.php:488
 msgid ""
 "<b>Generate more web leads</b> with pages specifically designed for "
 "conversion"
 msgstr ""
 
-#: modules/module.welcome.php:495
+#: modules/module.welcome.php:494
 msgid ""
 "A/B Test Landing Page effectiveness for <b>continual optimization & "
 "improvement</b>"
 msgstr ""
 
-#: modules/module.welcome.php:509
+#: modules/module.welcome.php:508
 msgid "Followup &amp; Close the deal with"
 msgstr ""
 
-#: modules/module.welcome.php:517
+#: modules/module.welcome.php:516
 msgid ""
 "Gather & leverage lead intelligence on\n"
 "\t\t            visitors to <b>close more deals</b>"
 msgstr ""
 
-#: modules/module.welcome.php:524
+#: modules/module.welcome.php:523
 msgid ""
 "Track page views, site conversions,\n"
 "\t\t            demographics, geolocation, social media data and more."
 msgstr ""
 
-#: modules/module.welcome.php:527
+#: modules/module.welcome.php:526
 msgid ""
 "Know everything a lead has seen and done on your site before you contact them"
 msgstr ""
 
-#: modules/module.welcome.php:568
+#: modules/module.welcome.php:567
 msgid "Learn How to Build Custom Templates & Add Value to Your Clients"
 msgstr ""
 
-#: modules/module.welcome.php:574
+#: modules/module.welcome.php:573
 msgid ""
 "WordPress Landing Pages was built as a platform to allow anyone to create "
 "and use their own landing page designs."
 msgstr ""
 
-#: modules/module.welcome.php:576
+#: modules/module.welcome.php:575
 msgid ""
 "Infuse your designs with powerful A/B testing functionality and give clients "
 "the ability to edit options on the backend with ease."
@@ -1166,347 +1043,23 @@ msgid ""
 "template."
 msgstr ""
 
-#: shared/classes/menu.class.php:24
-msgid "GO"
-msgstr ""
-
-#: shared/classes/menu.class.php:41
-msgid " Marketing"
-msgstr ""
-
-#: shared/classes/menu.class.php:137
-msgid "Leads"
-msgstr ""
-
-#: shared/classes/menu.class.php:143
-msgid "Search All Leads"
-msgstr ""
-
-#: shared/classes/menu.class.php:158
-msgid "View All Leads"
-msgstr ""
-
-#: shared/classes/menu.class.php:160 shared/classes/menu.class.php:315
-#: shared/classes/menu.class.php:317
-msgid "View All Forms"
-msgstr ""
-
-#: shared/classes/menu.class.php:166 shared/classes/menu.class.php:168
-msgid "View Lead Lists"
-msgstr ""
-
-#: shared/classes/menu.class.php:174
-msgid "Create New Lead"
-msgstr ""
-
-#: shared/classes/menu.class.php:176
-msgid "Add new lead"
-msgstr ""
-
-#: shared/classes/menu.class.php:196
-msgid "Call to Actions"
-msgstr ""
-
-#: shared/classes/menu.class.php:198 shared/classes/menu.class.php:206
-#: shared/classes/menu.class.php:254 shared/classes/menu.class.php:262
-msgid "View All Landing Pages"
-msgstr ""
-
-#: shared/classes/menu.class.php:204
-msgid "View Calls to Action List"
-msgstr ""
-
-#: shared/classes/menu.class.php:212
-msgid "Add New Call to Action"
-msgstr ""
-
-#: shared/classes/menu.class.php:214 shared/classes/menu.class.php:337
-msgid "Add new call to action"
-msgstr ""
-
-#: shared/classes/menu.class.php:222 shared/classes/menu.class.php:278
-msgid "Landing Page Categories"
-msgstr ""
-
-#: shared/classes/menu.class.php:229 shared/classes/menu.class.php:285
-msgid "Settings"
-msgstr ""
-
-#: shared/classes/menu.class.php:231
-msgid "Manage Call to Action Settings"
-msgstr ""
-
-#: shared/classes/menu.class.php:252
-msgid "Landing Pages"
-msgstr ""
-
-#: shared/classes/menu.class.php:260
-msgid "View Landing Pages List"
-msgstr ""
-
-#: shared/classes/menu.class.php:270
-msgid "Add new Landing Page"
-msgstr ""
-
-#: shared/classes/menu.class.php:287
-msgid "Manage Landing Page Settings"
-msgstr ""
-
-#: shared/classes/menu.class.php:307
-msgid "Manage Forms"
-msgstr ""
-
-#: shared/classes/menu.class.php:335
-#: shared/inbound-shortcodes/shortcodes/forms.php:342
-msgid "Create New Form"
-msgstr ""
-
-#: shared/classes/menu.class.php:362 shared/classes/menu.class.php:364
-msgid "Download More Templates"
-msgstr ""
-
-#: shared/classes/menu.class.php:381 shared/classes/menu.class.php:383
-msgid "Call to Action Templates"
-msgstr ""
-
-#: shared/classes/menu.class.php:406 shared/classes/menu.class.php:408
-msgid "Call to Action Settings"
-msgstr ""
-
-#: shared/classes/menu.class.php:415 shared/classes/menu.class.php:417
-msgid "Landing Page Settings"
-msgstr ""
-
-#: shared/classes/menu.class.php:424 shared/classes/menu.class.php:426
-msgid "Lead Settings"
-msgstr ""
-
-#: shared/classes/menu.class.php:440 shared/classes/menu.class.php:442
-msgid "Analytics (coming soon)"
-msgstr ""
-
-#: shared/classes/menu.class.php:455
-msgid "SEO by Yoast"
-msgstr ""
-
-#: shared/classes/menu.class.php:457
-msgid "Manage SEO Settings"
-msgstr ""
-
-#: shared/classes/menu.class.php:471 shared/classes/menu.class.php:473
-msgid "Support Forum"
-msgstr ""
-
-#: shared/classes/menu.class.php:479 shared/classes/menu.class.php:481
-msgid "Documentation"
-msgstr ""
-
-#: shared/classes/menu.class.php:485
-msgid "Search Docs"
-msgstr ""
-
-#: shared/classes/menu.class.php:507 shared/classes/menu.class.php:509
-msgid "Inbound Now Plugin HQ"
-msgstr ""
-
-#: shared/classes/menu.class.php:515 shared/classes/menu.class.php:517
-msgid "GitHub Repository Developer Center"
-msgstr ""
-
-#: shared/classes/menu.class.php:523 shared/classes/menu.class.php:525
-msgid "Official Blog"
-msgstr ""
-
-#: shared/classes/menu.class.php:531 shared/classes/menu.class.php:533
-msgid "My Account"
-msgstr ""
-
-#: shared/classes/menu.class.php:539 shared/classes/menu.class.php:541
-msgid "Purchase History"
-msgstr ""
-
-#: shared/classes/menu.class.php:554
-msgid ""
-"<span style=\"color:#fff;font-size: 13px;margin-top: -1px;display: inline-"
-"block;\">Debug Tools</span>"
-msgstr ""
-
-#: shared/classes/menu.class.php:580
-msgid "Check for Javascript Errors"
-msgstr ""
-
-#: shared/classes/menu.class.php:582
-msgid "Click here to check javascript errors on this page"
-msgstr ""
-
-#: shared/classes/menu.class.php:588
-msgid "Remove Javascript Errors"
-msgstr ""
-
-#: shared/classes/menu.class.php:590
-msgid "Click here to remove broken javascript to fix issues"
-msgstr ""
-
-#: shared/classes/welcome.class.php:75 shared/classes/welcome.class.php:76
-msgid "Welcome to"
-msgstr ""
-
-#: shared/classes/welcome.class.php:167
-msgid "Welcome to "
-msgstr ""
-
-#: shared/classes/welcome.class.php:168
-msgid "Thank you for updating to the latest version! "
-msgstr ""
-
-#: shared/extend/inboundnow.global-settings.php:30
-#: shared/extend/inboundnow.global-settings.php:39
-msgid ""
-"Head to http://www.inboundnow.com/ to retrieve your extension-ready license "
-"key."
-msgstr ""
-
-#: shared/extend/inboundnow.global-settings.php:32
-msgid "InboundNow Master Key"
-msgstr ""
-
-#: shared/extend/inboundnow.global-settings.php:38
-msgid "InboundNow Master License Key"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:18
-msgid "Add New Lead"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:19
-msgid "Edit Lead"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:20
-msgid "New Leads"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:21
-msgid "View Leads"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:22
-msgid "Search Leads"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:49
-msgid "Search Lead Lists"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:50
-msgid "Popular Lead Lists"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:51
-msgid "All Lead Lists"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:54
-msgid "Edit Lead List"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:55
-msgid "Update Lead List"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:56
-msgid "Add New Lead List"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:57
-msgid "New Lead List"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:58
-msgid "Separate Lead Lists with commas"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:59
-msgid "Add or remove Lead Lists"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:60
-msgid "Choose from the most used lead List"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:61
-msgid "No Lead Lists found."
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:62
-msgid "Lead Lists"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:83
-msgid "Search Lead Tags"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:84
-msgid "Popular Lead Tags"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:85
-msgid "All Lead Tags"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:88
-msgid "Edit Lead Tag"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:89
-msgid "Update Lead Tag"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:90
-msgid "Add New Lead Tag"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:91
-msgid "New Lead Tag"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:92
-msgid "Separate Lead Tags with commas"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:93
-msgid "Add or remove Lead Tags"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:94
-msgid "Choose from the most used lead tags"
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:95
-msgid "No lead tags found."
-msgstr ""
-
-#: shared/functions/global.leads.cpt.php:96
-msgid "Lead Tags"
-msgstr ""
-
-#: shared/inbound-shortcodes/inbound-shortcodes.php:687
-#: shared/inbound-shortcodes/inbound-shortcodes.php:709
-#: shared/inbound-shortcodes/popup.php:27
-#: shared/inbound-shortcodes/popup.php:50
+#: shared/inbound-shortcodes/inbound-shortcodes.php:247
+#: shared/inbound-shortcodes/inbound-shortcodes.php:269
+#: shared/inbound-shortcodes/popup.php:26
+#: shared/inbound-shortcodes/popup.php:49
 msgid "Insert Shortcode"
 msgstr ""
 
-#: shared/inbound-shortcodes/inbound-shortcodes.php:696
+#: shared/inbound-shortcodes/inbound-shortcodes.php:256
 msgid "Form Preview"
 msgstr ""
 
-#: shared/inbound-shortcodes/inbound-shortcodes.php:699
-#: shared/inbound-shortcodes/popup.php:39
+#: shared/inbound-shortcodes/inbound-shortcodes.php:259
+#: shared/inbound-shortcodes/popup.php:38
 msgid "Shortcode has no preview"
 msgstr ""
 
-#: shared/inbound-shortcodes/popup.php:36
+#: shared/inbound-shortcodes/popup.php:35
 msgid "Shortcode Preview"
 msgstr ""
 
@@ -1566,11 +1119,19 @@ msgstr ""
 msgid "Insert Alert Message Shortcode"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/button.php:25
-msgid "Button Text"
+#: shared/inbound-shortcodes/shortcodes/button.php:13
+msgid "Button Style"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/button.php:26
+#: shared/inbound-shortcodes/shortcodes/button.php:14
+msgid "Select the button style."
+msgstr ""
+
+#: shared/inbound-shortcodes/shortcodes/button.php:24
+msgid "Label"
+msgstr ""
+
+#: shared/inbound-shortcodes/shortcodes/button.php:25
 #: shared/inbound-shortcodes/shortcodes/callout.php:45
 #: shared/inbound-shortcodes/shortcodes/callout.php:111
 #: shared/inbound-shortcodes/shortcodes/pricing.php:52
@@ -1578,44 +1139,36 @@ msgstr ""
 msgid "Enter the button text label."
 msgstr ""
 
+#: shared/inbound-shortcodes/shortcodes/button.php:30
+msgid "Button Size"
+msgstr ""
+
 #: shared/inbound-shortcodes/shortcodes/button.php:31
-msgid "Button Link"
+msgid "Select the button size."
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/button.php:32
-msgid "Enter the destination URL."
+#: shared/inbound-shortcodes/shortcodes/button.php:41
+#: shared/inbound-shortcodes/shortcodes/forms.php:114
+msgid "Custom Width"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/button.php:37
-#: shared/inbound-shortcodes/shortcodes/lists.php:19
-msgid "Font Size"
+#: shared/inbound-shortcodes/shortcodes/button.php:42
+msgid "Enter in pixel width or % width. Example: 200 <u>or</u> 100%"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/button.php:38
-msgid "Size of Button Font. This also determines default button size"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/button.php:64
+#: shared/inbound-shortcodes/shortcodes/button.php:48
 #: shared/inbound-shortcodes/shortcodes/callout.php:24
 #: shared/inbound-shortcodes/shortcodes/callout.php:88
 msgid "Button Color"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/button.php:65
-msgid "Color of button"
+#: shared/inbound-shortcodes/shortcodes/button.php:49
+#: shared/inbound-shortcodes/shortcodes/callout.php:25
+#: shared/inbound-shortcodes/shortcodes/callout.php:89
+msgid "Select the button color."
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/button.php:70
-#: shared/inbound-shortcodes/shortcodes/forms.php:179
-msgid "Button Text Color"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/button.php:71
-#: shared/inbound-shortcodes/shortcodes/forms.php:180
-msgid "Color of text"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/button.php:76
+#: shared/inbound-shortcodes/shortcodes/button.php:68
 #: shared/inbound-shortcodes/shortcodes/icon.php:11
 #: shared/inbound-shortcodes/shortcodes/list-icon.php:14
 #: shared/inbound-shortcodes/shortcodes/tabs.php:27
@@ -1625,10 +1178,9 @@ msgstr ""
 msgid "Icon"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/button.php:77
+#: shared/inbound-shortcodes/shortcodes/button.php:69
 #: shared/inbound-shortcodes/shortcodes/callout.php:51
 #: shared/inbound-shortcodes/shortcodes/callout.php:118
-#: shared/inbound-shortcodes/shortcodes/forms.php:154
 #: shared/inbound-shortcodes/shortcodes/tabs.php:28
 #: shared/inbound-shortcodes/shortcodes/tabs.php:73
 #: shared/inbound-shortcodes/shortcodes/teaser.php:58
@@ -1636,24 +1188,23 @@ msgstr ""
 msgid "Select an icon."
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/button.php:84
-#: shared/inbound-shortcodes/shortcodes/forms.php:193
-msgid "Custom Width"
+#: shared/inbound-shortcodes/shortcodes/button.php:75
+msgid "Link Destination"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/button.php:85
-msgid "Enter in pixel width or % width. Example: 200 <u>or</u> 100%"
+#: shared/inbound-shortcodes/shortcodes/button.php:76
+msgid "Enter the destination URL."
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/button.php:91
+#: shared/inbound-shortcodes/shortcodes/button.php:81
 msgid "Open Link in New Tab?"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/button.php:92
-msgid "Do you want to open links in this window or a new one?"
+#: shared/inbound-shortcodes/shortcodes/button.php:82
+msgid "Check to open the link in the new tab."
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/button.php:105
+#: shared/inbound-shortcodes/shortcodes/button.php:89
 msgid "Insert Button Shortcode"
 msgstr ""
 
@@ -1706,11 +1257,6 @@ msgstr ""
 #: shared/inbound-shortcodes/shortcodes/teaser.php:52
 #: shared/inbound-shortcodes/shortcodes/teaser.php:160
 msgid "Enter the sub title."
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/callout.php:25
-#: shared/inbound-shortcodes/shortcodes/callout.php:89
-msgid "Select the button color."
 msgstr ""
 
 #: shared/inbound-shortcodes/shortcodes/callout.php:44
@@ -1901,255 +1447,200 @@ msgstr ""
 msgid "Margin Bottom"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:42
+#: shared/inbound-shortcodes/shortcodes/forms.php:18
 msgid "Choose Starting Template"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:43
+#: shared/inbound-shortcodes/shortcodes/forms.php:19
 msgid "Start Building Your Form from premade templates"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:50
+#: shared/inbound-shortcodes/shortcodes/forms.php:26
 #: shared/inbound-shortcodes/shortcodes/quick-forms.php:26
 msgid "Form Name<span class=\"small-required-text\">*</span>"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:51
+#: shared/inbound-shortcodes/shortcodes/forms.php:27
 #: shared/inbound-shortcodes/shortcodes/quick-forms.php:27
 msgid "This is not shown to visitors"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:68
+#: shared/inbound-shortcodes/shortcodes/forms.php:44
 msgid "Redirect URL<span class=\"small-required-text\">*</span>"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:69
+#: shared/inbound-shortcodes/shortcodes/forms.php:45
 msgid "Where do you want to send people after they fill out the form?"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:85
+#: shared/inbound-shortcodes/shortcodes/forms.php:61
 msgid "Notify on Form Completions<span class=\"small-required-text\">*</span>"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:86
-msgid ""
-"Who should get admin notifications on this form?<br>For multiple "
-"notifications separate email addresses with commas"
+#: shared/inbound-shortcodes/shortcodes/forms.php:62
+msgid "Who should get admin notifications on this form?"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:93
-msgid "Add to List(s)"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:94
-msgid "Add the converting lead to 1 or more lead lists"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:101
-msgid "Hidden List Values"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:102
-msgid "Hidden list values"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:108
-#: shared/inbound-shortcodes/shortcodes/forms.php:115
+#: shared/inbound-shortcodes/shortcodes/forms.php:69
+#: shared/inbound-shortcodes/shortcodes/forms.php:76
 #: shared/inbound-shortcodes/shortcodes/quick-forms.php:19
 msgid "Name Name Name"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:109
+#: shared/inbound-shortcodes/shortcodes/forms.php:70
 msgid ""
 "<span class=\"switch-to-form-insert button\">Cancel Form Creation & Insert "
 "Existing Form</span>"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:116
+#: shared/inbound-shortcodes/shortcodes/forms.php:77
 msgid "Layout Options"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:122
+#: shared/inbound-shortcodes/shortcodes/forms.php:83
 msgid "Form Layout"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:123
-#: shared/inbound-shortcodes/shortcodes/forms.php:169
+#: shared/inbound-shortcodes/shortcodes/forms.php:84
 msgid "Choose Your Form Layout"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:133
+#: shared/inbound-shortcodes/shortcodes/forms.php:94
 msgid "Label Alignment"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:134
+#: shared/inbound-shortcodes/shortcodes/forms.php:95
 msgid "Choose Label Layout"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:146
-msgid "Form Font Size"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:147
-msgid "Size of Label Font. This also determines default submit button size"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:153
-msgid "Submit Button Icon"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:161
+#: shared/inbound-shortcodes/shortcodes/forms.php:107
 msgid "Submit Button Text"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:162
+#: shared/inbound-shortcodes/shortcodes/forms.php:108
 msgid ""
 "Enter the text you want to show on the submit button. (or a link to a custom "
 "submit button image)"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:168
-msgid "Submit Color Options"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:186
-msgid "Button BG Color"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:187
-msgid "Background Color of Submit button"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:194
+#: shared/inbound-shortcodes/shortcodes/forms.php:115
 msgid "Enter in pixel width or % width. Example: 400 <u>or</u> 100%"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:203
+#: shared/inbound-shortcodes/shortcodes/forms.php:124
 msgid "Field Label"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:210
+#: shared/inbound-shortcodes/shortcodes/forms.php:131
 msgid "Field Type"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:211
+#: shared/inbound-shortcodes/shortcodes/forms.php:132
 msgid "Select an form field type"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:233
+#: shared/inbound-shortcodes/shortcodes/forms.php:153
 msgid "Dropdown choices"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:234
+#: shared/inbound-shortcodes/shortcodes/forms.php:154
 msgid "Enter Your Dropdown Options. Separate by commas."
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:241
+#: shared/inbound-shortcodes/shortcodes/forms.php:161
 msgid "Radio Choices"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:242
+#: shared/inbound-shortcodes/shortcodes/forms.php:162
 msgid "Enter Your Radio Options. Separate by commas."
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:249
+#: shared/inbound-shortcodes/shortcodes/forms.php:169
 msgid "Checkbox choices"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:250
+#: shared/inbound-shortcodes/shortcodes/forms.php:170
 msgid "Enter Your Checkbox Options. Separate by commas."
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:257
+#: shared/inbound-shortcodes/shortcodes/forms.php:177
 msgid "HTML Block"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:258
+#: shared/inbound-shortcodes/shortcodes/forms.php:178
 msgid "This is a raw HTML block in the form. Insert text/HTML"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:264
-msgid "Default Value"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:265
-msgid "Enter the Default Value"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:272
-msgid "Divider Text (optional)"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:273
-msgid "This is the text in the divider"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/forms.php:279
-#: shared/inbound-shortcodes/shortcodes/forms.php:301
+#: shared/inbound-shortcodes/shortcodes/forms.php:184
+#: shared/inbound-shortcodes/shortcodes/forms.php:206
 msgid "Field Description <span class=\"small-optional-text\">(optional)</span>"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:280
+#: shared/inbound-shortcodes/shortcodes/forms.php:185
 msgid "<span class=\"show-advanced-fields\">Show advanced fields</span>"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:286
+#: shared/inbound-shortcodes/shortcodes/forms.php:191
 msgid "Required Field? <span class=\"small-optional-text\">(optional)</span>"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:287
+#: shared/inbound-shortcodes/shortcodes/forms.php:192
 msgid "Check to make field required"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:294
+#: shared/inbound-shortcodes/shortcodes/forms.php:199
 msgid "Field Placeholder <span class=\"small-optional-text\">(optional)</span>"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:295
+#: shared/inbound-shortcodes/shortcodes/forms.php:200
 msgid "Put field placeholder text here. Only works for normal text inputs"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:302
+#: shared/inbound-shortcodes/shortcodes/forms.php:207
 msgid "Put field description here."
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:309
+#: shared/inbound-shortcodes/shortcodes/forms.php:214
 msgid "Dynamic Field Filling"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:310
+#: shared/inbound-shortcodes/shortcodes/forms.php:215
 msgid "Enter Your Dynamic URL parameter"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:318
+#: shared/inbound-shortcodes/shortcodes/forms.php:223
 msgid "Map Field To"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:319
+#: shared/inbound-shortcodes/shortcodes/forms.php:224
 msgid "Map this field to Leads Value"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:327
+#: shared/inbound-shortcodes/shortcodes/forms.php:232
 msgid "Add Another Field"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:330
+#: shared/inbound-shortcodes/shortcodes/forms.php:235
 msgid "Insert Inbound Form Shortcode"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:343
+#: shared/inbound-shortcodes/shortcodes/forms.php:247
+msgid "Create New Form"
+msgstr ""
+
+#: shared/inbound-shortcodes/shortcodes/forms.php:248
 msgid "Edit Form"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:344
+#: shared/inbound-shortcodes/shortcodes/forms.php:249
 msgid "New Form"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:345
+#: shared/inbound-shortcodes/shortcodes/forms.php:250
 msgid "View Lists"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/forms.php:346
+#: shared/inbound-shortcodes/shortcodes/forms.php:251
 msgid "Search Lists"
 msgstr ""
 
@@ -2417,7 +1908,6 @@ msgstr ""
 
 #: shared/inbound-shortcodes/shortcodes/landing-page-list.php:48
 #: shared/inbound-shortcodes/shortcodes/landing_pages.php:68
-#: shared/inbound-shortcodes/shortcodes/social-share.php:82
 #: shared/inbound-shortcodes/shortcodes/tabs.php:12
 #: shared/inbound-shortcodes/shortcodes/tabs.php:54
 #: shared/inbound-shortcodes/shortcodes/teaser.php:12
@@ -2530,6 +2020,10 @@ msgstr ""
 msgid "Select an icon for the List"
 msgstr ""
 
+#: shared/inbound-shortcodes/shortcodes/lists.php:19
+msgid "Font Size"
+msgstr ""
+
 #: shared/inbound-shortcodes/shortcodes/lists.php:20
 msgid "Size of List Font"
 msgstr ""
@@ -2554,12 +2048,7 @@ msgstr ""
 msgid "Color of Text in List"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/lists.php:43
-#: shared/inbound-shortcodes/shortcodes/lists.php:44
-msgid "Number of Columns"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/lists.php:59
+#: shared/inbound-shortcodes/shortcodes/lists.php:46
 msgid "Insert Styled List Shortcode"
 msgstr ""
 
@@ -2744,105 +2233,32 @@ msgstr ""
 msgid "Quick Insert Inbound Form Shortcode"
 msgstr ""
 
-#: shared/inbound-shortcodes/shortcodes/social-share.php:14
-msgid "Style of Icons"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:26
-msgid "Align Icons"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:27
-msgid "Alignment Settings"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:37
 #: shared/inbound-shortcodes/shortcodes/social.php:12
 msgid "Facebook"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:38
-msgid "Show facebook share icon"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:43
-#: shared/inbound-shortcodes/shortcodes/social.php:18
-msgid "Twitter"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:44
-msgid "Show twitter share icon"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:49
-#: shared/inbound-shortcodes/shortcodes/social.php:24
-msgid "Google+"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:50
-msgid "Show google plus share icon"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:55
-#: shared/inbound-shortcodes/shortcodes/social.php:30
-msgid "Linkedin"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:56
-msgid "Show linkedin share icon"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:61
-#: shared/inbound-shortcodes/shortcodes/social.php:48
-msgid "Pinterest"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:62
-msgid "Show pinterest share icon"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:68
-msgid "Custom Share Text"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:69
-msgid "Optional setting. Enter your custom share text"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:75
-msgid "Custom Share URL"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:76
-msgid "Optional setting. Enter your custom share link URL"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:83
-msgid "Optional setting."
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:89
-msgid "Heading Align"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:90
-msgid "Heading Alignment Settings"
-msgstr ""
-
-#: shared/inbound-shortcodes/shortcodes/social-share.php:101
-msgid "Insert Social Share Shortcode"
 msgstr ""
 
 #: shared/inbound-shortcodes/shortcodes/social.php:13
 msgid "Enter your facebook profile URL"
 msgstr ""
 
+#: shared/inbound-shortcodes/shortcodes/social.php:18
+msgid "Twitter"
+msgstr ""
+
 #: shared/inbound-shortcodes/shortcodes/social.php:19
 msgid "Enter your twitter profile URL"
 msgstr ""
 
+#: shared/inbound-shortcodes/shortcodes/social.php:24
+msgid "Google+"
+msgstr ""
+
 #: shared/inbound-shortcodes/shortcodes/social.php:25
 msgid "Enter your google plus profile URL"
+msgstr ""
+
+#: shared/inbound-shortcodes/shortcodes/social.php:30
+msgid "Linkedin"
 msgstr ""
 
 #: shared/inbound-shortcodes/shortcodes/social.php:31
@@ -2863,6 +2279,10 @@ msgstr ""
 
 #: shared/inbound-shortcodes/shortcodes/social.php:43
 msgid "Enter your instagram profile URL"
+msgstr ""
+
+#: shared/inbound-shortcodes/shortcodes/social.php:48
+msgid "Pinterest"
 msgstr ""
 
 #: shared/inbound-shortcodes/shortcodes/social.php:49
