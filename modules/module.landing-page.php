@@ -615,9 +615,10 @@ function lp_global_config()
 	do_action('lp_global_config');
 }
 
-function lp_init()
-{
-	do_action('lp_init');
+if (!function_exists('lp_init')) {
+	function lp_init() {
+		do_action('lp_init');
+	}
 }
 
 function lp_head()
