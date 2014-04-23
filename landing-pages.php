@@ -46,6 +46,7 @@ switch (is_admin()) :
     include_once('modules/module.install.php');
     include_once('modules/module.alert.php');
     include_once('modules/module.metaboxes.php');
+	include_once('modules/module.metaboxes-global.php');
     include_once('modules/module.landing-page.php');
     include_once('modules/module.load-extensions.php');
     include_once('modules/module.post-type.php');

@@ -5,26 +5,31 @@ add_action('wp_enqueue_scripts','lp_fontend_enqueue_scripts');
 function lp_fontend_enqueue_scripts($hook) {
 	global $post;
 
-	if (!isset($post))
+	if (!isset($post)) {
 		return;
+	}
 	/* dequeue third party scripts */
 	global $wp_scripts;
 	if ( !empty( $wp_scripts->queue ) ) {
-	      $store = $wp_scripts->queue; // store the scripts
-	      foreach ( $wp_scripts->queue as $handle ) {
+	
+	    $store = $wp_scripts->queue; // store the scripts
+	    
+		foreach ( $wp_scripts->queue as $handle ) {
 	          wp_dequeue_script( $handle );
-	      }
+	    }
+		
 	}
-	$post_type = $post->post_type;
+	
+	/* Load jQuery */
 	wp_enqueue_script('jquery');
 
-	/* Globally used scripts moved to /shared/assets loader */
-
-	if (isset($post)&&$post->post_type=='landing-page') {
-
+	/* Load Page Tracking */
 	$variation = (isset($_GET['lp-variation-id'])) ? $_GET['lp-variation-id'] : '0';
 	wp_enqueue_script( 'landing-page-view-track' , LANDINGPAGES_URLPATH . 'js/page_view_track.js', array( 'jquery','jquery-cookie'));
-	wp_localize_script( 'landing-page-view-track' , 'landing_path_info', array( 'variation' => $variation, 'admin_url' => admin_url( 'admin-ajax.php' )));
+	wp_localize_script( 'landing-page-view-track' , 'landing_path_info', array( 'post_id' => $post->ID , 'post_type' => $post->post_type , 'variation' => $variation, 'admin_url' => admin_url( 'admin-ajax.php' )));
+
+	
+	if (isset($post)&&$post->post_type=='landing-page') {
 
 	$form_prepopulation = get_option( 'lp-main-landing-page-prepopulate-forms' , 1);
 	// load form pre-population script

@@ -28,23 +28,23 @@ if (is_admin())
 	 */
 	function lp_ab_get_lp_active_status($post,$vid=null)
 	{
-			if ($vid==0)
-			{
-					$variation_status = get_post_meta( $post->ID , 'lp_ab_variation_status' , true);
-			}
-			else
-			{
-					$variation_status = get_post_meta( $post->ID , 'lp_ab_variation_status-'.$vid , true);
-			}
+		if ($vid==0)
+		{
+				$variation_status = get_post_meta( $post->ID , 'lp_ab_variation_status' , true);
+		}
+		else
+		{
+				$variation_status = get_post_meta( $post->ID , 'lp_ab_variation_status-'.$vid , true);
+		}
 
-			if (!is_numeric($variation_status))
-			{
-					return 1;
-			}
-			else
-			{
-					return $variation_status;
-			}
+		if (!is_numeric($variation_status))
+		{
+				return 1;
+		}
+		else
+		{
+				return $variation_status;
+		}
 	}
 
 
@@ -854,42 +854,38 @@ add_action('wp_ajax_nopriv_lp_ab_testing_prepare_variation', 'lp_ab_testing_prep
 
 function lp_ab_testing_prepare_variation_callback()
 {
-	if (!lp_determine_spider())
+
+	$page_id = lp_url_to_postid( trim($_POST['current_url']) );
+
+	$variations = get_post_meta($page_id,'lp-ab-variations', true);
+	$marker = get_post_meta($page_id,'lp-ab-variations-marker', true);
+	if (!is_numeric($marker)) {
+		$marker = 0;
+	}
+
+	if ($variations)
 	{
-		//echo "hello";
-		//PRINT trim($_POST['current_url']);
-		$page_id = lp_url_to_postid( trim($_POST['current_url']) );
-		//echo $page_id;
-		$variations = get_post_meta($page_id,'lp-ab-variations', true);
-		$marker = get_post_meta($page_id,'lp-ab-variations-marker', true);
-		if (!is_numeric($marker))
-			$marker = 0;
+		//echo $variations;
+		$variations = explode(',',$variations);
+		//print_r($variations);
 
-		//echo "marker$marker";
+		$variation_id = $variations[$marker];
 
-		if ($variations)
+		$marker++;
+
+		if ($marker>=count($variations))
 		{
-			//echo $variations;
-			$variations = explode(',',$variations);
-			//print_r($variations);
-
-			$variation_id = $variations[$marker];
-
-			$marker++;
-
-			if ($marker>=count($variations))
-			{
-				//echo "here";
-				$marker = 0;
-			}
-
-			update_post_meta($page_id, 'lp-ab-variations-marker', $marker);
-
-			echo $variation_id;
-			die();
+			//echo "here";
+			$marker = 0;
 		}
 
+		update_post_meta($page_id, 'lp-ab-variations-marker', $marker);
+
+		echo $variation_id;
+		die();
 	}
+
+	
 }
 
 
@@ -930,15 +926,27 @@ function lp_ab_testing_alter_title_area( $content , $id = null)
 }
 
 add_action('lp_record_impression','lp_ab_testing_record_impression', 10, 2);
-function lp_ab_testing_record_impression($page_id, $variation_id=0)
+function lp_ab_testing_record_impression($post_id, $post_type = 'landing-page' , $variation_id=0)
 {
-	$impressions = get_post_meta($page_id,'lp-ab-variation-impressions-'.$variation_id, true);
-	if (!is_numeric($impressions))
+	
+	/* If Landing Page Post Type */
+	if ( $post_type == 'landing-page' ) {
+		$meta_key = 'lp-ab-variation-impressions-'.$variation_id;
+	} 	
+	/* If Non Landing Page Post Type */
+	else  {
+		$meta_key = '_inbound_impressions_count';
+	}
+	
+	$impressions = get_post_meta($post_id, $meta_key , true);
+		
+	if (!is_numeric($impressions)) {
 		$impressions = 1;
-	else
+	} else {
 		$impressions++;
+	}
 
-	update_post_meta($page_id,'lp-ab-variation-impressions-'.$variation_id, $impressions);
+	update_post_meta($post_id, $meta_key , $impressions);
 }
 
 

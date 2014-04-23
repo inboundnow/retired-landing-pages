@@ -5,7 +5,7 @@
 	});
 
  	// Saves variation page views
- 	var variation_id = landing_path_info.variation;
+
  	// Save page view count
 	jQuery.ajax({
 		type: 'POST',
@@ -13,7 +13,9 @@
 		data: {
 			action: 'lp_record_impression',
 			current_url: window.location.href,
-			variation_id: variation_id
+			post_id: landing_path_info.post_id,
+			variation_id: landing_path_info.variation,
+			post_type: landing_path_info.post_type
 			// add date?
 		},
 		success: function(user_id){
