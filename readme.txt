@@ -70,6 +70,7 @@ The plugin is also fully extendable and has a number of <a href='http://docs.inb
 == Changelog ==
 = 1.5.3 =
 * Temporary fix for shortcodes disappearing from wordpress 3.8 to 3.9
+* Performance improvements on analytics and lead tracking
 
 = 1.5.1 =
 * Misc bug fixes
