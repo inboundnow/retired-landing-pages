@@ -123,8 +123,7 @@ function lp_admin_enqueue($hook) {
 		if ($hook == 'post.php') {
 
 			wp_enqueue_style('lp-ab-testing-admin-css', LANDINGPAGES_URLPATH . 'css/admin-ab-testing.css');
-			wp_enqueue_script('lp-ab-testing-admin-js', LANDINGPAGES_URLPATH . 'js/admin/admin.post-edit-ab-testing.js', array( 'jquery' ));
-			wp_localize_script( 'lp-ab-testing-admin-js', 'variation', array( 'pid' => $post->ID, 'vid' => 0  , 'new_variation' => 0  , 'variations'=> 0  , 'content_area' => 0  ));
+			
 		}
 	}
 	/* Requeue third party scripts */

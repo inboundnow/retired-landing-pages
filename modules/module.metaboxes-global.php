@@ -26,7 +26,7 @@ function lp_add_global_meta_box()
 	
 		if (!in_array($post_type,$exclude))
 		{
-			add_meta_box( 'lp-post-statistics', __( 'Inbound Statistics' , 'landing-pages' ) , 'lp_global_statistics_meta_box' , $post_type, 'side', 'low');
+			add_meta_box( 'lp-post-statistics', __( 'Inbound Statistics' , 'landing-pages' ) , 'lp_global_statistics_meta_box' , $post_type, 'side', 'high');
 		}
 	}
 
