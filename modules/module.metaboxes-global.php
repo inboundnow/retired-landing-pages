@@ -75,8 +75,8 @@ function lp_global_statistics_meta_box() {
 			<div id="bab-stat-box">
 			
 			<?php
-			$impressions = get_post_meta($post->ID,'_inbound_impressions_count', true);
-			$conversions = get_post_meta($post->ID,'_inbound_conversions_count', true);
+			$impressions = apply_filters('inbound_impressions' , get_post_meta($post->ID,'_inbound_impressions_count', true) );
+			$conversions = apply_filters('inbound_conversions' , get_post_meta($post->ID,'_inbound_conversions_count', true) );
 
 
 			(is_numeric($impressions)) ? $impressions = $impressions : $impressions = 0;
