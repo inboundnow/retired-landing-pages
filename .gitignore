@@ -1,0 +1,8 @@
+.DS_Store
+/shared/_DelSyncFiles/
+
+/deploy.sh
+shared/languages/landing-pages/.tx/CONFIG
+shared/languages/landing-pages/get-translations.bat
+.tx
+/shared/languages/landing-pages/*.bat
