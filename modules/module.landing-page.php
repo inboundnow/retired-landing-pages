@@ -162,8 +162,9 @@ function landing_pages_add_conversion_area($content)
 /* DISPLAY LANDING PAGE CONVERSION AREA */
 function lp_conversion_area($post = null, $content=null,$return=false, $doshortcode = true, $rebuild_attributes = true)
 {
-	if (!isset($post))
+	if (!isset($post)) {
 		global $post;
+	}
 
 	$wrapper_class = "";
 
@@ -180,10 +181,9 @@ function lp_conversion_area($post = null, $content=null,$return=false, $doshortc
 
 
 	$content = apply_filters('lp_conversion_area_post',$content, $post);
-
+	
 	if(!$return)
 	{
-
 		$content = str_replace('<p><div id="inbound-form-wrapper"', '<div id="inbound-form-wrapper"',  $content);
 		$content = preg_replace('/<p[^>]*><\/p[^>]*>/', '', $content); // remove empty p tags
 		$content = preg_replace('/<\/p>/', '', $content); // remove last empty p tag
