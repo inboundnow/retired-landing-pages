@@ -1,7 +1,7 @@
 <?php
 /* Removes default single.php sidebar for landing page sidebar */
 
-add_action( 'admin_init', 'lp_register_sidebars' );
+add_action( 'init', 'lp_register_sidebars' );
 function lp_register_sidebars()
 {
 

@@ -4,17 +4,17 @@ add_action( 'widgets_init', 'lp_load_widgets' );
 
 function lp_load_widgets() {
 
-	register_widget( 'LandingPages_Widget_ConversionArea' );
+	register_widget( 'LP_Widget_Conversion_Area' );
 
 }
 
-class LandingPages_Widget_ConversionArea extends WP_Widget
+class LP_Widget_Conversion_Area extends WP_Widget
 {
 
-	function LandingPages_Widget_ConversionArea() {
+	function LP_Widget_Conversion_Area() {
 
 		/* Widget settings. */
-		$widget_ops = array( 'classname' => 'class_LandingPages_Widget_ConversionArea', 'description' => __('Use this widget on your landing page sidebar. This sidebar replaces the normal sidebar while using your default theme as a template, or other inactive themes as landing page templates.', 'landing-pages') );
+		$widget_ops = array( 'classname' => 'class_LP_Widget_Conversion_Area', 'description' => __('Use this widget on your landing page sidebar. This sidebar replaces the normal sidebar while using your default theme as a template, or other inactive themes as landing page templates.', 'landing-pages') );
 
 		/* Widget control settings. */
 		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'id_lp_conversion_area_widget' );
@@ -24,11 +24,15 @@ class LandingPages_Widget_ConversionArea extends WP_Widget
 	}
 
 	/**
-	 * How to display the widget on the screen.
-	 */
+	* How to display the widget on the screen.
+	*/
 	function widget( $args, $instance ) {
 		global $wp_query;
+
 		$this_id = $wp_query->post->ID;
+	
+		$post = get_post( $this_id );
+
 		$this_type = $wp_query->post->post_type;
 
 		if ($this_type=='landing-page')
@@ -41,9 +45,7 @@ class LandingPages_Widget_ConversionArea extends WP_Widget
 			{
 				$title = apply_filters('widget_title', $instance['title'] );
 
-				$conversion_area = do_shortcode(get_post_meta($this_id, 'lp-conversion-area', true));
-
-				$conversion_area = "<div id='lp_container' class='inbound-conversion-sidebar'>".$conversion_area."</div>";
+			
 
 				/* Before widget (defined by themes). */
 				echo $before_widget;
@@ -54,7 +56,9 @@ class LandingPages_Widget_ConversionArea extends WP_Widget
 					echo $before_title . $title . $after_title;
 				}
 
-				echo $conversion_area;
+				echo "<div id='lp_container' class='inbound-conversion-sidebar'>";
+				echo do_shortcode(lp_conversion_area( $post , $content=null , $return=true , $doshortcode = false ));
+				echo "</div>";
 
 				/* After widget (defined by themes). */
 				echo $after_widget;
@@ -63,8 +67,8 @@ class LandingPages_Widget_ConversionArea extends WP_Widget
 	}
 
 	/**
-	 * Update the widget settings.
-	 */
+	* Update the widget settings.
+	*/
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		/* Strip tags for title and name to remove HTML (important for text inputs). */
@@ -73,10 +77,10 @@ class LandingPages_Widget_ConversionArea extends WP_Widget
 	}
 
 	/**
-	 * Displays the widget settings controls on the widget panel.
-	 * Make use of the get_field_id() and get_field_name() function
-	 * when creating your form elements. This handles the confusing stuff.
-	 */
+	* Displays the widget settings controls on the widget panel.
+	* Make use of the get_field_id() and get_field_name() function
+	* when creating your form elements. This handles the confusing stuff.
+	*/
 	function form( $instance ) {
 
 		/* Set up some default widget settings. */
