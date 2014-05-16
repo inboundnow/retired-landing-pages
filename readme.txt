@@ -49,7 +49,11 @@ You can quickly take your existing designs and implement them using our <a href=
 
 The plugin is also fully extendable and has a number of <a href='http://docs.inboundnow.com/guide/landing-page-core-hooks-filters/'>actions, filters</a>, and hooks available for use. If a hook doesn't exist, simply ask and we can implement custom changes.
 
-<b>You can also follow us on <a href="https://github.com/inboundnow/landing-pages/">GitHub</a></b>
+
+[Follow Development on GitHub ](https://github.com/inboundnow/landing-pages "Follow & Contribute to core development on GitHub")
+ | 
+[Follow Development on Twitter ](https://twitter.com/gitlandingpages "See our latest development commits on Twitter")
+
 
 == Installation ==
 
