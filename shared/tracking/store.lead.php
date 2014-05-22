@@ -101,6 +101,9 @@ function inbound_store_lead( $args = array() ) {
 
 
 	/* POST Vars */
+	$lead_data['page_id'] = ( !$lead_data['page_id'] && isset($_POST['page_id'])) ? $_POST['page_id'] : '0';
+	$lead_data['variation'] = (array_key_exists('variation', $mapped_data)) ? $mapped_data['variation'] : '0';
+	
 	$raw_search_data = (isset($_POST['Search_Data'])) ? $_POST['Search_Data'] : false;
 	$search_data = json_decode(stripslashes($raw_search_data), true ); // mapped data array
 	$lead_data['search_data'] = $search_data;
@@ -174,7 +177,7 @@ function inbound_store_lead( $args = array() ) {
 			$lead_id = $lead_data['lead_id'];
 			inbound_update_common_meta($lead_data);
 
-			do_action('wpleads_existing_lead_insert',$lead_id); // action hook on existing leads only
+			do_action('wpleads_existing_lead_update', $lead_data ); // action hook on existing leads only
 
 		}
 		else
@@ -201,7 +204,7 @@ function inbound_store_lead( $args = array() ) {
 			update_post_meta( $lead_id, 'page_views', $lead_data['page_views'] ); /* Store Page Views Object */
 			update_post_meta( $lead_id, 'wpleads_page_view_count', $lead_data['page_view_count']);
 
-			do_action('wpleads_new_lead_insert',$lead_id); // action hook on new leads only
+			do_action('wpleads_new_lead_insert', $lead_data ); // action hook on new leads only
 		}
 
 		/***
