@@ -76,6 +76,7 @@ The plugin is also fully extendable and has a number of <a href='http://docs.inb
 * Added events to lead tracking
 * Bug Fix: Marketing Button
 * Optimized CTA Tracking JS.
+* Expanded impression/conversion analytics to all post types. 
 
 = 1.5.4 =
 * Impression tracking bug fix.
