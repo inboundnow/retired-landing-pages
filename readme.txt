@@ -72,11 +72,14 @@ The plugin is also fully extendable and has a number of <a href='http://docs.inb
 4. Choose from a ton of pre-made templates, use your existing design, or design your own theme!
 
 == Changelog ==
+= 1.5.6 =
+* Fix to insert marketing shortcode popup
+
 = 1.5.5 =
 * Added events to lead tracking
 * Bug Fix: Marketing Button
 * Optimized CTA Tracking JS.
-* Expanded impression/conversion analytics to all post types. 
+* Expanded impression/conversion analytics to all post types.
 
 = 1.5.4 =
 * Impression tracking bug fix.
