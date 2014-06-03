@@ -30,7 +30,19 @@ function lp_thumbnail_metabox() {
 	$permalink = get_permalink($post->ID);
 	$datetime = the_modified_date('YmjH',null,null,false);
 	$permalink = $permalink.'?dt='.$datetime;
-	$thumbnail = 'http://s.wordpress.com/mshots/v1/' . urlencode(esc_url($permalink)) . '?w=250';
+
+	if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
+
+		if (file_exists(LANDINGPAGES_UPLOADS_URLPATH . 'templates/' . $template . '/thumbnail.png')) {
+			$thumbnail = LANDINGPAGES_UPLOADS_URLPATH . 'templates/' . $template . '/thumbnail.png';
+		}
+		else {
+			$thumbnail = LANDINGPAGES_URLPATH . 'templates/' . $template . '/thumbnail.png';
+		}
+
+	} else {
+		$thumbnail = 'http://s.wordpress.com/mshots/v1/' . urlencode(esc_url($permalink)) . '?w=250';
+	}
 	$permalink = apply_filters('lp_live_screenshot_url', $permalink);
 	?>
 	<div >
