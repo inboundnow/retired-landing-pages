@@ -27,7 +27,6 @@ function lp_thumbnail_metabox() {
 
 	$template = get_post_meta($post->ID, 'lp-selected-template', true);
 	$template = apply_filters('lp_selected_template',$template);
-
 	$permalink = get_permalink($post->ID);
 	$datetime = the_modified_date('YmjH',null,null,false);
 	$permalink = $permalink.'?dt='.$datetime;

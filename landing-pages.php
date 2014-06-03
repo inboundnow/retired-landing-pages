@@ -33,10 +33,12 @@ if (is_admin())
 switch (is_admin()) :
   case true :
     /* loads admin files */
+
     // include_once('modules/module.cron.php'); not ready yet
     include_once('modules/module.language-support.php');
     include_once('modules/module.javascript-admin.php');
-    include_once('modules/module.activate.php');
+    include_once('classes/class.activation.php');
+    include_once('classes/class.activation.update-processes.php');
     include_once('modules/module.global-settings.php');
     include_once('modules/module.clone.php');
     include_once('modules/module.extension-updater.php');
