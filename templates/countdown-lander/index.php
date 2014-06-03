@@ -18,6 +18,8 @@ do_action('lp_init');
 if (have_posts()) : while (have_posts()) : the_post();
 
     /* Pre-load meta data into variables */
+    $content = lp_get_value($post, $key, 'main-content');
+    $conversion_area = lp_get_value($post, $key, 'conversion-area-content');
     $body_color = lp_get_value($post, $key, 'body-color');
     $headline_color = lp_get_value($post, $key, 'headline-color');
     $text_color = lp_get_value($post, $key, 'other-text-color');
@@ -62,8 +64,7 @@ $red = $RBG_array['r'];
 $green = $RBG_array["g"];
 $blue = $RBG_array["b"];
 
-//prepare content
-$content = lp_content_area($post,null,true);
+
 
 ?>
 
@@ -85,9 +86,10 @@ $content = lp_content_area($post,null,true);
    #content-background{ width: 550px; padding-top: 20px; padding-bottom:20px;border-radius: 6px; margin: auto; }
 
 <?php if ($bg_image != "") { ?>
-    html { background: none;}
+    
+	html { background: none;}
 
-body {  background: url(<?php echo $bg_image; ?>) no-repeat center center fixed;
+	body {  background: url(<?php echo $bg_image; ?>) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -95,10 +97,11 @@ body {  background: url(<?php echo $bg_image; ?>) no-repeat center center fixed;
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?php echo $bg_image; ?>', sizingMethod='scale');
     ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?php echo $bg_image; ?>', sizingMethod='scale')";}
 <?php } ?>
-
-<?php if ($text_color != "") { echo "p, #note, label, #lp_container  { color: #$text_color;}
-                                        .countDiv::before, .countDiv::after {
-                                        background-color: #$text_color;} "; } ?>
+	div, p, #note, label, #lp_container  { color: #<?php echo $text_color; ?>}
+    .countDiv::before, .countDiv::after {
+		background-color: #<?php echo $text_color; ?>;
+	} 
+	
 <?php if ($headline_color != "") { echo "h1 {color: #$headline_color;}"; } ?>
 <?php if ($background_on === "on") { echo "#content-background{background: url('".$path."image.php?hex=$content_color');}"; }?>
  <?php if ($submit_button_color != "") {
@@ -136,9 +139,9 @@ body {  background: url(<?php echo $bg_image; ?>) no-repeat center center fixed;
         <p id="note"></p>
 <!-- Show or hide form area -->
         <div id="form-area">
-        <?php lp_conversion_area(); /* Print out form content */ ?>
+        <?php echo do_shortcode($conversion_area); /* Print out form content */ ?>
         <div id="content-area">
-            <?php echo $content;?>
+            <?php echo do_shortcode($content);?>
         </div> <!-- end content area -->
         </div>
 </div>

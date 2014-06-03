@@ -19,7 +19,9 @@ do_action('lp_init');
 if (have_posts()) : while (have_posts()) : the_post();
 
 /* Pre-load meta data into variables. These are defined in the templates config.php file */
-
+	
+	$content = lp_get_value($post, $key, 'main-content');
+    $conversion_area = lp_get_value($post, $key, 'conversion-area-content');
     $social_display = lp_get_value($post, $key, 'display-social');
     $sidebar = lp_get_value($post, $key, 'sidebar');
     $logo = lp_get_value($post, $key, 'logo');
@@ -28,7 +30,6 @@ if (have_posts()) : while (have_posts()) : the_post();
     $sidebar_color = lp_get_value($post, $key, 'sidebar-color');
     $sidebar_text_color = lp_get_value($post, $key, 'sidebar-text-color');
     $submit_button_color = lp_get_value($post, $key, 'submit-button-color');
-	$content = lp_content_area(null,null,true);
 
 
 ?>
@@ -105,13 +106,13 @@ if (have_posts()) : while (have_posts()) : the_post();
         <div id="area">
              <h1><?php lp_main_headline(); // Load WordPress Post Title ?></h1>
 
-            <?php echo $content; // Load Wordpress Content ?>
+            <?php echo do_shortcode($content); // Load Wordpress Content ?>
         </div><!--end #area -->
     </div><!--end #content -->
 
     <div id="right">
         <div id="area_two">
-            <?php lp_conversion_area(); /* Print out form content */ ?>
+            <?php echo do_shortcode( $conversion_area ); /* Print out form content */ ?>
         </div><!--end #area_two -->
     </div><!--end #right -->
 

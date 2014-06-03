@@ -1,6 +1,6 @@
 <?php
 /*****************************************/
-// Template Title:  Dropcap
+// Template Title:	Dropcap
 // Plugin: Landing Pages - Inboundnow.com
 /*****************************************/
 
@@ -15,6 +15,8 @@ do_action('lp_init');
 if (have_posts()) : while (have_posts()) : the_post();
 
 /* Pre-load meta data into variables */
+$content = lp_get_value($post, $key, 'main-content');
+$conversion_area = lp_get_value($post, $key, 'conversion-area-content');
 // Text color: Use this setting to change the Text Color
 $text_color = lp_get_value($post, $key, 'text-color');
 // Content color: Use this setting to change the Content BG Color
@@ -50,9 +52,6 @@ if ( $background_style === "fullscreen" ) {
 	$bg_style = 'background: url('.$background_image.') repeat-y; ';
 }
 
-$content = lp_content_area(null,null,true);
-
-
 
 ?>
 <!DOCTYPE html>
@@ -69,36 +68,30 @@ $content = lp_content_area(null,null,true);
 
 <style type="text/css">
 @font-face {font-family: Chunk;
-	 src: url('<?php echo $path; ?>assets/fonts/Chunkfive-webfont.eot');
-     src: url('<?php echo $path; ?>assets/fonts/Chunkfive-webfont.eot?#iefix') format('embedded-opentype'),
-         url('<?php echo $path; ?>assets/fonts/Chunkfive-webfont.woff') format('woff'),
-         url('<?php echo $path; ?>assets/fonts/Chunkfive-webfont.ttf') format('truetype'),
-         url('<?php echo $path; ?>assets/fonts/Chunkfive-webfont.svg#ChunkFiveRegular') format('svg');}
+	src: url('<?php echo $path; ?>assets/fonts/Chunkfive-webfont.eot');
+	src: url('<?php echo $path; ?>assets/fonts/Chunkfive-webfont.eot?#iefix') format('embedded-opentype'),
+		url('<?php echo $path; ?>assets/fonts/Chunkfive-webfont.woff') format('woff'),
+		url('<?php echo $path; ?>assets/fonts/Chunkfive-webfont.ttf') format('truetype'),
+		url('<?php echo $path; ?>assets/fonts/Chunkfive-webfont.svg#ChunkFiveRegular') format('svg');}
 
 body { <?php echo $bg_style; ?> }
 <?php if ($text_color != "") { ?>
 #textspot p { color: #<?php echo $text_color;?>;}
 <?php } ?>
 <?php if ($content_background != "") { ?>
-#content { background: url('<?php echo LANDINGPAGES_URLPATH; ?>/images/image.php?hex=<?php echo $content_background;?>'); border-radius: 8px; }
+#content { background: url('<?php echo LANDINGPAGES_URLPATH; ?>images/image.php?hex=<?php echo $content_background;?>'); border-radius: 8px; }
 <?php } ?>
 <?php if ($form_text_color != "") { echo "#lp_container {color: #$form_text_color;}"; } ?>
-p {
-	margin-bottom: 20px;
-	font-weight: 100;
-}
-#wrapper {
-padding-top: 70px;
-}
+p {	margin-bottom: 20px;font-weight: 100;}
+#wrapper {padding-top: 70px;}
 body { font-family: 'Open Sans', sans-serif;}
-#textspot p {
-	font-family: "Chunk", Sans-Serif; letter-spacing: 1px;
-}
+#textspot p {font-family: "Chunk", Sans-Serif; letter-spacing: 1px;}
 ul { margin-bottom: 20px;}
+
 #main-content-area {
-padding-left: 0px;
-width: 89%;
-margin: auto;
+	padding-left: 0px;
+	width: 89%;
+	margin: auto;
 }
 </style>
 <?php do_action('lp_head'); // Load Custom Landing Page Specific Header Items ?>
@@ -113,8 +106,8 @@ margin: auto;
 	<p><?php lp_main_headline(); ?></p>
 </div>
 <div id="main-content-area">
-	<?php the_content(); ?>
-	<?php lp_conversion_area(); /* Print out form content */ ?>
+	<?php echo do_shortcode( $content ); ?>
+	<?php echo do_shortcode( $conversion_area ); /* Print out form content */ ?>
 </div>
 </div>
 </div>

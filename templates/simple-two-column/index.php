@@ -18,7 +18,8 @@ do_action('lp_init');
 if (have_posts()) : while (have_posts()) : the_post();
 
     /* Pre-load meta data into variables */
-
+	$content = lp_get_value($post, $key, 'main-content');
+    $conversion_area = lp_get_value($post, $key, 'conversion-area-content');
     $content_color = lp_get_value($post, $key, 'content-color');
     $body_color = lp_get_value($post, $key, 'body-color');
     $sidebar_color = lp_get_value($post, $key, 'sidebar-color');
@@ -29,8 +30,7 @@ if (have_posts()) : while (have_posts()) : the_post();
     $sidebar = lp_get_value($post, $key, 'sidebar');
     $social_display = lp_get_value($post, $key, 'display-social');
     $submit_button_color = lp_get_value($post, $key, 'submit-button-color');
-	//prepare content
-	$content = lp_content_area($post,null,true);
+
     // Get Colorscheme
     $submit_color_scheme = inbound_color_scheme($submit_button_color, 'int');
 
@@ -140,14 +140,14 @@ if (have_posts()) : while (have_posts()) : the_post();
 
 <div id="right">
 	<div id="right-content">
- <?php lp_conversion_area(); /* Print out form content */ ?>
+ <?php echo do_shortcode( $conversion_area ); /* Print out form content */ ?>
 	</div> <!-- end right-content -->
 </div> <!-- end left-content -->
 
 <div id="left">
 	<div id="left-content">
 <h1><?php lp_main_headline(); ?></h1>
-<?php echo $content; ?>
+<?php echo do_shortcode($content); ?>
 	</div> <!-- end left-content -->
 </div> <!-- end left -->
  <style type="text/css">

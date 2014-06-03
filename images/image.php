@@ -1,4 +1,5 @@
 <?php 
+
 // file: image.php
 // Dynamically Create a clear png for css background opacities
 header("Content-type: image/png");
@@ -33,6 +34,7 @@ function HexToRGB($hex) {
 }
 
 $RBG_array = HexToRGB($hex_value);
+
 $red = $RBG_array [r];
 $green = $RBG_array [g];
 $blue = $RBG_array [b];
