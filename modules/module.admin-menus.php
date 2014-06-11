@@ -9,7 +9,7 @@ function lp_add_menu()
 	if (current_user_can('manage_options'))
 	{
 
-		add_submenu_page('edit.php?post_type=landing-page', __('Forms' , 'landing-pages'), __('Create Forms' , 'landing-pages'), 'manage_options', 'inbound-forms-redirect',100);
+		add_submenu_page('edit.php?post_type=landing-page', __('Forms' , 'landing-pages'), __('Manage Forms' , 'landing-pages'), 'manage_options', 'inbound-forms-redirect',100);
 
 		add_submenu_page('edit.php?post_type=landing-page',__('Templates' , 'landing-pages'), __('Manage Templates' , 'landing-pages'), 'manage_options', 'lp_manage_templates','lp_manage_templates',100);
 
