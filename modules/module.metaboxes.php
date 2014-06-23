@@ -32,9 +32,9 @@ function lp_thumbnail_metabox() {
 	$permalink = $permalink.'?dt='.$datetime;
 
 	if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
-
-		if (file_exists(LANDINGPAGES_UPLOADS_URLPATH . 'templates/' . $template . '/thumbnail.png')) {
-			$thumbnail = LANDINGPAGES_UPLOADS_URLPATH . 'templates/' . $template . '/thumbnail.png';
+		
+		if (file_exists(LANDINGPAGES_UPLOADS_PATH .  $template . '/thumbnail.png')) {
+			$thumbnail = LANDINGPAGES_UPLOADS_URLPATH . $template . '/thumbnail.png';
 		}
 		else {
 			$thumbnail = LANDINGPAGES_URLPATH . 'templates/' . $template . '/thumbnail.png';
