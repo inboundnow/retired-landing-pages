@@ -34,8 +34,8 @@ if (have_posts()) : while (have_posts()) : the_post();
     $bg_image = lp_get_value($post, $key, 'bg-image');
     $mobile_form = lp_get_value($post, $key, 'mobile-form');
     $submit_button_color = lp_get_value($post, $key, 'submit-button-color');
-    //prepare content
-	$content = lp_content_area($post,null,true);
+    $content = lp_get_value($post, $key, 'main-content');
+    $conversion_area = lp_get_value($post, $key, 'conversion-area-content');
 
     // Convert Hex to RGB Value for submit button
 function Hex_2_RGB($hex) {
@@ -147,7 +147,7 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
             </figure>
         </aside>
         <aside id="form-area">
-            <?php lp_conversion_area(); /* Print out form content */ ?>
+            <?php echo do_shortcode( $conversion_area ); ?> 
         </aside>
     </header>
     <section id="river" role="main">
@@ -166,7 +166,7 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
              <h1 class="entry-title"><?php the_title(); ?></h1>
 
             <div class="entry-content">
-                <?php echo $content; ?>
+                <?php echo do_shortcode( $content ); ?>
             </div>
         </article>
     </section>

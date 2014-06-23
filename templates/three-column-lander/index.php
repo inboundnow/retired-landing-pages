@@ -16,7 +16,7 @@ do_action('lp_init');
 if (have_posts()) : while (have_posts()) : the_post();
 
 /* Pre-load meta data into variables. These are defined in the templates config.php file */
-$conversion_area = lp_get_value($post, $key, 'conversion_area' );
+$conversion_area_placement = lp_get_value($post, $key, 'conversion_area' );
 $left_content_bg_color = lp_get_value($post, $key, 'left-content-bg-color' );
 $left_content_text_color = lp_get_value($post, $key, 'left-content-text-color' );
 $left_content_area = lp_get_value($post, $key, 'left-content-area' );
@@ -26,8 +26,8 @@ $right_content_bg_color = lp_get_value($post, $key, 'right-content-bg-color' );
 $right_content_text_color = lp_get_value($post, $key, 'right-content-text-color' );
 $right_content_area = lp_get_value($post, $key, 'right-content-area' );
 $submit_button_color = lp_get_value($post, $key, 'submit-button-color' );
-
-$content = lp_content_area(null,null,true);
+$content = lp_get_value($post, $key, 'main-content');
+$conversion_area = lp_get_value($post, $key, 'conversion-area-content');
 
 ?>
 <!DOCTYPE html>
@@ -108,18 +108,18 @@ $content = lp_content_area(null,null,true);
         <a href="#" class="btn right"><span class="entypo-right-open"></span>More</a> </a>
 
         <h2><?php the_title();?></h2>
-        <?php the_content(); ?>
-        <?php if ($conversion_area === "middle"){ lp_conversion_area(); } ?>
+        <?php echo do_shortcode( $content ); ?>
+        <?php if ($conversion_area_placement === "middle"){ echo do_shortcode($conversion_area); } ?>
         </div>
 
         <div class="sidebar left">
             <?php echo do_shortcode( $left_content_area ); ?>
-            <?php if ($conversion_area === "left"){ lp_conversion_area(); } ?>
+            <?php if ($conversion_area_placement === "left"){ echo do_shortcode($conversion_area); } ?>
         </div>
 
         <div class="sidebar right">
              <?php echo do_shortcode( $right_content_area ); ?>
-             <?php if ($conversion_area === "right"){ lp_conversion_area(); } ?>
+             <?php if ($conversion_area_placement === "right"){ echo do_shortcode($conversion_area); } ?>
         </div>
 
     </div> <!-- end .wrapper -->

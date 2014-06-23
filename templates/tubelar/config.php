@@ -1,9 +1,9 @@
 <?php
 /**
 * WordPress Landing Page Config File
-* Template Name:  Tubelar Template
+* Template Name:	Tubelar Template
 *
-* @package  WordPress Landing Pages
+* @package	WordPress Landing Pages
 * @author 	David Wells
 */
 
@@ -28,44 +28,122 @@ $lp_data[$key]['label'] = ucwords(str_replace('-',' ',$key));
 //************************************************
 // Add User Options to Your Landing Page Template
 //************************************************
-// Textfield Example
-// Add a text input field to the landing page options panel
-$lp_data[$key]['options'][] =
-	lp_add_option($key,"text","yt-video","http://www.youtube.com/watch?v=_OBlgSz8sSM","Youtube Background Video URL","Paste in the URL of the Youtube Video here", $options=null);
 
-// Dropdown Example
-// Add a dropdown toggle to the landing page options panel
-$options = array('lp_right'=>'Sidebar on right','lp_left'=>'Sidebar on left');
-$lp_data[$key]['options'][] =
-	lp_add_option($key,"dropdown","sidebar","lp_right","Sidebar Layout","Align sidebar to the left or the right", $options);
+$lp_data[$key]['info'] =
+array(
+	'data_type' => 'template', // Template Data Type
+	'version' => "1.0.0.5", // Version Number
+	'label' => "Countdown Lander", // Nice Name
+	'category' => 'Countdown, v1, 1 column layout', // Template Category
+	'demo' => 'http://demo.inboundnow.com/go/countdown-lander/', // Demo Link
+	'description'	=> 'Coundown Lander provides a simple sharp looking countdown page.' // template description
+);
 
-// Add Colorpicker
-$lp_data[$key]['options'][] =
-	lp_add_option($key,"colorpicker","submit-button-color","11b709","Submit Button Color","Use this setting to change the template's submit button color.", $options=null);
+// Define Meta Options for template
+$lp_data[$key]['settings'] =
+array(	
+	array(
+		'label' => 'turn-off-editor', /* Turns off main content */
+		'description' => 'Turn off editor',
+		'id'	=> 'turn-off-editor',
+		'type'	=> 'custom-css',
+		'default'	=> '#postdivrich, #lp_2_form_content {display:none !important;}'
+		),
+	array(
+			'label' => __( 'Main Content' , 'landing-pages' ) ,
+			'description' => __( 'This is the default content from template.' , 'landing-pages' ),
+			'id' => "main-content",
+			'type' => "wysiwyg",
+			'default' => '<p>This is the first paragraph of your landing page. You want to grab the visitors attention and describe a commonly felt problem that they might be experiencing. Try and relate to your target audience and draw them in.</p>
 
-// Add Colorpicker
-$lp_data[$key]['options'][] =
-	lp_add_option($key,"colorpicker","text-color","ffffff","Text Color","Use this setting to change the template's text color", $options=null);
+<strong>In this guide you will learn:</strong>
 
-// Add Colorpicker
-$lp_data[$key]['options'][] =
-	lp_add_option($key,"colorpicker","box-color","000000","Content Background Color","Use this setting to change the content area's background color", $options=null);
+[list icon="ok-sign" font_size="16" icon_color="#00a319" text_color="" bottom_margin="10"]
+<ul>
+	<li>This list was created with the list icon shortcode.</li>
+	<li>Click on the power icon in your editor to customize your own</li>
+	<li>Explain why users will want to fill out the form</li>
+	<li>Keep it short and sweet.</li>
+	<li>This list should be easily scannable</li>
+</ul>
+[/list]
 
-// Select Background Type Setting
-$options = array('transparent'=>'Transparent Background', 'solid'=>'Solid');
-$lp_data[$key]['options'][] =
-	lp_add_option($key,"dropdown","clear-bg-settings","transparent","Background Color Settings","Decide how you want the content background to be", $options);
-
-// Add Media Uploader
-$lp_data[$key]['options'][] =
-	lp_add_option($key,"media","logo","/wp-content/plugins/landing-pages/templates/tubelar/assets/img/inbound-now-logo.png","Logo Image","Upload Your Logo (300x110px)", $options=null);
-
-// Add Radio Button
-$options = array('1' => 'on','0'=>'off');
-$lp_data[$key]['options'][] =
-	lp_add_option($key,"radio","display-social","1","Display Social Media Share Buttons","Toggle social sharing on and off", $options);
-
-// Add Radio Button
-$options = array('1' => 'on','0'=>'off');
-$lp_data[$key]['options'][] =
-	lp_add_option($key,"radio","controls","1","Show Play Controls","Toggle display of background video controls on or off", $options);
+<p>This is the final sentence or paragraph reassuring the visitor of the benefits of filling out the form and how their data will be safe.</p>'
+		), 
+	
+	array(
+			'label' => __( 'Call to Action Content' , 'landing-pages' ),
+			'description' => __( 'Place your call to action here.' , 'landing-page' ),
+			'id' => "conversion-area-content",
+			'type' => "wysiwyg",
+			'default' => ''
+		),
+	array(
+		'label' => __( 'Youtube Background Video URL' , 'landing-pages') , // Name of field
+		'description' => "Paste in the URL of the Youtube Video here", // what field does
+		'id' => 'yt-video', // metakey. $key Prefix is appended from parent in array loop
+		'type'	=> 'text', // metafield type
+		'default'	=> 'http://www.youtube.com/watch?v=_OBlgSz8sSM', // default content
+		'context'	=> 'normal' // Context in screen (advanced layouts in future)
+		),
+	array(
+		'label' => 'Sidebar Layout',
+		'description' => __( 'Align sidebar to the right or the left.' , 'landing-pages' ),
+		'id'	=> 'sidebar',
+		'type'	=> 'dropdown',
+		'default'	=> 'lp_right',
+		'context'	=> 'normal',
+		'options' => array('lp_right'=>'Sidebar on right','lp_left'=>'Sidebar on left'),
+		),
+	array(
+		'label' => __( 'Text Color' , 'landing-pages' ),
+		'description' => __( 'Use this setting to change the content area\'s background color' , 'landing-pages' ),
+		'id'	=> 'text-color',
+		'type'	=> 'colorpicker',
+		'default'	=> 'ffffff',
+		'context'	=> 'normal'
+		),
+	array(
+		'label' => 'Content Background Color',
+		'description' => "Use this setting to change the template's submit button color.",
+		'id'	=> 'boxcolor',
+		'type'	=> 'colorpicker',
+		'default'	=> '000000',
+		'context'	=> 'normal'
+		),
+	array(
+		'label' => __('Background Color Settings' , 'landing-pages' ),
+		'description' => __ ('Use this setting to change the content area\'s background color' , 'landing-pages' ),
+		'id'	=> 'content-background',
+		'type'	=> 'dropdown',
+		'default'	=> 'clear-bg-settings',
+		'context'	=> 'normal',
+		'options' => array( 'transparent' => __( 'Transparent Background' , 'landing-pages') , 'solid' => __( 'Solid' , 'landing-pages' ) ),
+		),
+	array(
+		'label' => __( 'Logo Image' , 'landing-pages' ),
+		'description' => __( 'Upload your logo (300px x 110px) ' , 'landing-pages' ),
+		'id'	=> 'logo',
+		'type'	=> 'media',
+		'default'	=> '/wp-content/plugins/landing-pages/templates/tubelar/assets/img/inbound-now-logo.png',
+		'context'	=> 'normal'
+		),
+	array(
+		'label' => __( 'Display Social Media Share Buttons' , 'landing-pages' ),
+		'description' => __( 'Toggle social sharing on and off' , 'landing-pages' ) ,
+		'id'	=> 'display-social',
+		'type'	=> 'radio',
+		'default'	=> '1',
+		'context'	=> 'normal',
+		'options' => array('1' => 'on','0'=>'off')
+		),
+	array(
+		'label' => __( 'Show Play Controls' , 'landing-pages' ),
+		'description' => __( 'Toggle display of background video controls on or off.' , 'landing-pages' ) ,
+		'id'	=> 'controls',
+		'type'	=> 'radio',
+		'default'	=> '1',
+		'context'	=> 'normal',
+		'options' => array('1' => 'on','0'=>'off')
+		)
+	);
