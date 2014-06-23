@@ -10,43 +10,43 @@
 		'options' => array(
 			'facebook' => array(
 				'name' => __('Facebook', 'leads'),
-				'desc' => __('Enter your facebook profile URL', 'leads'),
+				'desc' => __('Enter your Facebook profile URL', 'leads'),
 				'type' => 'text',
 				'std' => ''
 			),
 			'twitter' => array(
 				'name' => __('Twitter', 'leads'),
-				'desc' => __('Enter your twitter profile URL', 'leads'),
+				'desc' => __('Enter your Twitter profile URL', 'leads'),
 				'type' => 'text',
 				'std' => ''
 			),
 			'google_plus' => array(
 				'name' => __('Google+', 'leads'),
-				'desc' => __('Enter your google plus profile URL', 'leads'),
+				'desc' => __('Enter your Google plus profile URL', 'leads'),
 				'type' => 'text',
 				'std' => ''
 			),
 			'linkedin' => array(
 				'name' => __('Linkedin', 'leads'),
-				'desc' => __('Enter your linkedin profile URL', 'leads'),
+				'desc' => __('Enter your LinkedIn profile URL', 'leads'),
 				'type' => 'text',
 				'std' => ''
 			),
 			'github' => array(
 				'name' => __('Github', 'leads'),
-				'desc' => __('Enter your github profile URL', 'leads'),
+				'desc' => __('Enter your GitHub profile URL', 'leads'),
 				'type' => 'text',
 				'std' => ''
 			),
 			'pinterest' => array(
 				'name' => __('Instagram', 'leads'),
-				'desc' => __('Enter your instagram profile URL', 'leads'),
+				'desc' => __('Enter your Instagram profile URL', 'leads'),
 				'type' => 'text',
 				'std' => ''
 			),
 			'pinterest' => array(
 				'name' => __('Pinterest', 'leads'),
-				'desc' => __('Enter your pinterest profile URL', 'leads'),
+				'desc' => __('Enter your Pinterest profile URL', 'leads'),
 				'type' => 'text',
 				'std' => ''
 			),
