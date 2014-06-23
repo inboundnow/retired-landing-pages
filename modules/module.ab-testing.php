@@ -895,7 +895,7 @@ function lp_ab_testing_alter_content_area($content)
 {
 	global $post;
 
-	if ( $post->post_type != 'landing-page' ) {
+	if ( !isset($post) || $post->post_type != 'landing-page' ) {
 		return $content;
 	}
 	
