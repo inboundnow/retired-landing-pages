@@ -18,7 +18,7 @@ function inbound_create_default_post_type(){
         $default_lander = wp_insert_post(
                 array(
                     'post_title'     => __( 'A/B Testing Landing Page Example' , 'landing-pages'),
-                    'post_content'   => __( '<p>This is the first paragraph of your landing page where you want to draw the viewer in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>' , 'landing-pages'),
+                    'post_content'   => __( '<p>This is the first paragraph of your landing page where you want to draw the viewers in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>' , 'landing-pages'),
                     'post_status'    => 'publish',
                     'post_author'    => $current_user->ID,
                     'post_type'      => 'landing-page',
@@ -35,7 +35,7 @@ function inbound_create_default_post_type(){
         add_post_meta($default_lander, 'lp-main-headline-1', __('Main Catchy Headline Two (B)' , 'landing-pages') );
         add_post_meta($default_lander, 'lp-selected-template-1', 'svtle');
         add_post_meta($default_lander, 'landing-page-myeditor-1', '<h2>'.__( 'Form B' , 'landing-pages') .'</h2><form action="" method="post">'. __( 'First Name' , 'landing-pages') .': <input name="first-name" type="text" /><br>'. __('Last Name' , 'landing-pages') .': <input name="last-name" type="text" /><br>'.__('Email' , 'landing-pages') .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , 'landing-pages').'" /></form>' , 'landing-pages');
-        add_post_meta($default_lander, 'content-1', '<p>(Version B) This is the first paragraph of your landing page where you want to draw the viewer in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>');
+        add_post_meta($default_lander, 'content-1', '<p>(Version B) This is the first paragraph of your landing page where you want to draw the viewers in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>');
 
         // Add A/B Testing meta
         add_post_meta($default_lander, 'lp-ab-variations', '0,1');
