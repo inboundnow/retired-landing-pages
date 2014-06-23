@@ -1,11 +1,11 @@
 <?php
 /**
-* Template Name:  Demo Template
+* Template Name:	Demo Template
 *
-* @package  WordPress Landing Pages
-* @author   David Wells
+* @package	WordPress Landing Pages
+* @author	David Wells
 * @link http://www.inboundnow.com
-* @version  1.0
+* @version	1.0
 */
 
 /* Step 1: Declare Template Key. This will be automatically detected for you */
@@ -43,8 +43,9 @@ $date_picker = lp_get_value($post, $key, 'date-picker');
 $wysiwyg_id = lp_get_value($post, $key, 'wysiwyg-id');
 // File/Image Upload Label: Text field Description. Defined in config.php on line 97
 $media_id = lp_get_value($post, $key, 'media-id');
-// The wordpress content if you want to show default placeholders. See line 107
-$content = get_the_content();
+// The main content if you want to show default placeholders. 
+$content = lp_get_value($post, $key, 'main-content');
+$conversion_area = lp_get_value($post, $key, 'conversion-area-content');
 
 
 // alternatively you can use default wordpress get_post_meta.
@@ -54,30 +55,30 @@ $content = get_the_content();
 <!DOCTYPE html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 7]>	<html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>	<html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <!--  Define page title -->
-  <title><?php wp_title(); ?></title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
+	<!--	Define page title -->
+	<title><?php wp_title(); ?></title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
 
-  <!-- Included CSS Files -->
-  <link rel="stylesheet" href="<?php echo $path; ?>assets/css/style.css">
+	<!-- Included CSS Files -->
+	<link rel="stylesheet" href="<?php echo $path; ?>assets/css/style.css">
 
-  <!-- Included JS Files -->
-  <script src="<?php echo $path; ?>assets/js/modernizr.js"></script>
+	<!-- Included JS Files -->
+	<script src="<?php echo $path; ?>assets/js/modernizr.js"></script>
 
-  <!-- Inline Style Block for implementing css changes based off user settings -->
-  <style type="text/css">
-  <?php
-  // If color changed, apply new hex color
-  if ($color_picker_id != "") {
-    echo "body  { background-color: #$color_picker_id;} ";
-  }
-  ?>
-  </style>
+	<!-- Inline Style Block for implementing css changes based off user settings -->
+	<style type="text/css">
+	<?php
+	// If color changed, apply new hex color
+	if ($color_picker_id != "") {
+	echo "body	{ background-color: #$color_picker_id;} ";
+	}
+	?>
+	</style>
 
 <!-- Load Normal WordPress wp_head() function -->
 <?php wp_head(); ?>
@@ -93,42 +94,42 @@ $content = get_the_content();
 
 <!-- example of conditional statment -->
 <?php if ( $checkbox_id_here === "on" ) {
-      // do something for Example Checkbox Label option
-      }
+		// do something for Example Checkbox Label option
+		}
 ?>
 
 <div id="content-wrapper">
-  <div id="content">
-  <!-- Use the_title(); to print out the main headline -->
-   <h1><?php the_title(); ?></h1>
+	<div id="content">
+	<!-- Use the_title(); to print out the main headline -->
+	<h1><?php the_title(); ?></h1>
 
-    <?php the_content(); ?>
+	<?php echo do_shortcode( $content ); ?>
 
-      <div id="demo-hide">
-      <!-- Echoed out values from the metaboxes from config.php -->
-      <?php echo "Here is the Text Box content:" . $text_box_id . "<br>";
-            echo "Here is the Textarea content:" . $textarea_id . "<br>";
-            echo "Here is the Color Picker Hex:" . $color_picker_id . "<br>";
-            echo "Here is the Radio Value:" . $radio_id_here . "<br>";
-            echo "Here is the Checkbox Value:" . $checkbox_id_here . "<br>";
-            echo "Here is the Dropdown Value:" . $dropdown_id_here . "<br>";
-            echo "Here is the Date Picker Value:" . $date_picker . "<br>";
-            echo "Here is the WYSIWYG editor content:" . $wysiwyg_id . "<br>";
-            echo "Here is the Media upload path:" . $media_id; ?>
+		<div id="demo-hide">
+		<!-- Echoed out values from the metaboxes from config.php -->
+		<?php echo "Here is the Text Box content:" . $text_box_id . "<br>";
+			echo "Here is the Textarea content:" . $textarea_id . "<br>";
+			echo "Here is the Color Picker Hex:" . $color_picker_id . "<br>";
+			echo "Here is the Radio Value:" . $radio_id_here . "<br>";
+			echo "Here is the Checkbox Value:" . $checkbox_id_here . "<br>";
+			echo "Here is the Dropdown Value:" . $dropdown_id_here . "<br>";
+			echo "Here is the Date Picker Value:" . $date_picker . "<br>";
+			echo "Here is the WYSIWYG editor content:" . $wysiwyg_id . "<br>";
+			echo "Here is the Media upload path:" . $media_id; ?>
 
-      </div>
-    </div>
+		</div>
+	</div>
 
 
-    <div id="sidebar">
+	<div id="sidebar">
+		<br><br>
+		<div id="form-area">
+			<b>Conversion Area Content</b>
+			<?php echo do_shortcode( $conversion_area );	// Print out conversion area metabox content ?>
 
-      <div id="form-area">
+		</div>
 
-        <?php lp_conversion_area(); // Print out conversion area metabox content ?>
-
-      </div>
-
-    </div>
+	</div>
 
 
 </div>

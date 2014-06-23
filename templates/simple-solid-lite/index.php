@@ -15,6 +15,8 @@ do_action('lp_init');
 /* Load $post data and start normal WordPress Loop */
 if (have_posts()) : while (have_posts()) : the_post();
 
+$content = lp_get_value($post, $key, 'main-content');
+$conversion_area = lp_get_value($post, $key, 'conversion-area-content');
 $background_style = lp_get_value($post, $key, 'background-style' );
 $background_image = lp_get_value($post, $key, 'background-image' );
 $background_color = lp_get_value($post, $key, 'background-color' );
@@ -131,9 +133,9 @@ h1 {
 <h1><?php the_title();?></h1>
 <?php } ?>
 <div class="inbound-template-intro">
-	<div class="inbound_the_content"><?php the_content(); // Main Content ?></div>
+	<div class="inbound_the_content"><?php echo do_shortcode( $content ); // Main Content ?></div>
 </div>
-<div class="form inbound_the_conversion_area" data-eq-selector=".cf.container .form:eq(0)" data-count-size="1" data-css-selector=".cf.container .form" data-js-selector=".cf.container .form"><?php lp_conversion_area(); // Conversion Area ?></div>
+<div class="form inbound_the_conversion_area" data-eq-selector=".cf.container .form:eq(0)" data-count-size="1" data-css-selector=".cf.container .form" data-js-selector=".cf.container .form"><?php echo do_shortcode( $conversion_area ); // Conversion Area ?></div>
 
 <div class="cf"></div>
 

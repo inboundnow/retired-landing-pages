@@ -28,7 +28,8 @@ if (have_posts()) : while (have_posts()) : the_post();
 	$clear_bg_settings = lp_get_value($post, $key, 'clear-bg-settings');
 	$social_display = lp_get_value($post, $key, 'display-social'); 
 	$submit_button_color = lp_get_value($post, $key, 'submit-button-color'); 
-	$content = lp_content_area(null,null,true);
+	$content = lp_get_value($post, $key, 'main-content');
+	$conversion_area = lp_get_value($post, $key, 'conversion-area-content');
 	
 // Convert Hex to RGB Value for submit button
 function Hex_2_RGB($hex) {
@@ -134,7 +135,7 @@ $blue = $RBG_array["b"];
 		<div class="black-50">
 			<h1><?php lp_main_headline(); ?></h1>
 			
-			<?php echo $content; ?>
+			<?php echo do_shortcode($content); ?>
 
 		</div>
 		
@@ -145,7 +146,7 @@ $blue = $RBG_array["b"];
 
 		<div class="black-50">
 
-			<?php lp_conversion_area(); /* Print out form content */ ?>
+			<?php echo do_shortcode($conversion_area); /* Print out form content */ ?>
 
 		</div>
 	</div>
