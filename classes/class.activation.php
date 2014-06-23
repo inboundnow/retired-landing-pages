@@ -42,15 +42,14 @@ class Landing_Pages_Activation {
 
 	}
 	
-	/* This method loads public methods from the Landing_Pages_Activation_Update_Processes class and automatically runs them if they have not been run yet. 
+	/* This method loads public methods from the Landing_Pages_Activation_Update_Routines class and automatically runs them if they have not been run yet. 
 	 * We use transients to store the data, which may not be the best way but I don't have to worry about save/update/create option and the auto load process 
 	*/
 
 	public static function run_updates() {
 	
-		
-		/* Get list of updaters from Landing_Pages_Activation_Update_Processes class */
-		$updaters = get_class_methods('Landing_Pages_Activation_Update_Processes');
+		/* Get list of updaters from Landing_Pages_Activation_Update_Routines class */
+		$updaters = get_class_methods('Landing_Pages_Activation_Update_Routines');
 		
 		/* Get transient list of completed update processes */
 		$completed = ( get_transient( 'lp_completed_updaters' ) ) ?  get_transient( 'lp_completed_updaters' ) : array();
@@ -61,14 +60,14 @@ class Landing_Pages_Activation {
 		/* Loop through updaters and run updaters that have not been ran */
 		foreach ( $remaining as $updater ) {
 			
-			Landing_Pages_Activation_Update_Processes::$updater();
+			Landing_Pages_Activation_Update_Routines::$updater();
 			$completed[] = $updater;
 			
 		}
 		
 		/* Update this transient value with list of completed upgrade processes */
 		set_transient( 'lp_completed_updaters' , $completed );
-		
+
 	}
 	
 	/* Creates transient records of past and current version data */
