@@ -105,6 +105,7 @@ function inbound_load_shared_landing_pages(){
 
 	/* Singleton Shared Class Loads */
 	include_once('shared/shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
+	include_once('shared/classes/class.post-type.wp-lead.php'); 
 	include_once('shared/classes/class.menu.php');  // Inbound Marketing Menu
 	include_once('shared/classes/class.feedback.php');  // Inbound Feedback Form
 	include_once('shared/classes/class.debug.php');  // Inbound Debug & Scripts Class
@@ -113,6 +114,7 @@ function inbound_load_shared_landing_pages(){
 
 	include_once('shared/classes/class.templating-engine.php');  // Inbound Templating Engine Class
 	include_once('shared/classes/class.shortcodes.email-template.php'); //Inbound Email Templating Shortcodes Class
+	require_once('shared/classes/class.lead-fields.php');  
 	include_once('shared/tracking/store.lead.php'); // Lead Storage from landing pages
 
 	include_once('shared/extend/inboundnow.extend.php');
@@ -121,7 +123,6 @@ function inbound_load_shared_landing_pages(){
 	include_once('shared/extend/inboundnow.global-settings.php'); // Inboundnow Global Settings
 	include_once('shared/assets/assets.loader.class.php');  // Load Shared CSS and JS Assets
 	include_once('shared/functions/global.shared.functions.php'); // Global Shared Utility functions
-	include_once('shared/functions/global.leads.cpt.php'); // Shared Lead functionality
 	include_once('shared/metaboxes/template.metaboxes.php');  // Shared Shortcodes
 
 }
