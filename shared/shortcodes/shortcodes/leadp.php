@@ -10,7 +10,7 @@
 		'options' => array(
 			'align' => array(
 				'name' => __('Alignment', 'leads'),
-				'desc' => __('Add the paragraph alignment', 'leads'),
+				'desc' => __('Add the pharagraph alignment', 'leads'),
 				'type' => 'select',
 				'options' => array(
 					'left' => 'Align Left',
@@ -21,7 +21,7 @@
 			),
 			'content' => array(
 				'name' => __('Paragraph Text', 'leads'),
-				'desc' => __('Add the paragraph text', 'leads'),
+				'desc' => __('Add the pharagraph text', 'leads'),
 				'type' => 'textarea',
 				'std' => ''
 			)

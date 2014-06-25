@@ -16,7 +16,7 @@
 			),
 			'meta' => array(
 				'name' => __('Profile Meta', 'leads'),
-				'desc' => __('Enter the profile meta. e.g "job position" etc.', 'leads'),
+				'desc' => __('Enter the profile meta. e.g job position etc.', 'leads'),
 				'type' => 'text',
 				'std' => ''
 			),
@@ -34,13 +34,13 @@
 			),
 			'facebook' => array(
 				'name' => __('Profile Facebook', 'leads'),
-				'desc' => __('Paste your Facebook URL here.', 'leads'),
+				'desc' => __('Paste your facebook URL here.', 'leads'),
 				'type' => 'text',
 				'std' => ''
 			),
 			'twitter' => array(
 				'name' => __('Profile Twitter', 'leads'),
-				'desc' => __('Paste your Twitter URL here.', 'leads'),
+				'desc' => __('Paste your twitter URL here.', 'leads'),
 				'type' => 'text',
 				'std' => ''
 			),
@@ -77,7 +77,7 @@
 			),
 			'meta' => array(
 				'name' => __('Profile Meta', 'leads'),
-				'desc' => __('Enter the profile meta. e.g "job position" etc.', 'leads'),
+				'desc' => __('Enter the profile meta. e.g job position etc.', 'leads'),
 				'type' => 'text',
 				'std' => '',
 				'class' => '',
@@ -101,7 +101,7 @@
 			),
 			'facebook' => array(
 				'name' => __('Profile Facebook', 'leads'),
-				'desc' => __('Paste your Facebook URL here.', 'leads'),
+				'desc' => __('Paste your facebook URL here.', 'leads'),
 				'type' => 'text',
 				'std' => '',
 				'class' => '',
@@ -109,7 +109,7 @@
 			),
 			'twitter' => array(
 				'name' => __('Profile Twitter', 'leads'),
-				'desc' => __('Paste your Twitter URL here.', 'leads'),
+				'desc' => __('Paste your twitter URL here.', 'leads'),
 				'type' => 'text',
 				'std' => '',
 				'class' => '',
