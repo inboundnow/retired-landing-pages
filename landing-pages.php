@@ -3,14 +3,14 @@
 Plugin Name: Landing Pages
 Plugin URI: http://www.inboundnow.com/landing-pages/
 Description: The first true all-in-one Landing Page solution for WordPress, including ongoing conversion metrics, a/b split testing, unlimited design options and so much more!
-Version:  1.5.7
+Version:  1.5.8
 Author: Inbound Now
 Author URI: http://www.inboundnow.com/
 Text Domain: landing-pages
 Domain Path: shared/languages/landing-pages/
 */
 
-define('LANDINGPAGES_CURRENT_VERSION', '1.5.7' );
+define('LANDINGPAGES_CURRENT_VERSION', '1.5.8' );
 define('LANDINGPAGES_URLPATH', WP_PLUGIN_URL.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 define('LANDINGPAGES_PLUGIN_SLUG', plugin_basename( dirname(__FILE__) ) );
@@ -105,7 +105,7 @@ function inbound_load_shared_landing_pages(){
 
 	/* Singleton Shared Class Loads */
 	include_once('shared/shortcodes/inbound-shortcodes.php');  // Shared Shortcodes
-	include_once('shared/classes/class.post-type.wp-lead.php'); 
+	include_once('shared/classes/class.post-type.wp-lead.php');
 	include_once('shared/classes/class.menu.php');  // Inbound Marketing Menu
 	include_once('shared/classes/class.feedback.php');  // Inbound Feedback Form
 	include_once('shared/classes/class.debug.php');  // Inbound Debug & Scripts Class
@@ -114,7 +114,7 @@ function inbound_load_shared_landing_pages(){
 
 	include_once('shared/classes/class.templating-engine.php');  // Inbound Templating Engine Class
 	include_once('shared/classes/class.shortcodes.email-template.php'); //Inbound Email Templating Shortcodes Class
-	require_once('shared/classes/class.lead-fields.php');  
+	require_once('shared/classes/class.lead-fields.php');
 	include_once('shared/tracking/store.lead.php'); // Lead Storage from landing pages
 
 	include_once('shared/extend/inboundnow.extend.php');
