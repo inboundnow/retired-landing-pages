@@ -26,7 +26,7 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 	}
 
-	class LP_MANAGE_TEMPLATES extends WP_List_Table
+	class LP_Manage_Custom_Templates extends WP_List_Table
 	{
 		private $template_data;
 		private $singular;
@@ -233,10 +233,6 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 
 	}
 
-
-
-
-
 	function lp_manage_templates()
 	{
 		lp_manage_templates_actions_check();
@@ -251,7 +247,7 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 		</h2>
 		<?php
 
-		$myListTable = new LP_MANAGE_TEMPLATES();
+		$myListTable = new LP_Manage_Custom_Templates();
 		$myListTable->prepare_items();
 		?>
 		<form method="post" >

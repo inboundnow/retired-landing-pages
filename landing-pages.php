@@ -87,8 +87,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once('modules/module.templates.php');
 					include_once('modules/module.store.php');
 					include_once('modules/module.customizer.php');
-
-
+	
 				BREAK;
 
 				case false :
@@ -127,8 +126,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 
 
 /* lagacy - Conditional check LP active */
-function lp_check_active()
-{
+function lp_check_active() {
 	return 1;
 }
 
