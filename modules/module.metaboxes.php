@@ -450,9 +450,11 @@ function landing_pages_save_custom_js($post_id) {
 add_action('add_meta_boxes', 'add_custom_meta_box_lp_conversion_log');
 
 function add_custom_meta_box_lp_conversion_log() {
-   add_meta_box('lp_conversion_log_metabox', __( 'Lead Captures' , 'landing-pages') , 'lp_conversion_log_metabox', 'landing-page', 'normal', 'low');
+   //add_meta_box('lp_conversion_log_metabox', __( 'Lead Captures' , 'landing-pages') , 'lp_conversion_log_metabox', 'landing-page', 'normal', 'low');
 }
 
+
+/* This class lists recent conversions for a landing page */
 function lp_conversion_log_metabox() {
 
 
@@ -470,6 +472,8 @@ function lp_conversion_log_metabox() {
 			global $wpdb;
 
 			$final_data = array();
+			
+			
 			$query = "SELECT
 				wposts.*
 				FROM ".$wpdb->posts." AS wposts
@@ -514,24 +518,7 @@ function lp_conversion_log_metabox() {
 
 					$final_data[] = $this_data;
 				}
-				/* Port Old Conversion Logs to new inbound_conversion_data. Not Finished
-				$page_conversion_data = get_post_meta( $post->ID, 'inbound_conversion_data', TRUE );
-				$page_conversion_data = json_decode($page_conversion_data,true);
-				$version = '0';
-				if (is_array($page_conversion_data)){
-					$convert_count = count($page_conversion_data) + 1;
-					$page_conversion_data[$convert_count]['lead_id'] = $row['ID'];
-					$page_conversion_data[$convert_count]['variation'] = $version;
-					$page_conversion_data[$convert_count]['datetime'] = $datetime;
-				} else {
-					$convert_count = 1;
-					$page_conversion_data[$convert_count]['lead_id'] = $row['ID'];
-					$page_conversion_data[$convert_count]['variation'] = $version;
-					$page_conversion_data[$convert_count]['datetime'] = $datetime;
-				}
-				$page_conversion_data = json_encode($page_conversion_data);
-				update_post_meta($post->ID, 'inbound_conversion_data', $page_conversion_data);
-				*/
+				
 			}
 			//print_r($final_data);
 			$this->table_data = $final_data;
