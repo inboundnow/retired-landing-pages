@@ -37,9 +37,9 @@ array(
 		'id'	=> 'turn-off-editor',
 		'type'	=> 'custom-css',
 		'default'	=> '#postdivrich, #lp_2_form_content {display:none !important;}'
-		),	
+		),
 	array(
-	   'label' => __( 'Call to Action Content' , 'landing-pages' ),
+	   'label' => __( 'Conversion Area' , 'landing-pages' ),
 	   'description' => __( 'Place your call to action here.' , 'landing-page' ),
 	   'id' => "conversion-area-content",
 	   'type' => "wysiwyg",

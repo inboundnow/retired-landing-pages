@@ -15,10 +15,10 @@ $key = lp_get_parent_directory(dirname(__FILE__));
 //adds template data to global array for use with landing page plugin - edit theme category and description only.
 
 //EDIT - START - defines template information - helps categorizae template and provides additional popup information
-$lp_data[$key]['category'] = "Video"; 
-$lp_data[$key]['description'] = "Tubelar Template"; 
-$lp_data[$key]['version'] = "1.0.1"; 
-$lp_data[$key]['thumbnail'] = LANDINGPAGES_URLPATH.'templates/'.$key.'/thumbnail.png'; 
+$lp_data[$key]['category'] = "Video";
+$lp_data[$key]['description'] = "Tubelar Template";
+$lp_data[$key]['version'] = "1.0.1";
+$lp_data[$key]['thumbnail'] = LANDINGPAGES_URLPATH.'templates/'.$key.'/thumbnail.png';
 
 //DO NOT EDIT - adds template to template selection dropdown
 $lp_data[$key]['value'] = $key;
@@ -41,7 +41,7 @@ array(
 
 // Define Meta Options for template
 $lp_data[$key]['settings'] =
-array(	
+array(
 	array(
 		'label' => 'turn-off-editor', /* Turns off main content */
 		'description' => 'Turn off editor',
@@ -69,10 +69,10 @@ array(
 [/list]
 
 <p>This is the final sentence or paragraph reassuring the visitor of the benefits of filling out the form and how their data will be safe.</p>'
-		), 
-	
+		),
+
 	array(
-			'label' => __( 'Call to Action Content' , 'landing-pages' ),
+			'label' => __( 'Conversion Area' , 'landing-pages' ),
 			'description' => __( 'Place your call to action here.' , 'landing-page' ),
 			'id' => "conversion-area-content",
 			'type' => "wysiwyg",
