@@ -52,7 +52,7 @@ class Landing_Pages_Activation {
 		$updaters = get_class_methods('Landing_Pages_Activation_Update_Routines');
 		
 		/* Get transient list of completed update processes */
-		$completed = ( get_transient( 'lp_completed_updaters' ) ) ?  get_transient( 'lp_completed_updaters' ) : array();
+		$completed = ( get_option( 'lp_completed_upgrade_routines' ) ) ?  get_option( 'lp_completed_upgrade_routines' ) : array();
 
 		/* Get the difference between the two arrays */
 		$remaining = array_diff( $updaters , $completed );
@@ -66,7 +66,7 @@ class Landing_Pages_Activation {
 		}
 		
 		/* Update this transient value with list of completed upgrade processes */
-		set_transient( 'lp_completed_updaters' , $completed );
+		update_option( 'lp_completed_upgrade_routines' , $completed );
 
 	}
 	
