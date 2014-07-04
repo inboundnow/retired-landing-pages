@@ -448,7 +448,7 @@ Host:						<?php echo $host . "\n"; ?>
 Registered Post Stati:			<?php echo implode( ', ', get_post_stati() ) . "\n\n"; ?>
 
 PHP Version:				<?php echo PHP_VERSION . "\n"; ?>
-MySQL Version:				<?php echo mysql_get_server_info() . "\n"; ?>
+MySQL Version:				<?php echo mysql_get_server_info( $wpdb->dbh ) . "\n"; ?>
 Web Server Info:				<?php echo $_SERVER['SERVER_SOFTWARE'] . "\n"; ?>
 
 PHP Safe Mode:				<?php echo ini_get( 'safe_mode' ) ? "Yes" : "No\n"; ?>
