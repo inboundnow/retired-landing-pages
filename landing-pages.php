@@ -7,14 +7,14 @@ Version:	1.5.8
 Author: Inbound Now
 Author URI: http://www.inboundnow.com/
 Text Domain: landing-pages
-Domain Path: shared/languages/landing-pages/
+Domain Path: lang
 */
 
 if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 
 	final class Inbound_Landing_Pages_Plugin {
 	
-		/*
+		/**
 		* Main Inbound_Landing_Pages_Plugin Instance
 		*
 		*/
@@ -28,10 +28,11 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			/* Run Loaders */
 			self::load_constants();
 			self::load_files();	
-			self::load_shared_files();
+			self::load_shared_files();			
+			self::load_text_domain();
 		}
 
-		/* 
+		/** 
 		* Setup plugin constants 
 		*
 		*/
@@ -49,10 +50,10 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			
 		}
 		
-		/* 
+		/** 
 		* Include required plugin files 
 		*
-*/
+		*/
 		private static function load_files() {						
 			
 			/* load core files */
@@ -109,10 +110,20 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			endswitch;
 		}
 		
-		/* Load Shared Files at priority 2 */
+		/** Load Shared Files at priority 2 */
 		private static function load_shared_files() {
 			require_once('shared/classes/class.load-shared.php'); 
 			add_action( 'plugins_loaded', array( 'Inbound_Load_Shared' , 'init' ) , 2 );
+		}
+		
+		/**
+		*  Loads the correct .mo file for this plugin
+		*  
+		*/
+		private static function load_text_domain() {
+			add_action('init' , function() {
+				load_plugin_textdomain( 'landing-pages' , false , LANDINGPAGES_PLUGIN_SLUG . '/lang/' );
+			});
 		}
 	
 	}
