@@ -13,7 +13,7 @@ if ( !class_exists('Landing_Pages_Activation_Update_Routines') ) {
 		* @migration: convert meta key lp-conversion-area to template-name-conversion-area-content-{vid}
 		*/
 		public static function migrate_legacy_conversion_area_contents() {
-
+		
 			/* for all landing pages load variations */
 			$landing_pages = get_posts( array (
 				'post_type' => 'landing-page',
@@ -31,8 +31,7 @@ if ( !class_exists('Landing_Pages_Activation_Update_Routines') ) {
 					($vid) ? $suffix = '-' . $vid : $suffix = '';
 					
 					$selected_template = get_post_meta( $post->ID , 'lp-selected-template' . $suffix , true );
-					//echo $selected_template;
-					//echo '<br>';
+
 					if ( !$selected_template ) {
 						continue;
 					}
