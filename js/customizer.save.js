@@ -20,6 +20,7 @@ jQuery(document).ready(function($) {
 	//jQuery("#wpcontent").width(iframe_size);
 
 	// On keystroke have save button show
+	/* Disable single settng save while not working
 	jQuery('#lp-frontend-options-container input, #lp-frontend-options-container textarea').on("keyup", function (e) {
 		var this_id = jQuery(this).attr("id");
 		var parent_el = jQuery(this).parent();
@@ -156,6 +157,8 @@ jQuery(document).ready(function($) {
 			
 	});
 
+	*/
+	
 	function MyFunction(id, this_event)
 	{
 		var anchor = id;

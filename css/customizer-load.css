@@ -19,6 +19,13 @@
 	-o-transition: all 0.3s ease-out;
 	transition: all 0.3s ease-out;
 }
+
+
+#template-display-options  .inbound-meta-box-label {
+	width:100%;
+}
+
+
 html {
 margin-top: 0px !important;
 }
