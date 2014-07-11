@@ -7,6 +7,7 @@ body {
 #wpadminbar, #adminmenuback, #current_variation_id, #post_ID {
 display: none !important;
 }
+
 #adminmenuwrap {display: none !important;}
 .auto-fold #wpcontent {
 margin-left: 0px;
