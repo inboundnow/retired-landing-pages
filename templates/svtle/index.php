@@ -84,7 +84,7 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
             echo "@media (max-width: 630px) { #lp_container {display:none;}}"; // css rule for mobile devices
         }
         ?> <?php if ($sidebar_color !="") {
-            echo "header#sidebar {background-color: #$sidebar_color;}"; // change sidebar color
+            echo "body, header#sidebar {background-color: #$sidebar_color;}"; // change sidebar color
            echo "@media (max-width: 900px) { body { background-color: #$sidebar_color;} }";
         }
         ?> <?php if ($header_color !="") {
@@ -125,7 +125,7 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
         }
     </style>
     <script type="text/javascript">
-        jQuery(document).ready(function () {
+        jQuery(document).ready(function($) {
             $(function () {
                 $('figure, picture').picture();
             });
@@ -147,7 +147,7 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
             </figure>
         </aside>
         <aside id="form-area">
-            <?php echo do_shortcode( $conversion_area ); ?> 
+            <?php echo do_shortcode( $conversion_area ); ?>
         </aside>
     </header>
     <section id="river" role="main">
