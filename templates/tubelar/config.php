@@ -106,7 +106,7 @@ array(
 	array(
 		'label' => 'Content Background Color',
 		'description' => "Use this setting to change the template's submit button color.",
-		'id'	=> 'boxcolor',
+		'id'	=> 'box-color',
 		'type'	=> 'colorpicker',
 		'default'	=> '000000',
 		'context'	=> 'normal'
@@ -114,7 +114,7 @@ array(
 	array(
 		'label' => __('Background Color Settings' , 'landing-pages' ),
 		'description' => __ ('Use this setting to change the content area\'s background color' , 'landing-pages' ),
-		'id'	=> 'content-background',
+		'id'	=> 'clear-bg-settings',
 		'type'	=> 'dropdown',
 		'default'	=> 'clear-bg-settings',
 		'context'	=> 'normal',

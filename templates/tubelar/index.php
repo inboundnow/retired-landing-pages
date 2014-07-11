@@ -86,6 +86,7 @@ $blue = $RBG_array["b"];
 			if ($boxcolor != "") { echo ".black-50{background: url('".$path."image.php?hex=$boxcolor');}"; }
 		} 	?>  
 	<?php if ($clear_bg_settings === "solid"){
+		//echo $boxcolor;exit;
 		echo ".black-50{background: #$boxcolor}";
 	} ?>	 
 	 <?php if ($submit_button_color != "") {
