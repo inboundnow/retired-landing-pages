@@ -24,7 +24,7 @@ array(
 
 // Define Meta Options for template
 $lp_data[$key]['settings'] =
-array(	
+array(
 	array(
 		'label' => 'turn-off-editor', /* Turns off main content */
 		'description' => 'Turn off editor',
@@ -33,7 +33,7 @@ array(
 		'default'	=> '#postdivrich, #lp_2_form_content {display:none !important;}'
 		),
 	array(
-           'label' => __( 'Call to Action Content' , 'landing-pages' ),
+           'label' => __( 'Conversion Area' , 'landing-pages' ),
            'description' => __( 'Place your call to action here.' , 'landing-page' ),
            'id' => "conversion-area-content",
            'type' => "wysiwyg",
@@ -59,8 +59,8 @@ array(
 [/list]
 
 <p>This is the final sentence or paragraph reassuring the visitor of the benefits of filling out the form and how their data will be safe.</p>'
-         ), 
-	
+         ),
+
     array(
         'label' => 'Countdown Date', // Name of field
         'description' => "What date are we counting down to?", // what field does

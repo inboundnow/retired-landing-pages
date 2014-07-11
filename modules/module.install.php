@@ -13,7 +13,7 @@ function inbound_create_default_post_type(){
     //delete_option( 'lp_settings_general' );
     $lp_default_options = get_option($option_name);
     // Create Default if it doesn't exist
-    if ( ! isset( $lp_default_options[$option_key] ) ) 
+    if ( ! isset( $lp_default_options[$option_key] ) )
 	{
         $default_lander = wp_insert_post(
                 array(
@@ -25,17 +25,17 @@ function inbound_create_default_post_type(){
                     'comment_status' => 'closed'
                 )
             );
-			
+
         // Variation A
         add_post_meta($default_lander, 'lp-main-headline', __( 'Main Catchy Headline (A)' , 'landing-pages') );
         add_post_meta($default_lander, 'lp-selected-template', 'svtle');
-        add_post_meta($default_lander, 'svtle-conversion-area-content', '<h2>'.__( 'Form a' , 'landing-pages') .'</h2><form action="" method="post">'. __( 'First Name' , 'landing-pages') .': <input name="first-name" type="text" /><br>'. __('Last Name' , 'landing-pages') .': <input name="last-name" type="text" /><br>'.__('Email' , 'landing-pages') .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , 'landing-pages').'" /></form>' );
+        add_post_meta($default_lander, 'svtle-conversion-area-content', '<h2>'.__( 'Form a' , 'landing-pages') .'</h2>[inbound_forms id="default_1" name="First, Last, Email Form"]' );
         add_post_meta($default_lander, 'svtle-main-content', __( '<p>This is the first paragraph of your landing page where you want to draw the viewers in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>' , 'landing-pages') );
-       
+
 		// variation B
         add_post_meta($default_lander, 'lp-main-headline-1', __('Main Catchy Headline Two (B)' , 'landing-pages') );
         add_post_meta($default_lander, 'lp-selected-template-1', 'svtle');
-        add_post_meta($default_lander, 'svtle-conversion-area-content-1', '<h2>'.__( 'Form B' , 'landing-pages') .'</h2><form action="" method="post">'. __( 'First Name' , 'landing-pages') .': <input name="first-name" type="text" /><br>'. __('Last Name' , 'landing-pages') .': <input name="last-name" type="text" /><br>'.__('Email' , 'landing-pages') .':<input name="email" type="text" /><br><input name="submit" type="submit" value="'.__('Submit' , 'landing-pages').'" /></form>' , 'landing-pages');
+        add_post_meta($default_lander, 'svtle-conversion-area-content-1', '<h2>'.__( 'Form B' , 'landing-pages') .'</h2>[inbound_forms id="default_1" name="First, Last, Email Form"]');
         add_post_meta($default_lander, 'svtle-main-content-1', '<p>(Version B) This is the first paragraph of your landing page where you want to draw the viewers in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>');
 
         // Add A/B Testing meta
@@ -44,7 +44,7 @@ function inbound_create_default_post_type(){
         add_post_meta($default_lander, 'lp-ab-variation-impressions-1', 35);
         add_post_meta($default_lander, 'lp-ab-variation-conversions-0', 10);
         add_post_meta($default_lander, 'lp-ab-variation-conversions-1', 15);
-		
+
         // Add template meta A
         add_post_meta($default_lander, 'svtle-submit-button-color', '5baa1e');
         add_post_meta($default_lander, 'svtle-display-social', '0');
@@ -55,7 +55,7 @@ function inbound_create_default_post_type(){
         add_post_meta($default_lander, 'svtle-sidebar-color', 'ffffff');
         add_post_meta($default_lander, 'svtle-sidebar-text-color', '000000');
         add_post_meta($default_lander, 'svtle-header-color', 'ffffff');
-		
+
         // Add template meta B
         add_post_meta($default_lander, 'svtle-submit-button-color-1', 'ff0c00');
         add_post_meta($default_lander, 'svtle-display-social-1', '0');
@@ -66,7 +66,7 @@ function inbound_create_default_post_type(){
         add_post_meta($default_lander, 'svtle-sidebar-color-1', '51b0ef');
         add_post_meta($default_lander, 'svtle-sidebar-text-color-1', '000000');
         add_post_meta($default_lander, 'svtle-header-color-1', '51b0ef');
-		
+
 
         // Store our page IDs
         $options = array(

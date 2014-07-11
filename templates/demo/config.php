@@ -110,10 +110,10 @@ array(
 [/list]
 
 <p>This is the final sentence or paragraph reassuring the visitor of the benefits of filling out the form and how their data will be safe.</p>'
-         ), 
-	
+         ),
+
 	array(
-           'label' => __( 'Call to Action Content' , 'landing-pages' ),
+           'label' => __( 'Conversion Area' , 'landing-pages' ),
            'description' => __( 'Place your call to action here.' , 'landing-page' ),
            'id' => "conversion-area-content",
            'type' => "wysiwyg",

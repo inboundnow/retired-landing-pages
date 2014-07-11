@@ -30,7 +30,7 @@ array(
 		'id'	=> 'turn-off-editor',
 		'type'	=> 'custom-css',
 		'default'	=> '#postdivrich, #lp_2_form_content {display:none !important;}'
-		),	
+		),
      array(
            'label' => __( 'Main Content' , 'landing-pages' ) ,
            'description' => __( 'This is the default content from template.' , 'landing-pages' ),
@@ -53,7 +53,7 @@ array(
 <p>This is the final sentence or paragraph reassuring the visitor of the benefits of filling out the form and how their data will be safe.</p>'
          ),
 	array(
-           'label' => __( 'Call to Action Content' , 'landing-pages' ),
+           'label' => __( 'Conversion Area' , 'landing-pages' ),
            'description' => __( 'Place your call to action here.' , 'landing-page' ),
            'id' => "conversion-area-content",
            'type' => "wysiwyg",
