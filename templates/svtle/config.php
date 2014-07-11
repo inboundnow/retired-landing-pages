@@ -79,7 +79,7 @@ array(
     array(
         'label' => __( 'Submit Button Background Color' , 'landing-pages' ),
         'description' => __( 'Submit Button Background Color' , 'landing-pages' ) ,
-        'id'  =>'submit-button-color'
+        'id'  =>'submit-button-color',
         'type'  => 'colorpicker',
         'default'  => '5baa1e',
         'context'  => 'normal'
