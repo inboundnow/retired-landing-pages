@@ -53,10 +53,8 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 					//continue;
 
 				//echo "<br>";
-				if (isset($_POST['s'])&&!empty($_POST['s']))
-				{
-					if (!stristr($data['info']['label'],$_POST['s']))
-					{
+				if (isset($_POST['s'])&&!empty($_POST['s'])) {
+					if (!stristr($data['info']['label'],$_POST['s'])) {
 						continue;
 					}
 				}
@@ -233,8 +231,7 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 
 	}
 
-	function lp_manage_templates()
-	{
+	function lp_manage_templates() {
 		lp_manage_templates_actions_check();
 		$title = __('Manage Templates');
 		echo '<div class="wrap">';
