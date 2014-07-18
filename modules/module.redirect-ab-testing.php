@@ -53,16 +53,12 @@ class LP_Variation_Rotation {
 	
 	/* Loads the ID of the Landing Page */
 	static function load_post_id() {
-		global $table_prefix;
+		global $wpdb;
 		
-		$query = "SELECT * FROM {$table_prefix}posts WHERE post_name='".mysql_real_escape_string($_GET['permalink_name'])."' AND post_type='landing-page' LIMIT 1";
-		$result = mysql_query($query);
-		if (!$result){ echo $query; echo mysql_error(); exit;}	
-
-		$array = mysql_fetch_array($result);
-		$post_id = $array['ID'];
+		$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='landing-page'", $_GET['permalink_name'] ));
 		
-		return $post_id;		
+		return $post_id;
+		
 	}
 	
 	/* Loads an Array of Active Variations Associated with Landing Page */
