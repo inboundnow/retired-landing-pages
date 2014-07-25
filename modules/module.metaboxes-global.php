@@ -1,7 +1,7 @@
 <?php
 
 /* add meta boxes to posts, pages, and non excluded cpts */
-add_action('add_meta_boxes', 'lp_add_global_meta_box');
+add_action('add_meta_boxes', 'lp_add_global_meta_box' , 10 );
 function lp_add_global_meta_box()
 {
 
