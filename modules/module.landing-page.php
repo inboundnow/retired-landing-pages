@@ -13,37 +13,29 @@ add_filter('single_template', 'lp_custom_template');
 function lp_custom_template($single) {
     global $wp_query, $post, $query_string;
 	//echo 2;exit;
-	if ($post->post_type == "landing-page")
-	{
+	if ($post->post_type == "landing-page") {
 		$template = get_post_meta($post->ID, 'lp-selected-template', true);
 		$template = apply_filters('lp_selected_template',$template);
 
 
-		if (isset($template))
-		{
+		if (isset($template)) {
 
-			if (strstr($template,'-slash-'))
-			{
+			if (strstr($template,'-slash-')) {
 				$template = str_replace('-slash-','/',$template);
 			}
 
 			$my_theme =  wp_get_theme($template);
 
-			if ($my_theme->exists())
-			{
+			if ($my_theme->exists()) {
 				return "";
-			}
-			else if ($template!='default')
-			{
+			} else if ($template!='default') {
+
 				$template = str_replace('_','-',$template);
 				//echo LANDINGPAGES_URLPATH.'templates/'.$template.'/index.php'; exit;
-				if (file_exists(LANDINGPAGES_PATH.'templates/'.$template.'/index.php'))
-				{
+				if (file_exists(LANDINGPAGES_PATH.'templates/'.$template.'/index.php')) {
 					//query_posts ($query_string . '&showposts=1');
 					return LANDINGPAGES_PATH.'templates/'.$template.'/index.php';
-				}
-				else
-				{
+				} else {
 					//query_posts ($query_string . '&showposts=1');
 					return LANDINGPAGES_UPLOADS_PATH.$template.'/index.php';
 				}
@@ -68,7 +60,7 @@ function landing_pages_insert_custom_head()
 		$custom_js_name = apply_filters('lp_custom_js_name','lp-custom-js');
 		$custom_css = get_post_meta($post->ID, $custom_css_name, true);
 		$custom_js = get_post_meta($post->ID, $custom_js_name, true);
-
+		echo "<!-- This site landing page was built with the WordPress Landing Pages plugin - https://www.inboundnow.com/landing-pages/ -->";
 		//Print Custom CSS
 		if (!stristr($custom_css,'<style'))
 		{
@@ -181,7 +173,7 @@ function lp_conversion_area($post = null, $content=null,$return=false, $doshortc
 
 
 	$content = apply_filters('lp_conversion_area_post',$content, $post);
-	
+
 	if(!$return)
 	{
 		$content = str_replace('<p><div id="inbound-form-wrapper"', '<div id="inbound-form-wrapper"',  $content);
