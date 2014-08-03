@@ -29,7 +29,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			self::load_constants();
 			self::load_files();	
 			self::load_shared_files();			
-			self::load_text_domain();
+			self::load_text_domain_init();
 		}
 
 		/** 
@@ -117,13 +117,17 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		}
 		
 		/**
-		*  Loads the correct .mo file for this plugin
-		*  
+		*  Hooks the text domain loader to the init
 		*/
-		private static function load_text_domain() {
-			add_action('init' , function() {
-				load_plugin_textdomain( 'landing-pages' , false , LANDINGPAGES_PLUGIN_SLUG . '/lang/' );
-			});
+		private static function load_text_domain_init() {
+			add_action( 'init' , array( __CLASS__ , 'load_text_domain' ) );			
+		}
+		
+		/**
+		*  Loads the correct .mo file for this plugin
+		*/
+		public static function load_text_domain() {
+			load_plugin_textdomain( 'landing-pages' , false , LANDINGPAGES_PLUGIN_SLUG . '/lang/' );
 		}
 	
 	}
