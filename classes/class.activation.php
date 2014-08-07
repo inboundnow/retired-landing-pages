@@ -39,7 +39,9 @@ class Landing_Pages_Activation {
 		
 		/* Set Default Settings */
 		self::set_default_settings();
-
+		
+		/* Activate shared components */
+		self::activate_shared();
 	}
 	
 	/* This method loads public methods from the Landing_Pages_Activation_Update_Routines class and automatically runs them if they have not been run yet. 
@@ -91,6 +93,13 @@ class Landing_Pages_Activation {
 			global $wp_rewrite;
 			$wp_rewrite->flush_rules();
 		*/
+	}
+	
+	/**
+	*  Tells Inbound Shared to run activation commands
+	*/
+	public static function activate_shared() {
+		set_transient( 'Inbound_Activate', true );
 	}
 	
 	/* Aborts activation and details 
