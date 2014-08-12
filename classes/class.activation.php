@@ -1,6 +1,5 @@
 <?php
 
-
 if ( !class_exists('Landing_Pages_Activation') ) {
 
 class Landing_Pages_Activation {
@@ -42,6 +41,7 @@ class Landing_Pages_Activation {
 		
 		/* Activate shared components */
 		self::activate_shared();
+
 	}
 	
 	/* This method loads public methods from the Landing_Pages_Activation_Update_Routines class and automatically runs them if they have not been run yet. 
@@ -71,6 +71,42 @@ class Landing_Pages_Activation {
 		update_option( 'lp_completed_upgrade_routines' , $completed );
 
 	}
+	
+	/**
+	*  This method checks if there are upgrade routines that have not been executed yet and notifies the administror if there are
+	*    
+	*/
+	public static function run_upgrade_routine_checks() {
+		
+		/* Listen for a manual upgrade call */
+		if (isset($_GET['plugin_action']) && $_GET['plugin_action'] == 'upgrade_routines' && $_GET['plugin'] =='landing-pages' ) {
+			self::run_updates();
+			wp_redirect(admin_url('edit.php?post_type=landing-page'));
+			exit;
+		}
+		
+		/* Get list of updaters from Landing_Pages_Activation_Update_Routines class */
+		$updaters = get_class_methods('Landing_Pages_Activation_Update_Routines');
+		
+		/* Get transient list of completed update processes */
+		$completed = ( get_option( 'lp_completed_upgrade_routines' ) ) ?  get_option( 'lp_completed_upgrade_routines' ) : array();
+		
+		/* Get the difference between the two arrays */
+		$remaining = array_diff( $updaters , $completed );
+		
+		if (count($remaining)>0) {
+			add_action( 'admin_notices', array( __CLASS__ , 'display_upgrade_routine_notice' ) );
+		}
+	}
+	
+	public static function display_upgrade_routine_notice() {
+		?>
+		<div class="error">
+			<p><?php _e( '<strong>WARNING!</strong> We\'ve noticed that <strong>Landing Pages plugin</strong> requires <strong>database upgrades</strong> for proper functioning. To manually initiate the db updates please click the following link:', 'landing-pages' ); ?> <a href='?plugin=landing-pages&plugin_action=upgrade_routines'><?php _e('Run Upgrade Processes' , 'landing-pages' ); ?></a></p>
+		</div>
+		<?php
+	}
+	
 	
 	/* Creates transient records of past and current version data */
 	public static function store_version_data() {
@@ -200,5 +236,9 @@ class Landing_Pages_Activation {
 /* Add Activation Hook */
 register_activation_hook( LANDINGPAGES_FILE , array( 'Landing_Pages_Activation' , 'activate' ) );
 register_deactivation_hook( LANDINGPAGES_FILE , array( 'Landing_Pages_Activation' , 'deactivate' ) );
+
+
+/* Add listener for uncompleted upgrade routines */
+add_action( 'admin_init' , array( 'Landing_Pages_Activation' , 'run_upgrade_routine_checks' ) );
 
 }
