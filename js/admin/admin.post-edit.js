@@ -342,6 +342,7 @@ jQuery(document).ready(function($) {
     jQuery("#lp_metabox_select_template h3").first().prepend('<strong>' + capitaliseFirstLetter(clean_template_name) + '</strong> - ');
 
     jQuery('#lp-change-template-button').live('click', function () {
+		jQuery('.acf-postbox').remove();
         jQuery(".wrap").fadeOut(500,function(){
 
             jQuery(".lp-template-selector-container").fadeIn(500, function(){
