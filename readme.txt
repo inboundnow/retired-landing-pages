@@ -47,7 +47,7 @@ We built the landing page plugin as a framework! Need A/B testing out of the box
 
 You can quickly take your existing designs and implement them using our <a href="http://docs.inboundnow.com/section/developer/">templating framework</a>.
 
-The plugin is also fully extendable and has a number of <a href='http://docs.inboundnow.com/guide/landing-page-core-hooks-filters/'>actions, filters</a>, and hooks available for use. If a hook doesn't exist, simply ask and we can implement custom changes.
+The plugin is also fully extendable and has a number of actions, filters, and hooks available for use. If a hook doesn't exist, simply ask and we can implement custom changes.
 
 
 [Follow Development on GitHub ](https://github.com/inboundnow/landing-pages "Follow & Contribute to core development on GitHub")
