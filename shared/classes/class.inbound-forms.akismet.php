@@ -175,7 +175,8 @@ if ( !class_exists('Inbound_Akismet') ) {
 	}
 
 	/* Load Email Templates Post Type Pre Init */
-	add_action('plugins_loaded' , function() {
+	function inbound_akismet_init() {
 		$GLOBALS['Inbound_Akismet'] = new Inbound_Akismet();
-	} );
+	}
+	add_action('plugins_loaded' , 'inbound_akismet_init' );
 }
