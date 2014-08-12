@@ -15,38 +15,9 @@ var InboundAnalytics = (function () {
 
    var App = {
      init: function () {
-          this.polyFills();
+          InboundAnalytics.Utils.init();
           InboundAnalytics.PageTracking.StorePageView();
           InboundAnalytics.Events.loadEvents();
-          InboundAnalytics.Utils.init();
-     },
-     polyFills: function() {
-          /* Console.log fix for old browsers */
-          if (!window.console) { window.console = {}; }
-          var m = [
-            "log", "info", "warn", "error", "debug", "trace", "dir", "group",
-            "groupCollapsed", "groupEnd", "time", "timeEnd", "profile", "profileEnd",
-            "dirxml", "assert", "count", "markTimeline", "timeStamp", "clear"
-          ];
-          // define undefined methods as noops to prevent errors
-          for (var i = 0; i < m.length; i++) {
-            if (!window.console[m[i]]) {
-              window.console[m[i]] = function() {};
-            }
-          }
-          /* Event trigger polyfill for IE9 and 10 */
-          (function () {
-            function CustomEvent ( event, params ) {
-              params = params || { bubbles: false, cancelable: false, detail: undefined };
-              var evt = document.createEvent( 'CustomEvent' );
-              evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-              return evt;
-             };
-
-            CustomEvent.prototype = window.Event.prototype;
-
-            window.CustomEvent = CustomEvent;
-          })();
      },
      /* Debugger Function toggled by var debugMode */
      debug: function(msg,callback){
@@ -77,10 +48,39 @@ var InboundAnalyticsUtils = (function (InboundAnalytics) {
 
     InboundAnalytics.Utils =  {
       init: function() {
+          this.polyFills();
           this.setUrlParams();
           this.SetUID();
           this.getReferer();
 
+      },
+      polyFills: function() {
+           /* Console.log fix for old browsers */
+           if (!window.console) { window.console = {}; }
+           var m = [
+             "log", "info", "warn", "error", "debug", "trace", "dir", "group",
+             "groupCollapsed", "groupEnd", "time", "timeEnd", "profile", "profileEnd",
+             "dirxml", "assert", "count", "markTimeline", "timeStamp", "clear"
+           ];
+           // define undefined methods as noops to prevent errors
+           for (var i = 0; i < m.length; i++) {
+             if (!window.console[m[i]]) {
+               window.console[m[i]] = function() {};
+             }
+           }
+           /* Event trigger polyfill for IE9 and 10 */
+           (function () {
+             function CustomEvent ( event, params ) {
+               params = params || { bubbles: false, cancelable: false, detail: undefined };
+               var evt = document.createEvent( 'CustomEvent' );
+               evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+               return evt;
+              };
+
+             CustomEvent.prototype = window.Event.prototype;
+
+             window.CustomEvent = CustomEvent;
+           })();
       },
       // Create cookie
       createCookie: function(name, value, days, custom_time) {
@@ -363,11 +363,14 @@ var InboundAnalyticsUtils = (function (InboundAnalytics) {
       }
 
     },
+    /* Cross-browser event listening  */
     addListener: function(obj, eventName, listener) {
       if(obj.addEventListener) {
         obj.addEventListener(eventName, listener, false);
-      } else {
+      } else if (obj.attachEvent) {
         obj.attachEvent("on" + eventName, listener);
+      } else {
+        obj['on' + eventName] = listener;
       }
     }
 
@@ -377,6 +380,142 @@ var InboundAnalyticsUtils = (function (InboundAnalytics) {
 
 })(InboundAnalytics || {});
 
+/* Fork of jquery.total-storage.js */
+var InboundTotalStorage = (function (InboundAnalytics){
+
+  /* Variables I'll need throghout */
+
+  var supported, ls, mod = 'inboundAnalytics';
+  if ('localStorage' in window){
+    try {
+      ls = (typeof window.localStorage === 'undefined') ? undefined : window.localStorage;
+      if (typeof ls == 'undefined' || typeof window.JSON == 'undefined'){
+        supported = false;
+      } else {
+        supported = true;
+      }
+      window.localStorage.setItem(mod, '1');
+      window.localStorage.removeItem(mod);
+    }
+    catch (err){
+      supported = false;
+    }
+  }
+
+  /* Make the methods public */
+  InboundAnalytics.totalStorage = function(key, value, options){
+    return InboundAnalytics.totalStorage.impl.init(key, value);
+  };
+
+  InboundAnalytics.totalStorage.setItem = function(key, value){
+    return InboundAnalytics.totalStorage.impl.setItem(key, value);
+  };
+
+  InboundAnalytics.totalStorage.getItem = function(key){
+    return InboundAnalytics.totalStorage.impl.getItem(key);
+  };
+
+  InboundAnalytics.totalStorage.getAll = function(){
+    return InboundAnalytics.totalStorage.impl.getAll();
+  };
+
+  InboundAnalytics.totalStorage.deleteItem = function(key){
+    return InboundAnalytics.totalStorage.impl.deleteItem(key);
+  };
+
+  /* Object to hold all methods: public and private */
+
+  InboundAnalytics.totalStorage.impl = {
+
+    init: function(key, value){
+      if (typeof value != 'undefined') {
+        return this.setItem(key, value);
+      } else {
+        return this.getItem(key);
+      }
+    },
+
+    setItem: function(key, value){
+      if (!supported){
+        try {
+          InboundAnalytics.Utils.createCookie((key, value);
+          return value;
+        } catch(e){
+          console.log('Local Storage not supported by this browser. Install the cookie plugin on your site to take advantage of the same functionality. You can get it at https://github.com/carhartl/jquery-cookie');
+        }
+      }
+      var saver = JSON.stringify(value);
+      ls.setItem(key, saver);
+      return this.parseResult(saver);
+    },
+    getItem: function(key){
+      if (!supported){
+        try {
+          return this.parseResult(InboundAnalytics.Utils.readCookie((key));
+        } catch(e){
+          return null;
+        }
+      }
+      var item = ls.getItem(key);
+      return this.parseResult(item);
+    },
+    deleteItem: function(key){
+      if (!supported){
+        try {
+          InboundAnalytics.Utils.eraseCookie((key, null);
+          return true;
+        } catch(e){
+          return false;
+        }
+      }
+      ls.removeItem(key);
+      return true;
+    },
+    getAll: function(){
+      var items = [];
+      if (!supported){
+        try {
+          var pairs = document.cookie.split(";");
+          for (var i = 0; i<pairs.length; i++){
+            var pair = pairs[i].split('=');
+            var key = pair[0];
+            items.push({key:key, value:this.parseResult(InboundAnalytics.Utils.readCookie((key))});
+          }
+        } catch(e){
+          return null;
+        }
+      } else {
+        for (var j in ls){
+          if (j.length){
+            items.push({key:j, value:this.parseResult(ls.getItem(j))});
+          }
+        }
+      }
+      return items;
+    },
+    parseResult: function(res){
+      var ret;
+      try {
+        ret = JSON.parse(res);
+        if (typeof ret == 'undefined'){
+          ret = res;
+        }
+        if (ret == 'true'){
+          ret = true;
+        }
+        if (ret == 'false'){
+          ret = false;
+        }
+        if (parseFloat(ret) == ret && typeof ret != "object"){
+          ret = parseFloat(ret);
+        }
+      } catch(e){
+        ret = res;
+      }
+      return ret;
+    }
+  };
+})(InboundAnalytics || {});
 
 var InboundAnalyticsPageTracking = (function (InboundAnalytics) {
 
@@ -497,6 +636,54 @@ var InboundAnalyticsPageTracking = (function (InboundAnalytics) {
         };
         InboundAnalytics.Utils.doAjax(data, firePageCallback);
       }
+    },
+    tabSwitch: function() {
+        /* test out simplier script
+        function onBlur() {
+          document.body.className = 'blurred';
+        };
+        function onFocus(){
+          document.body.className = 'focused';
+        };
+
+        if (false) { // check for Internet Explorer
+          document.onfocusin = onFocus;
+          document.onfocusout = onBlur;
+        } else {
+          window.onfocus = onFocus;
+          window.onblur = onBlur;
+        }
+        */
+
+       var hidden, visibilityState, visibilityChange;
+
+        if (typeof document.hidden !== "undefined") {
+          hidden = "hidden", visibilityChange = "visibilitychange", visibilityState = "visibilityState";
+        } else if (typeof document.mozHidden !== "undefined") {
+          hidden = "mozHidden", visibilityChange = "mozvisibilitychange", visibilityState = "mozVisibilityState";
+        } else if (typeof document.msHidden !== "undefined") {
+          hidden = "msHidden", visibilityChange = "msvisibilitychange", visibilityState = "msVisibilityState";
+        } else if (typeof document.webkitHidden !== "undefined") {
+          hidden = "webkitHidden", visibilityChange = "webkitvisibilitychange", visibilityState = "webkitVisibilityState";
+        } // if
+
+        var document_hidden = document[hidden];
+
+        document.addEventListener(visibilityChange, function() {
+          if(document_hidden != document[hidden]) {
+            if(document[hidden]) {
+              // Document hidden
+              console.log('hidden');
+              InboundAnalytics.Events.browserTabHidden();
+            } else {
+              // Document shown
+              console.log('shown');
+              InboundAnalytics.Events.browserTabVisible();
+            } // if
+
+            document_hidden = document[hidden];
+          } // if
+        });
     }
   }
 
@@ -839,7 +1026,7 @@ var InboundAnalyticsLeadsAPI = (function (InboundAnalytics) {
             "form_input_values": all_form_fields,
             "Mapped_Data": mapped_form_data,
             "Search_Data": data['search_data']
-          }
+        }
         return return_data;
       },
       formSubmit: function (e){
@@ -986,6 +1173,7 @@ jQuery(document).on('inbound_analytics_page_revisit', function (event, data) {
  * @param  Object InboundAnalytics - Main JS object
  * @return Object - include event triggers
  */
+// https://github.com/carldanley/WP-JS-Hooks/blob/master/src/event-manager.js
 var InboundAnalyticsEvents = (function (InboundAnalytics) {
 
     InboundAnalytics.Events =  {
@@ -1064,6 +1252,23 @@ var InboundAnalyticsEvents = (function (InboundAnalytics) {
           this.triggerJQueryEvent(eventName, data);
           console.log('Page Revisit');
       },
+      /* get idle times https://github.com/robflaherty/riveted/blob/master/riveted.js */
+      browserTabHidden: function() {
+        /* http://www.thefutureoftheweb.com/demo/2007-05-16-detect-browser-window-focus/ */
+          var eventName = "inbound_analytics_tab_hidden";
+          var tab_hidden = new CustomEvent(eventName);
+          window.dispatchEvent(tab_hidden);
+          console.log('Tab Hidden');
+          this.triggerJQueryEvent(eventName);
+      }
+      browserTabVisible: function() {
+        var eventName = "inbound_analytics_tab_visible";
+        var tab_visible = new CustomEvent(eventName);
+        window.dispatchEvent(tab_visible);
+        console.log('Tab Visible');
+        this.triggerJQueryEvent(eventName);
+      },
+      /* Scrol depth https://github.com/robflaherty/jquery-scrolldepth/blob/master/jquery.scrolldepth.js */
       sessionStart: function() {
           var session_start = new CustomEvent("inbound_analytics_session_start");
           window.dispatchEvent(session_start);
