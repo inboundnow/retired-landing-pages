@@ -644,8 +644,7 @@ class Inbound_Shortcodes {
 				<?php
 
 				$lead_conversion_list = get_post_meta( $post_id , 'lead_conversion_list', TRUE );
-				if ($lead_conversion_list)
-				{
+				if ($lead_conversion_list) {
 					$lead_conversion_list = json_decode($lead_conversion_list,true);
 					foreach ($lead_conversion_list as $key => $value) {
 						$email = $lead_conversion_list[$key]['email'];

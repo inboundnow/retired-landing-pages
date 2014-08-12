@@ -344,10 +344,12 @@ if ( !class_exists('Inbound_Leads') ) {
 		
 	}
 
-	/* Load Email Templates Post Type Pre Init */
+	/**
+	*  	Register 'wp-lead' CPT
+	*/	
+	add_action('init' , 'inbound_leads_init' , 9 );
 	function inbound_leads_init() {
 		$GLOBALS['Inbound_Leads'] = new Inbound_Leads();
 	}
-	add_action('init' , 'inbound_leads_init', 9 );
-
+	
 }
