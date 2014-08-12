@@ -345,7 +345,9 @@ if ( !class_exists('Inbound_Leads') ) {
 	}
 
 	/* Load Email Templates Post Type Pre Init */
-	add_action('init' , function() {
+	function inbound_leads_init() {
 		$GLOBALS['Inbound_Leads'] = new Inbound_Leads();
-	} , 9 );
+	}
+	add_action('init' , 'inbound_leads_init', 9 );
+
 }
