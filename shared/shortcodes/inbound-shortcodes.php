@@ -235,7 +235,7 @@ class Inbound_Shortcodes {
 
 		return $button;
 	}
- /**
+ /*
 	static function inbound_shortcode_prompt($hook) {
 
 		global $pagenow, $current_user, $post;
@@ -621,7 +621,7 @@ class Inbound_Shortcodes {
 	static function inbound_forms_header_area()
 	{
 		global $post;
-		
+
 		$post_id = $post->ID;
 		$post_title = get_the_title( $post_id );
 		$popup = trim(get_post_meta($post->ID, 'inbound_shortcode', true));
