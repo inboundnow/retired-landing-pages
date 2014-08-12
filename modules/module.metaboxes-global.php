@@ -2,10 +2,9 @@
 
 /* add meta boxes to posts, pages, and non excluded cpts */
 add_action('add_meta_boxes', 'lp_add_global_meta_box' , 10 );
-function lp_add_global_meta_box()
+function lp_add_global_meta_box( $post_type )
 {
-
-	$post_types= get_post_types('','names');
+	global $pagenow;
 
 	$exclude[] = 'attachment';
 	$exclude[] = 'revisions';
@@ -22,16 +21,11 @@ function lp_add_global_meta_box()
 	$exclude[] = 'landing-page';
 	// add filter
 
-	foreach ($post_types as $post_type ) {
-	
-		if (!in_array($post_type,$exclude))
-		{
-			add_meta_box( 'lp-post-statistics', __( 'Inbound Statistics' , 'landing-pages' ) , 'lp_global_statistics_meta_box' , $post_type, 'side', 'high');
-		}
+	if ( $pagenow === 'post.php' && !in_array($post_type,$exclude) ) {
+		add_meta_box( 'lp-post-statistics', __( 'Inbound Statistics' , 'landing-pages' ) , 'lp_global_statistics_meta_box' , $post_type, 'side', 'high');
 	}
 
 }
-
 
 function lp_global_statistics_meta_box() {
 
