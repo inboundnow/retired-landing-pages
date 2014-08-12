@@ -3,7 +3,7 @@
 add_action('admin_enqueue_scripts','lp_admin_enqueue');
 
 function lp_admin_enqueue($hook) {
-	global $post;
+	global $post, $plugin_page;
 	$screen = get_current_screen(); //print_r($screen);
 	/* dequeue third party scripts */
 	global $wp_scripts;
@@ -21,16 +21,16 @@ function lp_admin_enqueue($hook) {
 
 
 	// Frontend Editor
-	if ((isset($_GET['page']) == 'lp-frontend-editor')) {
+	if ( $plugin_page === 'lp-frontend-editor' ) {
 	}
 
-	if ((isset($_GET['page']) == 'install-inbound-plugins')) {
+	if ( $plugin_page === 'install-inbound-plugins' ) {
 		wp_enqueue_script('inbound-install-plugins', LANDINGPAGES_URLPATH . 'js/admin/admin.install-plugins.js');
 		wp_enqueue_style('inbound-install-plugins-css', LANDINGPAGES_URLPATH . 'css/admin-install-plugins.css');
 	}
 
 	// Store Options Page
-	if (isset($_GET['page']) && (($_GET['page'] == 'lp_store') || ($_GET['page'] == 'lp_addons'))) {
+	if ( in_array( $plugin_page, array( 'lp_store', 'lp_addons' ) ) ) {
 		wp_dequeue_script('easyXDM');
 		wp_enqueue_script('easyXDM', LANDINGPAGES_URLPATH . 'js/libraries/easyXDM.debug.js');
 		//wp_enqueue_script('lp-js-store', LANDINGPAGES_URLPATH . 'js/admin/admin.store.js');
@@ -72,7 +72,7 @@ function lp_admin_enqueue($hook) {
 
 		}
 
-		if (isset($_GET['page']) && $_GET['page'] === 'lp_global_settings') {
+		if ( $plugin_page === 'lp_global_settings' ) {
 			wp_enqueue_script('lp-settings-js', LANDINGPAGES_URLPATH . 'js/admin/admin.global-settings.js');
 		}
 		// Edit Screen
