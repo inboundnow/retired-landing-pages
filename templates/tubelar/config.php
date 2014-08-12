@@ -79,8 +79,8 @@ array(
 			'default' => ''
 		),
 	array(
-		'label' => __( 'Youtube Background Video URL' , 'landing-pages') , // Name of field
-		'description' => "Paste in the URL of the Youtube Video here", // what field does
+		'label' => __( 'YouTube Background Video URL' , 'landing-pages') , // Name of field
+		'description' => "Paste in the URL of the YouTube Video here", // what field does
 		'id' => 'yt-video', // metakey. $key Prefix is appended from parent in array loop
 		'type'	=> 'text', // metafield type
 		'default'	=> 'http://www.youtube.com/watch?v=_OBlgSz8sSM', // default content
