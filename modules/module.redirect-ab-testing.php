@@ -5,14 +5,13 @@ define("DONOTCACHEPAGE", true);
 define('DONOTCACHCEOBJECT', true); 
 define('DONOTCDN', true); 
 
-if ( file_exists ( './../../../../wp-config.php' ) )
+if ( file_exists ( './../../../../wp-load.php' ) )
 {
-	include_once ( './../../../../wp-config.php' );
-	include_once ( './../../../../wp-includes/admin-bar.php' );
+	include_once ( './../../../../wp-load.php' );
 }
-else if ( file_exists ( './../../../../../wp-config.php' ) )
+else if ( file_exists ( './../../../../../wp-load.php' ) )
 {
-	include_once ( './../../../../../wp-config.php' );
+	include_once ( './../../../../../wp-load.php' );
 }
 
 class LP_Variation_Rotation {
@@ -25,7 +24,9 @@ class LP_Variation_Rotation {
 	static $next_marker;
 	static $destination_url;
 	
-	/* Exectutes Class */
+	/**
+	 *  	Executes Class 
+	 */
 	public function __construct() {
 	
 		self::load_variables();
@@ -34,7 +35,9 @@ class LP_Variation_Rotation {
 		
 	}
 	
-	/* Loads Static Variables */
+	/**
+	 *  	Loads Static Variables
+	 */
 	private static function load_variables()
 	{	
 		self::$permalink_name = (isset($_GET['permalink_name'])) ? $_GET['permalink_name'] : null;
@@ -46,12 +49,16 @@ class LP_Variation_Rotation {
 		self::$destination_url = self::build_destination_url();
 	}
 	
-	/* Debug Information - Prints Class Variable Data */
+	/**
+	 *  	Debug Information - Prints Class Variable Data 
+	 */
 	static function run_debug() {
 		print_r($this);exit;
 	}
 	
-	/* Loads the ID of the Landing Page */
+	/**
+	 *  	Loads the ID of the Landing Page 
+	 */
 	static function load_post_id() {
 		global $wpdb;
 		
@@ -61,7 +68,9 @@ class LP_Variation_Rotation {
 		
 	}
 	
-	/* Loads an Array of Active Variations Associated with Landing Page */
+	/**
+	 *  	Loads an Array of Active Variations Associated with Landing Page 
+	 */
 	static function load_variations() {
 		
 		$live_variations = array();
@@ -88,7 +97,9 @@ class LP_Variation_Rotation {
 		return $live_variations;		
 	}
 	
-	/* Loads Variation ID of Last Variation Loaded */
+	/**
+	 *  	Loads Variation ID of Last Variation Loaded 
+	 */
 	static function load_marker() {
 		
 		$marker = get_post_meta( self::$post_id , 'lp-ab-variations-marker' , true );
@@ -101,7 +112,9 @@ class LP_Variation_Rotation {
 		return $marker;
 	}
 	
-	/* Discovers Next Variation in Line */
+	/**
+	 *  	Discovers Next Variation in Line 
+	 */
 	static function discover_next_variation() {
 	
 		/* Set Pointer to Correct Location in Variations Array */
@@ -124,7 +137,9 @@ class LP_Variation_Rotation {
 		
 	}
 	
-	/* Builds Redirect URL & Stores Cookie Data */
+	/**
+	 *  	Builds Redirect URL & Stores Cookie Data 
+	 */
 	static function build_destination_url() {
 		
 		/* Load Base URL */
@@ -148,7 +163,9 @@ class LP_Variation_Rotation {
 		return $url;
 	}
 
-	/* Redirects to Correct Variation */
+	/**
+	 *  	Redirects to Correct Variation
+	 */
 	static function redirect() {
 		@header("HTTP/1.1 307 Temporary Redirect");
 		@header("Location: ".self::$destination_url);

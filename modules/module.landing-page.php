@@ -569,32 +569,6 @@ function lp_add_option($key,$type,$id,$default=null,$label=null,$description=nul
 	}
 }
 
-
-function get_all_template_categories($extension_data) {
-
-	//$extension_data = lp_get_extension_data();
-	//$extension_data_cats = lp_get_extension_data_cats($extension_data);
-	//print_r($extension_data_cats);
-
-	$cat_array = array();
-	foreach ($extension_data as $name => $options) {
-		//echo $options['info'];
-		foreach ($options as $value) {
-			if ($value['category'] != "" && strlen ($value['category']) > 1 ){
-				$new_cat = explode(",", $value['category']);
-				foreach ($new_cat as $test => $zzz) {
-					$cat_array[] = trim($zzz);
-				}
-
-			}
-
-		}
-	}
-	echo "<pre>";
-	print_r(array_unique($cat_array));
-	echo "<pre>";
-}
-
 /* LEGACY CALLBACKS -- STILL USED BY SOME OLDER EXTENSIONS AND TEMPLATES */
 function lp_list_feature()
 {

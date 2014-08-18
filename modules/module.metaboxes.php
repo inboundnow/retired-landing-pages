@@ -280,7 +280,7 @@ function lp_display_meta_box_select_template_container() {
 
 
 	$extension_data = lp_get_extension_data();
-	$extension_data_cats = lp_get_extension_data_cats($extension_data);
+	$extension_data_cats = Landing_Pages_Load_Extensions::get_template_categories();
 
 	unset($extension_data['lp']);
 

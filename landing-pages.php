@@ -75,7 +75,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once('modules/module.metaboxes.php');
 					include_once('modules/module.metaboxes-global.php');
 					include_once('modules/module.landing-page.php');
-					include_once('modules/module.load-extensions.php');
+					include_once('classes/class.load-extensions.php');
 					include_once('modules/module.post-type.php');
 					include_once('modules/module.track.php');
 					include_once('modules/module.ajax-setup.php');
@@ -104,6 +104,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once('modules/module.ab-testing.php');
 					include_once('modules/module.click-tracking.php');
 					include_once('modules/module.landing-page.php');
+					//include_once('classes/class.load-extensions.php');
 					include_once('modules/module.customizer.php');
 
 					BREAK;
@@ -155,3 +156,4 @@ function inbound_travis_check() {
 	echo '*** Landing Pages Plugin is Running on Travis ***';
 	return true;
 }
+
