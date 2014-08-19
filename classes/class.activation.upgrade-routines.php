@@ -101,7 +101,7 @@ if ( !class_exists('Landing_Pages_Activation_Update_Routines') ) {
 			$templates_to_move = array('rsvp-envelope','super-slick');
 			chmod(LANDINGPAGES_UPLOADS_PATH, 0755);
 
-			$template_paths = lp_get_core_template_paths();
+			$template_paths = Landing_Pages_Load_Extensions::get_core_template_ids();
 			if (count($template_paths)>0)
 			{
 				foreach ($template_paths as $name)

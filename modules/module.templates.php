@@ -35,7 +35,8 @@ else if (isset($_GET['page'])&&$_GET['page']=='lp_manage_templates')
 		function __construct()
 		{
 			$lp_data = lp_get_extension_data();
-
+			$final_data = array();
+			
 			foreach ($lp_data as $key=>$data)
 			{
 				$array_core_templates = array('countdown-lander','default','demo','dropcap','half-and-half','simple-two-column','super-slick','svtle','tubelar','rsvp-envelope', 'simple-solid-lite', 'three-column-lander');
