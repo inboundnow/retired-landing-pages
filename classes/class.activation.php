@@ -169,7 +169,7 @@ class Landing_Pages_Activation {
 									__( 'Server PHP Version' , 'landing-pages' ) => phpversion(),
 									__( 'Required PHP Version' , 'landing-pages' ) => self::$version_php
 								),
-					'solultion' => sprintf( __( 'Please contact your hosting provider to upgrade PHP to %s or greater' , 'landing-pages' ) , self::$version_php )
+					'solution' => sprintf( __( 'Please contact your hosting provider to upgrade PHP to %s or greater' , 'landing-pages' ) , self::$version_php )
 				)
 			);
 		} 
@@ -183,7 +183,7 @@ class Landing_Pages_Activation {
 									__( 'WordPress Version' , 'landing-pages' ) => $wp_version,
 									__( 'Required WordPress Version' , 'landing-pages' ) => self::$version_wp
 								),
-					'solultion' => sprintf( __( 'Please update landing pages to version %s or greater.' , 'landing-pages' ) , self::$version_wp )
+					'solution' => sprintf( __( 'Please update landing pages to version %s or greater.' , 'landing-pages' ) , self::$version_wp )
 				)
 			);			
 		}
@@ -197,7 +197,7 @@ class Landing_Pages_Activation {
 									__( 'Calls to Action Version' , 'landing-pages' ) => WP_CTA_CURRENT_VERSION,
 									__( 'Required Calls to Action Version' , 'landing-pages' ) => self::$version_cta
 								),
-					'solultion' => sprintf( __( 'Please update Calls to Action to version %s or greater.' , 'landing-pages' ) , self::$version_cta )
+					'solution' => sprintf( __( 'Please update Calls to Action to version %s or greater.' , 'landing-pages' ) , self::$version_cta )
 				)
 			);			
 		}
@@ -211,7 +211,7 @@ class Landing_Pages_Activation {
 									__( 'Leads Version' , 'landing-pages' ) => WPL_CURRENT_VERSION,
 									__( 'Required Leads Version' , 'landing-pages' ) => self::$version_leads
 								),
-					'solultion' => sprintf( __( 'Please update Leads to version %s or greater.' , 'landing-pages' ) , self::$version_leads )
+					'solution' => sprintf( __( 'Please update Leads to version %s or greater.' , 'landing-pages' ) , self::$version_leads )
 				)
 			);			
 		}
@@ -225,7 +225,7 @@ class Landing_Pages_Activation {
 									__( 'Extension: Landing Page as Homepage' , 'landing-pages' ) => LP_HOMEPAGE_CURRENT_VERSION,
 									__( 'Required extension version' , 'landing-pages' ) => self::$version_lpah
 								),
-					'solultion' => sprintf( __( 'Please update extension to version %s or greater.' , 'landing-pages' ) , self::$version_lpah )
+					'solution' => sprintf( __( 'Please update extension to version %s or greater.' , 'landing-pages' ) , self::$version_lpah )
 				)
 			);			
 		}
