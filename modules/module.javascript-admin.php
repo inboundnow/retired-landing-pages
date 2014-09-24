@@ -4,7 +4,9 @@ add_action('admin_enqueue_scripts','lp_admin_enqueue');
 
 function lp_admin_enqueue($hook) {
 	global $post, $plugin_page;
-	$screen = get_current_screen(); //print_r($screen);
+	$screen = get_current_screen(); 
+	$store = array();
+	
 	/* dequeue third party scripts */
 	global $wp_scripts;
 
