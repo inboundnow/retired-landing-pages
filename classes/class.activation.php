@@ -135,7 +135,7 @@ class Landing_Pages_Activation {
 	*  Tells Inbound Shared to run activation commands
 	*/
 	public static function activate_shared() {
-		set_transient( 'Inbound_Activate', true );
+		update_option( 'Inbound_Activate', true );
 	}
 
 	/* Aborts activation and details
