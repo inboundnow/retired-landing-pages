@@ -122,6 +122,9 @@ display: block;
 .inbound-meta-box-option.inbound-datepicker-option input {
 	width: 70%;
 }
+.template-thumbnail {
+	height: auto !important;
+}
 #template-item #template-box {
 display: block;
 width: 65%;
