@@ -102,7 +102,7 @@ class Landing_Pages_Activation {
 	public static function display_upgrade_routine_notice() {
 		?>
 		<div class="error">
-			<p><?php _e( '<strong>WARNING!</strong> We\'ve noticed that <strong>Landing Pages plugin</strong> requires <strong>database upgrades</strong> for proper functioning. To manually initiate the db updates please click the following link:', 'landing-pages' ); ?> <a href='?plugin=landing-pages&plugin_action=upgrade_routines'><?php _e('Run Upgrade Processes' , 'landing-pages' ); ?></a></p>
+			<p><?php _e( 'Landing Pages plugin requires a database upgrade:', 'landing-pages' ); ?> <a href='?plugin=landing-pages&plugin_action=upgrade_routines'><?php _e('Upgrade database now' , 'landing-pages' ); ?></a></p>
 		</div>
 		<?php
 	}
@@ -135,7 +135,7 @@ class Landing_Pages_Activation {
 	*  Tells Inbound Shared to run activation commands
 	*/
 	public static function activate_shared() {
-		set_transient( 'Inbound_Activate', true );
+		update_option( 'Inbound_Activate', true );
 	}
 
 	/* Aborts activation and details
