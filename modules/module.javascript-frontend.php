@@ -40,7 +40,7 @@ function lp_fontend_enqueue_scripts($hook) {
 	}
 
 	if (isset($_GET['template-customize']) &&$_GET['template-customize']=='on') {
-		echo "<style type='text/css'>#variation-list{background:#eaeaea !important; top: 26px !important; height: 35px !important;padding-top: 10px !important;}#wpadminbar {height: 29px !important;}</style>"; // enqueue styles not firing
+		echo "<style type='text/css'>#variation-list{background:#eaeaea !important; top: 26px !important; height: 35px !important;padding-top: 10px !important;}#wpadminbar {height: 32px !important;}</style>"; // enqueue styles not firing
 	}
 	if (isset($_GET['live-preview-area'])) {
 		show_admin_bar( false );
@@ -112,6 +112,9 @@ function lp_fontend_enqueue_scripts($hook) {
 		foreach ( $store as $handle ) {
 		    wp_enqueue_script( $handle );
 		}
+		/* TEMP FIX - this neeeds fixing in CTA plugin */
+		wp_dequeue_script('lp-customizer-load-js');
+
 	}
 
 }
@@ -123,8 +126,15 @@ function lp_header_load(){
 	if (isset($post) && $post->post_type=='landing-page') {
 		wp_enqueue_style('inbound-wordpress-base', LANDINGPAGES_URLPATH . 'css/frontend/global-landing-page-style.css');
 		wp_enqueue_style('inbound-shortcodes', INBOUND_FORMS.'css/frontend-render.css');
-		if (isset($_GET['lp-variation-id']) && !isset($_GET['template-customize']) && !isset($_GET['iframe_window']) && !isset($_GET['live-preview-area'])) {
-		do_action('landing_page_header_script');
+		if ( isset($_GET['live-preview-area']) ) { ?>
+		<style type="text/css">
+			html, html.no-js, html[dir="ltr"] {
+				margin-top: 0px !important;
+			}
+		</style>
+		<?php } ?>
+		<?php if (isset($_GET['lp-variation-id']) && !isset($_GET['template-customize']) && !isset($_GET['iframe_window']) && !isset($_GET['live-preview-area'])) {
+			do_action('landing_page_header_script');
 		?>
 		<?php if(!defined('Inbound_Now_Disable_URL_CLEAN')) { ?>
 		<script type="text/javascript">

@@ -1,7 +1,6 @@
 #inbound-meta .inbound-meta-box-row {
 display: block;
-padding: 10px;
-padding-left: 0px;
+padding-bottom: 10px;
 }
 .inbound-meta-box-label, .inbound-meta-box-option {
 	display: inline-block;
@@ -31,6 +30,12 @@ top: 0px;
 text-align: center;
 width: 84px;
 }
+.inbound-meta-box-option.inbound-text-option, .inbound-meta-box-option.inbound-text-option input[type=text] {
+	width:80%;
+}
+.inbound-meta-box-option.inbound-text-option input[type=text].cta-width, .inbound-meta-box-option.inbound-text-option input[type=text].cta-height {
+	width: 100px;
+}
 #inbound-meta .inbound-custom-css-row {
 	padding: 0px;
 }
@@ -54,7 +59,7 @@ display: inline-block;
 }
 .inbound-wysiwyg, .inbound-media, .inbound-datepicker, .inbound-textarea {
 	vertical-align: top;
-} 
+}
 .inbound-textarea-option .wp-cta-success-message {
 	position: absolute;
 margin-top: 0px;

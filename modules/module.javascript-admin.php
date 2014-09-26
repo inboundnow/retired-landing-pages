@@ -4,9 +4,9 @@ add_action('admin_enqueue_scripts','lp_admin_enqueue');
 
 function lp_admin_enqueue($hook) {
 	global $post, $plugin_page;
-	$screen = get_current_screen(); 
+	$screen = get_current_screen();
 	$store = array();
-	
+
 	/* dequeue third party scripts */
 	global $wp_scripts;
 
@@ -97,8 +97,10 @@ function lp_admin_enqueue($hook) {
 			// New frontend editor
 			if (isset($_GET['frontend']) && $_GET['frontend'] === 'true') {
 				//show_admin_bar( false ); // doesnt work
-				wp_enqueue_style('new-customizer-admin', LANDINGPAGES_URLPATH . 'css/new-customizer-admin.css');
-				wp_enqueue_script('new-customizer-admin', LANDINGPAGES_URLPATH . 'js/admin/new-customizer-admin.js');
+
+				wp_enqueue_style('lp-customizer-admin', LANDINGPAGES_URLPATH . 'css/new-customizer-admin.css');
+				wp_enqueue_script('lp-customizer-admin', LANDINGPAGES_URLPATH . 'js/admin/new-customizer-admin.js');
+
 			}
 		}
 
@@ -133,5 +135,7 @@ function lp_admin_enqueue($hook) {
 		foreach ( $store as $handle ) {
 		    wp_enqueue_script( $handle );
 		}
+		/* TEMP FIX - this neeeds fixing in CTA plugin */
+		wp_dequeue_script('new-customizer-admin');
 	}
 }
