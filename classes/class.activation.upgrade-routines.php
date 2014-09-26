@@ -21,10 +21,13 @@ if ( !class_exists('Landing_Pages_Activation_Update_Routines') ) {
 			));
 			
 			foreach ($landing_pages as $post) {
-				//echo 'post id:' . $post->ID;
-				//echo '<br>';
+			
 				/* for all variations loop through and migrate_data */				
 				( get_post_meta($post->ID,'lp-ab-variations', true) ) ? $variations = get_post_meta($post->ID,'lp-ab-variations', true) : $variations = array( '0' => '0' );
+				
+				if (!is_array($variations) && strlen($variations) > 1 ) {
+					$variations = explode(',',$variations);
+				}
 				
 				foreach ($variations as $key=>$vid) {					
 					
@@ -67,6 +70,10 @@ if ( !class_exists('Landing_Pages_Activation_Update_Routines') ) {
 			
 				/* for all variations loop through and migrate_data */				
 				( get_post_meta($post->ID,'lp-ab-variations', true) ) ? $variations = get_post_meta($post->ID,'lp-ab-variations', true) : $variations = array( '0' => '0' );
+				
+				if (!is_array($variations) && strlen($variations) > 1 ) {
+					$variations = explode(',',$variations);
+				}
 				
 				foreach ($variations as $key=>$vid) {					
 					
