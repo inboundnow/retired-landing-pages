@@ -76,7 +76,7 @@
 			),
 			'lists' => array(
 				'name' => __('Add to List(s)', 'leads'),
-				'desc' => __('Add the converted lead to 1 or more lead lists', 'leads'),
+				'desc' => __('Add the converting lead to 1 or more lead lists', 'leads'),
 				'type' => 'multiselect',
 				'options' => $lead_list_names,
 				'class' => 'main-form-settings',
@@ -193,7 +193,7 @@
 				),
 				'field_type' => array(
 					'name' => __('Field Type', 'leads'),
-					'desc' => __('Select a form field type', 'leads'),
+					'desc' => __('Select an form field type', 'leads'),
 					'type' => 'select',
 					'options' => array(
 						"text" => __("Single Line Text" , "leads"),

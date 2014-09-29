@@ -29,7 +29,7 @@
 			),
 			'address' => array(
 				'name' => __('Address', 'leads'),
-				'desc' => __('Enter your address here. ex: "New York" or "New York, USA" If you want an accurate position please fill the Latitude and Longitude fields', 'leads'),
+				'desc' => __('Enter your address here. ex: "New York" or "New York, USA" If you want a accurate position please fill the Latitude and Longitude fields', 'leads'),
 				'type' => 'text',
 				'std' => ''
 			),
