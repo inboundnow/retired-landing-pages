@@ -413,8 +413,10 @@ div#lp-store-iframe-container > iframe {
 #lp-tour {
 	position: absolute;
 	font-size: 13px;
-top: -3px;
+top: 0px;
 right: 170px;
+color: rgb(253, 3, 3);
+cursor: pointer;
 }
 .lp-success-message
 {

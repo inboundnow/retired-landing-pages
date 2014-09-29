@@ -10,7 +10,7 @@ define('WYSIWYG_EDITOR_ID', 'landing-page-myeditor');
 define('WYSIWYG_META_KEY', 'lp-conversion-area');
 
 /* ADD THUMBNAIL METABOX TO SIDEBAR */
-add_action('add_meta_boxes', 'lp_display_thumbnail_metabox');
+//add_action('add_meta_boxes', 'lp_display_thumbnail_metabox');
 function lp_display_thumbnail_metabox() {
 
 		add_meta_box(
@@ -32,7 +32,7 @@ function lp_thumbnail_metabox() {
 	$permalink = $permalink.'?dt='.$datetime;
 
 	if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
-		
+
 		if (file_exists(LANDINGPAGES_UPLOADS_PATH .  $template . '/thumbnail.png')) {
 			$thumbnail = LANDINGPAGES_UPLOADS_URLPATH . $template . '/thumbnail.png';
 		}
@@ -472,8 +472,8 @@ function lp_conversion_log_metabox() {
 			global $wpdb;
 
 			$final_data = array();
-			
-			
+
+
 			$query = "SELECT
 				wposts.*
 				FROM ".$wpdb->posts." AS wposts
@@ -518,7 +518,7 @@ function lp_conversion_log_metabox() {
 
 					$final_data[] = $this_data;
 				}
-				
+
 			}
 			//print_r($final_data);
 			$this->table_data = $final_data;
