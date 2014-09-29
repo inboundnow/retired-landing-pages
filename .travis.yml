@@ -49,7 +49,7 @@ before_script:
     - sed -i "s/yourpasswordhere//" wp-tests-config.php
     - cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
     - ls -l
-    - wp plugin install cta
-    - wp plugin install leads
+    - git clone --depth=50 --branch="master" git@github.com:inboundnow/cta.git /tmp/wordpress/wp-content/plugins/cta/
+    - git clone --depth=50 --branch="master" git@github.com:inboundnow/leads.git /tmp/wordpress/wp-content/plugins/leads/
 
 script: phpunit
