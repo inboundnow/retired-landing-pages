@@ -34,7 +34,9 @@ matrix:
 # Clones WordPress and configures our testing environment.
 before_script:
     - export PLUGIN_SLUG=$(basename $(pwd))
-    - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
+    - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress	
+    - git clone --depth=50 --branch="master" git@github.com:inboundnow/cta.git /tmp/wordpress/wp-content/plugins/cta
+    - git clone --depth=50 --branch="master" git@github.com:inboundnow/leads.git /tmp/wordpress/wp-content/plugins/leads
     - cd ..
     - curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     - php wp-cli.phar --info
@@ -49,7 +51,5 @@ before_script:
     - sed -i "s/yourpasswordhere//" wp-tests-config.php
     - cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
     - ls -l
-    - git clone --depth=50 --branch="master" git@github.com:inboundnow/cta.git /tmp/wordpress/wp-content/plugins/cta/
-    - git clone --depth=50 --branch="master" git@github.com:inboundnow/leads.git /tmp/wordpress/wp-content/plugins/leads/
 
 script: phpunit
