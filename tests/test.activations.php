@@ -39,31 +39,29 @@ class WP_Test_WordPress_Plugin_Tests extends WP_UnitTestCase {
 	* Deactivate Calls to Action
 	*/
 	function test_deactivate_calls_to_action() {
-		add_action( 'init' , function() {
-			deactivate_plugins( 'cta/wordpress-cta.php' );
-			
-			if (!is_plugin_active( 'cta/wordpress-cta.php' ) ) {
-				$this->assertTrue( true );
-			} else {
-				var_dump(is_plugin_active( 'cta/wordpress-cta.php' ));
-				$this->assertTrue( false );
-			}	
-		} );
+
+		deactivate_plugins( 'cta/wordpress-cta.php' );
+		
+		if (!is_plugin_active( 'cta/wordpress-cta.php' ) ) {
+			$this->assertTrue( true );
+		} else {
+			var_dump(is_plugin_active( 'cta/wordpress-cta.php' ));
+			$this->assertTrue( false );
+		}	
+		
 	}
 	
 	/**
 	* Deactivate Leads
 	*/
 	function test_deactivate_leads() {
-		add_action( 'init' , function() {
-			deactivate_plugins( 'leads/wordpress-leads.php' );
-			
-			if (!is_plugin_active( 'leads/wordpress-leads.php' ) ) {
-				$this->assertTrue( true );
-			} else {
-				$this->assertTrue( false );
-			}
-		});		
+		deactivate_plugins( 'leads/wordpress-leads.php' );
+		
+		if (!is_plugin_active( 'leads/wordpress-leads.php' ) ) {
+			$this->assertTrue( true );
+		} else {
+			$this->assertTrue( false );
+		}	
 	}
 	
 	/**
