@@ -35,7 +35,7 @@ function lp_admin_enqueue($hook) {
 	if ( in_array( $plugin_page, array( 'lp_store', 'lp_addons' ) ) ) {
 		wp_dequeue_script('easyXDM');
 		wp_enqueue_script('easyXDM', LANDINGPAGES_URLPATH . 'js/libraries/easyXDM.debug.js');
-		//wp_enqueue_script('lp-js-store', LANDINGPAGES_URLPATH . 'js/admin/admin.store.js');
+		wp_enqueue_script('lp-js-store', LANDINGPAGES_URLPATH . 'js/admin/admin.store.js');
 	}
 
 	// Admin enqueue - Landing Page CPT only
