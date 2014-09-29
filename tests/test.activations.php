@@ -15,14 +15,38 @@ class WP_Test_WordPress_Plugin_Tests extends WP_UnitTestCase {
 	}
 
 	/**
-	* Ensure that the plugin has been installed and activated.
+	* Ensure landing pages is active
 	*/
-	function test_plugins_activated() {
-
-	 $this->assertTrue( is_plugin_active( 'landing-pages/landing-pages.php' ) );
-	 $this->assertTrue( is_plugin_active( 'cta/wordpress-cta.php' ) );
-	 $this->assertTrue( is_plugin_active( 'leads/wordpress-leads.php' ) );
-
+	function test_lading_pages_activated() {
+		$this->assertTrue( is_plugin_active( 'landing-pages/landing-pages.php' ) );
+	}
+	
+	/**
+	* Ensure that the Leads has been installed and activated.
+	*/
+	function test_leads_activated() {
+		$this->assertTrue( is_plugin_active( 'leads/wordpress-leads.php' ) );
+	}
+	
+	/**
+	* Ensure calls to action plugin is active
+	*/
+	function test_calls_to_action_activated() {
+		$this->assertTrue( is_plugin_active( 'cta/wordpress-cta.php' ) );
+	}
+	
+	/**
+	* Deactivate Calls to Action
+	*/
+	function test_deactivate_calls_to_action() {
+		$this->assertTrue( deactivate_plugins( 'cta/wordpress-cta.php' ) );
+	}
+	
+	/**
+	* Deactivate Leads
+	*/
+	function test_deactivate_leads() {
+		$this->assertTrue( deactivate_plugins( 'leads/wordpress-leads.php' ) );
 	}
 }
 
