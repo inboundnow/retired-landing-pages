@@ -40,7 +40,7 @@ class LP_Variation_Rotation {
 	 */
 	private static function load_variables()
 	{	
-		self::$permalink_name = (isset($_GET['permalink_name'])) ? $_GET['permalink_name'] : null;
+		self::$permalink_name = (isset($_GET['permalink_name'])) ?  sanitize_text_field($_GET['permalink_name']) : null;
 		self::$post_id = self::load_post_id();
 		self::$last_loaded_variation = ( isset( $_COOKIE['lp-loaded-variation-'.self::$permalink_name] ) ) ? $_COOKIE['lp-loaded-variation-'.self::$permalink_name] : null;
 		self::$variations = self::load_variations();
@@ -62,7 +62,7 @@ class LP_Variation_Rotation {
 	static function load_post_id() {
 		global $wpdb;
 		
-		$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='landing-page'", $_GET['permalink_name'] ));
+		$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='landing-page'", self::$permalink_name ));
 		
 		return $post_id;
 		
