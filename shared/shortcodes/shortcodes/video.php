@@ -10,7 +10,7 @@
 		'options' => array(
 			'url' => array(
 				'name' => __('Video URL', 'leads'),
-				'desc' => __('Paste the video URL here, click <a href="http://codex.wordpress.org/Embeds#Okay.2C_So_What_Sites_Can_I_Embed_From.3F" target="_blank">here</a> to see all available video hosts.', 'leads'),
+				'desc' => sprintf( '%1$s <a href="%2$s" target="_blank">%3$s</a> %4$s.' , __( 'Paste the video URL here, click' , 'leads')  , 'http://codex.wordpress.org/Embeds#Okay.2C_So_What_Sites_Can_I_Embed_From.3F' , __( 'here' , 'leads' ) , __('to see all available video hosts' , 'leads') );
 				'type' => 'text',
 				'std' => ''
 			)
