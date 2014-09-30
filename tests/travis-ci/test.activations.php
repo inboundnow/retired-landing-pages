@@ -28,6 +28,13 @@ class WP_Test_WordPress_Plugin_Tests extends WP_UnitTestCase {
 		$this->assertTrue( is_plugin_active( 'leads/wordpress-leads.php' ) );
 	}
 	
+	/**
+	* Ensure that the Calls to Action has been installed and activated.
+	*/
+	function test_cta_activated() {
+		$this->assertTrue( is_plugin_active( 'cta/wordpress-cta.php' ) );
+	}
+	
 }
 
 ?>
