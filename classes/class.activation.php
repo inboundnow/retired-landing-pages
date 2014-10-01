@@ -25,7 +25,7 @@ class Landing_Pages_Activation {
 	public static function load_static_vars() {
 
 		self::$version_wp = '3.6';
-		self::$version_php = '5.3';
+		self::$version_php = '5.2';
 		self::$version_cta = '1.2.1';
 		self::$version_leads = '1.2.1';
 		self::$version_lpah = '1.0.8';
