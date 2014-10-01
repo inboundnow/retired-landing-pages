@@ -5,9 +5,13 @@
 	padding-right:60px;
 }
 
-#main-title-area
-{
+#main-title-area {
 	margin-top: 5px;
+}
+
+#main-title-area span {
+	margin-top:30px;
+	z-index:999999;
 }
 
 
