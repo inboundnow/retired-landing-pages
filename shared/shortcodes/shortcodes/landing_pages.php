@@ -35,14 +35,14 @@
 			),
 			'cat' => array(
 				'name' => __('Category', 'leads'),
-				'desc' => __('Optionally you can sort by a category.', 'leads'),
+				'desc' => __('Optional you can sort by a category.', 'leads'),
 				'type' => 'select',
 				'options' => $lp_cats,
 				'std' => ''
 			),
-			'excerpt_length' => array(
+			'excerpt_lenght' => array(
 				'name' => __('Excerpt Lenght', 'leads'),
-				'desc' => __('The post excerpt word length.', 'leads'),
+				'desc' => __('The post excerpt word lenght.', 'leads'),
 				'type' => 'text',
 				'std' => '30'
 			),
@@ -54,7 +54,7 @@
 				'std' => '1'
 			),
 		),
-		'shortcode' => '[landing_pages heading="{{heading}}" column="{{column}}" number="{{number}}" cat="{{cat}}" excerpt_length="{{excerpt_length}}" thumbs="{{thumbs}}"]',
+		'shortcode' => '[landing_pages heading="{{heading}}" column="{{column}}" number="{{number}}" cat="{{cat}}" excerpt_lenght="{{excerpt_lenght}}" thumbs="{{thumbs}}"]',
 		'popup_title' => __('Insert Landing Page List Shortcode', 'leads')
 	);
 
@@ -97,16 +97,16 @@
 			),
 			'cat' => array(
 				'name' => __('Category', 'leads'),
-				'desc' => __('Optionally you can sort by a category.', 'leads'),
+				'desc' => __('Optional you can sort by a category.', 'leads'),
 				'type' => 'select',
 				'options' => $lp_cats,
 				'std' => '',
 				'class' => '',
 				'is_content' => '0'
 			),
-			'excerpt_length' => array(
+			'excerpt_lenght' => array(
 				'name' => __('Excerpt Lenght', 'leads'),
-				'desc' => __('The post excerpt word length.', 'leads'),
+				'desc' => __('The post excerpt word lenght.', 'leads'),
 				'type' => 'text',
 				'std' => '30',
 				'class' => '',
@@ -125,7 +125,7 @@
 				'column' => '4',
 				'number' => '4',
 				'cat' => '',
-				'excerpt_length' => '30',
+				'excerpt_lenght' => '30',
 				'thumbs' => '1'
 			), $atts));
 
