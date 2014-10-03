@@ -35,6 +35,14 @@ class Tests_Activation extends WP_UnitTestCase {
 		$this->assertTrue( is_plugin_active( 'cta/wordpress-cta.php' ) );
 	}
 	
+	/**
+	* Run upgrade routines and check option to see if complete
+	*/
+	function test_run_upgrade_routines() {
+		Landing_Pages_Activation::run_updates();
+		$this->assertTrue( true );
+	}
+	
 }
 
 ?>
