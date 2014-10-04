@@ -20,21 +20,21 @@ class Tests_Activation extends WP_UnitTestCase {
 	function test_lading_pages_activated() {
 		$this->assertTrue( is_plugin_active( 'landing-pages/landing-pages.php' ) );
 	}
-
+	
 	/**
 	* Ensure that the Leads has been installed and activated.
 	*/
 	function test_leads_activated() {
 		$this->assertTrue( is_plugin_active( 'leads/wordpress-leads.php' ) );
 	}
-
+	
 	/**
 	* Ensure that the Calls to Action has been installed and activated.
 	*/
 	function test_cta_activated() {
 		$this->assertTrue( is_plugin_active( 'cta/wordpress-cta.php' ) );
 	}
-
+	
 	/**
 	* Run upgrade routines and check option to see if complete
 	*/
@@ -44,7 +44,7 @@ class Tests_Activation extends WP_UnitTestCase {
 		Landing_Pages_Activation::run_updates();
 		$this->assertTrue( true );
 	}
-
+	
 }
 
 ?>
