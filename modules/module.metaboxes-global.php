@@ -17,6 +17,7 @@ function lp_add_global_meta_box( $post_type )
 	$exclude[] = 'tracking-event';
 	$exclude[] = 'inbound-forms';
 	$exclude[] = 'email-template';
+	$exclude[] = 'inbound-email';
 	$exclude[] = 'inbound-log';
 	$exclude[] = 'landing-page';
 	// add filter
