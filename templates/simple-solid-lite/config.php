@@ -71,7 +71,7 @@ $lp_data[$key]['settings'] = array(
 		'description' => "",
 		'id' => "social-media-options",
 		'type' => "textarea",
-		'default' => '[social_share style="bar" align="horizontal" heading_align="inline" heading="Share This" facebook="1" twitter="1" google_plus="1" linkedin="1" pinterest="0" /]',
+		'default' => '[social_share style="bar" align="horizontal" heading_align="inline" heading="" facebook="1" twitter="1" google_plus="1" linkedin="1" pinterest="0" /]',
 		'selector' => ".inner .network",
 	 ),
 	 array(
