@@ -643,7 +643,6 @@ li {
 	font-size:15px;
 	line-height:25px;
 	margin:0;
-	color:#4d4d4d;
 	display:list-item;
 	margin-bottom:5px;
 	margin-top:5px;
@@ -1017,7 +1016,7 @@ article.post {
 	padding-left:50px;
 	padding-top:40px;
 	padding-bottom:40px;
-	border-top:1px solid #e2e2e2;
+	border-top:1px solid transparent;
 	min-height:130px;
 	overflow-x:hidden;
 }
