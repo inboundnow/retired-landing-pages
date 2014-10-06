@@ -123,13 +123,14 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
             color:#000;
             }
         }
+
     </style>
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             $(function () {
                 $('figure, picture').picture();
             });
-            var window_size = jQuery(window).height();
+            var window_size = jQuery(document).height();
             jQuery("#river").height(window_size);
         });
     </script>
