@@ -167,8 +167,9 @@ class LP_Variation_Rotation {
 	 *  	Redirects to Correct Variation
 	 */
 	static function redirect() {
-		@header("HTTP/1.1 307 Temporary Redirect");
-		@header("Location: ".self::$destination_url);
+		header("HTTP/1.1 302 Temporary Redirect");
+		header("Location: ".self::$destination_url);
+		exit;
 	}
 }
 
