@@ -16,6 +16,10 @@ h2#convert-header {
 .mceIframeContainer.mceFirst.mceLast iframe{
 	height: 335px !important;
 }
+/* FIX WORDPRESS BULLSHIT */
+body.modal-open {
+overflow: visible !important;
+}
 #lp-notes-area input {
 	width: 100%;
 	color: #AAAAAA;
@@ -102,7 +106,8 @@ min-width: 320px;
 	padding-top: 3px !important;
 	right: 0px !important;
 	height: 31px !important;
-
+	max-width: 100px !important;
+	text-align: center !important;
 }
 .jPicker {
 	display: inline-block;
