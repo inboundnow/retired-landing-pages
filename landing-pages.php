@@ -3,7 +3,7 @@
 Plugin Name: Landing Pages
 Plugin URI: http://www.inboundnow.com/landing-pages/
 Description: The first true all-in-one Landing Page solution for WordPress, including ongoing conversion metrics, a/b split testing, unlimited design options and so much more!
-Version: 1.7.1
+Version: 1.7.2
 Author: Inbound Now
 Author URI: http://www.inboundnow.com/
 Text Domain: landing-pages
@@ -37,7 +37,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		 */
 		static function fail_php_version() {
 			//add_action( 'plugins_loaded', array( __CLASS__, 'load_text_domain_init' ) );
-			self::notice( __( 'Landing Pages requires PHP version 5.3+, plugin is currently NOT ACTIVE.', 'landing-pages' ) );
+			$plugin_url = admin_url( 'plugins.php' );
+			self::notice( __( 'Landing Pages requires PHP version 5.3+ to run. Your version '.PHP_VERSION.' is not high enough.<br><u>Please contact your hosting provider</u> to upgrade your PHP Version.<br>The plugin is NOT Running. You can disable this warning message by <a href="'.$plugin_url.'">deactivating the plugin</a>', 'landing-pages' ) );
 		}
 
 		/**
@@ -101,7 +102,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		*/
 		private static function load_constants() {
 
-			define('LANDINGPAGES_CURRENT_VERSION', '1.7.1' );
+			define('LANDINGPAGES_CURRENT_VERSION', '1.7.2' );
 			define('LANDINGPAGES_URLPATH', plugins_url( '/' , __FILE__ ) );
 			define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 			define('LANDINGPAGES_PLUGIN_SLUG', plugin_basename( dirname(__FILE__) ) );
