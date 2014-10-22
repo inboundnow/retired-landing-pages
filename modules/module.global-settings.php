@@ -84,6 +84,14 @@ function lp_get_global_settings() {
 			'default'  => '0',
 			'options' => array('1'=>'On','0'=>'Off')
 		),
+		array(
+			'id'  => 'landing-page-disable-turn-off-ab',
+			'label' => __('Turn Off AB Testing?' , 'landing-pages') ,
+			'description' => __("This will disable the AB testing functionality of your landing pages. This is to comply with Googles new PPC regulations with redirects" , 'landing-pages'),
+			'type'  => 'radio',
+			'default'  => '0',
+			'options' => array('0'=>'No Keep it on','1'=>'Yes turn AB testing Off')
+		)
 	);
 
 
