@@ -87,7 +87,7 @@ function lp_get_global_settings() {
 		array(
 			'id'  => 'landing-page-disable-turn-off-ab',
 			'label' => __('Turn Off AB Testing?' , 'landing-pages') ,
-			'description' => __("This will disable the AB testing functionality of your landing pages. This is to comply with Googles new PPC regulations with redirects" , 'landing-pages'),
+			'description' => __("This will disable the AB testing functionality of your landing pages. This is to comply with Googles new PPC regulations with redirects. After saving this option <a href='/wp-admin/options-permalink.php'>visit this page to flush/reset your permalinks</a>" , 'landing-pages'),
 			'type'  => 'radio',
 			'default'  => '0',
 			'options' => array('0'=>'No Keep it on','1'=>'Yes turn AB testing Off')
@@ -130,10 +130,8 @@ function lp_get_global_settings() {
 
 /* Add Extensions License Key Header if Extensions are present */
 add_filter('lp_define_global_settings', 'lp_add_extension_license_key_header', 2, 1);
-function lp_add_extension_license_key_header($lp_global_settings)
-{
-	if (array_key_exists('lp-license-keys',$lp_global_settings))
-	{
+function lp_add_extension_license_key_header($lp_global_settings) {
+	if (array_key_exists('lp-license-keys',$lp_global_settings)) {
 		$lp_global_settings['lp-license-keys']['settings'][] = 	array(
 				'id'  => 'extensions-license-keys-header',
 				'description' => __( "Head to http://www.inboundnow.com/ to retrieve your license key for this template." , 'landing-pages'),
