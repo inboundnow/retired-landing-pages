@@ -18,6 +18,7 @@ class LP_Variation_Rotation {
 
 	static $permalink_name;
 	static $post_id;
+	static $sticky_variations;
 	static $last_loaded_variation;
 	static $variations; 
 	static $marker;
@@ -42,11 +43,18 @@ class LP_Variation_Rotation {
 	{	
 		self::$permalink_name = (isset($_GET['permalink_name'])) ?  sanitize_text_field($_GET['permalink_name']) : null;
 		self::$post_id = self::load_post_id();
+		self::$sticky_variations = get_option( 'lp-main-landing-page-rotation-halt' , false );
 		self::$last_loaded_variation = ( isset( $_COOKIE['lp-loaded-variation-'.self::$permalink_name] ) ) ? $_COOKIE['lp-loaded-variation-'.self::$permalink_name] : null;
-		self::$variations = self::load_variations();
-		self::$marker = self::load_marker();
-		self::$next_marker = self::discover_next_variation();
-		self::$destination_url = self::build_destination_url();
+
+		if ( self::$sticky_variations && self::$last_loaded_variation ) {
+			self::$destination_url = self::$last_loaded_variation;
+		} else {
+			self::$variations = self::load_variations();
+			self::$marker = self::load_marker();
+			self::$next_marker = self::discover_next_variation();			
+			self::$destination_url = self::build_destination_url();
+		}
+		
 	}
 	
 	/**
