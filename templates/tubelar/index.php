@@ -76,6 +76,14 @@ $blue = $RBG_array["b"];
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link href="<?php echo $path; ?>assets/css/screen.css" rel="stylesheet" type="text/css" />
 	<style type="text/css">
+	.inbound-field input[type=text], .inbound-field input[type=url], .inbound-field input[type=email], .inbound-field input[type=tel], .inbound-field input[type=number], .inbound-field input[type=password] {
+		width: 93%;
+	}
+	#inbound_form_submit {
+		padding: 10px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
 	.black-65 {background: url('<?php echo $path; ?>assets/img/black-65-trans.png');}
 	<?php if ($sidebar == "lp_left") { echo "#main {float: right;} #sidebar { width: 320px;}"; }?>
 	<?php if ($textcolor != "") { echo "#wrapper {color: #$textcolor;}  #video-controls a {color: #$textcolor;}
