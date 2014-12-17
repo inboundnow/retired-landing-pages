@@ -35,8 +35,7 @@ function lp_fontend_enqueue_scripts($hook) {
 	$form_prepopulation = get_option( 'lp-main-landing-page-prepopulate-forms' , 1);
 	// load form pre-population script
 	if ($form_prepopulation) {
-		wp_register_script('form-population',LANDINGPAGES_URLPATH . 'js/jquery.form-population.js', array( 'jquery', 'jquery-cookie'	));
-		wp_enqueue_script('form-population');
+		/* TODO set global option */
 	}
 
 	if (isset($_GET['template-customize']) &&$_GET['template-customize']=='on') {

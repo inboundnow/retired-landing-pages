@@ -34,6 +34,7 @@ padding-right: 5px;
 }
 #inbound_form_submit {
     text-transform: none;
+    cursor: pointer;
 }
 /* global fixes */
 .inbound-field {
@@ -108,7 +109,9 @@ display: inline-block;
 padding-right: 10px;
 text-align: right;
 }
-
+#inbound-form-wrapper .label-inbound-label-inline input {
+display: inline-block;
+}
 .inbound-label.inbound-input-radio {
     display: block;
 }
@@ -875,6 +878,7 @@ a.inbound-button, a.inbound-button.inbound-special-class{
 }
 input[type=submit].inbound-button, button.inbound-button{
     -webkit-appearance:none;
+    cursor: pointer;
 }
 .inbound-button.black{
     background-color: #4A4845;

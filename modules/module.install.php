@@ -1,6 +1,6 @@
 <?php
 // Added Demo Landing on Install
-add_action('init', 'inbound_create_default_post_type');
+add_action('admin_init', 'inbound_create_default_post_type');
 function inbound_create_default_post_type(){
     // NEED to insert custom meta as well
 

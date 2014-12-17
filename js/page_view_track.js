@@ -1,8 +1,11 @@
  jQuery(document).ready(function($) {
 
-    jQuery('form').each(function(){
-    	jQuery(this).addClass('wpl-track-me');
-	});
+ 	setTimeout(function() {
+ 	        jQuery('form').each(function(){
+ 	        	//jQuery(this).addClass('inbound-track');
+ 	    	});
+ 	}, 700);
+
 
  	// Saves variation page views
 

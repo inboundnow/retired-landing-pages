@@ -55,11 +55,14 @@ class Inbound_Asset_Loader {
 			          wp_dequeue_script( $handle );
 			      }
 			}
-
-	  		self::load_file('funnel-tracking', 'frontend/js/page-tracking.js', array( 'jquery','jquery-cookie', 'jquery-total-storage'), 'wplft', self::localize_lead_data());
-	  		//self::load_file('funnel-tracking', 'frontend/js/analytics/inboundAnalytics.js', array( 'jquery','jquery-cookie', 'jquery-total-storage'), 'wplft', self::localize_lead_data());
-	  		// TODO: Merge Localize of wplft into inbound_ajax
+			/*if (!defined('InboundAnalytics_v2')) {
+	  		self::load_file('funnel-tracking', 'frontend/js/inbound.js', array( 'jquery','jquery-cookie', 'jquery-total-storage'), 'wplft', self::localize_lead_data());
 	  		self::load_file('store-lead-ajax', 'frontend/js/store.lead.ajax.js', array( 'jquery','jquery-cookie', 'jquery-total-storage'), 'inbound_ajax', self::localize_lead_data());
+	  		} else {
+	  			*/
+
+	  		self::load_file('funnel-tracking', 'frontend/js/analytics/inboundAnalytics.js', array( 'jquery' ), 'inbound_settings', self::localize_lead_data());
+	  		/* } */
 
 	  		if (is_array($store)) {
 		  		foreach ( $store as $handle ) {
@@ -165,8 +168,21 @@ class Inbound_Asset_Loader {
 		$lead_data_array['lead_uid'] = ($lead_uid) ? $lead_uid : null;
 		$time = current_time( 'timestamp', 0 ); // Current wordpress time from settings
 		$wordpress_date_time = date("Y/m/d G:i:s", $time);
-
-		$inbound_localized_data = array( 'post_id' => $post_id, 'ip_address' => $ip_address, 'wp_lead_data' => $lead_data_array, 'admin_url' => admin_url( 'admin-ajax.php' ), 'track_time' => $wordpress_date_time, 'post_type' => $post_type, 'page_tracking' => $page_tracking, 'search_tracking' => $search_tracking, 'comment_tracking' => $comment_tracking, 'custom_mapping' => $custom_map_values);
+		$inbound_track_include = get_option( 'wpl-main-tracking-ids', 1);
+		$inbound_track_exclude = get_option( 'wpl-main-exclude-tracking-ids');
+		$inbound_localized_data = array('post_id' => $post_id,
+										'ip_address' => $ip_address,
+										'wp_lead_data' => $lead_data_array,
+										'admin_url' => admin_url('admin-ajax.php'),
+										'track_time' => $wordpress_date_time,
+										'post_type' => $post_type,
+										'page_tracking' => $page_tracking,
+										'search_tracking' => $search_tracking,
+										'comment_tracking' => $comment_tracking,
+										'custom_mapping' => $custom_map_values,
+										'inbound_track_exclude' => $inbound_track_exclude,
+										'inbound_track_include' => $inbound_track_include
+										);
 
 		return $inbound_localized_data;
 	} // end localize lead data
