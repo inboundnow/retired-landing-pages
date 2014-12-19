@@ -769,6 +769,7 @@ function lp_ab_testing_add_rewrite_rules()
 	//echo $slug;exit;
 	$ab_testing = get_option( 'lp-main-landing-page-disable-turn-off-ab', "0");
 	if($ab_testing === "0") {
+	add_rewrite_rule("$slug/([^/]*)/([0-9]+)/", "$slug/$1?lp-variation-id=$2",'top');
 	add_rewrite_rule("$slug/([^/]*)?", $this_path."modules/module.redirect-ab-testing.php?permalink_name=$1 ",'top');
 	add_rewrite_rule("landing-page=([^/]*)?", $this_path.'modules/module.redirect-ab-testing.php?permalink_name=$1','top');
 	}
@@ -795,7 +796,7 @@ function lp_ab_testing_add_rewrite_rules()
 			foreach ($rules_array as $key=>$val)
 			{
 
-				if (stristr($val,"RewriteRule ^{$slug}/([^/]*)? "))
+				if ( stristr($val,"RewriteRule ^{$slug}/([^/]*)? ") ||  stristr($val,"RewriteRule ^{$slug}/([^/]*)/([0-9]+)/ ") )
 				{
 					$new_val = "RewriteCond %{QUERY_STRING} !lp-variation-id";
 					$rules_array[$i] = $new_val;
