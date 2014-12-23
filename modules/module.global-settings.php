@@ -61,22 +61,6 @@ function lp_get_global_settings() {
 			'options' => array('1'=>'on','0'=>'off')
 		),
 		array(
-			'id'  => 'landing-page-auto-format-forms',
-			'label' => __('Enable Form Standardization' , 'landing-pages'),
-			'description' => __("With this setting enabled landing pages plugin will clean and standardize all input ids and classnames. Uncheck this setting to disable standardization." , 'landing-pages'),
-			'type'  => 'radio',
-			'default'  => '0',
-			'options' => array('1'=>'on','0'=>'off')
-		),
-		array(
-			'id'  => 'main-landing-page-auto-format-forms-retain-elements',
-			'label' => __('Form Standardization Element Whitelist' , 'landing-pages'),
-			'description' =>  __("Form standardization strips the conversion area content of html elements. Add the elements you do not want to be stripped to this list." , 'landing-pages') ,
-			'type'  => 'textarea',
-			'default'  => '<button><script><textarea><style><input><form><select><label><a><p><b><u><strong><i><img><strong><span><font><h1><h2><h3><center><blockquote><embed><object><small>',
-			'options' => null
-		),
-		array(
 			'id'  => 'inbound_compatibility_mode',
 			'label' => 'Turn on compability mode',
 			'description' => "<p>This option turns on compability mode for the inbound now plugins. This is typically used if you are experiencing bugs caused by third party plugin conflicts.</p>",
