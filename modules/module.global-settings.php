@@ -37,14 +37,6 @@ function lp_get_global_settings() {
 			'options' => null
 		),
 		array(
-			'id'  => 'landing-page-prepopulate-forms',
-			'label' =>  __( 'Enable Form Prepopulation' , 'landing-pages') ,
-			'description' => __("With this setting enabled landing pages plugin will remember form input data that the user submits to a form and attempt to pre-populate all other forms with the same user's data when applicable." , 'landing-pages'),
-			'type'  => 'radio',
-			'default'  => '1',
-			'options' => array('1'=>'on','0'=>'off')
-		),
-		array(
 			'id'  => 'landing-page-disable-admin-tracking',
 			'label' => __('Disable Admin Impression/Conversion Tracking' , 'landing-pages') ,
 			'description' => __("With this setting enabled landing pages plugin will not record visits and conversions for administrative users that are logged in." , 'landing-pages'),
