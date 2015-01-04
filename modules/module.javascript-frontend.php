@@ -32,12 +32,6 @@ function lp_fontend_enqueue_scripts($hook) {
 
 	if (isset($post)&&$post->post_type=='landing-page') {
 
-	$form_prepopulation = get_option( 'lp-main-landing-page-prepopulate-forms' , 1);
-	// load form pre-population script
-	if ($form_prepopulation) {
-		/* TODO set global option */
-	}
-
 	if (isset($_GET['template-customize']) &&$_GET['template-customize']=='on') {
 		echo "<style type='text/css'>#variation-list{background:#eaeaea !important; top: 26px !important; height: 35px !important;padding-top: 10px !important;}#wpadminbar {height: 32px !important;}</style>"; // enqueue styles not firing
 	}

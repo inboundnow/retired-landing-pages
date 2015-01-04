@@ -37,14 +37,6 @@ function lp_get_global_settings() {
 			'options' => null
 		),
 		array(
-			'id'  => 'landing-page-prepopulate-forms',
-			'label' =>  __( 'Enable Form Prepopulation' , 'landing-pages') ,
-			'description' => __("With this setting enabled landing pages plugin will remember form input data that the user submits to a form and attempt to pre-populate all other forms with the same user's data when applicable." , 'landing-pages'),
-			'type'  => 'radio',
-			'default'  => '1',
-			'options' => array('1'=>'on','0'=>'off')
-		),
-		array(
 			'id'  => 'landing-page-disable-admin-tracking',
 			'label' => __('Disable Admin Impression/Conversion Tracking' , 'landing-pages') ,
 			'description' => __("With this setting enabled landing pages plugin will not record visits and conversions for administrative users that are logged in." , 'landing-pages'),
@@ -59,22 +51,6 @@ function lp_get_global_settings() {
 			'type'  => 'radio',
 			'default'  => '0',
 			'options' => array('1'=>'on','0'=>'off')
-		),
-		array(
-			'id'  => 'landing-page-auto-format-forms',
-			'label' => __('Enable Form Standardization' , 'landing-pages'),
-			'description' => __("With this setting enabled landing pages plugin will clean and standardize all input ids and classnames. Uncheck this setting to disable standardization." , 'landing-pages'),
-			'type'  => 'radio',
-			'default'  => '0',
-			'options' => array('1'=>'on','0'=>'off')
-		),
-		array(
-			'id'  => 'main-landing-page-auto-format-forms-retain-elements',
-			'label' => __('Form Standardization Element Whitelist' , 'landing-pages'),
-			'description' =>  __("Form standardization strips the conversion area content of html elements. Add the elements you do not want to be stripped to this list." , 'landing-pages') ,
-			'type'  => 'textarea',
-			'default'  => '<button><script><textarea><style><input><form><select><label><a><p><b><u><strong><i><img><strong><span><font><h1><h2><h3><center><blockquote><embed><object><small>',
-			'options' => null
 		),
 		array(
 			'id'  => 'inbound_compatibility_mode',
