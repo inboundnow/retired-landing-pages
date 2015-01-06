@@ -168,7 +168,7 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
              <h1 class="entry-title"><?php the_title(); ?></h1>
 
             <div class="entry-content">
-                <?php echo do_shortcode( $content ); ?>
+                <?php echo do_shortcode( wpautop($content) ); ?>
             </div>
         </article>
     </section>
