@@ -124,7 +124,7 @@ var InboundForms = (function(_inbound) {
         assignTrackClass: function() {
             if (window.inbound_settings) {
                 if (inbound_settings.inbound_track_include) {
-                    var selectors = inbound_settings.inbound_track_include.split(',');
+                    var selectors = inbound_settings.inbound_track_include.toString().split(',');
                     var msg = 'add selectors ' + inbound_settings.inbound_track_include;
                     _inbound.deBugger('forms', msg);
                     this.loopClassSelectors(selectors, 'add');
