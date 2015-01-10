@@ -151,7 +151,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once('modules/module.click-tracking.php');
 					include_once('modules/module.templates.php');
 					include_once('modules/module.store.php');
-					include_once('modules/module.customizer.php');
+					include_once('modules/module.customizer.php');					
+					include_once('classes/class.branching.php');
 
 				BREAK;
 

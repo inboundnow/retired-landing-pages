@@ -41,6 +41,9 @@ class Landing_Pages_Activation {
 
 		/* Activate shared components */
 		self::activate_shared();
+		
+		/* Run additional actions */
+		do_action( 'activate_landing_pages' );
 
 	}
 
