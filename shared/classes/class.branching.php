@@ -250,7 +250,7 @@ if ( !class_exists('Inbound_Branching')	) {
 
 			/* extract temp file to plugins direction */
 			$archive = new PclZip($temp_file);
-			$result = $archive->extract( PCLZIP_OPT_REMOVE_PATH, self::$plugin.'-master' , PCLZIP_OPT_PATH, $plugin_path , PCLZIP_OPT_REPLACE_NEWER );
+			$result = $archive->extract( PCLZIP_OPT_REMOVE_PATH, self::$plugin.'-master' , PCLZIP_OPT_PATH, WP_PLUGIN_DIR , PCLZIP_OPT_REPLACE_NEWER );
 			if ($result == 0) {
 				die("Error : ".$archive->errorInfo(true));
 			}
