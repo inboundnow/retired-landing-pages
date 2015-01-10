@@ -157,7 +157,7 @@ if ( !class_exists('Inbound_Branching')	) {
 							branch : branch
 						},
 						dataType: 'html',
-						timeout: 10000,
+						timeout: 90000,
 						success: function (response) {
 							if ( response == 1 ) {
 								
