@@ -1,8 +1,8 @@
 <?php
 
-if ( !class_exists('Inbound_Developer_Mode')	) {
+if ( !class_exists('Inbound_Branching')	) {
 
-	class Inbound_Developer_Mode {
+	class Inbound_Branching {
 		
 		static $plugins; /* placeholder for dataset of plugins to apply developer mode too */
 		static $plugin; /* placeholder for plugin being processed */
@@ -126,8 +126,7 @@ if ( !class_exists('Inbound_Developer_Mode')	) {
 			if ( $screen->base != 'plugins' ) {
 				return;
 			}
-			
-			
+
 			
 			?>
 			<script>
@@ -220,7 +219,6 @@ if ( !class_exists('Inbound_Developer_Mode')	) {
 			self::$plugin = $_POST['plugin'];
 			$branch_url = self::$plugins[ self::$plugin ][ self::$branch ];
 			
-			echo $branch_url;exit;
 			
 			/* get plugin path */
 			$plugin_path = WP_PLUGIN_DIR . '/' . self::$plugin;
@@ -233,7 +231,7 @@ if ( !class_exists('Inbound_Developer_Mode')	) {
 
 			/* get zip file contents from svn */
 			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $version_download);
+			curl_setopt($ch, CURLOPT_URL, $branch_url);
 			curl_setopt($ch, CURLOPT_HEADER, false);
 			curl_setopt($ch, CURLOPT_FAILONERROR, true);
 			curl_setopt($ch, CURLOPT_AUTOREFERER, true);
@@ -252,7 +250,7 @@ if ( !class_exists('Inbound_Developer_Mode')	) {
 
 			/* extract temp file to plugins direction */
 			$archive = new PclZip($temp_file);
-			$result = $archive->extract( PCLZIP_OPT_PATH, WP_PLUGIN_DIR , PCLZIP_OPT_REPLACE_NEWER );
+			$result = $archive->extract( PCLZIP_OPT_REMOVE_PATH, self::$plugin.'-master' , PCLZIP_OPT_PATH, $plugin_path , PCLZIP_OPT_REPLACE_NEWER );
 			if ($result == 0) {
 				die("Error : ".$archive->errorInfo(true));
 			}
@@ -261,7 +259,7 @@ if ( !class_exists('Inbound_Developer_Mode')	) {
 			unlink($temp_file);
 
 			/* set current branch into memory */
-			self::set_current_branch( $branch );
+			self::set_current_branch( self::$branch );
 			
 			header('HTTP/1.1 200 OK');
 			echo 1;
@@ -290,5 +288,5 @@ if ( !class_exists('Inbound_Developer_Mode')	) {
 		}
 	}
 
-	$GLOBALS['Inbound_Developer_Mode'] = new Inbound_Developer_Mode;
+	$GLOBALS['Inbound_Branching'] = new Inbound_Branching;
 }
