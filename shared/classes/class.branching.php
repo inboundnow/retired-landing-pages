@@ -241,7 +241,7 @@ if ( !class_exists('Inbound_Branching')	) {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 			$file = curl_exec($ch);
 			curl_close($ch);
-
+			error_log($file);
 			/* write zip file to temp file */
 			$handle = fopen($temp_file, "w");
 			fwrite($handle, $file);
