@@ -157,7 +157,7 @@ if ( !class_exists('Inbound_Branching')	) {
 							branch : branch
 						},
 						dataType: 'html',
-						timeout: 90000,
+						timeout: 200000,
 						success: function (response) {
 							if ( response == 1 ) {
 								
@@ -241,7 +241,7 @@ if ( !class_exists('Inbound_Branching')	) {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 			$file = curl_exec($ch);
 			curl_close($ch);
-			error_log($file);
+
 			/* write zip file to temp file */
 			$handle = fopen($temp_file, "w");
 			fwrite($handle, $file);
@@ -250,7 +250,12 @@ if ( !class_exists('Inbound_Branching')	) {
 
 			/* extract temp file to plugins direction */
 			$archive = new PclZip($temp_file);
-			$result = $archive->extract( PCLZIP_OPT_REMOVE_PATH, self::$plugin.'-master' , PCLZIP_OPT_PATH, WP_PLUGIN_DIR , PCLZIP_OPT_REPLACE_NEWER );
+			if (self::$branch == 'git') {
+				$result = $archive->extract( PCLZIP_OPT_REMOVE_PATH, self::$plugin.'-master' , PCLZIP_OPT_PATH, $plugin_path , PCLZIP_OPT_REPLACE_NEWER );
+			} else {
+				$result = $archive->extract( PCLZIP_OPT_PATH, WP_PLUGIN_DIR , PCLZIP_OPT_REPLACE_NEWER );
+			}
+			
 			if ($result == 0) {
 				die("Error : ".$archive->errorInfo(true));
 			}
