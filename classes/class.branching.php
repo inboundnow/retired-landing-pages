@@ -31,8 +31,7 @@ if ( !class_exists('Landing_Pages_Branching')	) {
 		public static function add_branches( $branches ) {
 			$branches['landing-pages'] = array(
 				'git' => 'https://codeload.github.com/inboundnow/landing-pages/zip/master',
-				'svn' => 'https://codeload.github.com/inboundnow/landing-pages/zip/master'
-				//'svn' => 'https://downloads.wordpress.org/plugin/landing-pages.'.LANDINGPAGES_CURRENT_VERSION.'.zip'
+				'svn' => 'https://downloads.wordpress.org/plugin/landing-pages.'.LANDINGPAGES_CURRENT_VERSION.'.zip'
 			);
 			
 			return $branches;
