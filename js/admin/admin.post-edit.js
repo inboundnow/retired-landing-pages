@@ -5,6 +5,13 @@ jQuery(document).ready(function($) {
         alert('Oh no! jQuery Cookie not loaded. Your Server Might be Blocking this. Some functionality may be impaired');
     }
 
+    jQuery('.button.button-small').each(function(){
+        var $this = jQuery(this);
+        var text =  $this.text();
+        if(text === "Get Shortlink") {
+            $this.hide();
+        }
+    });
 
     // Filter Styling
     jQuery('#template-filter li').first().addClass('button-primary');
