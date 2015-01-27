@@ -73,7 +73,7 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 
 == Changelog ==
 = 1.8.0 =
-* Fixing broken store
+* Fixing addon store
 
 = 1.7.9 =
 * Even more security updates! Security for the win!
