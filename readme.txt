@@ -72,6 +72,9 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 4. Choose from a ton of pre-made templates, use your existing design, or design your own theme!
 
 == Changelog ==
+= 1.8.0 =
+* Fixing broken store
+
 = 1.7.9 =
 * Even more security updates! Security for the win!
 
