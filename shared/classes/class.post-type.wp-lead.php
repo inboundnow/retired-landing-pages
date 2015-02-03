@@ -74,7 +74,12 @@ if ( !class_exists('Inbound_Leads') ) {
 		*	Register Category Taxonomy
 		*/
 		public static function register_taxonomies() {
-
+			
+			/* bail if taxonomy already registered */
+			if (taxonomy_exists('wplead_list_category')) {
+				return;
+			}
+			
 			/* Register lead lists */
 			$list_labels = array(
 				'name'						=> __( 'Lead Lists', 'cta' ),
@@ -354,7 +359,8 @@ if ( !class_exists('Inbound_Leads') ) {
 		* @returns ARRAY of lead lists with term id as key and list name as value
 		*/
 		public static function get_lead_lists_as_array() {
-
+			self::register_taxonomies();
+			
 			$array = array();
 
 			$args = array(
@@ -415,7 +421,7 @@ if ( !class_exists('Inbound_Leads') ) {
 				return;
 			}
 
-			if (!is_plugin_active('leads/wordpress-leads.php')) {
+			if (!is_plugin_active('leads/leads.php')) {
 				_e( 'WordPress Leads is not currently installed/activated to view and manage leads please turn it on.' , 'cta' );
 			}
 		}
