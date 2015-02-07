@@ -16,7 +16,7 @@ $lp_data[$key]['info'] = array(
 	'version' => '1.0',
 	'label' => 'Simple Solid Lite',
 	'category' => '1 Column',
-	'demo' => '',
+	'demo' => 'http://demo.inboundnow.com/go/simple/',
 	'description' => 'This is an auto generated template from Inbound Now'
 );
 
