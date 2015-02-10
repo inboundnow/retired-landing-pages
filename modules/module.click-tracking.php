@@ -8,6 +8,7 @@ function lp_click_callback() {
 	$id = $post->ID;
 	if(get_post_type( $id ) == 'landing-page'){
 	$variation = (isset($_GET['lp-variation-id'])) ? $_GET['lp-variation-id'] : 0;
+	$variation = preg_replace('/[^-a-zA-Z0-9_]/', '', $variation);
 		// Footer script for link rewrites ?>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
