@@ -13,6 +13,15 @@ else if ( file_exists ( './../../../../../wp-load.php' ) )
 {
 	include_once ( './../../../../../wp-load.php' );
 }
+else if ( file_exists ( './../../../../../../wp-load.php' ) )
+{
+	include_once ( './../../../../../../wp-load.php' );
+}
+
+else if ( file_exists ( './../../../../../../../wp-load.php' ) )
+{
+	include_once ( './../../../../../../../wp-load.php' );
+}
 
 class LP_Variation_Rotation {
 
