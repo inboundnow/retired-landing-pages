@@ -16,7 +16,7 @@ array(
 	'version' => "1.0.1", // Version Number
 	'label' => "3 Column Lander", // Nice Name
 	'category' => '3 column layout, Responsive, V2', // Template Category
-	'demo' => 'javascript:void(0);', // Demo Link
+	'demo' => 'http://demo.inboundnow.com/go/3-column-lander/', // Demo Link
 	'description'  => '' // template description
 );
 
