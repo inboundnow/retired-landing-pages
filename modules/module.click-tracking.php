@@ -19,9 +19,9 @@ function lp_click_callback() {
 		if (typeof (lead_cpt_id) != "undefined" && lead_cpt_id !== null) {
         string = "&wpl_id=" + lead_cpt_id + "&l_type=wplid";
 	    } else if (typeof (lead_email) != "undefined" && lead_email !== null && lead_email !== "") {
-	        string = "&wpl_id=" + lead_email + "&l_type=wplemail";;
+	        string = "&wpl_id=" + lead_email + "&l_type=wplemail";
 	    } else if (typeof (lead_unique_key) != "undefined" && lead_unique_key !== null && lead_unique_key !== "") {
-	        string = "&wpl_id=" + lead_unique_key + "&l_type=wpluid";;
+	        string = "&wpl_id=" + lead_unique_key + "&l_type=wpluid";
 	    } else {
 	        string = "";
 	    }
