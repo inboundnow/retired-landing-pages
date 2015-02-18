@@ -207,25 +207,27 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		Inbound_Landing_Pages_Plugin::fail_php_version();
 	}
 
+		
+		
+
+	/* lagacy - Conditional check LP active */
+	function lp_check_active() {
+		return 1;
+	}
+
+	/* Function to check This has been loaded for the tests */
+	function landingpages_is_active() {
+		return true;
+	}
+
+	/* Function to check plugin code is running in travis */
+	function inbound_travis_check() {
+		echo '*** Landing Pages Plugin is Running on Travis ***';
+		return true;
+	}
+
+
 
 }
 
-
-
-
-/* lagacy - Conditional check LP active */
-function lp_check_active() {
-	return 1;
-}
-
-/* Function to check This has been loaded for the tests */
-function landingpages_is_active() {
-	return true;
-}
-
-/* Function to check plugin code is running in travis */
-function inbound_travis_check() {
-	echo '*** Landing Pages Plugin is Running on Travis ***';
-	return true;
-}
 
