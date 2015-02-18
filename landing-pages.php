@@ -78,6 +78,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			}
 		}
 		/* END PHP VERSION CHECKS */
+
+
 		/**
 		* Main Inbound_Landing_Pages_Plugin Instance
 		*
@@ -94,6 +96,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			self::load_files();
 			self::load_shared_files();
 			self::load_text_domain_init();
+
 		}
 
 		/**
@@ -153,6 +156,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once('modules/module.store.php');
 					include_once('modules/module.customizer.php');
 					include_once('classes/class.branching.php');
+					include_once('shared/classes/class.magic.php');
+
 
 				BREAK;
 
@@ -171,6 +176,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once('modules/module.landing-page.php');
 					include_once('classes/class.load-extensions.php');
 					include_once('modules/module.customizer.php');
+					include_once('shared/classes/class.magic.php');
+
 
 					BREAK;
 			endswitch;
