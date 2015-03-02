@@ -1,7 +1,7 @@
 <?php
 
 /* LOAD TEMPLATE */
-add_filter('single_template', 'lp_custom_template' , 11 );
+add_filter('single_template', 'lp_custom_template' , 12 );
 function lp_custom_template($single) {
     global $wp_query, $post, $query_string;
 
