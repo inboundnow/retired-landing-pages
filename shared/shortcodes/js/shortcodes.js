@@ -1112,11 +1112,12 @@
 
         function loadAjaxContent( requestData,addToElement) {//function called when the user clicks on a thickbox link
 
+            jQuery("#"+addToElement).hide();
             jQuery.ajax({
                 url: ajaxurl,
                 data: requestData,
                 success: function (data) {
-                   jQuery("#"+addToElement).html(data);
+                   jQuery("#"+addToElement).html(data).show();
 
                 },
                 error: function (errorThrown) {
