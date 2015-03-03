@@ -750,14 +750,19 @@ class Inbound_Shortcodes {
 						</div>
 
 						<div id="inbound-shortcodes-preview-wrap">
-							<div id="inbound-shortcodes-preview-head">
+							<div  id="inbound-shortcodes-preview-head">
 								<?php _e('Form Preview', 'leads'); ?>
 							</div>
+
 							<?php if( $shortcode->no_preview ) : ?>
 								<div id="inbound-shortcodes-nopreview"><?php _e('Shortcode has no preview', 'leads'); ?></div>
 							<?php else : ?>
-								<iframe src='<?php echo INBOUDNOW_SHARED_URLPATH . 'shortcodes/'; ?>preview.php?sc=&post=<?php echo $_GET['post']; ?>' width="285" scrollbar='true' frameborder="0" id="inbound-shortcodes-preview"></iframe>
-							<?php endif; ?>
+
+                                <div id="inbound-shortcodes-preview">
+
+                                </div>
+
+									<?php endif; ?>
 						</div>
 						<div class="clear"></div>
 			</div>
