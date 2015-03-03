@@ -107,6 +107,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 
 			define('LANDINGPAGES_CURRENT_VERSION', '1.8.0' );
 			define('LANDINGPAGES_URLPATH', plugins_url( '/' , __FILE__ ) );
+
+
 			define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 			define('LANDINGPAGES_PLUGIN_SLUG', plugin_basename( dirname(__FILE__) ) );
 			define('LANDINGPAGES_FILE', __FILE__ );
