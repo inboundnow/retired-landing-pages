@@ -1092,3 +1092,22 @@
 
 
 		});
+
+
+        function changeModalContent(caption, requestData) {//function called when the user clicks on a thickbox link
+
+            jQuery.ajax({
+                url: ajaxurl,
+                data: requestData,
+                success: function (data) {
+                    tb_position();
+                    alert(data)
+                    jQuery("#TB_ajaxContent").html(data);
+
+                    jQuery("#TB_ajaxContent").css({'visibility': 'visible'});
+                },
+                error: function (errorThrown) {
+                    console.log('Error' + errorThrown);
+                }
+            });
+        }
