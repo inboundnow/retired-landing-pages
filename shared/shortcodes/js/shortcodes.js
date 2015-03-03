@@ -75,7 +75,6 @@
 				jQuery('#_inbound_shortcodes_newoutput').remove();
 				jQuery('#inbound-shortcodes-form-table').prepend('<textarea id="_inbound_shortcodes_newoutput" class="hidden">' + newoutput + '</textarea>');
 
-				//InboundShortcodes.updatePreview();
 
 			},
 
@@ -468,13 +467,6 @@
 
 						 InboundShortcodes.update_fields();
 
-                        setTimeout(function(){
-
-                            InboundShortcodes.updatePreview();
-
-                        },0);
-
-
 					});
 					jQuery("body").on('click', '.switch-to-form-insert', function () {
 						tb_show( inbound_load.pop_title, inbound_load.image_dir + 'popup.php?popup=quick-forms&width=' + 900);
@@ -585,10 +577,6 @@
 						jQuery('#inbound_shortcode_form_name').val(option);
 						InboundShortcodes.update_fields();
 
-                        //update Preview
-                        setTimeout(function () {
-                            InboundShortcodes.updatePreview();
-                        }, 0);
 
                     });
 				}
@@ -780,22 +768,32 @@
 					clearTimeout(jQuery.data(this, 'typeTimer'));
 					   jQuery.data(this, 'typeTimer', setTimeout(function() {
 						InboundShortcodes.generateChild(); // runs refresh for children
+						InboundShortcodes.updatePreview();
 						var update_dom = jQuery(this).val();
 						var update_dom = update_dom.replace(/"/g, "'");
 						jQuery(this).attr('value', update_dom);
 					}, 1000));
 				});
 
+
+                jQuery('.inbound-shortcodes-input').change(function(){
+
+                    InboundShortcodes.generate(); // runs refresh
+                    InboundShortcodes.generateChild();
+                    InboundShortcodes.updatePreview();
+                });
+
 				jQuery('.inbound-shortcodes-input', form).on('change, keyup', function () {
+
 					clearTimeout(jQuery.data(this, 'typeTimer'));
 						jQuery.data(this, 'typeTimer', setTimeout(function() {
 							var exclude_input = jQuery(this).parent().parent().parent().parent().hasClass('exclude-from-refresh');
 							console.log('yes');
 							console.log(exclude_input);
-							if (exclude_input != 'true'){
+                            if (exclude_input != 'true'){
 							InboundShortcodes.generate(); // runs refresh
 							InboundShortcodes.generateChild();
-							}
+                            }
 							var update_dom = jQuery(this).val();
 							var update_dom = update_dom.replace(/"/g, "'");
 							jQuery(this).attr('value', update_dom);
@@ -890,6 +888,7 @@
 	    			 console.log('reset mce');
 	    			 }, 300);
 	    		});
+                InboundShortcodes.updatePreview();
 
 			},
 			insert_shortcode: function() {
@@ -1135,7 +1134,6 @@
                 data: requestData,
                 success: function (data) {
 
-                    console.log(data)
                    jQuery("#"+addToElement).html(data).fadeIn();
 
                 },

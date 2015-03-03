@@ -74,18 +74,9 @@ function load_popup_ajax_request()
 
     </div>
     <script type="text/javascript">
-        jQuery(document).ready(function ($) {
 
-            jQuery('.child-clone-row').first().attr('id', 'row-1');
-            setTimeout(function () {
-                jQuery('#inbound-shortcodes-form input:visible').first().focus();
-            }, 500);
 
-            //jQuery("body").on('click', '.child-clone-row', function () {
-            // jQuery(".child-clone-row").toggle();
-            // jQuery(this).show();
-            //});
-        });
+
     </script>
     </body>
     </html>
@@ -207,9 +198,6 @@ if (preg_match("/horizontal/i", $shortcode)) {
         $extra_content = "<p>This is dummy text and not part of the shortcode. This is dummy text and not part of the shortcode. This is dummy text and not part of the shortcode. This is dummy text and not part of the shortcode. This is dummy text and not part of the shortcode. This is dummy text and not part of the shortcode. This is dummy text and not part of the shortcode. This is dummy text and not part of the shortcode. This is dummy text and not part of the shortcode.</p>";
         }?>
     </style>
-
-<div id="close-preview-window"><a href="javascript:window.close()" class="close_window">close window</a></div>
-
 
 
 
