@@ -584,7 +584,13 @@
 						var option = jQuery(this).find("option[value='"+val+"']").text();
 						jQuery('#inbound_shortcode_form_name').val(option);
 						InboundShortcodes.update_fields();
-					});
+
+                        //update Preview
+                        setTimeout(function () {
+                            InboundShortcodes.updatePreview();
+                        }, 0);
+
+                    });
 				}
 
 
