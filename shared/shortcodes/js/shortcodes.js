@@ -30,7 +30,7 @@
 					InboundShortcodes.generate(); // runs refresh
 					InboundShortcodes.generateChild();
 					jQuery('.child-clone-row').last().find('input').first().focus(); // focus on new input
-					//InboundShortcodes.updatePreview();
+
 				}
 
 		var InboundShortcodes = {
@@ -118,7 +118,7 @@
 				jQuery('#_inbound_shortcodes_newoutput').remove();
 				jQuery('#inbound-shortcodes-form-table').prepend('<textarea id="_inbound_shortcodes_newoutput" class="hidden">' + parent_output + '</textarea>');
 
-				InboundShortcodes.updatePreview();
+				//InboundShortcodes.updatePreview();
 
 			},
 
@@ -214,6 +214,7 @@
 					}
 
 
+                    //alert('up')
                     var requestData = {
 
                         action: 'load_preview_ajax_request',
@@ -301,13 +302,14 @@
 			                   });
 						jQuery('body').trigger("inbound_forms_data_ready"); // Trigger custom hook
 
+
 			            }
 			    },
 				update_fields : function () {
-								var insert_form = jQuery("#inbound_shortcode_insert_default").val();
+                    var insert_form = jQuery("#inbound_shortcode_insert_default").val();
 								var current_code = jQuery("#inbound_current_shortcode").val();
 								if ( current_code === "quick_insert_inbound_form_shortcode") {
-									return false;
+                                    return false;
 								}
 
 								var patt = /^form_/gi;
@@ -464,7 +466,15 @@
 					// Insert default forms
 					jQuery('body').on('change', '#inbound_shortcode_insert_default', function () {
 
-						InboundShortcodes.update_fields();
+						 InboundShortcodes.update_fields();
+
+                        setTimeout(function(){
+
+                            InboundShortcodes.updatePreview();
+
+                        },0);
+
+
 					});
 					jQuery("body").on('click', '.switch-to-form-insert', function () {
 						tb_show( inbound_load.pop_title, inbound_load.image_dir + 'popup.php?popup=quick-forms&width=' + 900);
@@ -1027,6 +1037,7 @@
 				//window.tb_remove();
 				var shortcode = jQuery(this).attr('data-launch-sc');
 
+
 				setTimeout(function() {
 
                     var requestData = {
@@ -1039,7 +1050,7 @@
 
                    //tb_show( inbound_load.pop_title, inbound_load.image_dir + 'popup.php?popup=' + shortcode + '&width=' + 900 + "&path=" + encodeURIComponent(inbound_load.image_dir));
 
-				          }, 500);
+                }, 500);
 
 			});
 			jQuery("body").on('click', '.inbound-shortcodes-insert-two', function () {
@@ -1112,12 +1123,14 @@
 
         function loadAjaxContent( requestData,addToElement) {//function called when the user clicks on a thickbox link
 
-            jQuery("#"+addToElement).hide();
+            jQuery("#"+addToElement).fadeOut();
             jQuery.ajax({
                 url: ajaxurl,
                 data: requestData,
                 success: function (data) {
-                   jQuery("#"+addToElement).html(data).show();
+
+                    console.log(data)
+                   jQuery("#"+addToElement).html(data).fadeIn();
 
                 },
                 error: function (errorThrown) {
