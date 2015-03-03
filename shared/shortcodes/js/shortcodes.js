@@ -75,7 +75,7 @@
 				jQuery('#_inbound_shortcodes_newoutput').remove();
 				jQuery('#inbound-shortcodes-form-table').prepend('<textarea id="_inbound_shortcodes_newoutput" class="hidden">' + newoutput + '</textarea>');
 
-				InboundShortcodes.updatePreview();
+				//InboundShortcodes.updatePreview();
 
 			},
 
@@ -200,12 +200,9 @@
 				if( jQuery('#inbound-shortcodes-preview').size() > 0 ) {
 
 					var	shortcode = jQuery('#_inbound_shortcodes_newoutput').val(),
-						iframe = jQuery('#inbound-shortcodes-preview'),
-						theiframeSrc = iframe.attr('src'),
-						thesiframeSrc = theiframeSrc.split('preview.php'),
 						shortcode_name = jQuery("#inbound_current_shortcode").val(),
-						form_id = jQuery("#post_ID").val(),
-						iframeSrc = thesiframeSrc[0] + 'preview.php';
+						form_id = jQuery("#post_ID").val();
+
 					// Add form id to CPT preview
 					if ( shortcode_name === "insert_inbound_form_shortcode") {
 						if (typeof (inbound_forms) != "undefined" && inbound_forms !== null) {
@@ -215,8 +212,17 @@
 					if ( shortcode_name === "insert_styled_list_shortcode" || shortcode_name === "insert_button_shortcode") {
 							var shortcode = shortcode.replace(/#/g, '');
 					}
-					// updates the src value
-					iframe.attr( 'src', iframeSrc + '?post='+inbound_shortcodes.form_id+'&sc=' + InboundShortcodes.htmlEncode(shortcode));
+
+
+                    var requestData = {
+
+                        action: 'load_preview_ajax_request',
+                        sc: shortcode,
+                        post: inbound_shortcodes.form_id
+
+                    };
+
+                    loadAjaxContent(requestData,'inbound-shortcodes-preview')
 
 					//console.log('updated iframe');
 					// update the height
@@ -1022,8 +1028,18 @@
 				var shortcode = jQuery(this).attr('data-launch-sc');
 
 				setTimeout(function() {
-				 tb_show( inbound_load.pop_title, inbound_load.image_dir + 'popup.php?popup=' + shortcode + '&width=' + 900 + "&path=" + encodeURIComponent(inbound_load.image_dir));
-				        }, 500);
+
+                    var requestData = {
+                        action: 'load_popup_ajax_request',
+                        popup: shortcode,
+                        width: 900
+                    }
+
+                   loadAjaxContent( requestData,'TB_ajaxContent');
+
+                   //tb_show( inbound_load.pop_title, inbound_load.image_dir + 'popup.php?popup=' + shortcode + '&width=' + 900 + "&path=" + encodeURIComponent(inbound_load.image_dir));
+
+				          }, 500);
 
 			});
 			jQuery("body").on('click', '.inbound-shortcodes-insert-two', function () {
@@ -1094,17 +1110,14 @@
 		});
 
 
-        function changeModalContent(caption, requestData) {//function called when the user clicks on a thickbox link
+        function loadAjaxContent( requestData,addToElement) {//function called when the user clicks on a thickbox link
 
             jQuery.ajax({
                 url: ajaxurl,
                 data: requestData,
                 success: function (data) {
-                    tb_position();
-                    alert(data)
-                    jQuery("#TB_ajaxContent").html(data);
+                   jQuery("#"+addToElement).html(data);
 
-                    jQuery("#TB_ajaxContent").css({'visibility': 'visible'});
                 },
                 error: function (errorThrown) {
                     console.log('Error' + errorThrown);
