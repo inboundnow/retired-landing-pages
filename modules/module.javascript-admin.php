@@ -70,8 +70,8 @@ function lp_admin_enqueue($hook) {
 			// Conditional TINYMCE for landing pages
 			//wp_dequeue_script('jquery-tinymce');
 			//wp_enqueue_script('jquery-tinymce', LANDINGPAGES_URLPATH . 'js/libraries/tiny_mce/jquery.tinymce.js');
-			wp_enqueue_style('inbound-metaboxes', LANDINGPAGES_URLPATH . 'shared/metaboxes/inbound-metaboxes.css');
-
+//			wp_enqueue_style('inbound-metaboxes', LANDINGPAGES_URLPATH . 'shared/metaboxes/inbound-metaboxes.css');
+//
 		}
 
 		if ( $plugin_page === 'lp_global_settings' ) {
