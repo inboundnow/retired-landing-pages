@@ -1,14 +1,5 @@
  jQuery(document).ready(function($) {
 
- 	setTimeout(function() {
- 	        jQuery('form').each(function(){
- 	        	//jQuery(this).addClass('inbound-track');
- 	    	});
- 	}, 700);
-
-
- 	// Saves variation page views
-
  	// Save page view count
 	jQuery.ajax({
 		type: 'POST',
