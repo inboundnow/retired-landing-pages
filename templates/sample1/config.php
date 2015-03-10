@@ -116,8 +116,16 @@ $lp_data[$key]['settings'] =
         ),
 
 
-
         array(
+            'label' => 'Top Banner Image',
+            'description' => 'Top Banner Image',
+            'id'	=> 'banner-image',
+            'type'	=> 'media',
+            'default'	=> ' ',
+            'context'	=> 'normal'
+        ),
+
+                array(
             'label' => 'Show Company Logo',
             'description' => 'Show Company Logo on Header',
             'id' => 'show-company-logo', // called in template's index.php file with lp_get_value($post, $key, 'checkbox-id-here');

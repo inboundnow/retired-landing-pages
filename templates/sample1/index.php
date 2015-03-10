@@ -45,8 +45,8 @@ $main_content = lp_get_value($post, $key, 'main-content');
 $footer_content = lp_get_value($post, $key, 'footer-content');
 //
 
-$show_logo = lp_get_value($post, $key, 'show-company-logo');
-
+$show_logo = @lp_get_value($post, $key, 'show-company-logo');
+$banner_image=lp_get_value($post, $key, 'banner-image');
 $header_color = lp_get_value($post, $key, 'header-color');
 $main_color = lp_get_value($post, $key, 'main-color');
 $footer_color = lp_get_value($post, $key, 'footer-color');
@@ -139,9 +139,17 @@ $footer_color = lp_get_value($post, $key, 'footer-color');
                 <h1><?php the_title(); ?></h1>
 
 
+
+                <?php if(!empty($banner_image)): ?>
+                <img id="logo" src="<?php echo $banner_image ?>" width="100%" height="300px">
+
+                <?php endif;?>
+
                 <div class="main-content">
 
                     <?php echo $main_content; ?>
+
+
                 </div>
 
 
