@@ -105,7 +105,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		*/
 		private static function load_constants() {
 
-			define('LANDINGPAGES_CURRENT_VERSION', '1.8.0' );
+			define('LANDINGPAGES_CURRENT_VERSION', '1.8.1' );
 			define('LANDINGPAGES_URLPATH', plugins_url( '/' , __FILE__ ) );
 
 
