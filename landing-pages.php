@@ -175,8 +175,6 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once('modules/module.landing-page.php');
 					include_once('classes/class.load-extensions.php');
 					include_once('modules/module.customizer.php');
-					include_once('shared/classes/class.magic.php');
-
 
 					BREAK;
 			endswitch;
