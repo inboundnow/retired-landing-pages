@@ -35,9 +35,9 @@ function HexToRGB($hex) {
 
 $RBG_array = HexToRGB($hex_value);
 
-$red = $RBG_array [r];
-$green = $RBG_array [g];
-$blue = $RBG_array [b];
+$red = $RBG_array ['r'];
+$green = $RBG_array ['g'];
+$blue = $RBG_array ['b'];
  
 // Set the image 
 $img = imagecreatetruecolor(10,10); // 10 x 10 px
