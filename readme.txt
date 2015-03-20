@@ -73,15 +73,16 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 
 == Changelog ==
 
-= 1.8.1 =
+= 1.8.2 =
 * Debugging release issues with 1.8.1
+* Security Update
 
 = 1.8.1 =
 * WYSIWYG buttons overlapping fixed
 * Fixes issue with Homepage extensions and variation switching
-* Template preview links 
+* Template preview links
 * Removing 'get short url' from landing pages.
-* View full list of changes [here](https://github.com/inboundnow/landing-pages/issues?q=label%3A1.8.1+is%3Aclosed) 
+* View full list of changes [here](https://github.com/inboundnow/landing-pages/issues?q=label%3A1.8.1+is%3Aclosed)
 
 = 1.8.0 =
 * Fixing addon store
