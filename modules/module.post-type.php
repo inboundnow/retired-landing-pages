@@ -311,7 +311,7 @@ if (is_admin()) {
 				$thumbnail = 'http://s.wordpress.com/mshots/v1/' . urlencode(esc_url($permalink)) . '?w=140';
 			}
 
-			echo "<a title='".__('Click to Preview this variation' , 'landing-pages') ."' class='thickbox' href='".$permalink."?lp-variation-id=0&iframe_window=on&post_id=".$post->ID."&TB_iframe=true&width=640&height=703' target='_blank'><img src='".$thumbnail."' style='width:150px;height:110px;' title='Click to Preview'></a>";
+			echo "<a title='".__('Click to Preview this variation' , 'landing-pages') ."' class='thickbox' href='".$permalink."?lp-variation-id=0&iframe_window=on&post_id=".$post->ID."&TB_iframe=true&width=640&height=703' target='_blank'><img src='".$thumbnail."' style='width:130px;height:110px;' title='Click to Preview'></a>";
 
 		}
 		else if ("stats" == $column)

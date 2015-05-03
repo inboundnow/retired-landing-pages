@@ -929,8 +929,7 @@ function lp_ab_testing_alter_title_area( $content , $id = null)
 }
 
 add_action('lp_record_impression','lp_ab_testing_record_impression', 10, 3 );
-function lp_ab_testing_record_impression($post_id, $post_type = 'landing-page' , $variation_id = 0 )
-{
+function lp_ab_testing_record_impression($post_id, $post_type = 'landing-page' , $variation_id = 0 ) {
 
 	/* If Landing Page Post Type */
 	if ( $post_type == 'landing-page' ) {
