@@ -182,7 +182,11 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 
 		/** Load Shared Files at priority 2 */
 		private static function load_shared_files() {
-			require_once('shared/classes/class.load-shared.php');
+			if (file_exists('shared/classes/class.load-shared.php')) {
+				require_once('shared/classes/class.load-shared.php');
+			} else {
+				require_once(WP_PLUGIN_DIR . '/_inbound-pro/core/shared/classes/class.load-shared.php');
+			}
 			add_action( 'plugins_loaded', array( 'Inbound_Load_Shared' , 'init' ) , 2 );
 		}
 
@@ -211,8 +215,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		Inbound_Landing_Pages_Plugin::fail_php_version();
 	}
 
-		
-		
+
+
 
 	/* lagacy - Conditional check LP active */
 	function lp_check_active() {
