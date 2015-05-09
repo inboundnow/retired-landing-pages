@@ -119,7 +119,6 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 
 		/**
 		* Include required plugin files
-		*
 		*/
 		private static function load_files() {
 
