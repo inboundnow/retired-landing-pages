@@ -14,7 +14,6 @@ shared/languages/calls-to-action/_get-translations.bat
 ######################
 *~
 .SyncIgnore
-.git
 .svn
 .cvs
 .DS_Store
