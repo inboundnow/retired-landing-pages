@@ -820,8 +820,7 @@ function lp_ab_testing_alter_title_area( $content , $id = null)
 }
 
 add_action('lp_record_impression','lp_ab_testing_record_impression', 10, 3 );
-function lp_ab_testing_record_impression($post_id, $post_type = 'landing-page' , $variation_id = 0 )
-{
+function lp_ab_testing_record_impression($post_id, $post_type = 'landing-page' , $variation_id = 0 ) {
 
 	/* If Landing Page Post Type */
 	if ( $post_type == 'landing-page' ) {
@@ -845,9 +844,8 @@ function lp_ab_testing_record_impression($post_id, $post_type = 'landing-page' ,
 
 
 add_action('lp_launch_customizer_pre','lp_ab_testing_customizer_enqueue');
-function lp_ab_testing_customizer_enqueue($post)
-{
-	//echo 1; exit;
+function lp_ab_testing_customizer_enqueue($post) {
+
 	$permalink = get_permalink( $post->ID );
 	$randomstring = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
 
