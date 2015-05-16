@@ -32,16 +32,18 @@ class Tests_Statistics extends WP_UnitTestCase {
 
 
     /**
-     * Set landing page stats to zero for testing
+     * Test is Landing_Pages_Statistics::read_statistics works
      */
     function test_read_statistics() {
         /* includes */
         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
 
-        echo 'static var'. $this->lp_id;
         $stats = Landing_Pages_Statistics::read_statistics( $this->lp_id );
-        print_r($stats);
-
+        $this->assertEquals( count($stats) , 3 );
+        $this->assertEquals( $stats['impressions'][0] , 0 );
+        $this->assertEquals( $stats['conversions'][0] , 0 );
+        $this->assertEquals( $stats['impressions'][1] , 0 );
+        $this->assertEquals( $stats['conversions'][1] , 0 );
     }
 
 }
