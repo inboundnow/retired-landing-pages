@@ -27,9 +27,9 @@ class Landing_Pages_Statistics {
      */
     public static function get_variations( $landing_page_id ) {
         if (!$landing_page_id) {
-            return;
+            return array();
         }
-        echo 'Landing page:'.$landing_page_id."\r\n";
+
         $variations = (self::$variations) ? self::$variations :  get_post_meta(  $landing_page_id , 'lp-ab-variations' , true );
 
         if (!is_array($variations)) {
@@ -37,7 +37,7 @@ class Landing_Pages_Statistics {
         }
 
         $variations = array_filter( $variations , 'is_numeric' );
-
+        print_r($variations);
         return ( $variations ? $variations : array() );
     }
 

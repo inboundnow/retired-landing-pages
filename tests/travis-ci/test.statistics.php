@@ -26,6 +26,9 @@ class Tests_Statistics extends WP_UnitTestCase {
             Landing_Pages_Statistics::set_impression_count( $this->lp_id , $vid, 0 );
             Landing_Pages_Statistics::set_conversion_count( $this->lp_id , $vid, 0 );
         }
+
+        /* padding for the travis-ci console */
+        echo "\r\n\r\n";
     }
 
 
@@ -59,8 +62,8 @@ class Tests_Statistics extends WP_UnitTestCase {
         $response = wp_remote_get( $permalink );
         $response = wp_remote_get( $permalink );
         $response = wp_remote_get( $permalink );
-        $response = wp_remote_get( add_query_args( array('lp-variation-id'=> 0  ) , $permalink) );
-        $response = wp_remote_get( add_query_args( array('lp-variation-id'=> 1  ) , $permalink) );
+        $response = wp_remote_get( add_query_arg( array('lp-variation-id'=> 0  ) , $permalink) );
+        $response = wp_remote_get( add_query_arg( array('lp-variation-id'=> 1  ) , $permalink) );
         $stats = Landing_Pages_Statistics::read_statistics( $this->lp_id );
         $this->assertEquals( $stats['impressions'][0] , 3 );
         $this->assertEquals( $stats['conversions'][0] , 0 );
