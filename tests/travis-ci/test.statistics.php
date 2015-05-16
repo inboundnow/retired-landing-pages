@@ -14,13 +14,16 @@ class Tests_Statistics extends WP_UnitTestCase {
         /* load the class used to create the dummy landing page */
         include_once LANDINGPAGES_PATH . 'modules/module.install.php';
         self::get_demo_landing_page();
-        echo 'here' . $this->lp_id;
+        echo 'here' . $this->lp_id . "\r\n";;
     }
 
 
     function get_demo_landing_page() {
         $options = get_option("lp_settings_general");
         $this->lp_id = $options['default_landing_page'];
+        echo 2;
+        echo $this->lp_id;
+        echo 'done';
     }
 
 
