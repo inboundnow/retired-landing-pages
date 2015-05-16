@@ -33,14 +33,15 @@ class Tests_Statistics extends WP_UnitTestCase {
      */
     function test_reset_landing_page_stats() {
 
-        $landing_pages = get_posts( array(
-            'ID'=> $this->lp_id
-        ));
+        $landing_page = get_post( get_demo_lander() );
 
-        print_r($landing_pages);
+        print_r($landing_page);
 
     }
 
 }
 
-?>
+function get_demo_lander() {
+    $options = get_option("lp_settings_general");
+    return $options['default_landing_page'];
+}
