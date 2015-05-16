@@ -21,7 +21,7 @@ class Tests_Statistics extends WP_UnitTestCase {
     function get_demo_landing_page() {
         $options = get_option("lp_settings_general");
         $this->lp_id = $options['default_landing_page'];
-    } 
+    }
 
 
     /**
@@ -39,7 +39,7 @@ class Tests_Statistics extends WP_UnitTestCase {
     function test_reset_landing_page_stats() {
 
         $landing_pages = get_posts( array(
-            'ID'=> $this->lp_id;
+            'ID'=> $this->lp_id
         ));
 
         print_r($landing_pages);
