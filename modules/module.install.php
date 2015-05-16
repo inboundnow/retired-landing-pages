@@ -71,8 +71,6 @@ function inbound_create_default_post_type(){
     );
 
     update_option( "lp_settings_general", $options );
-    print_r($options);
-    echo 'here2';
     return $default_lander;
 }
 
