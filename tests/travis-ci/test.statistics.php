@@ -15,10 +15,11 @@ class Tests_Statistics extends WP_UnitTestCase {
     }
 
     function test_reset_landing_page_stats() {
+
         $landing_pages = get_posts( array(
             'post_type'=> 'landing-page'
         ));
-
+        echo 2;
         print_r($landing_pages);
 
     }
