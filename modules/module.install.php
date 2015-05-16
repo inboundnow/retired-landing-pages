@@ -77,7 +77,7 @@ function inbound_create_default_post_type(){
 
     }
 
-    return true;
+    return $default_lander;
 }
 
 /**
