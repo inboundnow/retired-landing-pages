@@ -19,7 +19,6 @@ class Tests_Statistics extends WP_UnitTestCase {
 
          $this->lp_id = inbound_create_default_post_type();
 
-
          /*  clear the stats */
          $variations = Landing_Pages_Statistics::get_variations($this->lp_id );
          foreach ($variations as $vid) {
@@ -40,7 +39,8 @@ class Tests_Statistics extends WP_UnitTestCase {
         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
 
         echo 'static var'. $this->lp_id;
-        $variations = Landing_Pages_Statistics::read_( $this->lp_id );
+        $stats = Landing_Pages_Statistics::read_statitics( $this->lp_id );
+        print_r($stats);
 
     }
 
