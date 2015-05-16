@@ -22,7 +22,10 @@ class Tests_Statistics extends WP_UnitTestCase {
         include_once LANDINGPAGES_PATH . 'modules/module.install.php';
 
         /* create a landing page */
-        $this->assertTrue( inbound_create_default_post_type() );
+
+        $this->lp_id =  inbound_create_default_post_type();
+        echo $this->lp_id;
+        $this->assertTrue( $this->lp_id );
     }
 
 
