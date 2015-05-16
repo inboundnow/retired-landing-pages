@@ -2,30 +2,25 @@
 // Added Demo Landing on Install
 add_action('admin_init', 'inbound_create_default_post_type');
 function inbound_create_default_post_type(){
-    // NEED to insert custom meta as well
 
-    $option_name = "lp_settings_general";
-    $option_key = "default_landing_page";
     $current_user = wp_get_current_user();
-    add_option( $option_name, '' );
 
+    $lp_default_options = get_option( 'lp_settings_general' );
 
-    $lp_default_options = get_option($option_name);
-
-    if (  isset( $lp_default_options[$option_key] ) ) 	{
-        return $lp_default_options[$option_key];
+    if ( isset( $lp_default_options["default_landing_page"] ) ) {
+        return $lp_default_options["default_landing_page"];
     }
 
     $default_lander = wp_insert_post(
-        array(
-            'post_title'     => __( 'A/B Testing Landing Page Example' , 'landing-pages'),
-            'post_content'   => __( '<p>This is the first paragraph of your landing page where you want to draw the viewers in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>' , 'landing-pages'),
-            'post_status'    => 'publish',
-            'post_author'    => $current_user->ID,
-            'post_type'      => 'landing-page',
-            'comment_status' => 'closed'
-        )
-    );
+            array(
+                'post_title'     => __( 'A/B Testing Landing Page Example' , 'landing-pages'),
+                'post_content'   => __( '<p>This is the first paragraph of your landing page where you want to draw the viewers in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>' , 'landing-pages'),
+                'post_status'    => 'publish',
+                'post_author'    => $current_user->ID,
+                'post_type'      => 'landing-page',
+                'comment_status' => 'closed'
+            )
+        );
 
     // Variation A
     add_post_meta($default_lander, 'lp-main-headline', __( 'Main Catchy Headline (A)' , 'landing-pages') );
@@ -71,110 +66,119 @@ function inbound_create_default_post_type(){
 
     // Store our page IDs
     $options = array(
-        $option_key => $default_lander
+        "default_landing_page" => $default_lander
     );
 
-    update_option( $option_name, $options );
-
+    update_option( "lp_settings_general", $options );
 
     return $default_lander;
 }
 
 /**
-*  If not Inbound Pro run these checks
-*/
-if ( !class_exists('Inbound_Pro_Plugin')	) {
-	require_once(LANDINGPAGES_PATH."/libraries/class-tgm-plugin-activation.php");
-	add_action( 'tgmpa_register', 'lp_install_register_required_plugins' );
-	/**
-	 * Register the required plugins for this theme.
-	 *
-	 * In this example, we register two plugins - one included with the TGMPA library
-	 * and one from the .org repo.
-	 *
-	 * The variable passed to tgmpa_register_plugins() should be an array of plugin
-	 * arrays.
-	 *
-	 * This function is hooked into tgmpa_init, which is fired within the
-	 * TGM_Plugin_Activation class constructor.
-	 */
-	function lp_install_register_required_plugins() {
-		//
+ * Debug Activation errors */
+//update_option('plugin_error',  ''); //clear
+/*
+add_action('activated_plugin','activation_save_error');
 
-		/**
-		 * Array of plugin arrays. Required keys are name, slug and required.
-		 * If the source is NOT from the .org repo, then source is also required.
-		 */
-		$plugins = array(
+function activation_save_error(){
+    update_option('plugin_error',  ob_get_contents());
+}*/
+//echo "Errors:" . get_option('plugin_error');
 
-			// This is an example of how to include a plugin pre-packaged with a theme
-		  /*  array(
-				'name'                  => 'TGM Example Plugin', // The plugin name
-				'slug'                  => 'tgm-example-plugin', // The plugin slug (typically the folder name)
-				'source'                => get_stylesheet_directory() . '/lib/plugins/tgm-example-plugin.zip', // The plugin source
-				'required'              => true, // If false, the plugin is only 'recommended' instead of required
-				'version'               => '', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
-				'force_activation'      => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
-				'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
-				'external_url'          => '', // If set, overrides default API URL and points to an external URL
-			), */
+/**
+ * Include the TGM_Plugin_Activation class.
+ */
 
-			// This is an example of how to include a plugin from the WordPress Plugin Repository
-			array(
-				'name'      => __('WordPress Leads' , 'landing-pages') .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will give you the ability to track and manage incoming web leads. Gather advanced Lead Intelligence and close more deals.' , 'landing-pages') .' <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/leads/\'> '. __('Learn more about WordPress Leads' , 'landing-pages') .'</a></span>',
-				'slug'      => 'leads',
-				'required'  => false,
-			),
-		   array(
-			   'name'      => __('WordPress Calls to Action' , 'landing-pages') .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will drive more traffic into your Landing Pages with Targeted Calls to Action in your sites sidebars & content. Create popups to capture visitor attention and convert more leads.' , 'landing-pages') . ' <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/cta/\'> ' . __('Learn more about WordPress Calls to Action' , 'landing-pages') . '</a></span>',
-			   'slug'      => 'cta',
-			   'required'  => false,
-		   ),
+require_once(LANDINGPAGES_PATH."/libraries/class-tgm-plugin-activation.php");
+add_action( 'tgmpa_register', 'lp_install_register_required_plugins' );
+/**
+ * Register the required plugins for this theme.
+ *
+ * In this example, we register two plugins - one included with the TGMPA library
+ * and one from the .org repo.
+ *
+ * The variable passed to tgmpa_register_plugins() should be an array of plugin
+ * arrays.
+ *
+ * This function is hooked into tgmpa_init, which is fired within the
+ * TGM_Plugin_Activation class constructor.
+ */
+function lp_install_register_required_plugins() {
+    //
 
-		);
+    /**
+     * Array of plugin arrays. Required keys are name, slug and required.
+     * If the source is NOT from the .org repo, then source is also required.
+     */
+    $plugins = array(
 
-		// Change this to your theme text domain, used for internationalising strings
-		$theme_text_domain = 'landing-pages';
+        // This is an example of how to include a plugin pre-packaged with a theme
+      /*  array(
+            'name'                  => 'TGM Example Plugin', // The plugin name
+            'slug'                  => 'tgm-example-plugin', // The plugin slug (typically the folder name)
+            'source'                => get_stylesheet_directory() . '/lib/plugins/tgm-example-plugin.zip', // The plugin source
+            'required'              => true, // If false, the plugin is only 'recommended' instead of required
+            'version'               => '', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+            'force_activation'      => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
+            'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
+            'external_url'          => '', // If set, overrides default API URL and points to an external URL
+        ), */
 
-		/**
-		 * Array of configuration settings. Amend each line as needed.
-		 * If you want the default strings to be available under your own theme domain,
-		 * leave the strings uncommented.
-		 * Some of the strings are added into a sprintf, so see the comments at the
-		 * end of each line for what each argument will be.
-		 */
-		$config = array(
-			'domain'            => $theme_text_domain,           // Text domain - likely want to be the same as your theme.
-			'default_path'      => '',                           // Default absolute path to pre-packaged plugins
-			'parent_menu_slug'  => 'themes.php',         // Default parent menu slug
-			'parent_url_slug'   => 'themes.php',         // Default parent URL slug
-			'menu'              => 'install-inbound-plugins',   // Menu slug
-			'has_notices'       => true,                         // Show admin notices or not
-			'is_automatic'      => false,            // Automatically activate plugins after installation or not
-			'message'           => '',               // Message to output right before the plugins table
-			'strings'           => array(
-				'page_title'                                => __( 'Install Required Plugins', $theme_text_domain ),
-				'menu_title'                                => __( 'Install Plugins', $theme_text_domain ),
-				'installing'                                => __( 'Installing Plugin: %s', $theme_text_domain ), // %1$s = plugin name
-				'oops'                                      => __( 'Something went wrong with the plugin API.', $theme_text_domain ),
-				'notice_can_install_required'               => _n_noop( 'WordPress Landing Pages requires the following plugin: %1$s', 'WordPress Landing Pages highly requires the following plugins: %1$s.' ), // %1$s = plugin name(s)
-				'notice_can_install_recommended'            => _n_noop( 'WordPress Landing Pages highly recommends the following complimentary plugin: %1$s', 'WordPress Landing Pages highly recommends the following complimentary plugins: %1$s.' ), // %1$s = plugin name(s)
-				'notice_cannot_install'                     => _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.' ), // %1$s = plugin name(s)
-				'notice_can_activate_required'              => _n_noop( 'The following required plugin is currently inactive: %1$s', 'The following required plugins are currently inactive: %1$s' ), // %1$s = plugin name(s)
-				'notice_can_activate_recommended'           => _n_noop( 'The following recommended plugin is currently inactive: %1$s', 'The following recommended plugins are currently inactive: %1$s' ), // %1$s = plugin name(s)
-				'notice_cannot_activate'                    => _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.' ), // %1$s = plugin name(s)
-				'notice_ask_to_update'                      => _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s' ), // %1$s = plugin name(s)
-				'notice_cannot_update'                      => _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.' ), // %1$s = plugin name(s)
-				'install_link'                              => _n_noop( 'Begin installing plugin', 'Begin installing plugins' ),
-				'activate_link'                             => _n_noop( 'Activate installed plugin', 'Activate installed plugins' ),
-				'return'                                    => __( 'Return to Required Plugins Installer', $theme_text_domain ),
-				'plugin_activated'                          => __( 'Plugin activated successfully.', $theme_text_domain ),
-				'complete'                                  => __( 'All plugins installed and activated successfully. %s', $theme_text_domain ),
-				 // %1$s = dashboard link
-			)
-		);
+        // This is an example of how to include a plugin from the WordPress Plugin Repository
+        array(
+            'name'      => __('WordPress Leads' , 'landing-pages') .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will give you the ability to track and manage incoming web leads. Gather advanced Lead Intelligence and close more deals.' , 'landing-pages') .' <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/leads/\'> '. __('Learn more about WordPress Leads' , 'landing-pages') .'</a></span>',
+            'slug'      => 'leads',
+            'required'  => false,
+        ),
+       array(
+           'name'      => __('WordPress Calls to Action' , 'landing-pages') .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will drive more traffic into your Landing Pages with Targeted Calls to Action in your sites sidebars & content. Create popups to capture visitor attention and convert more leads.' , 'landing-pages') . ' <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/cta/\'> ' . __('Learn more about WordPress Calls to Action' , 'landing-pages') . '</a></span>',
+           'slug'      => 'cta',
+           'required'  => false,
+       ),
 
-		tgmpa( $plugins, $config );
+    );
 
-	}
+    // Change this to your theme text domain, used for internationalising strings
+    $theme_text_domain = 'landing-pages';
+
+    /**
+     * Array of configuration settings. Amend each line as needed.
+     * If you want the default strings to be available under your own theme domain,
+     * leave the strings uncommented.
+     * Some of the strings are added into a sprintf, so see the comments at the
+     * end of each line for what each argument will be.
+     */
+    $config = array(
+        'domain'            => $theme_text_domain,           // Text domain - likely want to be the same as your theme.
+        'default_path'      => '',                           // Default absolute path to pre-packaged plugins
+        'parent_menu_slug'  => 'themes.php',         // Default parent menu slug
+        'parent_url_slug'   => 'themes.php',         // Default parent URL slug
+        'menu'              => 'install-inbound-plugins',   // Menu slug
+        'has_notices'       => true,                         // Show admin notices or not
+        'is_automatic'      => false,            // Automatically activate plugins after installation or not
+        'message'           => '',               // Message to output right before the plugins table
+        'strings'           => array(
+            'page_title'                                => __( 'Install Required Plugins', $theme_text_domain ),
+            'menu_title'                                => __( 'Install Plugins', $theme_text_domain ),
+            'installing'                                => __( 'Installing Plugin: %s', $theme_text_domain ), // %1$s = plugin name
+            'oops'                                      => __( 'Something went wrong with the plugin API.', $theme_text_domain ),
+            'notice_can_install_required'               => _n_noop( 'WordPress Landing Pages requires the following plugin: %1$s', 'WordPress Landing Pages highly requires the following plugins: %1$s.' ), // %1$s = plugin name(s)
+            'notice_can_install_recommended'            => _n_noop( 'WordPress Landing Pages highly recommends the following complimentary plugin: %1$s', 'WordPress Landing Pages highly recommends the following complimentary plugins: %1$s.' ), // %1$s = plugin name(s)
+            'notice_cannot_install'                     => _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.' ), // %1$s = plugin name(s)
+            'notice_can_activate_required'              => _n_noop( 'The following required plugin is currently inactive: %1$s', 'The following required plugins are currently inactive: %1$s' ), // %1$s = plugin name(s)
+            'notice_can_activate_recommended'           => _n_noop( 'The following recommended plugin is currently inactive: %1$s', 'The following recommended plugins are currently inactive: %1$s' ), // %1$s = plugin name(s)
+            'notice_cannot_activate'                    => _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.' ), // %1$s = plugin name(s)
+            'notice_ask_to_update'                      => _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s' ), // %1$s = plugin name(s)
+            'notice_cannot_update'                      => _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.' ), // %1$s = plugin name(s)
+            'install_link'                              => _n_noop( 'Begin installing plugin', 'Begin installing plugins' ),
+            'activate_link'                             => _n_noop( 'Activate installed plugin', 'Activate installed plugins' ),
+            'return'                                    => __( 'Return to Required Plugins Installer', $theme_text_domain ),
+            'plugin_activated'                          => __( 'Plugin activated successfully.', $theme_text_domain ),
+            'complete'                                  => __( 'All plugins installed and activated successfully. %s', $theme_text_domain ),
+             // %1$s = dashboard link
+        )
+    );
+
+    tgmpa( $plugins, $config );
+
 }

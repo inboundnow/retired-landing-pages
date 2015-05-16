@@ -34,13 +34,11 @@ class Tests_Statistics extends WP_UnitTestCase {
      * creates a dummy landing page for testing
      */
     function test_create_demo_lander() {
-        /* register landing-page post type */
-
-
         /* load the class used to create the dummy landing page */
         include_once LANDINGPAGES_PATH . 'modules/module.install.php';
         $lp_id = inbound_create_default_post_type();
         $this->assertEquals(  $lp_id  , 4 );
+        echo 1;
     }
 
 
@@ -49,7 +47,7 @@ class Tests_Statistics extends WP_UnitTestCase {
      * Check if landing-page post type exists
      */
     function test_check_if_landing_page_post_type_exist() {
-        $this->assertTrue(post_type_exists( 'landing-page' ));
+        $this->assertTrue( post_type_exists( 'landing-page' ) );
     }
 
 
@@ -58,8 +56,8 @@ class Tests_Statistics extends WP_UnitTestCase {
      * Set landing page stats to zero for testing
      */
     function test_reset_landing_page_stats() {
-        $array = array( 1,2,3);
-        print_r($array);
+        echo 2;
+        pritn_r( get_option( 'lp_settings_general' ) );
         $landing_page = get_post( 4 );
         var_dump($landing_page);
 
