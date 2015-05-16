@@ -20,20 +20,11 @@ class Tests_Statistics extends WP_UnitTestCase {
          echo $lp_id."\r\n";
 
          /*  clear the stats */
-         Landing_Pages_Statistics::get_variations( $lp_id );
+         $variations = Landing_Pages_Statistics::get_variations( $lp_id );
          print_r($variations);
      }
 
 
-
-
-
-    /**
-     * Check if landing-page post type exists
-     */
-    function test_check_if_landing_page_post_type_exist() {
-
-    }
 
 
 
