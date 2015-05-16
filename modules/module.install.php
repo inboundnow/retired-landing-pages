@@ -12,15 +12,15 @@ function inbound_create_default_post_type(){
     }
 
     $default_lander = wp_insert_post(
-            array(
-                'post_title'     => __( 'A/B Testing Landing Page Example' , 'landing-pages'),
-                'post_content'   => __( '<p>This is the first paragraph of your landing page where you want to draw the viewers in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>' , 'landing-pages'),
-                'post_status'    => 'publish',
-                'post_author'    => $current_user->ID,
-                'post_type'      => 'landing-page',
-                'comment_status' => 'closed'
-            )
-        );
+        array(
+            'post_title'     => __( 'A/B Testing Landing Page Example' , 'landing-pages'),
+            'post_content'   => __( '<p>This is the first paragraph of your landing page where you want to draw the viewers in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>' , 'landing-pages'),
+            'post_status'    => 'publish',
+            'post_author'    => $current_user->ID,
+            'post_type'      => 'landing-page',
+            'comment_status' => 'closed'
+        )
+    );
 
     // Variation A
     add_post_meta($default_lander, 'lp-main-headline', __( 'Main Catchy Headline (A)' , 'landing-pages') );
@@ -112,16 +112,16 @@ function lp_install_register_required_plugins() {
     $plugins = array(
 
         // This is an example of how to include a plugin pre-packaged with a theme
-      /*  array(
-            'name'                  => 'TGM Example Plugin', // The plugin name
-            'slug'                  => 'tgm-example-plugin', // The plugin slug (typically the folder name)
-            'source'                => get_stylesheet_directory() . '/lib/plugins/tgm-example-plugin.zip', // The plugin source
-            'required'              => true, // If false, the plugin is only 'recommended' instead of required
-            'version'               => '', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
-            'force_activation'      => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
-            'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
-            'external_url'          => '', // If set, overrides default API URL and points to an external URL
-        ), */
+        /*  array(
+              'name'                  => 'TGM Example Plugin', // The plugin name
+              'slug'                  => 'tgm-example-plugin', // The plugin slug (typically the folder name)
+              'source'                => get_stylesheet_directory() . '/lib/plugins/tgm-example-plugin.zip', // The plugin source
+              'required'              => true, // If false, the plugin is only 'recommended' instead of required
+              'version'               => '', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+              'force_activation'      => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
+              'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
+              'external_url'          => '', // If set, overrides default API URL and points to an external URL
+          ), */
 
         // This is an example of how to include a plugin from the WordPress Plugin Repository
         array(
@@ -129,11 +129,11 @@ function lp_install_register_required_plugins() {
             'slug'      => 'leads',
             'required'  => false,
         ),
-       array(
-           'name'      => __('WordPress Calls to Action' , 'landing-pages') .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will drive more traffic into your Landing Pages with Targeted Calls to Action in your sites sidebars & content. Create popups to capture visitor attention and convert more leads.' , 'landing-pages') . ' <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/cta/\'> ' . __('Learn more about WordPress Calls to Action' , 'landing-pages') . '</a></span>',
-           'slug'      => 'cta',
-           'required'  => false,
-       ),
+        array(
+            'name'      => __('WordPress Calls to Action' , 'landing-pages') .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will drive more traffic into your Landing Pages with Targeted Calls to Action in your sites sidebars & content. Create popups to capture visitor attention and convert more leads.' , 'landing-pages') . ' <a class=\'inbound-install-notice-links\' href=\'http://wordpress.org/plugins/cta/\'> ' . __('Learn more about WordPress Calls to Action' , 'landing-pages') . '</a></span>',
+            'slug'      => 'cta',
+            'required'  => false,
+        ),
 
     );
 
@@ -174,7 +174,7 @@ function lp_install_register_required_plugins() {
             'return'                                    => __( 'Return to Required Plugins Installer', $theme_text_domain ),
             'plugin_activated'                          => __( 'Plugin activated successfully.', $theme_text_domain ),
             'complete'                                  => __( 'All plugins installed and activated successfully. %s', $theme_text_domain ),
-             // %1$s = dashboard link
+            // %1$s = dashboard link
         )
     );
 
