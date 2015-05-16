@@ -38,7 +38,7 @@ class Landing_Pages_Statistics {
         }
 
         $variations = array_filter( $variations , 'is_numeric' );
-        print_r($variations);
+
         return ( $variations ? $variations : array() );
     }
 
