@@ -43,7 +43,6 @@ class Tests_Activation extends WP_UnitTestCase {
 		include_once LANDINGPAGES_PATH . 'classes/class.activation.upgrade-routines.php';
 		Landing_Pages_Activation::run_updates();
 		$this->assertTrue( true );
-		echo 1;
 	}
 
 }
