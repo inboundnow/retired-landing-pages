@@ -16,7 +16,7 @@ class Tests_Statistics extends WP_UnitTestCase {
         $options = get_option("lp_settings_general");
         $this->lp_id = $options['default_landing_page'];
         echo 'here' . $this->lp_id . "\r\n";;
-    }
+    } 
 
 
     function get_demo_landing_page() {
