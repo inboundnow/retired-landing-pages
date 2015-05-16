@@ -3,7 +3,7 @@
 Plugin Name: Landing Pages
 Plugin URI: http://www.inboundnow.com/landing-pages/
 Description: The first true all-in-one Landing Page solution for WordPress, including ongoing conversion metrics, a/b split testing, unlimited design options and so much more!
-Version: 1.7.3
+Version: 1.8.4
 Author: Inbound Now
 Author URI: http://www.inboundnow.com/
 Text Domain: landing-pages
@@ -78,6 +78,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			}
 		}
 		/* END PHP VERSION CHECKS */
+
+
 		/**
 		* Main Inbound_Landing_Pages_Plugin Instance
 		*
@@ -94,6 +96,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			self::load_files();
 			self::load_shared_files();
 			self::load_text_domain_init();
+
 		}
 
 		/**
@@ -102,7 +105,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		*/
 		private static function load_constants() {
 
-			define('LANDINGPAGES_CURRENT_VERSION', '1.7.3' );
+			define('LANDINGPAGES_CURRENT_VERSION', '1.8.4' );
 			define('LANDINGPAGES_URLPATH', plugins_url( '/' , __FILE__ ) );
 			define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 			define('LANDINGPAGES_PLUGIN_SLUG', plugin_basename( dirname(__FILE__) ) );
@@ -116,7 +119,6 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 
 		/**
 		* Include required plugin files
-		*
 		*/
 		private static function load_files() {
 
@@ -152,6 +154,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once('modules/module.templates.php');
 					include_once('modules/module.store.php');
 					include_once('modules/module.customizer.php');
+					//include_once('classes/class.branching.php');
+
 
 				BREAK;
 
@@ -175,10 +179,14 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			endswitch;
 		}
 
-		/** Load Shared Files at priority 2 */
+		/**
+         * Load Shared Files at priority 2
+         */
 		private static function load_shared_files() {
-			require_once('shared/classes/class.load-shared.php');
-			add_action( 'plugins_loaded', array( 'Inbound_Load_Shared' , 'init' ) , 2 );
+            if (!defined('INBOUND_PRO_PATH')) {
+                require_once('shared/classes/class.load-shared.php');
+                add_action( 'plugins_loaded', array( 'Inbound_Load_Shared' , 'init') , 3 );
+            }
 		}
 
 		/**
@@ -207,24 +215,26 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 	}
 
 
+
+
+	/* lagacy - Conditional check LP active */
+	function lp_check_active() {
+		return 1;
+	}
+
+	/* Function to check This has been loaded for the tests */
+	function landingpages_is_active() {
+		return true;
+	}
+
+	/* Function to check plugin code is running in travis */
+	function inbound_travis_check() {
+		echo '*** Landing Pages Plugin is Running on Travis ***';
+		return true;
+	}
+
+
+
 }
 
-
-
-
-/* lagacy - Conditional check LP active */
-function lp_check_active() {
-	return 1;
-}
-
-/* Function to check This has been loaded for the tests */
-function landingpages_is_active() {
-	return true;
-}
-
-/* Function to check plugin code is running in travis */
-function inbound_travis_check() {
-	echo '*** Landing Pages Plugin is Running on Travis ***';
-	return true;
-}
 

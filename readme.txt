@@ -1,13 +1,13 @@
 === WordPress Landing Pages ===
 
-Contributors: David Wells, adbox
+Contributors: David Wells, Hudson Atwell
 Donate link: mailto:marketplace@inboundnow.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: landing pages, inbound marketing, conversion pages, split testing, a b test, a b testing, a/b test, a/b testing, coming soon page, email list, landing page, list building, maintenance page, squeeze page, inbound now, landing-pages, splash pages, cpa, click tracking, goal tracking, analytics, free landing page templates
 Requires at least: 3.8
-Tested up to: 4.0.1
-Stable Tag: 1.7.3
+Tested up to: 4.1
+Stable Tag: 1.8.4
 
 Create landing pages for your WordPress site. Monitor and improve conversion rates, run A/B split tests, customize your own templates and more.
 
@@ -72,6 +72,44 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 4. Choose from a ton of pre-made templates, use your existing design, or design your own theme!
 
 == Changelog ==
+
+= 1.8.4 =
+* preparation for Inbound Attachments
+* general bug fixes and improvements
+
+= 1.8.3 =
+* Fixing white screen of death issues with other plugin conflicts
+* Improvements on NoConflict jQuery Class
+
+= 1.8.2 =
+* Debugging release issues with 1.8.1
+* Security Update
+
+= 1.8.1 =
+* WYSIWYG buttons overlapping fixed
+* Fixes issue with Homepage extensions and variation switching
+* Template preview links
+* Removing 'get short url' from landing pages.
+* View full list of changes [here](https://github.com/inboundnow/landing-pages/issues?q=label%3A1.8.1+is%3Aclosed)
+
+= 1.8.0 =
+* Fixing addon store
+
+= 1.7.9 =
+* Even more security updates! Security for the win!
+
+= 1.7.8 =
+* Security Patch
+
+= 1.7.7 =
+* Fix double lead notification email
+
+= 1.7.6 =
+* Fixed double email submission on contact form 7
+
+= 1.7.5 =
+* Added form field exclusions to ignore sensitive data
+
 = 1.7.3 =
 * See changelog here: https://github.com/inboundnow/landing-pages/issues?q=is%3Aissue+is%3Aclosed+label%3Av1.7.3
 

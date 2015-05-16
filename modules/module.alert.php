@@ -1,5 +1,16 @@
 <?php
 
+add_action('admin_notices', 'dont_install_landing_page_templates_here');
+function dont_install_landing_page_templates_here(){
+    $screen = get_current_screen();
+    if ( $screen->id !== 'themes')
+            return; // exit if incorrect screen id
+        $link = admin_url( 'edit.php?post_type=landing-page&page=lp_manage_templates' );
+        echo '<div class="error">';
+        echo "<h3 style='font-weight:normal;'><strong><u>Please Note</u>:</strong> Do not try to install <a href='http://www.inboundnow.com/products/landing-pages/templates/' target='_blank'>Inbound Now WordPress Landing page templates</a> as a WordPres theme.<br><br><a href='".$link."'>Click here to install Landing page templates</a> in the Landing pages > Manage templates area";
+        echo "</h3></div>";
+}
+
 /* Temporarily off**
 /* Template page notices
 function lp_template_page_notice(){
@@ -46,7 +57,7 @@ function lp_activation_message_ignore() {
     }
 } */
 
-// End Landing Page Welcome
+
 add_action('admin_notices', 'lp_template_page_get_more');
 function lp_template_page_get_more(){
     global $pagenow;
@@ -59,7 +70,7 @@ jQuery("#bulk_actions").prepend(moretemp); jQuery(".lp-selection-heading h1").ap
         }
 }
 
-/* End Template Notices */
+
 add_action('admin_notices', 'lp_ab_notice');
 function lp_ab_notice(){
     global $pagenow;
@@ -69,6 +80,22 @@ function lp_ab_notice(){
         echo "<h3 style='font-weight:normal;'><strong>Please Note</strong> that this version 1 way of running Landing Page split tests will be phases out of the plugin soon.<br><br> Please use the <strong>new and improved A/B testing functionality</strong> directly in the landing page edit screen.";
         echo "</h3><h1><a href=\"#\" onClick=\"window.open('http://www.youtube.com/embed/KJ_EDJAvv9Y?autoplay=1','landing-page','width=640,height=480,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,copyhistory=no,resizable=no')\">Watch Video Explanation</a></h1></p></div>";
         }
+}
+
+/* Notice to tell people that a permalink structure besides default must be selected to enable split testing */
+add_action('admin_notices', 'lp_permalinks_notice');
+function lp_permalinks_notice(){
+    global $pagenow;
+
+    if ( !get_option('permalink_structure') ) {
+        ?>
+		<div class="error">
+			<p>
+			<?php _e( 'We\'ve noticed that your permalink settings are set to the default setting. Landing Page varation roation is not possible on this setting. To enable roation please go into Settings->Permalinks and update them to a different format.' , 'landing-pages' ); ?>
+			</p>
+		</div>
+		<?php
+	}
 }
 
 ?>

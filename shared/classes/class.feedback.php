@@ -9,10 +9,7 @@ if (!class_exists('Inbound_Feedback')) {
 	*	--------------------------------------------------------- */
 	static function init() {
 		self::$add_feedback = true;
-	// add_action('admin_bar_menu', array( __CLASS__, 'loads' ), 98);
-		//add_action( 'wp_head', array(__CLASS__, 'menu_admin_head'));
 		add_action( 'admin_footer', array(__CLASS__, 'show_feedback'));
-		add_action('wp_ajax_send_inbound_feedback', array(__CLASS__, 'send_inbound_feedback'));
 		add_action('wp_ajax_send_inbound_feedback', array(__CLASS__, 'send_inbound_feedback'));
 	}
 
@@ -24,7 +21,7 @@ if (!class_exists('Inbound_Feedback')) {
 		global $wp_admin_bar;
 		// CHECK FOR ACTIVE PLUGINS
 		$leads_status = FALSE; $landing_page_status = FALSE; $cta_status = FALSE;
-		if (function_exists( 'is_plugin_active' ) && is_plugin_active('leads/wordpress-leads.php')) {
+		if (function_exists( 'is_plugin_active' ) && is_plugin_active('leads/leads.php')) {
 			$leads_status = TRUE;
 			$leads_version_number = defined( 'WPL_CURRENT_VERSION' ) ? 'v' . WPL_CURRENT_VERSION : '';
 		}
@@ -33,7 +30,7 @@ if (!class_exists('Inbound_Feedback')) {
 			$landing_page_version_number = defined( 'LANDINGPAGES_CURRENT_VERSION' ) ? 'v' . LANDINGPAGES_CURRENT_VERSION : '';
 
 		}
-		if (function_exists( 'is_plugin_active' ) && is_plugin_active('cta/wordpress-cta.php')) {
+		if (function_exists( 'is_plugin_active' ) && is_plugin_active('cta/calls-to-action.php')) {
 			$cta_status = TRUE;
 			$cta_number = defined( 'WP_CTA_CURRENT_VERSION' ) ? 'v' . WP_CTA_CURRENT_VERSION : '';
 		}
@@ -93,6 +90,104 @@ if (!class_exists('Inbound_Feedback')) {
 
 		}
 	}
+	public static function get_count($type) {
+		global $wpdb;
+		$count = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->posts WHERE (post_status = 'publish' AND post_type = '".$type."')");
+		if (0 < $count) {
+			$count = number_format($count);
+		}
+		return $count;
+	}
+	public static function get_stats($type) {
+		/*
+		$payload = { e: 'pageview',
+		  t: '2015-05-13T00:17:49.650Z',
+		  kv:
+		   { url: 'http://localhost:8080/',
+		     name: '',
+		     referrer: '',
+		     id: '781cad1f-7d7b-4493-8ec3-2b2de17c2ef1',
+		     ip: '::1',
+		     origin: 'localhost:8080',
+		     page: 'http://localhost:8080/',
+		     useragent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36' } }
+		 */
+	}
+	public static function ispro($type) {
+
+	}
+	public static function sp($type) {
+
+	}
+
+	/**
+	 * Counts extensions by totaling settings groups added to the Inbound Pro Extensions settings area.
+	 */
+	public static function  count_pro_extensions( ) {
+	    /* check for premium plugins */
+	    $extensions =  apply_filters( 'inbound_settings/extend' , array()) ;
+	    if (isset($extensions['inbound-pro-settings'])) {
+	        return count($extensions['inbound-pro-settings']);
+	    } else {
+	        return 0;
+	    }
+	}
+	/**
+	 * Counts templates by reading directories in each plugin's updload folder
+	 */
+	public static function  count_non_core_templates( ) {
+	    /* count templates in landing pages uploads folder */
+	    if( is_defined('LANDINGPAGES_UPLOADS_PATH') ) {
+	        $templates['landing-pages'] = self::count_templates( LANDINGPAGES_UPLOADS_PATH );
+	    }
+	    /* count templates in calls to action uploads folder */
+	    if( is_defined('WP_CTA_UPLOADS_PATH') ) {
+	        $templates['cta'] = self::count_templates( LANDINGPAGES_UPLOADS_PATH );
+	    }
+	    /* count templates in mailer uploads folder */
+	    if( is_defined('INBOUND_EMAIL_PATH') ) {
+	        $templates['mailer'] = self::count_templates( INBOUND_EMAIL_PATH );
+	    }
+	    return $templates;
+	}
+	/**
+	 * Counts the number of first level child folders of a parent folder
+	 * @param $directory
+	 * @return array|string
+	 */
+	public static function count_templates( $directory ) {
+	    /* count themes in landing pages uploads folder */
+	    if ( !$handle = opendir( $directory ) ) {
+	        return $count['error'] = "directory doesnt exist";
+	    }
+	    $templates = array();
+	    while ( false !== ( $name = readdir($handle) ) ) {
+	        if ($name == "." && $name == "..") {
+	            continue;
+	        }
+	        if (is_dir($name)) {
+	            echo "Folder => " . $name . "<br>";
+	            $templates['templates'][] = $name;
+	        }
+	    }
+	    $templates['count'] = count($templates);
+	    return $templates;
+	}
+	/**
+	 * Checks if using inbound pro and if user's license is active
+	 */
+	 public static function get_pro_user_data() {
+	    $pro['installed'] = false;
+	    $pro['active_license'] = false;
+	    if (is_defined('INBOUND_PRO_PATH')) {
+	        $pro['installed'] = true;
+	        if (self::get_customer_status()) {
+	            $pro['active_license'] = true;
+	        }
+	    }
+	    return $pro;
+	 }
+
 	static function show_feedback() {
 		if ( ! self::$add_feedback || ! is_admin()) {
 			return;
@@ -145,46 +240,46 @@ if (!class_exists('Inbound_Feedback')) {
 				return;
 		}
 
-		$plugin_name = "Inbound Now Marketing Plugins"; // default
+		$plugin_name = __( 'Inbound Now Marketing Plugins' , INBOUNDNOW_TEXT_DOMAIN ); // default
 		if (in_array($screen->id, $lp_page_array)) {
-			$plugin_name = "Landing Pages plugin";
+			$plugin_name = __( 'Landing Pages plugin' , INBOUNDNOW_TEXT_DOMAIN );
 		} else if (in_array($screen->id, $cta_page_array)) {
-			$plugin_name = "Calls to Action plugin";
+			$plugin_name = __( 'Calls to Action plugin' , INBOUNDNOW_TEXT_DOMAIN );
 		} else if (in_array($screen->id, $leads_page_array)) {
-			$plugin_name = "Leads Pages plugin";
+			$plugin_name = __( 'Leads Pages plugin' , INBOUNDNOW_TEXT_DOMAIN );
 		}
 
 		?>
 	<div id="launch-feedback" style='z-index:9999999999999; background:gray; position:fixed; bottom:0px; right:20px; width:200px; height:30px;'>
 	<div id="inbound-fb-request">
-	<div class="inbound-close-fb">close</div>
+	<div class="inbound-close-fb"><?php _e( 'close' , INBOUNDNOW_TEXT_DOMAIN ); ?></div>
 			<div id="lp-slide-toggle">
 			<header id="header" class='inbound-customhead'>
-			<a href="http://www.inboundnow.com" target="_blank" title="Visit Inbound Now"><img src="<?php echo INBOUDNOW_SHARED_URLPATH . 'assets/admin/images/inbound-now-logo.png';?>" width="315px"></a>
-			<h3 class="main-feedback-header" >We love hearing from You!</h3>
-			<h4>Please leave your <strong>idea/feature request</strong> to make the <?php echo $plugin_name;?> better below!</h4>
+			<a href="http://www.inboundnow.com" target="_blank" title="<?php _e( 'Visit Inbound Now' , INBOUNDNOW_TEXT_DOMAIN ); ?>"><img src="<?php echo INBOUNDNOW_SHARED_URLPATH . 'assets/images/admin/inbound-now-logo.png';?>" width="315px"></a>
+			<h3 class="main-feedback-header" ><?php _e( 'We love hearing from You!' , INBOUNDNOW_TEXT_DOMAIN ); ?></h3>
+			<h4><?php  _e( sprintf( 'Please leave your %sidea/feature request%s to make the %s better below! ' , '<strong>' , '</strong>' , $plugin_name ) , 'inbound-pro' ); ?></h4>
 			</header>
 			<section id="inbound-rules-main">
 			<form accept-charset="UTF-8" method="POST" id="inbound-feedback">
 			<div class="hs_message field hs-form-field">
-				<label placeholder="Enter your Feature Request" for="message-4c6efedd-40b4-438e-bb4c-050a1944c974">Feature Request<span class="hs-form-required"> * </span>
+				<label placeholder="<?php _e( 'Enter your Feature Request' , INBOUNDNOW_TEXT_DOMAIN ); ?>" for="message-4c6efedd-40b4-438e-bb4c-050a1944c974"><?php _e( 'Feature Request' , INBOUNDNOW_TEXT_DOMAIN ); ?><span class="hs-form-required"> * </span>
 				</label>
 				<div class="input">
 				<textarea required="required" id="inbound-feedback-message" name="message" value=""></textarea>
 				</div>
 				<div class="input">
-				<input id="inbound-feedback-email-field" name="email" value="" placeholder="Your Email (optional field)"></textarea>
+				<input id="inbound-feedback-email-field" name="email" value="" placeholder="<?php _e( 'Your Email (optional field)' , INBOUNDNOW_TEXT_DOMAIN ); ?>"></textarea>
 				</div>
 			</div>
 
 			<div class="inbound-feedback-actions">
-				<input class="submit-inbound-feedback" type="submit" value="Send Feedback/Feature Request">
+				<input class="submit-inbound-feedback" type="submit" value="<?php _e( 'Send Feedback/Feature Request' , INBOUNDNOW_TEXT_DOMAIN ); ?>">
 			</div>
-			<div class="inbound-feedback-desc" style="display: block;"><strong>Please note:</strong> Support requests will not be handled through this form</div>
+			<div class="inbound-feedback-desc" style="display: block;"><strong><?php _e( 'Please note:' , INBOUNDNOW_TEXT_DOMAIN ); ?></strong> <?php _e( 'Support requests will not be handled through this form' , INBOUNDNOW_TEXT_DOMAIN ); ?></div>
 			</form>
 			</section>
 			</div>
-			<div id="inbound-automation-footer" class="inbound-selectron-foot"><?php //echo $screen->id;?>Submit a Feature Request</div>
+			<div id="inbound-automation-footer" class="inbound-selectron-foot"><?php _e( 'Submit a Feature Request' , INBOUNDNOW_TEXT_DOMAIN ); ?></div>
 	</div>
 	<style type="text/css">
 	#wpfooter {
@@ -327,46 +422,46 @@ box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);}
  </style>
 	<script type="text/javascript">
 	jQuery(document).ready(function($) {
-					jQuery("body").on('click', '#inbound-automation-footer', function () {
+            jQuery("body").on('click', '#inbound-automation-footer', function () {
 
-					jQuery("#lp-slide-toggle").slideToggle();
-					jQuery("#lp-open-close").toggleClass("lp-options-up");
+            jQuery("#lp-slide-toggle").slideToggle();
+            jQuery("#lp-open-close").toggleClass("lp-options-up");
 
-					jQuery("#footer").toggleClass("lp-options-on");
-					});
-					jQuery("body").on('click', '.inbound-close-fb', function () {
-					jQuery("#lp-slide-toggle").slideToggle();
-						});
-					jQuery("body").on('submit', '#inbound-feedback', function (e) {
-					e.preventDefault(); // halt normal form
-					var feedback = jQuery('#inbound-feedback-message').val();
-					var email = jQuery('#inbound-feedback-email-field').val();
-					if (typeof (feedback) != "undefined" && feedback != null && feedback != "") {
-						jQuery.ajax({
-						type: 'POST',
-						url: ajaxurl,
-						timeout: 10000,
-						data: {
-							feedback : feedback,
-							email: email,
-							page: document.title,
-							plugin: "<?php echo $plugin_name;?>",
-							action: 'send_inbound_feedback'
-						},
-						success: function(user_id){
-							console.log('feedback sent');
-							$(".inbound-customhead").hide();
-							$("#inbound-feedback").html('<h1>Thank You for your feedback!</h1><h3>Our team is hard at work to improve things for you!</h3>');
-							},
-						error: function(MLHttpRequest, textStatus, errorThrown){
-							//alert(MLHttpRequest+' '+errorThrown+' '+textStatus); // debug
+            jQuery("#footer").toggleClass("lp-options-on");
+            });
+            jQuery("body").on('click', '.inbound-close-fb', function () {
+            jQuery("#lp-slide-toggle").slideToggle();
+                });
+            jQuery("body").on('submit', '#inbound-feedback', function (e) {
+            e.preventDefault(); // halt normal form
+            var feedback = jQuery('#inbound-feedback-message').val();
+            var email = jQuery('#inbound-feedback-email-field').val();
+            if (typeof (feedback) != "undefined" && feedback != null && feedback != "") {
+                jQuery.ajax({
+                type: 'POST',
+                url: ajaxurl,
+                timeout: 10000,
+                data: {
+                    feedback : feedback,
+                    email: email,
+                    page: document.title,
+                    plugin: "<?php echo $plugin_name;?>",
+                    action: 'send_inbound_feedback'
+                },
+                success: function(user_id){
+                    console.log('feedback sent');
+                    $(".inbound-customhead").hide();
+                    $("#inbound-feedback").html('<h1>Thank You for your feedback!</h1><h3>Our team is hard at work to improve things for you!</h3>');
+                    },
+                error: function(MLHttpRequest, textStatus, errorThrown){
+                    //alert(MLHttpRequest+' '+errorThrown+' '+textStatus); // debug
 
-							}
-						});
-						} else {
-						$("#lp-slide-toggle textarea").css('border', 'red');
-						}
-					});
+                    }
+                });
+                } else {
+                $("#lp-slide-toggle textarea").css('border', 'red');
+                }
+            });
 	});
 
 	</script>

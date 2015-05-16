@@ -35,7 +35,8 @@ if ( !class_exists('Inbound_Leads') ) {
 		*	Register wp-lead post type
 		*/
 		public static function register_post_type() {
-			$lead_active = get_option( 'Leads_Activated' ); // Check if leads is activated
+
+			$lead_active = ( defined('WPL_CURRENT_VERSION') ) ? true : false ; // Check if leads is activated
 
 			$labels = array(
 				'name' => _x('Leads', 'post type general name'),
@@ -57,10 +58,10 @@ if ( !class_exists('Inbound_Leads') ) {
 				'publicly_queryable' => true,
 				'show_ui' => true,
 				'query_var' => true,
-				'menu_icon' => INBOUDNOW_SHARED_URLPATH . 'assets/global/images/leads.png',
+				'menu_icon' => INBOUNDNOW_SHARED_URLPATH . 'assets/images/global/leads.png',
 				'capability_type' => 'post',
 				'hierarchical' => false,
-				'menu_position' => null,
+				'menu_position' => 31,
 				'supports' => array('custom-fields','thumbnail')
 			);
 
@@ -75,22 +76,27 @@ if ( !class_exists('Inbound_Leads') ) {
 		*/
 		public static function register_taxonomies() {
 
+			/* bail if taxonomy already registered */
+			if (taxonomy_exists('wplead_list_category')) {
+				return;
+			}
+
 			/* Register lead lists */
 			$list_labels = array(
-				'name'						=> __( 'Lead Lists', 'leads' ),
-				'singular_name'				=> __( 'Lead List', 'leads' ),
-				'search_items'				=> __( 'Search Lead Lists' , 'leads' ),
-				'popular_items'				=> __( 'Popular Lead Lists' , 'leads' ),
-				'all_items'					=> __( 'All Lead Lists' , 'leads' ),
+				'name'						=> __( 'Lead Lists', 'inbound-pro' ),
+				'singular_name'				=> __( 'Lead List', 'inbound-pro' ),
+				'search_items'				=> __( 'Search Lead Lists' , INBOUNDNOW_TEXT_DOMAIN ),
+				'popular_items'				=> __( 'Popular Lead Lists' , INBOUNDNOW_TEXT_DOMAIN ),
+				'all_items'					=> __( 'All Lead Lists' , INBOUNDNOW_TEXT_DOMAIN ),
 				'parent_item'				=> null,
 				'parent_item_colon'			=> null,
-				'edit_item'					=> __( 'Edit Lead List' , 'leads' ),
+				'edit_item'					=> __( 'Edit Lead List' , INBOUNDNOW_TEXT_DOMAIN ),
 				'update_item'				=> __( 'Update Lead List' , 'leads'	),
 				'add_new_item'				=> __( 'Add New Lead List' , 'leads'	),
 				'new_item_name'				=> __( 'New Lead List' , 'leads'	),
 				'separate_items_with_commas' => __( 'Separate Lead Lists with commas' , 'leads'	),
 				'add_or_remove_items'		=> __( 'Add or remove Lead Lists' , 'leads'	),
-				'choose_from_most_used'		=> __( 'Choose from the most used lead List' , 'leads' ),
+				'choose_from_most_used'		=> __( 'Choose from the most used lead List' , INBOUNDNOW_TEXT_DOMAIN ),
 				'not_found'					=> __( 'No Lead Lists found.' , 'leads'	),
 				'menu_name'					=> __( 'Lead Lists' , 'leads'	),
 			);
@@ -98,7 +104,7 @@ if ( !class_exists('Inbound_Leads') ) {
 			$list_args = array(
 				'hierarchical'			=> true,
 				'labels'				=> $list_labels,
-				'singular_label'		=> __( 'List Management' , 'leads' ),
+				'singular_label'		=> __( 'List Management' , INBOUNDNOW_TEXT_DOMAIN ),
 				'show_ui'				=> true,
 				'show_in_menu'			=> true,
 				'show_in_nav_menus'		=> false,
@@ -335,12 +341,12 @@ if ( !class_exists('Inbound_Leads') ) {
 
 			/* id is required */
 			if (!isset($id)) {
-				return array( 'error' => __( 'must include an id parameter' , 'leads' ) );
+				return array( 'error' => __( 'must include an id parameter' , INBOUNDNOW_TEXT_DOMAIN ) );
 			}
 
 			wp_delete_term( $id , 'wplead_list_category' );
-			
-			return array( 'message' => __( 'lead list deleted' , 'leads' ) );
+
+			return array( 'message' => __( 'lead list deleted' , INBOUNDNOW_TEXT_DOMAIN ) );
 		}
 
 		/**
@@ -354,6 +360,7 @@ if ( !class_exists('Inbound_Leads') ) {
 		* @returns ARRAY of lead lists with term id as key and list name as value
 		*/
 		public static function get_lead_lists_as_array() {
+			self::register_taxonomies();
 
 			$array = array();
 
@@ -415,8 +422,8 @@ if ( !class_exists('Inbound_Leads') ) {
 				return;
 			}
 
-			if (!is_plugin_active('leads/wordpress-leads.php')) {
-				_e( 'WordPress Leads is not currently installed/activated to view and manage leads please turn it on.' , 'leads' );
+			if (!wpleads_check_active()) {
+				_e( 'WordPress Leads is not currently installed/activated to view and manage leads please turn it on.' , INBOUNDNOW_TEXT_DOMAIN );
 			}
 		}
 
@@ -443,7 +450,7 @@ if ( !class_exists('Inbound_Leads') ) {
 
 			$count = $query->post_count;
 
-			return sprintf( __( '%d leads' , 'leads' ) , $count );
+			return sprintf( __( '%d leads' , INBOUNDNOW_TEXT_DOMAIN ) , $count );
 
 		}
 

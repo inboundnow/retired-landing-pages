@@ -41,6 +41,9 @@ class Landing_Pages_Activation {
 
 		/* Activate shared components */
 		self::activate_shared();
+		
+		/* Run additional actions */
+		do_action( 'activate_landing_pages' );
 
 	}
 
@@ -125,10 +128,6 @@ class Landing_Pages_Activation {
 
 		/* Set's welcome page redirect transient */
 		set_transient( '_landing_page_activation_redirect', true, 30 );
-		/* We've had issues with this not working.
-			global $wp_rewrite;
-			$wp_rewrite->flush_rules();
-		*/
 	}
 
 	/**

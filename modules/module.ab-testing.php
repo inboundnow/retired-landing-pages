@@ -223,8 +223,7 @@ if (is_admin())
 
 	//disable this because it will populate all wp_editor isntances rather than targeted instances
 	//add_filter('the_editor_content', 'lp_ab_testing_the_editor_content');
-	function lp_ab_testing_the_editor_content($content)
-	{
+	function lp_ab_testing_the_editor_content($content) {
 		$current_variation_id = lp_ab_testing_get_current_variation_id();
 
 		if (isset($_REQUEST['post']))
@@ -769,6 +768,7 @@ function lp_ab_testing_add_rewrite_rules()
 	//echo $slug;exit;
 	$ab_testing = get_option( 'lp-main-landing-page-disable-turn-off-ab', "0");
 	if($ab_testing === "0") {
+	add_rewrite_rule("$slug/([^/]*)/([0-9]+)/", "$slug/$1?lp-variation-id=$2",'top');
 	add_rewrite_rule("$slug/([^/]*)?", $this_path."modules/module.redirect-ab-testing.php?permalink_name=$1 ",'top');
 	add_rewrite_rule("landing-page=([^/]*)?", $this_path.'modules/module.redirect-ab-testing.php?permalink_name=$1','top');
 	}
@@ -795,7 +795,7 @@ function lp_ab_testing_add_rewrite_rules()
 			foreach ($rules_array as $key=>$val)
 			{
 
-				if (stristr($val,"RewriteRule ^{$slug}/([^/]*)? "))
+				if ( stristr($val,"RewriteRule ^{$slug}/([^/]*)? ") ||  stristr($val,"RewriteRule ^{$slug}/([^/]*)/([0-9]+)/ ") )
 				{
 					$new_val = "RewriteCond %{QUERY_STRING} !lp-variation-id";
 					$rules_array[$i] = $new_val;
@@ -928,8 +928,7 @@ function lp_ab_testing_alter_title_area( $content , $id = null)
 }
 
 add_action('lp_record_impression','lp_ab_testing_record_impression', 10, 3 );
-function lp_ab_testing_record_impression($post_id, $post_type = 'landing-page' , $variation_id = 0 )
-{
+function lp_ab_testing_record_impression($post_id, $post_type = 'landing-page' , $variation_id = 0 ) {
 
 	/* If Landing Page Post Type */
 	if ( $post_type == 'landing-page' ) {
@@ -953,9 +952,8 @@ function lp_ab_testing_record_impression($post_id, $post_type = 'landing-page' ,
 
 
 add_action('lp_launch_customizer_pre','lp_ab_testing_customizer_enqueue');
-function lp_ab_testing_customizer_enqueue($post)
-{
-	//echo 1; exit;
+function lp_ab_testing_customizer_enqueue($post) {
+
 	$permalink = get_permalink( $post->ID );
 	$randomstring = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
 

@@ -1,6 +1,6 @@
 <?php
 /**
-* Template Name:  Half and Half Template
+* Template Name:  3 Column Lander Template
 * @package  WordPress Landing Pages
 * @author 	David Wells
 */
@@ -16,8 +16,8 @@ array(
 	'version' => "1.0.1", // Version Number
 	'label' => "3 Column Lander", // Nice Name
 	'category' => '3 column layout, Responsive, V2', // Template Category
-	'demo' => 'http://demo.inboundnow.com/go/half-and-half-lander-preview/', // Demo Link
-	'description'  => 'Half and Half is a template with two content areas on each side of the page. One side has your conversion area and the other your content on the page.' // template description
+	'demo' => 'http://demo.inboundnow.com/go/3-column-lander/', // Demo Link
+	'description'  => '' // template description
 );
 
 // Define Meta Options for template
