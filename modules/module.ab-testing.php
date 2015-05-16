@@ -223,8 +223,7 @@ if (is_admin())
 
 	//disable this because it will populate all wp_editor isntances rather than targeted instances
 	//add_filter('the_editor_content', 'lp_ab_testing_the_editor_content');
-	function lp_ab_testing_the_editor_content($content)
-	{
+	function lp_ab_testing_the_editor_content($content) {
 		$current_variation_id = lp_ab_testing_get_current_variation_id();
 
 		if (isset($_REQUEST['post']))
