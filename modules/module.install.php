@@ -76,10 +76,12 @@ function inbound_create_default_post_type(){
         update_option( $option_name, $options );
 
     }
+
+    return true;
 }
 
 /**
-*  If not Inbound Pro run these checks 
+*  If not Inbound Pro run these checks
 */
 if ( !class_exists('Inbound_Pro_Plugin')	) {
 	require_once(LANDINGPAGES_PATH."/libraries/class-tgm-plugin-activation.php");

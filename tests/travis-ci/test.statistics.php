@@ -8,17 +8,24 @@
 class Tests_Statistics extends WP_UnitTestCase {
 
     /**
-     * Run a simple test to ensure that the tests are running
+     * Check if landing-page post type exists
      */
-    function test_tests() {
-        $this->assertTrue( true );
-    }
-
     function test_check_if_landing_page_post_type_exist() {
-        //lp_ab_testing_wp_insert_post_data
         $this->assertTrue(post_type_exists( 'landing-page' ));
     }
 
+    /**
+     * creates a dummy landing page for testing
+     */
+    function test_create_dummy_landing_page() {
+        /* create a landing page */
+        $this->assertTrue( inbound_create_default_post_type() );
+    }
+
+
+    /**
+     * Set landing page stats to zero for testing
+     */
     function test_reset_landing_page_stats() {
 
         $landing_pages = get_posts( array(
