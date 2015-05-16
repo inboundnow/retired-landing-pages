@@ -14,6 +14,8 @@ class Tests_Statistics extends WP_UnitTestCase {
      * setup
      */
     function setUp() {
+        global $wp_rewrite;
+
         /* includes */
         include_once LANDINGPAGES_PATH . 'modules/module.install.php';
         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
@@ -26,6 +28,10 @@ class Tests_Statistics extends WP_UnitTestCase {
             Landing_Pages_Statistics::set_impression_count( $this->lp_id , $vid, 0 );
             Landing_Pages_Statistics::set_conversion_count( $this->lp_id , $vid, 0 );
         }
+
+        /* change permalink */
+        $wp_rewrite->set_permalink_structure('/%postname%/');
+        $wp_rewrite->flush_rules();
 
         /* padding for the travis-ci console */
         echo "\r\n\r\n";
