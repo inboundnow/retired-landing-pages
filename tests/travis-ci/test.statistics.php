@@ -34,7 +34,7 @@ class Tests_Statistics extends WP_UnitTestCase {
     /**
      * Set landing page stats to zero for testing
      */
-    function read_statistics() {
+    function test_read_statistics() {
         /* includes */
         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
 
