@@ -8,38 +8,23 @@
 class Tests_Statistics extends WP_UnitTestCase {
 
     /**
-     * Test to see if get_post works.
-     *
-     * Compares a post ID ($org_post_id) with post ID
-     * taken out of get_post ($new_post_id).
-     * If they don't match, get_post() doesn't work, and it will
-     * return an error.
+     * setup
      */
-    function test_get_post() {
-        //Create new post using method provided by WP
-        $org_post_id = $this->factory->post->create();
+     function setUp() {
+         /* includes */
+         include_once LANDINGPAGES_PATH . 'modules/module.install.php';
+         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
 
-        //get post object using the new post's ID
-        $post_obj = get_post( $org_post_id );
+         $lp_id = inbound_create_default_post_type();
+         echo "\r\n";
+         echo $lp_id."\r\n";
 
-        //Get the post ID as given to us by get_post
-        $new_post_id = $post_obj->ID;
+         /*  clear the stats */
+         Landing_Pages_Statistics::get_variations( $lp_id );
+         print_r($variations);
+     }
 
-        //Use pre-defined method to test if the two ID's match
-        $this->assertEquals( $org_post_id, $new_post_id );
 
-    }
-
-    /**
-     * creates a dummy landing page for testing
-     */
-    function test_create_demo_lander() {
-        /* load the class used to create the dummy landing page */
-        include_once LANDINGPAGES_PATH . 'modules/module.install.php';
-        $lp_id = inbound_create_default_post_type();
-        $this->assertEquals(  $lp_id  , 4 );
-        echo 1;
-    }
 
 
 
@@ -47,7 +32,7 @@ class Tests_Statistics extends WP_UnitTestCase {
      * Check if landing-page post type exists
      */
     function test_check_if_landing_page_post_type_exist() {
-        $this->assertTrue( post_type_exists( 'landing-page' ) );
+
     }
 
 

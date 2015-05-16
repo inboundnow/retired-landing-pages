@@ -70,7 +70,6 @@ function inbound_create_default_post_type(){
         "default_landing_page" => $default_lander
     );
 
-    echo 'update option' . update_option( "lp_settings_general", $options ). "\r\n";
     return $default_lander;
 }
 
