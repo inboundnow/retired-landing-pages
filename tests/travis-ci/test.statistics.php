@@ -61,7 +61,7 @@ class Tests_Statistics extends WP_UnitTestCase {
 
         $options = get_option('lp_settings_general');
         print_r($options);
-        echo 'here');
+        echo 'here';
         $landing_page = get_post( $options['default_landing_page']);
         echo $options['default_landing_page'];
         var_dump($landing_page);
