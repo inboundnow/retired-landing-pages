@@ -19,7 +19,7 @@ class Tests_Statistics extends WP_UnitTestCase {
      */
     function test_create_dummy_landing_page() {
         /* load the class used to create the dummy landing page */
-        include_once LANDINGPAGES_PATH . 'modules/module.install.php'; 
+        include_once LANDINGPAGES_PATH . 'modules/module.install.php';
 
         /* create a landing page */
         $this->assertTrue( inbound_create_default_post_type() );
@@ -33,6 +33,12 @@ class Tests_Statistics extends WP_UnitTestCase {
 
         $landing_pages = get_posts( array(
             'post_type'=> 'landing-page'
+        ));
+
+        print_r($landing_pages);
+
+        $landing_pages = get_posts( array(
+            'post_type'=> 'post'
         ));
 
         print_r($landing_pages);
