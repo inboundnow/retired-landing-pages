@@ -29,7 +29,7 @@ class Landing_Pages_Statistics {
         if (!$landing_page_id) {
             return;
         }
-
+        echo 'Landing page:'.$landing_page_id;
         $variations = (self::$variations) ? self::$variations :  get_post_meta(  $landing_page_id , 'lp-ab-variations' , true );
         $variations = explode( ',' , $variations );
         $variations = array_filter( $variations , 'is_numeric' );
