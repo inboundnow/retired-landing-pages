@@ -29,7 +29,7 @@ class Tests_Statistics extends WP_UnitTestCase {
         $this->assertEquals( $org_post_id, $new_post_id );
 
     }
-    
+
     /**
      * creates a dummy landing page for testing
      */
@@ -40,7 +40,7 @@ class Tests_Statistics extends WP_UnitTestCase {
         /* load the class used to create the dummy landing page */
         include_once LANDINGPAGES_PATH . 'modules/module.install.php';
         $lp_id = inbound_create_default_post_type();
-        $this->assertEquals(  $lp_id  , 3 );
+        $this->assertEquals(  $lp_id  , 4 );
     }
 
 
@@ -60,9 +60,9 @@ class Tests_Statistics extends WP_UnitTestCase {
     function test_reset_landing_page_stats() {
 
         $options = get_option("lp_settings_general");
-        $landing_page = get_post( $options['default_landing_page'] , ARRAY_A );
-
-        print_r($landing_page);
+        $landing_page = get_post( $options['default_landing_page']);
+        echo $options['default_landing_page'];
+        var_dump($landing_page);
 
     }
 
