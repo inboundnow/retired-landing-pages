@@ -8,6 +8,7 @@
 class Tests_Statistics extends WP_UnitTestCase {
 
     var $lp_id;
+    var $variations;
 
     /**
      * setup
@@ -20,8 +21,8 @@ class Tests_Statistics extends WP_UnitTestCase {
         $this->lp_id = inbound_create_default_post_type();
 
         /*  clear the stats */
-        $variations = Landing_Pages_Statistics::get_variations($this->lp_id );
-        foreach ($variations as $vid) {
+        $this->variations = Landing_Pages_Statistics::get_variations($this->lp_id );
+        foreach ($this->variations as $vid) {
             Landing_Pages_Statistics::set_impression_count( $this->lp_id , $vid, 0 );
             Landing_Pages_Statistics::set_conversion_count( $this->lp_id , $vid, 0 );
         }

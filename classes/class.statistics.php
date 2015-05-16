@@ -29,9 +29,13 @@ class Landing_Pages_Statistics {
         if (!$landing_page_id) {
             return;
         }
-        echo 'Landing page:'.$landing_page_id;
+        echo 'Landing page:'.$landing_page_id."\r\n";
         $variations = (self::$variations) ? self::$variations :  get_post_meta(  $landing_page_id , 'lp-ab-variations' , true );
-        $variations = explode( ',' , $variations );
+
+        if (!is_array($variations)) {
+            $variations = explode( ',' , $variations );
+        }
+
         $variations = array_filter( $variations , 'is_numeric' );
 
         return ( $variations ? $variations : array() );
