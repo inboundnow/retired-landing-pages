@@ -57,7 +57,7 @@ class Tests_Statistics extends WP_UnitTestCase {
         /* includes */
         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
 
-        $permalink = get_permalink( $this->lp_id );
+        $permalink = get_post_permalink( $this->lp_id );
         echo $permalink;
         $response = wp_remote_get( $permalink );
         $response = wp_remote_get( $permalink );
