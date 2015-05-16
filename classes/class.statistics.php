@@ -25,7 +25,10 @@ class Landing_Pages_Statistics {
      *
      * @returns ARRAY of variation data
      */
-    public static function get_variations( $landing_page_id	, $vid = null ) {
+    public static function get_variations( $landing_page_id ) {
+        if !$landing_page_id) {
+            return;
+        }
 
         $variations = (self::$variations) ? self::$variations :  get_post_meta(  $landing_page_id , 'lp-ab-variations' , true );
         $variations = explode( ',' , $variations );
