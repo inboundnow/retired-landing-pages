@@ -26,7 +26,7 @@ class Landing_Pages_Statistics {
      * @returns ARRAY of variation data
      */
     public static function get_variations( $landing_page_id ) {
-        if !$landing_page_id) {
+        if (!$landing_page_id) {
             return;
         }
 
