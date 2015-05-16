@@ -9,23 +9,23 @@ function inbound_create_default_post_type(){
     $current_user = wp_get_current_user();
     add_option( $option_name, '' );
 
-    //update_user_meta( get_current_user_id(), 'tgmpa_dismissed_notice', 0 ); // Clean dismiss settings
-    //delete_option( 'lp_settings_general' );
+
     $lp_default_options = get_option($option_name);
-    // Create Default if it doesn't exist
+
     if (  isset( $lp_default_options[$option_key] ) ) 	{
         return $lp_default_options[$option_key];
     }
+
     $default_lander = wp_insert_post(
-            array(
-                'post_title'     => __( 'A/B Testing Landing Page Example' , 'landing-pages'),
-                'post_content'   => __( '<p>This is the first paragraph of your landing page where you want to draw the viewers in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>' , 'landing-pages'),
-                'post_status'    => 'publish',
-                'post_author'    => $current_user->ID,
-                'post_type'      => 'landing-page',
-                'comment_status' => 'closed'
-            )
-        );
+        array(
+            'post_title'     => __( 'A/B Testing Landing Page Example' , 'landing-pages'),
+            'post_content'   => __( '<p>This is the first paragraph of your landing page where you want to draw the viewers in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>' , 'landing-pages'),
+            'post_status'    => 'publish',
+            'post_author'    => $current_user->ID,
+            'post_type'      => 'landing-page',
+            'comment_status' => 'closed'
+        )
+    );
 
     // Variation A
     add_post_meta($default_lander, 'lp-main-headline', __( 'Main Catchy Headline (A)' , 'landing-pages') );
