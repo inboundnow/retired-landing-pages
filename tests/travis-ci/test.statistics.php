@@ -23,8 +23,8 @@ class Tests_Statistics extends WP_UnitTestCase {
          /*  clear the stats */
          $variations = Landing_Pages_Statistics::get_variations($this->lp_id );
          foreach ($variations as $vid) {
-             Landing_Pages_Statistics::set_impressions( $this->lp_id , $vid, 0 );
-             Landing_Pages_Statistics::set_conversions( $this->lp_id , $vid, 0 );
+             Landing_Pages_Statistics::set_impression_count( $this->lp_id , $vid, 0 );
+             Landing_Pages_Statistics::set_conversion_count( $this->lp_id , $vid, 0 );
          }
      }
 
