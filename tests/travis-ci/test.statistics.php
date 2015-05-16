@@ -7,6 +7,8 @@
  */
 class Tests_Statistics extends WP_UnitTestCase {
 
+    var $lp_id;
+
     /**
      * setup
      */
@@ -15,13 +17,15 @@ class Tests_Statistics extends WP_UnitTestCase {
          include_once LANDINGPAGES_PATH . 'modules/module.install.php';
          include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
 
-         $lp_id = inbound_create_default_post_type();
-         echo "\r\n";
-         echo $lp_id."\r\n";
+         $this->lp_id = inbound_create_default_post_type();
+
 
          /*  clear the stats */
-         $variations = Landing_Pages_Statistics::get_variations( $lp_id );
-         print_r($variations);
+         $variations = Landing_Pages_Statistics::get_variations($this->lp_id );
+         foreach ($variations as $vid) {
+             Landing_Pages_Statistics::set_impressions( $this->lp_id , $vid, 0 );
+             Landing_Pages_Statistics::set_conversions( $this->lp_id , $vid, 0 );
+         }
      }
 
 
@@ -32,11 +36,11 @@ class Tests_Statistics extends WP_UnitTestCase {
      * Set landing page stats to zero for testing
      */
     function test_reset_landing_page_stats() {
-        echo 2;
-        echo get_option( 'siteurl' );
-        print_r( get_option( 'lp_settings_general' ) );
-        $landing_page = get_post( 4 );
-        var_dump($landing_page);
+        /* includes */
+        include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
+
+        echo 'static var'. $this->lp_id;
+        $variations = Landing_Pages_Statistics::read_( $this->lp_id );
 
     }
 

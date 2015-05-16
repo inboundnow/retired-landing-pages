@@ -11,7 +11,6 @@ function inbound_create_default_post_type(){
         return $lp_default_options["default_landing_page"];
     }
 
-    echo 'here1';
     $default_lander = wp_insert_post(
             array(
                 'post_title'     => __( 'A/B Testing Landing Page Example' , 'landing-pages'),
@@ -69,6 +68,7 @@ function inbound_create_default_post_type(){
     $options = array(
         "default_landing_page" => $default_lander
     );
+
 
     return $default_lander;
 }
