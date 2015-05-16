@@ -58,7 +58,8 @@ class Tests_Statistics extends WP_UnitTestCase {
      * Set landing page stats to zero for testing
      */
     function test_reset_landing_page_stats() {
-
+        $array = array( 1,2,3);
+        print_r($array);
         $landing_page = get_post( 4 );
         var_dump($landing_page);
 
