@@ -17,7 +17,7 @@ class Tests_Statistics extends WP_UnitTestCase {
         /* load the class used to create the dummy landing page */
         include_once LANDINGPAGES_PATH . 'modules/module.install.php';
         $lp_id = inbound_create_default_post_type();
-        $this->assertTrue( $lp_id );
+        $this->assertEquals(  $lp_id  , 3 );
     }
 
 
@@ -39,7 +39,6 @@ class Tests_Statistics extends WP_UnitTestCase {
         $options = get_option("lp_settings_general");
         $landing_page = get_post( $options['default_landing_page'] , ARRAY_A );
 
-        echo 'does post type exits? : '. post_type_exists( 'landing-page' );
         print_r($landing_page);
 
     }
