@@ -33,7 +33,6 @@ class Landing_Pages_Statistics {
         $variations = (self::$variations) ? self::$variations :  get_post_meta(  $landing_page_id , 'lp-ab-variations' , true );
 
         if (!is_array($variations)) {
-            echo "here\r\n";
             $variations = explode( ',' , $variations );
         }
 

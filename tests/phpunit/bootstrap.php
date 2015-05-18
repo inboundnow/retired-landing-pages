@@ -9,7 +9,7 @@
 
 // Activates this plugin in WordPress so it can be tested.
 $GLOBALS['wp_tests_options'] = array(
-	  'active_plugins' => array( 
+	  'active_plugins' => array(
 		'landing-pages/landing-pages.php',
 		'cta/wordpress-cta.php',
 		'leads/wordpress-leads.php',
