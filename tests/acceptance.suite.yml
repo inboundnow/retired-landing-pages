@@ -7,9 +7,11 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser
-        - AcceptanceHelper
-		- WPBrowser
+      - AcceptanceHelper
+      - WPBrowser
     config:
-        PhpBrowser:
-            url: 'http://localhost/myapp/'
+        WPBrowser:
+          url: 'http://localhost/'
+          adminUsername: theAdmin
+          adminPassword: iguana
+          adminUrl: /wp-admin
