@@ -80,3 +80,7 @@ before_script:
 script: 
   - phpunit
   - php codecept run
+  
+addons:
+  hosts:
+    - inboundsoon.dev

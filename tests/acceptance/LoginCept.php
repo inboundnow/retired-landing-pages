@@ -1,4 +1,6 @@
 <?php
+$I = new AcceptanceTester($scenario);
+$I->wantTo('login to wp-admin');
 $I->amOnPage('/wp-login.php');
 $I->fillField('Username', 'admin');
 $I->fillField('Password','admin');
