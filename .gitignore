@@ -38,3 +38,5 @@ nbproject
 # Grunt
 node_modules
 Desktop.ini
+
+tests/_output/*

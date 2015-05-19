@@ -66,7 +66,7 @@ class Tests_Statistics extends WP_UnitTestCase {
 
         $permalink = get_post_permalink( $this->lp_id , true );
         echo $permalink;
-        $response = wp_remote_get( $permalink );
+        $response = wp_remote_get('http://localhost/' );
         print_r($response);
         $response = wp_remote_get( $permalink );
         $response = wp_remote_get( $permalink );
