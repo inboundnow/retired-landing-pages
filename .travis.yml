@@ -5,13 +5,13 @@ language: php
 
 # PHP version used in first build configuration.
 php:
-    - "5.4"
-    - "5.5"
-    - "5.6"
+  - "5.4"
+  - "5.5"
+  - "5.6"
 
 # WordPress version used in first build configuration.
 env:
-    - WP_VERSION=master
+  - WP_VERSION=master
 
 # Next we define our matrix of additional build configurations to test against.
 # The versions listed above will automatically create our first configuration,
@@ -28,7 +28,7 @@ env:
 
 matrix:
   allow_failures:
-    - php: hhvm
+  - php: hhvm
 
 services:
   - rabbitmq
@@ -67,52 +67,52 @@ install:
 
 # Clones WordPress and configures our testing environment.
 before_script:
-    - beanstalkd -d -l 127.0.0.1 -p 11300
-    - export DISPLAY=:99.0
-    - sh -e /etc/init.d/xvfb start
-    - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-    - java -jar selenium-server-standalone-2.42.2.jar -port 4444 > /dev/null &
-    - sleep 5
-    - php -S localhost:8000 -t tests/data/app &
-    - php -S localhost:8010 -t tests/data &
-    # Phalcon
-    - "mysql -e 'CREATE DATABASE forum;'"
-    - cat frameworks-phalcon/schemas/forum.sql | mysql forum
-    # Laravel 4
-    - touch frameworks-laravel/app/database/database.sqlite
-    - php frameworks-laravel/artisan migrate --seed -n --force
-    # Laravel 5
-    - touch frameworks-l5/storage/testing.sqlite
-    - php frameworks-l5/artisan migrate --database=sqlite_testing --force
-    # Symfony
-    - frameworks-symfony/app/console doctrine:database:create
-    - frameworks-symfony/app/console doctrine:schema:create
-    - php codecept build -c frameworks-yii-basic/tests
-    - php codecept build -c frameworks-phalcon
-    - php codecept build -c frameworks-laravel
-    - php codecept build -c frameworks-symfony
-    - php codecept build -c frameworks-l5
+  - beanstalkd -d -l 127.0.0.1 -p 11300
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - java -jar selenium-server-standalone-2.42.2.jar -port 4444 > /dev/null &
+  - sleep 5
+  - php -S localhost:8000 -t tests/data/app &
+  - php -S localhost:8010 -t tests/data &
+  # Phalcon
+  - "mysql -e 'CREATE DATABASE forum;'"
+  - cat frameworks-phalcon/schemas/forum.sql | mysql forum
+  # Laravel 4
+  - touch frameworks-laravel/app/database/database.sqlite
+  - php frameworks-laravel/artisan migrate --seed -n --force
+  # Laravel 5
+  - touch frameworks-l5/storage/testing.sqlite
+  - php frameworks-l5/artisan migrate --database=sqlite_testing --force
+  # Symfony
+  - frameworks-symfony/app/console doctrine:database:create
+  - frameworks-symfony/app/console doctrine:schema:create
+  - php codecept build -c frameworks-yii-basic/tests
+  - php codecept build -c frameworks-phalcon
+  - php codecept build -c frameworks-laravel
+  - php codecept build -c frameworks-symfony
+  - php codecept build -c frameworks-l5
 	
-    - export PLUGIN_SLUG=$(basename $(pwd))
-    - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
-    - git clone --branch="master" https://github.com/inboundnow/cta.git /tmp/wordpress/wp-content/plugins/cta
-    - git clone --branch="master" https://github.com/inboundnow/leads.git /tmp/wordpress/wp-content/plugins/leads
+  - export PLUGIN_SLUG=$(basename $(pwd))
+  - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
+  - git clone --branch="master" https://github.com/inboundnow/cta.git /tmp/wordpress/wp-content/plugins/cta
+  - git clone --branch="master" https://github.com/inboundnow/leads.git /tmp/wordpress/wp-content/plugins/leads
 
-    - cd ..
-    - curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-    - php wp-cli.phar --info
-    - chmod +x wp-cli.phar
-    - sudo mv wp-cli.phar /usr/local/bin/wp
+  - cd ..
+  - curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+  - php wp-cli.phar --info
+  - chmod +x wp-cli.phar
+  - sudo mv wp-cli.phar /usr/local/bin/wp
 
-    - mv "$PLUGIN_SLUG" "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
-    - cd /tmp/wordpress
-    -
-     mysql -e "CREATE DATABASE wordpress_tests;" -uroot
-    - cp wp-tests-config-sample.php wp-tests-config.php
-    - sed -i "s/youremptytestdbnamehere/wordpress_tests/" wp-tests-config.php
-    - sed -i "s/yourusernamehere/travis/" wp-tests-config.php
-    - sed -i "s/yourpasswordhere//" wp-tests-config.php
-    - cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
-    - ls -l
+  - mv "$PLUGIN_SLUG" "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
+  - cd /tmp/wordpress
+  -
+   mysql -e "CREATE DATABASE wordpress_tests;" -uroot
+  - cp wp-tests-config-sample.php wp-tests-config.php
+  - sed -i "s/youremptytestdbnamehere/wordpress_tests/" wp-tests-config.php
+  - sed -i "s/yourusernamehere/travis/" wp-tests-config.php
+  - sed -i "s/yourpasswordhere//" wp-tests-config.php
+  - cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
+  - ls -l
 
 script: phpunit
