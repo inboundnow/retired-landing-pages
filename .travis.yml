@@ -62,9 +62,10 @@ before_script:
   - git clone --branch="master" https://github.com/inboundnow/cta.git /tmp/wordpress/wp-content/plugins/cta
   - git clone --branch="master" https://github.com/inboundnow/leads.git /tmp/wordpress/wp-content/plugins/leads
 
+  # drop back a directory
   - cd ..
   
-
+  # make a directory for landing pages
   - mv "$PLUGIN_SLUG" "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
   - cd /tmp/wordpress
   -
@@ -76,4 +77,6 @@ before_script:
   - cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
   - ls -l
 
-script: phpunit
+script: 
+  - phpunit
+  - php codecept run
