@@ -43,3 +43,4 @@ tests/_output/*
 /tests/_output
 /tests/_support
 /tests/_data
+composer.lock
