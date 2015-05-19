@@ -22,6 +22,7 @@
   },
   "require-dev": {
     "codeception/specify": "~0.3",
+	"badcow/lorem-ipsum": "master@dev",
 	"lucatume/wp-browser": "master@dev",
 	"wp-cli/wp-cli": "*",
 	"netwing/selenium-server-standalone" : "dev-master"
