@@ -41,7 +41,7 @@ install:
   - /home/travis/.phpenv/versions/5.5/bin/composer self-update
   
   # Selenium server
-  - java -jar selenium-server-standalone-2.41.0.jar
+  - wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
   - sleep 5
   
   # Composer
@@ -50,6 +50,9 @@ install:
  
 # Clones WordPress and configures our testing environment.
 before_script:
+  # launch selenium server
+  - java -jar selenium-server-standalone-2.42.2.jar -port 4444 > /dev/null &
+  - sleep 5  
   - export PLUGIN_SLUG=$(basename $(pwd))
   - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
   - git clone --branch="master" https://github.com/inboundnow/cta.git /tmp/wordpress/wp-content/plugins/cta

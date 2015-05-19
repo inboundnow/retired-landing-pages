@@ -24,8 +24,7 @@
     "codeception/specify": "~0.3",
 	"badcow/lorem-ipsum": "master@dev",
 	"lucatume/wp-browser": "master@dev",
-	"wp-cli/wp-cli": "*",
-	"netwing/selenium-server-standalone" : "dev-master"
+	"wp-cli/wp-cli": "*"
   },
   "suggest": {
     "codeception/phpbuiltinserver": "Extension to start and stop PHP built-in web server for your tests",
