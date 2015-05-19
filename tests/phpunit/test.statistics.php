@@ -36,7 +36,6 @@ class Tests_Statistics extends WP_UnitTestCase {
         /* padding for the travis-ci console */
         echo "\r\n\r\n";
 
-        echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     }
 
 
