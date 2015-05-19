@@ -37,6 +37,7 @@ services:
   - rabbitmq
 
 install:
+  - /home/travis/.phpenv/versions/5.5/bin/composer self-update
   - wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
   - composer global require "fxp/composer-asset-plugin:1.0.0"
   - composer self-update
