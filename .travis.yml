@@ -58,7 +58,7 @@ install:
   # Symfony
   - git clone https://github.com/DavertMik/SymfonyCodeceptionApp.git frameworks-symfony
   - composer install -d frameworks-symfony --no-dev  --prefer-dist
-  
+
 # Clones WordPress and configures our testing environment.
 before_script:
     # install selenium
