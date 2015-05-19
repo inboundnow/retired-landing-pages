@@ -9,6 +9,7 @@ modules:
     enabled:
         - PhpBrowser
         - AcceptanceHelper
+		- WPBrowser
     config:
         PhpBrowser:
             url: 'http://localhost/myapp/'

@@ -36,6 +36,8 @@
     "codeception/specify": "~0.3",
     "pda/pheanstalk": "~2.0",
     "flow/jsonpath": "~0.2"
+	"lucatume/wp-browser": "master@dev"
+	"wp-cli/wp-cli": "*"
   },
   "suggest": {
     "codeception/phpbuiltinserver": "Extension to start and stop PHP built-in web server for your tests",
