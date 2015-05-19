@@ -81,7 +81,7 @@ before_script:
   - ls -l
   
   #setup virtual hosts from travis-ci-apache file template
-  - sudo cp -f tests/travis-ci-apache /etc/apache2/sites-available/default
+  - sudo cp -f TRAVIS_BUILD_DIR/tests/travis-ci-apache /etc/apache2/sites-available/default
 
 script: 
   - phpunit
