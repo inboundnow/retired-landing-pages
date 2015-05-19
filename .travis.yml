@@ -53,7 +53,11 @@ before_script:
   # launch selenium server
   - java -jar selenium-server-standalone-2.42.2.jar -port 4444 > /dev/null &
   - sleep 5  
-  - export PLUGIN_SLUG=$(basename $(pwd))
+  
+  # needs documentation
+  - export PLUGIN_SLUG=$(basename $(pwd)) 
+  
+  # pull latests inbound plugins
   - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
   - git clone --branch="master" https://github.com/inboundnow/cta.git /tmp/wordpress/wp-content/plugins/cta
   - git clone --branch="master" https://github.com/inboundnow/leads.git /tmp/wordpress/wp-content/plugins/leads
