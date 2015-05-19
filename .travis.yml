@@ -30,8 +30,6 @@ matrix:
   allow_failures:
   - php: hhvm
 
-services:
-
 install:
   # install codeception 
   - wget http://codeception.com/codecept.phar
@@ -42,25 +40,22 @@ install:
   
   # Selenium server
   - wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
-  - sleep 5
   
   # Composer
-  - composer self-update
-  - composer install --prefer-dist
- 
-# Clones WordPress and configures our testing environment.
+  - composer install --prefer-dist 
+
+
 before_script:
   # launch selenium server
-  - java -jar selenium-server-standalone-2.42.2.jar -port 4444 > /dev/null &
+  - java -jar selenium-server-standalone-2.42.2.jar -port 4444 > /dev/null ?
   - sleep 5  
   
-  # needs documentation
   - export PLUGIN_SLUG=$(basename $(pwd)) 
   
   # isntall wordpress
   - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
-  
-    # pull latests inbound plugins
+
+  # pull latests inbound plugins
   - git clone --branch="master" https://github.com/inboundnow/cta.git /tmp/wordpress/wp-content/plugins/cta
   - git clone --branch="master" https://github.com/inboundnow/leads.git /tmp/wordpress/wp-content/plugins/leads
 
@@ -72,7 +67,7 @@ before_script:
   - cd /tmp/wordpress
   
   # create database
-   mysql -e "CREATE DATABASE wordpress_tests;" -uroot
+  - mysql -e "CREATE DATABASE wordpress_tests;" -uroot
   - cp wp-tests-config-sample.php wp-tests-config.php
   - sed -i "s/youremptytestdbnamehere/wordpress_tests/" wp-tests-config.php
   - sed -i "s/yourusernamehere/travis/" wp-tests-config.php
@@ -82,6 +77,7 @@ before_script:
   
   #setup virtual hosts from travis-ci-apache file template
   - sudo cp -f TRAVIS_BUILD_DIR/tests/travis-ci-apache /etc/apache2/sites-available/default
+  
 
 script: 
   - phpunit
