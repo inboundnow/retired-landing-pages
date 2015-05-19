@@ -41,7 +41,7 @@ install:
   - /home/travis/.phpenv/versions/5.5/bin/composer self-update
   
   # Selenium server
-  - wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
+  - java -jar selenium-server-standalone-2.41.0.jar
   - sleep 5
   
   # Composer

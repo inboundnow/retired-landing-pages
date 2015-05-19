@@ -23,7 +23,8 @@
   "require-dev": {
     "codeception/specify": "~0.3",
 	"lucatume/wp-browser": "master@dev",
-	"wp-cli/wp-cli": "*"
+	"wp-cli/wp-cli": "*",
+	"netwing/selenium-server-standalone" : "dev-master"
   },
   "suggest": {
     "codeception/phpbuiltinserver": "Extension to start and stop PHP built-in web server for your tests",
