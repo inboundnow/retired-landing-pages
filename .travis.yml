@@ -19,7 +19,7 @@ matrix:
   - php: hhvm
 
 before_install: 
-  - composer isntall
+  - composer install
   - npm install
   
   # Selenium server
@@ -72,3 +72,6 @@ script:
 addons:
   hosts:
     - inboundsoon.dev
+  sauce_connect:
+    username: "hudson-inbound"
+    access_key: "fad20a89-ba7c-4797-b2e2-a13309885479"
