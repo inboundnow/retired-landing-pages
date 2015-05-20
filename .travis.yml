@@ -56,7 +56,7 @@ install:
   - ls /var/www/
 
 before_script: 
-
+  # Someone explain to me where PLUGIN_SLUG comes from and what this line does.
   - export PLUGIN_SLUG=$(basename $(pwd)) 
   
   # isntall wordpress
