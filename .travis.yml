@@ -38,9 +38,6 @@ install:
   # install Apache  
   - sudo apt-get update
   - sudo apt-get install apache2
-  - ps ax
-  - sudo service apache2 start
-  - netstat -nl
  
   - sudo service apache2 restart
   - ls 
@@ -53,6 +50,8 @@ install:
   - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/default
 
 before_script: 
+  - ps ax
+  - netstat -nl
   
   #setup virtual hosts from travis-ci-apache file template
   - ps ax
