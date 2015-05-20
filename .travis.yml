@@ -30,6 +30,11 @@ before_install:
   
   
 install:
+  - ls 
+  - ls /etc/
+  - ls /etc/apache2
+  - ls /etc/apache2/sites-available/
+  
   # install codeception 
   - wget http://codeception.com/codecept.phar
   - chmod +x codecept.phar
@@ -38,12 +43,13 @@ install:
   # install Apache  
   - sudo apt-get update
   - sudo apt-get install apache2
- 
-  - sudo service apache2 restart
   - ls 
   - ls /etc/
   - ls /etc/apache2
   - ls /etc/apache2/sites-available/
+	
+  - sudo service apache2 restart
+  
   
     #setup virtual hosts from travis-ci-apache file template
 
