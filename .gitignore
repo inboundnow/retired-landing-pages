@@ -39,8 +39,10 @@ nbproject
 node_modules
 Desktop.ini
 
-tests/_output/*
-/tests/_output
-/tests/_support
-/tests/_data
+#codeception
+tests/_output
+tests/_support
+tests/_data
+
+#composer
 composer.lock
