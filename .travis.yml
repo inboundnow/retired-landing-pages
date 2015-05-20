@@ -37,12 +37,13 @@ install:
 before_script: 
   
   #setup virtual hosts from travis-ci-apache file template
+  - sudo /etc/init.d/apache2 restart
   - netstat -nl
   - ls 
   - ls /etc/
   - ls /etc/apache2
+  - ls /etc/apache2/sites-available/
   - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/default
-  - sudo /etc/init.d/apache2 restart
   
   - export PLUGIN_SLUG=$(basename $(pwd)) 
   
