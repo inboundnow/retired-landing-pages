@@ -35,7 +35,6 @@ install:
   - ls ../../
   - ls /etc/
   - ls /etc/apache2
-  - ls /etc/apache2/sites-available/
   
   # install codeception 
   - wget http://codeception.com/codecept.phar
@@ -45,11 +44,12 @@ install:
   # install Apache  
   - sudo apt-get update
   - sudo apt-get install apache2 
-  - sudo service apache2 restart
-  - sleep 5
   - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/default
   - sudo service apache2 restart
   - sleep 5	
+  
+  
+  - ls /etc/apache2/sites-available/
 
 before_script: 
 
