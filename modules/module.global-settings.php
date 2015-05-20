@@ -11,6 +11,21 @@ if (isset($_GET['page'])&&($_GET['page']=='lp_global_settings'&&$_GET['page']=='
 	}
 }
 
+/**
+ * Add action links in Plugins table
+ */
+
+add_filter( 'plugin_action_links_landing-pages/landing-pages.php', 'landing_page_plugin_action_links' );
+function landing_page_plugin_action_links( $links ) {
+
+	return array_merge(
+		array(
+			'settings' => '<a href="' . admin_url( 'edit.php?post_type=landing-page&page=lp_global_settings' ) . '">' . __( 'Settings', 'ts-fab' ) . '</a>'
+		),
+		$links
+	);
+
+}
 
 function lp_get_global_settings() {
 	global $lp_global_settings;
