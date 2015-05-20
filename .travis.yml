@@ -37,6 +37,7 @@ install:
 before_script: 
   
   #setup virtual hosts from travis-ci-apache file template
+  - netstat -nl | grep 80
   - ls 
   - ls /etc/
   - ls /etc/apache2
