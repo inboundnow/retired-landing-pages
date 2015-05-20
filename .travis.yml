@@ -45,8 +45,8 @@ install:
   # install Apache  
   - sudo apt-get update
   - sudo apt-get install apache2 
-  - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/default	
   - sudo service apache2 restart
+  - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/default	
 
 before_script: 
 
