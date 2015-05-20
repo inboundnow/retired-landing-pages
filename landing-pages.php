@@ -3,7 +3,7 @@
 Plugin Name: Landing Pages
 Plugin URI: http://www.inboundnow.com/landing-pages/
 Description: The first true all-in-one Landing Page solution for WordPress, including ongoing conversion metrics, a/b split testing, unlimited design options and so much more!
-Version: 1.8.4
+Version: 1.8.5
 Author: Inbound Now
 Author URI: http://www.inboundnow.com/
 Text Domain: landing-pages
@@ -14,75 +14,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 
 	final class Inbound_Landing_Pages_Plugin {
 
-		/* START PHP VERSION CHECKS */
-		/**
-		 * Admin notices, collected and displayed on proper action
-		 *
-		 * @var array
-		 */
-		public static $notices = array();
-
-		/**
-		 * Whether the current PHP version meets the minimum requirements
-		 *
-		 * @return bool
-		 */
-		public static function is_valid_php_version() {
-			return version_compare( PHP_VERSION, '5.3', '>=' );
-		}
-
-		/**
-		 * Invoked when the PHP version check fails. Load up the translations and
-		 * add the error message to the admin notices
-		 */
-		static function fail_php_version() {
-			//add_action( 'plugins_loaded', array( __CLASS__, 'load_text_domain_init' ) );
-			$plugin_url = admin_url( 'plugins.php' );
-			self::notice( __( 'Landing Pages requires PHP version 5.3+ to run. Your version '.PHP_VERSION.' is not high enough.<br><u>Please contact your hosting provider</u> to upgrade your PHP Version.<br>The plugin is NOT Running. You can disable this warning message by <a href="'.$plugin_url.'">deactivating the plugin</a>', 'landing-pages' ) );
-		}
-
-		/**
-		 * Handle notice messages according to the appropriate context (WP-CLI or the WP Admin)
-		 *
-		 * @param string $message
-		 * @param bool $is_error
-		 * @return void
-		 */
-		public static function notice( $message, $is_error = true ) {
-			if ( defined( 'WP_CLI' ) ) {
-				$message = strip_tags( $message );
-				if ( $is_error ) {
-					WP_CLI::warning( $message );
-				} else {
-					WP_CLI::success( $message );
-				}
-			} else {
-				// Trigger admin notices
-				add_action( 'all_admin_notices', array( __CLASS__, 'admin_notices' ) );
-
-				self::$notices[] = compact( 'message', 'is_error' );
-			}
-		}
-
-		/**
-		 * Show an error or other message in the WP Admin
-		 *
-		 * @action all_admin_notices
-		 * @return void
-		 */
-		public static function admin_notices() {
-			foreach ( self::$notices as $notice ) {
-				$class_name   = empty( $notice['is_error'] ) ? 'updated' : 'error';
-				$html_message = sprintf( '<div class="%s">%s</div>', esc_attr( $class_name ), wpautop( $notice['message'] ) );
-				echo wp_kses_post( $html_message );
-			}
-		}
-		/* END PHP VERSION CHECKS */
-
-
 		/**
 		* Main Inbound_Landing_Pages_Plugin Instance
-		*
 		*/
 		public function __construct() {
 
@@ -105,7 +38,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		*/
 		private static function load_constants() {
 
-			define('LANDINGPAGES_CURRENT_VERSION', '1.8.4' );
+			define('LANDINGPAGES_CURRENT_VERSION', '1.8.5' );
 			define('LANDINGPAGES_URLPATH', plugins_url( '/' , __FILE__ ) );
 			define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 			define('LANDINGPAGES_PLUGIN_SLUG', plugin_basename( dirname(__FILE__) ) );
@@ -203,6 +136,71 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			load_plugin_textdomain( 'landing-pages' , false , LANDINGPAGES_PLUGIN_SLUG . '/lang/' );
 		}
 
+		/* START PHP VERSION CHECKS */
+		/**
+		 * Admin notices, collected and displayed on proper action
+		 *
+		 * @var array
+		 */
+		public static $notices = array();
+
+		/**
+		 * Whether the current PHP version meets the minimum requirements
+		 *
+		 * @return bool
+		 */
+		public static function is_valid_php_version() {
+			return version_compare( PHP_VERSION, '5.3', '>=' );
+		}
+
+		/**
+		 * Invoked when the PHP version check fails. Load up the translations and
+		 * add the error message to the admin notices
+		 */
+		static function fail_php_version() {
+			//add_action( 'plugins_loaded', array( __CLASS__, 'load_text_domain_init' ) );
+			$plugin_url = admin_url( 'plugins.php' );
+			self::notice( __( 'Landing Pages requires PHP version 5.3+ to run. Your version '.PHP_VERSION.' is not high enough.<br><u>Please contact your hosting provider</u> to upgrade your PHP Version.<br>The plugin is NOT Running. You can disable this warning message by <a href="'.$plugin_url.'">deactivating the plugin</a>', 'landing-pages' ) );
+		}
+
+		/**
+		 * Handle notice messages according to the appropriate context (WP-CLI or the WP Admin)
+		 *
+		 * @param string $message
+		 * @param bool $is_error
+		 * @return void
+		 */
+		public static function notice( $message, $is_error = true ) {
+			if ( defined( 'WP_CLI' ) ) {
+				$message = strip_tags( $message );
+				if ( $is_error ) {
+					WP_CLI::warning( $message );
+				} else {
+					WP_CLI::success( $message );
+				}
+			} else {
+				// Trigger admin notices
+				add_action( 'all_admin_notices', array( __CLASS__, 'admin_notices' ) );
+
+				self::$notices[] = compact( 'message', 'is_error' );
+			}
+		}
+
+		/**
+		 * Show an error or other message in the WP Admin
+		 *
+		 * @action all_admin_notices
+		 * @return void
+		 */
+		public static function admin_notices() {
+			foreach ( self::$notices as $notice ) {
+				$class_name   = empty( $notice['is_error'] ) ? 'updated' : 'error';
+				$html_message = sprintf( '<div class="%s">%s</div>', esc_attr( $class_name ), wpautop( $notice['message'] ) );
+				echo wp_kses_post( $html_message );
+			}
+		}
+		/* END PHP VERSION CHECKS */
+
 	}
 
 	/* Initiate Plugin */
@@ -213,9 +211,6 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		// Show Fail
 		Inbound_Landing_Pages_Plugin::fail_php_version();
 	}
-
-
-
 
 	/* lagacy - Conditional check LP active */
 	function lp_check_active() {
@@ -233,8 +228,4 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		return true;
 	}
 
-
-
 }
-
-
