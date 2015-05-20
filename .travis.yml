@@ -62,6 +62,7 @@ before_script:
   
   # install wordpress
   - sudo mkdir -p /var/www/example.com
+  - sudo chmod -R 755 /var/www/example.com
   - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /var/www/example.com
   - ls /var/www/
 
