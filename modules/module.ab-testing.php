@@ -1,8 +1,7 @@
 <?php
 
 /* ADMIN ONLY AB TESTING FUNCTIONS */
-if (is_admin())
-{
+if (is_admin()) {
 	include_once(LANDINGPAGES_PATH.'modules/module.ab-testing.metaboxes.php');
 
 	/**
@@ -11,8 +10,7 @@ if (is_admin())
 	 * @param  [type] $vid        [description]
 	 * @return [type]             [description]
 	 */
-	function lp_ab_unset_variation($variations,$vid)
-	{
+	function lp_ab_unset_variation($variations,$vid){
 			if(($key = array_search($vid, $variations)) !== false) {
 					unset($variations[$key]);
 			}
@@ -26,8 +24,7 @@ if (is_admin())
 	 * @param  [INT] $vid  [description]
 	 * @return [INT]
 	 */
-	function lp_ab_get_lp_active_status($post,$vid=null)
-	{
+	function lp_ab_get_lp_active_status($post,$vid=null) {
 		if ($vid==0)
 		{
 				$variation_status = get_post_meta( $post->ID , 'lp_ab_variation_status' , true);
@@ -93,11 +90,13 @@ if (is_admin())
 
 				//delete each meta value associated with variation
 				global $wpdb;
-				$data   =   array();
+				$data = array();
+				$post__ID =  (is_numeric($_GET['post'])) ? $_GET['post'] : '0';
+
 				$wpdb->query("
 					SELECT `meta_key`, `meta_value`
 					FROM $wpdb->postmeta
-					WHERE `post_id` = ".$_GET['post']."
+					WHERE `post_id` = ".$post__ID."
 				");
 
 				foreach($wpdb->last_result as $k => $v){
