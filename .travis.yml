@@ -35,9 +35,6 @@ before_script:
   # launch selenium server
   - java -jar selenium-server-standalone-2.42.2.jar -port 4444 > /dev/null
   
-  # give 5 seconds to let server load
-  - sleep 20  
-  
   - export PLUGIN_SLUG=$(basename $(pwd)) 
   
   # isntall wordpress
