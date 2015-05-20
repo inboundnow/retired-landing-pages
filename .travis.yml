@@ -33,8 +33,9 @@ install:
   - ls 
   - ls ../
   - ls ../../
-  - ls /etc/
-  - ls /etc/apache2
+  - ls ../../../
+  - ls ../../../../
+  - ls ../../../../../
   
   # install codeception 
   - wget http://codeception.com/codecept.phar
