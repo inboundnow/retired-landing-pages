@@ -28,11 +28,29 @@ before_install:
   - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
   - sleep 5
   
+  
 install:
   # install codeception 
   - wget http://codeception.com/codecept.phar
   - chmod +x codecept.phar
   - sudo mv codecept.phar /usr/local/bin/codecept
+  
+  # install Apache  
+  - sudo apt-get update
+  - sudo apt-get install apache2
+  - ps ax
+  - sudo service apache2 start
+  - netstat -nl
+ 
+  - sudo service apache2 restart
+  - ls 
+  - ls /etc/
+  - ls /etc/apache2
+  - ls /etc/apache2/sites-available/
+  
+    #setup virtual hosts from travis-ci-apache file template
+
+  - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/default
 
 before_script: 
   
@@ -45,6 +63,7 @@ before_script:
   - ls /etc/apache2
   - ls /etc/apache2/sites-available/
   - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/default
+
   
   - export PLUGIN_SLUG=$(basename $(pwd)) 
   
