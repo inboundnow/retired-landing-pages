@@ -20,7 +20,7 @@ matrix:
 
 before_install: 
   - composer install
-  - npm install
+  # - npm install
   
   # Selenium server
   - "sh -e /etc/init.d/xvfb start"
@@ -74,6 +74,6 @@ script:
 addons:
   hosts:
     - inboundsoon.dev
-  sauce_connect:
-    username: "hudson-inbound"
-    access_key: "fad20a89-ba7c-4797-b2e2-a13309885479"
+  #sauce_connect:
+   # username: "hudson-inbound"
+   # access_key: "fad20a89-ba7c-4797-b2e2-a13309885479"
