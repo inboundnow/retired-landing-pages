@@ -18,23 +18,23 @@ matrix:
   allow_failures:
   - php: hhvm
 
+before_install: 
+  - composer isntall
+  - npm install
+  
+  # Selenium server
+  - wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
+  
+  # Launch server
+  - java -jar selenium-server-standalone-2.42.2.jar -port 4444 > /dev/null
+  
 install:
   # install codeception 
   - wget http://codeception.com/codecept.phar
   - chmod +x codecept.phar
   - sudo mv codecept.phar /usr/local/bin/codecept
-  
-  # Selenium server
-  - wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
-  
-  # Composer
-  - composer install --prefer-dist 
-
 
 before_script:
-  # launch selenium server
-  - java -jar selenium-server-standalone-2.42.2.jar -port 4444 > /dev/null
-  - sleep 60
   
   - export PLUGIN_SLUG=$(basename $(pwd)) 
   
