@@ -46,8 +46,11 @@ install:
   # install Apache  
   - sudo apt-get update
   - sudo apt-get install apache2 
-  - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/default
+  - sudo mkdir -p /etc/apache2/sites-available/example.com
+  - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/example.com
+  - sudo chmod -R 755 /var/www
   - sudo service apache2 restart
+  - sudo a2ensite example.com.conf
   - sleep 5	
   
   
@@ -59,18 +62,19 @@ before_script:
   # Someone explain to me where PLUGIN_SLUG comes from and what this line does.
   - export PLUGIN_SLUG=$(basename $(pwd))  
   
-  # isntall wordpress
-  - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
+  # install wordpress
+  - sudo mkdir -p /var/www/example.com
+  - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /var/www/example.com
 
   # pull latests inbound plugins
-  - git clone --branch="master" https://github.com/inboundnow/cta.git /tmp/wordpress/wp-content/plugins/cta
-  - git clone --branch="master" https://github.com/inboundnow/leads.git /tmp/wordpress/wp-content/plugins/leads
+  - git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/example.com/wp-content/plugins/cta
+  - git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/example.com/wp-content/plugins/leads
 
   # drop back a directory
   - cd ..
   
   # make a directory for landing pages
-  - mv "$PLUGIN_SLUG" "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
+  - mv "$PLUGIN_SLUG" "/var/www/example.com/src/wp-content/plugins/$PLUGIN_SLUG"
   - cd /tmp/wordpress
   
   # create database
@@ -79,7 +83,7 @@ before_script:
   - sed -i "s/youremptytestdbnamehere/wordpress_tests/" wp-tests-config.php
   - sed -i "s/yourusernamehere/travis/" wp-tests-config.php
   - sed -i "s/yourpasswordhere//" wp-tests-config.php
-  - cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
+  - cd "/var/www/example.com/src/wp-content/plugins/$PLUGIN_SLUG"
   - ls -l
   
 
@@ -89,7 +93,7 @@ script:
   
 addons:
   hosts:
-    - inboundsoon.dev
+    - example.com
   #sauce_connect:
    # username: "hudson-inbound"
    # access_key: "fad20a89-ba7c-4797-b2e2-a13309885479"
