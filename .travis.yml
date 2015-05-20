@@ -34,6 +34,7 @@ install:
 before_script:
   # launch selenium server
   - java -jar selenium-server-standalone-2.42.2.jar -port 4444 > /dev/null
+  - sleep 60
   
   - export PLUGIN_SLUG=$(basename $(pwd)) 
   
