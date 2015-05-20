@@ -23,10 +23,10 @@ before_install:
   - npm install
   
   # Selenium server
-  - wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
+  # - wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
   
   # Launch server
-  - java -jar selenium-server-standalone-2.42.2.jar -port 4444 > /dev/null
+  # - java -jar selenium-server-standalone-2.42.2.jar -port 4444 > /dev/null
   
 install:
   # install codeception 
@@ -67,7 +67,7 @@ before_script:
 
 script: 
   - phpunit
-  - php codecept run
+  #- php codecept run
   
 addons:
   hosts:
