@@ -16,7 +16,7 @@
 
 
 <VirtualHost *>
-DocumentRoot "%TRAVIS_BUILD_DIR%/tmp/"
+DocumentRoot "%TRAVIS_BUILD_DIR%/tmp/wordpress"
 ServerName inboundsoon.dev
 <Directory "%TRAVIS_BUILD_DIR%/tmp/wordpress">
   Order allow,deny
