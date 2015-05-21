@@ -89,7 +89,7 @@ before_script:
   - sed -i "s/yourusernamehere/root/" wp-tests-config.php
   - sed -i "s/yourpasswordhere//" wp-tests-config.php
   
-  # change into plugin directory
+  # change into plugin directory to make sure our script runs the right tests
   - cd /var/www/example.com/src/wp-content/plugins/$PLUGIN_SLUG
   
   
