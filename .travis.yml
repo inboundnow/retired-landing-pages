@@ -61,8 +61,7 @@ before_script:
   # Someone explain to me where PLUGIN_SLUG comes from and what this line does.
   - export PLUGIN_SLUG=$(basename $(pwd))  
   
-  # install wordpress
-
+  # install wordpress into example.com
   - sudo mkdir -p /var/www/example.com  
   - sudo chown -R $USER:$USER /var/www/example.com
   - sudo chmod -R 777 /var/www/example.com
@@ -70,6 +69,8 @@ before_script:
   - ls /var/www/  
   - sudo chmod -R 777 /var/www/example.com
   
+  # change directory into example.com
+  - cd /var/www/example.com
 
   # pull latests inbound plugins
   - git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/example.com/wp-content/plugins/cta
