@@ -70,6 +70,7 @@ class Tests_Statistics extends WP_UnitTestCase {
         print_r(wp_remote_get('http://www.example.com/' ));
         print_r(wp_remote_get('http://www.example.com/src/' ));
         print_r(wp_remote_get('http://www.example.com/wp-admin/' ));
+        print_r(wp_remote_get('http://www.example.com/example.com/' ));
    
 
         $response = wp_remote_get( $permalink );
