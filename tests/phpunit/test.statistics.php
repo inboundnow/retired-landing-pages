@@ -67,10 +67,10 @@ class Tests_Statistics extends WP_UnitTestCase {
         $permalink = get_post_permalink( $this->lp_id , true );
  
 		
-        print_r(wp_remote_get('http://www.example.com/' ));
-        print_r(wp_remote_get('http://www.example.com/src/' ));
-        print_r(wp_remote_get('http://www.example.com/wp-admin/' ));
-        print_r(wp_remote_get('http://www.example.com/example.com/' ));
+        print_r(wp_remote_get('http://www.inboundsoon.dev/' ));
+        print_r(wp_remote_get('http://www.inboundsoon.dev/src/' ));
+        print_r(wp_remote_get('http://www.inboundsoon.dev/wp-admin/' ));
+        print_r(wp_remote_get('http://www.inboundsoon.dev/inboundsoon.dev/' ));
    
 
         $response = wp_remote_get( $permalink );
