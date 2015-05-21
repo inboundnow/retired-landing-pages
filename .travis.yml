@@ -77,7 +77,7 @@ before_script:
 
   
   # make a directory for landing pages
-  - mv "$PLUGIN_SLUG" "/var/www/example.com/src/wp-content/plugins/$PLUGIN_SLUG"
+  - mv "/home/travis/build/inboundnow/$PLUGIN_SLUG" "/var/www/example.com/src/wp-content/plugins/$PLUGIN_SLUG"
   
   # create database
   - mysql -e "CREATE DATABASE wordpress_tests;" -uroot
