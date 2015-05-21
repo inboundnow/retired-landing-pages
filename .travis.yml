@@ -30,6 +30,7 @@ before_install:
   
   
 install:
+  - pwd
   - ls 
   - ls ../
   - ls ../../
@@ -61,6 +62,7 @@ before_script:
   - export PLUGIN_SLUG=$(basename $(pwd))  
   
   # install wordpress
+
   - sudo mkdir -p /var/www/example.com  
   - sudo chown -R $USER:$USER /var/www/example.com
   - sudo chmod -R 777 /var/www/example.com
