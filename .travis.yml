@@ -81,13 +81,14 @@ before_script:
   - mv "/home/travis/build/inboundnow/$PLUGIN_SLUG" "/var/www/example.com/src/wp-content/plugins/$PLUGIN_SLUG"
   
   # create database
-  - mysql -e "CREATE DATABASE wordpress_tests;" -uroot
+  - mysql -e "CREATE DATABASE wordpress_develop;" -uroot
   - cp wp-tests-config-sample.php wp-tests-config.php
-  - sed -i "s/youremptytestdbnamehere/word press_tests/" wp-tests-config.php
-  - sed -i "s/yourusernamehere/travis/" wp-tests-config.php
+  
+  # setup database for tests config
+  - sed -i "s/youremptytestdbnamehere/wordpress_develop/" wp-tests-config.php
+  - sed -i "s/yourusernamehere/root/" wp-tests-config.php
   - sed -i "s/yourpasswordhere//" wp-tests-config.php
-  - cd "/var/www/example.com/src/wp-content/plugins/$PLUGIN_SLUG"
-  - ls -l
+  
   
 
 script: 
