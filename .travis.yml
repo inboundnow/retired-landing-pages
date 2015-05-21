@@ -68,8 +68,6 @@ before_script:
   - ls /var/www/  
   - sudo chmod -R 777 /var/www/example.com
   
-  # lets cd into our wordopress directory
-  - cd /var/www/example.com
 
   # pull latests inbound plugins
   - git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/example.com/wp-content/plugins/cta
