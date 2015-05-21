@@ -66,13 +66,14 @@ before_script:
   - sudo chmod -R 777 /var/www/example.com
   - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /var/www/example.com
   - ls /var/www/
+  
+  # lets cd into our wordopress directory
+  - cd /var/www/example.com
 
   # pull latests inbound plugins
   - git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/example.com/wp-content/plugins/cta
   - git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/example.com/wp-content/plugins/leads
 
-  # drop back a directory
-  - cd ..
   
   # make a directory for landing pages
   - mv "$PLUGIN_SLUG" "/var/www/example.com/src/wp-content/plugins/$PLUGIN_SLUG"
