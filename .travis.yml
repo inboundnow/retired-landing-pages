@@ -54,9 +54,6 @@ install:
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
   
-  # enable php
-  - sudo a2enmod php
-  
   # check if php is enabled
   - sudo dpkg -S php5 | grep libapache2-mod-php5 
   
