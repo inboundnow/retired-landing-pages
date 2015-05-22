@@ -57,11 +57,11 @@ install:
   - sudo a2ensite inboundsoon.dev  
   
   # create php.conf & php.load file for apache mods
-  - sudo cp -f tests/build/php.conf /etc/apache2/mods-available/php.conf
-  - sudo cp -f tests/build/php.load /etc/apache2/mods-available/php.load
+  #- sudo cp -f tests/build/php.conf /etc/apache2/mods-available/php.conf
+  #- sudo cp -f tests/build/php.load /etc/apache2/mods-available/php.load
   
   # enable php
-  - sudo a2enmod php
+  #- sudo a2enmod php
   
   # restart apache
   - sudo service apache2 restart
