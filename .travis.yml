@@ -17,14 +17,7 @@ matrix:
   allow_failures:
   - php: hhvm
 
-before_install:
-  #run composer installs
-  - composer install
-  # - npm install
-
-  # make symlinks
-  - sudo ln -s /usr/share/wp-cli/bin/wp /usr/bin/wp
-  
+before_install:  
   # Selenium server
   - "sh -e /etc/init.d/xvfb start"
   - "export DISPLAY=:99.0"
@@ -36,6 +29,15 @@ before_install:
 install:
   - pwd
 
+  #run composer installs
+  - composer install
+  # - npm install
+
+  # make symlink - WPCLI
+  - ls /usr/share/wp-cli/bin/wp
+  - ls /usr/share/
+  - sudo ln -s /usr/share/wp-cli/bin/wp /usr/bin/wp
+  
   # install codeception
   - wget http://codeception.com/codecept.phar
   - chmod +x codecept.phar
