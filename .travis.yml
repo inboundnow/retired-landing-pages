@@ -62,10 +62,15 @@ install:
   
   # clone wordpress developer git into our created directory
   - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /var/www/inboundsoon.dev
-  
+
   # set the permissions for all newly created files in our created direcotry
   - sudo chmod -R 755 /var/www/inboundsoon.dev
   
+  # use wpcli to configure the WordPress blog
+  - cd /var/www/inboundsoon.dev/src
+  - wp core config --dbname=wordpress_develop --dbuser=root --dbpass=
+  - wp core install --url="http://inboundsoon.dev" --title="Inbound Now Unit Testing" --admin_user="admin" --admin_password="admin" --admin_email="tests@inboundnow.com"
+
   # Set permissions for root website contents folder & all subfolders
   - sudo chmod -R 755 /var/www
   
@@ -90,8 +95,7 @@ before_script:
   
   # setup config file for front end  
   - cp wp-config-sample.php src/wp-config.php
-  - cd /var/www/inboundsoon.dev/src
-  
+  - cd /var/www/inboundsoon.dev/src  
   - sed -i "s/database_name_here/wordpress_develop/" wp-config.php
   - sed -i "s/username_here/root/" wp-config.php
   - sed -i "s/password_here//" wp-config.php
