@@ -91,9 +91,6 @@ before_script:
   - sed -i "s/yourusernamehere/root/" wp-tests-config.php
   - sed -i "s/yourpasswordhere//" wp-tests-config.php
   - sed -i "s/example.com/inboundsoon.dev/" wp-tests-config.php  
-  - sed -i "s/youremptytestdbnamehere/wordpress_develop/" wp-config.php
-  - sed -i "s/yourusernamehere/root/" wp-config.php
-  - sed -i "s/yourpasswordhere//" wp-config.php
   
    # change directory into inboundsoon.dev/src
   - cd /var/www/inboundsoon.dev/src
