@@ -1,9 +1,3 @@
-# Ensure that Apache listens on port 80
-Listen 80
-
-# Listen for virtual host requests on all IP addresses
-NameVirtualHost *:80
-
 <VirtualHost *:80>
 	ServerAdmin tests@inboundnow.com
 	DocumentRoot /var/www/inboundsoon.dev
