@@ -44,13 +44,10 @@ install:
   # install PHP
   - sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt
   
-  # make folder to place website documents in
-  - sudo mkdir -p /etc/apache2/sites-available/inboundsoon.dev
-  
   # create hosts file for site
   - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/inboundsoon.dev
   
-  # set new hosts file into settings
+  # enable new hosts file
   - sudo a2ensite inboundsoon.dev  
   
   # create php.conf & php.load file for apache mods
@@ -60,14 +57,28 @@ install:
   # enable php
   - sudo a2enmod php
   
+  # check if php is enabled
   - sudo dpkg -S php5 | grep libapache2-mod-php5 
+  
+  # create directory to host wordpress inside inside our /var/www directory
+  - sudo mkdir -p /var/www/inboundsoon.dev
+ 
+  # add current user permissions to our created directory
+  - sudo chown -R $USER:$USER /var/www/inboundsoon.dev
+  
+  # clone wordpress developer git into our created directory
+  - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /var/www/inboundsoon.dev
+  
+  # set the permissions for all newly created files in our created direcotry
+  - sudo chmod -R 755 /var/www/inboundsoon.dev
+  
+  # Set permissions for root website contents folder & all subfolders
+  - sudo chmod -R 755 /var/www
   
   # restart apache
   - sudo service apache2 restart
   - sleep 5
 
-  # Set permissions for root website contents folder & all subfolders
-  - sudo chmod -R 755 /var/www
   
   # list contents of apache's sites-available folder to make sure our hosts file was created
   - ls /etc/apache2/sites-available/
@@ -77,20 +88,7 @@ before_script:
   # Someone explain to me where PLUGIN_SLUG comes from and what this line does.
   - export PLUGIN_SLUG=$(basename $(pwd))
 
-  # create directory to host wordpress inside inside our /var/www directory
-  - sudo mkdir -p /var/www/inboundsoon.dev
-  # add current user permissions to our created directory
-  - sudo chown -R $USER:$USER /var/www/inboundsoon.dev
-  
-  # define public/private access permissions for our created directory
-  - sudo chmod -R 777 /var/www/inboundsoon.dev
-  
-  # clone wordpress developer git into our created directory
-  - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /var/www/inboundsoon.dev
-  - ls /var/www/
-  
-  # set the permissions for all newly created files in our created direcotry
-  - sudo chmod -R 755 /var/www/inboundsoon.dev
+
 
   # change directory into inboundsoon.dev
   - cd /var/www/inboundsoon.dev
