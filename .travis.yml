@@ -28,6 +28,8 @@ before_install:
   - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
   - sleep 5
 
+  # check if php is installed
+  - aptitude 
 
 install:
   - pwd
@@ -40,6 +42,8 @@ install:
   # install Apache
   - sudo apt-get update
   - sudo apt-get install apache2
+  - sudo apt-get install php5
+  - sudo apt-get install libapache2-mod-php5
   
   # make folder to place website documents in
   - sudo mkdir -p /etc/apache2/sites-available/inboundsoon.dev
