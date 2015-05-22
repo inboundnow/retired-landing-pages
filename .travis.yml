@@ -38,7 +38,8 @@ install:
   - ls  
   
   # make symlink - WPCLI
-  - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/bin/wp /usr/bin/wp
+  - ls /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/wp-cli/bin/wp
+  - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/wp-cli/bin/wp /usr/bin/wp
   
   # install Apache
   - sudo apt-get update
