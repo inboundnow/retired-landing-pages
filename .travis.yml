@@ -11,6 +11,7 @@ php:
 # WordPress version used in first build configuration.
 env:
   - WP_VERSION=master
+  - PLUGIN_SLUG=$(basename $(pwd))
 
 # we will build a matrix of PHP to WP_VERSIONs later.
 matrix:
@@ -25,11 +26,13 @@ before_install:
   - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
   - sleep 5
 
-
 install:
   # lets show where we start out
   - pwd
   - ls
+  
+   #run composer installs
+  - composer install
   
   # install Apache
   - sudo apt-get update
@@ -47,14 +50,7 @@ install:
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
 
-  #run composer installs
-  - cd /var/www/
-  - composer install
-  - ls /var/www/
-  # - npm install
-  
  
-  
   # make symlink - WPCLI
   - sudo ln -s /usr/share/wp-cli/bin/wp /usr/bin/wp
   
@@ -89,8 +85,7 @@ install:
 
 
 before_script:
-  # Someone explain to me where PLUGIN_SLUG comes from and what this line does.
-  - export PLUGIN_SLUG=$(basename $(pwd))
+
 
   # change directory into inboundsoon.dev
   - cd /var/www/inboundsoon.dev
