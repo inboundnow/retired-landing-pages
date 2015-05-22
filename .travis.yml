@@ -39,13 +39,10 @@ install:
 
   # install Apache
   - sudo apt-get update
-  - sudo apt-get install apache2 libapache2-mod-fastcgi
+  - sudo apt-get install apache2 
   
-  # enable php-fpm
-  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
-  - sudo a2enmod rewrite actions fastcgi alias
-  - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+  # install PHP
+  - sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt
   
   # make folder to place website documents in
   - sudo mkdir -p /etc/apache2/sites-available/inboundsoon.dev
@@ -57,11 +54,11 @@ install:
   - sudo a2ensite inboundsoon.dev  
   
   # create php.conf & php.load file for apache mods
-  #- sudo cp -f tests/build/php.conf /etc/apache2/mods-available/php.conf
-  #- sudo cp -f tests/build/php.load /etc/apache2/mods-available/php.load
+  - sudo cp -f tests/build/php.conf /etc/apache2/mods-available/php.conf
+  - sudo cp -f tests/build/php.load /etc/apache2/mods-available/php.load
   
   # enable php
-  #- sudo a2enmod php
+  - sudo a2enmod php
   
   # restart apache
   - sudo service apache2 restart
