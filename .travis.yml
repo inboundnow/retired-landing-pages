@@ -47,7 +47,7 @@ install:
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
 
   #run composer installs
-  - cs /var/www/
+  - cd /var/www/
   - composer install
   - ls /var/www/
   # - npm install
