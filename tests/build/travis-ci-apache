@@ -1,10 +1,10 @@
 <VirtualHost *:80>
 	ServerAdmin tests@inboundnow.com
-	DocumentRoot /var/www/inboundsoon.dev
+	DocumentRoot /var/www/inboundsoon.dev/src/
 	ServerName inboundsoon.dev
 	ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
-	<Directory "/var/www/inboundsoon.dev">
+	<Directory "/var/www/inboundsoon.dev/src/">
 	  Order allow,deny
 	  Allow from all
 	</Directory>

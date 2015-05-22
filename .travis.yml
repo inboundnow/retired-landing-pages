@@ -84,7 +84,7 @@ before_script:
   - ls /var/www/
   
   # set the permissions for all newly created files in our created direcotry
-  - sudo chmod -R 777 /var/www/inboundsoon.dev
+  - sudo chmod -R 755 /var/www/inboundsoon.dev
 
   # change directory into inboundsoon.dev
   - cd /var/www/inboundsoon.dev
