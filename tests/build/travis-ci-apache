@@ -1,6 +1,6 @@
-<VirtualHost *>
+<VirtualHost *:80>
 	ServerAdmin tests@inboundnow.com
-	DocumentRoot "/var/www/inboundsoon.dev"
+	DocumentRoot /var/www/inboundsoon.dev
 	ServerName inboundsoon.dev
 	ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
