@@ -41,8 +41,7 @@ install:
   - sudo apt-get update
   - sudo apt-get install apache2 
   
-  # install PHP
-  - sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt
+ 
   
   # create hosts file for site
   - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/inboundsoon.dev
@@ -50,9 +49,11 @@ install:
   # enable new hosts file
   - sudo a2ensite inboundsoon.dev  
   
-  # create php.conf & php.load file for apache mods
-  - sudo cp -f tests/build/php.conf /etc/apache2/mods-available/php.conf
-  - sudo cp -f tests/build/php.load /etc/apache2/mods-available/php.load
+  # enable php-fpm
+   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
+   - sudo a2enmod rewrite actions fastcgi alias
+   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
   
   # enable php
   - sudo a2enmod php
