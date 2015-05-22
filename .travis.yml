@@ -28,8 +28,6 @@ before_install:
   - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
   - sleep 5
 
-  # check if php is installed
-  - aptitude 
 
 install:
   - pwd
