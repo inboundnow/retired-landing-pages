@@ -60,6 +60,8 @@ install:
   # enable php
   - sudo a2enmod php
   
+  - sudo dpkg -S php5 | grep libapache2-mod-php5 
+  
   # restart apache
   - sudo service apache2 restart
   - sleep 5
