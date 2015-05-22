@@ -18,9 +18,13 @@ matrix:
   - php: hhvm
 
 before_install:
+  #run composer installs
   - composer install
   # - npm install
 
+  # make symlinks
+  - sudo ln -s /usr/share/wp-cli/bin/wp /usr/bin/wp
+  
   # Selenium server
   - "sh -e /etc/init.d/xvfb start"
   - "export DISPLAY=:99.0"
@@ -41,7 +45,6 @@ install:
   - sudo apt-get update
   - sudo apt-get install apache2 libapache2-mod-fastcgi
   
- 
   # create hosts file for site
   - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/inboundsoon.dev
   
