@@ -68,9 +68,7 @@ class Tests_Statistics extends WP_UnitTestCase {
  
 		
         print_r(wp_remote_get('http://inboundsoon.dev/' ));
-        print_r(wp_remote_get('http://inboundsoon.dev/src/' ));
         print_r(wp_remote_get('http://inboundsoon.dev/wp-admin/' ));
-        print_r(wp_remote_get('http://inboundsoon.dev/inboundsoon.dev/' ));
    
 
         $response = wp_remote_get( $permalink );

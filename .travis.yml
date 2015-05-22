@@ -31,13 +31,6 @@ before_install:
 
 install:
   - pwd
-  - ls
-  - ls ../
-  - ls ../../
-  - ls ../../../
-  - ls ../../../../
-  - ls ../../../../../
-
 
   # install codeception
   - wget http://codeception.com/codecept.phar
@@ -48,9 +41,6 @@ install:
   - sudo apt-get update
   - sudo apt-get install apache2
   
-  # enable php
-  - sudo a2enmod php5
-  
   # make folder to place website documents in
   - sudo mkdir -p /etc/apache2/sites-available/inboundsoon.dev
   
@@ -59,6 +49,13 @@ install:
   
   # set new hosts file into settings
   - sudo a2ensite inboundsoon.dev  
+  
+  # create php.conf & php.load file for apache mods
+  - sudo cp -f tests/build/php.conf /etc/apache2/mods-available/php.conf
+  - sudo cp -f tests/build/php.load /etc/apache2/mods-available/php.load
+  
+  # enable php
+  - sudo a2enmod php
   
   # restart apache
   - sudo service apache2 restart
@@ -69,6 +66,7 @@ install:
   
   # list contents of apache's sites-available folder to make sure our hosts file was created
   - ls /etc/apache2/sites-available/
+  - ls /etc/apache2/mods-available/
 
 before_script:
   # Someone explain to me where PLUGIN_SLUG comes from and what this line does.
