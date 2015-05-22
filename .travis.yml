@@ -68,6 +68,9 @@ install:
   # add current user permissions to our created directory
   - sudo chown -R $USER:$USER /var/www/inboundsoon.dev
   
+  # create database
+  - mysql -e "CREATE DATABASE wordpress_develop;" -uroot
+  
   # clone wordpress developer git into our created directory
   - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /var/www/inboundsoon.dev
 
@@ -118,8 +121,6 @@ before_script:
   # make a directory for landing pages
   - mv "/home/travis/build/inboundnow/$PLUGIN_SLUG" "/var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG"
 
-  # create database
-  - mysql -e "CREATE DATABASE wordpress_develop;" -uroot
 
 
   # change into plugin directory to make sure our script runs the right tests
