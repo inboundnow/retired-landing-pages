@@ -53,9 +53,7 @@ install:
   - sudo a2enmod rewrite actions fastcgi alias
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-  
-  # check if php is enabled
-  - sudo dpkg -S php5 | grep libapache2-mod-php5 
+
   
   # create directory to host wordpress inside inside our /var/www directory
   - sudo mkdir -p /var/www/inboundsoon.dev
