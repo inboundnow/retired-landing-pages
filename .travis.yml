@@ -35,7 +35,10 @@ install:
   
    #run composer installs
   - composer install
-  - ls
+  - ls  
+  
+  # make symlink - WPCLI
+  - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/bin/wp /usr/bin/wp
   
   # install Apache
   - sudo apt-get update
@@ -53,8 +56,6 @@ install:
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
  
-  # make symlink - WPCLI
-  - sudo ln -s $(pwd)/vendor/wp-cli/bin/wp /usr/bin/wp
   
   # install codeception
   - wget http://codeception.com/codecept.phar
