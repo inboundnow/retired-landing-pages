@@ -12,63 +12,63 @@ php:
 env:
   - WP_VERSION=master
 
-# we will build a matrix of PHP to WP_VERSIONs later. 
+# we will build a matrix of PHP to WP_VERSIONs later.
 matrix:
   allow_failures:
   - php: hhvm
 
-before_install: 
+before_install:
   - composer install
   # - npm install
-  
+
   # Selenium server
   - "sh -e /etc/init.d/xvfb start"
   - "export DISPLAY=:99.0"
   - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.31.0.jar"
   - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
   - sleep 5
-  
-  
+
+
 install:
   - pwd
-  - ls 
+  - ls
   - ls ../
   - ls ../../
   - ls ../../../
   - ls ../../../../
   - ls ../../../../../
-  
-  
-  # install codeception 
+
+
+  # install codeception
   - wget http://codeception.com/codecept.phar
   - chmod +x codecept.phar
   - sudo mv codecept.phar /usr/local/bin/codecept
-  
-  # install Apache  
+
+  # install Apache
   - sudo apt-get update
-  - sudo apt-get install apache2 
+  - sudo apt-get install apache2
   - sudo mkdir -p /etc/apache2/sites-available/inboundsoon.dev
   - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/inboundsoon.dev
   - sudo chmod -R 755 /var/www
-  - sudo service apache2 restart
   - sudo a2ensite inboundsoon.dev
-  - sleep 5	
-  
-  
-  - ls /etc/apache2/sites-available/  
+  - sudo service apache2 restart
+  - sleep 5
 
-before_script: 
+
+  - ls /etc/apache2/sites-available/
+
+before_script:
   # Someone explain to me where PLUGIN_SLUG comes from and what this line does.
-  - export PLUGIN_SLUG=$(basename $(pwd))  
-  
+  - export PLUGIN_SLUG=$(basename $(pwd))
+
   # install wordpress into inboundsoon.dev
-  - sudo mkdir -p /var/www/inboundsoon.dev  
+  - sudo mkdir -p /var/www/inboundsoon.dev
   - sudo chown -R $USER:$USER /var/www/inboundsoon.dev
   - sudo chmod -R 777 /var/www/inboundsoon.dev
   - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /var/www/inboundsoon.dev
-  - ls /var/www/  
+  - ls /var/www/
   - sudo chmod -R 777 /var/www/inboundsoon.dev
-  
+
   # change directory into inboundsoon.dev
   - cd /var/www/inboundsoon.dev
 
@@ -76,29 +76,29 @@ before_script:
   - git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundsoon.dev/wp-content/plugins/cta
   - git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/inboundsoon.dev/wp-content/plugins/leads
 
-  
+
   # make a directory for landing pages
   - mv "/home/travis/build/inboundnow/$PLUGIN_SLUG" "/var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG"
-  
+
   # create database
   - mysql -e "CREATE DATABASE wordpress_develop;" -uroot
   - cp wp-tests-config-sample.php wp-tests-config.php
-  
+
   # setup database for tests config
   - sed -i "s/youremptytestdbnamehere/wordpress_develop/" wp-tests-config.php
   - sed -i "s/yourusernamehere/root/" wp-tests-config.php
   - sed -i "s/yourpasswordhere//" wp-tests-config.php
   - sed -i "s/example.com/inboundsoon.dev/" wp-tests-config.php
-  
+
   # change into plugin directory to make sure our script runs the right tests
   - cd /var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG
-  
-  
 
-script: 
+
+
+script:
   - phpunit
   #- php codecept run
-  
+
 addons:
   hosts:
     - inboundsoon.dev
