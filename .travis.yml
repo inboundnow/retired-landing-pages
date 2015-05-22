@@ -38,10 +38,6 @@ install:
   - ls  
   
   # make symlink - WPCLI
-  - ls /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/wp-cli/bin/wp
-  - ls /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/wp-cli/bin/
-  - ls /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/wp-cli/
-  - ls /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/
   - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/wp-cli/bin/wp /usr/bin/wp
   
   # install Apache
@@ -80,7 +76,7 @@ install:
   
   # use wpcli to configure the WordPress blog
   - cd /var/www/inboundsoon.dev/src
-  - wp core config --dbname=wordpress_develop --dbuser=root --dbpass=
+  - wp core config --dbname=wordpress_develop --dbuser=root --dbpass=""
   - wp core install --url="http://inboundsoon.dev" --title="Inbound Now Unit Testing" --admin_user="admin" --admin_password="admin" --admin_email="tests@inboundnow.com"
 
   # Set permissions for root website contents folder & all subfolders
