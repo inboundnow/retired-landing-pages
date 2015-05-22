@@ -39,10 +39,9 @@ install:
 
   # install Apache
   - sudo apt-get update
-  - sudo apt-get install apache2 
+  - sudo apt-get install apache2 libapache2-mod-fastcgi
   
  
-  
   # create hosts file for site
   - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/inboundsoon.dev
   
