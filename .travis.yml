@@ -11,7 +11,6 @@ php:
 # WordPress version used in first build configuration.
 env:
   - WP_VERSION=master
-  - PLUGIN_SLUG=$(basename $(pwd))
 
 # we will build a matrix of PHP to WP_VERSIONs later.
 matrix:
@@ -26,6 +25,9 @@ before_install:
   - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
   - sleep 5
 
+   # Create environmental variable from basename of starting directory.
+  - export PLUGIN_SLUG=$(basename $(pwd))
+
 install:
   # lets show where we start out
   - pwd
@@ -33,6 +35,7 @@ install:
   
    #run composer installs
   - composer install
+  - ls
   
   # install Apache
   - sudo apt-get update
