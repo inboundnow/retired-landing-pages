@@ -48,6 +48,9 @@ install:
   - sudo apt-get update
   - sudo apt-get install apache2
   
+  # enable php
+  - sudo a2enmod php5
+  
   # make folder to place website documents in
   - sudo mkdir -p /etc/apache2/sites-available/inboundsoon.dev
   
@@ -55,7 +58,7 @@ install:
   - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/inboundsoon.dev
   
   # set new hosts file into settings
-  - sudo a2ensite inboundsoon.dev
+  - sudo a2ensite inboundsoon.dev  
   
   # restart apache
   - sudo service apache2 restart
