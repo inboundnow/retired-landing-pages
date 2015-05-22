@@ -29,6 +29,7 @@ before_install:
 install:
   # lets show where we start out
   - pwd
+  - ls
   
   # install Apache
   - sudo apt-get update
