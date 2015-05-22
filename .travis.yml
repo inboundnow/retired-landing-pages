@@ -54,7 +54,7 @@ install:
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
  
   # make symlink - WPCLI
-  - sudo ln -s pwd/vendor/wp-cli/bin/wp /usr/bin/wp
+  - sudo ln -s $(pwd)/vendor/wp-cli/bin/wp /usr/bin/wp
   
   # install codeception
   - wget http://codeception.com/codecept.phar
