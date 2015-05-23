@@ -62,18 +62,8 @@ class Tests_Statistics extends WP_UnitTestCase {
 
         $permalink = get_post_permalink( $this->lp_id , true );
  
-		echo $permalink;
-		echo get_option( 'site_url');
-		update_option( 'site_url' , 'http://www.inboundsoon.dev' );
-		echo "\r\n";
-		echo get_option( 'siteurl');
-		echo "\r\n";
-		echo get_option( 'home');
-		echo "\r\n";
-		echo DB_NAME."\r\n";
-		echo DB_USER."\r\n";
-		echo DB_HOST."\r\n";
-		
+		echo $permalink."\r\n";
+	
         print_r(wp_remote_get( $permalink ));   
 
         $response = wp_remote_get( $permalink );
