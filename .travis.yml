@@ -30,6 +30,7 @@ before_install:
 
 install:
   # lets show where we start out
+  - WP_DEVELOP_DIR
   - pwd
   - ls
   
