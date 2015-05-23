@@ -38,8 +38,6 @@ install:
   - ls  
   
   # make symlink - WPCLI
-  - ls /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/wp-cli/
-  - ls /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/wp-cli/bin/
   - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/wp-cli/bin/wp /usr/bin/wp
   
   # install Apache
@@ -82,7 +80,7 @@ install:
   # use wpcli to configure the WordPress blog
   - cd /var/www/inboundsoon.dev/src
   - wp core config --dbname=wordpress_develop --dbuser=root 
-  - wp core install --url="http://inboundsoon.dev" --title="Inbound Now Unit Testing" --admin_user="admin" --admin_password="admin" --admin_email="tests@inboundnow.com"  
+  - wp core install --url="http://inboundsoon.dev" --title="Inbound Now Unit Testing" --admin_user="admin" --admin_password="admin" --admin_email="tests@inboundnow.com" 
   - wp option get siteurl
   
   # Set permissions for root website contents folder & all subfolders
@@ -99,14 +97,14 @@ before_script:
   - wp option get siteurl
   # change directory into inboundsoon.dev
   - cd /var/www/inboundsoon.dev
-  
+  - wp option get siteurl
   # setup database for tests config
   - cp wp-tests-config-sample.php wp-tests-config.php
   - sed -i "s/youremptytestdbnamehere/wordpress_develop/" wp-tests-config.php
   - sed -i "s/yourusernamehere/root/" wp-tests-config.php
   - sed -i "s/yourpasswordhere//" wp-tests-config.php
   - sed -i "s/example.com/inboundsoon.dev/" wp-tests-config.php  
-  
+  - wp option get siteurl
   # setup config file for front end  
   - cp wp-config-sample.php src/wp-config.php
   - cd /var/www/inboundsoon.dev/src  
@@ -116,7 +114,7 @@ before_script:
   - sed -i "s/example.com/inboundsoon.dev/" wp-config.php  
   - ls /var/www/inboundsoon.dev/src
   
-  
+  - wp option get siteurl
   # pull latests inbound plugins
   - git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundsoon.dev/wp-content/plugins/cta
   - git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/inboundsoon.dev/wp-content/plugins/leads
