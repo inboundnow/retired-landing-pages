@@ -64,6 +64,7 @@ class Tests_Statistics extends WP_UnitTestCase {
  
 		echo $permalink;
 		echo get_option( 'site_url');
+		update_option( 'site_url' , 'http://www.inboundsoon.dev' );
 		echo "\r\n";
 		echo get_option( 'siteurl');
 		echo "\r\n";
