@@ -82,6 +82,7 @@ install:
   - wp core config --dbname=wordpress_develop --dbuser=root 
   - wp core install --url="http://inboundsoon.dev" --title="Inbound Now Unit Testing" --admin_user="admin" --admin_password="admin" --admin_email="tests@inboundnow.com" 
   - wp option update home "http://inboundsoon.dev"
+  - wp option get home
   
   # Set permissions for root website contents folder & all subfolders
   - sudo chmod -R 755 /var/www
