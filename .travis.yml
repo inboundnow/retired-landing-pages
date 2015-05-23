@@ -81,7 +81,7 @@ install:
   - cd /var/www/inboundsoon.dev/src
   - wp core config --dbname=wordpress_develop --dbuser=root 
   - wp core install --url="http://inboundsoon.dev" --title="Inbound Now Unit Testing" --admin_user="admin" --admin_password="admin" --admin_email="tests@inboundnow.com"
-  - wp option get siteurl
+  
   # Set permissions for root website contents folder & all subfolders
   - sudo chmod -R 755 /var/www
   
@@ -126,7 +126,7 @@ before_script:
   # change into plugin directory to make sure our script runs the right tests
   - cd /var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG
 
-
+  - wp option get siteurl
 
 script:
   - phpunit
