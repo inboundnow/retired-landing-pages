@@ -92,6 +92,7 @@ install:
 
 
 before_script:
+  - which wp
   # make symlink - WPCLI
   - wp option get siteurl
   # change directory into inboundsoon.dev
