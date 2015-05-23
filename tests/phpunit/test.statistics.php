@@ -64,8 +64,14 @@ class Tests_Statistics extends WP_UnitTestCase {
  
 		echo $permalink;
 		echo get_option( 'site_url');
+		echo "\r\n";
 		echo get_option( 'siteurl');
+		echo "\r\n";
 		echo get_option( 'home');
+		echo "\r\n";
+		echo DB_NAME."\r\n";
+		echo DB_USER."\r\n";
+		echo DB_HOST."\r\n";
 		
         print_r(wp_remote_get( $permalink ));   
 
