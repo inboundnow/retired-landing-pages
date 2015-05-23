@@ -127,6 +127,7 @@ before_script:
 
 script:
   - phpunit
+  - wp option get home 
   #- php codecept run
 
 addons:
