@@ -84,7 +84,7 @@ install:
   - wp option update home "http://inboundsoon.dev"
   - cd /var/www/inboundsoon.dev/
   - wp option update home "http://inboundsoon.dev"
-  - wp option siteurl home "http://inboundsoon.dev"
+  - wp option update siteurl home "http://inboundsoon.dev"
   
   # Set permissions for root website contents folder & all subfolders
   - sudo chmod -R 755 /var/www
