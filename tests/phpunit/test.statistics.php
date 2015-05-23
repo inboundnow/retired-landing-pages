@@ -63,6 +63,9 @@ class Tests_Statistics extends WP_UnitTestCase {
         $permalink = get_post_permalink( $this->lp_id , true );
  
 		echo $permalink;
+		echo get_option( 'site_url');
+		echo get_option( 'siteurl');
+		echo get_option( 'home');
 		
         print_r(wp_remote_get( $permalink ));   
 
