@@ -24,7 +24,7 @@ if( false !== getenv( 'WP_DEVELOP_DIR' ) ) {
 	echo 'here';
   require getenv( 'WP_DEVELOP_DIR' ) . '/tests/phpunit/includes/bootstrap.php';
 } else {
-echo 'there'
+echo 'there';
   require '../../../../tests/phpunit/includes/bootstrap.php';
 }
  
