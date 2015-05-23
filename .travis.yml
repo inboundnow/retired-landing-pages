@@ -93,7 +93,7 @@ install:
 
 before_script:
   # make symlink - WPCLI
-  - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/wp-cli/bin/wp /usr/bin/wp
+  - wp
   - wp option get siteurl
   # change directory into inboundsoon.dev
   - cd /var/www/inboundsoon.dev
