@@ -21,8 +21,10 @@ $GLOBALS['wp_tests_options'] = array(
 // WordPress develop SVN checkout.
 
 if( false !== getenv( 'WP_DEVELOP_DIR' ) ) {
+	echo 'here';
   require getenv( 'WP_DEVELOP_DIR' ) . '/tests/phpunit/includes/bootstrap.php';
 } else {
+echo 'there'
   require '../../../../tests/phpunit/includes/bootstrap.php';
 }
 
