@@ -86,7 +86,7 @@ install:
   # Set permissions for root website contents folder & all subfolders
   - sudo chmod -R 755 /var/www
   
-  # restart apache
+  # restart apache 
   - sudo service apache2 restart
   - sleep 5
 
