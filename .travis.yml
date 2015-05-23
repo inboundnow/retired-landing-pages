@@ -92,7 +92,8 @@ install:
 
 before_script:
 
-
+	
+  - wp option get siteurl
   # change directory into inboundsoon.dev
   - cd /var/www/inboundsoon.dev
   
@@ -122,6 +123,7 @@ before_script:
   - mv "/home/travis/build/inboundnow/$PLUGIN_SLUG" "/var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG"
 
 
+  - wp option get siteurl
 
   # change into plugin directory to make sure our script runs the right tests
   - cd /var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG
