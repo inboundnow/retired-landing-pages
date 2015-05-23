@@ -119,6 +119,7 @@ before_script:
   - git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundsoon.dev/wp-content/plugins/cta
   - git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/inboundsoon.dev/wp-content/plugins/leads
 
+  - wp option get siteurl
 
   # make a directory for landing pages
   - mv "/home/travis/build/inboundnow/$PLUGIN_SLUG" "/var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG"
