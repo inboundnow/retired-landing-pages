@@ -30,8 +30,8 @@ before_install:
 
 install:
   # lets show where we start out
-  - pwd
-  - ls
+  - pwd 
+  - ls 
   
    #run composer installs
   - composer install
