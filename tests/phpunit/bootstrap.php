@@ -27,7 +27,7 @@ if( false !== getenv( 'WP_DEVELOP_DIR' ) ) {
 echo 'there'
   require '../../../../tests/phpunit/includes/bootstrap.php';
 }
-
+ 
 /**
 *  WordPress Dev Environment rebuilds the datbase on bootstrap.
 */
