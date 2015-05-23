@@ -82,7 +82,7 @@ install:
   - wp core config --dbname=wordpress_develop --dbuser=root 
   - wp core install --url="http://inboundsoon.dev" --title="Inbound Now Unit Testing" --admin_user="admin" --admin_password="admin" --admin_email="tests@inboundnow.com" 
   - wp option update home "http://inboundsoon.dev"  
-  - wp rewrute structure '%postname%'
+  - wp rewrite structure '%postname%'
   - wp rewrite flush
   - wp rewrite list
   
