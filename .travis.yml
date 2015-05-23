@@ -122,7 +122,7 @@ before_script:
   - wp option get siteurl
 
   # make a directory for landing pages
-  - mv "/home/travis/build/inboundnow/$PLUGIN_SLUG" "/var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG"
+  - mv /home/travis/build/inboundnow/$PLUGIN_SLUG /var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG
 
 
   - wp option get siteurl
