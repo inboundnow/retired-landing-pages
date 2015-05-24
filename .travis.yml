@@ -93,7 +93,9 @@ install:
   - cp -r /home/travis/build/inboundnow/$PLUGIN_SLUG /var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG
   
   # Activate plugins
-  - wp plugin activate cta,landing-pages,leads
+  - wp plugin activate cta
+  - wp plugin activate landing-pages
+  - wp plugin activate leads
   
   # Set permissions for root website contents folder & all subfolders
   - sudo chmod -R 755 /var/www
@@ -121,7 +123,6 @@ before_script:
 
 script:
   - phpunit
-  - wp option get home 
   #- php codecept run
 
 addons:
