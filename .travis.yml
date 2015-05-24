@@ -48,7 +48,10 @@ install:
   - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/inboundsoon.dev
   
   # enable new hosts file
-  - sudo a2ensite inboundsoon.dev  
+  - sudo a2ensite inboundsoon.dev 
+  
+  # enable mod rewrite
+  - a2enmod rewrite
   
   # enable php-fpm
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
