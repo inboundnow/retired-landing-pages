@@ -84,7 +84,16 @@ install:
   - wp option update home "http://inboundsoon.dev"  
   - wp rewrite structure '%postname%'
   - wp rewrite flush
-  - wp rewrite list
+  
+  # Install CTA and Leads from latest Git
+  - git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundsoon.dev/wp-content/plugins/cta
+  - git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/inboundsoon.dev/wp-content/plugins/leads 
+
+  # Copy Landing Pages from travis build into wordpress install
+  - cp -r /home/travis/build/inboundnow/$PLUGIN_SLUG /var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG
+  
+  # Activate plugins
+  - wp plugin activate cta,landing-pages,leads
   
   # Set permissions for root website contents folder & all subfolders
   - sudo chmod -R 755 /var/www
@@ -104,22 +113,7 @@ before_script:
   - sed -i "s/yourusernamehere/root/" wp-tests-config.php
   - sed -i "s/yourpasswordhere//" wp-tests-config.php
   - sed -i "s/example.com/inboundsoon.dev/" wp-tests-config.php  
-
-  # setup config file for front end  
-  - cp wp-config-sample.php src/wp-config.php
-  - cd /var/www/inboundsoon.dev/src  
-  - sed -i "s/database_name_here/wordpress_develop/" wp-config.php
-  - sed -i "s/username_here/root/" wp-config.php
-  - sed -i "s/password_here//" wp-config.php
-  - sed -i "s/example.com/inboundsoon.dev/" wp-config.php  
-  - ls /var/www/inboundsoon.dev/src
-
-  # pull latests inbound plugins
-  - git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundsoon.dev/wp-content/plugins/cta
-  - git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/inboundsoon.dev/wp-content/plugins/leads
-
-  # copy landing pages from repo into wordpress install
-  - cp -r /home/travis/build/inboundnow/$PLUGIN_SLUG /var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG
+  
 
   # change into plugin directory to make sure our script runs the right tests
   - cd /var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG
