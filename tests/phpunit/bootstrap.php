@@ -16,21 +16,19 @@ $GLOBALS['wp_tests_options'] = array(
 	  ),
 );
 
-// If the develop repo location is defined (as WP_DEVELOP_DIR), use that
-// location. Otherwise, we'll just assume that this plugin is installed in a
-// WordPress develop SVN checkout.
 
+/**
+*  Load WordPress's testing environment boostrap.php. This is not shipped with the git repo but is unloaded into the travis build unless WP_DEVELOP_DIR is set with a custom locatin.
+*/
 if( false !== getenv( 'WP_DEVELOP_DIR' ) ) {
-	echo 'here';
-  require getenv( 'WP_DEVELOP_DIR' ) . '/tests/phpunit/includes/bootstrap.php';
+	require getenv( 'WP_DEVELOP_DIR' ) . '/tests/phpunit/includes/bootstrap.php';
 } else {
-echo 'there';
-  require '../../../../tests/phpunit/includes/bootstrap.php';
+	require '../../../../tests/phpunit/includes/bootstrap.php';
 }
  
 /**
 *  WordPress Dev Environment rebuilds the datbase on bootstrap.
 */
-update_option( 'siteurl' , 'http://www.inboundsoon.dev' );
-update_option( 'home' , 'http://www.inboundsoon.dev' );
+update_option( 'siteurl' , 'http://inboundsoon.dev' );
+update_option( 'home' , 'http://inboundsoon.dev' );
 ?>
