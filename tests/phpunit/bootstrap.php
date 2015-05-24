@@ -7,7 +7,7 @@
 
 /* load wp */
 require '../../../wp-config.php';
- 
+ echo 'here';
 /* needed for testcase.php */
 define( 'WP_TESTS_FORCE_KNOWN_BUGS', false );
 
