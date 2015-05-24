@@ -58,14 +58,13 @@ class Tests_Statistics extends WP_UnitTestCase {
     function test_landing_page_read() {
         /* includes */
         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
-		
-		echo "http://inboundsoon.dev/\r\n";
-        print_r(wp_remote_get( 'http://inboundsoon.dev/' ));   
 
-        $permalink = get_post_permalink( $this->lp_id , false );
- 
-		echo $permalink."\r\n";
-	
+        $permalink = get_post_permalink( $this->lp_id , false ); 
+		echo $permalink."\r\n";	
+        print_r(wp_remote_get( $permalink ));   
+		
+        $permalink = get_post_permalink( $this->lp_id , true ); 
+		echo $permalink."\r\n";	
         print_r(wp_remote_get( $permalink ));   
 
         $response = wp_remote_get( $permalink );
