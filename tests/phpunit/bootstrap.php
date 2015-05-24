@@ -31,4 +31,7 @@ if( false !== getenv( 'WP_DEVELOP_DIR' ) ) {
 */
 update_option( 'siteurl' , 'http://inboundsoon.dev' );
 update_option( 'home' , 'http://inboundsoon.dev' );
-?>
+
+global $wp_rewrite;
+$wp_rewrite->set_permalink_structure('/%postname%/');
+$wp_rewrite->flush_rules();

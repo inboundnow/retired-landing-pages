@@ -60,8 +60,8 @@ class Tests_Statistics extends WP_UnitTestCase {
         /* includes */
         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
 		
-		echo "http://www.inboundsoon.dev/\r\n";
-        print_r(wp_remote_get( 'http://www.inboundsoon.dev/' ));   
+		echo "http://inboundsoon.dev/\r\n";
+        print_r(wp_remote_get( 'http://inboundsoon.dev/' ));   
         $permalink = get_post_permalink( $this->lp_id , true );
  
 		echo $permalink."\r\n";
