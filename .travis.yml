@@ -82,8 +82,6 @@ install:
   - wp core config --dbname=wordpress_develop --dbuser=root 
   - wp core install --url="http://inboundsoon.dev" --title="Inbound Now Unit Testing" --admin_user="admin" --admin_password="admin" --admin_email="tests@inboundnow.com" 
   - wp option update home "http://inboundsoon.dev"  
-  - wp rewrite structure '%postname%'
-  - wp rewrite flush
   
   # Install CTA and Leads from latest Git
   - git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundsoon.dev/wp-content/plugins/cta
@@ -96,6 +94,10 @@ install:
   - wp plugin activate cta
   - wp plugin activate landing-pages
   - wp plugin activate leads
+  
+  # Set permalinks 
+  - wp rewrite structure '%postname%'
+  - wp rewrite flush
   
   # Set permissions for root website contents folder & all subfolders
   - sudo chmod -R 755 /var/www
