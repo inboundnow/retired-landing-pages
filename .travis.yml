@@ -96,9 +96,9 @@ install:
   - cp -r /home/travis/build/inboundnow/$PLUGIN_SLUG /var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG
   
   # Activate plugins
-  - wp plugin activate cta
+  - wp plugin activate calls-to-action
   - wp plugin activate landing-pages
-  - wp plugin activate wp-leads
+  - wp plugin activate leads
   
   # Set permalinks 
   - wp rewrite structure '%postname%'
