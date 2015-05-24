@@ -85,12 +85,12 @@ install:
   - wp option update home "http://inboundsoon.dev"  
   
   # Install CTA 
-  - git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundsoon.dev/wp-content/plugins/cta
+  - sudo git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundsoon.dev/wp-content/plugins/cta
   - sleep 5
   - wp plugin activate cta
   
   # Install Leads
-  - git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/inboundsoon.dev/wp-content/plugins/leads 
+  - sudo git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/inboundsoon.dev/wp-content/plugins/leads 
   - wp plugin activate leads
   
   # Copy Landing Pages from travis build into wordpress install
