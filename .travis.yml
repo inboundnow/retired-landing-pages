@@ -74,9 +74,6 @@ install:
   
   # clone wordpress developer git into our created directory
   - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /var/www/inboundsoon.dev
-
-  # set the permissions for all newly created files in our created direcotry
-  - sudo chmod -R 755 /var/www/inboundsoon.dev
   
   # use wpcli to configure the WordPress blog
   - cd /var/www/inboundsoon.dev/src
@@ -86,11 +83,12 @@ install:
   
   # Install CTA 
   - sudo git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundsoon.dev/wp-content/plugins/cta
-  - sleep 5
   - wp plugin activate cta
   
   # Install Leads
   - sudo git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/inboundsoon.dev/wp-content/plugins/leads 
+  # set the permissions for all newly created files in our created direcotry
+  - sudo chmod -R 755 /var/www/inboundsoon.dev
   - wp plugin activate leads
   
   # Copy Landing Pages from travis build into wordpress install
