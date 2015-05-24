@@ -51,7 +51,7 @@ install:
   - sudo a2ensite inboundsoon.dev 
   
   # enable mod rewrite
-  - a2enmod rewrite
+  - sudo a2enmod rewrite
   
   # enable php-fpm
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
