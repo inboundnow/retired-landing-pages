@@ -81,17 +81,15 @@ install:
   - wp core install --url="http://inboundsoon.dev" --title="Inbound Now Unit Testing" --admin_user="admin" --admin_password="admin" --admin_email="tests@inboundnow.com" 
   - wp option update home "http://inboundsoon.dev"  
   
-  # Install CTA 
-  - sudo git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundsoon.dev/wp-content/plugins/cta
+  # Install CTA (from master)
+  - sudo git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundsoon.dev/src/wp-content/plugins/cta
   - wp plugin activate cta
   
-  # Install Leads
-  - sudo git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/inboundsoon.dev/wp-content/plugins/leads 
-  # set the permissions for all newly created files in our created direcotry
-  - sudo chmod -R 755 /var/www/inboundsoon.dev
+  # Install Leads ( from git )
+  - sudo git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/inboundsoon.dev/src/wp-content/plugins/leads 
   - wp plugin activate leads
   
-  # Copy Landing Pages from travis build into wordpress install
+  # Install Landing Pages ( from travis build )
   - cp -r /home/travis/build/inboundnow/$PLUGIN_SLUG /var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG
   - wp plugin activate landing-pages
   
