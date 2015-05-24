@@ -56,6 +56,9 @@ install:
   - sudo a2enmod rewrite actions fastcgi alias
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+   
+  # add current user permissions to our created directory
+  - sudo chown -R $USER:$USER /var/www/inboundsoon.dev
   
   # restart apache 
   - sudo service apache2 restart 
@@ -64,12 +67,6 @@ install:
   - wget http://codeception.com/codecept.phar
   - chmod +x codecept.phar
   - sudo mv codecept.phar /usr/local/bin/codecept
-  
-  # create directory to host our wordpress dev environemnt inside inside our /var/www directory
-  - sudo mkdir -p /var/www/inboundsoon.dev
- 
-  # add current user permissions to our created directory
-  - sudo chown -R $USER:$USER /var/www/inboundsoon.dev
   
   # install WordPress 
   
