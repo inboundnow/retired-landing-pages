@@ -2,11 +2,12 @@
 /**
  * Bootstrap the plugin unit testing environment.
  *
- * Edit 'active_plugins' setting below to point to your main plugin file.
- *
  * @package wordpress-plugin-tests
  */
 
+/* load wp */
+require '../../../wp-config.php';
+ 
 /* needed for testcase.php */
 define( 'WP_TESTS_FORCE_KNOWN_BUGS', false );
 
