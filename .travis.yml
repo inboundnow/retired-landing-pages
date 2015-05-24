@@ -103,6 +103,8 @@ install:
   # restart apache 
   - sudo service apache2 restart
   - sleep 5
+  
+  - cat /var/www/inboundsoon.dev/src/.htaccess
 
 before_script:
 
@@ -114,8 +116,7 @@ before_script:
   - sed -i "s/youremptytestdbnamehere/wordpress_develop/" wp-tests-config.php
   - sed -i "s/yourusernamehere/root/" wp-tests-config.php
   - sed -i "s/yourpasswordhere//" wp-tests-config.php
-  - sed -i "s/example.com/inboundsoon.dev/" wp-tests-config.php  
-  
+  - sed -i "s/example.com/inboundsoon.dev/" wp-tests-config.php    
 
   # change into plugin directory to make sure our script runs the right tests
   - cd /var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG
