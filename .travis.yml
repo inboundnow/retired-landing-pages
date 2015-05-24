@@ -95,7 +95,7 @@ install:
   
   # Set permalinks 
   - wp rewrite structure '%postname%'
-  - wp rewrite flush
+  - wp rewrite flush --hard
   
   # Set permissions for root website contents folder & all subfolders
   - sudo chmod -R 755 /var/www
@@ -104,7 +104,7 @@ install:
   - sudo service apache2 restart
   - sleep 5
   
-  - cat /var/www/inboundsoon.dev/src/.htaccess
+  - cat /var/www/inboundsoon.dev/src/.htaccess 
 
 before_script:
 
