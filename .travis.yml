@@ -57,6 +57,9 @@ install:
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
   
+  # restart apache 
+  - sudo service apache2 restart 
+  
   # install codeception
   - wget http://codeception.com/codecept.phar
   - chmod +x codecept.phar
@@ -101,10 +104,6 @@ install:
   
   # Set permissions for root website contents folder & all subfolders
   - sudo chmod -R 755 /var/www
-  
-  # restart apache 
-  - sudo service apache2 restart
-  - sleep 5
   
   - cat /var/www/inboundsoon.dev/src/.htaccess 
 
