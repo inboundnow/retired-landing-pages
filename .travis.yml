@@ -31,11 +31,9 @@ before_install:
 install:
   # lets show where we start out
   - pwd 
-  - ls 
   
    #run composer installs
   - composer install
-  - ls  
   
   # make symlink - WPCLI
   - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/wp-cli/bin/wp /usr/bin/wp
@@ -86,19 +84,18 @@ install:
   - wp core install --url="http://inboundsoon.dev" --title="Inbound Now Unit Testing" --admin_user="admin" --admin_password="admin" --admin_email="tests@inboundnow.com" 
   - wp option update home "http://inboundsoon.dev"  
   
-  # Install CTA and Leads from latest Git
+  # Install CTA 
   - git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundsoon.dev/wp-content/plugins/cta
-  - ls /var/www/inboundsoon.dev/wp-content/plugins/cta
+  - sleep 5
+  - wp plugin activate cta
+  
+  # Install Leads
   - git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/inboundsoon.dev/wp-content/plugins/leads 
-  - ls /var/www/inboundsoon.dev/wp-content/plugins/leads 
-
+  - wp plugin activate leads
+  
   # Copy Landing Pages from travis build into wordpress install
   - cp -r /home/travis/build/inboundnow/$PLUGIN_SLUG /var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG
-  
-  # Activate plugins
-  - wp plugin activate calls-to-action
   - wp plugin activate landing-pages
-  - wp plugin activate leads
   
   # Set permalinks 
   - wp rewrite structure '%postname%'
