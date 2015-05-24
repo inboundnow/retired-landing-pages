@@ -15,6 +15,3 @@ define( 'WP_TESTS_FORCE_KNOWN_BUGS', false );
 /* include testcase.php from WordPress's tests repo (on travis build ) */
 require '../../../../tests/phpunit/includes/testcase.php';
 
-global $wp_rewrite;
-$wp_rewrite->set_permalink_structure('/%postname%/');
-$wp_rewrite->flush_rules();

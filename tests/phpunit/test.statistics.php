@@ -31,7 +31,10 @@ class Tests_Statistics extends WP_UnitTestCase {
 
         /* padding for the travis-ci console */
         echo "\r\n\r\n";
-
+		
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure('/%postname%/');
+		$wp_rewrite->flush_rules();
     }
 
 
