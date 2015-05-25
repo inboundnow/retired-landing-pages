@@ -56,9 +56,7 @@ install:
   - sudo a2enmod rewrite actions fastcgi alias
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-  
-  # restart apache 
-  - sudo service apache2 restart 
+
   
   # install codeception
   - wget http://codeception.com/codecept.phar
@@ -94,12 +92,18 @@ install:
   - cp -r /home/travis/build/inboundnow/$PLUGIN_SLUG /var/www/inboundsoon.dev/src/wp-content/plugins/$PLUGIN_SLUG
   - wp plugin activate landing-pages
   
+  # create blank htaccess file
+  - sudo nano /var/www/inboundsoon.dev/.htaccess
+  
   # Set permalinks 
   - wp rewrite structure '%postname%'
   - wp rewrite flush --hard
   
   # Set permissions for root website contents folder & all subfolders
   - sudo chmod -R 755 /var/www
+    
+  # restart apache 
+  - sudo service apache2 restart 
   
   - cat /var/www/inboundsoon.dev/src/.htaccess 
 
