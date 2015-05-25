@@ -46,3 +46,5 @@ tests/_data
 
 #composer
 composer.lock
+vendor
+bin

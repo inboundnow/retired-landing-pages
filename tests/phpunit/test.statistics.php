@@ -20,18 +20,20 @@ class Tests_Statistics extends PHPUnit_Framework_TestCase {
         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
 
         $this->lp_id = inbound_install_example_lander();
-
         /*  clear the stats */
         $this->variations = Landing_Pages_Statistics::get_variations($this->lp_id );
         foreach ($this->variations as $vid) {
             Landing_Pages_Statistics::set_impression_count( $this->lp_id , $vid, 0 );
             Landing_Pages_Statistics::set_conversion_count( $this->lp_id , $vid, 0 );
-        }
-
+        }		
     }
 
+	/**
+	*  Tear down
+	*/
 	function tearDown() {
 		delete_option('lp_settings_general');
+		wp_delete_post( $this->lp_id , false );
 	}
 	
 	
@@ -60,7 +62,7 @@ class Tests_Statistics extends PHPUnit_Framework_TestCase {
 
         $permalink = get_post_permalink( $this->lp_id , false ); 
 		echo $permalink."\r\n";	
-       // print_r(wp_remote_get( $permalink ));   
+        print_r(wp_remote_get( $permalink ));   
 		
 
         $response = wp_remote_get( $permalink );
