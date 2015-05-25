@@ -72,6 +72,9 @@ install:
   - sudo git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /var/www/inboundsoon.dev
   - sudo chmod -R 755 /var/www/inboundsoon.dev
   
+  # add current user permissions to our new WordPress directort
+  - sudo chown -R $USER:$USER /var/www/inboundsoon.dev
+  
   # use wpcli to configure the WordPress blog
   - cd /var/www/inboundsoon.dev/src
   - wp core config --dbname=wordpress_develop --dbuser=root 
