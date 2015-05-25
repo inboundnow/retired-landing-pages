@@ -74,15 +74,13 @@ install:
   - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /var/www/inboundsoon.dev
   - sudo chmod -R 755 /var/www/inboundsoon.dev
   
-     
-  # add current user permissions to our created directory
+  # add current user permissions to our new WordPress directort
   - sudo chown -R $USER:$USER /var/www/inboundsoon.dev
   
   # use wpcli to configure the WordPress blog
   - cd /var/www/inboundsoon.dev/src
   - wp core config --dbname=wordpress_develop --dbuser=root 
   - wp core install --url="http://inboundsoon.dev" --title="Inbound Now Unit Testing" --admin_user="admin" --admin_password="admin" --admin_email="tests@inboundnow.com" 
-  - wp option update home "http://inboundsoon.dev"  
   
   # Install CTA (from master)
   - sudo git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundsoon.dev/src/wp-content/plugins/cta
