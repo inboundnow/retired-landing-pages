@@ -1,5 +1,6 @@
 <?php
 
+
 class Landing_Pages_Load_Extensions {
 	
 	/**
@@ -329,12 +330,12 @@ class Landing_Pages_Load_Extensions {
 
 }
 
-/* Initialize Landing_Pages_Load_Extensions */
-$GLOBALS['Landing_Pages_Load_Extensions'] = new Landing_Pages_Load_Extensions;
+new Landing_Pages_Load_Extensions;
 
 /* Get data array of template settings */
 function lp_get_extension_data() {
-	return Landing_Pages_Load_Extensions::get_extended_data();	
+	//return Landing_Pages_Load_Extensions::get_extended_data();	
+	//return Landing_Pages_Load_Extensions::get_extended_data();	
 }
 
 

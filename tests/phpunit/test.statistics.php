@@ -19,8 +19,9 @@ class Tests_Statistics extends WP_UnitTestCase {
         include_once LANDINGPAGES_PATH . 'modules/module.install.php';
         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
 
-        $this->lp_id = inbound_create_default_post_type();
-
+		
+        $this->lp_id = install_example_lander();
+		echo $this->lp_id;
         /*  clear the stats */
         $this->variations = Landing_Pages_Statistics::get_variations($this->lp_id );
         foreach ($this->variations as $vid) {
@@ -45,6 +46,7 @@ class Tests_Statistics extends WP_UnitTestCase {
         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
 
         $stats = Landing_Pages_Statistics::read_statistics( $this->lp_id );
+
         $this->assertEquals( count($stats) , 3 );
         $this->assertEquals( $stats['impressions'][0] , 0 );
         $this->assertEquals( $stats['conversions'][0] , 0 );
