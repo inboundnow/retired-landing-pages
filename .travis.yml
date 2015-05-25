@@ -71,6 +71,7 @@ install:
   - mysql -e "CREATE DATABASE wordpress_develop;" -uroot
   
   # clone wordpress developer git into our created directory
+  - sudo chmod -R 755 /var/www/
   - git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /var/www/inboundsoon.dev
   - sudo chmod -R 755 /var/www/inboundsoon.dev
   
