@@ -48,15 +48,16 @@ install:
   # enable new hosts file
   - sudo a2ensite inboundsoon.dev 
   
-  # enable mod rewrite
-  - sudo a2enmod rewrite
-  
   # enable php-fpm
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - sudo a2enmod rewrite actions fastcgi alias
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
 
+      
+  # restart apache & reload configuration files
+  - sudo service apache2 restart 
+  - sudo service apache2 reload 
   
   # install codeception
   - wget http://codeception.com/codecept.phar
@@ -101,9 +102,6 @@ install:
   
   # Set permissions for root website contents folder & all subfolders
   - sudo chmod -R 755 /var/www
-    
-  # restart apache 
-  - sudo service apache2 restart 
   
   - cat /var/www/inboundsoon.dev/src/.htaccess 
 
