@@ -93,7 +93,7 @@ install:
   - wp plugin activate landing-pages
   
   # create blank htaccess file
-  - sudo touch /var/www/inboundsoon.dev/.htaccess
+  - sudo touch /var/www/inboundsoon.dev/src/.htaccess
   
   # Set permalinks 
   - wp rewrite structure '%postname%'
