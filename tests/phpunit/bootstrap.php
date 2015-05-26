@@ -11,7 +11,7 @@ require '../../../wp-admin/includes/plugin.php';
 require './vendor/autoload.php';
 
 
-//use JonnyW\PhantomJs\Client;
+use JonnyW\PhantomJs\Client;
 
 /**
 *  Replacement for wp_remote_get

@@ -32,8 +32,11 @@ install:
   # lets show where we start out
   - pwd 
   
-   #run composer installs
+  #run composer installs
   - composer install
+  
+  # install fontcongig
+  - sudo apt-get install fontconfig
   
   # make symlink - WPCLI
   - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/wp-cli/bin/wp /usr/bin/wp
