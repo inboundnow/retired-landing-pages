@@ -38,6 +38,9 @@ install:
   # make symlink - WPCLI
   - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/wp-cli/wp-cli/bin/wp /usr/bin/wp
   
+  # make symlink - PhantomJs
+  - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/jakoch/phantomjs/phantomjs /usr/bin/phantomjs
+  
   # install Apache
   - sudo apt-get update
   - sudo apt-get install apache2 libapache2-mod-fastcgi
