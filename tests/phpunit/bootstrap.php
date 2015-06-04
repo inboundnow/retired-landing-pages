@@ -10,37 +10,20 @@ require '../../../wp-load.php';
 require '../../../wp-admin/includes/plugin.php';
 require './vendor/autoload.php';
 
-
-use JonnyW\PhantomJs\Client;
-
 /**
 *  Replacement for wp_remote_get
 *  processes javascript through PhantomJs
 */
-function inbound_remote_get() {
+function inbound_remote_get( $url ) {
+	$response = wp_remote_get( 
+		add_query_arg( 
+			array( 'url' => urlencode( $url ) ) , 
+			LANDINGPAGES_URLPATH . 'tests/phantomjs/server.php'
+		) 
+	);
 	
-	$phantomJs = Client::getInstance();
-	error_log(print_r($phantomJs,true));
-	$phantomJs->setBinDir( LANDINGPAGES_PATH .  'tests/bin/' );
-	$phantomJs->setPhantomJs( LANDINGPAGES_PATH .  'tests/bin/phantomjs.exe');
-	$phantomJs->setPhantomLoader( LANDINGPAGES_PATH . 'vendor/jonnyw/php-phantomjs/bin/phantomloader');
-	
-	$request  = $phantomJs->getMessageFactory()->createRequest();
-	$response = $phantomJs->getMessageFactory()->createResponse();
-
-	$request->setMethod('GET');
-	$request->setUrl('https://inboundnow.com');
-
-	$phantomJs->send($request, $response);
-
-	if($response->getStatus() === 200) {
-		echo $response->getContent();
-	}
-
-	print_r($response); 
+	return $response;	
 } 
 
-inbound_remote_get();
-exit;
 
 

@@ -32,8 +32,8 @@ class Tests_Statistics extends PHPUnit_Framework_TestCase {
 	*  Tear down
 	*/
 	function tearDown() {
-		delete_option('lp_settings_general');
-		wp_delete_post( $this->lp_id , false );
+		//delete_option('lp_settings_general');
+		//wp_delete_post( $this->lp_id , false );
 	}
 	
 	
@@ -62,16 +62,25 @@ class Tests_Statistics extends PHPUnit_Framework_TestCase {
 
         $permalink = get_post_permalink( $this->lp_id , false ); 
 		echo $permalink."\r\n";	
-        print_r(wp_remote_get( $permalink ));   
-		
-
-        $response = wp_remote_get( $permalink );
-        $response = wp_remote_get( $permalink );
-        $response = wp_remote_get( $permalink );
-        $response = wp_remote_get( add_query_arg( array('lp-variation-id'=> 0  ) , $permalink) );
-        $response = wp_remote_get( add_query_arg( array('lp-variation-id'=> 1  ) , $permalink) );
+		$permalink = 'http://local.wordpress.dev/go/ab-testing-landing-page-example-104/?lp-variation-id=1';
+		$permalink = 'http://local.wordpress.dev/';
+        print_r(inbound_remote_get( $permalink ));   
+		/*
+		sleep(5);
+        $response = inbound_remote_get( $permalink );
+		sleep(5);
+        $response = inbound_remote_get( $permalink );
+		sleep(5);
+        $response = inbound_remote_get( $permalink );
+		sleep(5);
+        $response = inbound_remote_get( add_query_arg( array('lp-variation-id'=> 0  ) , $permalink ) );
+		sleep(5);
+        $response = inbound_remote_get( add_query_arg( array('lp-variation-id'=> 1  ) , $permalink ) );
+		sleep(5);
+		*/
         $stats = Landing_Pages_Statistics::read_statistics( $this->lp_id );
-        //print_r($stats);
+        print_r($stats);
+		
         $this->assertEquals( $stats['impressions'][0] , 3 );
         $this->assertEquals( $stats['conversions'][0] , 0 );
         $this->assertEquals( $stats['impressions'][1] , 3 );
