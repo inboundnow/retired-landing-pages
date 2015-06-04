@@ -38,3 +38,7 @@ nbproject
 # Grunt
 node_modules
 Desktop.ini
+
+# Composer
+vendor
+composer.lock
