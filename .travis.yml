@@ -108,13 +108,6 @@ before_script:
   # change directory into inboundtesting.dev
   - cd /var/www/inboundtesting.dev
 
-  # setup database for tests config
-  - cp wp-tests-config-sample.php wp-tests-config.php
-  - sed -i "s/youremptytestdbnamehere/inboundtesting/" wp-tests-config.php
-  - sed -i "s/yourusernamehere/root/" wp-tests-config.php
-  - sed -i "s/yourpasswordhere//" wp-tests-config.php
-  - sed -i "s/example.com/inboundtesting.dev/" wp-tests-config.php    
-
   # change into plugin directory to make sure our script runs the right tests
   - cd /var/www/inboundtesting.dev/wp-content/plugins/$PLUGIN_SLUG
 
