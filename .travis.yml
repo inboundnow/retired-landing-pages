@@ -74,7 +74,7 @@ install:
   - sudo mkdir /var/www/inboundtesting.dev/
   - sudo chown -R $USER:$USER /var/www/inboundtesting.dev
   - mysql -e "CREATE DATABASE inboundtesting;" -uroot
-  - cd /var/www/inboundtesting/
+  - cd /var/www/inboundtesting.dev/
   - wp core config --dbname=inboundtesting --dbuser=root 
   - wp core install --url="http://inboundtesting.dev" --title="Inbound Now Unit Testing" --admin_user="wp" --admin_password="wp" --admin_email="tests@inboundnow.com" 
   
