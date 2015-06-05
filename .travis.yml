@@ -71,36 +71,27 @@ install:
   - sudo mv codecept.phar /usr/local/bin/codecept
   
   # install WordPress 
-  
-  # create database
+  - sudo mkdir /var/www/inboundtesting.dev/
+  - sudo chown -R $USER:$USER /var/www/inboundtesting.dev
   - mysql -e "CREATE DATABASE inboundtesting;" -uroot
-  
-  # clone wordpress developer git into our created directory
-  - sudo git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /var/www/inboundsoon.dev
-  - sudo chmod -R 755 /var/www/inboundsoon.dev
-  
-  # add current user permissions to our new WordPress directort
-  - sudo chown -R $USER:$USER /var/www/inboundsoon.dev
-  
-  # use wpcli to configure the WordPress blog
-  - cd /var/www/inboundsoon.dev/src
+  - cd /var/www/inboundtesting/
   - wp core config --dbname=inboundtesting --dbuser=root 
-  - wp core install --url="http://inboundsoon.dev" --title="Inbound Now Unit Testing" --admin_user="wp" --admin_password="wp" --admin_email="tests@inboundnow.com" 
+  - wp core install --url="http://inboundtesting.dev" --title="Inbound Now Unit Testing" --admin_user="wp" --admin_password="wp" --admin_email="tests@inboundnow.com" 
   
   # Install CTA (from master)
-  - sudo git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundtesting.dev/src/wp-content/plugins/cta
+  - sudo git clone --branch="master" https://github.com/inboundnow/cta.git /var/www/inboundtesting.dev/wp-content/plugins/cta
   - wp plugin activate cta
   
   # Install Leads ( from git )
-  - sudo git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/inboundtesting.dev/src/wp-content/plugins/leads 
+  - sudo git clone --branch="master" https://github.com/inboundnow/leads.git /var/www/inboundtesting.dev/wp-content/plugins/leads 
   - wp plugin activate leads
   
   # Install Landing Pages ( from travis build )
-  - cp -r /home/travis/build/inboundnow/$PLUGIN_SLUG /var/www/inboundtesting.dev/src/wp-content/plugins/$PLUGIN_SLUG
+  - cp -r /home/travis/build/inboundnow/$PLUGIN_SLUG /var/www/inboundtesting.dev/wp-content/plugins/$PLUGIN_SLUG
   - wp plugin activate landing-pages
   
   # create blank htaccess file
-  - sudo touch /var/www/inboundtesting.dev/src/.htaccess
+  - sudo touch /var/www/inboundtesting.dev/.htaccess
   
   # Set permalinks 
   - wp rewrite structure '%postname%'
@@ -109,7 +100,7 @@ install:
   # Set permissions for root website contents folder & all subfolders
   - sudo chmod -R 755 /var/www
   
-  - cat /var/www/inboundtesting.dev/src/.htaccess 
+  - cat /var/www/inboundtesting.dev/.htaccess 
 
 before_script:
 
@@ -124,7 +115,7 @@ before_script:
   - sed -i "s/example.com/inboundtesting.dev/" wp-tests-config.php    
 
   # change into plugin directory to make sure our script runs the right tests
-  - cd /var/www/inboundtesting.dev/src/wp-content/plugins/$PLUGIN_SLUG
+  - cd /var/www/inboundtesting.dev/wp-content/plugins/$PLUGIN_SLUG
 
   - ls tests
   - ls vendor
