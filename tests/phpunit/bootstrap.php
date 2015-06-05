@@ -5,10 +5,11 @@
  * @package wordpress-plugin-tests
  */
 
-/* load wp */
+/* load wp environemnt */
 require '../../../wp-load.php';
+
+/* load plugins */
 require '../../../wp-admin/includes/plugin.php';
-require './vendor/autoload.php';
 
 /**
 *  Replacement for wp_remote_get

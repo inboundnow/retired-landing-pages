@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Tests to test that that testing framework is testing tests. Meta, huh?
+ * Test design to juse phantomjs to interact with front end. This test is disabled in favor for codeception tests
  *
  * @package wordpress-plugins-tests
  */
@@ -14,7 +14,7 @@ class Tests_Statistics extends PHPUnit_Framework_TestCase {
      * setup
      */
     function setUp() {
-			
+		return;
         /* includes */
         include_once LANDINGPAGES_PATH . 'modules/module.install.php';
         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
@@ -31,7 +31,8 @@ class Tests_Statistics extends PHPUnit_Framework_TestCase {
 	/**
 	*  Tear down
 	*/
-	function tearDown() {
+	function tearDown() {	
+		return;
 		//delete_option('lp_settings_general');
 		//wp_delete_post( $this->lp_id , false );
 	}
@@ -41,6 +42,8 @@ class Tests_Statistics extends PHPUnit_Framework_TestCase {
      * Test is Landing_Pages_Statistics::read_statistics works
      */
     function test_read_statistics() {
+		return;
+		
         /* includes */
         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
 
@@ -57,6 +60,8 @@ class Tests_Statistics extends PHPUnit_Framework_TestCase {
      * launch a landing page
      */
     function test_landing_page_read() {
+		return;
+		
         /* includes */
         include_once LANDINGPAGES_PATH . 'classes/class.statistics.php';
 

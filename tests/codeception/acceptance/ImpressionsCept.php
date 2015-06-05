@@ -1,5 +1,19 @@
 <?php 
 
+/**
+*  This test is desnged to test the impressions/conversions systems of landing pages.
+*  Systems tested:
+*   -  Dmummy landing page creation
+*   -  Impression/Conversion UI display on landing page edit screen
+*   -  Cear individual landing page stats buttons.
+*   -  Manually setting impressions/conversions
+*   -  Makes sure landing page does not 404
+*   -  Frontend impression ajax systems
+*   -  Variation rotation systems
+*   -  Conversion tracking system for inbount form
+*   -  Conversion tracking system for tracked link
+*/
+
 /* create test landing page */
 $lp_id = inbound_install_example_lander();
 $permalink = get_post_permalink( $lp_id , false ); 
