@@ -39,6 +39,11 @@ nbproject
 node_modules
 Desktop.ini
 
+<<<<<<< HEAD
+# Composer
+vendor
+composer.lock
+=======
 #codeception
 tests/codeception/_output
 tests/codeception/_support
@@ -48,3 +53,4 @@ tests/codeception/_data
 composer.lock
 vendor
 bin
+>>>>>>> cd4f28eb49a20f20e4f424ec643432985b745d57

@@ -25,10 +25,17 @@ class Landing_Pages_Statistics {
      *
      * @returns ARRAY of variation data
      */
-    public static function get_variations( $landing_page_id	, $vid = null ) {
+    public static function get_variations( $landing_page_id ) {
+        if (!$landing_page_id) {
+            return array();
+        }
 
         $variations = (self::$variations) ? self::$variations :  get_post_meta(  $landing_page_id , 'lp-ab-variations' , true );
-        $variations = explode( ',' , $variations );
+
+        if (!is_array($variations)) {
+            $variations = explode( ',' , $variations );
+        }
+
         $variations = array_filter( $variations , 'is_numeric' );
 
         return ( $variations ? $variations : array() );
