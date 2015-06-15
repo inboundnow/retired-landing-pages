@@ -63,8 +63,7 @@ if (is_admin()) {
 			$variations = get_post_meta($post->ID,'lp-ab-variations', true);
 
 			//remove landing page's main save_post action
-			if ($current_variation_id>0)
-			{
+			if ($current_variation_id>0) {
 				remove_action('save_post','lp_save_meta',10);
 			}
 
