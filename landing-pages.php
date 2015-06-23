@@ -43,7 +43,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 			define('LANDINGPAGES_PLUGIN_SLUG', plugin_basename( dirname(__FILE__) ) );
 			define('LANDINGPAGES_FILE', __FILE__ );
-			define('LANDINGPAGES_STORE_URL', 'http://www.inboundnow.com/' );
+			define('LANDINGPAGES_STORE_URL', 'http://www.inboundnow.com/market' );
 			$uploads = wp_upload_dir();
 			define('LANDINGPAGES_UPLOADS_PATH', $uploads['basedir'].'/landing-pages/templates/' );
 			define('LANDINGPAGES_UPLOADS_URLPATH', $uploads['baseurl'].'/landing-pages/templates/' );
