@@ -51,4 +51,3 @@ if ( ! class_exists( 'Inbound_Notices' ) ) {
 Inbound_Notices::init();
 
 }
-
