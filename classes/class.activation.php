@@ -288,6 +288,6 @@ class Landing_Pages_Activation {
 register_activation_hook( LANDINGPAGES_FILE , array( 'Landing_Pages_Activation' , 'activate' ) );
 register_deactivation_hook( LANDINGPAGES_FILE , array( 'Landing_Pages_Activation' , 'deactivate' ) );
 
-
+new Landing_Pages_Activation;
 
 }
