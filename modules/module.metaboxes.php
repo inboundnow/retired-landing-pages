@@ -10,7 +10,7 @@ define('WYSIWYG_EDITOR_ID', 'landing-page-myeditor');
 define('WYSIWYG_META_KEY', 'lp-conversion-area');
 
 /* ADD THUMBNAIL METABOX TO SIDEBAR */
-//add_action('add_meta_boxes', 'lp_display_thumbnail_metabox');
+add_action('add_meta_boxes', 'lp_display_thumbnail_metabox');
 function lp_display_thumbnail_metabox() {
 
 		add_meta_box(
@@ -27,9 +27,9 @@ function lp_thumbnail_metabox() {
 
 	$template = get_post_meta($post->ID, 'lp-selected-template', true);
 	$template = apply_filters('lp_selected_template',$template);
-	$permalink = get_permalink($post->ID);
+	$original_perma = get_permalink($post->ID);
 	$datetime = the_modified_date('YmjH',null,null,false);
-	$permalink = $permalink.'?dt='.$datetime;
+	$permalink = $original_perma.'?dt='.$datetime;
 
 	if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
 
@@ -45,21 +45,38 @@ function lp_thumbnail_metabox() {
 	}
 	$permalink = apply_filters('lp_live_screenshot_url', $permalink);
 	?>
-	<div >
-		<div class="inside" style='margin-left:-8px;'>
-			<table>
-				<tr>
-					<td>
-						<?php
+	<style type="text/css">
+	#lp-thumbnail-sidebar-preview {
+		background: transparent !important;
+	}
+	#lp-thumbnail-sidebar-preview .handlediv, #lp-thumbnail-sidebar-preview .hndle {
+		display: none !important;
+	}
+	#lp-thumbnail-sidebar-preview .inside {
+		padding: 0px !important;
+		  margin: 0px;
+		  border: none !important;
+		  margin-top: -20px !important;
+		  margin-bottom: -10px;
+	}
+	#lp-thumbnail-sidebar-preview  #zoomer-wrapper {
+		vertical-align: top;
+	}
+	#lp-thumbnail-sidebar-preview iframe#zoomer {
+		 margin-top: -30px;
+	}
+	</style>
 
-							echo "<a href='$permalink' target='_blank' ><img src='$thumbnail' style='width:250px;height:250px;' title='". __( 'Preview this theme' , 'landing-pages') ." ,  ({$template})'></a>";
-						?>
-					</td>
-				</tr>
-			</table>
+		<div class="inside" >
+
+			<?php
+				echo "<iframe src='$original_perma' id='zoomer'></iframe>";
+				//echo "<a href='$permalink' target='_blank' ><img src='$thumbnail' style='width:250px;height:250px;' title='". __( 'Preview this theme' , 'landing-pages') ." ,  ({$template})'></a>";
+			?>
+
 
 		</div>
-	</div>
+
 	<?php
 }
 
