@@ -14,7 +14,7 @@ jQuery(document).ready(function($) {
     });
 
     var width = jQuery("#lp-thumbnail-sidebar-preview").width();
-    jQuery('#zoomer').zoomer({ width: width, height: 225, zoom: 0.3 });
+    jQuery('#zoomer').zoomer({ width: width, height: 225, zoom: 0.3, tranformOrigin: '0 43px', });
 
     // Filter Styling
     jQuery('#template-filter li').first().addClass('button-primary');
@@ -326,8 +326,8 @@ jQuery(document).ready(function($) {
            //jQuery(this).attr('rel', all.hex);
 
            jQuery(this).parent().find(".lp-success-message").remove();
-           jQuery(this).parent().find(".new-save-lp").show();
-           jQuery(this).parent().find(".new-save-lp-frontend").show();
+           //jQuery(this).parent().find(".new-save-lp").show();
+           //jQuery(this).parent().find(".new-save-lp-frontend").show();
            //jQuery(this).attr('value', all.hex);
         });
     });
