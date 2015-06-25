@@ -12,7 +12,8 @@ define('WYSIWYG_META_KEY', 'lp-conversion-area');
 /* ADD THUMBNAIL METABOX TO SIDEBAR */
 add_action('add_meta_boxes', 'lp_display_thumbnail_metabox');
 function lp_display_thumbnail_metabox() {
-
+	global $post;
+	if($post->post_status !== 'draft') {
 		add_meta_box(
 		'lp-thumbnail-sidebar-preview',
 		__( 'Template Preview', 'landing-pages'),
@@ -20,6 +21,7 @@ function lp_display_thumbnail_metabox() {
 		'landing-page' ,
 		'side',
 		'high' );
+	}
 }
 
 function lp_thumbnail_metabox() {
@@ -27,7 +29,15 @@ function lp_thumbnail_metabox() {
 
 	$template = get_post_meta($post->ID, 'lp-selected-template', true);
 	$template = apply_filters('lp_selected_template',$template);
+	$var_id = (isset($_GET['lp-variation-id'])) ? $_GET['lp-variation-id'] : '0';
 	$original_perma = get_permalink($post->ID);
+
+	if ( preg_match( '/lp-variation-id/', $original_perma ) ) {
+	    $iframe_preview_link = get_permalink($post->ID) . "&cache_bust=true";
+	} else {
+		$iframe_preview_link = get_permalink($post->ID) . "?lp-variation-id=$var_id&cache_bust=true";
+	}
+
 	$datetime = the_modified_date('YmjH',null,null,false);
 	$permalink = $original_perma.'?dt='.$datetime;
 
@@ -45,6 +55,7 @@ function lp_thumbnail_metabox() {
 	}
 	$permalink = apply_filters('lp_live_screenshot_url', $permalink);
 	?>
+
 	<style type="text/css">
 	#lp-thumbnail-sidebar-preview {
 		background: transparent !important;
@@ -66,18 +77,18 @@ function lp_thumbnail_metabox() {
 		 margin-top: -30px;
 	}
 	</style>
+	<?php if (!isset($_GET['new-variation']) ) { ?>
 
 		<div class="inside" >
 
 			<?php
-				echo "<iframe src='$original_perma' id='zoomer'></iframe>";
+				echo "<iframe src='$iframe_preview_link' id='zoomer'></iframe>";
 				//echo "<a href='$permalink' target='_blank' ><img src='$thumbnail' style='width:250px;height:250px;' title='". __( 'Preview this theme' , 'landing-pages') ." ,  ({$template})'></a>";
 			?>
 
-
 		</div>
 
-	<?php
+	<?php }
 }
 
 /* ADD CONVERSION AREA METABOX */
@@ -215,8 +226,7 @@ function lp_save_header_area( $post_id )
     delete_post_meta( $post_id, $key );
 }
 
-function lp_save_notes_area( $post_id )
-{
+function lp_save_notes_area( $post_id ) {
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
         return;
 
@@ -234,12 +244,9 @@ function lp_save_notes_area( $post_id )
 
 add_filter( 'enter_title_here', 'lp_change_enter_title_text', 10, 2 );
 function lp_change_enter_title_text( $text, $post ) {
-	if ($post->post_type=='landing-page')
-	{
+	if ($post->post_type=='landing-page') {
         return __( 'Enter Landing Page Description' , 'landing-pages');
-	}
-	else
-	{
+	} else {
 		return $text;
 	}
 }
@@ -264,7 +271,9 @@ function lp_display_meta_box_select_template() {
 
 	$template = apply_filters('lp_selected_template',$template);
 	//echo $template;
-	if (!isset($template)||isset($template)&&!$template){ $template = 'default';}
+	if (!isset($template)||isset($template)&&!$template){
+		$template = 'default';
+	}
 
 	$name = apply_filters('lp_selected_template_id','lp-selected-template');
 
@@ -289,8 +298,7 @@ function lp_display_meta_box_select_template_container() {
 
 	if (isset($post)&&$post->post_type!='landing-page'||!isset($post)){ return false; }
 
-	( !strstr( $current_url, 'post-new.php')) ?  $toggle = "display:none" : $toggle = "";
-
+	$toggle = ( !strstr( $current_url, 'post-new.php')) ? "display:none" : "";
 
 	$extension_data = lp_get_extension_data();
 	$extension_data_cats = Landing_Pages_Load_Extensions::get_template_categories();
@@ -341,8 +349,7 @@ function lp_display_meta_box_select_template_container() {
 
 
 			$cats = explode( ',' , $data['info']['category'] );
-			foreach ($cats as $key => $cat)
-			{
+			foreach ($cats as $key => $cat) {
 				$cat = trim($cat);
 				$cat = str_replace(' ', '-', $cat);
 				$cats[$key] = trim(strtolower($cat));
@@ -352,20 +359,24 @@ function lp_display_meta_box_select_template_container() {
 
 			$thumb = false;
 			// Get Thumbnail
-			if (file_exists(LANDINGPAGES_PATH.'templates/'.$this_extension."/thumbnail.png"))
-			{
+			if (file_exists(LANDINGPAGES_PATH.'templates/'.$this_extension."/thumbnail.png")) {
 				if ($this_extension=='default') {
-				$thumbnail =  get_bloginfo('template_directory')."/screenshot.png";
+
+					$thumbnail =  get_bloginfo('template_directory')."/screenshot.png";
+
 				} else {
-				$thumbnail = LANDINGPAGES_URLPATH.'templates/'.$this_extension."/thumbnail.png";
+
+					$thumbnail = LANDINGPAGES_URLPATH.'templates/'.$this_extension."/thumbnail.png";
+
 				}
 				$thumb = true;
 			}
-			if (file_exists(LANDINGPAGES_UPLOADS_PATH.$this_extension."/thumbnail.png"))
-			{
+
+			if (file_exists(LANDINGPAGES_UPLOADS_PATH.$this_extension."/thumbnail.png")) {
 				$thumbnail = LANDINGPAGES_UPLOADS_URLPATH.$this_extension."/thumbnail.png";
 				$thumb = true;
 			}
+
 			if ($thumb === false) {
 				$thumbnail = LANDINGPAGES_URLPATH.'templates/default/thumbnail.png';
 
