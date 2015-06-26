@@ -888,12 +888,11 @@ function lp_ab_testing_alter_title_area( $content , $id = null)
 add_action('lp_record_impression','lp_ab_testing_record_impression', 10, 3 );
 function lp_ab_testing_record_impression($post_id, $post_type = 'landing-page' , $variation_id = 0 ) {
 
-    /* If Landing Page Post Type */
     if ( $post_type == 'landing-page' ) {
+        /* If Landing Page Post Type */
         $meta_key = 'lp-ab-variation-impressions-'.$variation_id;
-    }
-    /* If Non Landing Page Post Type */
-    else  {
+    } else  {
+        /* If Non Landing Page Post Type */
         $meta_key = '_inbound_impressions_count';
     }
 
