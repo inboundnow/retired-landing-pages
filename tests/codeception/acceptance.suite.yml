@@ -7,12 +7,12 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - WebDriver
+        - PhpBrowser
         - AcceptanceHelper
         - Asserts
     config:
         WebDriver:
-            url: 'http://local.wordpress.dev/'
+            url: 'http://inboundtesting.dev/'
             browser: firefox
             clear_cookies: false
             window_size: 1024x768
