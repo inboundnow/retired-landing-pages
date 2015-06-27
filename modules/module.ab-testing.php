@@ -595,17 +595,14 @@ else
 /*PERFORM ACTIONS REQUIRED ON BOTH FRONT AND BACKEND */
 
 add_filter('lp_content_area','lp_ab_testing_alter_content_area_admin', 10, 2);
-function lp_ab_testing_alter_content_area_admin($content)
-{
+function lp_ab_testing_alter_content_area_admin($content) {
     global $post;
 
     $variation_id = lp_ab_testing_get_current_variation_id();
 
-    if ($variation_id>0)
-    {
+    if ($variation_id>0) {
         $content = get_post_meta($post->ID,'content-'.$variation_id, true);
-        if ( !is_admin() )
-        {
+        if ( !is_admin() ) {
             $content = wpautop($content);
             $content = do_shortcode($content);
         }
@@ -630,34 +627,28 @@ function lp_ab_key_to_letter($key) {
 }
 
 /* GET CURRENT VARIATION ID */
-function lp_ab_testing_get_current_variation_id()
-{
-    if ( isset($_GET['ab-action']) &&is_admin())
-    {
+function lp_ab_testing_get_current_variation_id() {
+    if ( isset($_GET['ab-action']) && is_admin()) {
         return $_SESSION['lp_ab_test_open_variation'];
     }
 
-    if (!isset($_SESSION['lp_ab_test_open_variation'])&&!isset($_REQUEST['lp-variation-id']))
-    {
+    if (!isset($_SESSION['lp_ab_test_open_variation'])&&!isset($_REQUEST['lp-variation-id'])) {
         $current_variation_id = 0;
     }
     //echo $_REQUEST['lp-variation-id'];
-    if (isset($_REQUEST['lp-variation-id']))
-    {
+    if (isset($_REQUEST['lp-variation-id'])) {
         $_SESSION['lp_ab_test_open_variation'] = $_REQUEST['lp-variation-id'];
         $current_variation_id = $_REQUEST['lp-variation-id'];
         //echo "setting session $current_variation_id";
     }
 
-    if (isset($_GET['message'])&&$_GET['message']==1&&isset( $_SESSION['lp_ab_test_open_variation'] ))
-    {
+    if (isset($_GET['message'])&&$_GET['message']==1&&isset( $_SESSION['lp_ab_test_open_variation'] )) {
         $current_variation_id = $_SESSION['lp_ab_test_open_variation'];
 
         //echo "here:".$_SESSION['lp_ab_test_open_variation'];
     }
 
-    if (isset($_GET['ab-action'])&&$_GET['ab-action']=='delete-variation')
-    {
+    if (isset($_GET['ab-action'])&&$_GET['ab-action']=='delete-variation') {
         $current_variation_id = 0;
         $_SESSION['lp_ab_test_open_variation'] = 0;
     }
@@ -670,23 +661,16 @@ function lp_ab_testing_get_current_variation_id()
 
 //ready conversion area for displaying ab variations
 add_filter('lp_conversion_area_pre_standardize','lp_ab_testing_prepare_conversion_area' , 10 , 2 );
-function lp_ab_testing_prepare_conversion_area($content,$post=null)
-{
+function lp_ab_testing_prepare_conversion_area($content,$post=null) {
     $current_variation_id = lp_ab_testing_get_current_variation_id();
 
-    if (isset($post))
-    {
+    if (isset($post)) {
         $post_id = $post->ID;
-    }
-    else if (isset($_REQUEST['post']))
-    {
+    } else if (isset($_REQUEST['post'])) {
         $post_id = $_REQUEST['post'];
-    }
-    else if (isset($_REQUEST['lp_id']))
-    {
+    } else if (isset($_REQUEST['lp_id'])) {
         $post_id = $_REQUEST['lp_id'];
     }
-
 
     if ($current_variation_id>0)
         $content = get_post_meta($post_id,'landing-page-myeditor-'.$current_variation_id, true);
@@ -696,21 +680,17 @@ function lp_ab_testing_prepare_conversion_area($content,$post=null)
 
 //ready conversion area for displaying ab variations
 add_filter('lp_conversion_area_position','lp_ab_testing_lp_conversion_area_position' , 10 , 2 );
-function lp_ab_testing_lp_conversion_area_position($position, $post = null, $key = 'default')
-{
+function lp_ab_testing_lp_conversion_area_position($position, $post = null, $key = 'default') {
 
     $current_variation_id = lp_ab_testing_get_current_variation_id();
 
-    if (isset($post))
-    {
+    if (isset($post)) {
         $post_id = $post->ID;
     }
-    else if (isset($_REQUEST['post']))
-    {
+    else if (isset($_REQUEST['post'])) {
         $post_id = $_REQUEST['post'];
     }
-    else if (isset($_REQUEST['lp_id']))
-    {
+    else if (isset($_REQUEST['lp_id'])) {
         $post_id = $_REQUEST['lp_id'];
     }
 
@@ -722,25 +702,17 @@ function lp_ab_testing_lp_conversion_area_position($position, $post = null, $key
 
 
 add_filter('lp_main_headline','lp_ab_testing_prepare_headline', 10, 2);
-function lp_ab_testing_prepare_headline($main_headline, $post = null)
-{
+function lp_ab_testing_prepare_headline($main_headline, $post = null) {
 
     $current_variation_id = lp_ab_testing_get_current_variation_id();
 
-    if (isset($post))
-    {
+    if (isset($post)) {
         $post_id = $post->ID;
-    }
-    else if (isset($_REQUEST['post']))
-    {
+    } else if (isset($_REQUEST['post'])) {
         $post_id = $_REQUEST['post'];
-    }
-    else if (isset($_REQUEST['lp_id']))
-    {
+    } else if (isset($_REQUEST['lp_id'])) {
         $post_id = $_REQUEST['lp_id'];
-    }
-    else if (isset($_REQUEST['post_id']))
-    {
+    } else if (isset($_REQUEST['post_id'])) {
         $post_id = $_REQUEST['post_id'];
     }
 
@@ -748,18 +720,15 @@ function lp_ab_testing_prepare_headline($main_headline, $post = null)
     if ($current_variation_id>0)
         $main_headline = get_post_meta($post_id,'lp-main-headline-'.$current_variation_id, true);
 
-    if (!$main_headline)
-    {
+    if (!$main_headline) {
         get_post_meta($post_id,'lp-main-headline', true);
     }
-
 
     return $main_headline;
 }
 
 add_action('init','lp_ab_testing_add_rewrite_rules');
-function lp_ab_testing_add_rewrite_rules()
-{
+function lp_ab_testing_add_rewrite_rules() {
     $this_path = LANDINGPAGES_PATH;
     $this_path = explode('wp-content',$this_path);
     $this_path = "wp-content".$this_path[1];
@@ -773,13 +742,10 @@ function lp_ab_testing_add_rewrite_rules()
         add_rewrite_rule("landing-page=([^/]*)?", $this_path.'modules/module.redirect-ab-testing.php?permalink_name=$1','top');
     }
     add_filter('mod_rewrite_rules', 'lp_ab_testing_modify_rules', 1);
-    function lp_ab_testing_modify_rules($rules)
-    {
-        if (!stristr($rules,'RewriteCond %{QUERY_STRING} !lp-variation-id'))
-        {
+    function lp_ab_testing_modify_rules($rules) {
+        if (!stristr($rules,'RewriteCond %{QUERY_STRING} !lp-variation-id')) {
             $rules_array = preg_split ('/$\R?^/m', $rules);
-            if (count($rules_array)<3)
-            {
+            if (count($rules_array)<3) {
                 $rules_array = explode("\n", $rules);
                 $rules_array = array_filter($rules_array);
             }
@@ -792,19 +758,15 @@ function lp_ab_testing_add_rewrite_rules()
             $slug = get_option( 'lp-main-landing-page-permalink-prefix', 'go' );
 
             $i = 0;
-            foreach ($rules_array as $key=>$val)
-            {
+            foreach ($rules_array as $key=>$val) {
 
-                if ( stristr($val,"RewriteRule ^{$slug}/([^/]*)? ") ||  stristr($val,"RewriteRule ^{$slug}/([^/]*)/([0-9]+)/ ") )
-                {
+                if ( stristr($val,"RewriteRule ^{$slug}/([^/]*)? ") ||  stristr($val,"RewriteRule ^{$slug}/([^/]*)/([0-9]+)/ ") ) {
                     $new_val = "RewriteCond %{QUERY_STRING} !lp-variation-id";
                     $rules_array[$i] = $new_val;
                     $i++;
                     $rules_array[$i] = $val;
                     $i++;
-                }
-                else
-                {
+                } else {
                     $rules_array[$i] = $val;
                     $i++;
                 }
@@ -820,17 +782,16 @@ function lp_ab_testing_add_rewrite_rules()
 
 
 add_filter('lp_selected_template','lp_ab_testing_get_selected_template');//get correct selected template for each variation
-function lp_ab_testing_get_selected_template($template)
-{
+function lp_ab_testing_get_selected_template($template) {
     global $post;
 
     $current_variation_id = lp_ab_testing_get_current_variation_id();
 
-    if ($current_variation_id>0)
-    {
-        $new_template =  get_post_meta($post->ID, 'lp-selected-template-'.$current_variation_id, true);
-        if ($new_template)
+    if ($current_variation_id>0) {
+        $new_template = get_post_meta($post->ID, 'lp-selected-template-'.$current_variation_id, true);
+        if ($new_template) {
             $template = $new_template;
+        }
     }
 
     return $template;
@@ -839,8 +800,7 @@ function lp_ab_testing_get_selected_template($template)
 //prepare custom js and css for
 add_filter('lp_custom_js_name','lp_ab_testing_prepare_name');
 add_filter('lp_custom_css_name','lp_ab_testing_prepare_name');
-function lp_ab_testing_prepare_name($id)
-{
+function lp_ab_testing_prepare_name($id) {
     $current_variation_id = lp_ab_testing_get_current_variation_id();
     //echo $current_variation_id;exit;
     if ($current_variation_id>0)
@@ -854,8 +814,7 @@ function lp_ab_testing_prepare_name($id)
 add_action('wp_ajax_lp_ab_testing_prepare_variation', 'lp_ab_testing_prepare_variation_callback');
 add_action('wp_ajax_nopriv_lp_ab_testing_prepare_variation', 'lp_ab_testing_prepare_variation_callback');
 
-function lp_ab_testing_prepare_variation_callback()
-{
+function lp_ab_testing_prepare_variation_callback() {
 
     $page_id = lp_url_to_postid( trim($_POST['current_url']) );
 
@@ -865,8 +824,7 @@ function lp_ab_testing_prepare_variation_callback()
         $marker = 0;
     }
 
-    if ($variations)
-    {
+    if ($variations) {
         //echo $variations;
         $variations = explode(',',$variations);
         //print_r($variations);
