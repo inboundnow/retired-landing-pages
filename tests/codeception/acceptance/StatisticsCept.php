@@ -14,18 +14,17 @@
 *   -  Conversion tracking system for tracked link
 */
 
-/* create test landing page */
-$lp_id = inbound_install_example_lander();
-shell_exec('here');
-shell_exec($lp_id);
-$permalink = get_post_permalink( $lp_id , false ); 
-shell_exec($permalink);
+/* create test landing page 
+
 $I = new AcceptanceTester($scenario);
 
+$I->wantTo('Navigate to landing pages list');
+$I->amOnPage( admin_url( 'edit.php?post_type=landing-page') );
+$I->see( 'Landing Pages');
 
-$I->wantTo('check example landing page is editable');
-$I->amOnPage( admin_url( 'post.php?post='. $lp_id .'&action=edit&frontend=false') );
-$I->seeInField( '#title','A/B Testing Landing Page Example');
+$I->wantTo('Open example landing page');
+$I->amOnPage( admin_url( 'edit.php?post_type=landing-page') );
+$I->click( [ 'link' => 'A/B Testing Landing Page Example']);
 
 $I->wantTo('check if impressions are correct for variation a');
 $imp = $I->grabTextFrom('#lp-variation-A .bab-stat-span-impressions');
@@ -53,3 +52,4 @@ $I->assertContains( '43' , $per  );
 
 
 
+*/
