@@ -38,3 +38,16 @@ nbproject
 # Grunt
 node_modules
 Desktop.ini
+
+#codeception
+tests/codeception/_output
+tests/codeception/_support
+tests/codeception/_data
+
+#composer
+composer.lock
+vendor
+bin
+
+#phpstorm
+.idea

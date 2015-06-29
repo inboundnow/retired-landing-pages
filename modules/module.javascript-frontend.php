@@ -8,7 +8,7 @@ function lp_fontend_enqueue_scripts($hook) {
 	if (!isset($post)) {
 		return;
 	}
-	
+
 	/* dequeue third party scripts */
 	global $wp_scripts;
 	$store = '';
@@ -34,7 +34,7 @@ function lp_fontend_enqueue_scripts($hook) {
 			show_admin_bar( false );
 			wp_register_script('lp-customizer-load-js', LANDINGPAGES_URLPATH . 'js/customizer.load.js', array('jquery'));
 			wp_enqueue_script('lp-customizer-load-js');
-			
+
 		}
 	}
 	/* Requeue third party scripts */

@@ -77,7 +77,7 @@ class Inbound_Shortcodes {
 
 			if (isset($post)&&post_type_supports($post->post_type,'editor')||isset($post)&&'wp-call-to-action' === $post->post_type) {
 				wp_enqueue_script('inbound-shortcodes', INBOUNDNOW_SHARED_URLPATH . 'shortcodes/js/shortcodes.js', array( 'jquery', 'jquery-cookie' ));
-				$form_id = (isset($_GET['post'])) ? $_GET['post'] : '';
+				$form_id = (isset($_GET['post']) && is_int( $_GET['post'] )) ? $_GET['post'] : '';
 				wp_localize_script( 'inbound-shortcodes', 'inbound_shortcodes', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) , 'adminurl' => admin_url(), 'inbound_shortcode_nonce' => wp_create_nonce('inbound-shortcode-nonce') , 'form_id' => $form_id ) );
 				wp_enqueue_script('selectjs', INBOUNDNOW_SHARED_URLPATH . 'shortcodes/js/select2.min.js');
 				wp_enqueue_style('selectjs', INBOUNDNOW_SHARED_URLPATH . 'shortcodes/css/select2.css');
@@ -657,13 +657,25 @@ class Inbound_Shortcodes {
 			</ol>
 		</div>
 		<div id="inbound-email-response">
+		    <?php
+
+            if (defined('INBOUND_PRO_PATH')) {
+            ?>
+            <h3><?php _e( 'Inbound Pro Users' , INBOUNDNOW_TEXT_DOMAIN ); ?></h3>
+            <div class='' style='padding-left:20px;'>
+
+                <?php echo sprintf( __( 'To learn how to creat a follow email series please referrer to %s this document %s. ' , INBOUNDNOW_TEXT_DOMAIN ) , '<a href="http://docs.inboundnow.com/guide/creating-a-follow-up-email-using-inbound-now-as-an-autoresponder-marketing-automation/">', '</a>') ; ?>
+            </div>
+            <br>
+            <?php
+            }
+            ?>
+
 			<h2><?php _e( 'Set Email Response to Send to the person filling out the form' , INBOUNDNOW_TEXT_DOMAIN ); ?></h2>
 			<?php
 			$values = get_post_custom( $post->ID );
 			$selected = isset( $values['inbound_email_send_notification'] ) ? esc_attr( $values['inbound_email_send_notification'][0] ) : "";
 			$email_subject = get_post_meta( $post->ID, 'inbound_confirmation_subject', TRUE );
-			$email_templates = self::get_email_templates();
-			$email_template =	get_post_meta( $post->ID, 'inbound_email_send_notification_template' , TRUE );
 
 			?>
 			<div style='display:block; overflow: auto;'>
@@ -678,51 +690,31 @@ class Inbound_Shortcodes {
 			</div>
 
 			<?php
+            do_action('inbound-forms/before-email-reponse-setup');
+            ?>
+            <table class='widefat tokens'>
+                <tr><td>
+                <h2>Available Dynamic Email Tokens</h2>
+                <ul id="email-token-list">
+                    <li class='core_token' title='Email address of sender' style='cursor:pointer;'>{{admin-email-address}}</li>
+                    <li class='core_token' title='Name of this website' style='cursor:pointer;'>{{site-name}}</li>
+                    <li class='core_token' title='URL of this website' style='cursor:pointer;'>{{site-url}}</li>
+                    <li class='core_token' title='Datetime of Sent Email.' style='cursor:pointer;'>{{date-time}}</li>
+                    <li class='lead_token' title='First & Last name of recipient' style='cursor:pointer;'>{{lead-full-name}}</li>
+                    <li class='lead_token' title='First name of recipient' style='cursor:pointer;'>{{lead-first-name}}</li>
+                    <li class='lead_token' title='Last name of recipient' style='cursor:pointer;'>{{lead-last-name}}</li>
 
-			if ($email_templates) {
-
-				?>
-				<div	style='display:block; overflow: auto;'>
-					<div id=''>
-						<label for="inbound_email_send_notification_template"><?php _e( 'Select Response Email Template' , INBOUNDNOW_TEXT_DOMAIN ); ?></label>
-						<select name="inbound_email_send_notification_template" id="inbound_email_send_notification_template">
-							<option value='custom' <?php	selected( 'custom' , $email_template); ?>><?php _e( 'Do not use a premade email template' , INBOUNDNOW_TEXT_DOMAIN ); ?></option>
-							<?php
-
-							foreach ($email_templates as $id => $label) {
-								echo '<option value="'.$id.'" '. selected($id , $email_template , false ) .'>'.$label.'</option>';
-							}
-							?>
-						</select>
-					</div>
-				</div>
-				<table class='widefat tokens'>
-					<tr><td>
-					<h2>Available Dynamic Email Tokens</h2>
-					<ul id="email-token-list">
-						<li class='core_token' title='Email address of sender' style='cursor:pointer;'>{{admin-email-address}}</li>
-						<li class='core_token' title='Name of this website' style='cursor:pointer;'>{{site-name}}</li>
-						<li class='core_token' title='URL of this website' style='cursor:pointer;'>{{site-url}}</li>
-						<li class='core_token' title='Datetime of Sent Email.' style='cursor:pointer;'>{{date-time}}</li>
-						<li class='lead_token' title='First & Last name of recipient' style='cursor:pointer;'>{{lead-full-name}}</li>
-						<li class='lead_token' title='First name of recipient' style='cursor:pointer;'>{{lead-first-name}}</li>
-						<li class='lead_token' title='Last name of recipient' style='cursor:pointer;'>{{lead-last-name}}</li>
-
-						<li class='lead_token' title='Email address of recipient' style='cursor:pointer;'>{{lead-email-address}}</li>
-						<li class='lead_token' title='Company Name of recipient' style='cursor:pointer;'>{{lead-company-name}}</li>
-						<li class='lead_token' title='Address Line 1 of recipient' style='cursor:pointer;'>{{lead-address-line-1}}</li>
-						<li class='lead_token' title='Address Line 2 of recipient' style='cursor:pointer;'>{{lead-address-line-2}}</li>
-						<li class='lead_token' title='City of recipient' style='cursor:pointer;'>{{lead-city}}</li>
-						<li class='lead_token' title='Name of Inbound Now form user converted on' style='cursor:pointer;'>{{form-name}}</li>
-						<li class='lead_token' title='Page the visitor singed-up on.' style='cursor:pointer;'>{{source}}</li>
-					</ul>
-					</td>
-					</tr>
-				</table>
-				<?php
-			}
-
-			?>
+                    <li class='lead_token' title='Email address of recipient' style='cursor:pointer;'>{{lead-email-address}}</li>
+                    <li class='lead_token' title='Company Name of recipient' style='cursor:pointer;'>{{lead-company-name}}</li>
+                    <li class='lead_token' title='Address Line 1 of recipient' style='cursor:pointer;'>{{lead-address-line-1}}</li>
+                    <li class='lead_token' title='Address Line 2 of recipient' style='cursor:pointer;'>{{lead-address-line-2}}</li>
+                    <li class='lead_token' title='City of recipient' style='cursor:pointer;'>{{lead-city}}</li>
+                    <li class='lead_token' title='Name of Inbound Now form user converted on' style='cursor:pointer;'>{{form-name}}</li>
+                    <li class='lead_token' title='Page the visitor singed-up on.' style='cursor:pointer;'>{{source}}</li>
+                </ul>
+                </td>
+                </tr>
+            </table>
 
 			<input type="text" name="inbound_confirmation_subject" placeholder="Email Subject Line" size="30" value="<?php echo $email_subject;?>" id="inbound_confirmation_subject" autocomplete="off">
 
@@ -757,8 +749,14 @@ class Inbound_Shortcodes {
 							</div>
 							<?php if( $shortcode->no_preview ) : ?>
 								<div id="inbound-shortcodes-nopreview"><?php _e('Shortcode has no preview', 'leads'); ?></div>
-							<?php else : ?>
-								<iframe src='<?php echo INBOUNDNOW_SHARED_URLPATH . 'shortcodes/'; ?>preview.php?sc=&post=<?php echo $_GET['post']; ?>' width="285" scrollbar='true' frameborder="0" id="inbound-shortcodes-preview"></iframe>
+							<?php else :
+							    if ( isset($_REQUEST['post']) && is_int($_REQUEST['post'])  ) {
+								    $post_id = html_entity_decode( $_REQUEST['post'] );
+                                } else {
+                                    $post_id = 0;
+                                }
+                                ?>
+								<iframe src='<?php echo INBOUNDNOW_SHARED_URLPATH . 'shortcodes/'; ?>preview.php?sc=&post=<?php echo $post_id; ?>' width="285" scrollbar='true' frameborder="0" id="inbound-shortcodes-preview"></iframe>
 							<?php endif; ?>
 						</div>
 						<div class="clear"></div>
@@ -772,58 +770,11 @@ class Inbound_Shortcodes {
 				</div>
 		</div>
 
-		<script type="text/javascript">
-
-			function inbound_forms_select_email_template() {
-				var selected = jQuery('#inbound_email_send_notification_template').val();
-
-				if ( selected != 'custom') {
-					jQuery('#postdivrich').hide();
-					jQuery('#inbound_confirmation_subject').hide();
-					jQuery('.tokens').hide();
-				} else {
-					jQuery('#postdivrich').show();
-					jQuery('#inbound_confirmation_subject').show();
-					jQuery('.tokens').show();
-				}
-			}
-
-			jQuery(document).ready(function($) {
-
-				jQuery('.child-clone-row').first().attr('id', 'row-1');
-				setTimeout(function() {
-						jQuery('#inbound-shortcodes-form input:visible').first().focus();
-				}, 500);
-
-				/* Hide Options Based on Selected Template */
-				jQuery('body').on('change' , '#inbound_email_send_notification_template' , function() {
-					inbound_forms_select_email_template();
-				});
-
-			});
-		</script>
 
 			<?php
 	}
 
-	public static function get_email_templates() {
 
-
-			$templates = get_posts(array(
-									'post_type' => 'email-template',
-									'posts_per_page' => -1
-								));
-
-
-			foreach ( $templates as $template ) {
-				$email_templates[$template->ID] = $template->post_title;
-			}
-
-			$email_templates = ( isset($email_templates) ) ? $email_templates : array();
-
-			return $email_templates;
-
-	}
 }
 }
 /*	Initialize InboundNow Shortcodes
