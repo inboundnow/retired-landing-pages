@@ -55,7 +55,7 @@ function lp_admin_enqueue($hook) {
 
 		// Add New and Edit Screens
 		if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
-			add_filter( 'wp_default_editor', 'lp_ab_testing_force_default_editor' ); // force html view
+
 			//admin.metaboxes.js - Template Selector - Media Uploader
 			wp_enqueue_script('lp-js-metaboxes', LANDINGPAGES_URLPATH . 'js/admin/admin.metaboxes.js');
 

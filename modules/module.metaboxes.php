@@ -179,27 +179,21 @@ add_action( 'edit_form_after_title', 'lp_landing_page_header_area' );
 add_action( 'save_post', 'lp_save_header_area' );
 add_action( 'save_post', 'lp_save_notes_area' );
 
-function lp_landing_page_header_area()
-{
+function lp_landing_page_header_area() {
 	global $post;
-	$lp_variation = (isset($_GET['lp-variation-id'])) ? $_GET['lp-variation-id'] : '0';
-	$main_title = get_post_meta( $post->ID , 'lp-main-headline', true );
-	$variation_notes = get_post_meta( $post->ID , 'lp-variation-notes', true );
-    if ( empty ( $post ) || 'landing-page' !== get_post_type( $GLOBALS['post'] ) )
+
+    if (!isset($post) || $post->post_type !='landing-page' ) {
         return;
+    }
 
-    if ( ! $main_title = get_post_meta( $post->ID , 'lp-main-headline',true ) )
-        $main_title = '';
+	$variation_id = (isset($_REQUEST['lp-variation-id'])) ? $_REQUEST['lp-variation-id'] : '0';
+	$main_headline = Landing_Pages_Variations::get_main_headline( $post->ID , $variation_id );
+	$variation_notes = Landing_Pages_Variations::get_variation_notes( $post->ID , $variation_id );
 
-    if ( ! $variation_notes = get_post_meta( $post->ID , 'lp-variation-notes',true ) )
-    $variation_notes = '';
-	$main_title = apply_filters('lp_edit_main_headline', $main_title, 1);
-	$variation_notes = apply_filters('lp_edit_variation_notes', $variation_notes, 1);
-	$variation_id = apply_filters( 'lp_display_notes_input_id' , 'lp-variation-notes' );
 
 	echo "<div id='lp-notes-area'>";
 	echo "<span id='add-lp-notes'>". __('Notes' , 'landing-pages') .":</span><input placeholder='". __('Add Notes to your variation. Example: This version is testing a green submit button ' , 'landing-pages') ."' type='text' class='lp-notes' name='{$variation_id}' id='{$variation_id}' value='{$variation_notes}' size='30'>";
-	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="'. __('Primary Headline Goes here. This will be visible on the page' , 'landing-pages') .'" id="lp-main-headline" value="'.$main_title.'" title="'. __('This headline will appear in the landing page template.' , 'landing-pages') .'"></div><div id="lp-current-view">'.$lp_variation.'</div><div id="switch-lp">0</div>';
+	echo '</div><div id="main-title-area"><input type="text" name="lp-main-headline" placeholder="'. __('Primary Headline Goes here. This will be visible on the page' , 'landing-pages') .'" id="lp-main-headline" value="'.$main_headline.'" title="'. __('This headline will appear in the landing page template.' , 'landing-pages') .'"></div><div id="lp-current-view">'.$variation_id.'</div><div id="switch-lp">0</div>';
 	echo ""; ?>
 
 	<?php
@@ -252,41 +246,6 @@ function lp_change_enter_title_text( $text, $post ) {
 }
 
 
-add_action('add_meta_boxes', 'add_custom_meta_box_select_templates');
-function add_custom_meta_box_select_templates() {
-
-	add_meta_box(
-		'lp_metabox_select_template', // $id
-		__( 'Landing Page Templates', 'landing-pages'),
-		'lp_display_meta_box_select_template', // $callback
-		'landing-page', // $page
-		'normal', // $context
-		'high'); // $priority
-}
-
-// Render select template box
-function lp_display_meta_box_select_template() {
-	global $post;
-	$template =  get_post_meta($post->ID, 'lp-selected-template', true);
-
-	$template = apply_filters('lp_selected_template',$template);
-	//echo $template;
-	if (!isset($template)||isset($template)&&!$template){
-		$template = 'default';
-	}
-
-	$name = apply_filters('lp_selected_template_id','lp-selected-template');
-
-	// Use nonce for verification
-	echo "<input type='hidden' name='lp_lp_custom_fields_nonce' value='".wp_create_nonce('lp-nonce')."' />";
-	?>
-
-	<div id="lp_template_change"><h2><a class="button" id="lp-change-template-button"><?php _e( 'Choose Another Template' , 'landing-pages'); ?></a></div>
-	<input type='hidden' id='lp_select_template' name='<?php echo $name; ?>' value='<?php echo $template; ?>'>
-		<div id="template-display-options"></div>
-
-	<?php
-}
 
 add_action('admin_notices', 'lp_display_meta_box_select_template_container');
 
@@ -697,84 +656,7 @@ function lp_conversion_log_metabox() {
 /**
  * Generate Template & Extension Metaboxes
  */
-// The Callback
 
-add_action('add_meta_boxes', 'lp_generate_meta');
-function lp_generate_meta()
-{
-	global $post;
-	if ($post->post_type!='landing-page')
-		return;
-
-	$extension_data = lp_get_extension_data();
-
-	$current_template = get_post_meta( $post->ID , 'lp-selected-template' , true);
-	$current_template = apply_filters('lp_variation_selected_template',$current_template, $post);
-
-	//echo $current_template; exit;
-	foreach ($extension_data as $key=>$data)
-	{
-		//echo "$key : $current_template <br>";
-		if ($key!='lp'&&substr($key,0,4)!='ext-' && $key==$current_template)
-		{
-			$template_name = ucwords(str_replace('-',' ',$key));
-			$id = strtolower(str_replace(' ','-',$key));
-			//echo $key."<br>";
-			add_meta_box(
-				"lp_{$id}_custom_meta_box", // $id
-				__( "<small>$template_name Options:</small>", 'landing-pages'),
-				'lp_show_metabox', // $callback
-				'landing-page', // post-type
-				'normal', // $context
-				'default',// $priority
-				array('key'=>$key)
-				); //callback args
-		}
-	}
-
-	foreach ($extension_data as $key=>$data)
-	{
-		if ( substr($key,0,4)=='ext-' || isset($data['info']['data_type']) && $data['info']['data_type'] =='metabox' )
-		{
-			//echo 1; exit;
-			$id = "metabox-".$key;
-
-			(isset($data['info']['label'])) ? $name = $data['info']['label'] : $name = ucwords(str_replace(array('-','ext '),' ',$key). " Extension Options");
-			(isset($data['info']['position'])) ? $position = $data['info']['position'] : $position = "normal";
-			(isset($data['info']['priority'])) ? $priority = $data['info']['priority'] : $priority = "default";
-
-
-			//echo $key."<br>";
-			add_meta_box(
-				"lp_{$id}_custom_meta_box", // $id
-				__( "$name", 'landing-pages'),
-				'lp_show_metabox', // $callback
-				'landing-page', // post-type
-				$position , // $context
-				$priority ,// $priority
-				array('key'=>$key)
-				); //callback args
-
-		}
-	}
-}
-
-function lp_show_metabox($post,$key)
-{
-
-	$extension_data = lp_get_extension_data();
-	$key = $key['args']['key'];
-	// Get current cat list for templates
-	if (isset($_GET['lp-cats'])) {
-	 get_all_template_categories($extension_data);
-	}
-	$lp_custom_fields = $extension_data[$key]['settings'];
-	$lp_custom_fields = apply_filters('lp_show_metabox',$lp_custom_fields, $key);
-
-	lp_render_metabox($key,$lp_custom_fields,$post);
-
-
-}
 
 
 function lp_render_metabox($key,$custom_fields,$post)
