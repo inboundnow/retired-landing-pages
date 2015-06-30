@@ -33,9 +33,9 @@ function lp_thumbnail_metabox() {
 	$original_perma = get_permalink($post->ID);
 
 	if ( preg_match( '/lp-variation-id/', $original_perma ) ) {
-	    $iframe_preview_link = get_permalink($post->ID) . "&cache_bust=true";
+	    $iframe_preview_link = get_permalink($post->ID) . "&cache_bust=true&dont_save=true";
 	} else {
-		$iframe_preview_link = get_permalink($post->ID) . "?lp-variation-id=$var_id&cache_bust=true";
+		$iframe_preview_link = get_permalink($post->ID) . "?lp-variation-id=$var_id&cache_bust=true&dont_save=true";
 	}
 
 	$datetime = the_modified_date('YmjH',null,null,false);
