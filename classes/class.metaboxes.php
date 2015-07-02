@@ -785,8 +785,7 @@ class Landing_Pages_Metaboxes {
         $permalink = Landing_Pages_Variations::get_variation_permalink( $post->ID );
 
         $datetime = the_modified_date('YmjH',null,null,false);
-        $permalink = add_query_arg( array( 'dt' => $datetime) , $permalink );
-        $permalink = Landing_Pages_Variations::get_variation_permalink( $post->ID );
+        $permalink = add_query_arg( array( 'dt' => $datetime , 'dont_save' => true ) , $permalink );
         ?>
 
         <style type="text/css">
