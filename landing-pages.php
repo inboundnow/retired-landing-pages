@@ -71,7 +71,6 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once( LANDINGPAGES_PATH . 'modules/module.welcome.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.install.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.alert.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.metaboxes.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.metaboxes-global.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.landing-page.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.load-extensions.php');

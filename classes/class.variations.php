@@ -79,9 +79,9 @@ if (!class_exists('Landing_Pages_Variations')) {
          */
         public static function pause_variation($landing_page_id, $variation_id) {
             if ($variation_id === 0) {
-                update_post_meta($post->ID, 'lp_ab_variation_status', '0');
+                update_post_meta( $landing_page_id , 'lp_ab_variation_status', '0');
             } else {
-                update_post_meta($post->ID, 'lp_ab_variation_status-' . $variation_id, '0');
+                update_post_meta( $landing_page_id , 'lp_ab_variation_status-' . $variation_id, '0');
             }
         }
 
@@ -94,9 +94,9 @@ if (!class_exists('Landing_Pages_Variations')) {
          */
         public static function play_variation($landing_page_id, $variation_id) {
             if ($variation_id === 0) {
-                update_post_meta($post->ID, 'lp_ab_variation_status', 1 );
+                update_post_meta( $landing_page_id , 'lp_ab_variation_status', 1 );
             } else {
-                update_post_meta($post->ID, 'lp_ab_variation_status-' . $variation_id, 1 );
+                update_post_meta( $landing_page_id , 'lp_ab_variation_status-' . $variation_id, 1 );
             }
         }
 
@@ -110,11 +110,11 @@ if (!class_exists('Landing_Pages_Variations')) {
          */
         public static function update_variations($landing_page_id, $variations) {
 
-            if (!is_array($variations)) {
+            if ( is_array($variations) ) {
                 $variations = implode(',', $variations);
             }
 
-            update_post_meta($landing_page_id, 'lp-ab-variations', $variations);
+            update_post_meta( $landing_page_id , 'lp-ab-variations', $variations);
 
         }
 
@@ -153,10 +153,9 @@ if (!class_exists('Landing_Pages_Variations')) {
 
             $variations = self::get_variations( $landing_page_id );
 
-            $array_variations = explode(',', $variations);
-            sort($array_variations, SORT_NUMERIC);
+            sort( $variations, SORT_NUMERIC);
 
-            $vid = end($array_variations);
+            $vid = end($variations);
 
             return $vid + 1;
         }
@@ -168,13 +167,17 @@ if (!class_exists('Landing_Pages_Variations')) {
          *
          * @returns STRING of meta key appended with variation id
          */
-        public static function prepare_input_id($id, $variation_id = null) {
+        public static function prepare_input_id( $id , $variation_id = null) {
 
             if ($variation_id === null) {
                 $variation_id = Landing_Pages_Variations::get_current_variation_id();
             }
 
-            return $id . '-' . $variation_id;
+            if ( $variation_id >0 ) {
+                 return $id . '-' . $variation_id;
+            } else {
+                return $id;
+            }
         }
 
 
@@ -232,14 +235,21 @@ if (!class_exists('Landing_Pages_Variations')) {
          * Returns array of variation data given a landing page id
          *
          * @param INT $landing_page_id id of landing page
-         * @param INT $variation_id id of specific variation
          *
          * @returns ARRAY of variation data
          */
-        public static function get_variations($landing_page_id, $variation_id = null) {
+        public static function get_variations($landing_page_id) {
 
             $variations = get_post_meta($landing_page_id, 'lp-ab-variations', true);
-            $variations = explode(',', $variations);
+
+            if (!is_array($variations) ) {
+                $variations = explode( ',' , $variations);
+            }
+
+            if (!is_array($variations)) {
+                $variations = array( 0 => 0 );
+            }
+
             $variations = array_filter($variations, 'is_numeric');
 
             return $variations;
@@ -256,6 +266,17 @@ if (!class_exists('Landing_Pages_Variations')) {
          */
         public static function get_variation_status($landing_page_id, $variation_id = null) {
 
+            if ($variation_id === null) {
+                $variation_id = Landing_Pages_Variations::get_current_variation_id();
+            }
+
+            $variation_status =  Landing_Pages_Variations::get_setting_value( 'lp_ab_variation_status' , $landing_page_id, $variation_id , '' );
+
+            if (!is_numeric($variation_status)) {
+                return 1;
+            } else {
+                return $variation_status;
+            }
 
         }
 
@@ -286,34 +307,9 @@ if (!class_exists('Landing_Pages_Variations')) {
 
             $permalink = get_permalink($landing_page_id);
 
-            return add_query_arg(array('inbvid' => $variation_id), $permalink);
+            return add_query_arg(array('lp-variation-id' => $variation_id), $permalink);
         }
 
-
-        /**
-         * Returns array of variation specific meta data
-         *
-         * @param INT $landing_page_id ID of call to action
-         * @param INT $variation_id ID of variation belonging to call to action
-         *
-         * @return ARRAY $meta array of variation meta data
-         */
-        public static function get_variation_meta($landing_page_id, $variation_id) {
-            $meta = array();
-
-            $inbound_email_meta = get_post_meta($landing_page_id);
-
-            $suffix = '-' . $variation_id;
-            $len = strlen($suffix);
-
-            foreach ($inbound_email_meta as $key => $value) {
-                if (substr($key, -$len) == $suffix) {
-                    $meta[$key] = $value[0];
-                }
-            }
-
-            return $meta;
-        }
 
         /**
          * Gets the call to action variation notes
@@ -329,15 +325,7 @@ if (!class_exists('Landing_Pages_Variations')) {
                 $variation_id = Landing_Pages_Variations::get_current_variation_id();
             }
 
-            if ( $variation_id > 0  ) {
-                $notes = get_post_meta( $landing_page_id , 'lp-variation-notes-' . $variation_id, true);
-            } else {
-                $notes = get_post_meta( $landing_page_id , 'lp-variation-notes', true);
-            }
-
-            return $notes;
-
-
+            return Landing_Pages_Variations::get_setting_value( 'lp-variation-notes' , $landing_page_id, $variation_id , '' );
         }
 
         /**
@@ -354,9 +342,7 @@ if (!class_exists('Landing_Pages_Variations')) {
                 $variation_id = Landing_Pages_Variations::get_current_variation_id();
             }
 
-            $custom_css = get_post_meta($landing_page_id, 'inbound-mailer-custom-css-' . $variation_id, true);
-
-            return $custom_css;
+            return Landing_Pages_Variations::get_setting_value( 'lp-custom-css' , $landing_page_id, $variation_id , '' );
 
         }
 
@@ -374,10 +360,7 @@ if (!class_exists('Landing_Pages_Variations')) {
                 $variation_id = Landing_Pages_Variations::get_current_variation_id();
             }
 
-            $custom_js = get_post_meta($landing_page_id, 'inbound-mailer-custom-js-' . $variation_id, true);
-
-            return $custom_js;
-
+            return Landing_Pages_Variations::get_setting_value( 'lp-custom-js' , $landing_page_id, $variation_id , '' );
         }
 
         /*
@@ -386,12 +369,10 @@ if (!class_exists('Landing_Pages_Variations')) {
         * @returns INT of variation id
         */
         public static function get_current_variation_id() {
+            global $post;
+
             if (isset($_GET['ab-action']) && is_admin()) {
                 return $_SESSION['lp_ab_test_open_variation'];
-            }
-
-            if (!isset($_SESSION['lp_ab_test_open_variation']) && !isset($_REQUEST['lp-variation-id'])) {
-                $current_variation_id = 0;
             }
 
             if (isset($_REQUEST['lp-variation-id'])) {
@@ -406,6 +387,10 @@ if (!class_exists('Landing_Pages_Variations')) {
             if (isset($_GET['ab-action']) && $_GET['ab-action'] == 'delete-variation') {
                 $current_variation_id = 0;
                 $_SESSION['lp_ab_test_open_variation'] = 0;
+            }
+
+            if (isset($_GET['new_meta_key'])) {
+                $current_variation_id = $_GET['new_meta_key'];
             }
 
             if (!isset($current_variation_id)) {
@@ -446,17 +431,7 @@ if (!class_exists('Landing_Pages_Variations')) {
                 $variation_id = Landing_Pages_Variations::get_current_variation_id();
             }
 
-            if ( $variation_id > 0  ) {
-                $selected_template = get_post_meta( $landing_page_id , 'lp-selected-template-' . $variation_id, true);
-            } else {
-                $selected_template = get_post_meta( $landing_page_id , 'lp-selected-template', true);
-            }
-
-            if (!isset($selected_template)){
-                $selected_template = 'default';
-            }
-
-            return $selected_template;
+            return Landing_Pages_Variations::get_setting_value( 'lp-selected-template' , $landing_page_id, $variation_id , 'default' );
 
         }
 
@@ -500,13 +475,14 @@ if (!class_exists('Landing_Pages_Variations')) {
          *
          * @return INT impression count
          */
-        public static function get_impressions($landing_page_id, $variation_id) {
+        public static function get_impressions( $landing_page_id, $variation_id ) {
 
-            $impressions = get_post_meta($landing_page_id, 'inbound-mailer-ab-variation-impressions-' . $variation_id, true);
-
-            if (!is_numeric($impressions)) {
-                $impressions = 0;
+            if ( !is_numeric( $variation_id ) ) {
+                $variation_id = Landing_Pages_Variations::get_current_variation_id();
             }
+
+            $impressions = get_post_meta( $landing_page_id , 'lp-ab-variation-impressions-' . $variation_id, true);
+            $impressions =  (is_numeric($impressions)) ? $impressions : 0;
 
             return $impressions;
         }
@@ -517,15 +493,16 @@ if (!class_exists('Landing_Pages_Variations')) {
          * @param INT $landing_page_id id of call to action
          * @param INT $variation_id id of variation belonging to call to action
          *
-         * @return INT impression count
+         * @return INT conversion count
          */
-        public static function get_conversions($landing_page_id, $variation_id) {
+        public static function get_conversions( $landing_page_id , $variation_id ) {
 
-            $conversions = get_post_meta($landing_page_id, 'inbound-mailer-ab-variation-conversions-' . $variation_id, true);
-
-            if (!is_numeric($conversions)) {
-                $conversions = 0;
+            if ( !is_numeric( $variation_id ) ) {
+                $variation_id = Landing_Pages_Variations::get_current_variation_id();
             }
+
+            $conversions = get_post_meta( $landing_page_id , 'lp-ab-variation-conversions-' . $variation_id, true);
+            $conversions =  (is_numeric($conversions)) ? $conversions : 0;
 
             return $conversions;
         }
@@ -556,21 +533,101 @@ if (!class_exists('Landing_Pages_Variations')) {
         }
 
         /**
+         * @param $landing_page_id
+         * @param null $variation_id
+         */
+        public static function get_conversion_area( $landing_page_id, $variation_id = null) {
+
+            return Landing_Pages_Variations::get_setting_value( 'lp-conversion-area' , $landing_page_id,  $variation_id );
+        }
+
+        /**
+         * Returns conversion area placement
+         * @param $landing_page_id
+         * @param null $variation_id
+         */
+        public static function get_conversion_area_placement( $landing_page_id, $variation_id = null) {
+            $template = Landing_Pages_Variations::get_current_template( $landing_page_id );
+            return Landing_Pages_Variations::get_setting_value( $template . '-conversion-area-placement' , $landing_page_id,  $variation_id );
+        }
+
+        /**
+         * @param $landing_page_id
+         * @param null $variation_id
+         */
+        public static function get_post_content( $landing_page_id, $variation_id = null) {
+            if ( !is_numeric( $variation_id ) ) {
+                $variation_id = Landing_Pages_Variations::get_current_variation_id();
+            }
+
+            return Landing_Pages_Variations::get_setting_value( 'content' , $landing_page_id,  $variation_id );
+        }
+
+        /**
          * Get main headline
          */
-        public static function get_main_headline( $landing_page_id , $variation_id ) {
+        public static function get_main_headline( $landing_page_id , $variation_id = null ) {
 
             if ( !is_numeric( $variation_id ) ) {
                 $variation_id = Landing_Pages_Variations::get_current_variation_id();
             }
 
-            if ( $variation_id > 0  ) {
-                $main_headline = get_post_meta( $landing_page_id , 'lp-main-headline-' . $variation_id, true);
+            return Landing_Pages_Variations::get_setting_value( 'lp-main-headline' , $landing_page_id, $variation_id , '' );
+        }
+
+        /**
+         * Gets thumbnail for selected template
+         */
+        public static function get_template_thumbnail( $template ) {
+
+            if (file_exists(LANDINGPAGES_UPLOADS_PATH .  $template . '/thumbnail.png')) {
+                return LANDINGPAGES_UPLOADS_URLPATH . $template . '/thumbnail.png';
             } else {
-                $main_headline = get_post_meta( $landing_page_id , 'lp-main-headline', true);
+                return LANDINGPAGES_URLPATH . 'templates/' . $template . '/thumbnail.png';
+            }
+        }
+
+
+        /**
+         * Gets stored setting value
+         * @param $key
+         * @param $landing_page_id
+         * @param $variation_id
+         * @param string $default
+         * @return string
+         */
+        public static function get_setting_value( $key , $landing_page_id , $variation_id = null,  $default = '' ) {
+
+            /* if no variation set look for variation */
+            if (!isset($variation_id)) {
+                $variation_id = Landing_Pages_Variations::get_current_variation_id();
             }
 
-            return $main_headline;
+            /* listen for new variation */
+            if (isset($_REQUEST['new-variation']) && !isset($_REQUEST['clone'])) {
+                $variations = Landing_Pages_Variations::get_variations( $landing_page_id );
+                $variation_id = key($variations);
+            }
+
+            /* listen for clone variation */
+            if (isset($_REQUEST['new-variation']) && isset($_REQUEST['clone'])) {
+                $variation_id = $_REQUEST['clone'];
+            }
+
+            if ( $variation_id > 0  ) {
+               if (metadata_exists('post', $landing_page_id ,  $key .'-' . $variation_id )) {
+                    return get_post_meta( $landing_page_id , $key .'-' . $variation_id, true);
+               } else {
+                    return $default;
+               }
+            } else {
+
+                if (metadata_exists('post', $landing_page_id ,  $key  )) {
+                    return get_post_meta( $landing_page_id , $key, true);
+                } else {
+                    return $default;
+                }
+            }
 
         }
 

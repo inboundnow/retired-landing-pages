@@ -1,241 +1,30 @@
 <?php
 
-/* ADMIN ONLY AB TESTING FUNCTIONS */
 
-if (is_admin()) {
-
-
-    add_filter('lp_show_metabox', 'lp_ab_testing_admin_prepare_meta_ids', 5, 2);
-    function lp_ab_testing_admin_prepare_meta_ids($lp_custom_fields, $main_key) {
-        if (isset($_REQUEST['new-variation']) && !isset($_REQUEST['clone'])) {
-            return $lp_custom_fields;
-        }
-
-        $current_variation_id = lp_ab_testing_get_current_variation_id();
-
-        if (isset($_GET['clone'])) {
-            $current_variation_id = $_GET['clone'];
-        }
-
-        if ($current_variation_id > 0) {
-            $post_id = $_GET['post'];
-            foreach ($lp_custom_fields as $key => $field) {
-                $default = get_post_meta($post_id, $field['id'], true);
-
-                $id = $field['id'];
-                $field['id'] = $id . '-' . $current_variation_id;
-
-                if ($default) {
-                    $field['default'] = $default;
-                }
-
-                $lp_custom_fields[$key] = $field;
-            }
-            return $lp_custom_fields;
-        }
-
-        //print_r($lp_custom_fields);exit;
-        return $lp_custom_fields;
-    }
-
-    add_filter('lp_variation_selected_template', 'lp_ab_testing_lp_variation_selected_template', 10, 2);
-    function lp_ab_testing_lp_variation_selected_template($selected_template, $post) {
-        if (isset($_GET['new-variation'])) return $selected_template;
-
-        $current_variation_id = lp_ab_testing_get_current_variation_id();
-
-        if ($current_variation_id > 0) {
-            $selected_template = get_post_meta($post->ID, 'lp-selected-template-' . $current_variation_id, true);
-        }
-
-        //print_r($lp_custom_fields);exit;
-        return $selected_template;
-    }
-
-    //add filter to modify thumbnail preview
-    add_filter('lp_live_screenshot_url', 'lp_ab_testing_prepare_screenshot');
-    function lp_ab_testing_prepare_screenshot($link) {
-        $variation_id = lp_ab_testing_get_current_variation_id();
-        $link = $link . "?lp-variation-id=" . $variation_id;
-        return $link;
-    }
-
-
-    add_filter("post_type_link", "lp_ab_append_variation_id_to_adminbar_link", 10, 2);
-    function lp_ab_append_variation_id_to_adminbar_link($link, $post) {
-        if ($post->post_type == 'landing-page') {
-            $current_variation_id = lp_ab_testing_get_current_variation_id();
-
-            if ($current_variation_id > 0) $link = $link . "?lp-variation-id=" . $current_variation_id;
-        }
-
-        return $link;
-    }
-
-    if (!defined('AUTOSAVE_INTERVAL')) {
-        define('AUTOSAVE_INTERVAL', 86400);
-    }
-
-    add_filter('wp_insert_post_data', 'lp_ab_testing_wp_insert_post_data', 10, 2);
-    function lp_ab_testing_wp_insert_post_data($data, $postarr) {
-
-        //exit;
-        //$variation_id = lp_ab_testing_get_current_variation_id();
-        //echo $variation_id;exit;
-        if (isset($postarr['lp-variation-id']) && $postarr['lp-variation-id'] > 0) {
-            $postarr = array();
-            $data = array();
-
-            remove_action('save_post', 'lp_save_meta', 10);
-            remove_action('save_post', 'lp_ab_testing_save_post', 10);
-
-            $postID = $_POST['post_ID'];
-            if ($parent_id = wp_is_post_revision($_POST['post_ID'])) {
-                $postID = $parent_id;
-            }
-
-            lp_ab_testing_save_post($postID);
-
-        } else {
-            //echo "here";exit;
-            //$this_data = json_encode($data);
-            //mail('hudson.atwell@gmail.com','test2',$this_data);
-        }
-
-        if (count($data) > 1) return $data;
-    }
-
-    add_action('save_post', 'lp_ab_testing_save_post');
-    function lp_ab_testing_save_post($postID) {
-        global $post;
-
-        $var_final = (isset($_POST['lp-variation-id'])) ? $_POST['lp-variation-id'] : '0';
-        if (isset($_POST['post_type']) && $_POST['post_type'] == 'landing-page') {
-            if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE || $_POST['post_type'] == 'revision') {
-                return;
-            }
-
-            if ($parent_id = wp_is_post_revision($postID)) {
-                $postID = $parent_id;
-            }
-
-
-            $this_variation = $var_final;
-            //echo $this_variation;
-            //print_r($_POST);exit;
-
-            //first add to varation list if not present.
-            $variations = get_post_meta($postID, 'lp-ab-variations', true);
-            if ($variations) {
-                $array_variations = explode(',', $variations);
-                if (!in_array($this_variation, $array_variations)) {
-                    $array_variations[] = $this_variation;
-                }
-            } else {
-                if ($this_variation > 0) {
-                    $array_variations[] = 0;
-                    $array_variations[] = $this_variation;
-                } else {
-                    $array_variations[] = $this_variation;
-                }
-            }
-
-            //print_r($array_variations);exit;
-            //update_post_meta($postID,'lp-ab-variations', "");
-            update_post_meta($postID, 'lp-ab-variations', implode(',', $array_variations));
-            //add_post_meta($postID, 'lp_ab_variation_status-'.$this_variation , 1);
-
-            //echo $this_variation;exit;
-            if ($this_variation == 0) {
-                return;
-            }
-            //echo $this_variation;exit;
-            //print_r($_POST);
-
-            //next alter all custom fields to store correct varation and create custom fields for special inputs
-            $ignore_list = array('post_status', 'post_type', 'tax_input', 'post_author', 'user_ID', 'post_ID', 'catslist', 'post_title', 'samplepermalinknonce', 'autosavenonce', 'action', 'autosave', 'mm', 'jj', 'aa', 'hh', 'mn', 'ss', '_wp_http_referer', 'lp-variation-id', '_wpnonce', 'originalaction', 'original_post_status', 'referredby', '_wp_original_http_referer', 'meta-box-order-nonce', 'closedpostboxesnonce', 'hidden_post_status', 'hidden_post_password', 'hidden_post_visibility', 'visibility', 'post_password', 'hidden_mm', 'cur_mm', 'hidden_jj', 'cur_jj', 'hidden_aa', 'cur_aa', 'hidden_hh', 'cur_hh', 'hidden_mn', 'cur_mn', 'original_publish', 'save', 'newlanding_page_category', 'newlanding_page_category_parent', '_ajax_nonce-add-landing_page_category', 'lp_lp_custom_fields_nonce', 'lp-selected-template', 'post_mime_type', 'ID', 'comment_status', 'ping_status');
-
-            //$special_list = array('content','post-content');
-            //print_r($_POST);exit;
-            //echo $this_variation;exit;
-            foreach ($_POST as $key => $value) {
-                //echo $key." : -{$this_variation} : $value<br>";
-                if (!in_array($key, $ignore_list) && !strstr($key, 'nonce')) {
-                    if ($key == 'post_content') $key = 'content';
-
-                    if (!strstr($key, "-{$this_variation}")) {
-                        $new_array[$key . '-' . $this_variation] = $value;
-                    } else {
-                        //echo $key." : -{$this_variation}<br>";
-                        $new_array[$key] = $value;
-                    }
-                }
-                //echo $key." : -{$this_variation} : $value<br>";
-            }
-
-            //print_r($new_array);exit;
-
-            foreach ($new_array as $key => $val) {
-                $old = get_post_meta($postID, $key, true);
-                $new = $val;
-                //echo "$key  : $old v. $new <br>";
-                //if (isset($new) && $new != $old ) {
-                update_post_meta($postID, $key, $new);
-                //} elseif ('' == $new && $old) {
-                //delete_post_meta($postID, $key, $old);
-                //}
-            }
-
-        }
-    }
-
-} /* PERFORM FRONT-END ONLY ACTIONS */ else {
-
-    //prepare customizer meta data for ab varations
-    add_filter('lp_get_value', 'lp_ab_testing_prepare_variation_meta', 1, 4);
-    function lp_ab_testing_prepare_variation_meta($return, $post, $key, $id) {
-        if (isset($_REQUEST['lp-variation-id']) || isset($_COOKIE['lp-variation-id'])) {
-            (isset($_REQUEST['lp-variation-id'])) ? $variation_id = $_REQUEST['lp-variation-id'] : $variation_id = $_COOKIE['lp-variation-id'];
-            if ($variation_id > 0) return do_shortcode(get_post_meta($post->ID, $key . '-' . $id . '-' . $variation_id, true)); else
-                return $return;
-        } else {
+//prepare customizer meta data for ab varations
+add_filter('lp_get_value', 'lp_ab_testing_prepare_variation_meta', 1, 4);
+function lp_ab_testing_prepare_variation_meta($return, $post, $key, $id) {
+    if (isset($_REQUEST['lp-variation-id']) || isset($_COOKIE['lp-variation-id'])) {
+        (isset($_REQUEST['lp-variation-id'])) ? $variation_id = $_REQUEST['lp-variation-id'] : $variation_id = $_COOKIE['lp-variation-id'];
+        if ($variation_id > 0) return do_shortcode(get_post_meta($post->ID, $key . '-' . $id . '-' . $variation_id, true)); else
             return $return;
-        }
+    } else {
+        return $return;
     }
-
-    //prepare customizer, admin, and preview links for variations
-    add_filter('lp_customizer_customizer_link', 'lp_ab_append_variation_id_to_link');
-    add_filter('lp_customizer_admin_bar_link', 'lp_ab_append_variation_id_to_link');
-    add_filter('lp_customizer_preview_link', 'lp_ab_append_variation_id_to_link');
-
-    function lp_ab_append_variation_id_to_link($link) {
-
-        $current_variation_id = lp_ab_testing_get_current_variation_id();
-
-        if ($current_variation_id > 0) $link = $link . "&lp-variation-id=" . $current_variation_id;
-
-        return $link;
-    }
-
 }
 
-/*PERFORM ACTIONS REQUIRED ON BOTH FRONT AND BACKEND */
+//prepare customizer, admin, and preview links for variations
+add_filter('lp_customizer_customizer_link', 'lp_ab_append_variation_id_to_link');
+add_filter('lp_customizer_admin_bar_link', 'lp_ab_append_variation_id_to_link');
+add_filter('lp_customizer_preview_link', 'lp_ab_append_variation_id_to_link');
 
-add_filter('lp_content_area', 'lp_ab_testing_alter_content_area_admin', 10, 2);
-function lp_ab_testing_alter_content_area_admin($content) {
-    global $post;
+function lp_ab_append_variation_id_to_link($link) {
 
-    $variation_id = lp_ab_testing_get_current_variation_id();
+    $current_variation_id = lp_ab_testing_get_current_variation_id();
 
-    if ($variation_id > 0) {
-        $content = get_post_meta($post->ID, 'content-' . $variation_id, true);
-        if (!is_admin()) {
-            $content = wpautop($content);
-            $content = do_shortcode($content);
-        }
-    }
+    if ($current_variation_id > 0) $link = $link . "&lp-variation-id=" . $current_variation_id;
 
-    return $content;
+    return $link;
 }
 
 /* RETURN LETTER FROM ARRAY KEY */
@@ -277,24 +66,6 @@ function lp_ab_testing_get_current_variation_id() {
     if (!isset($current_variation_id)) $current_variation_id = 0;
 
     return $current_variation_id;
-}
-
-//ready conversion area for displaying ab variations
-add_filter('lp_conversion_area_pre_standardize', 'lp_ab_testing_prepare_conversion_area', 10, 2);
-function lp_ab_testing_prepare_conversion_area($content, $post = null) {
-    $current_variation_id = lp_ab_testing_get_current_variation_id();
-
-    if (isset($post)) {
-        $post_id = $post->ID;
-    } else if (isset($_REQUEST['post'])) {
-        $post_id = $_REQUEST['post'];
-    } else if (isset($_REQUEST['lp_id'])) {
-        $post_id = $_REQUEST['lp_id'];
-    }
-
-    if ($current_variation_id > 0) $content = get_post_meta($post_id, 'landing-page-myeditor-' . $current_variation_id, true);
-
-    return $content;
 }
 
 //ready conversion area for displaying ab variations
@@ -471,11 +242,8 @@ function lp_ab_testing_alter_content_area($content) {
         return $content;
     }
 
-    $variation_id = lp_ab_testing_get_current_variation_id();
-
-    if ($variation_id > 0) {
-        $content = do_shortcode(get_post_meta($post->ID, 'content-' . $variation_id, true));
-    }
+    $content = Landing_Pages_Variations::get_post_content( $post->ID );
+    $content = do_shortcode( $content );
 
     return $content;
 }
