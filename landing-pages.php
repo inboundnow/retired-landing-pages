@@ -81,7 +81,6 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once( LANDINGPAGES_PATH . 'modules/module.sidebar.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.widgets.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.cookies.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.ab-testing.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.click-tracking.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.templates.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.store.php');
@@ -102,7 +101,6 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once( LANDINGPAGES_PATH . 'modules/module.sidebar.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.widgets.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.cookies.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.ab-testing.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.click-tracking.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.landing-page.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.load-extensions.php');

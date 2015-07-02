@@ -1,5 +1,35 @@
 <?php
 
+
+add_filter('wp_title', 'lp_ab_testing_alter_title_area', 9, 2);
+add_filter('the_title', 'lp_ab_testing_alter_title_area', 10, 2);
+add_filter('get_the_title', 'lp_ab_testing_alter_title_area', 10, 2);
+function lp_ab_testing_alter_title_area($content, $id = null) {
+    global $post;
+
+    if (!isset($post)) return $content;
+
+    if (($post->post_type != 'landing-page' || is_admin()) || $id != $post->ID) return $content;
+
+    return lp_main_headline($post, null, true);
+}
+
+
+add_filter('the_content', 'lp_ab_testing_alter_content_area', 10, 2);
+add_filter('get_the_content', 'lp_ab_testing_alter_content_area', 10, 2);
+function lp_ab_testing_alter_content_area($content) {
+    global $post;
+
+    if (!isset($post) || $post->post_type != 'landing-page') {
+        return $content;
+    }
+
+    $content = Landing_Pages_Variations::get_post_content( $post->ID );
+    $content = do_shortcode( $content );
+
+    return $content;
+}
+
 /* LOAD TEMPLATE */
 add_filter('single_template', 'lp_custom_template', 13);
 function lp_custom_template($single) {
@@ -42,10 +72,10 @@ function landing_pages_insert_custom_head() {
 
     if (isset($post) && 'landing-page' == $post->post_type) {
 
-        $custom_css_name = apply_filters('lp_custom_css_name', 'lp-custom-css');
-        $custom_js_name = apply_filters('lp_custom_js_name', 'lp-custom-js');
-        $custom_css = get_post_meta($post->ID, $custom_css_name, true);
-        $custom_js = get_post_meta($post->ID, $custom_js_name, true);
+        $custom_css_name = Landing_Pages_Variations::prepare_input_id('lp-custom-css');
+        $custom_js_name =Landing_Pages_Variations::prepare_input_id('lp-custom-js');
+        $custom_css = Landing_Pages_Variations::get_custom_css( $post->ID );
+        $custom_js = Landing_Pages_Variations::get_custom_js( $post->ID );
         echo "<!-- This site landing page was built with the WordPress Landing Pages plugin - https://www.inboundnow.com/landing-pages/ -->";
         //Print Custom CSS
         if (!stristr($custom_css, '<style')) {
@@ -411,6 +441,42 @@ function lp_add_option($key, $type, $id, $default = null, $label = null, $descri
             break;
     }
 }
+
+/**
+ * legacy function to discover current landing page id. Please use Landing_Pages_Variations::get_current_variation_id();
+ * @return int
+ */
+function lp_ab_testing_get_current_variation_id() {
+    if (isset($_GET['ab-action']) && is_admin()) {
+        return $_SESSION['lp_ab_test_open_variation'];
+    }
+
+    if (!isset($_SESSION['lp_ab_test_open_variation']) && !isset($_REQUEST['lp-variation-id'])) {
+        $current_variation_id = 0;
+    }
+    //echo $_REQUEST['lp-variation-id'];
+    if (isset($_REQUEST['lp-variation-id'])) {
+        $_SESSION['lp_ab_test_open_variation'] = $_REQUEST['lp-variation-id'];
+        $current_variation_id = $_REQUEST['lp-variation-id'];
+        //echo "setting session $current_variation_id";
+    }
+
+    if (isset($_GET['message']) && $_GET['message'] == 1 && isset($_SESSION['lp_ab_test_open_variation'])) {
+        $current_variation_id = $_SESSION['lp_ab_test_open_variation'];
+
+        //echo "here:".$_SESSION['lp_ab_test_open_variation'];
+    }
+
+    if (isset($_GET['ab-action']) && $_GET['ab-action'] == 'delete-variation') {
+        $current_variation_id = 0;
+        $_SESSION['lp_ab_test_open_variation'] = 0;
+    }
+
+    if (!isset($current_variation_id)) $current_variation_id = 0;
+
+    return $current_variation_id;
+}
+
 
 /* LEGACY CALLBACKS -- STILL USED BY SOME OLDER EXTENSIONS AND TEMPLATES */
 function lp_list_feature() {

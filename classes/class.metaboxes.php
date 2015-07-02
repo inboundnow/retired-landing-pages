@@ -388,7 +388,7 @@ class Landing_Pages_Metaboxes {
         echo '<h2 class="nav-tab-wrapper a_b_tabs">';
 
         foreach ($variations as $i => $vid) {
-            $letter = lp_ab_key_to_letter($i);
+            $letter = Landing_Pages_Variations::vid_to_letter( $post->ID , $i);
             ($i < 1) ? $pre = __('Version ', 'landing-pages') : $pre = '';
 
             if ($current_variation_id == $vid && !isset($_GET['new-variation'])) {
@@ -403,7 +403,7 @@ class Landing_Pages_Metaboxes {
             echo '<a href="?post=' . $post->ID . '&lp-variation-id=' . $new_variation_id . '&action=edit&new-variation=1" class="lp-nav-tab nav-tab nav-tab-special-inactive nav-tab-add-new-variation" id="tabs-add-variation">' . __('Add New Variation', 'landing-pages') . '</a>';
         } else {
             $variation_count = $i + 1;
-            $letter = lp_ab_key_to_letter($variation_count);
+            $letter = Landing_Pages_Variations::vid_to_letter( $post->ID, $variation_count);
             echo '<a href="?post=' . $post->ID . '&lp-variation-id=' . $new_variation_id . '&action=edit" class="lp-nav-tab nav-tab nav-tab-special-active" id="tabs-add-variation">' . $letter . '</a>';
         }
         $edit_link = (isset($_GET['lp-variation-id'])) ? '?lp-variation-id=' . $_GET['lp-variation-id'] . '' : '?lp-variation-id=0';
@@ -480,11 +480,11 @@ class Landing_Pages_Metaboxes {
 
                         ?>
 
-                        <div id="lp-variation-<?php echo lp_ab_key_to_letter($key); ?>"
+                        <div id="lp-variation-<?php echo Landing_Pages_Variations::vid_to_letter( $post->ID , $key); ?>"
                              class="bab-variation-row <?php echo $variation_status_class; ?>">
                             <div class='bab-varation-header'>
 								<span class='bab-variation-name'><?php _e('Variation', 'landing-pages'); ?> <span
-                                        class='bab-stat-letter'><?php _e(lp_ab_key_to_letter($key), 'landing-pages'); ?></span>
+                                        class='bab-stat-letter'><?php echo Landing_Pages_Variations::vid_to_letter( $post->ID , $key); ?></span>
                                     <?php
                                     if ($variation_status != 1) {
                                         ?>
@@ -495,7 +495,7 @@ class Landing_Pages_Metaboxes {
 								</span>
 
 
-                                <span class="lp-delete-var-stats" data-letter='<?php echo lp_ab_key_to_letter($key); ?>'
+                                <span class="lp-delete-var-stats" data-letter='<?php echo Landing_Pages_Variations::vid_to_letter( $post->ID , $key); ?>'
                                       data-vid='<?php echo $vid; ?>' rel='<?php echo $post->ID; ?>'
                                       title="<?php _e('Delete this variations stats', 'landing-pages'); ?>"><?php _e('Clear Stats', 'landing-pages'); ?></span>
                             </div>
@@ -640,7 +640,7 @@ class Landing_Pages_Metaboxes {
         );
 
         $custom_css_name = Landing_Pages_Variations::prepare_input_id( 'lp-custom-css' );
-        $custom_css = Landing_Pages_Variations::get_variation_custom_css( $post->ID );
+        $custom_css = Landing_Pages_Variations::get_custom_css( $post->ID );
         echo '<textarea name="'.$custom_css_name.'" id="lp-custom-css" rows="5" cols="30" style="width:100%;">'. $custom_css .'</textarea>';
     }
 
@@ -651,7 +651,7 @@ class Landing_Pages_Metaboxes {
         global $post;
 
         $custom_js_name = Landing_Pages_Variations::prepare_input_id( 'lp-custom-js' );
-        $custom_js = Landing_Pages_Variations::get_variation_custom_js( $post->ID );
+        $custom_js = Landing_Pages_Variations::get_custom_js( $post->ID );
 
         echo '<textarea name="'.$custom_js_name.'" id="lp_custom_js" rows="5" cols="30" style="width:100%;">'.$custom_js.'</textarea>';
     }
@@ -663,13 +663,13 @@ class Landing_Pages_Metaboxes {
         global $post;
 
 
-        if ( !isset($post)  || $post->post_type!='landing-page' ){
+        if (!isset($post) || $post->post_type != 'landing-page') {
             return false;
         }
 
         $screen = get_current_screen();
 
-        $toggle = ( $screen->parent_file != 'edit.php?post_type=landing-page' || $screen->action != 'add' ) ? "display:none" : "";
+        $toggle = ($screen->parent_file != 'edit.php?post_type=landing-page' || $screen->action != 'add') ? "display:none" : "";
 
         $extension_data = lp_get_extension_data();
         $extension_data_cats = Landing_Pages_Load_Extensions::get_template_categories();
@@ -679,29 +679,26 @@ class Landing_Pages_Metaboxes {
         ksort($extension_data_cats);
         $uploads = wp_upload_dir();
         $uploads_path = $uploads['basedir'];
-        $extended_path = $uploads_path.'/landing-pages/templates/';
+        $extended_path = $uploads_path . '/landing-pages/templates/';
 
-        $template =  get_post_meta($post->ID, 'lp-selected-template', true);
-        $template = apply_filters('lp_selected_template',$template);
+        $template = Landing_Pages_Variations::get_current_template($post->ID);
 
         echo "<div class='lp-template-selector-container' style='{$toggle}'>";
         echo "<div class='lp-selection-heading'>";
-        echo "<h1>". __( 'Select Your Landing Page Template!' , 'landing-pages') ."</h1>";
-        echo '<a class="button-secondary" style="display:none;" id="lp-cancel-selection">'. __('Cancel Template Change' , 'landing-pages') .'</a>';
+        echo "<h1>" . __('Select Your Landing Page Template!', 'landing-pages') . "</h1>";
+        echo '<a class="button-secondary" style="display:none;" id="lp-cancel-selection">' . __('Cancel Template Change', 'landing-pages') . '</a>';
         echo "</div>";
         echo '<ul id="template-filter" >';
-        echo '<li class="button-primary button"><a href="#" data-filter=".template-item-boxes">'. __( 'All' , 'landing-pages') .'</a></li>';
-        echo '<li class="button-primary button"><a href="#" data-filter=".theme">'. __( 'Theme' , 'landing-pages' ) .'</a></li>';
+        echo '<li class="button-primary button"><a href="#" data-filter=".template-item-boxes">' . __('All', 'landing-pages') . '</a></li>';
+        echo '<li class="button-primary button"><a href="#" data-filter=".theme">' . __('Theme', 'landing-pages') . '</a></li>';
         $categories = array('Theme');
-        foreach ($extension_data_cats as $cat)
-        {
+        foreach ($extension_data_cats as $cat) {
 
-            $slug = str_replace(' ','-',$cat['value']);
+            $slug = str_replace(' ', '-', $cat['value']);
             $slug = strtolower($slug);
             $cat['value'] = ucwords($cat['value']);
-            if (!in_array($cat['value'],$categories))
-            {
-                echo '<li class="button"><a href="#" data-filter=".'.$slug.'">'.$cat['value'].'</a></li>';
+            if (!in_array($cat['value'], $categories)) {
+                echo '<li class="button"><a href="#" data-filter=".' . $slug . '">' . $cat['value'] . '</a></li>';
                 $categories[] = $cat['value'];
             }
 
@@ -709,17 +706,14 @@ class Landing_Pages_Metaboxes {
         echo "</ul>";
         echo '<div id="templates-container" >';
 
-        foreach ($extension_data as $this_extension=>$data)
-        {
+        foreach ($extension_data as $this_extension => $data) {
 
-            if (substr($this_extension,0,4)=='ext-')
-                continue;
+            if (substr($this_extension, 0, 4) == 'ext-') continue;
 
-            if (isset($data['info']['data_type']) && $data['info']['data_type']=='metabox')
-                continue;
+            if (isset($data['info']['data_type']) && $data['info']['data_type'] == 'metabox') continue;
 
 
-            $cats = explode( ',' , $data['info']['category'] );
+            $cats = explode(',', $data['info']['category']);
             foreach ($cats as $key => $cat) {
                 $cat = trim($cat);
                 $cat = str_replace(' ', '-', $cat);
@@ -730,26 +724,26 @@ class Landing_Pages_Metaboxes {
 
             $thumb = false;
             // Get Thumbnail
-            if (file_exists(LANDINGPAGES_PATH.'templates/'.$this_extension."/thumbnail.png")) {
-                if ($this_extension=='default') {
+            if (file_exists(LANDINGPAGES_PATH . 'templates/' . $this_extension . "/thumbnail.png")) {
+                if ($this_extension == 'default') {
 
-                    $thumbnail =  get_bloginfo('template_directory')."/screenshot.png";
+                    $thumbnail = get_bloginfo('template_directory') . "/screenshot.png";
 
                 } else {
 
-                    $thumbnail = LANDINGPAGES_URLPATH.'templates/'.$this_extension."/thumbnail.png";
+                    $thumbnail = LANDINGPAGES_URLPATH . 'templates/' . $this_extension . "/thumbnail.png";
 
                 }
                 $thumb = true;
             }
 
-            if (file_exists(LANDINGPAGES_UPLOADS_PATH.$this_extension."/thumbnail.png")) {
-                $thumbnail = LANDINGPAGES_UPLOADS_URLPATH.$this_extension."/thumbnail.png";
+            if (file_exists(LANDINGPAGES_UPLOADS_PATH . $this_extension . "/thumbnail.png")) {
+                $thumbnail = LANDINGPAGES_UPLOADS_URLPATH . $this_extension . "/thumbnail.png";
                 $thumb = true;
             }
 
             if ($thumb === false) {
-                $thumbnail = LANDINGPAGES_URLPATH.'templates/default/thumbnail.png';
+                $thumbnail = LANDINGPAGES_URLPATH . 'templates/default/thumbnail.png';
 
             }
             $demo_link = (isset($data['info']['demo'])) ? $data['info']['demo'] : '';
@@ -757,13 +751,19 @@ class Landing_Pages_Metaboxes {
             <div id='template-item' class="<?php echo $cat_slug; ?> template-item-boxes">
                 <div id="template-box">
                     <div class="lp_tooltip_templates" title="<?php echo $data['info']['description']; ?>"></div>
-                    <a class='lp_select_template' href='#' label='<?php echo $data['info']['label']; ?>' id='<?php echo $this_extension; ?>'>
-                        <img src="<?php echo $thumbnail; ?>" class='template-thumbnail' alt="<?php echo $data['info']['label']; ?>" id='lp_<?php echo $this_extension; ?>'>
+                    <a class='lp_select_template' href='#' label='<?php echo $data['info']['label']; ?>'
+                       id='<?php echo $this_extension; ?>'>
+                        <img src="<?php echo $thumbnail; ?>" class='template-thumbnail'
+                             alt="<?php echo $data['info']['label']; ?>" id='lp_<?php echo $this_extension; ?>'>
                     </a>
+
                     <p>
+
                     <div id="template-title"><?php echo $data['info']['label']; ?></div>
-                    <a href='#' label='<?php echo $data['info']['label']; ?>' id='<?php echo $this_extension; ?>' class='lp_select_template'><?php _e( 'Select' , 'landing-pages'); ?></a> |
-                    <a class='<?php echo $cat_slug;?>' target="_blank" href='<?php echo $demo_link;?>' id='lp_preview_this_template'><?php _e( 'Preview' , 'landing-pages'); ?></a>
+                    <a href='#' label='<?php echo $data['info']['label']; ?>' id='<?php echo $this_extension; ?>'
+                       class='lp_select_template'><?php _e('Select', 'landing-pages'); ?></a> |
+                    <a class='<?php echo $cat_slug;?>' target="_blank" href='<?php echo $demo_link;?>'
+                       id='lp_preview_this_template'><?php _e('Preview', 'landing-pages'); ?></a>
                     </p>
                 </div>
             </div>
@@ -772,7 +772,7 @@ class Landing_Pages_Metaboxes {
         echo '</div>';
         echo "<div class='clear'></div>";
         echo "</div>";
-        echo "<div style='display:none;' class='currently_selected'>". __( 'This is Currently Selected' , 'landing-pages') ."</a></div>";
+        echo "<div style='display:none;' class='currently_selected'>" . __('This is Currently Selected', 'landing-pages') . "</a></div>";
     }
 
     /**

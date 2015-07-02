@@ -61,8 +61,7 @@ function lp_admin_enqueue($hook) {
 
 			$template_data = lp_get_extension_data();
 			$template_data = json_encode($template_data);
-			$template = get_post_meta($post->ID, 'lp-selected-template', true);
-			$template = apply_filters('lp_selected_template',$template);
+			$template = Landing_Pages_Variations::get_current_template( $post->ID );
 			$template = strtolower($template);
 			$params = array('selected_template'=>$template, 'templates'=>$template_data);
 			wp_localize_script('lp-js-metaboxes', 'data', $params);

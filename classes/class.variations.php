@@ -336,7 +336,7 @@ if (!class_exists('Landing_Pages_Variations')) {
          *
          * @return STRING $custom_css.
          */
-        public static function get_variation_custom_css($landing_page_id, $variation_id = null) {
+        public static function get_custom_css($landing_page_id, $variation_id = null) {
 
             if ($variation_id === null) {
                 $variation_id = Landing_Pages_Variations::get_current_variation_id();
@@ -354,7 +354,7 @@ if (!class_exists('Landing_Pages_Variations')) {
          *
          * @return STRING $custom_js.
          */
-        public static function get_variation_custom_js($landing_page_id, $variation_id = null) {
+        public static function get_custom_js($landing_page_id, $variation_id = null) {
 
             if ($variation_id === null) {
                 $variation_id = Landing_Pages_Variations::get_current_variation_id();
@@ -662,7 +662,7 @@ if (!class_exists('Landing_Pages_Variations')) {
         public static function append_variation_id_to_url($link) {
             global $post;
 
-            if (!isset($post) || $post->post_type != 'inbound-email') {
+            if (!isset($post) || $post->post_type != 'landing-pages') {
                 return $link;
             }
 
@@ -693,7 +693,7 @@ if (!class_exists('Landing_Pages_Variations')) {
                 $i++;
             }
 
-            $alphabet = array(__('A', 'inbound-email'), __('B', 'inbound-email'), __('C', 'inbound-email'), __('D', 'inbound-email'), __('E', 'inbound-email'), __('F', 'inbound-email'), __('G', 'inbound-email'), __('H', 'inbound-email'), __('I', 'inbound-email'), __('J', 'inbound-email'), __('K', 'inbound-email'), __('L', 'inbound-email'), __('M', 'inbound-email'), __('N', 'inbound-email'), __('O', 'inbound-email'), __('P', 'inbound-email'), __('Q', 'inbound-email'), __('R', 'inbound-email'), __('S', 'inbound-email'), __('T', 'inbound-email'), __('U', 'inbound-email'), __('V', 'inbound-email'), __('W', 'inbound-email'), __('X', 'inbound-email'), __('Y', 'inbound-email'), __('Z', 'inbound-email'));
+            $alphabet = array(__('A', 'landing-pages'), __('B', 'landing-pages'), __('C', 'landing-pages'), __('D', 'landing-pages'), __('E', 'landing-pages'), __('F', 'landing-pages'), __('G', 'landing-pages'), __('H', 'landing-pages'), __('I', 'landing-pages'), __('J', 'landing-pages'), __('K', 'landing-pages'), __('L', 'landing-pages'), __('M', 'landing-pages'), __('N', 'landing-pages'), __('O', 'landing-pages'), __('P', 'landing-pages'), __('Q', 'landing-pages'), __('R', 'landing-pages'), __('S', 'landing-pages'), __('T', 'landing-pages'), __('U', 'landing-pages'), __('V', 'landing-pages'), __('W', 'landing-pages'), __('X', 'landing-pages'), __('Y', 'landing-pages'), __('Z', 'landing-pages'));
 
             if (isset($alphabet[$i])) {
                 return $alphabet[$i];
