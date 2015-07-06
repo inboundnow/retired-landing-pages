@@ -88,6 +88,7 @@ if (isset($_GET['page']) && ($_GET['page'] == 'lp_templates_upload' || $_GET['pa
 
             $this->singular = 'ID';
             $this->plural = 'ID';
+            $this->screen = get_current_screen();
 
             $args = $this->_args;
             //print_r($args);exit;
