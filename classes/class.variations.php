@@ -401,6 +401,33 @@ if (!class_exists('Landing_Pages_Variations')) {
         }
 
         /*
+        * Looks up the variation id we should use for prepopulating settings on cloned variations and new variations
+        *
+        * @returns INT of variation id
+        */
+        public static function get_new_variation_reference_id( $landing_page_id , $variation_id = null ) {
+            global $post;
+
+            /* if no variation set look for variation */
+            if (!isset($variation_id)) {
+                $variation_id = Landing_Pages_Variations::get_current_variation_id();
+            }
+
+            /* listen for new variation */
+            if (isset($_REQUEST['new-variation']) && !isset($_REQUEST['clone'])) {
+                $variations = Landing_Pages_Variations::get_variations( $landing_page_id );
+                $variation_id = key($variations);
+            }
+
+            /* listen for clone variation */
+            if (isset($_REQUEST['new-variation']) && isset($_REQUEST['clone'])) {
+                $variation_id = $_REQUEST['clone'];
+            }
+
+            return $variation_id;
+        }
+
+        /*
         * Gets the next available variation id
         *
         * @returns INT of variation id

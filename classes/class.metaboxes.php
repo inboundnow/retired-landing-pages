@@ -29,7 +29,7 @@ class Landing_Pages_Metaboxes {
         add_filter( 'wp_default_editor', array( __CLASS__  , 'filter_default_wysiwyg_view' ) );
 
         /* get selected template metabox html */
-        add_action( 'wp_ajax_lp_get_template_meta' , array( __CLASS__ , 'ajax_get_temaplte_metabox_html' ));
+        add_action( 'wp_ajax_lp_get_template_meta' , array( __CLASS__ , 'ajax_get_template_metabox_html' ));
 
         /* hidden select template container */
         add_action('admin_notices', array( __CLASS__ , 'display_select_template_container' ) );
@@ -160,59 +160,6 @@ class Landing_Pages_Metaboxes {
                 array('key' => $key)
             );
         }
-    }
-
-    /**
-     * Save Landing Page
-     */
-    public static function save_landing_page( $landing_page_id ) {
-        global $post;
-
-        if ( wp_is_post_revision( $landing_page_id ) ) {
-            return;
-        }
-
-        if (  !isset($_POST['post_type']) || $_POST['post_type'] != 'landing-page' ) {
-            return;
-        }
-
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
-            return;
-        }
-
-
-        $variations = Landing_Pages_Variations::get_variations( $landing_page_id );
-        $variation_id = (isset($_REQUEST['lp-variation-id'])) ? $_REQUEST['lp-variation-id'] : '0';
-        $_SESSION['lp_ab_test_open_variation'] = $variation_id;
-        if (!in_array( $variation_id , $variations) ) {
-            $variations[] = $variation_id;
-        }
-        Landing_Pages_Variations::update_variations( $landing_page_id , $variations );
-
-
-        /* save all post data */
-        $ignore_list = array('post_status', 'post_type', 'tax_input', 'post_author', 'user_ID', 'post_ID', 'landing-page-myeditor',  'catslist', 'post_title', 'samplepermalinknonce', 'autosavenonce', 'action', 'autosave', 'mm', 'jj', 'aa', 'hh', 'mn', 'ss', '_wp_http_referer', 'lp-variation-id', '_wpnonce', 'originalaction', 'original_post_status', 'referredby', '_wp_original_http_referer', 'meta-box-order-nonce', 'closedpostboxesnonce', 'hidden_post_status', 'hidden_post_password', 'hidden_post_visibility', 'visibility', 'post_password', 'hidden_mm', 'cur_mm', 'hidden_jj', 'cur_jj', 'hidden_aa', 'cur_aa', 'hidden_hh', 'cur_hh', 'hidden_mn', 'cur_mn', 'original_publish', 'save', 'newlanding_page_category', 'newlanding_page_category_parent', '_ajax_nonce-add-landing_page_category', 'lp_lp_custom_fields_nonce', 'post_mime_type', 'ID', 'comment_status', 'ping_status');
-        foreach ($_REQUEST as $key => $value) {
-
-            if (in_array( $key , $ignore_list) ) {
-                continue;
-            }
-
-            if ( $variation_id > 0 && !strstr( $key, "-{$variation_id}")) {
-                $key = $key . '-' . $variation_id;
-            }
-
-            update_post_meta( $landing_page_id  , $key , $value );
-        }
-
-        /* save conversion area */
-        if(isset($_REQUEST['landing-page-myeditor'])) {
-
-            $conversion_area = wpautop($_REQUEST['landing-page-myeditor']);
-            $conversion_area_key = Landing_Pages_Variations::prepare_input_id( 'lp-conversion-area' , $variation_id );
-            update_post_meta( $landing_page_id , $conversion_area_key , $conversion_area);
-        }
-
     }
 
     /**
@@ -371,6 +318,12 @@ class Landing_Pages_Metaboxes {
     public static function display_variations_nav_metabox() {
         global $post;
 
+        global $post;
+
+        if ( !isset($post) || $post->post_type!='landing-page') {
+            return;
+        }
+
         $current_variation_id = Landing_Pages_Variations::get_current_variation_id($post->ID);
 
         echo "<input type='hidden' id='open_variation' value='{$current_variation_id}'>";
@@ -423,7 +376,7 @@ class Landing_Pages_Metaboxes {
         $variations = Landing_Pages_Variations::get_variations($post->ID);
 
         $variations = array_filter($variations,'is_numeric');
-        print_r($variations);
+
         ?>
         <div>
             <style type="text/css">
@@ -997,7 +950,7 @@ class Landing_Pages_Metaboxes {
     /**
      * Ajax listener to get template settings html
      */
-    public static function ajax_get_temaplte_metabox_html() {
+    public static function ajax_get_template_metabox_html() {
         global $wpdb;
 
         $current_template = $_POST['selected_template'];
@@ -1010,6 +963,66 @@ class Landing_Pages_Metaboxes {
         self::display_extended_metabox($post, $args);
         die();
     }
+
+
+    /**
+     * Save Landing Page
+     */
+    public static function save_landing_page( $landing_page_id ) {
+        global $post;
+
+        if ( wp_is_post_revision( $landing_page_id ) ) {
+            return;
+        }
+
+        if (  !isset($_POST['post_type']) || $_POST['post_type'] != 'landing-page' ) {
+            return;
+        }
+
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
+            return;
+        }
+
+
+        $variations = Landing_Pages_Variations::get_variations( $landing_page_id );
+        $variation_id = (isset($_REQUEST['lp-variation-id'])) ? $_REQUEST['lp-variation-id'] : '0';
+        $_SESSION['lp_ab_test_open_variation'] = $variation_id;
+        if (!in_array( $variation_id , $variations) ) {
+            $variations[] = $variation_id;
+        }
+        Landing_Pages_Variations::update_variations( $landing_page_id , $variations );
+
+
+        /* save all post data */
+        $ignore_list = array( 'acf' , 'post_status', 'post_type', 'tax_input', 'post_author', 'user_ID', 'post_ID', 'landing-page-myeditor',  'catslist', 'post_title', 'samplepermalinknonce', 'autosavenonce', 'action', 'autosave', 'mm', 'jj', 'aa', 'hh', 'mn', 'ss', '_wp_http_referer', 'lp-variation-id', '_wpnonce', 'originalaction', 'original_post_status', 'referredby', '_wp_original_http_referer', 'meta-box-order-nonce', 'closedpostboxesnonce', 'hidden_post_status', 'hidden_post_password', 'hidden_post_visibility', 'visibility', 'post_password', 'hidden_mm', 'cur_mm', 'hidden_jj', 'cur_jj', 'hidden_aa', 'cur_aa', 'hidden_hh', 'cur_hh', 'hidden_mn', 'cur_mn', 'original_publish', 'save', 'newlanding_page_category', 'newlanding_page_category_parent', '_ajax_nonce-add-landing_page_category', 'lp_lp_custom_fields_nonce', 'post_mime_type', 'ID', 'comment_status', 'ping_status');
+        foreach ($_REQUEST as $key => $value) {
+
+            if (in_array( $key , $ignore_list) ) {
+                continue;
+            }
+
+            if ( $variation_id > 0 && !strstr( $key, "-{$variation_id}")) {
+                $key = $key . '-' . $variation_id;
+            }
+
+            update_post_meta( $landing_page_id  , $key , $value );
+        }
+
+        /* save conversion area */
+        if(isset($_REQUEST['landing-page-myeditor'])) {
+            $conversion_area = wpautop($_REQUEST['landing-page-myeditor']);
+            $conversion_area_key = Landing_Pages_Variations::prepare_input_id( 'lp-conversion-area' , $variation_id );
+            update_post_meta( $landing_page_id , $conversion_area_key , $conversion_area);
+        }
+
+        /* save acf settings - uses our future data array - eventually we will migrate all post meta into this data object */
+        if ( isset($_POST['acf']) ) {
+            $settings = Landing_Pages_Meta::get_settings( $post->ID );
+            $settings['variations'][$variation_id]['acf'] = $_POST['acf'];
+            Landing_Pages_Meta::update_settings( $post->ID , $settings );
+        }
+    }
+
 }
 
 

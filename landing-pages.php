@@ -63,6 +63,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once( LANDINGPAGES_PATH . 'classes/class.activation.upgrade-routines.php');
                     include_once( LANDINGPAGES_PATH . 'classes/class.variations.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.metaboxes.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.acf-integration.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.postmeta.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.global-settings.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.clone.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.extension-updater.php');
@@ -93,6 +95,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 				case false :
 					/* load front-end files */
                     include_once( LANDINGPAGES_PATH . 'classes/class.variations.php');
+                    include_once( LANDINGPAGES_PATH . 'classes/class.acf-integration.php');
+                    include_once( LANDINGPAGES_PATH . 'classes/class.postmeta.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.javascript-frontend.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.post-type.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.track.php');
