@@ -7,7 +7,7 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser
+        - WPBrowser
         - AcceptanceHelper
         - Asserts
     config:
@@ -18,3 +18,8 @@ modules:
             window_size: 1024x768
         PhpBrowser:
             url: 'http://inboundsoon.dev'
+        WPBrowser:
+              url: 'http://inboundsoon.dev'
+              adminUsername: 'admin'
+              adminPassword: 'admin'
+              adminUrl: '/wp-admin'
