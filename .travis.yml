@@ -43,6 +43,10 @@ install:
   
   # make symlink - PhantomJs
   - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/jakoch/phantomjs/phantomjs /usr/bin/phantomjs
+ 
+  # make symlink - Codeception
+  - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/codeception/codeception/src/Codeception/ /usr/bin/codecept
+  - codecept bootstrap
   
   # install Apache
   - sudo apt-get update
@@ -115,7 +119,7 @@ before_script:
 
 script:
   - phpunit
-  - php codecept run 
+  - codecept run 
 
 addons:
   hosts:
