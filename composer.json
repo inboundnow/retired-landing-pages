@@ -24,8 +24,8 @@
     "bin-dir": "tests/bin"
   },
   "require-dev": {
-    "codeception/specify": "~0.3",
 	"badcow/lorem-ipsum": "dev-master",
+    "codeception/specify": "~0.3",
     "lucatume/wp-browser": "dev-master",
     "wp-cli/wp-cli": "*"
   },
