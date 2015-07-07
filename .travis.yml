@@ -118,7 +118,7 @@ before_script:
 
 script:
   - phpunit
-  - codecept run  --debug
+  - codecept run  --debug -vvv
 
 addons:
   hosts:
