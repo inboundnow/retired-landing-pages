@@ -24,10 +24,10 @@
     "bin-dir": "tests/bin"
   },
   "require-dev": {
-	"badcow/lorem-ipsum": "dev-master",
     "codeception/specify": "~0.3",
     "lucatume/wp-browser": "dev-master",
-    "wp-cli/wp-cli": "*"
+    "wp-cli/wp-cli": "*",
+	"badcow/lorem-ipsum": "dev-master",
   },
   "suggest": {
     "codeception/phpbuiltinserver": "Extension to start and stop PHP built-in web server for your tests",
