@@ -65,6 +65,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once( LANDINGPAGES_PATH . 'classes/class.metaboxes.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.acf-integration.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.postmeta.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.template-management.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.wp-list-table.templates.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.global-settings.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.clone.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.extension-updater.php');
@@ -84,7 +86,6 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once( LANDINGPAGES_PATH . 'modules/module.widgets.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.cookies.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.click-tracking.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.templates.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.store.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.customizer.php');
 					//include_once( LANDINGPAGES_PATH . 'classes/class.branching.php');
