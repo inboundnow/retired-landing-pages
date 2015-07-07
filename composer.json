@@ -26,7 +26,7 @@
   "require-dev": {
     "codeception/specify": "~0.3",
 	"badcow/lorem-ipsum": "dev-master",
-	"lucatume/wp-browser": "*",
+	"lucatume/wp-browser": "master@dev",
 	"wp-cli/wp-cli": "*"
   },
   "suggest": {

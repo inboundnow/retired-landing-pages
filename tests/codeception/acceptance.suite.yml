@@ -7,9 +7,10 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - WPBrowser
+        - PhpBrowser
         - AcceptanceHelper
         - Asserts
+        - WPBrowser
     config:
         WebDriver:
             url: 'http://inboundtesting.dev/'
@@ -22,4 +23,4 @@ modules:
               url: 'http://inboundsoon.dev'
               adminUsername: 'admin'
               adminPassword: 'admin'
-              adminUrl: '/wp-admin'
+              adminUrl: 'wp-admin'
