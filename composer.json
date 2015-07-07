@@ -27,7 +27,6 @@
   "require-dev": {
     "codeception/codeception": "~0.3",
     "codeception/specify": "~0.3",
-    "codeception/notifier": "*",
     "lucatume/wp-browser": "dev-master",
     "wp-cli/wp-cli": "*"
   },
