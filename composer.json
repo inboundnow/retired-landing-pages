@@ -18,16 +18,17 @@
     "php": ">=5.4.0",
     "ext-json": "*",
     "ext-mbstring": "*",
-    "phpunit/phpunit": "~4.6.0"
+    "phpunit/phpunit": "~4.6.0",
+	"badcow/lorem-ipsum": "dev-master"
   },
   "config": {
     "bin-dir": "tests/bin"
   },
   "require-dev": {
     "codeception/specify": "~0.3",
+    "codeception/notifier": "*",
     "lucatume/wp-browser": "dev-master",
-    "wp-cli/wp-cli": "*",
-	"badcow/lorem-ipsum": "dev-master"
+    "wp-cli/wp-cli": "*"
   },
   "suggest": {
     "codeception/phpbuiltinserver": "Extension to start and stop PHP built-in web server for your tests",
