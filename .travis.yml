@@ -46,7 +46,7 @@ install:
  
   # make symlink - Codeception
   - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/codeception/codeception/src/Codeception/ /usr/bin/codecept
-  - codecept bootstrap
+  - codecept bootstrap pwd
   
   # install Apache
   - sudo apt-get update
