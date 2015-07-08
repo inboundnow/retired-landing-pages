@@ -45,6 +45,10 @@ install:
   - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/jakoch/phantomjs/phantomjs /usr/bin/phantomjs
  
   # make symlink - Codeception
+  - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/codeception/codeception/codecept /usr/bin/codecept
+  
+  
+  # make symlink - Codeception
   - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/lucatume/wp-browser/wpcept /usr/bin/WPBrowser
   
   # install Apache
