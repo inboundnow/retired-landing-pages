@@ -15,9 +15,3 @@ modules:
             user: ''
             password: ''
             dump: tests/codeception/_data/dump.sql
-extensions:
-    enabled:
-      - Codeception\Extension\EmailNotifier
-    config:
-      Codeception\Extension\EmailNotifier: # per extension config
-          email: hudson@inboundnow.com
