@@ -7,7 +7,7 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser
+        #- PhpBrowser
         - AcceptanceHelper
         - Asserts
         - WPBrowser
