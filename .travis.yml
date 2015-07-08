@@ -47,8 +47,7 @@ install:
   # make symlink - Codeception
   - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/codeception/codeception/codecept /usr/bin/codecept
   
-  
-  # make symlink - Codeception
+  # make symlink - WPBRowser
   - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/lucatume/wp-browser/wpcept /usr/bin/WPBrowser
   
   # install Apache
@@ -122,8 +121,8 @@ before_script:
 
 script:
   - phpunit
-  #- codecept run
-  - codecept run  --debug -vvv
+  - codecept run
+  #- codecept run  --debug -vvv
 
 addons:
   hosts:
