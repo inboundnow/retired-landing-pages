@@ -1,5 +1,8 @@
 <?php
 
+/* load coception addons */
+require '../../../vendor/lucatume/wp-browser/autoload.php';
+
 /* load wp */
 require '../../../wp-load.php';
 require '../../../wp-admin/includes/plugin.php';
