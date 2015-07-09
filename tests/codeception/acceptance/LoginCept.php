@@ -33,7 +33,7 @@ $I->wantTo('Verify landing pages is installed');
 $I->click( '.active a');
 $I->see('Landing Pages');
 $I->seePluginActivated('landing-pages');
-$I->seePluginActivated('cta');
+$I->seePluginActivated('calls-to-action');
 $I->seePluginActivated('leads');
 
 $I->wantTo('Deactivate Landing Pages');
