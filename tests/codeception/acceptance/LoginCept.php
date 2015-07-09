@@ -29,17 +29,20 @@ $I->see('Calls to Action');
 $I->see('Leads');
 
 $I->wantTo('Verify landing pages is installed');
+
 $I->click( '.active a');
 $I->see('Landing Pages');
-$I->see('Calls to Action');
-$I->see('Leads');
+$I->seePluginActivated('landing-pages');
+$I->seePluginActivated('cta');
+$I->seePluginActivated('leads');
 
 $I->wantTo('Deactivate Landing Pages');
 $I->click( '#landing-pages .deactivate a');
-$I->see('deactivated');
+$I->seePluginDeactivated('landing-pages');
 
 $I->wantTo('Reactivate Landing Pages');
 $I->click( '#landing-pages .activate a');
+$I->seePluginActivated('landing-pages');
 
 $I->wantTo('Confirm welcome page');
 $I->see('Welcome to WordPress Landing Pages ');

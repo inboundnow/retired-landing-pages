@@ -10,7 +10,7 @@ modules:
         - PhpBrowser
         - AcceptanceHelper
         - Asserts
-        #- WPBrowser
+        - WPBrowser
     config:
         WebDriver:
             url: 'http://inboundtesting.dev/'
