@@ -37,12 +37,11 @@ $I->seePluginActivated('calls-to-action');
 $I->seePluginActivated('leads');
 
 $I->wantTo('Deactivate Landing Pages');
-$I->click( '#landing-pages .deactivate a');
+$I->deactivatePlugin( 'landing-pages');
 $I->seePluginDeactivated('landing-pages');
 
 $I->wantTo('Reactivate Landing Pages');
-$I->click( '#landing-pages .activate a');
-$I->seePluginActivated('landing-pages');
+$I->activatePlugin( 'landing-pages');
 
 $I->wantTo('Confirm welcome page');
 $I->see('Welcome to WordPress Landing Pages ');
