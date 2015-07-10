@@ -217,7 +217,7 @@ if (!class_exists('Landing_Pages_Variations')) {
          * @param INT $count
          *
          */
-        public static function set_impression_count($landing_page_id, $variation_id, $count) {
+        public static function set_impressions_count($landing_page_id, $variation_id, $count) {
             update_post_meta($landing_page_id, 'lp-ab-variation-impressions-' . $variation_id, $count);
         }
 
@@ -230,7 +230,7 @@ if (!class_exists('Landing_Pages_Variations')) {
          * @param INT $variation_id id of variation
          * @param INT $count
          */
-        public static function set_conversion_count( $landing_page_id , $variation_id , $count) {
+        public static function set_conversions_count( $landing_page_id , $variation_id , $count) {
             update_post_meta($landing_page_id, 'lp-ab-variation--conversions-' . $variation_id , $count);
         }
 
@@ -761,8 +761,8 @@ if (!class_exists('Landing_Pages_Variations')) {
             $landing_page_id = mysql_real_escape_string($_POST['page_id']);
             $vid = $_POST['variation'];
 
-            self::set_impression_count( $landing_page_id , $vid , 0 );
-            self::set_conversion_count( $landing_page_id , $vid , 0 );
+            self::set_impressions_count( $landing_page_id , $vid , 0 );
+            self::set_conversions_count( $landing_page_id , $vid , 0 );
 
             header('HTTP/1.1 200 OK');
         }

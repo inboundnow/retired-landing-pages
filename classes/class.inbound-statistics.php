@@ -190,13 +190,13 @@ if (!class_exists('Inbound_Content_Statistics')) {
             /* If Landing Page Post Type */
             if ( $post_type == 'landing-page' ) {
                 $impressions = Landing_Pages_Variations::get_impressions( $post_id , $variation_id );
-                $impressons++;
-                Landing_Pages_Variations::set_impression_count( $post_id , $variation_id , $impressions );
+                $impressions++;
+                Landing_Pages_Variations::set_impressions_count( $post_id , $variation_id , $impressions );
             }
             /* If Non Landing Page Post Type */
             else {
                 $impressions = Inbound_Content_Statistics::get_impressions_count( $post_id );
-                $impressons++;
+                $impressions++;
                 Inbound_Content_Statistics::set_impressions_count( $post_id );
             }
         }
