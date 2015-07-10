@@ -8,6 +8,7 @@ Tags: landing pages, inbound marketing, conversion pages, split testing, a b tes
 Requires at least: 3.8
 Tested up to: 4.2
 Stable Tag: 1.8.9
+Stable Tag: 1.9.0
 
 Create landing pages for your WordPress site. Monitor and improve conversion rates, run A/B split tests, customize your own templates and more.
 
@@ -72,6 +73,9 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 4. Choose from a ton of pre-made templates, use your existing design, or design your own theme!
 
 == Changelog ==
+= 1.9.0 =
+* New preview views in landing page edit screens
+
 = 1.8.8 =
 * Temporarily disabling geolocation services
 
