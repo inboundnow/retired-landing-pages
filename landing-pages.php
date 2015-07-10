@@ -67,11 +67,11 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once( LANDINGPAGES_PATH . 'classes/class.postmeta.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.template-management.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.wp-list-table.templates.php');
+                    include_once( LANDINGPAGES_PATH . 'classes/class.admin-menus.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.global-settings.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.clone.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.extension-updater.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.extension-licensing.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.admin-menus.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.welcome.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.install.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.alert.php');
