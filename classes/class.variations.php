@@ -9,10 +9,11 @@ if (!class_exists('Landing_Pages_Variations')) {
         }
 
         public static function load_hooks() {
+
             /* load ajax listeners */
             add_action('wp_ajax_lp_clear_stats_action',  array( __CLASS__ , 'ajax_clear_stats' ) );
             add_action('wp_ajax_lp_clear_stats_single', array( __CLASS__ , 'ajax_clear_stats_single'));
-			add_action('wp_ajax_lp_clear_stats_post', array( __CLASS__ , 'ajax_clear_stats_post' ) );
+
         }
 
 
@@ -762,28 +763,10 @@ if (!class_exists('Landing_Pages_Variations')) {
 
             self::set_impression_count( $landing_page_id , $vid , 0 );
             self::set_conversion_count( $landing_page_id , $vid , 0 );
-            echo 'here' . $landing_page_id. ':' . $vid;
+
             header('HTTP/1.1 200 OK');
         }
-		
-		
-		/**
-		 * Adds Ajax for Clear Stats button
-		 * clear stats for non lp post
-		 */
 
-		public static function ajax_clear_stats_post() {
-			global $wpdb;
-
-			$newrules = "0";
-			$post_id = mysql_real_escape_string($_POST['post_id']);
-			$vid = $_POST['variation'];
-
-			update_post_meta($post_id, '_inbound_impressions_count', '0');
-			update_post_meta($post_id, '_inbound_conversions_count', '0');
-
-			header('HTTP/1.1 200 OK');
-		}
     }
 
     $GLOBALS['Landing_Pages_Variations'] = new Landing_Pages_Variations();

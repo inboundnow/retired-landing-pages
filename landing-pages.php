@@ -68,6 +68,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once( LANDINGPAGES_PATH . 'classes/class.template-management.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.wp-list-table.templates.php');
                     include_once( LANDINGPAGES_PATH . 'classes/class.admin-menus.php');
+                    include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.global-settings.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.clone.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.extension-updater.php');
@@ -78,7 +79,6 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once( LANDINGPAGES_PATH . 'modules/module.landing-page.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.load-extensions.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.post-type.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.track.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.ajax-setup.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.utils.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.sidebar.php');
@@ -97,9 +97,9 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
                     include_once( LANDINGPAGES_PATH . 'classes/class.variations.php');
                     include_once( LANDINGPAGES_PATH . 'classes/class.acf-integration.php');
                     include_once( LANDINGPAGES_PATH . 'classes/class.postmeta.php');
+                    include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.javascript-frontend.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.post-type.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.track.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.ajax-setup.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.utils.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.sidebar.php');
@@ -138,7 +138,6 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			load_plugin_textdomain( 'landing-pages' , false , LANDINGPAGES_PLUGIN_SLUG . '/lang/' );
 		}
 
-		/* START PHP VERSION CHECKS */
 		/**
 		 * Admin notices, collected and displayed on proper action
 		 *
