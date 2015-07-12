@@ -228,6 +228,7 @@ if (!class_exists('Inbound_Content_Statistics')) {
                 $conversions = Landing_Pages_Variations::get_conversions( $data['page_id'] , $data['variation'] );
                 $conversions++;
                 Landing_Pages_Variations::set_conversions_count( $data['page_id'] , $data['variation'] , $conversions );
+
             }
             /* increment conversions for non landing pages */
             else  {

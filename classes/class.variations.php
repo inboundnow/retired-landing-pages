@@ -231,7 +231,7 @@ if (!class_exists('Landing_Pages_Variations')) {
          * @param INT $count
          */
         public static function set_conversions_count( $landing_page_id , $variation_id , $count) {
-            update_post_meta($landing_page_id, 'lp-ab-variation--conversions-' . $variation_id , $count);
+            update_post_meta($landing_page_id, 'lp-ab-variation-conversions-' . $variation_id , $count);
         }
 
         /**
