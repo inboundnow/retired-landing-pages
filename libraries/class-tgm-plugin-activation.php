@@ -623,7 +623,7 @@ if ( ! class_exists( 'INBOUND_Plugin_Activation' ) ) {
          */
         public function install_plugins_page() {
             // Store new instance of plugin table in object.
-            $plugin_table = new TGMPA_List_Table;
+            $plugin_table = new INBOUND_TGMPA_List_Table;
 
             // Return early if processing a plugin installation action.
             if ( ( ( 'tgmpa-bulk-install' === $plugin_table->current_action() || 'tgmpa-bulk-update' === $plugin_table->current_action() ) && $plugin_table->process_bulk_actions() ) || $this->do_plugin_install() ) {
@@ -1915,7 +1915,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
     require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
-if ( ! class_exists( 'TGMPA_List_Table' ) ) {
+if ( ! class_exists( 'INBOUND_TGMPA_List_Table' ) ) {
 
     /**
      * List table class for handling plugins.
@@ -1934,7 +1934,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
      * @author  Thomas Griffin
      * @author  Gary Jones
      */
-    class TGMPA_List_Table extends WP_List_Table {
+    class INBOUND_TGMPA_List_Table extends WP_List_Table {
         /**
          * TGMPA instance.
          *
@@ -2697,9 +2697,9 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
                 }
                 unset( $slug, $name, $source );
 
-                // Create a new instance of TGM_Bulk_Installer.
-                $installer = new TGM_Bulk_Installer(
-                    new TGM_Bulk_Installer_Skin(
+                // Create a new instance of INBOUND_TGM_Bulk_Installer.
+                $installer = new INBOUND_TGM_Bulk_Installer(
+                    new INBOUND_TGM_Bulk_Installer_Skin(
                         array(
                             'url'          => esc_url_raw( $this->tgmpa->get_tgmpa_url() ),
                             'nonce'        => 'bulk-' . $this->_args['plural'],
@@ -2870,7 +2870,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
                 require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
             }
 
-            if ( ! class_exists( 'TGM_Bulk_Installer' ) ) {
+            if ( ! class_exists( 'INBOUND_TGM_Bulk_Installer' ) ) {
 
                 /**
                  * Installer class to handle bulk plugin installations.
@@ -2886,7 +2886,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
                  * @author  Thomas Griffin
                  * @author  Gary Jones
                  */
-                class TGM_Bulk_Installer extends Plugin_Upgrader {
+                class INBOUND_TGM_Bulk_Installer extends Plugin_Upgrader {
                     /**
                      * Holds result of bulk plugin installation.
                      *
@@ -3192,7 +3192,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
                 }
             }
 
-            if ( ! class_exists( 'TGM_Bulk_Installer_Skin' ) ) {
+            if ( ! class_exists( 'INBOUND_TGM_Bulk_Installer_Skin' ) ) {
 
                 /**
                  * Installer skin to set strings for the bulk plugin installations..
@@ -3208,7 +3208,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
                  * @author  Thomas Griffin
                  * @author  Gary Jones
                  */
-                class TGM_Bulk_Installer_Skin extends Bulk_Upgrader_Skin {
+                class INBOUND_TGM_Bulk_Installer_Skin extends Bulk_Upgrader_Skin {
                     /**
                      * Holds plugin info for each individual plugin installation.
                      *
