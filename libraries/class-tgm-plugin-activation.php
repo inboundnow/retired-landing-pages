@@ -1079,7 +1079,7 @@ if ( ! class_exists( 'INBOUND_Plugin_Activation' ) ) {
                     unset( $plugin_slug );
 
                     $count          = count( $plugin_group );
-                    $linked_plugins = array_map( array( 'TGM_Utils', 'wrap_in_em' ), $linked_plugins );
+                    $linked_plugins = array_map( array( 'INBOUND_TGM_Utils', 'wrap_in_em' ), $linked_plugins );
                     $last_plugin    = array_pop( $linked_plugins ); // Pop off last name to prep for readability.
                     $imploded       = empty( $linked_plugins ) ? $last_plugin : ( implode( ', ', $linked_plugins ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'tgmpa' ) . ' ' . $last_plugin );
 
@@ -1229,9 +1229,9 @@ if ( ! class_exists( 'INBOUND_Plugin_Activation' ) ) {
             // Forgive users for using string versions of booleans or floats for version number.
             $plugin['version']            = (string) $plugin['version'];
             $plugin['source']             = empty( $plugin['source'] ) ? 'repo' : $plugin['source'];
-            $plugin['required']           = TGM_Utils::validate_bool( $plugin['required'] );
-            $plugin['force_activation']   = TGM_Utils::validate_bool( $plugin['force_activation'] );
-            $plugin['force_deactivation'] = TGM_Utils::validate_bool( $plugin['force_deactivation'] );
+            $plugin['required']           = INBOUND_TGM_Utils::validate_bool( $plugin['required'] );
+            $plugin['force_activation']   = INBOUND_TGM_Utils::validate_bool( $plugin['force_activation'] );
+            $plugin['force_deactivation'] = INBOUND_TGM_Utils::validate_bool( $plugin['force_deactivation'] );
 
             // Enrich the received data.
             $plugin['file_path']   = $this->_get_plugin_basename_from_slug( $plugin['slug'] );
@@ -2776,7 +2776,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
                     echo '<div id="message" class="error"><p>', wp_kses_post( $activate->get_error_message() ), '</p></div>';
                 } else {
                     $count        = count( $plugin_names ); // Count so we can use _n function.
-                    $plugin_names = array_map( array( 'TGM_Utils', 'wrap_in_strong' ), $plugin_names );
+                    $plugin_names = array_map( array( 'INBOUND_TGM_Utils', 'wrap_in_strong' ), $plugin_names );
                     $last_plugin  = array_pop( $plugin_names ); // Pop off last name to prep for readability.
                     $imploded     = empty( $plugin_names ) ? $last_plugin : ( implode( ', ', $plugin_names ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'tgmpa' ) . ' ' . $last_plugin );
 
@@ -3413,7 +3413,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
     }
 }
 
-if ( ! class_exists( 'TGM_Utils' ) ) {
+if ( ! class_exists( 'INBOUND_TGM_Utils' ) ) {
 
     /**
      * Generic utilities for TGMPA.
@@ -3425,7 +3425,7 @@ if ( ! class_exists( 'TGM_Utils' ) ) {
      * @package TGM-Plugin-Activation
      * @author  Juliette Reinders Folmer
      */
-    class TGM_Utils {
+    class INBOUND_TGM_Utils {
         /**
          * Whether the PHP filter extension is enabled.
          *
@@ -3536,5 +3536,5 @@ if ( ! class_exists( 'TGM_Utils' ) ) {
 
             return false;
         }
-    } // End of class TGM_Utils
+    } // End of class INBOUND_TGM_Utils
 } // End of class_exists wrapper
