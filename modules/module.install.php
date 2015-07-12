@@ -187,6 +187,6 @@ function lp_install_register_required_plugins() {
         )
     );
 
-    tgmpa( $plugins, $config );
+    inbound_activate( $plugins, $config );
 
 }

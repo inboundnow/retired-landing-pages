@@ -43,7 +43,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
+if ( ! class_exists( 'INBOUND_Plugin_Activation' ) ) {
 
     /**
      * Automatic plugin installation and activation library.
@@ -58,7 +58,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
      * @author  Thomas Griffin
      * @author  Gary Jones
      */
-    class TGM_Plugin_Activation {
+    class INBOUND_Plugin_Activation {
         /**
          * TGMPA version number.
          *
@@ -91,7 +91,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
          *
          * @since 1.0.0
          *
-         * @var TGM_Plugin_Activation
+         * @var INBOUND_Plugin_Activation
          */
         public static $instance;
 
@@ -258,7 +258,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
          *
          * @since 1.0.0
          *
-         * @see TGM_Plugin_Activation::init()
+         * @see INBOUND_Plugin_Activation::init()
          */
         protected function __construct() {
             // Set the current WordPress version.
@@ -278,9 +278,9 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
          *
          * @since 2.0.0
          *
-         * @see TGM_Plugin_Activation::admin_menu()
-         * @see TGM_Plugin_Activation::notices()
-         * @see TGM_Plugin_Activation::styles()
+         * @see INBOUND_Plugin_Activation::admin_menu()
+         * @see INBOUND_Plugin_Activation::notices()
+         * @see INBOUND_Plugin_Activation::styles()
          */
         public function init() {
             /**
@@ -565,8 +565,8 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
          *
          * @since 1.0.0
          *
-         * @see TGM_Plugin_Activation::init()
-         * @see TGM_Plugin_Activation::install_plugins_page()
+         * @see INBOUND_Plugin_Activation::init()
+         * @see INBOUND_Plugin_Activation::install_plugins_page()
          *
          * @return null Return early if user lacks capability to install a plugin.
          */
@@ -1855,7 +1855,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
          *
          * @since 2.4.0
          *
-         * @return object The TGM_Plugin_Activation object.
+         * @return object The INBOUND_Plugin_Activation object.
          */
         public static function get_instance() {
             if ( ! isset( self::$instance ) && ! ( self::$instance instanceof self ) ) {
@@ -1871,7 +1871,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
          * Ensure only one instance of the class is ever invoked.
          */
         function load_tgm_plugin_activation() {
-            $GLOBALS['tgmpa'] = TGM_Plugin_Activation::get_instance();
+            $GLOBALS['tgmpa'] = INBOUND_Plugin_Activation::get_instance();
         }
     }
 
@@ -1882,7 +1882,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
     }
 }
 
-if ( ! function_exists( 'tgmpa' ) ) {
+if ( ! function_exists( 'inbound_activate' ) ) {
     /**
      * Helper function to register a collection of required plugins.
      *
@@ -1892,7 +1892,7 @@ if ( ! function_exists( 'tgmpa' ) ) {
      * @param array $plugins An array of plugin arrays.
      * @param array $config  Optional. An array of configuration values.
      */
-    function tgmpa( $plugins, $config = array() ) {
+    function inbound_activate( $plugins, $config = array() ) {
         $instance = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
 
         foreach ( $plugins as $plugin ) {
@@ -2831,15 +2831,15 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
          * Retrieve plugin data, given the plugin name.
          *
          * @since      2.2.0
-         * @deprecated 2.5.0 use {@see TGM_Plugin_Activation::_get_plugin_data_from_name()} instead.
-         * @see        TGM_Plugin_Activation::_get_plugin_data_from_name()
+         * @deprecated 2.5.0 use {@see INBOUND_Plugin_Activation::_get_plugin_data_from_name()} instead.
+         * @see        INBOUND_Plugin_Activation::_get_plugin_data_from_name()
          *
          * @param string $name Name of the plugin, as it was registered.
          * @param string $data Optional. Array key of plugin data to return. Default is slug.
          * @return string|boolean Plugin slug if found, false otherwise.
          */
         protected function _get_plugin_data_from_name( $name, $data = 'slug' ) {
-            _deprecated_function( __FUNCTION__, 'TGMPA 2.5.0', 'TGM_Plugin_Activation::_get_plugin_data_from_name()' );
+            _deprecated_function( __FUNCTION__, 'TGMPA 2.5.0', 'INBOUND_Plugin_Activation::_get_plugin_data_from_name()' );
 
             return $this->tgmpa->_get_plugin_data_from_name( $name, $data );
         }
