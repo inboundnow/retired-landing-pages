@@ -64,6 +64,9 @@ display: none;
 #setting-error-tgmpa p {
 	text-decoration: bold;
 }
+.appearance_page_install-inbound-plugins .inbound-install-notice {
+ display: none;
+}
 #setting-error-tgmpa p:nth-last-child(2), #setting-error-tgmpa a, #setting-error-tgmpa strong {
 	text-decoration: normal;
 }
