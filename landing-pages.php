@@ -83,7 +83,6 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once( LANDINGPAGES_PATH . 'modules/module.sidebar.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.widgets.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.cookies.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.click-tracking.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.store.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.customizer.php');
 					//include_once( LANDINGPAGES_PATH . 'classes/class.branching.php');
@@ -97,13 +96,13 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
                     include_once( LANDINGPAGES_PATH . 'classes/class.acf-integration.php');
                     include_once( LANDINGPAGES_PATH . 'classes/class.postmeta.php');
                     include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.click-tracking.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.javascript-frontend.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.post-type.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.utils.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.sidebar.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.widgets.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.cookies.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.click-tracking.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.landing-page.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.load-extensions.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.customizer.php');
