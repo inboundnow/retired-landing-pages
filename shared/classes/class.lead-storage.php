@@ -163,7 +163,7 @@ if (!class_exists('LeadStorage')) {
 
 				/* Store IP addresss & Store GEO Data */
 				if ($lead['ip_address']) {
-                    update_post_meta( $lead['id'], 'wpleads_ip_address', $lead['ip_address'] );
+                    update_post_meta( $lead['id'], 'wpleads_ip_address', $lead['ip_address'] ); 
 					//self::store_geolocation_data($lead);
 				}
 
@@ -415,7 +415,6 @@ if (!class_exists('LeadStorage')) {
 			}
 
 			$new_record[ $lead['ip_address'] ]['ip_address'] = $lead['ip_address'];
-
 
 			/* ignore for local environments */
 			if ($lead['ip_address']!= "127.0.0.1"){ // exclude localhost
