@@ -134,7 +134,7 @@ function lp_install_register_required_plugins() {
 
         // This is an example of how to include a plugin from the WordPress Plugin Repository
         array(
-            'name'      => __('WordPress Leads' , 'landing-pages') .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will give you the ability to track and manage incoming web leads. Gather advanced Lead Intelligence and close more deals.' , 'landing-pages') .'</span>',
+            'name'      => __('WordPress Leads' , 'landing-pages') .' <span class=\'inbound-install-notice\'> - '. __('This <b>free</b> landing page addon will give you the ability to track and manage incoming web leads. Gather advanced Lead Intelligence and close more deals.', 'landing-pages') .'</span>',
             'slug'      => 'leads',
             'required'  => false,
         ),

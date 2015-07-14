@@ -1081,7 +1081,8 @@ if ( ! class_exists( 'INBOUND_Plugin_Activation' ) ) {
                     $count          = count( $plugin_group );
                     $linked_plugins = array_map( array( 'INBOUND_TGM_Utils', 'wrap_in_em' ), $linked_plugins );
                     $last_plugin    = array_pop( $linked_plugins ); // Pop off last name to prep for readability.
-                    $imploded       = empty( $linked_plugins ) ? $last_plugin : ( implode( ', ', $linked_plugins ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'tgmpa' ) . ' ' . $last_plugin );
+
+                    $imploded       = empty( $linked_plugins ) ? $last_plugin : ( implode( ', ', $linked_plugins ) . ' <span class="inbound-and">and</span>' . ' ' . $last_plugin );
 
                     $rendered .= sprintf(
                         $line_template,
