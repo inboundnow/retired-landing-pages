@@ -269,5 +269,7 @@ if (is_admin()) {
 /**
  * Add namespaces for legacy classes to try and prevent fatals
  */
-class LP_EXTENSION_UPDATER { };
-class LP_EXTENSION_LICENSENING { };
+if (!class_exists('LP_EXTENSION_UPDATER') ){
+    class LP_EXTENSION_UPDATER { };
+    class LP_EXTENSION_LICENSENING { };
+}
