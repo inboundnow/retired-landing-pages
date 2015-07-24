@@ -70,8 +70,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
                     include_once( LANDINGPAGES_PATH . 'classes/class.admin-menus.php');
                     include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
                     include_once( LANDINGPAGES_PATH . 'classes/class.admin-notices.php');
+                    include_once( LANDINGPAGES_PATH . 'classes/class.cloning.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.global-settings.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.clone.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.extension-updater.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.extension-licensing.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.welcome.php');
