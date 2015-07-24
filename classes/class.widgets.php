@@ -86,8 +86,6 @@ class LP_Widget_Conversion_Area extends WP_Widget {
             <?php _e("This box will render the landing page conversion area on the 'default' template.", 'landing-pages'); ?>
         </p>
 
-    <?php
+        <?php
     }
 }
-
-?>
