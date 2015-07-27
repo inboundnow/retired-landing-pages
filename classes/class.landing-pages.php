@@ -1,144 +1,225 @@
 <?php
 
+/**
+ * Class Landing_Pages_Loader
+ * Loads landing page elements
+ */
 
-add_filter('wp_title', 'lp_ab_testing_alter_title_area', 9, 2);
-add_filter('the_title', 'lp_ab_testing_alter_title_area', 10, 2);
-add_filter('get_the_title', 'lp_ab_testing_alter_title_area', 10, 2);
-function lp_ab_testing_alter_title_area($content, $id = null) {
-    global $post;
+class Landing_Pages_Template_Switcher {
 
-    if (!isset($post)) return $content;
+    /**
+     * Initiate class
+     */
+    public function __construct() {
+        self::add_hooks();
+    }
 
-    if (($post->post_type != 'landing-page' || is_admin()) || $id != $post->ID) return $content;
+    /**
+     * Load hook and filters
+     */
+    public static function add_hooks() {
+        /* Alter the title for landing page to it's administrative title */
+        add_filter('wp_title', array( __CLASS__ , 'display_landing_page_title' ), 9, 2);
+        add_filter('the_title', array( __CLASS__ , 'display_landing_page_title' ) , 10, 2);
+        add_filter('get_the_title', array( __CLASS__ , 'display_landing_page_title' ), 10, 2);
 
-    return lp_main_headline($post, null, true);
-}
+        /* prepare and display landing page content  */
+        add_filter('the_content', array( __CLASS__ , 'display_landing_page_content' ) , 10, 2);
+        add_filter('get_the_content', array( __CLASS__ , 'display_landing_page_content' ) , 10, 2);
 
+        /* prepare conversion area if default template */
+        add_filter('the_content', array( __CLASS__ , 'display_conversion_area' ) , 20);
+        add_filter('get_the_content', array( __CLASS__ , 'display_conversion_area' ), 20);
 
-add_filter('the_content', 'lp_ab_testing_alter_content_area', 10, 2);
-add_filter('get_the_content', 'lp_ab_testing_alter_content_area', 10, 2);
-function lp_ab_testing_alter_content_area($content) {
-    global $post;
+        /* Switch to correct landing page template */
+        add_filter('single_template', array( __CLASS__ , 'switch_template' ), 13);
 
-    if (!isset($post) || $post->post_type != 'landing-page') {
+        /* Load custom CSS and load custom JS */
+        add_action('wp_head', array( __CLASS__ , 'load_custom_js_css' ) );
+
+        /* add conversion area shortcode */
+        add_shortcode('lp_conversion_area', array( __CLASS__ , 'process_conversion_area_shortcode') );
+    }
+
+    /**
+     * Return custom Landing Page headline
+     */
+    public static function display_landing_page_title( $content, $id = null ) {
+        global $post;
+
+        if (!isset($post)) return $content;
+
+        if ( ($post->post_type != 'landing-page' || is_admin()) || $id != $post->ID ) {
+            return $content;
+        }
+
+        return lp_main_headline($post, null, true);
+    }
+
+    /**
+     * Displays landing page content
+     * @param $content
+     * @return string
+     */
+    public static function display_landing_page_content($content) {
+        global $post;
+
+        if (!isset($post) || $post->post_type != 'landing-page') {
+            return $content;
+        }
+
+        $content = Landing_Pages_Variations::get_post_content( $post->ID );
+        $content = do_shortcode( $content );
+
         return $content;
     }
 
-    $content = Landing_Pages_Variations::get_post_content( $post->ID );
-    $content = do_shortcode( $content );
+    /**
+     * display conversion area
+     */
+    public static function display_conversion_area($content) {
 
-    return $content;
-}
+        if ('landing-page' != get_post_type() || is_admin()) {
+            return $content;
+        }
 
-/* LOAD TEMPLATE */
-add_filter('single_template', 'lp_custom_template', 13);
-function lp_custom_template($single) {
-    global $wp_query, $post, $query_string;
+        global $post;
 
-    if ($post->post_type != "landing-page") {
-        return $single;
+        remove_action('the_content', array( __CLASS__ , 'display_conversion_area' ) , 20 );
+
+        $template = Landing_Pages_Variations::get_current_template( $post->ID );
+
+        $my_theme = wp_get_theme($template);
+
+        if ( !$my_theme->exists() &&  $template != 'default') {
+            return $content;
+        }
+
+        $wrapper_class = "";
+
+        $position = Landing_Pages_Variations::get_conversion_area_placement( $post->ID );
+        $conversion_area = lp_conversion_area(null, null, true, true);
+        $conversion_area = "<div id='lp_container' class='$wrapper_class'>" . $conversion_area . "</div>";
+
+        if ($position == 'top') {
+            $content = $conversion_area . $content;
+        } else if ($position == 'bottom') {
+            $content = $content . $conversion_area;
+        } else if ($position == 'widget') {
+            $content = $content;
+        } else {
+            $conversion_area = str_replace("id='lp_container'", "id='lp_container' class='lp_form_$position' style='float:$position'", $conversion_area);
+            $content = $conversion_area . $content;
+
+        }
+
+        return $content;
     }
 
-    $template = Landing_Pages_Variations::get_current_template( $post->ID );
+    /**
+     * Detects if landing page & issues the correct template
+     */
+    public static function switch_template( $single ) {
+        global $wp_query, $post, $query_string;
+
+        if ($post->post_type != "landing-page") {
+            return $single;
+        }
+
+        $template = Landing_Pages_Variations::get_current_template( $post->ID );
 
 
-    if (!isset($template) || $template === 'default' ) {
-        return $single;
+        if (!isset($template) || $template === 'default' ) {
+            return $single;
+        }
+
+        /* check if inactive theme */
+        $my_theme = wp_get_theme( $template );
+        if ($my_theme->exists()) {
+            return $single;
+        }
+
+        /* check if core template first, else assume it's an uploaded template */
+        if (file_exists(LANDINGPAGES_PATH . 'templates/' . $template . '/index.php')) {
+            return LANDINGPAGES_PATH . 'templates/' . $template . '/index.php';
+        } else {
+            return LANDINGPAGES_UPLOADS_PATH . $template . '/index.php';
+        }
+
     }
 
-    /* check if inactive theme */
-    $my_theme = wp_get_theme( $template );
-    if ($my_theme->exists()) {
-        return $single;
-    }
+    /**
+     * load custom CSS & JS
+     */
+    public static function load_custom_js_css() {
+        global $post;
 
-    $template = str_replace('_', '-', $template);
-    $template = str_replace('-slash-', '/', $template);
-
-    /* check if core template first, else assume it's an uploaded template */
-    if (file_exists(LANDINGPAGES_PATH . 'templates/' . $template . '/index.php')) {
-        return LANDINGPAGES_PATH . 'templates/' . $template . '/index.php';
-    } else {
-        return LANDINGPAGES_UPLOADS_PATH . $template . '/index.php';
-    }
-
-}
-
-
-/* LOAD & PRINT CUSTOM JS AND CSS */
-add_action('wp_head', 'landing_pages_insert_custom_head');
-function landing_pages_insert_custom_head() {
-    global $post;
-
-    if (isset($post) && 'landing-page' == $post->post_type) {
+        if ( !isset($post) || 'landing-page' != $post->post_type) {
+            return;
+        }
 
         $custom_css_name = Landing_Pages_Variations::prepare_input_id('lp-custom-css');
         $custom_js_name =Landing_Pages_Variations::prepare_input_id('lp-custom-js');
         $custom_css = Landing_Pages_Variations::get_custom_css( $post->ID );
         $custom_js = Landing_Pages_Variations::get_custom_js( $post->ID );
         echo "<!-- This site landing page was built with the WordPress Landing Pages plugin - https://www.inboundnow.com/landing-pages/ -->";
-        //Print Custom CSS
+
         if (!stristr($custom_css, '<style')) {
             echo '<style type="text/css" id="lp_css_custom">' . $custom_css . '</style>';
         } else {
             echo $custom_css;
         }
-        //Print Custom JS
+
         if (!stristr($custom_js, '<script')) {
             echo '<script type="text/javascript" id="lp_js_custom">jQuery(document).ready(function($) {
-			' . $custom_js . ' });</script>';
+        ' . $custom_js . ' });</script>';
         } else {
             echo $custom_js;
         }
     }
+
+
+    /**
+     *
+     * [lp_conversion_area] shortcode support
+     *
+     */
+    public static function process_conversion_area_shortcode($atts, $content = null) {
+        extract(shortcode_atts(array('id' => '', 'align' => ''//'style' => ''
+        ), $atts));
+
+
+        $conversion_area = lp_conversion_area($post = null, $content = null, $return = true, $doshortcode = true, $rebuild_attributes = true);
+
+        return $conversion_area;
+    }
 }
 
-/* FOR DEFAULT TEMPLATE & NATIVE THEME TEMPLATES PREPARE THE CONVERSION AREA */
-add_filter('the_content', 'landing_pages_add_conversion_area', 20);
-add_filter('get_the_content', 'landing_pages_add_conversion_area', 20);
-function landing_pages_add_conversion_area($content) {
 
-    if ('landing-page' != get_post_type() || is_admin()) {
-        return $content;
+new Landing_Pages_Template_Switcher;
+
+
+/**
+ * Echos or returns main headline
+ * @param OBJECT $post
+ * @param STRING $headline depreciated
+ * @param bool $return
+ */
+function lp_main_headline($post = null, $headline = null, $return = false) {
+    if (!isset($post)) {
+        global $post;
     }
 
-    global $post;
+    $main_headline = Landing_Pages_Variations::get_main_headline( $post->ID );
 
-    remove_action('the_content', 'landing_pages_add_conversion_area');
+    if (!$return) {
+        echo $main_headline;
 
-    $template = Landing_Pages_Variations::get_current_template( $post->ID );
-
-    if (strstr($template, '-slash-')) {
-        $template = str_replace('-slash-', '/', $key);
-    }
-
-    $my_theme = wp_get_theme($template);
-
-    if ( !$my_theme->exists() &&  $template != 'default') {
-        return $content;
-    }
-
-    global $post;
-    $wrapper_class = "";
-
-    $position = Landing_Pages_Variations::get_conversion_area_placement( $post->ID );
-    $conversion_area = lp_conversion_area(null, null, true, true);
-    $conversion_area = "<div id='lp_container' class='$wrapper_class'>" . $conversion_area . "</div>";
-
-    if ($position == 'top') {
-        $content = $conversion_area . $content;
-    } else if ($position == 'bottom') {
-        $content = $content . $conversion_area;
-    } else if ($position == 'widget') {
-        $content = $content;
     } else {
-        $conversion_area = str_replace("id='lp_container'", "id='lp_container' class='lp_form_$position' style='float:$position'", $conversion_area);
-        $content = $conversion_area . $content;
-
-        }
-
-    return $content;
+        return $main_headline;
+    }
 }
+
 
 /**
  * Display conversion area for default template
@@ -173,40 +254,6 @@ function lp_conversion_area($post = null, $content = null, $return = false, $dos
 
 }
 
-/**
- * [lp_conversion_area] shortcode support
- */
-add_shortcode('lp_conversion_area', 'lp_conversion_area_shortcode');
-function lp_conversion_area_shortcode($atts, $content = null) {
-    extract(shortcode_atts(array('id' => '', 'align' => ''//'style' => ''
-    ), $atts));
-
-
-    $conversion_area = lp_conversion_area($post = null, $content = null, $return = true, $doshortcode = true, $rebuild_attributes = true);
-
-    return $conversion_area;
-}
-
-/**
- * Echos or returns main headline
- * @param OBJECT $post
- * @param STRING $headline depreciated
- * @param bool $return
- */
-function lp_main_headline($post = null, $headline = null, $return = false) {
-    if (!isset($post)) {
-        global $post;
-    }
-
-    $main_headline = Landing_Pages_Variations::get_main_headline( $post->ID );
-
-    if (!$return) {
-        echo $main_headline;
-
-    } else {
-        return $main_headline;
-    }
-}
 
 /**
  * Echo or return content area content for default template
@@ -241,24 +288,6 @@ function lp_content_area($post = null, $content = null, $return = false) {
 
 }
 
-/**
- * Improve body class for landing page template
- * @return string
- */
-function lp_body_class() {
-    global $post;
-    global $lp_data;
-
-    $template = Landing_Pages_Variations::get_current_template( $post->ID );
-    if ($template) {
-        $lp_body_class = "template-" . $template;
-        $postid = "page-id-" . get_the_ID();
-        echo 'class="';
-        echo $lp_body_class . " " . $postid . " wordpress-landing-page";
-        echo '"';
-    }
-    return $lp_body_class;
-}
 
 /**
  * Get parent directory of calling template - used by templates
@@ -286,6 +315,28 @@ function lp_get_parent_directory($path) {
         return $parent;
     }
 }
+
+
+
+/**
+ * Improve body class for landing page template
+ * @return string
+ */
+function lp_body_class() {
+    global $post;
+    global $lp_data;
+
+    $template = Landing_Pages_Variations::get_current_template( $post->ID );
+    if ($template) {
+        $lp_body_class = "template-" . $template;
+        $postid = "page-id-" . get_the_ID();
+        echo 'class="';
+        echo $lp_body_class . " " . $postid . " wordpress-landing-page";
+        echo '"';
+    }
+    return $lp_body_class;
+}
+
 
 /**
  * Shorthand function for getting a settings value from a landing page variation
@@ -341,7 +392,7 @@ function lp_in_admin_header() {
     global $post, $wp_meta_boxes;
 
     if ( !isset($post) || $post->post_type != 'landing-page') {
-       return;
+        return;
     }
 
     unset($wp_meta_boxes[get_current_screen()->id]['normal']['core']['postcustom']);
