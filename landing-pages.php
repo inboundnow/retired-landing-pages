@@ -57,7 +57,6 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			switch (is_admin()) :
 				case true :
 					/* loads admin files */
-					include_once( LANDINGPAGES_PATH . 'modules/module.language-support.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.javascript-admin.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.activation.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.activation.upgrade-routines.php');
@@ -71,6 +70,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
                     include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
                     include_once( LANDINGPAGES_PATH . 'classes/class.admin-notices.php');
                     include_once( LANDINGPAGES_PATH . 'classes/class.cloning.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.settings.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.global-settings.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.welcome.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.install.php');
@@ -78,9 +78,9 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once( LANDINGPAGES_PATH . 'classes/class.load-extensions.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.post-type.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.utils.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.sidebar.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.widgets.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.store.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.sidebars.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.widgets.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.store.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.customizer.php');
 					//include_once( LANDINGPAGES_PATH . 'classes/class.branching.php');
 
@@ -97,7 +97,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once( LANDINGPAGES_PATH . 'modules/module.javascript-frontend.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.post-type.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.utils.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.sidebar.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.sidebars.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.widgets.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.landing-pages.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.load-extensions.php');
