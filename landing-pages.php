@@ -71,7 +71,6 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
                     include_once( LANDINGPAGES_PATH . 'classes/class.admin-notices.php');
                     include_once( LANDINGPAGES_PATH . 'classes/class.cloning.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.settings.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.global-settings.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.welcome.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.install.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.landing-pages.php');
