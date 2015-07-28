@@ -75,7 +75,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					include_once( LANDINGPAGES_PATH . 'classes/class.install.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.landing-pages.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.load-extensions.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.post-type.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.post-type.landing-page.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.utils.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.sidebars.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.widgets.php');
@@ -94,7 +94,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
                     include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.click-tracking.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.javascript-frontend.php');
-					include_once( LANDINGPAGES_PATH . 'modules/module.post-type.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.post-type.landing-page.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.utils.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.sidebars.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.widgets.php');

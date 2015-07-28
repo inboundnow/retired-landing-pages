@@ -40,7 +40,7 @@ class Landing_Pages_Sidebars {
     /**
      * Replaces default template's side bar with landing page sidebar
      */
-    public static function lp_replace_sidebars() {
+    public static function replace_sidebars() {
 
         global $_wp_sidebars_widgets, $post, $wp_registered_sidebars, $wp_registered_widgets;
 

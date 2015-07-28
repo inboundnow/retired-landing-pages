@@ -15,10 +15,26 @@ class Landing_Pages_Install {
     public static function add_hooks() {
         add_action( 'admin_init', array( __CLASS__ , 'install_example_landing_page_check') );
 
+        /* load styles and scripts */
+        add_action('admin_enqueue_scripts', array( __CLASS__ , 'enqueue_scripts' ) );
+
         if(!defined('INBOUND_PRO_PATH')) {
             require_once(LANDINGPAGES_PATH."/libraries/class-tgm-plugin-activation.php");
             add_action( 'tgmpa_register', array( __CLASS__ , 'install_recommended_plugins' ) );
         }
+    }
+
+    /**
+     * Enqueue scripts and styles
+     */
+    public static function enqueue_scripts() {
+        global $plugin_page;
+        if ( $plugin_page != 'install-inbound-plugins' ) {
+            return;
+        }
+
+        wp_enqueue_script('inbound-install-plugins', LANDINGPAGES_URLPATH . 'js/admin/install-plugins.js');
+        wp_enqueue_style('inbound-install-plugins-css', LANDINGPAGES_URLPATH . 'css/admin/install-plugins.css');
     }
 
     /**

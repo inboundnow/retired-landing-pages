@@ -22,14 +22,7 @@ function lp_admin_enqueue($hook) {
 	wp_enqueue_style('lp-admin-css', LANDINGPAGES_URLPATH . 'css/admin-style.css');
 
 
-	// Frontend Editor
-	if ( $plugin_page === 'lp-frontend-editor' ) {
-	}
 
-	if ( $plugin_page === 'install-inbound-plugins' ) {
-		wp_enqueue_script('inbound-install-plugins', LANDINGPAGES_URLPATH . 'js/admin/admin.install-plugins.js');
-		wp_enqueue_style('inbound-install-plugins-css', LANDINGPAGES_URLPATH . 'css/admin-install-plugins.css');
-	}
 
 	// Store Options Page
 	if ( in_array( $plugin_page, array( 'lp_store', 'lp_addons' ) ) ) {
