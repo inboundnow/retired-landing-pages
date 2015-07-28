@@ -135,7 +135,8 @@ class Landing_Pages_Settings {
             return;
         }
 
-        wp_enqueue_style('lp-css-global-settings-here', LANDINGPAGES_URLPATH . 'css/admin-global-settings.css');
+        wp_enqueue_style('lp-css-global-settings-here', LANDINGPAGES_URLPATH . 'css/admin/global-settings.css');
+        wp_enqueue_script('lp-settings-js', LANDINGPAGES_URLPATH . 'js/admin/admin.global-settings.js');
 
     }
 
@@ -150,7 +151,6 @@ class Landing_Pages_Settings {
             ),
             $links
         );
-
     }
 
     /**

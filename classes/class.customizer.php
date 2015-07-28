@@ -26,6 +26,11 @@ class Landing_Pages_Customizer {
             add_action('admin_enqueue_scripts', array( __CLASS__ , 'enqueue_scripts_iframe' ) );
         }
 
+        /* load landing page edit area */
+        if (isset($_GET['frontend']) && $_GET['frontend'] === 'true') {
+            add_action('admin_enqueue_scripts', array( __CLASS__ , 'enqueue_scripts_editor' )  );
+        }
+
         /* Load customizer main split container hooks */
         if (isset($_GET['template-customize']) && $_GET['template-customize'] == 'on') {
             add_action('wp_enqueue_scripts', array( __CLASS__ , 'enqueue_scripts_controller' )  );
@@ -63,7 +68,17 @@ class Landing_Pages_Customizer {
      * Enqueue scripts and css for iframe preview side of customizer
      */
     public static function enqueue_scripts_iframe() {
-        wp_enqueue_style('lp_ab_testing_customizer_css', LANDINGPAGES_URLPATH . 'css/customizer-ab-testing.css');
+        wp_enqueue_style('lp_ab_testing_customizer_css', LANDINGPAGES_URLPATH . 'css/frontend/customizer-preview.css');
+    }
+
+    /**
+     * Enqueue scripts and css for editor side of customizer
+     */
+    public static function enqueue_scripts_editor() {
+
+        wp_enqueue_style('lp-customizer-admin', LANDINGPAGES_URLPATH . 'css/admin/customizer-edit.css');
+        wp_enqueue_script('lp-customizer-admin', LANDINGPAGES_URLPATH . 'js/admin/new-customizer-admin.js');
+
     }
 
     /**

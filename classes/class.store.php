@@ -7,9 +7,33 @@ if ( ! class_exists( 'Inbound_Now_Store' ) ) {
     class Inbound_Now_Store {
 
         static function init() {
+            self::load_hooks();
+        }
+
+        /**
+         * Loads hooks and filters
+         */
+        public static function load_hooks() {
             add_action('admin_menu', array( __CLASS__ , 'add_sub_menus' ) );
             add_action('admin_init', array( __CLASS__ , 'inbound_store_template_redirect'));
-            add_action( 'wp_ajax_show_store_ajax', array( __CLASS__ , 'show_store_ajax' ) );
+            add_action( 'wp_ajax_show_store_ajax' , array( __CLASS__ , 'show_store_ajax' ) );
+            add_action( 'admin_enqueue_scripts' , array( __CLASS__ , 'enqueue_scripts' ) );
+        }
+
+        /**
+         * enqueues scripts and styles
+         */
+        public static function enqueue_scripts() {
+            global $plugin_page;
+
+            if ( !in_array( $plugin_page, array( 'lp_store', 'lp_addons' ) ) ) {
+                return;
+            }
+
+            wp_dequeue_script('easyXDM');
+            wp_enqueue_script('easyXDM', LANDINGPAGES_URLPATH . 'js/libraries/easyXDM.debug.js');
+            wp_enqueue_script('lp-js-store', LANDINGPAGES_URLPATH . 'js/admin/admin.store.js');
+
         }
 
         public static function add_sub_menus() {
