@@ -20,10 +20,10 @@ class Landing_Pages_Customizer {
     public static function add_hooks() {
         add_action('wp_before_admin_bar_render', array( __CLASS__ , 'add_costomizer_menu_item_to_admin_bar') );
 
-        /* load iframed preview page */
-        if (isset($_GET['iframe_window'])) {
-            add_action('wp_head', array( __CLASS__ , 'load_preview_iframe' ) );
-            add_action('admin_enqueue_scripts', array( __CLASS__ , 'enqueue_scripts_iframe' ) );
+        /* preview area */
+        if (isset($_GET['live-preview-area'])) {
+            show_admin_bar( false );
+            add_action('admin_enqueue_scripts', array( __CLASS__ , 'enqueue_scripts_preview' )  );
         }
 
         /* load landing page edit area */
@@ -64,11 +64,17 @@ class Landing_Pages_Customizer {
         $wp_admin_bar->add_menu(array('id' => 'lp-list-pages', 'title' => __("View Landing Page List", 'landing-pages'), 'href' => '/wp-admin/edit.php?post_type=landing-page'));
     }
 
+
     /**
-     * Enqueue scripts and css for iframe preview side of customizer
+     * Enqueue scripts and css for preview side of customizer
      */
-    public static function enqueue_scripts_iframe() {
-        wp_enqueue_style('lp_ab_testing_customizer_css', LANDINGPAGES_URLPATH . 'css/frontend/customizer-preview.css');
+    public static function enqueue_scripts_preview() {
+        wp_enqueue_script('lp-customizer-load', LANDINGPAGES_URLPATH . 'js/customizer.load.js', array('jquery'));
+        echo '<style type="text/css">
+                html, html.no-js, html[dir="ltr"] {
+                    margin-top: 0px !important;
+                }
+            </style>';
     }
 
     /**
@@ -93,6 +99,9 @@ class Landing_Pages_Customizer {
         wp_enqueue_script('lp_ab_testing_customizer_js', LANDINGPAGES_URLPATH . 'js/customizer.ab-testing.js', array('jquery'));
         wp_localize_script('lp_ab_testing_customizer_js', 'ab_customizer', array('lp_id' => $post->ID, 'permalink' => $permalink, 'randomstring' => $randomstring));
         wp_enqueue_style('lp_ab_testing_customizer_css', LANDINGPAGES_URLPATH . 'css/customizer-ab-testing.css');
+
+        echo "<style type='text/css'>#variation-list{background:#eaeaea !important; top: 26px !important; height: 35px !important;padding-top: 10px !important;}#wpadminbar {height: 32px !important;}</style>"; // enqueue styles not firing
+
     }
 
     public static function load_customizer_controller() {
@@ -161,76 +170,7 @@ class Landing_Pages_Customizer {
         exit;
     }
 
-    /**
-     * Loads preview iframe
-     */
-    public static function load_preview_iframe() {
-        $variation_id = Landing_Pages_Variations::get_current_variation_id();
-        $landing_page_id = $_GET['post_id'];
 
-        $variations = Landing_Pages_Variations::get_variations( $landing_page_id );
-        ?>
-        <link rel="stylesheet" href="<?php echo LANDINGPAGES_URLPATH . 'css/customizer-ab-testing.css';?>"/>
-        <style type="text/css">
-
-            #variation-list {
-                position: absolute;
-                top: 0px;
-                left: 0px;
-                padding-left: 5px;
-            }
-
-            #variation-list h3 {
-                text-decoration: none;
-                border-bottom: none;
-            }
-
-            #variation-list div {
-                display: inline-block;
-            }
-
-            #current_variation_id, #current-post-id {
-                display: none !important;
-            }
-
-        </style>
-        <script type="text/javascript">
-            jQuery(document).ready(function ($) {
-                var current_page = jQuery("#current_variation_id").text();
-                // reload the iframe preview page (for option toggles)
-                jQuery('.variation-lp').on('click', function (event) {
-                    variation_is = jQuery(this).attr("id");
-                    var original_url = jQuery(parent.document).find("#TB_iframeContent").attr("src");
-                    var current_id = jQuery("#current-post-id").text();
-                    someURL = original_url;
-
-                    splitURL = someURL.split('?');
-                    someURL = splitURL[0];
-                    new_url = someURL + "?lp-variation-id=" + variation_is + "&iframe_window=on&post_id=" + current_id;
-                    jQuery(parent.document).find("#TB_iframeContent").attr("src", new_url);
-                });
-            });
-        </script>
-        <?php
-        if ($variations[0] === "") {
-            echo '<div id="variation-list" class="no-abtests"><h3>' . __('No A/B Tests running for this page', 'landing-pages') . '</h3>';
-        } else {
-            echo '<div id="variation-list"><h3>' . __('Variations', 'landing-pages') . ':</h3>';
-            echo '<div id="current_variation_id">' . $variation_id . '</div>';
-        }
-
-        foreach ($variations as $key => $val) {
-            $current_view = ($val == $variation_id) ? 'current-variation-view' : '';
-            echo "<div class='variation-lp " . $current_view . "' id=" . $val . ">";
-            echo Landing_Pages_Variations::vid_to_letter( $landing_page_id , $key);
-
-            // echo $val; number
-            echo "</div>";
-        }
-        echo "<span id='current-post-id'>$landing_page_id</span>";
-
-        echo '</div>';
-    }
 }
 
 
