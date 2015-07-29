@@ -3,55 +3,6 @@
 *	Utilities functions used throughout the plugin
 */
 
-/* GET POST ID FROM URL FOR LANDING PAGES */
-function lp_url_to_postid($url) {
-    global $wpdb;
-
-    if (strstr($url, '?landing-page=')) {
-        $url = explode('?landing-page=', $url);
-        $url = $url[1];
-        $url = explode('&', $url);
-        $post_id = $url[0];
-
-        return $post_id;
-    }
-
-    //first check if URL is homepage
-    $wordpress_url = get_bloginfo('url');
-    if (substr($wordpress_url, -1, -1) != '/') {
-        $wordpress_url = $wordpress_url . "/";
-    }
-
-    if (str_replace('/', '', $url) == str_replace('/', '', $wordpress_url)) {
-        return get_option('page_on_front');
-    }
-
-    $parsed = parse_url($url);
-    $url = $parsed['path'];
-
-    $parts = explode('/', $url);
-
-    $count = count($parts);
-    $count = $count - 1;
-
-    if (empty($parts[$count])) {
-        $i = $count - 1;
-        $slug = $parts[$i];
-    } else {
-        $slug = $parts[$count];
-    }
-
-    $my_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_name = '$slug' AND post_type='landing-page'");
-
-    if ($my_id) {
-        return $my_id;
-    } else {
-        return 0;
-    }
-}
-
-
-
 /* Fix wp_title for known bad behavior themes */
 add_action('wp', 'landingpage_fix_known_wp_title_isses', 10);
 function landingpage_fix_known_wp_title_isses() {
@@ -77,8 +28,8 @@ if (!function_exists('inbound_qtrans_disable')) {
             remove_filter('the_editor', 'qtrans_modifyRichEditor');
         }
     }
+    add_action('current_screen', 'inbound_qtrans_disable');
 }
-add_action('current_screen', 'inbound_qtrans_disable');
 
 
 
