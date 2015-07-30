@@ -9,3 +9,7 @@ shared/languages/landing-pages/get-translations.bat
 shared/.SyncIgnore
 shared/languages/leads/_get-translations.bat
 shared/languages/calls-to-action/_get-translations.bat
+.idea/
+vendor/
+Desktop.ini
+composer.lock
