@@ -212,13 +212,16 @@ class Landing_Pages_Template_Switcher {
             'vid' => '0'
         ), $atts));
 
+
         /* check do not track flag */
         $do_not_track = apply_filters('inbound_analytics_stop_track' , false );
-        if ( $do_not_track ) {
+        if ( $do_not_track || isset($_SESSION['landing_page_conversions']) && in_array( $id , $_SESSION['landing_page_conversions'] ) )  {
             return;
         }
 
         Landing_Pages_Variations::record_conversion($id , $vid);
+
+        $_SESSION['landing_page_conversions'][] = $id;
 
     }
 
@@ -269,7 +272,7 @@ class Landing_Pages_Template_Switcher {
         }
 
         global $post;
-        $template = Landing_Pages_Variations::get_current_temaplte( $post->ID );
+        $template = Landing_Pages_Variations::get_current_template( $post->ID );
 
         $my_theme = wp_get_theme($template);
 
