@@ -43,6 +43,12 @@ install:
   
   # make symlink - PhantomJs
   - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/jakoch/phantomjs/phantomjs /usr/bin/phantomjs
+ 
+  # make symlink - Codeception
+  - sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/codeception/codeception/codecept /usr/bin/codecept
+  
+  # make symlink - WPBRowser
+  #- sudo ln -s /home/travis/build/inboundnow/landing-pages/vendor/lucatume/wp-browser/wpcept /usr/bin/WPBrowser
   
   # install Apache
   - sudo apt-get update
@@ -59,16 +65,10 @@ install:
   - sudo a2enmod rewrite actions fastcgi alias
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-
       
   # restart apache & reload configuration files
   - sudo service apache2 restart 
   - sudo service apache2 reload 
-  
-  # install codeception
-  - wget http://codeception.com/codecept.phar
-  - chmod +x codecept.phar
-  - sudo mv codecept.phar /usr/local/bin/codecept
   
   # install WordPress 
   - sudo mkdir /var/www/inboundtesting.dev/
@@ -115,7 +115,8 @@ before_script:
 
 script:
   - phpunit
-  #- php codecept run
+  #- codecept run
+  - codecept run  --debug -vvv
 
 addons:
   hosts:
