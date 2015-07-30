@@ -11,6 +11,40 @@ if (isset($_GET['page'])&&($_GET['page']=='lp_global_settings'&&$_GET['page']=='
 	}
 }
 
+/**
+ * Add action links in Plugins table
+ */
+add_filter( 'plugin_action_links_landing-pages/landing-pages.php', 'landing_page_plugin_action_links' );
+function landing_page_plugin_action_links( $links ) {
+
+	return array_merge(
+		array(
+			'settings' => '<a href="' . admin_url( 'edit.php?post_type=landing-page&page=lp_global_settings' ) . '">' . __( 'Settings', 'ts-fab' ) . '</a>'
+		),
+		$links
+	);
+
+}
+
+/**
+ * Add meta links in Plugins table
+ */
+if (!defined('INBOUND_PRO_PATH')) {
+	add_filter( 'plugin_row_meta', 'landing_pages_plugin_meta_links', 10, 2 );
+	function landing_pages_plugin_meta_links( $links, $file ) {
+
+		$plugin = 'landing-pages/landing-pages.php';
+
+		// create link
+		if ( $file == $plugin ) {
+			return array_merge(
+				$links,
+				array( '<a href="http://www.inboundnow.com/membership-packages/">Upgrade to Pro</a>' )
+			);
+		}
+		return $links;
+	}
+}
 
 function lp_get_global_settings() {
 	global $lp_global_settings;
@@ -20,8 +54,7 @@ function lp_get_global_settings() {
 	$lp_global_settings[$tab_slug]['label'] = 'Global Settings';
 
 
-	$lp_global_settings[$tab_slug]['settings'] =
-	array(
+	$lp_global_settings[$tab_slug]['settings'] = array(
 		array(
 			'id'  => 'lp_global_settings_main_header',
 			'type'  => 'header',
@@ -37,44 +70,12 @@ function lp_get_global_settings() {
 			'options' => null
 		),
 		array(
-			'id'  => 'landing-page-prepopulate-forms',
-			'label' =>  __( 'Enable Form Prepopulation' , 'landing-pages') ,
-			'description' => __("With this setting enabled landing pages plugin will remember form input data that the user submits to a form and attempt to pre-populate all other forms with the same user's data when applicable." , 'landing-pages'),
-			'type'  => 'radio',
-			'default'  => '1',
-			'options' => array('1'=>'on','0'=>'off')
-		),
-		array(
-			'id'  => 'landing-page-disable-admin-tracking',
-			'label' => __('Disable Admin Impression/Conversion Tracking' , 'landing-pages') ,
-			'description' => __("With this setting enabled landing pages plugin will not record visits and conversions for administrative users that are logged in." , 'landing-pages'),
-			'type'  => 'radio',
-			'default'  => '0',
-			'options' => array('1'=>'on','0'=>'off')
-		),
-		array(
 			'id'  => 'landing-page-rotation-halt',
 			'label' => __('Sticky Variations' , 'landing-pages'),
 			'description' => __("With this setting enabled the landing pages plugin will prevent landing page version a/b rotation for a specific visitor that has viewed the page.<br><br>This pause on the a/b rotation will automatically expire after 30 days." , 'landing-pages'),
 			'type'  => 'radio',
 			'default'  => '0',
 			'options' => array('1'=>'on','0'=>'off')
-		),
-		array(
-			'id'  => 'landing-page-auto-format-forms',
-			'label' => __('Enable Form Standardization' , 'landing-pages'),
-			'description' => __("With this setting enabled landing pages plugin will clean and standardize all input ids and classnames. Uncheck this setting to disable standardization." , 'landing-pages'),
-			'type'  => 'radio',
-			'default'  => '0',
-			'options' => array('1'=>'on','0'=>'off')
-		),
-		array(
-			'id'  => 'main-landing-page-auto-format-forms-retain-elements',
-			'label' => __('Form Standardization Element Whitelist' , 'landing-pages'),
-			'description' =>  __("Form standardization strips the conversion area content of html elements. Add the elements you do not want to be stripped to this list." , 'landing-pages') ,
-			'type'  => 'textarea',
-			'default'  => '<button><script><textarea><style><input><form><select><label><a><p><b><u><strong><i><img><strong><span><font><h1><h2><h3><center><blockquote><embed><object><small>',
-			'options' => null
 		),
 		array(
 			'id'  => 'inbound_compatibility_mode',
@@ -826,8 +827,7 @@ function lp_render_global_settings($key,$custom_fields,$active_tab)
 					continue 2;
 				case 'html':
 					//print_r($field);
-					echo $field['value'];
-					echo '<br /><div class="lp_tooltip tool_dropdown" title="'.$field['description'].'"></div>';
+					echo $field['default'];
 				continue 2;
 
 

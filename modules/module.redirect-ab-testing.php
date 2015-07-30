@@ -13,6 +13,15 @@ else if ( file_exists ( './../../../../../wp-load.php' ) )
 {
 	include_once ( './../../../../../wp-load.php' );
 }
+else if ( file_exists ( './../../../../../../wp-load.php' ) )
+{
+	include_once ( './../../../../../../wp-load.php' );
+}
+
+else if ( file_exists ( './../../../../../../../wp-load.php' ) )
+{
+	include_once ( './../../../../../../../wp-load.php' );
+}
 
 class LP_Variation_Rotation {
 
@@ -61,7 +70,11 @@ class LP_Variation_Rotation {
 	 *  	Debug Information - Prints Class Variable Data 
 	 */
 	static function run_debug() {
-		print_r($this);exit;
+		echo self::$variations. '<br>';
+		echo self::$marker. '<br>';
+		echo self::$next_marker. '<br>';		
+		echo self::$destination_url. '<br>';
+		exit;
 	}
 	
 	/**

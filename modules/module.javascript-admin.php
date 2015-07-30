@@ -70,7 +70,7 @@ function lp_admin_enqueue($hook) {
 			// Conditional TINYMCE for landing pages
 			//wp_dequeue_script('jquery-tinymce');
 			//wp_enqueue_script('jquery-tinymce', LANDINGPAGES_URLPATH . 'js/libraries/tiny_mce/jquery.tinymce.js');
-			wp_enqueue_style('inbound-metaboxes', LANDINGPAGES_URLPATH . 'shared/metaboxes/inbound-metaboxes.css');
+			wp_enqueue_style('inbound-metaboxes', LANDINGPAGES_URLPATH . 'shared/assets/css/admin/inbound-metaboxes.css');
 
 		}
 
@@ -79,7 +79,7 @@ function lp_admin_enqueue($hook) {
 		}
 		// Edit Screen
 		if ( $hook == 'post.php' ){
-
+			wp_enqueue_script('jquery-zoomer', LANDINGPAGES_URLPATH . 'js/libraries/jquery.zoomer.js');
 			wp_enqueue_script('lp-post-edit-ui', LANDINGPAGES_URLPATH . 'js/admin/admin.post-edit.js');
 			wp_localize_script( 'lp-post-edit-ui', 'lp_post_edit_ui', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID , 'wp_landing_page_meta_nonce' => wp_create_nonce('wp-landing-page-meta-nonce'),  'lp_template_nonce' => wp_create_nonce('lp-nonce') ) );
 			wp_enqueue_style('admin-post-edit-css', LANDINGPAGES_URLPATH . 'css/admin-post-edit.css');

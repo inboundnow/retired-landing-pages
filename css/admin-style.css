@@ -13,8 +13,13 @@
 	margin-top:30px;
 	z-index:999999;
 }
+#setting-error-tgmpa a:-webkit-any-link {
+	text-decoration: none;
+}
 
-
+tr#leads {
+	display: table-row !important;
+}
 #setting-error-tgmpa p:nth-child(2) strong em {
 	margin-top: 5px;
 }
@@ -35,10 +40,10 @@ z-index: 99999;
 }
 @font-face {
 	font-family: 'FontAwesome';
-	src: url('../shared/assets/global/fonts/fontawesome/fontawesome-webfont.eot?v=3.0.2');
-	src: url('../shared/assets/global/fonts/fontawesome/fontawesome-webfont.eot?#iefix&v=3.0.2') format('embedded-opentype'),
-	url('../shared/assets/global/fonts/fontawesome/fontawesome-webfont.woff?v=3.0.2') format('woff'),
-	url('../shared/assets/global/fonts/fontawesome/fontawesome-webfont.ttf?v=3.0.2') format('truetype');
+	src: url('../shared/assets/fonts/fontawesome/fontawesome-webfont.eot?v=3.0.2');
+	src: url('../shared/assets/fonts/fontawesome/fontawesome-webfont.eot?#iefix&v=3.0.2') format('embedded-opentype'),
+	url('../shared/assets/fonts/fontawesome/fontawesome-webfont.woff?v=3.0.2') format('woff'),
+	url('../shared/assets/fonts/fontawesome/fontawesome-webfont.ttf?v=3.0.2') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -59,11 +64,23 @@ display: none;
 #setting-error-tgmpa p {
 	text-decoration: bold;
 }
+.appearance_page_install-inbound-plugins .inbound-install-notice {
+ display: none;
+}
 #setting-error-tgmpa p:nth-last-child(2), #setting-error-tgmpa a, #setting-error-tgmpa strong {
 	text-decoration: normal;
 }
+#setting-error-tgmpa em:last-of-type {
+	display: inline-block;
+}
+.inbound-and {
+	display: block;
+	  margin-top: 10px;
+	  font-size: 15px;
+}
 #setting-error-tgmpa p:nth-last-child(2) a:first-child{
 	padding-left: 0px;
+	text-decoration: none;
 }
 #setting-error-tgmpa p:nth-last-child(2) a {
 	padding-right: 10px;
@@ -324,11 +341,6 @@ div#lp-store-iframe-container > iframe {
 #leads-table-container-inside
 {
 	margin-top:-36px;
-	color:#388DBC;
-}
-
-.wp-list-table td
-{
 	color:#388DBC;
 }
 
