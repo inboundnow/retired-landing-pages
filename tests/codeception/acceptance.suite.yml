@@ -8,7 +8,6 @@ class_name: AcceptanceTester
 modules:
     enabled:
         - PhpBrowser
-        - \Helper\Acceptance
         - Asserts
         - WPBrowser
     config:
