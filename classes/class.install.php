@@ -33,7 +33,7 @@ class Landing_Pages_Install {
             return;
         }
 
-        wp_enqueue_script('inbound-install-plugins', LANDINGPAGES_URLPATH . 'js/admin/install-plugins.js');
+        wp_enqueue_script('inbound-install-plugins', LANDINGPAGES_URLPATH . 'assets/js/admin/install-plugins.js');
         wp_enqueue_style('inbound-install-plugins-css', LANDINGPAGES_URLPATH . 'assets/css/admin/install-plugins.css');
     }
 

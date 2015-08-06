@@ -80,7 +80,7 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
                 'publicly_queryable' => true,
                 'show_ui' => true,
                 'query_var' => true,
-                'menu_icon' => LANDINGPAGES_URLPATH . '/images/plus.gif',
+                'menu_icon' => LANDINGPAGES_URLPATH . 'assets/images/plus.gif',
                 'rewrite' => array("slug" => "$slug",'with_front' => false),
                 'capability_type' => 'post',
                 'hierarchical' => false,
@@ -144,7 +144,7 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
             /* listing page only */
             if ($screen->id == 'edit-landing-page' ) {
                 /* load stat clear handlers */
-                wp_enqueue_script( 'lp-admin-clear-stats-ajax-request', LANDINGPAGES_URLPATH . 'js/ajax.clearstats.js', array( 'jquery' ) );
+                wp_enqueue_script( 'lp-admin-clear-stats-ajax-request', LANDINGPAGES_URLPATH . 'assets/js/ajax.clearstats.js', array( 'jquery' ) );
                 wp_localize_script( 'lp-admin-clear-stats-ajax-request', 'ajaxadmin', array( 'ajaxurl' => admin_url('admin-ajax.php'), 'lp_clear_nonce' => wp_create_nonce('lp-clear-nonce') ) );
 
                 /* load qtip for popup data */
@@ -152,7 +152,7 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
                 wp_enqueue_script('load-qtip', LANDINGPAGES_URLPATH . 'assets/libraries/jquery-qtip/load.qtip.js', array('jquery-qtip'));
                 wp_enqueue_style('qtip-css', LANDINGPAGES_URLPATH . 'assets/css/jquery.qtip.min.css'); //Tool tip css
 
-                wp_enqueue_script('landing-page-list', LANDINGPAGES_URLPATH . 'js/admin/admin.landing-page-list.js');
+                wp_enqueue_script('landing-page-list', LANDINGPAGES_URLPATH . 'assets/js/admin/admin.landing-page-list.js');
                 wp_enqueue_style('landing-page-list-css', LANDINGPAGES_URLPATH.'assets/css/admin/landing-page-list.css');
                 wp_enqueue_script('jqueryui');
 

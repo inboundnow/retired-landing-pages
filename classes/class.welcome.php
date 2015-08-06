@@ -87,8 +87,6 @@ class LandingPages_Welcome {
         remove_submenu_page( 'index.php', 'about-inboundnow' );
         remove_submenu_page( 'index.php', 'inbound-developers' );
 
-        // Badge for welcome page
-        $badge_url = WP_PLUGIN_DIR . 'assets/images/edd-badge.png';
         ?>
         <style type="text/css" media="screen">
             /*<![CDATA[*/
@@ -102,7 +100,6 @@ class LandingPages_Welcome {
                 text-align: center;
                 text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
                 margin: 0 -5px;
-                background: url('<?php echo $badge_url; ?>') no-repeat;
             }
 
             .about-wrap .edd-badge {
@@ -286,13 +283,13 @@ class LandingPages_Welcome {
         $rec_end = "";
         if (!is_plugin_active('cta/wordpress-cta.php')) {
             $Recommended = "<div id='recommended-other-plugins'><h4>Recommended Other Plugins</h4>";
-            $cta_install = "<a href='".esc_url( admin_url( add_query_arg( array( 'tab' => 'search', 's' => 'wordpress+call+to+action' ), 'plugin-install.php' ) ) )."'><img src='".LANDINGPAGES_URLPATH."images/cta-install.png'></a>";
+            $cta_install = "<a href='".esc_url( admin_url( add_query_arg( array( 'tab' => 'search', 's' => 'wordpress+call+to+action' ), 'plugin-install.php' ) ) )."'><img src='".LANDINGPAGES_URLPATH."assets/images/cta-install.png'></a>";
             $rec_end = "</div>";
 
         }
         if (!is_plugin_active('leads/wordpress-leads.php')) {
             $Recommended = "<div id='recommended-other-plugins'><h4>Install Recommended Plugins</h4>";
-            $leads_install = "<a href='".esc_url( admin_url( add_query_arg( array( 'tab' => 'search', 's' => 'WordPress%20Leads' ), 'plugin-install.php' ) ) )."'><img src='".LANDINGPAGES_URLPATH."images/leads-install.png'></a>";
+            $leads_install = "<a href='".esc_url( admin_url( add_query_arg( array( 'tab' => 'search', 's' => 'WordPress%20Leads' ), 'plugin-install.php' ) ) )."'><img src='".LANDINGPAGES_URLPATH."assets/images/leads-install.png'></a>";
             $rec_end = "</div>";
 
         }
@@ -582,7 +579,7 @@ class LandingPages_Welcome {
                 </div>
                 <div class='grid one-third' id="inbound-contribute" style="text-align: center;">
                     <p class="about-description" style=""><a href="https://github.com/inboundnow/landing-pages" target="_blank"><b>Contribute Code</b> + <span style="font-size:21px"><b>Submit Feature Requests</b></span></a></p>
-                    <a href="https://github.com/inboundnow/landing-pages"  target="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>images/github-help.jpg"></a>
+                    <a href="https://github.com/inboundnow/landing-pages"  target="_blank"><img src="<?php echo LANDINGPAGES_URLPATH;?>assets/images/github-help.jpg"></a>
                 </div>
             </div>
         </div>

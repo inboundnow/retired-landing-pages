@@ -32,7 +32,7 @@ if ( ! class_exists( 'Inbound_Now_Store' ) ) {
 
             wp_dequeue_script('easyXDM');
             wp_enqueue_script('easyXDM', LANDINGPAGES_URLPATH . 'assets/libraries/easyXDM.debug.js');
-            wp_enqueue_script('lp-js-store', LANDINGPAGES_URLPATH . 'js/admin/admin.store.js');
+            wp_enqueue_script('lp-js-store', LANDINGPAGES_URLPATH . 'assets/js/admin/admin.store.js');
 
         }
 

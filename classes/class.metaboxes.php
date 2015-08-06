@@ -245,7 +245,7 @@ class Landing_Pages_Metaboxes {
 
         wp_enqueue_script(array('jquery', 'jqueryui', 'editor', 'thickbox', 'media-upload'));
         wp_enqueue_style('edit-landing-page', LANDINGPAGES_URLPATH . 'assets/css/admin/edit-landing-page.css');
-        wp_enqueue_script('lp-js-metaboxes', LANDINGPAGES_URLPATH . 'js/admin/admin.metaboxes.js');
+        wp_enqueue_script('lp-js-metaboxes', LANDINGPAGES_URLPATH . 'assets/js/admin/admin.metaboxes.js');
         wp_enqueue_script('jpicker', LANDINGPAGES_URLPATH . 'assets/libraries/jpicker/jpicker-1.1.6.min.js');
         wp_localize_script( 'jpicker', 'jpicker', array( 'thispath' => LANDINGPAGES_URLPATH.'assets/libraries/jpicker/images/' ));
         wp_enqueue_style('jpicker-css', LANDINGPAGES_URLPATH . 'assets/libraries/jpicker/css/jPicker-1.1.6.min.css');
@@ -262,11 +262,11 @@ class Landing_Pages_Metaboxes {
 
         wp_enqueue_style('inbound-metaboxes', LANDINGPAGES_URLPATH . 'shared/assets/css/admin/inbound-metaboxes.css');
 
-        wp_enqueue_script( 'lp-admin-clear-stats-ajax-request', LANDINGPAGES_URLPATH . 'js/ajax.clearstats.js', array( 'jquery' ) );
+        wp_enqueue_script( 'lp-admin-clear-stats-ajax-request', LANDINGPAGES_URLPATH . 'assets/js/ajax.clearstats.js', array( 'jquery' ) );
         wp_localize_script( 'lp-admin-clear-stats-ajax-request', 'ajaxadmin', array( 'ajaxurl' => admin_url('admin-ajax.php'), 'lp_clear_nonce' => wp_create_nonce('lp-clear-nonce') ) );
 
         wp_enqueue_script('jquery-zoomer', LANDINGPAGES_URLPATH . 'assets/libraries/jquery.zoomer.js');
-        wp_enqueue_script('lp-post-edit-ui', LANDINGPAGES_URLPATH . 'js/admin/admin.post-edit.js');
+        wp_enqueue_script('lp-post-edit-ui', LANDINGPAGES_URLPATH . 'assets/js/admin/admin.post-edit.js');
         wp_localize_script( 'lp-post-edit-ui', 'lp_post_edit_ui', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID , 'wp_landing_page_meta_nonce' => wp_create_nonce('wp-landing-page-meta-nonce'),  'lp_template_nonce' => wp_create_nonce('lp-nonce') ) );
         wp_enqueue_style('admin-post-edit-css', LANDINGPAGES_URLPATH . 'assets/css/admin-post-edit.css');
 
@@ -275,7 +275,7 @@ class Landing_Pages_Metaboxes {
         wp_enqueue_style('font-awesome');
 
         wp_enqueue_style('lp-ab-testing-admin', LANDINGPAGES_URLPATH . 'assets/css/admin-ab-testing.css');
-        wp_enqueue_script('lp-ab-testing-admin', LANDINGPAGES_URLPATH . 'js/admin/admin.post-edit-ab-testing.js', array('jquery'));
+        wp_enqueue_script('lp-ab-testing-admin', LANDINGPAGES_URLPATH . 'assets/js/admin/admin.post-edit-ab-testing.js', array('jquery'));
         wp_localize_script('lp-ab-testing-admin', 'variation', array('pid' => $post->ID , 'vid' => self::$current_vid, 'new_variation' => self::$is_new , 'variations' => self::$variations, 'content_area' => self::$content_area));
 
         /* enqueue supportive scripts */
@@ -285,7 +285,7 @@ class Landing_Pages_Metaboxes {
 
         /* only load these scripts and styles when creatng a new landing page  */
         if ( $hook == 'post-new.php'  ) {
-            wp_enqueue_script('lp-js-create-new-lander', LANDINGPAGES_URLPATH . 'js/admin/admin.post-new.js', array('jquery'), '1.0', true );
+            wp_enqueue_script('lp-js-create-new-lander', LANDINGPAGES_URLPATH . 'assets/js/admin/admin.post-new.js', array('jquery'), '1.0', true );
             wp_localize_script( 'lp-js-create-new-lander', 'lp_post_new_ui', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID , 'wp_landing_page_meta_nonce' => wp_create_nonce('lp_nonce')  , 'LANDINGPAGES_URLPATH' => LANDINGPAGES_URLPATH ) );
             wp_enqueue_style('lp-css-post-new', LANDINGPAGES_URLPATH . 'assets/css/admin-post-new.css');
         }

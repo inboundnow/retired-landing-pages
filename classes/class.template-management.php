@@ -57,7 +57,7 @@ class  Landing_Pages_Template_Management {
         }
 
         wp_enqueue_style( 'lp-css-templates' , LANDINGPAGES_URLPATH . 'assets/css/admin-templates.css');
-        wp_enqueue_script( 'lp-js-templates' , LANDINGPAGES_URLPATH . 'js/admin/admin.templates.js');
+        wp_enqueue_script( 'lp-js-templates' , LANDINGPAGES_URLPATH . 'assets/js/admin/admin.templates.js');
     }
 
     /**
@@ -70,7 +70,7 @@ class  Landing_Pages_Template_Management {
             return;
         }
 
-        wp_enqueue_script( 'lp-js-templates-upload' , LANDINGPAGES_URLPATH . 'js/admin/admin.templates-upload.js');
+        wp_enqueue_script( 'lp-js-templates-upload' , LANDINGPAGES_URLPATH . 'assets/js/admin/admin.templates-upload.js');
     }
 
     /**

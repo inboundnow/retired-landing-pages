@@ -5,7 +5,7 @@
 /*****************************************/
 
 /* Include Shareme Library */
-include_once(LANDINGPAGES_PATH.'assets/libraries/library.shareme.php');
+include_once(LANDINGPAGES_PATH.'assets/libraries/shareme/library.shareme.php');
 
 /* Declare Template Key */
 $key = lp_get_parent_directory(dirname(__FILE__));
@@ -53,7 +53,7 @@ $blue_1 = $RBG_array_1["b"];
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><?php wp_title(); ?></title>
 <link rel="stylesheet" href="<?php echo $path; ?>assets/css/style.css" type="text/css" media="screen">
-<?php wp_enqueue_script('sharrre', LANDINGPAGES_URLPATH . 'js/sharrre/jquery.sharrre-1.3.3.min.js', array('jquery')); ?>
+<?php wp_enqueue_script('sharrre', LANDINGPAGES_URLPATH . 'assets/libraries/sharrre/jquery.sharrre-1.3.3.min.js', array('jquery')); ?>
 
 <style media="screen" type="text/css">
 
