@@ -1,8 +1,16 @@
 jQuery(document).ready(function ($) {
 
-/* Populates timepicker values */
-
-	jQuery('.time-picker').timepicker({ 'timeFormat': 'H:i' });
+/* Populates date and timepicker values */
+	
+	/* Activates the datetime picker widget */
+	jQuery('.start.date').datetimepicker({ 
+		timepicker:false,
+		format:'Y-m-d'
+	});
+	jQuery('.time-picker').datetimepicker({ 
+		datepicker:false,
+		format: 'H:i'
+	});
 
 	if ($('.current_lander .new-date').length) { // implies *not* zero
 		var current_val = jQuery(".current_lander .new-date").val();
