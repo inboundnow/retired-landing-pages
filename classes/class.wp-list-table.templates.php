@@ -173,6 +173,15 @@ class Landing_Pages_Templates_List_Table extends WP_List_Table {
     }
 
     function get_bulk_actions() {
+
+        if (defined('INBOUND_PRO_PATH') && Inbound_Pro_Plugin::get_customer_status() > 0 ) {
+            return array(
+
+                '0' => __('See Inbound Pro -> Templates for template options. ', 'landing-pages'),
+
+            );
+        }
+
         $actions = array(
 
             'upgrade' => __('Upgrade', 'landing-pages'), 'delete' => __('Delete', 'landing-pages'),
@@ -189,6 +198,10 @@ class Landing_Pages_Templates_List_Table extends WP_List_Table {
      */
     function check_template_for_update($item) {
         $version = $item['version'];
+
+        if (defined('INBOUND_PRO_PATH') && Inbound_Pro_Plugin::get_customer_status() > 0 ) {
+            return $version;
+        }
         $api_response = self::poll_api($item);
 
         if (false !== $api_response) {

@@ -242,7 +242,7 @@ class Landing_Pages_Metaboxes {
             return;
         }
 
-        wp_enqueue_style('lp-ab-testing-admin', LANDINGPAGES_URLPATH . 'css/admin-ab-testing.css');
+        wp_enqueue_style('lp-ab-testing-admin', LANDINGPAGES_URLPATH . 'assets/css/admin-ab-testing.css');
         wp_enqueue_script('lp-ab-testing-admin', LANDINGPAGES_URLPATH . 'js/admin/admin.post-edit-ab-testing.js', array('jquery'));
         wp_localize_script('lp-ab-testing-admin', 'variation', array('pid' => $post->ID , 'vid' => self::$current_vid, 'new_variation' => self::$is_new , 'variations' => self::$variations, 'content_area' => self::$content_area));
 

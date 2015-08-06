@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-	
+
 	var window_width = jQuery(window).width();
 	var parent_window = parent.document.width;
 	iframe_size = parent_window * 0.334;
@@ -13,9 +13,9 @@ jQuery(document).ready(function($) {
 	jQuery(".wp-editor-container table").css("max-width", editor_size);
 		jQuery('iframe').contents().find("body").each(function(){
 			jQuery(this).css("max-width", editor_size);
-		}); 
+		});
 	}, 1000);
-	
+
 	function MyFunction(id, this_event)
 	{
 		var anchor = id;
@@ -34,9 +34,9 @@ jQuery(document).ready(function($) {
 			scrollTop: $($anchor.attr('href')).offset().top
 		}, 1000);
 	   */
-		this_event.preventDefault();            
+		this_event.preventDefault();
 	}
-	 
+
 
 	jQuery('.full-size-view').on('click', function (event) {
 		jQuery(parent.document).find("#lp-live-preview").contents().find('html').removeClass("small-html");
@@ -54,7 +54,7 @@ jQuery(document).ready(function($) {
 		jQuery('.full-size-view').show();
 		$.cookie("lp-view-choice", "shrink", { path: '/', expires: 7 });
 	});
-			   
+
 	function generate_random_cache_bust(length) {
 			var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
 
@@ -73,23 +73,23 @@ jQuery(document).ready(function($) {
 	jQuery('.reload').on('click', function (event) {
 		reload_preview();
 	});
-		
+
 	var reload_url = parent.window.location.href;
 
 	//alert(jQuery("#current_variation_id").text());
-	function reload_preview() {    
+	function reload_preview() {
 		var cache_bust =  generate_random_cache_bust(35);
 		var reload_url = parent.window.location.href;
 		reload_url = reload_url.replace('template-customize=on','');
 		//alert(reload_url);
 		var current_variation_id = jQuery("#current_variation_id").text();
-	
-		// var reload = jQuery(parent.document).find("#lp-live-preview").attr("src"); 
+
+		// var reload = jQuery(parent.document).find("#lp-live-preview").attr("src");
 		var new_reload = reload_url + "&live-preview-area=" + cache_bust + "&lp-variation-id=" + current_variation_id;
 		jQuery(parent.document).find("#lp-live-preview").attr("src", new_reload);
 		// console.log(new_reload);
 	}
-			   
+
 	// need rewrite to include the content and the form area
 	jQuery('.landing-page-option-row').on('mouseover', function (event) {
 		var $tgt = jQuery(event.target);
@@ -102,7 +102,7 @@ jQuery(document).ready(function($) {
 			jQuery(finding_the_match).addClass('lp-see-this');
 		}
 		//jQuery(parent.document).find(".introjs-overlay").show();
-	 
+
 	});
 
 
@@ -117,7 +117,7 @@ jQuery(document).ready(function($) {
 			jQuery(finding_the_match).removeClass('lp-see-this');
 		}
 		//jQuery(parent.document).find("#new").contents().find(".introjs-overlay").hide();
-	 
+
 	});
 
 	jQuery('input[type="text"], textarea, select').each(function(){
@@ -131,7 +131,7 @@ jQuery(document).ready(function($) {
 			//console.log(current_value_from_page);
 			var new_value_show = jQuery(this).val();
 			//console.log(new_value_show);
-			//$(this, parent.document.body).html(new_value_show); 
+			//$(this, parent.document.body).html(new_value_show);
 			jQuery(parent.document).find("#lp-live-preview").contents().find("#" + current_id).html(new_value_show);
 		});
 
@@ -142,7 +142,7 @@ jQuery(document).ready(function($) {
 
 		//console.log(current_id);
 		jQuery(this).on("change", function (e) {
-		   
+
 		});
 
 	});
@@ -170,7 +170,7 @@ jQuery(document).ready(function($) {
 			}
 			//jQuery(parent.document).find("#lp-live-preview").contents().find("#" + current_id).html(new_value_show);
 	   });
-		 
+
 	}, 4000);
 
 /* might still need
@@ -187,7 +187,7 @@ jQuery(document).ready(function($) {
 					jQuery(parent_el).find(".new-save-lp-frontend").remove();
 					var ajax_save_button = jQuery('<span class="button-primary new-save-lp-frontend" id="lp-conversion-area" style="margin-left:10px;">Update</span>');
 					//console.log(parent_el);
-					
+
 					jQuery(ajax_save_button).appendTo(parent_el);
 				},
 				// change not working probably need timeout on clicks
@@ -199,7 +199,7 @@ jQuery(document).ready(function($) {
 				}
 						//jQuery(parent.document).find("#lp-live-preview").contents().find("#" + current_id).html(new_value_show);
 		});
-		 
+
 	}, 3000);
 */
 	jQuery('#wp_content').on("keyup", function (e) {
@@ -208,10 +208,10 @@ jQuery(document).ready(function($) {
 			jQuery(parent.document).find("#lp-live-preview").contents().find("#the-content").html(new_value);
 			//jQuery(parent.document).find("#lp-live-preview").contents().find("#" + current_id).html(new_value_show);
 	});
-	 
+
 	//jQuery(parent.document).find('#lp_customizer_options').contents().find('#wp_content_ifr').contents().find("body").html();
-	
-	// Need to resize or insert custom css into media-uploader iframe 
+
+	// Need to resize or insert custom css into media-uploader iframe
 	/*
 		tb_position_two = function() {
             var tbWindow = $('#TB_window');
@@ -219,21 +219,21 @@ jQuery(document).ready(function($) {
 
         }
      */
-    
+
 	jQuery('#lp-frontend-options-container .upload_image_button').on('click', function (event) {
-			
-			//console.log(parent_input); 
+
+			//console.log(parent_input);
 			var media_name = jQuery(this).attr('id');
-			media_name = media_name.replace('uploader_',''); 
+			media_name = media_name.replace('uploader_','');
 			var parent_el = jQuery(this).parent().parent();
 			jQuery(parent_el).find(".lp-success-message").remove();
 			jQuery(parent_el).find(".new-save-lp-frontend").remove();
 			var ajax_save_button = jQuery('<span class="button-primary new-save-lp-frontend" id="' + media_name + '" style="position: absolute; top: 0px; right: 34px;">Update</span>');
 			setTimeout(function() {
-				jQuery("#TB_iframeContent").contents().find('head').append('<link rel="stylesheet" href="/wp-content/plugins/landing-pages/css/customizer.media-uploader.css" type="text/css" />');
+				jQuery("#TB_iframeContent").contents().find('head').append('<link rel="stylesheet" href="/wp-content/plugins/landing-pages/assets/css/customizer.media-uploader.css" type="text/css" />');
 			}, 500);
 			setTimeout(function() {
-				jQuery("#TB_iframeContent").contents().find('head').append('<link rel="stylesheet" href="/wp-content/plugins/landing-pages/css/customizer.media-uploader.css" type="text/css" />');
+				jQuery("#TB_iframeContent").contents().find('head').append('<link rel="stylesheet" href="/wp-content/plugins/landing-pages/assets/css/customizer.media-uploader.css" type="text/css" />');
 			}, 2000);
 
 		//console.log(parent_el);
@@ -245,7 +245,7 @@ jQuery(document).ready(function($) {
 			return false;
 		}
 	 );
-	 
+
 	window.tb_remove = function()
 	{
 		console.log('new-image-chosen');
@@ -261,12 +261,12 @@ jQuery(document).ready(function($) {
 		}
 		document.onkeydown = "";
 		document.onkeyup = "";
-		
+
 		jQuery.cookie('media_init', 0);
 		return false;
 	}
-	 
-	window.send_to_editor = function(h) {		
+
+	window.send_to_editor = function(h) {
 		if (jQuery.cookie('media_init')==1)
 		{
 			var imgurl = jQuery('img',h).attr('src');
@@ -322,7 +322,7 @@ jQuery(document).ready(function($) {
 			}
 
 			jQuery.cookie('media_init', 0);
-			
+
 			try{tb_remove();}catch(e){};
 		}
 	}

@@ -276,7 +276,7 @@ th.landing-page-table-header {width:230px; line-height: 22px;}
 }
 
 /* Split Testing Splash */
-.lp_tooltip, .lp_tooltip_templates {background: url('/wp-content/plugins/landing-pages/css/images/question-light.png');
+.lp_tooltip, .lp_tooltip_templates {background: url('/wp-content/plugins/landing-pages/assets/css/images/question-light.png');
 width: 15px;
 height: 15px;
 display: inline-block;
