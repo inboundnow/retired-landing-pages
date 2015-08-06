@@ -19,7 +19,7 @@ class Landing_Pages_Install {
         add_action('admin_enqueue_scripts', array( __CLASS__ , 'enqueue_scripts' ) );
 
         if(!defined('INBOUND_PRO_PATH')) {
-            require_once(LANDINGPAGES_PATH."/libraries/class-tgm-plugin-activation.php");
+            require_once(LANDINGPAGES_PATH."/assets/libraries/class-tgm-plugin-activation.php");
             add_action( 'tgmpa_register', array( __CLASS__ , 'install_recommended_plugins' ) );
         }
     }
@@ -192,7 +192,7 @@ class Landing_Pages_Install {
             )
         );
 
-        /* located in /libraries/class-tgm-plugin-activation.php */
+        /* located in /assets/libraries/class-tgm-plugin-activation.php */
         inbound_activate( $plugins, $config );
 
     }
