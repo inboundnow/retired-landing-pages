@@ -55,7 +55,7 @@ install:
   - sudo apt-get install apache2 libapache2-mod-fastcgi
   
   # create hosts file for site
-  - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/inboundtesting.dev
+  - sudo cp -f assets/tests/build/travis-ci-apache /etc/apache2/sites-available/inboundtesting.dev
   
   # enable new hosts file
   - sudo a2ensite inboundtesting.dev 

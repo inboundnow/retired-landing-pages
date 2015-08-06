@@ -1,9 +1,9 @@
 actor: Tester
 paths:
-    tests: tests/codeception
-    log: tests/codeception/_output
-    data: tests/codeception/_data
-    helpers: tests/codeception/_support
+    tests: assets/tests/codeception
+    log: assets/tests/codeception/_output
+    data: assets/tests/codeception/_data
+    helpers: assets/tests/codeception/_support
 settings:
     bootstrap: _bootstrap.php
     colors: false
@@ -14,6 +14,6 @@ modules:
             dsn: ''
             user: ''
             password: ''
-            dump: tests/codeception/_data/dump.sql
+            dump: assets/tests/codeception/_data/dump.sql
 extensions:
     #enabled: [WPBrowser]  
