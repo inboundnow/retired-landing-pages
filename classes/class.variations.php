@@ -131,7 +131,7 @@ if (!class_exists('Landing_Pages_Variations')) {
          */
         public static function record_impression($landing_page_id, $variation_id) {
 
-            $impressions = get_post_meta($landing_page_id, 'inbound-mailer-ab-variation-impressions-' . $variation_id, true);
+            $impressions = get_post_meta($landing_page_id, 'lp-ab-variation-impressions--' . $variation_id, true);
 
             if (!is_numeric($impressions)) {
                 $impressions = 1;
@@ -139,7 +139,7 @@ if (!class_exists('Landing_Pages_Variations')) {
                 $impressions++;
             }
 
-            update_post_meta($landing_page_id, 'inbound-mailer-ab-variation-impressions-' . $variation_id, $impressions);
+            update_post_meta($landing_page_id, 'lp-ab-variation-impressions--' . $variation_id, $impressions);
         }
 
 
