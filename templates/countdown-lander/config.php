@@ -136,3 +136,25 @@ array(
         'context'  => 'normal'
         )
     );
+
+
+/**
+*  Enqueue JS & CSS
+*/
+function lp_countdown_lander_enqueue_scripts() {
+	global $post;
+	if ( isset($post) && $post->post_type != 'landing-page' ) {
+		return;
+	}
+	
+	/* Get file locations */
+	$key = basename(dirname(__FILE__));
+	$url_path = LANDINGPAGES_URLPATH.'templates/'.$key.'/';
+
+	/* enqueue supportive scripts */
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'jquery-time-picker-script', $url_path . 'assets/js/datetimepicker/jquery.datetimepicker.js', array('jquery') );
+	wp_enqueue_style( 'jquery-time-picker-css', $url_path . 'assets/js/datetimepicker/jquery.datetimepicker.css' );
+	wp_enqueue_script( 'jquery-date-picker-script', $url_path . 'assets/js/picker_functions.js', array('jquery') );
+}
+add_action('admin_enqueue_scripts' , 'lp_countdown_lander_enqueue_scripts');
