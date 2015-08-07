@@ -158,7 +158,7 @@ class Landing_Pages_Templates_List_Table extends WP_List_Table {
 
                 return;
             default:
-                return print_r($item, true); //Show the whole array for troubleshooting purposes
+                return print_r($item, true); /*Show the whole array for troubleshooting purposes */
         }
     }
 

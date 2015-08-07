@@ -88,13 +88,13 @@ class Landing_Pages_Click_Tracking {
             $pos = strpos($qs, 'lp_redirect');
             if (!(false === $pos)) {
                 $link = substr($qs, $pos);
-                $link = str_replace('lp_redirect=', '', $link); // clean url
+                $link = str_replace('lp_redirect=', '', $link); /* clean url */
 
                 /* Extract the ID and get the link */
                 $pattern = '/lp_redirect_(\d+?)\=/';
                 preg_match($pattern, $link, $matches);
                 $link = preg_replace($pattern, '', $link);
-                $landing_page_id = $matches[1]; // Event ID
+                $landing_page_id = $matches[1]; /* Event ID */
                 $lead_ID = false;
                 $append = true;
                 /* If lead post id exists */
@@ -131,15 +131,15 @@ class Landing_Pages_Click_Tracking {
                 }
 
                 /* Save click! */
-                self::store_click( $landing_page_id, $variation_id); // Store CTA data to CTA CPT
+                self::store_click( $landing_page_id, $variation_id); /* Store CTA data to CTA CPT */
 
                 if( $lead_ID && $append != false ) {
                     /* Add landing page click to lead profile */
                     self::log_lead_click($landing_page_id, $lead_ID, $variation_id);
                 }
-                $link = preg_replace('/(?<=wpl_id)(.*)(?=&)/s', '', $link); // clean url
-                $link = preg_replace('/&wpl_id&l_type=(\D*)/', '', $link); // clean url2
-                $link = preg_replace('/&vid=(\d*)/', '', $link); // clean url3
+                $link = preg_replace('/(?<=wpl_id)(.*)(?=&)/s', '', $link); /* clean url */
+                $link = preg_replace('/&wpl_id&l_type=(\D*)/', '', $link); /* clean url2 */
+                $link = preg_replace('/&vid=(\d*)/', '', $link); /* clean url3 */
                 $link = urldecode( $link );
                 /* Redirect */
                 header("HTTP/1.1 302 Temporary Redirect");

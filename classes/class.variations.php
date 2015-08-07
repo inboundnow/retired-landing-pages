@@ -51,7 +51,7 @@ if (!class_exists('Landing_Pages_Variations')) {
                 $len = strlen($suffix);
             }
 
-            //delete each meta value associated with variation
+            /*delete each meta value associated with variation */
             global $wpdb;
             $data = array();
             $wpdb->query("
@@ -64,7 +64,7 @@ if (!class_exists('Landing_Pages_Variations')) {
                 $data[$v->meta_key] = $v->meta_value;
             };
 
-            //echo $len;exit;
+            /*echo $len;exit; */
             foreach ($data as $key => $value) {
                 if (substr($key, -$len) == $suffix) {
                     delete_post_meta($landing_page_id, $key, $value);

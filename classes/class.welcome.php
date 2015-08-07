@@ -10,7 +10,7 @@
  * Forked from pippin's WordPress Landing Pages! https://easydigitaldownloads.com/
  */
 
-// Exit if accessed directly
+/* Exit if accessed directly */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /**
@@ -48,7 +48,7 @@ class LandingPages_Welcome {
      * @return void
      */
     public function admin_menus() {
-        // About Page
+        /* About Page */
         add_dashboard_page(
             __( 'Welcome to WordPress Landing Pages', 'landing-pages'),
             __( 'Welcome to WordPress Landing Pages', 'landing-pages'),
@@ -56,7 +56,7 @@ class LandingPages_Welcome {
             'lp-quick-start',
             array( $this, 'quick_start_screen' )
         );
-        // About InboundNow Page
+        /* About InboundNow Page */
         add_dashboard_page(
             __( 'About the Inbound Now Marketing Platform', 'landing-pages'),
             __( 'About the Inbound Now Marketing Platform', 'landing-pages'),
@@ -64,7 +64,7 @@ class LandingPages_Welcome {
             'about-inboundnow',
             array( $this, 'about_inboundnow_screen' )
         );
-        // Developer Page
+        /* Developer Page */
         add_dashboard_page(
             __( 'Developers and Designers', 'landing-pages'),
             __( 'Developers and Designers', 'landing-pages'),
@@ -586,11 +586,11 @@ class LandingPages_Welcome {
         <?php
     }
     public function force_permalink_flush(){
-        // Bail if multisite
+        /* Bail if multisite */
         if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
             return;
         }
-        // check if flushed
+        /* check if flushed */
         $hasFlushed = get_option( 'inbound_permalink_flush' );
         if($hasFlushed) {
             return;
@@ -616,15 +616,15 @@ class LandingPages_Welcome {
      */
     public function welcome() {
 
-        // Bail if no activation redirect
+        /* Bail if no activation redirect */
         if ( ! get_transient( '_landing_page_activation_redirect' ) ) {
             return;
         }
 
-        // Delete the redirect transient
+        /* Delete the redirect transient */
         delete_transient( '_landing_page_activation_redirect' );
 
-        // Bail if activating from network, or bulk
+        /* Bail if activating from network, or bulk */
         if ( is_network_admin() || isset( $_GET['activate-multi'] ) ){
             return;
         }

@@ -150,7 +150,7 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
                 /* load qtip for popup data */
                 wp_enqueue_script('jquery-qtip', LANDINGPAGES_URLPATH . 'assets/libraries/jquery-qtip/jquery.qtip.min.js');
                 wp_enqueue_script('load-qtip', LANDINGPAGES_URLPATH . 'assets/libraries/jquery-qtip/load.qtip.js', array('jquery-qtip'));
-                wp_enqueue_style('qtip-css', LANDINGPAGES_URLPATH . 'assets/css/jquery.qtip.min.css'); //Tool tip css
+                wp_enqueue_style('qtip-css', LANDINGPAGES_URLPATH . 'assets/css/jquery.qtip.min.css'); /*Tool tip css */
 
                 wp_enqueue_script('landing-page-list', LANDINGPAGES_URLPATH . 'assets/js/admin/admin.landing-page-list.js');
                 wp_enqueue_style('landing-page-list-css', LANDINGPAGES_URLPATH.'assets/css/admin/landing-page-list.css');
@@ -180,7 +180,7 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
 
 
             if (isset($_GET['template-customize']) &&$_GET['template-customize']=='on') {
-                echo "<style type='text/css'>#variation-list{background:#eaeaea !important; top: 26px !important; height: 35px !important;padding-top: 10px !important;}#wpadminbar {height: 32px !important;}</style>"; // enqueue styles not firing
+                echo "<style type='text/css'>#variation-list{background:#eaeaea !important; top: 26px !important; height: 35px !important;padding-top: 10px !important;}#wpadminbar {height: 32px !important;}</style>"; /* enqueue styles not firing */
             }
 
 
@@ -355,7 +355,7 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
             $this_path = "wp-content" . $this_path[1];
 
             $slug = get_option('lp-main-landing-page-permalink-prefix', 'go');
-            //echo $slug;exit;
+            /*echo $slug;exit; */
             $ab_testing = get_option('lp-main-landing-page-disable-turn-off-ab', "0");
             if ($ab_testing === "0") {
                 add_rewrite_rule("$slug/([^/]*)/([0-9]+)/", "$slug/$1?lp-variation-id=$2", 'top');
@@ -424,24 +424,24 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
 
                 echo "<span class='show-stats button'> " . __('Show Variation Stats', 'landing-pages') . "</span>";
                 echo "<ul class='lp-varation-stat-ul'>";
-                $first_status = get_post_meta($post->ID, 'lp_ab_variation_status', true); // Current status
+                $first_status = get_post_meta($post->ID, 'lp_ab_variation_status', true); /* Current status */
                 $first_notes = get_post_meta($post->ID, 'lp-variation-notes', true);
                 $cr_array = array();
                 $i = 0;
                 $impressions = 0;
                 $conversions = 0;
                 foreach ($variations as $key => $vid) {
-                    $letter = Landing_Pages_Variations::vid_to_letter($post->ID, $vid); // convert to letter
-                    $each_impression = get_post_meta($post->ID, 'lp-ab-variation-impressions-' . $vid, true); // get impressions
-                    $v_status = get_post_meta($post->ID, 'lp_ab_variation_status-' . $vid, true); // Current status
+                    $letter = Landing_Pages_Variations::vid_to_letter($post->ID, $vid); /* convert to letter */
+                    $each_impression = get_post_meta($post->ID, 'lp-ab-variation-impressions-' . $vid, true); /* get impressions */
+                    $v_status = get_post_meta($post->ID, 'lp_ab_variation_status-' . $vid, true); /* Current status */
                     if ($i === 0) {
                         $v_status = $first_status;
-                    } // get status of first
-                    (($v_status === "")) ? $v_status = "1" : $v_status = $v_status; // Get on/off status
-                    $each_notes = get_post_meta($post->ID, 'lp-variation-notes-' . $vid, true); // Get Notes
+                    } /* get status of first */
+                    (($v_status === "")) ? $v_status = "1" : $v_status = $v_status; /* Get on/off status */
+                    $each_notes = get_post_meta($post->ID, 'lp-variation-notes-' . $vid, true); /* Get Notes */
                     if ($i === 0) {
                         $each_notes = $first_notes;
-                    } // Get first notes
+                    } /* Get first notes */
                     $each_conversion = get_post_meta($post->ID, 'lp-ab-variation-conversions-' . $vid, true);
                     (($each_conversion === "")) ? $final_conversion = 0 : $final_conversion = $each_conversion;
                     $impressions += get_post_meta($post->ID, 'lp-ab-variation-impressions-' . $vid, true);
@@ -472,14 +472,14 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
                     $i++;
                 }
                 echo "</ul>";
-                $winning_cr = max($cr_array); // best conversion rate
+                $winning_cr = max($cr_array); /* best conversion rate */
                 if ($winning_cr != 0) {
                     echo "<span class='variation-winner-is'>" . $post->ID . "-" . $winning_cr . "</span>";
                 }
-                //echo "Total Visits: " . $impressions;
-                //echo "Total Conversions: " . $conversions;
+                /*echo "Total Visits: " . $impressions; */
+                /*echo "Total Conversions: " . $conversions; */
             } else {
-                $notes = get_post_meta($post->ID, 'lp-variation-notes', true); // Get Notes
+                $notes = get_post_meta($post->ID, 'lp-variation-notes', true); /* Get Notes */
                 $cr = self::show_aggregated_stats("cr");
                 $edit_link = admin_url('post.php?post=' . $post->ID . '&lp-variation-id=0&action=edit');
                 $start_test_link = admin_url('post.php?post=' . $post->ID . '&lp-variation-id=1&action=edit&new-variation=1&lp-message=go');
@@ -594,7 +594,7 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
             <script type="text/javascript">
                 jQuery(document).ready(function ($) {
                     var current_page = jQuery("#current_variation_id").text();
-                    // reload the iframe preview page (for option toggles)
+                    /* reload the iframe preview page (for option toggles) */
                     jQuery('.variation-lp').on('click', function (event) {
                         variation_is = jQuery(this).attr("id");
                         var original_url = jQuery(parent.document).find("#TB_iframeContent").attr("src");
@@ -621,7 +621,7 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
                 echo "<div class='variation-lp " . $current_view . "' id=" . $val . ">";
                 echo Landing_Pages_Variations::vid_to_letter( $landing_page_id , $key);
 
-                // echo $val; number
+                /* echo $val; number */
                 echo "</div>";
             }
             echo "<span id='current-post-id'>$landing_page_id</span>";
@@ -645,7 +645,7 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
                     /* For Iframe previews to stop saving page views */
                     var dont_save_page_view = _inbound.Utils.getParameterVal('dont_save', window.location.href);
                     if (dont_save_page_view) {
-                        //console.log('turn off page tracking');
+                        /*console.log('turn off page tracking'); */
                         window.inbound_settings.page_tracking = 'off';
                     }
                 </script>

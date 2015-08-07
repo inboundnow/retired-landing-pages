@@ -38,7 +38,7 @@ class  Landing_Pages_Template_Management {
         $_registered_pages[$hookname] = true;
 
         $hookname = get_plugin_page_hookname('lp_templates_search', 'edit.php?post_type=landing-page');
-        //echo $hookname;exit;
+        /*echo $hookname;exit; */
         if (!empty($hookname)) {
             add_action($hookname, 'lp_templates_search');
         }
@@ -312,7 +312,7 @@ class  Landing_Pages_Template_Management {
         if (!$result) {
             die("There was a problem. Please try again!");
         } else {
-            //print_r($result);exit;
+            /*print_r($result);exit; */
             unlink($file_path);
             echo '<div class="updated"><p>' . $data['label'] . ' upgraded successfully!</div>';
         }
