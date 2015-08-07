@@ -165,7 +165,9 @@ class Landing_Pages_Templates_List_Table extends WP_List_Table {
     function admin_header() {
         $page = (isset($_GET['page'])) ? esc_attr($_GET['page']) : false;
 
-        if ('lp_manage_templates' != $page) return;
+        if ('lp_manage_templates' != $page) {
+            return;
+        }
     }
 
     function no_items() {
@@ -228,13 +230,13 @@ class Landing_Pages_Templates_List_Table extends WP_List_Table {
 
         $request = wp_remote_post(LANDINGPAGES_STORE_URL, array('timeout' => 15, 'sslverify' => false, 'body' => $api_params));
 
-        if (!is_wp_error($request)):
+        if (!is_wp_error($request)) {
             $request = json_decode(wp_remote_retrieve_body($request), true);
             if ($request) $request['sections'] = maybe_unserialize($request['sections']);
             return $request;
-        else:
+        } else {
             return false;
-        endif;
+        }
     }
 
 

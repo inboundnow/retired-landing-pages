@@ -532,7 +532,9 @@ function lp_discover_important_wrappers($content) {
  * @return null|string
  */
 function lp_rebuild_attributes($content = null, $wrapper_class = null) {
-    if (strstr($content, '<form')) return $content;
+    if (strstr($content, '<form')) {
+        return $content;
+    }
 
     // Standardize all links
     $inputs = preg_match_all('/\<a(.*?)\>/s', $content, $matches);

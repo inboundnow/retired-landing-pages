@@ -790,7 +790,9 @@ class Landing_Pages_Settings {
             // Call the custom API.
             $response = wp_remote_get(add_query_arg($api_params, LANDINGPAGES_STORE_URL), array('timeout' => 15, 'sslverify' => false));
 
-            if (is_wp_error($response)) return false;
+            if (is_wp_error($response)) {
+                return false;
+            }
 
             $license_data = json_decode(wp_remote_retrieve_body($response));
 

@@ -406,7 +406,7 @@ class Landing_Pages_Metaboxes {
 
         foreach ($variations as $i => $vid) {
             $letter = Landing_Pages_Variations::vid_to_letter( $post->ID , $i);
-            ($i < 1) ? $pre = __('Version ', 'landing-pages') : $pre = '';
+            $pre = ($i < 1) ? __('Version ', 'landing-pages') : '';
 
             if ($current_variation_id == $vid && !isset($_GET['new-variation'])) {
                 $cur_class = 'active';
@@ -725,9 +725,13 @@ class Landing_Pages_Metaboxes {
 
         foreach ($extension_data as $this_extension => $data) {
 
-            if (substr($this_extension, 0, 4) == 'ext-') continue;
+            if (substr($this_extension, 0, 4) == 'ext-') {
+                continue;
+            }
 
-            if (isset($data['info']['data_type']) && $data['info']['data_type'] == 'metabox') continue;
+            if (isset($data['info']['data_type']) && $data['info']['data_type'] == 'metabox') {
+                continue;
+            }
 
 
             $cats = explode(',', $data['info']['category']);
