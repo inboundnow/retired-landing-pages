@@ -115,6 +115,7 @@ before_script:
 
 script:
   - phpunit
+  - codecept build
   - codecept run
   #- codecept run  --debug -vvv
 
