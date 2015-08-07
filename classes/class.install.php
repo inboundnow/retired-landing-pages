@@ -80,7 +80,7 @@ class Landing_Pages_Install {
         add_post_meta($landing_page_id, 'svtle-conversion-area-content-1', '<h2>'.__( 'Form B' , 'landing-pages') .'</h2>[inbound_forms id="default_1" name="First, Last, Email Form"]');
         add_post_meta($landing_page_id, 'svtle-main-content-1', '<p>(Version B) This is the first paragraph of your landing page where you want to draw the viewers in and quickly explain your value proposition.</p><p><strong>Use Bullet Points to:</strong><ul><li>Explain why they should fill out the form</li><li>What they will learn if they download</li><li>A problem this form will solve for them</li></ul></p><p>Short ending paragraph reiterating the value behind the form</p>');
 
-        // Add A/B Testing meta
+        /*  Add A/B Testing meta */
         add_post_meta($landing_page_id, 'lp-ab-variations', '0,1');
         add_post_meta($landing_page_id, 'lp-ab-variation-impressions-0', 30);
         add_post_meta($landing_page_id, 'lp-ab-variation-impressions-1', 35);

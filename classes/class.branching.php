@@ -27,7 +27,6 @@ if ( !class_exists('Landing_Pages_Branching')	) {
 
 		/**
 		* Add branches to branching api for landing pages plugin
-		*
 		*/
 		public static function add_branches( $branches ) {
 			$branches['landing-pages'] = array(

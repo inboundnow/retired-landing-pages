@@ -46,15 +46,15 @@ class Landing_Pages_Load_Extensions {
 				'id'  => 'selected-template',
 				'label' => __( 'Select Template' , 'landing-pages'),
 				'description' =>  __( "This option provides a placeholder for the selected template data." , 'landing-pages'),
-				'type'  => 'radio', // this is not honored. Template selection setting is handled uniquely by core.
+				'type'  => 'radio', /* this is not honored. Template selection setting is handled uniquely by core. */
 				'default'  => 'default',
-				'options' => null // this is not honored. Template selection setting is handled uniquely by core.
+				'options' => null /* this is not honored. Template selection setting is handled uniquely by core. */
 			),
 			array(
 				'id'  => 'main-headline',
 				'label' => __('Set Main Headline' , 'landing-pages'),
 				'description' => __( "Set Main Headline" , 'landing-pages'),
-				'type'  => 'text', // this is not honored. Main Headline Input setting is handled uniquely by core.
+				'type'  => 'text', /* this is not honored. Main Headline Input setting is handled uniquely by core. */
 				'default'  => '',
 				'options' => null
 			),
@@ -168,7 +168,7 @@ class Landing_Pages_Load_Extensions {
 
 		$template_ids = self::get_core_template_ids();
 
-		//Now load all config.php files with their custom meta data
+		/*Now load all config.php files with their custom meta data */
 		if (count($template_ids)>0)
 		{
 			foreach ($template_ids as $name)
@@ -254,7 +254,7 @@ class Landing_Pages_Load_Extensions {
 		$template_path = LANDINGPAGES_PATH."/templates/" ;
 		$results = scandir($template_path);
 
-		//scan through templates directory and pull in name paths
+		/*scan through templates directory and pull in name paths */
 		foreach ($results as $name) {
 			if ($name === '.' or $name === '..' or $name === '__MACOSX') {
 				continue;
