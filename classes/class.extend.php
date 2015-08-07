@@ -231,7 +231,9 @@ class Landing_Pages_Load_Extensions {
 		$results = scandir( LANDINGPAGES_UPLOADS_PATH );
 
 		foreach ($results as $name) {
-			if ($name === '.' or $name === '..' or $name === '__MACOSX') continue;
+			if ($name === '.' or $name === '..' or $name === '__MACOSX'){
+				continue;
+			}
 
 			if (is_dir( LANDINGPAGES_UPLOADS_PATH . '/' . $name)) {
 				$template_ids[] = $name;

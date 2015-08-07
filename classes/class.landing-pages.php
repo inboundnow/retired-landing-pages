@@ -54,7 +54,9 @@ class Landing_Pages_Template_Switcher {
     public static function display_landing_page_title( $content, $id = null ) {
         global $post;
 
-        if (!isset($post)) return $content;
+        if (!isset($post)) {
+            return $content;
+        }
 
         if ( ($post->post_type != 'landing-page' || is_admin()) || $id != $post->ID ) {
             return $content;
@@ -326,7 +328,6 @@ function lp_main_headline($post = null, $headline = null, $return = false) {
 
     if (!$return) {
         echo $main_headline;
-
     } else {
         return $main_headline;
     }
