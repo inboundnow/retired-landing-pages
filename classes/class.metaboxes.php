@@ -450,7 +450,7 @@ class Landing_Pages_Metaboxes {
                 <div id="bab-stat-box">
                     <?php
 
-                    if (isset($_GET['new_meta_key'])) {
+                    if (isset($_GET['new_meta_key']) && is_numeric($_GET['new_meta_key']) ) {
                     ?>
                         <script type="text/javascript">
                             jQuery(document).ready(function($) {
