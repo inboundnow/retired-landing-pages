@@ -16,15 +16,32 @@ $key = lp_get_parent_directory(dirname(__FILE__));
 $next_month_timestamp = strtotime("+1 month");
 $next_month = date('Y-m-d H:i', $next_month_timestamp);
 
-$lp_data[$key]['info'] =
-array(
+$lp_data[$key]['info'] = array(
 	'data_type' => 'template', // Template Data Type
 	'version' => "1.0.0.5", // Version Number
-	'label' => "Countdown Lander", // Nice Name
+	'label' => __( 'Countdown Lander' , 'landing-pages' ), // Nice Name
 	'category' => 'Countdown, v1, 1 column layout', // Template Category
 	'demo' => 'http://demo.inboundnow.com/go/countdown-lander/', // Demo Link
-	'description'  => 'Coundown Lander provides a simple sharp looking countdown page.', // template description
+	'description'  => __( 'Coundown Lander provides a simple sharp looking countdown page.' , 'landing-pages' ), // template description
 	'acf' => true
+);
+
+/* disables editor */
+$lp_data[$key]['settings'] = array(
+	array(
+		'label' => 'turn-off-editor', /* Turns off main content */
+		'description' => 'Turn off editor',
+		'id'	=> 'turn-off-editor',
+		'type'	=> 'custom-css',
+		'default'	=> '#postdivrich, #lp_2_form_content {display:none !important;}'
+	),
+	array(
+		'label' => 'Instructions', /* Turns off main content */
+		'description' => __( 'If changing to this template from another template, save the landing page and after the refresh the page will display the template settings.' , 'landing-pages' ),
+		'id'	=> 'instructions',
+		'type'	=> 'description-block',
+		'default'	=> 'test'
+	)
 );
 
 if( function_exists('acf_add_local_field_group') ):
@@ -246,7 +263,7 @@ acf_add_local_field_group(array (
 			),
 			'other_choice' => 0,
 			'save_other_choice' => 0,
-			'default_value' => '',
+			'default_value' => '1',
 			'layout' => 'vertical',
 		),
 	),
