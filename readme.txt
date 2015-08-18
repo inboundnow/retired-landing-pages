@@ -72,6 +72,12 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 4. Choose from a ton of pre-made templates, use your existing design, or design your own theme!
 
 == Changelog ==
+= 1.9.2 =
+* Security Patch
+
+= 1.9.1 =
+* Security Patch
+
 = 1.9.0 =
 * New preview views in landing page edit screens
 * Temporarily disabling geolocation services
