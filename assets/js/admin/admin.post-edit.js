@@ -81,11 +81,11 @@ jQuery(document).ready(function($) {
 	if(which_editor === 'editor'){
 	  setTimeout(function() {
 
-        var ctmce= jQuery('#content-tmce');
-        jQuery('.switch-tmce').each(function(){
-            jQuery(this).click();
-        });
+            jQuery('.switch-tmce').each(function(){
+                jQuery(this).click();
+            });
 
+	   }, 1000);
 	}
 
     /* Tour Start JS */
