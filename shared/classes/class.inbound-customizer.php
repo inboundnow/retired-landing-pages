@@ -70,10 +70,6 @@ class Inbound_Customizer {
     }
     /* Load Scripts for Editor Window */
     public static function customizer_editor_scripts() {
-        $screen = get_current_screen();
-        if ( ( isset($screen) && $screen->post_type != 'wp-call-to-action' ) ) {
-            return;
-        }
         wp_enqueue_script('inbound-customizer-editor-js', INBOUNDNOW_SHARED_URLPATH . 'assets/js/admin/customizer-editor.js');
         wp_enqueue_style('inbound-customizer-editor-css', INBOUNDNOW_SHARED_URLPATH . 'assets/css/customizer-editor.css');
         //wp_enqueue_style('cta-customizer-admin', WP_CTA_URLPATH . 'assets/css/new-customizer-admin.css');
