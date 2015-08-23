@@ -179,11 +179,6 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
             wp_enqueue_style('inbound-shortcodes', INBOUND_FORMS.'css/frontend-render.css');
 
 
-            if (isset($_GET['template-customize']) &&$_GET['template-customize']=='on') {
-                echo "<style type='text/css'>#variation-list{background:#eaeaea !important; top: 26px !important; height: 35px !important;padding-top: 10px !important;}#wpadminbar {height: 32px !important;}</style>"; /* enqueue styles not firing */
-            }
-
-
         }
 
         /**
@@ -638,7 +633,7 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
                 return;
             }
 
-            if (isset($_GET['lp-variation-id']) && !isset($_GET['template-customize']) && !isset($_GET['iframe_window']) && !isset($_GET['live-preview-area'])) {
+            if (isset($_GET['lp-variation-id']) && !isset($_GET['inbound-customizer']) && !isset($_GET['iframe_window']) && !isset($_GET['live-preview-area'])) {
                 do_action('landing_page_header_script');
                 ?>
                 <script type="text/javascript">

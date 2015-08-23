@@ -427,7 +427,7 @@ class Landing_Pages_Metaboxes {
         $edit_link = (isset($_GET['lp-variation-id'])) ? '?lp-variation-id=' . $_GET['lp-variation-id'] . '' : '?lp-variation-id=0';
         $post_link = get_permalink($post->ID);
         $post_link = preg_replace('/\?.*/', '', $post_link);
-        echo "<a rel='" . $post_link . "' id='launch-visual-editer' class='button-primary new-save-lp-frontend' href='$post_link$edit_link&template-customize=on'>" . __('Launch Visual Editor', 'landing-pages') . "</a>";
+        echo "<a rel='" . $post_link . "' id='launch-visual-editer' class='button-primary new-save-lp-frontend' href='$post_link$edit_link&inbound-customizer=on'>" . __('Launch Visual Editor', 'landing-pages') . "</a>";
         echo '</h2>';
 
 
