@@ -53,6 +53,18 @@ class Landing_Pages_Metaboxes {
             return;
         }
 
+
+        if($post->post_status !== 'draft') {
+            add_meta_box(
+                'lp-thumbnail-sidebar-preview',
+                __( 'Template Preview', 'landing-pages'),
+                array( __CLASS__ , 'display_template_preview_metabox' ),
+                'landing-page' ,
+                'side',
+                'high'
+            );
+        }
+
         /* Select Template Metbox */
         add_meta_box(
             'lp_metabox_select_template', /* $id */
@@ -126,17 +138,6 @@ class Landing_Pages_Metaboxes {
             'side',
             'high'
         );
-
-        if($post->post_status !== 'draft') {
-            add_meta_box(
-                'lp-thumbnail-sidebar-preview',
-                __( 'Template Preview', 'landing-pages'),
-                array( __CLASS__ , 'display_template_preview_metabox' ),
-                'landing-page' ,
-                'side',
-                'high'
-            );
-        }
 
         /* discover extended metaboxes and render them */
         foreach ($extension_data as $key => $data) {
@@ -842,9 +843,15 @@ class Landing_Pages_Metaboxes {
         </style>
         <?php
 
-        if (!isset($_GET['new-variation']) ) {
-            echo "<iframe src='$permalink' id='zoomer'></iframe>";
+        if (isset($_GET['new-variation'])) {
+            return;
         }
+        if( isset($_GET['inbound-editor']) && $_GET['inbound-editor'] !== true ) {
+            return;
+        }
+        // default
+        echo "<iframe src='$permalink' id='zoomer'></iframe>";
+
     }
 
 
