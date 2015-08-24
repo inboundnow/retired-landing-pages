@@ -48,7 +48,6 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
                 || isset($_GET['iframe_window'])
                 || isset($_GET['inbound-preview']) ) {
                 add_action('wp_enqueue_scripts', array(__CLASS__, 'stop_stat_tracking'));
-                add_action('wp_head', array(__CLASS__, 'wp_head' ));
             }
 
             /* load iframed preview page when preview is clicked from AB stats box */
@@ -644,7 +643,8 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
          */
         public static function wp_head() {
             global $post;
-            if (isset($post) && $post->post_type=='landing-page') {
+
+            if (isset($post) && $post->post_type!='landing-page') {
                 return;
             }
 
