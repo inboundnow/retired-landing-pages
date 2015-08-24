@@ -644,9 +644,20 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
         public static function wp_head() {
             global $post;
 
-            if (isset($post) && $post->post_type!='landing-page') {
+            if (isset($post) && $post->post_type !=='landing-page') {
                 return;
             }
+            /* if is tiny iframe preview window force these styles */
+            if (isset($_GET['dont_save'])) { ?>
+                <style type="text/css">
+                    :root:root:root #wpadminbar {
+                        display:none !important;
+                    }
+                    :root:root:root {
+                        margin-top: 0px !important;
+                    }
+                </style>
+            <?php }
 
             if (isset($_GET['lp-variation-id']) && !isset($_GET['inbound-customizer']) && !isset($_GET['iframe_window']) && !isset($_GET['live-preview-area'])) {
                 do_action('landing_page_header_script');
