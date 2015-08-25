@@ -8,6 +8,7 @@
 $key = lp_get_parent_directory(dirname(__FILE__));
 $path = LANDINGPAGES_URLPATH.'templates/'.$key.'/';
 $url = plugins_url();
+
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
 do_action('lp_init');
 
@@ -15,20 +16,14 @@ do_action('lp_init');
 if (have_posts()) : while (have_posts()) : the_post();
 
 /* Pre-load meta data into variables */
-$content = lp_get_value($post, $key, 'main-content');
-$conversion_area = lp_get_value($post, $key, 'conversion-area-content');
-// Text color: Use this setting to change the Text Color
-$text_color = lp_get_value($post, $key, 'text-color');
-// Content color: Use this setting to change the Content BG Color
-$content_background = lp_get_value($post, $key, 'content-background');
-// Form Text color: Use this setting to change the Form Text Color
-$form_text_color = lp_get_value($post, $key, 'form-text-color');
-// Background Settings: Use this setting to change the Text Color
-$background_style = lp_get_value($post, $key, 'background-style');
-// Background Image: Use this setting to change the Text Color
-$background_image = lp_get_value($post, $key, 'background-image');
-// Background Color: Use this setting to change the Text Color
-$background_color = lp_get_value($post, $key, 'background-color');
+$content = get_field( 'dropcap-main-content', $post->ID );
+$conversion_area = get_field( 'dropcap-conversion-content-area', $post->ID );
+$text_color = get_field( 'dropcap-text-color', $post->ID );
+$content_background = get_field( 'dropcap-content-background', $post->ID );
+$form_text_color = get_field( 'dropcap-form-text-color', $post->ID );
+$background_style = get_field( 'dropcap-background-style', $post->ID );
+$background_image = get_field( 'dropcap-background-image', $post->ID  , false ); /* non acf pro templates need to set the 3rd param to false for image field types */
+$background_color = get_field( 'dropcap-background-color', $post->ID );
 
 
 if ( $background_style === "fullscreen" ) {
@@ -40,7 +35,7 @@ if ( $background_style === "fullscreen" ) {
 	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.$background_image.'", sizingMethod="scale");
 	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.$background_image.'", sizingMethod="scale")";';
 } else if( $background_style === "color" ) {
-	$bg_style = 'background: #'.$background_color.';';
+	$bg_style = 'background: '.$background_color.';';
 
 } else if( $background_style === "tile" ) {
 	$bg_style = 'background: url('.$background_image.') repeat; ';
@@ -76,7 +71,7 @@ if ( $background_style === "fullscreen" ) {
 
 body { <?php echo $bg_style; ?> }
 <?php if ($text_color != "") { ?>
-#textspot p { color: #<?php echo $text_color;?>;}
+#textspot p { color: <?php echo $text_color;?>;}
 <?php } ?>
 <?php if ($content_background != "") { ?>
 #content { background: url('<?php echo LANDINGPAGES_URLPATH; ?>images/image.php?hex=<?php echo $content_background;?>'); border-radius: 8px; }
