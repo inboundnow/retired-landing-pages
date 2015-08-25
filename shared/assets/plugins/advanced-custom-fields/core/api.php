@@ -130,7 +130,7 @@ function get_field_objects( $post_id = false, $options = array() ) {
 
 			$value[ $field['name'] ] = $field;
 		}
-	}
+ 	}
 
 
 	// no value
@@ -830,32 +830,32 @@ function register_field_group( $array )
 
 
 		if( is_array($array['location']['rules']) )
-		{
-			foreach( $array['location']['rules'] as $rule )
-			{
-				$rule['group_no'] = $group_no;
+	 	{
+		 	foreach( $array['location']['rules'] as $rule )
+		 	{
+			 	$rule['group_no'] = $group_no;
 
-				// sperate groups?
-				if( $array['location']['allorany'] == 'any' )
-				{
-					$group_no++;
-				}
-
-
-				// add to group
-				$groups[ $rule['group_no'] ][ $rule['order_no'] ] = $rule;
+			 	// sperate groups?
+			 	if( $array['location']['allorany'] == 'any' )
+			 	{
+				 	$group_no++;
+			 	}
 
 
-				// sort rules
-				ksort( $groups[ $rule['group_no'] ] );
+			 	// add to group
+			 	$groups[ $rule['group_no'] ][ $rule['order_no'] ] = $rule;
 
-			}
 
-			// sort groups
+			 	// sort rules
+			 	ksort( $groups[ $rule['group_no'] ] );
+
+		 	}
+
+		 	// sort groups
 			ksort( $groups );
-		}
+	 	}
 
-		$array['location'] = $groups;
+	 	$array['location'] = $groups;
 	}
 
 
@@ -887,8 +887,8 @@ function api_acf_get_field_groups( $return )
 	// Obtain a list of columns
 	foreach( $return as $key => $row )
 	{
-		$menu_order[ $key ] = $row['menu_order'];
-		$title[ $key ] = $row['title'];
+	    $menu_order[ $key ] = $row['menu_order'];
+	    $title[ $key ] = $row['title'];
 	}
 
 	// Sort the array with menu_order ascending
@@ -1235,7 +1235,7 @@ function acf_form( $options = array() )
 
 	// display form
 	if( $options['form'] ): ?>
-		<form <?php if($options['form_attributes']){foreach($options['form_attributes'] as $k => $v){echo $k . '="' . $v .'" '; }} ?>>
+	<form <?php if($options['form_attributes']){foreach($options['form_attributes'] as $k => $v){echo $k . '="' . $v .'" '; }} ?>>
 	<?php endif; ?>
 
 	<div style="display:none">
@@ -1249,60 +1249,60 @@ function acf_form( $options = array() )
 	</div>
 
 	<div id="poststuff">
-		<?php
+	<?php
 
-		// html before fields
-		echo $options['html_before_fields'];
-
-
-		$acfs = apply_filters('acf/get_field_groups', array());
-
-		if( is_array($acfs) ){ foreach( $acfs as $acf ){
-
-			// only add the chosen field groups
-			if( !in_array( $acf['id'], $options['field_groups'] ) )
-			{
-				continue;
-			}
+	// html before fields
+	echo $options['html_before_fields'];
 
 
-			// load options
-			$acf['options'] = apply_filters('acf/field_group/get_options', array(), $acf['id']);
+	$acfs = apply_filters('acf/get_field_groups', array());
+
+	if( is_array($acfs) ){ foreach( $acfs as $acf ){
+
+		// only add the chosen field groups
+		if( !in_array( $acf['id'], $options['field_groups'] ) )
+		{
+			continue;
+		}
 
 
-			// load fields
-			$fields = apply_filters('acf/field_group/get_fields', array(), $acf['id']);
+		// load options
+		$acf['options'] = apply_filters('acf/field_group/get_options', array(), $acf['id']);
 
 
-			echo '<div id="acf_' . $acf['id'] . '" class="postbox acf_postbox ' . $acf['options']['layout'] . '">';
-			echo '<h3 class="hndle"><span>' . $acf['title'] . '</span></h3>';
-			echo '<div class="inside">';
-
-			do_action('acf/create_fields', $fields, $options['post_id']);
-
-			echo '</div></div>';
-
-		}}
+		// load fields
+		$fields = apply_filters('acf/field_group/get_fields', array(), $acf['id']);
 
 
-		// html after fields
-		echo $options['html_after_fields'];
+		echo '<div id="acf_' . $acf['id'] . '" class="postbox acf_postbox ' . $acf['options']['layout'] . '">';
+		echo '<h3 class="hndle"><span>' . $acf['title'] . '</span></h3>';
+		echo '<div class="inside">';
 
-		?>
+		do_action('acf/create_fields', $fields, $options['post_id']);
 
-		<?php if( $options['form'] ): ?>
-			<!-- Submit -->
-			<div class="field">
-				<input type="submit" value="<?php echo $options['submit_value']; ?>" />
-			</div>
-			<!-- / Submit -->
-		<?php endif; ?>
+		echo '</div></div>';
+
+	}}
+
+
+	// html after fields
+	echo $options['html_after_fields'];
+
+	?>
+
+	<?php if( $options['form'] ): ?>
+	<!-- Submit -->
+	<div class="field">
+		<input type="submit" value="<?php echo $options['submit_value']; ?>" />
+	</div>
+	<!-- / Submit -->
+	<?php endif; ?>
 
 	</div><!-- <div id="poststuff"> -->
 
 	<?php if( $options['form'] ): ?>
 	</form>
-<?php endif;
+	<?php endif;
 }
 
 
