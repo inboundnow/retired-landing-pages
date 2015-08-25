@@ -1116,16 +1116,6 @@ class Landing_Pages_Metaboxes {
             update_post_meta( $landing_page_id , $conversion_area_key , $conversion_area);
         }
 
-        /* save acf settings - uses our future data array - eventually we will migrate all post meta into this data object */
-        if ( isset($_POST['acf']) ) {
-            $settings = Landing_Pages_Meta::get_settings( $post->ID );
-
-            if (!isset($settings['variations'])) {
-                $settings['variations'] = array();
-            }
-            $settings['variations'][$variation_id]['acf'] = $_POST['acf'];
-            Landing_Pages_Meta::update_settings( $post->ID , $settings );
-        }
     }
 
     /**
