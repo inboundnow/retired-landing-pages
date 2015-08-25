@@ -121,7 +121,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 				if (!isset($settings['variations'])) {
 					$settings['variations'] = array();
 				}
-				
+
 				$settings['variations'][$variation_id]['acf'] = $fields;
 				Landing_Pages_Meta::update_settings( $landing_page_id , $settings );
 			}
@@ -318,7 +318,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 		public static function load_acf_on_template( $allow , $rule, $args ) {
 			global $post;
 
-			if ($post->post_type != 'landing-page' ) {
+			if ( !isset($post) || $post->post_type != 'landing-page' ) {
 				return $allow;
 			}
 
