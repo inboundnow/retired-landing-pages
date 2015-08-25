@@ -102,13 +102,16 @@ $blue =  (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
             filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?php echo $bg_image; ?>', sizingMethod='scale');
             ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?php echo $bg_image; ?>', sizingMethod='scale')";}
         <?php } ?>
-        div, p, #note, label, #lp_container  { color: #<?php echo $text_color; ?>}
+        div, p, #note, label, #lp_container  { color: <?php echo $text_color; ?>}
         .countDiv::before, .countDiv::after {
-            background-color: #<?php echo $text_color; ?>;
+            background-color: <?php echo $text_color; ?>;
         }
 
-        <?php if ($headline_color != "") { echo "h1 {color: #$headline_color;}"; } ?>
-        <?php if ($background_on === "on") { echo "#content-background{background: url('".$path."image.php?hex=$content_color');}"; }?>
+        <?php if ($headline_color != "") { echo "h1 {color: $headline_color;}"; } ?>
+        <?php if ($background_on === "on") {
+            $hex = preg_replace("/#/", "", $content_color);
+            echo "#content-background{background: url('".$path."image.php?hex=$hex');}"; }
+        ?>
         <?php if ($submit_button_color != "") {
                  echo"input[type='submit'] {
                       background: -moz-linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
