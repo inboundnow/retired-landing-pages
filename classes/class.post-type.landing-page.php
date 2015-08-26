@@ -87,7 +87,7 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
                 'publicly_queryable' => true,
                 'show_ui' => true,
                 'query_var' => true,
-                'menu_icon' => LANDINGPAGES_URLPATH . 'assets/images/plus.gif',
+                'menu_icon' => '',
                 'rewrite' => array("slug" => "$slug",'with_front' => false),
                 'capability_type' => 'post',
                 'hierarchical' => false,
