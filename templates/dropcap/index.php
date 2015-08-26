@@ -9,6 +9,9 @@ $key = lp_get_parent_directory(dirname(__FILE__));
 $path = LANDINGPAGES_URLPATH.'templates/'.$key.'/';
 $url = plugins_url();
 
+/* Include ACF Field Definitions  */
+include_once(LANDINGPAGES_PATH.'templates/'.$key.'/config.php');
+
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
 do_action('lp_init');
 
@@ -24,7 +27,6 @@ $form_text_color = get_field( 'dropcap-form-text-color', $post->ID );
 $background_style = get_field( 'dropcap-background-style', $post->ID );
 $background_image = get_field( 'dropcap-background-image', $post->ID  , false ); /* non acf pro templates need to set the 3rd param to false for image field types */
 $background_color = get_field( 'dropcap-background-color', $post->ID );
-
 
 if ( $background_style === "fullscreen" ) {
 	$bg_style = 'background: url('.$background_image.') no-repeat center center fixed;
@@ -74,7 +76,7 @@ body { <?php echo $bg_style; ?> }
 #textspot p { color: <?php echo $text_color;?>;}
 <?php } ?>
 <?php if ($content_background != "") { ?>
-#content { background: url('<?php echo LANDINGPAGES_URLPATH; ?>images/image.php?hex=<?php echo $content_background;?>'); border-radius: 8px; }
+#content { background: url('<?php echo LANDINGPAGES_URLPATH; ?>assets/images/image.php?hex=<?php echo str_replace('#','', $content_background);?>'); border-radius: 8px; }
 <?php } ?>
 <?php if ($form_text_color != "") { echo "#lp_container {color: #$form_text_color;}"; } ?>
 p {	margin-bottom: 20px;font-weight: 100;}

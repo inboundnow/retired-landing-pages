@@ -178,7 +178,7 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
          */
         public static function enqueue_frontend_scripts() {
             global $post;
-            if ( !isset($post) && $post->post_type=='landing-page') {
+            if ( !isset($post) && $post->post_type!='landing-page') {
                 return;
             }
 

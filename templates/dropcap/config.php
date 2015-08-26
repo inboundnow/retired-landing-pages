@@ -163,7 +163,7 @@ if( function_exists('register_field_group') ):
                     'custom' => __( 'Custom CSS','landing-pages'),
                 ),
                 'default_value' => array (
-                    'fullscreen' => 'fullscreen',
+                    'fullscreen' => 'color',
                 ),
                 'allow_null' => 0,
                 'multiple' => 0,
