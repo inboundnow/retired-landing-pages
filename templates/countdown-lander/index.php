@@ -28,6 +28,7 @@ $bg_image = get_field( 'countdown-lander-bg-image', $post->ID  , false ); /* non
 $content = get_field( 'countdown-lander-main-content', $post->ID );
 $conversion_area = get_field( 'countdown-lander-conversion-area-content' , $post->ID );
 $body_color = get_field( 'countdown-lander-body-color', $post->ID );
+$main_headline = get_field( 'lp-main-headline' , $post->ID ); /* legacy support */
 $headline_color = get_field( 'countdown-lander-headline-color' , $post->ID );
 $text_color = get_field( 'countdown-lander-other-text-color' , $post->ID );
 $content_color = get_field( 'countdown-lander-content-background' , $post->ID );
@@ -138,7 +139,7 @@ $blue =  (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
 <body <?php lp_body_class();?>>
 <div id="page-wrapper">
     <div id="heading-area">
-        <h1><?php lp_main_headline(); ?></h1>
+        <h1><?php echo $main_headline; ?></h1>
     </div>
     <div id="content-wrapper">
         <div id="content-background">
