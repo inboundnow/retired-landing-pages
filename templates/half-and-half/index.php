@@ -12,6 +12,9 @@ $key = lp_get_parent_directory(dirname(__FILE__)); // unique ID associated with 
 $path = LANDINGPAGES_URLPATH.'templates/'.$key.'/'; // path to template folder
 $url = plugins_url();
 
+/* Include ACF Field Definitions  */
+include_once(LANDINGPAGES_PATH.'templates/'.$key.'/config.php');
+
 /* Define Landing Pages's custom pre-load do_action('lp_init'); hook for 3rd party plugin integration */
 do_action('lp_init');
 
