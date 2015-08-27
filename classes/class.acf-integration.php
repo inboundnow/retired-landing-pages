@@ -169,7 +169,9 @@ if (!class_exists('Landing_Pages_ACF')) {
 				}
 
 				/* acf lite isn't processing return values correctly */
-				$value = self::afc_free_value_formatting( $value , $field );
+				if (!is_admin()) {
+					$value = self::afc_free_value_formatting( $value , $field );
+				}
 			}
 
 			return $value;
@@ -409,8 +411,11 @@ if (!class_exists('Landing_Pages_ACF')) {
 
 			if ($field['type'] == 'image' && $field['return_format'] == 'url' && !strstr($value , 'http' ) ) {
 				$image_array = wp_get_attachment_image_src( $value );
-
 				return $image_array[0];
+			}
+
+			if ($field['type'] == 'file' && $field['return_format'] == 'url' && !strstr($value , 'http' ) ) {
+				return wp_get_attachment_url( $value );
 			}
 
 			return $value;
