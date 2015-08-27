@@ -13,9 +13,6 @@
  *
  */
 
-/* this hook may help developers perform tasks, all templates have it so when developing new templates we want to leave it in  */
-do_action('lp_global_config');
-
 /* get the name of the template folder */
 $key = lp_get_parent_directory(dirname(__FILE__));
 

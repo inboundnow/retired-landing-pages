@@ -5,8 +5,6 @@
 * @author 	David Wells
 */
 
-do_action('lp_global_config'); // global config action hook
-
 //gets template directory name to use as identifier - do not edit - include in all template files
 $key = lp_get_parent_directory(dirname(__FILE__));
 
@@ -15,7 +13,7 @@ array(
 	'data_type' => 'template',
 	'version' => "2.0.1",
 	'label' => "Half and Half",
-	'category' => '2 column layout',
+	'category' => '2 column',
 	'demo' => 'http://demo.inboundnow.com/go/half-and-half-lander-preview/',
 	'description'  => 'Half and Half is a template with two content areas on each side of the page. One side has your conversion area and the other your content on the page.' // template description
 );

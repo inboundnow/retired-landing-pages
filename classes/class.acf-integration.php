@@ -410,7 +410,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 		public static function afc_free_value_formatting( $value , $field ) {
 
 			if ($field['type'] == 'image' && $field['return_format'] == 'url' && !strstr($value , 'http' ) ) {
-				$image_array = wp_get_attachment_image_src( $value );
+				$image_array = wp_get_attachment_image_src( $value , 'full' );
 				return $image_array[0];
 			}
 

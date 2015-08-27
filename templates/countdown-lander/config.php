@@ -7,12 +7,10 @@
  * @author 	David Wells, Hudson Atwell
  */
 
-do_action('lp_global_config'); // The lp_global_config function is for global code added by 3rd party extensions
-
-//gets template directory name to use as identifier - do not edit - include in all template files
+/* gets template directory name to use as identifier - do not edit - include in all template files */
 $key = lp_get_parent_directory(dirname(__FILE__));
 
-//sets the default date for the countdown
+/* sets the default date for the countdown */
 $next_month_timestamp = strtotime("+1 month");
 $next_month = date('Y-m-d H:i', $next_month_timestamp);
 
@@ -44,6 +42,7 @@ $lp_data[$key]['settings'] = array(
 	)
 );
 
+/* register ACF fields */
 if( function_exists('register_field_group') ):
 	register_field_group(array (
 		'key' => 'group_55d38b033048e',
