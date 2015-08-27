@@ -20,16 +20,17 @@ if (have_posts()) : while (have_posts()) : the_post();
 
 /* Pre-load meta data into variables. These are defined in the templates config.php file */
 
-	$content = lp_get_value($post, $key, 'main-content');
-    $conversion_area = lp_get_value($post, $key, 'conversion-area-content');
-    $social_display = lp_get_value($post, $key, 'display-social');
-    $sidebar = lp_get_value($post, $key, 'sidebar');
-    $logo = lp_get_value($post, $key, 'logo');
-    $content_color = lp_get_value($post, $key, 'content-color');
-    $content_text_color = lp_get_value($post, $key, 'content-text-color');
-    $sidebar_color = lp_get_value($post, $key, 'sidebar-color');
-    $sidebar_text_color = lp_get_value($post, $key, 'sidebar-text-color');
-    $submit_button_color = lp_get_value($post, $key, 'submit-button-color');
+    $main_headline = get_field( 'lp-main-headline', $post->ID );
+    $content = get_field( 'half-and-half-main-content', $post->ID );
+    $content = get_field( 'half-and-half-main-content', $post->ID );
+    $conversion_area = get_field( 'half-and-half-conversion-area-content', $post->ID );
+    $social_display = get_field( 'half-and-half-display-social', $post->ID );
+    $sidebar = get_field( 'half-and-half-sidebar', $post->ID );
+    $content_color = get_field( 'half-and-half-content-color', $post->ID );
+    $content_text_color = get_field( 'half-and-half-content-text-color', $post->ID );
+    $sidebar_color = get_field( 'half-and-half-sidebar-color', $post->ID );
+    $sidebar_text_color = get_field( 'half-and-half-sidebar-text-color', $post->ID );
+    $submit_button_color = get_field( 'half-and-half-submit-button-color', $post->ID );
 
 
 ?>
@@ -104,7 +105,7 @@ if (have_posts()) : while (have_posts()) : the_post();
     <![endif]-->
     <div id="content">
         <div id="area">
-             <h1><?php lp_main_headline(); // Load WordPress Post Title ?></h1>
+             <h1><?php echo $main_headline; // Load WordPress Post Title ?></h1>
 
             <?php echo do_shortcode($content); // Load Wordpress Content ?>
         </div><!--end #area -->

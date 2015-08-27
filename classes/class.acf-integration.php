@@ -154,7 +154,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 
 			$variations = ( isset($settings['variations']) ) ? $settings['variations'] : null;
 
-			if (!$variations[ $vid ][ 'acf' ]) {
+			if ( !isset( $variations[ $vid ][ 'acf' ] ) || !$variations[ $vid ][ 'acf' ]) {
 				return self::load_legacy_value(  $value, $post_id, $field  );
 			}
 
