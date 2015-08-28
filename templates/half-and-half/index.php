@@ -57,19 +57,19 @@ if (have_posts()) : while (have_posts()) : the_post();
     <style type="text/css">
         /* Inline Styling for Template Changes based off user input */
         <?php if ($sidebar_color != "") {
-            echo "#right { background-color: #$sidebar_color;} "; // change sidebar color
+            echo "#right { background-color: $sidebar_color;} "; // change sidebar color
         } ?>
         <?php if ($content_color != "") {
-            echo "body {background-color: #$content_color;}"; // change content background color
+            echo "body {background-color: $content_color;}"; // change content background color
         } ?>
         <?php if ($content_text_color != "") {
-            echo "#area, ul {color: #$content_text_color; opacity: .9;}"; // change content text color
+            echo "#area, ul {color: $content_text_color; opacity: .9;}"; // change content text color
         } ?>
         <?php if ($sidebar_text_color != "") {
-            echo "#right {color: #$sidebar_text_color;} "; // change sidebar text color
+            echo "#right {color: $sidebar_text_color;} "; // change sidebar text color
         } ?>
          <?php if ($submit_button_color != "") {
-            echo "input[type='submit'] {background: #$submit_button_color;} "; // change sidebar text color
+            echo "input[type='submit'] {background: $submit_button_color;} "; // change sidebar text color
         } ?>
         <?php // change css layout if left selected
              if ($sidebar === "left" ) {
@@ -85,14 +85,14 @@ if (have_posts()) : while (have_posts()) : the_post();
             }
         ?>
         #share-toggle #inbound-social-inbound-social-buttons {
-        width: 476px;
-        margin-bottom: 10px;
-        margin-left: -6px;
+            width: 476px;
+            margin-bottom: 10px;
+            margin-left: -6px;
         }
         #area_two #inbound-form-wrapper {
 
-        max-width: 75%;
-        margin: auto;
+            max-width: 75%;
+            margin: auto;
         }
         /* Import Google Font Stylesheet */
         @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);

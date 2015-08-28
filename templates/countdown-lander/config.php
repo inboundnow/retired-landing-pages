@@ -4,7 +4,7 @@
  * Template Name:  Countdown Lander Template
  *
  * @package  WordPress Landing Pages
- * @author 	David Wells, Hudson Atwell
+ * @author 	Inbound Now
  */
 
 /* gets template directory name to use as identifier - do not edit - include in all template files */
@@ -18,7 +18,7 @@ $lp_data[$key]['info'] = array(
 	'data_type' => 'template', // Template Data Type
 	'version' => "1.0.5", // Version Number
 	'label' => __( 'Countdown Lander' , 'landing-pages' ), // Nice Name
-	'category' => 'Countdown, v1, 1 column layout', // Template Category
+	'category' => 'Countdown,1 column', // Template Category
 	'demo' => 'http://demo.inboundnow.com/go/countdown-lander/', // Demo Link
 	'description'  => __( 'Coundown Lander provides a simple sharp looking countdown page.' , 'landing-pages' ), // template description
 	'acf' => true

@@ -214,6 +214,9 @@ if (!class_exists('Landing_Pages_ACF')) {
 				}
 			}
 
+			if (!is_array($value) && !is_admin() ) {
+				$value = do_shortcode($value);
+			}
 			/*
 			var_dump($new);
 			echo "\r\n";echo "\r\n";echo "\r\n";

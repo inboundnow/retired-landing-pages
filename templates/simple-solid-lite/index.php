@@ -103,11 +103,11 @@ $test = inbound_color_scheme($background_color, 'hex');
         }
 
         .inbound-social-share-header {
-            color: # <?php echo $background_color;?>
+            color: <?php echo $background_color;?>
         }
 
         input[type=submit], button[type=submit] {
-            background: # <?php echo $submit_color;?>;
+            background: <?php echo $submit_color;?>;
             padding: 20px;
             width: 100%;
             margin: 0 auto 20px auto;
