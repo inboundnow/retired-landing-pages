@@ -765,10 +765,15 @@ class Landing_Pages_Metaboxes {
                 $thumb = true;
             }
 
+            if (file_exists(LANDINGPAGES_UPLOADS_PATH . $this_extension . "/thumbnail.jpg")) {
+                $thumbnail = LANDINGPAGES_UPLOADS_URLPATH . $this_extension . "/thumbnail.jpg";
+                $thumb = true;
+            }
+
             if ($thumb === false) {
                 $thumbnail = LANDINGPAGES_URLPATH . 'templates/default/thumbnail.png';
-
             }
+
             $demo_link = (isset($data['info']['demo'])) ? $data['info']['demo'] : '';
             ?>
             <div id='template-item' class="<?php echo $cat_slug; ?> template-item-boxes">
