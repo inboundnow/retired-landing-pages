@@ -51,16 +51,8 @@ bin
 
 #phpstorm
 .idea
-/shared/assets/plugins/advanced-custom-fields/screenshot-4.png
-/shared/assets/plugins/advanced-custom-fields/screenshot-3.png
-/shared/assets/plugins/advanced-custom-fields/screenshot-2.png
-/shared/assets/plugins/advanced-custom-fields/screenshot-1.png
-
-/shared/assets/plugins/advanced-custom-fields/images/add-ons/repeater-field-thumb.jpg
-/shared/assets/plugins/advanced-custom-fields/images/add-ons/options-page-thumb.jpg
-/shared/assets/plugins/advanced-custom-fields/images/add-ons/gravity-forms-field-thumb.jpg
-/shared/assets/plugins/advanced-custom-fields/images/add-ons/google-maps-field-thumb.jpg
-/shared/assets/plugins/advanced-custom-fields/images/add-ons/gallery-field-thumb.jpg
-/shared/assets/plugins/advanced-custom-fields/images/add-ons/flexible-content-field-thumb.jpg
-/shared/assets/plugins/advanced-custom-fields/images/add-ons/date-time-field-thumb.jpg
-/shared/assets/plugins/advanced-custom-fields/images/add-ons/cf7-field-thumb.jpg
+/shared/assets/plugins/advanced-custom-fields/**.png
+/shared/assets/plugins/advanced-custom-fields/images/add-ons/**.jpg
+/shared/assets/plugins/advanced-custom-fields/lang/**.pot
+/shared/assets/plugins/advanced-custom-fields/lang/**.po
+/shared/assets/plugins/advanced-custom-fields/lang/**.mo
