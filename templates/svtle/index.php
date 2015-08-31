@@ -28,8 +28,6 @@ the_post();
 
 /* Pre-load meta data into variables */
 $main_headline = get_field('lp-main-headline', $post->ID);
-
-$sidebar_color = lp_get_value($post, $key, 'sidebar-color');
 $sidebar_color = get_field('svtle-sidebar-color', $post->ID);
 $sidebar_text_color = get_field('svtle-sidebar-text-color', $post->ID);
 $header_color = get_field('svtle-header-color', $post->ID);
