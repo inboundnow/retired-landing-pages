@@ -197,6 +197,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 				$value = get_post_meta( $post_id ,  $field['name']  , true );
 			}
 
+			$field = self::acf_get_registered_field( $field['name'] );
 
 			if ($field['type']=='image') {
 				$value = self::get_image_id_from_url( $value );
@@ -406,6 +407,19 @@ if (!class_exists('Landing_Pages_ACF')) {
 
 			return false;
 		}
+
+		public static function acf_get_registered_field( $field_name ) {
+			global $acf_register_field_group;
+
+			foreach ($acf_register_field_group as $key => $group) {
+				foreach ( $group['fields'] as $field ) {
+					if ( $field['name'] == $field_name ){
+						return $field;
+					}
+				}
+			}
+		}
+
 
 		/**
 		 * Correct return value formatting when Pro is NOT installed

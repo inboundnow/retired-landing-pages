@@ -16,7 +16,6 @@ $url = plugins_url();
 /* Include ACF Field Definitions  */
 include_once(LANDINGPAGES_PATH.'templates/'.$key.'/config.php');
 
-
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
 do_action('lp_init');
 
@@ -114,7 +113,7 @@ $blue =  (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
             echo "#content-background{background: url('".$path."image.php?hex=$hex');}"; }
         ?>
         <?php if ($submit_button_color != "") {
-                 echo"input[type='submit'] {
+                 echo"#form-area input[type='submit'] {
                       background: -moz-linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
                       background: -ms-linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
                       background: -o-linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
