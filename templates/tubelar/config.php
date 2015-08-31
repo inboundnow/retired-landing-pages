@@ -10,7 +10,7 @@
 do_action('lp_global_config'); // The lp_global_config function is for global code added by 3rd party extensions
 
 //gets template directory name to use as identifier - do not edit - include in all template files
-$key = lp_get_parent_directory(dirname(__FILE__));
+$key = inbound_get_parent_directory(dirname(__FILE__));
 
 //adds template data to global array for use with landing page plugin - edit theme category and description only.
 

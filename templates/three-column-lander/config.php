@@ -8,7 +8,7 @@
 do_action('lp_global_config'); // global config action hook
 
 //gets template directory name to use as identifier - do not edit - include in all template files
-$key = lp_get_parent_directory(dirname(__FILE__));
+$key = inbound_get_parent_directory(dirname(__FILE__));
 
 $lp_data[$key]['info'] =
 array(
