@@ -197,7 +197,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 				$value = get_post_meta( $post_id ,  $field['name']  , true );
 			}
 
-			$field = self::acf_get_registered_field( $field['name'] );
+			$field = self::acf_get_registered_field( $field );
 
 			if ($field['type']=='image') {
 				$value = self::get_image_id_from_url( $value );
@@ -408,13 +408,17 @@ if (!class_exists('Landing_Pages_ACF')) {
 			return false;
 		}
 
-		public static function acf_get_registered_field( $field_name ) {
+		public static function acf_get_registered_field( $field ) {
 			global $acf_register_field_group;
 
+			if (!$acf_register_field_group) {
+				return $field;
+			}
+
 			foreach ($acf_register_field_group as $key => $group) {
-				foreach ( $group['fields'] as $field ) {
-					if ( $field['name'] == $field_name ){
-						return $field;
+				foreach ( $group['fields'] as $this_field ) {
+					if ( $this_field['name'] == $field['name'] ){
+						return $this_field;
 					}
 				}
 			}
