@@ -9,7 +9,7 @@
 
 
 //gets template directory name to use as identifier - do not edit - include in all template files
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = lp_get_parent_directory(dirname(__FILE__));
 
 $lp_data[$key]['info'] =
 array(
@@ -42,9 +42,9 @@ $lp_data[$key]['settings'] = array(
 
 /* ACF field definitions here */
 
-if( function_exists('acf_add_local_field_group') ):
+if( function_exists('register_field_group') ):
 
-    acf_add_local_field_group(array (
+    register_field_group(array (
         'key' => 'group_55df8e583b9c6',
         'title' => 'Simple Two Column',
         'fields' => array (

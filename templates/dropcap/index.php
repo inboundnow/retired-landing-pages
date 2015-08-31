@@ -5,7 +5,7 @@
 /*****************************************/
 
 /* Declare Template Key */
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = lp_get_parent_directory(dirname(__FILE__));
 $path = LANDINGPAGES_URLPATH.'templates/'.$key.'/';
 $url = plugins_url();
 

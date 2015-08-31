@@ -14,7 +14,7 @@
  */
 
 /* get the name of the template folder */
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = lp_get_parent_directory(dirname(__FILE__));
 
 /* discover the absolute path of where this template is located. Core templates are loacted in /wp-content/plugins/landing-pages/templates/ while custom templates belong in /wp-content/uploads/landing-pages/tempaltes/ */
 $path = (preg_match("/uploads/", dirname(__FILE__))) ? LANDINGPAGES_UPLOADS_URLPATH . $key .'/' : LANDINGPAGES_URLPATH.'templates/'.$key.'/'; // This defines the path to your template folder. /wp-content/uploads/landing-pages/templates by default
