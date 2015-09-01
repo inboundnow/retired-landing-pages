@@ -194,7 +194,7 @@ if( function_exists('register_field_group') ):
                 'key' => 'field_55df8f2a2aa2a',
                 'label' => __( 'Main Content Area Background Color','landing-pages'),
                 'name' => 'simple-two-column-content-color',
-                'type' => 'colorpicker',
+                'type' => 'color_picker',
                 'instructions' => __( 'Change the main background color here.','landing-pages'),
                 'required' => 0,
                 'conditional_logic' => 0,
