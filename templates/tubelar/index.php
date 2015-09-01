@@ -31,34 +31,10 @@ $boxcolor = get_field( 'tubelar-box-color' , $post->ID );
 $textcolor = get_field( 'tubelar-text-color' , $post->ID );
 $clear_bg_settings = get_field( 'tubelar-clear-bg-settings' , $post->ID );
 $social_display = get_field( 'tubelar-display-social' , $post->ID );
-$submit_button_color = get_field( 'tubelar-submit-button-color' , $post->ID );
 $content = get_field( 'tubelar-main-content' , $post->ID );
 $conversion_area = get_field( 'tubelar-conversion-area-content' , $post->ID );
 $main_headline = get_field( 'lp-main-headline' , $post->ID ); /* legacy support */
 
-// Convert Hex to RGB Value for submit button
-function Hex_2_RGB($hex) {
-    $hex = preg_replace("/#/", "", $hex);
-    $color = array();
-
-    if (strlen($hex) == 3) {
-        $color['r'] = hexdec(substr($hex, 0, 1) . $r);
-        $color['g'] = hexdec(substr($hex, 1, 1) . $g);
-        $color['b'] = hexdec(substr($hex, 2, 1) . $b);
-    } else if (strlen($hex) == 6) {
-        $color['r'] = hexdec(substr($hex, 0, 2));
-        $color['g'] = hexdec(substr($hex, 2, 2));
-        $color['b'] = hexdec(substr($hex, 4, 2));
-    }
-
-    return $color;
-
-}
-
-$RBG_array = Hex_2_RGB($submit_button_color);
-$red = $RBG_array['r'];
-$green = $RBG_array["g"];
-$blue = $RBG_array["b"];
 // function to parse url and grab id
 function youtubeid($url) {
     if (preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $match)) {
@@ -107,17 +83,6 @@ $videoid = youtubeid($yt_video);
             //echo $boxcolor;exit;
             echo ".black-50{background: $boxcolor}";
         } ?>
-        <?php if ($submit_button_color != "") {
-             echo"input[type='submit'] {
-                  background: -moz-linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
-                  background: -ms-linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
-                  background: -o-linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
-                  background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba($red,$green,$blue, 0.5)), to(rgba($red,$green,$blue, 0.7)));
-                  background: -webkit-linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
-                  background: linear-gradient(rgba($red,$green,$blue, 0.5), rgba($red,$green,$blue, 0.7));
-                   border: 1px solid #000;}";
-              }
-           ?>
     </style>
     <script type="text/javascript" charset="utf-8" src="<?php echo $path; ?>assets/js/jquery.tubular.1.0.js"></script>
     <script type="text/javascript">
