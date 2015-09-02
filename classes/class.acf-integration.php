@@ -306,22 +306,16 @@ if (!class_exists('Landing_Pages_ACF')) {
 			/* Discover correct repeater pointer by parsing field name */
 			preg_match('/(_\d_)/', $field['name'], $matches, 0);
 
+			/* if not a repeater subfield then bail */
 			if (!$matches) {
 				return false;
 			}
 
 			$pointer = str_replace('_' , '' , $matches[0]);
+			$repeater_key = self::key_search($array, $field , true ); /* returns parent flexible content field key using sub field key */
 
-			$i = 0;
-			foreach ($array as $key => $value) {
-				if (isset($value[ $field['key'] ])	&& $pointer == $i ) {
-					return $value[ $field['key'] ];
-				}
+			return $array[$repeater_key][$pointer][$field['key']];
 
-				$i++;
-			}
-
-			return false;
 		}
 
 		/**
@@ -452,6 +446,41 @@ if (!class_exists('Landing_Pages_ACF')) {
 				'fields' => acf_local()->fields
 			);
 		}
+
+		/**
+		 * This is a complicated array search method for working with ACF repeater fields.
+		 * @param $array
+		 * @param $field
+		 * @param bool|false $get_parent if get_parent is set to true to will return the parent field group key of the repeater fields
+		 * @param mixed $last_key placeholder for storing the last key...
+		 * @return bool|int|string
+		 */
+		public static function key_search($array, $field , $get_parent = false , $last_key = false) {
+			$value = false;
+
+			foreach ($array as $key => $item) {
+				if ($key === $field['key'] ) {
+					$value = $item;
+				} else {
+					if (is_array($item)) {
+						$last_key = ( !is_numeric($key)) ? $key : $last_key;
+						$value = self::key_search($item, $field , $get_parent , $last_key );
+					}
+				}
+
+				if ($value) {
+					if (!$get_parent) {
+						return $value;
+					} else {
+						return $last_key;
+					}
+
+				}
+			}
+
+			return false;
+		}
+
 	}
 
 	/**
