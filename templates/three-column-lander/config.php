@@ -10,33 +10,14 @@ $key = inbound_get_parent_directory(dirname(__FILE__));
 
 $lp_data[$key]['info'] =
 array(
-	'data_type' => 'template', // Template Data Type
-	'version' => "2.0.1", // Version Number
-	'label' => "3 Column Lander", // Nice Name
-	'category' => '3 column, responsive', // Template Category
-	'demo' => 'http://demo.inboundnow.com/go/3-column-lander/', // Demo Link
-	'description'  => '' // template description
+	'data_type' => 'template',
+	'version' => "2.0.1",
+	'label' => "3 Column Lander",
+	'category' => '3 column, responsive',
+	'demo' => 'http://demo.inboundnow.com/go/3-column-lander/',
+	'description'  => '',
+    'acf' => true
 );
-
-
-/* disables editor */
-$lp_data[$key]['settings'] = array(
-    array(
-        'label' => 'turn-off-editor', /* Turns off main content */
-        'description' => 'Turn off legacy editors',
-        'id'	=> 'turn-off-editor',
-        'type'	=> 'custom-css',
-        'default'	=> '#postdivrich, #lp_2_form_content, #main-title-area {display:none !important;}'
-    ),
-    array(
-        'label' => 'Instructions', /* Turns off main content */
-        'description' => __( 'If changing to this template from another template, save the landing page and after the refresh the page will display the template settings.' , 'landing-pages' ),
-        'id'	=> 'instructions',
-        'type'	=> 'description-block',
-        'default'	=> 'test'
-    )
-);
-
 
 /* define ACF fields here */
 if( function_exists('register_field_group') ):

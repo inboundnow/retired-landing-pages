@@ -20,26 +20,8 @@ $lp_data[$key]['info'] = array(
 	'acf' => true
 );
 
-/* disables editor */
-$lp_data[$key]['settings'] = array(
-	array(
-		'label' => 'turn-off-editor', /* Turns off main content */
-		'description' => 'Turn off legacy editors',
-		'id'	=> 'turn-off-editor',
-		'type'	=> 'custom-css',
-		'default'	=> '#postdivrich, #lp_2_form_content, #main-title-area {display:none !important;}'
-	),
-	array(
-		'label' => 'Instructions', /* Turns off main content */
-		'description' => __( 'If changing to this template from another template, save the landing page and after the refresh the page will display the template settings.' , 'landing-pages' ),
-		'id'	=> 'instructions',
-		'type'	=> 'description-block',
-		'default'	=> 'test'
-	)
-);
 
 /* define ACF fields here */
-
 if( function_exists('register_field_group') ):
 
 	register_field_group(array (

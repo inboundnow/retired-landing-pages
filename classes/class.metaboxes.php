@@ -255,14 +255,17 @@ class Landing_Pages_Metaboxes {
         wp_enqueue_style('qtip-css', LANDINGPAGES_URLPATH . 'assets/css/jquery.qtip.min.css'); /*Tool tip css */
 
         $template_data = lp_get_extension_data();
-        $template_data = json_encode($template_data);
+        $template_data_json = json_encode($template_data);
         $template = Landing_Pages_Variations::get_current_template( $post->ID );
-        $template = strtolower($template);
-        $params = array('selected_template'=>$template, 'templates'=>$template_data);
+        $params = array('selected_template'=>$template, 'templates'=>$template_data_json);
         wp_localize_script('lp-js-metaboxes', 'data', $params);
 
-        wp_enqueue_style('inbound-metaboxes', LANDINGPAGES_URLPATH . 'shared/assets/css/admin/inbound-metaboxes.css');
+        /* if ACF load CSS to hide WordPress core elements */
+        if (isset($template_data[$template]['info']['acf'])&&$template_data[$template]['info']['acf']){
+            wp_enqueue_style('lp-acf-template', LANDINGPAGES_URLPATH . 'assets/css/admin/acf-hide-wp-elements.css');
+        }
 
+        wp_enqueue_style('inbound-metaboxes', LANDINGPAGES_URLPATH . 'shared/assets/css/admin/inbound-metaboxes.css');
         wp_enqueue_script( 'lp-admin-clear-stats-ajax-request', LANDINGPAGES_URLPATH . 'assets/js/ajax.clearstats.js', array( 'jquery' ) );
         wp_localize_script( 'lp-admin-clear-stats-ajax-request', 'ajaxadmin', array( 'ajaxurl' => admin_url('admin-ajax.php'), 'lp_clear_nonce' => wp_create_nonce('lp-clear-nonce') ) );
 
