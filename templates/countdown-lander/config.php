@@ -4,57 +4,59 @@
  * Template Name:  Countdown Lander Template
  *
  * @package  WordPress Landing Pages
- * @author 	David Wells, Hudson Atwell
+ * @author 	Inbound Now
  */
 
-do_action('lp_global_config'); // The lp_global_config function is for global code added by 3rd party extensions
+/* gets template directory name to use as identifier - do not edit - include in all template files */
+$key = inbound_get_parent_directory(dirname(__FILE__));
 
-//gets template directory name to use as identifier - do not edit - include in all template files
-$key = lp_get_parent_directory(dirname(__FILE__));
-
-//sets the default date for the countdown
+/* sets the default date for the countdown */
 $next_month_timestamp = strtotime("+1 month");
 $next_month = date('Y-m-d H:i', $next_month_timestamp);
 
 $lp_data[$key]['info'] = array(
 	'data_type' => 'template', // Template Data Type
-	'version' => "1.0.0.5", // Version Number
+	'version' => "1.0.5", // Version Number
 	'label' => __( 'Countdown Lander' , 'landing-pages' ), // Nice Name
-	'category' => 'Countdown, v1, 1 column layout', // Template Category
+	'category' => 'Countdown,1 column', // Template Category
 	'demo' => 'http://demo.inboundnow.com/go/countdown-lander/', // Demo Link
 	'description'  => __( 'Coundown Lander provides a simple sharp looking countdown page.' , 'landing-pages' ), // template description
 	'acf' => true
 );
 
-/* disables editor */
-$lp_data[$key]['settings'] = array(
-	array(
-		'label' => 'turn-off-editor', /* Turns off main content */
-		'description' => 'Turn off editor',
-		'id'	=> 'turn-off-editor',
-		'type'	=> 'custom-css',
-		'default'	=> '#postdivrich, #lp_2_form_content {display:none !important;}'
-	),
-	array(
-		'label' => 'Instructions', /* Turns off main content */
-		'description' => __( 'If changing to this template from another template, save the landing page and after the refresh the page will display the template settings.' , 'landing-pages' ),
-		'id'	=> 'instructions',
-		'type'	=> 'description-block',
-		'default'	=> 'test'
-	)
-);
-
+/* register ACF fields */
 if( function_exists('register_field_group') ):
 	register_field_group(array (
 		'key' => 'group_55d38b033048e',
 		'title' => 'Countdown Lander',
 		'fields' => array (
 			array (
+				'key' => 'field_55de0ba2f9c9a',
+				'label' => __( 'Main Headline','landing-pages' ),
+				'name' => 'lp-main-headline', /* legacy support */
+				'type' => 'text',
+				'instructions' => __( 'This will be the main headline.','landing-pages' ),
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array (
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+				'readonly' => 0,
+				'disabled' => 0,
+			),
+			array (
 				'key' => 'field_55d38b42835ac',
-				'label' => 'Conversion Area',
+				'label' => __( 'Conversion Area','landing-pages' ),
 				'name' => 'countdown-lander-conversion-area-content',
 				'type' => 'wysiwyg',
-				'instructions' => '',
+				'instructions' => __( '','landing-pages' ),
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array (
@@ -69,10 +71,10 @@ if( function_exists('register_field_group') ):
 			),
 			array (
 				'key' => 'field_55d38bff835ad',
-				'label' => 'Main Content',
+				'label' => __( 'Main Content','landing-pages' ),
 				'name' => 'countdown-lander-main-content',
 				'type' => 'wysiwyg',
-				'instructions' => '',
+				'instructions' => __( '','landing-pages' ),
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array (
@@ -101,10 +103,10 @@ if( function_exists('register_field_group') ):
 			),
 			array (
 				'key' => 'field_55d38c97835ae',
-				'label' => 'Countdown Date',
+				'label' => __( 'Countdown Date','landing-pages' ),
 				'name' => 'countdown-lander-date-picker',
 				'type' => 'date_picker',
-				'instructions' => 'What date are we counting down to?',
+				'instructions' => __( 'What date are we counting down to?','landing-pages' ),
 				'required' => 1,
 				'conditional_logic' => 0,
 				'wrapper' => array (
@@ -112,16 +114,16 @@ if( function_exists('register_field_group') ):
 					'class' => '',
 					'id' => '',
 				),
-				'display_format' => 'd/m/Y',
-				'return_format' => 'd/m/Y',
+				'display_format' => 'm/d/Y',
+				'return_format' => 'm/d/Y',
 				'first_day' => 1,
 			),
 			array (
 				'key' => 'field_55d39e3a47e90',
-				'label' => 'Headline Text Color',
+				'label' => __( 'Headline Text Color','landing-pages' ),
 				'name' => 'countdown-lander-headline-color',
 				'type' => 'color_picker',
-				'instructions' => 'Use this setting to change headline color',
+				'instructions' => __( 'Use this setting to change headline color','landing-pages' ),
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array (
@@ -133,10 +135,10 @@ if( function_exists('register_field_group') ):
 			),
 			array (
 				'key' => 'field_55d39e7347e91',
-				'label' => 'Other Text Color',
+				'label' => __( 'Other Text Color','landing-pages' ),
 				'name' => 'countdown-lander-other-text-color',
 				'type' => 'color_picker',
-				'instructions' => 'Use this setting to change the template\'s text color',
+				'instructions' => __( 'Use this setting to change the template\'s text color','landing-pages' ),
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array (
@@ -148,10 +150,10 @@ if( function_exists('register_field_group') ):
 			),
 			array (
 				'key' => 'field_55d39fde47e92',
-				'label' => 'Submit Button Color',
+				'label' => __( 'Submit Button Color','landing-pages' ),
 				'name' => 'countdown-lander-submit-button-color',
 				'type' => 'color_picker',
-				'instructions' => 'Use this setting to change the template\'s submit button color.',
+				'instructions' => __( 'Use this setting to change the template\'s submit button color.','landing-pages' ),
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array (
@@ -163,10 +165,10 @@ if( function_exists('register_field_group') ):
 			),
 			array (
 				'key' => 'field_55d3a01347e93',
-				'label' => 'Content Background Color',
+				'label' => __( 'Content Background Color','landing-pages' ),
 				'name' => 'countdown-lander-content-background',
 				'type' => 'color_picker',
-				'instructions' => 'Use this setting to change the content area\'s background color',
+				'instructions' => __( 'Use this setting to change the content area\'s background color','landing-pages' ),
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array (
@@ -178,10 +180,10 @@ if( function_exists('register_field_group') ):
 			),
 			array (
 				'key' => 'field_55d3a04d47e94',
-				'label' => 'Show Transparent Background behind content?',
+				'label' => __( 'Show Transparent Background behind content?','landing-pages' ),
 				'name' => 'countdown-lander-background-on',
 				'type' => 'radio',
-				'instructions' => 'Toggle this on to render the transparent background behind your content for better visability',
+				'instructions' => __( 'Toggle this on to render the transparent background behind your content for better visability','landing-pages' ),
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array (
@@ -200,10 +202,10 @@ if( function_exists('register_field_group') ):
 			),
 			array (
 				'key' => 'field_55d3a09e47e95',
-				'label' => 'Countdown Until... Message',
+				'label' => __( 'Countdown Until... Message','landing-pages' ),
 				'name' => 'countdown-lander-countdown-message',
 				'type' => 'text',
-				'instructions' => 'Insert the event you are counting down to.',
+				'instructions' => __( 'Insert the event you are counting down to.','landing-pages' ),
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array (
@@ -221,10 +223,10 @@ if( function_exists('register_field_group') ):
 			),
 			array (
 				'key' => 'field_55d3a0e947e96',
-				'label' => 'Background Image',
+				'label' => __( 'Background Image','landing-pages' ),
 				'name' => 'countdown-lander-bg-image',
 				'type' => 'image',
-				'instructions' => 'Enter an URL or upload an image for the background.',
+				'instructions' => __( 'Enter an URL or upload an image for the background.','landing-pages' ),
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array (
@@ -245,10 +247,10 @@ if( function_exists('register_field_group') ):
 			),
 			array (
 				'key' => 'field_55d3a14b47e97',
-				'label' => 'Display Social Media Share Buttons',
+				'label' => __( 'Display Social Media Share Buttons','landing-pages' ),
 				'name' => 'countdown-lander-display-social',
 				'type' => 'radio',
-				'instructions' => 'Toggle social sharing on and off',
+				'instructions' => __( 'Toggle social sharing on and off','landing-pages' ),
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array (

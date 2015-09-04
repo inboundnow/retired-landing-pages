@@ -21,6 +21,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 			if( !class_exists('acf') ) {
 
 				define( 'ACF_LITE', true );
+				define( 'ACF_FREE', true );
 
 				include_once( LANDINGPAGES_PATH . 'shared/assets/plugins/advanced-custom-fields/acf.php');
 
@@ -36,6 +37,15 @@ if (!class_exists('Landing_Pages_ACF')) {
 				/* make sure fields are placed in the correct location */
 				add_action( 'admin_print_footer_scripts', array( __CLASS__ , 'reposition_acf_fields' ) );
 
+			} else {
+				/* find out if ACF free or ACF Pro is installed & activated*/
+				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+				if ( !function_exists('acf_add_local_field_group') ) {
+					define( 'ACF_FREE', true );
+				}  else {
+					define( 'ACF_PRO', true );
+					add_filter('lp_init' , array(__CLASS__,'acf_register_global') , 20 , 1 ); /* registeres a global of registered field values for support between ACF5 & ACF6 */
+				}
 
 			}
 
@@ -47,6 +57,9 @@ if (!class_exists('Landing_Pages_ACF')) {
 
 			/* Intercept load custom field value request and hijack it */
 			add_filter( 'acf/load_value' , array( __CLASS__ , 'load_value' ) , 10 , 3 );
+
+			/* add default instructions to all ACF templates */
+			add_filter( 'lp_extension_data' , array( __CLASS__ , 'lp_add_instructions' ) , 11 , 1 );
 
 		}
 
@@ -149,7 +162,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 
 			$variations = ( isset($settings['variations']) ) ? $settings['variations'] : null;
 
-			if (!$variations[ $vid ][ 'acf' ]) {
+			if ( !isset( $variations[ $vid ][ 'acf' ] ) || !$variations[ $vid ][ 'acf' ]) {
 				return self::load_legacy_value(  $value, $post_id, $field  );
 			}
 
@@ -164,7 +177,9 @@ if (!class_exists('Landing_Pages_ACF')) {
 				}
 
 				/* acf lite isn't processing return values correctly */
-				$value = self::afc_free_value_formatting( $value , $field );
+				if (!is_admin()) {
+					$value = self::acf_free_value_formatting( $value , $field );
+				}
 			}
 
 			return $value;
@@ -190,6 +205,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 				$value = get_post_meta( $post_id ,  $field['name']  , true );
 			}
 
+			$field = self::acf_get_registered_field( $field );
 
 			if ($field['type']=='image') {
 				$value = self::get_image_id_from_url( $value );
@@ -207,10 +223,10 @@ if (!class_exists('Landing_Pages_ACF')) {
 				}
 			}
 
-			/**
-			var_dump($new);
-			echo "\r\n";echo "\r\n";echo "\r\n";
-			/**/
+			if (!is_array($value) && !is_admin() ) {
+				$value = do_shortcode($value);
+			}
+
 			return $value;
 
 		}
@@ -293,22 +309,16 @@ if (!class_exists('Landing_Pages_ACF')) {
 			/* Discover correct repeater pointer by parsing field name */
 			preg_match('/(_\d_)/', $field['name'], $matches, 0);
 
+			/* if not a repeater subfield then bail */
 			if (!$matches) {
 				return false;
 			}
 
 			$pointer = str_replace('_' , '' , $matches[0]);
+			$repeater_key = self::key_search($array, $field , true ); /* returns parent flexible content field key using sub field key */
 
-			$i = 0;
-			foreach ($array as $key => $value) {
-				if (isset($value[ $field['key'] ])	&& $pointer == $i ) {
-					return $value[ $field['key'] ];
-				}
+			return $array[$repeater_key][$pointer][$field['key']];
 
-				$i++;
-			}
-
-			return false;
 		}
 
 		/**
@@ -397,17 +407,102 @@ if (!class_exists('Landing_Pages_ACF')) {
 			return false;
 		}
 
+		public static function acf_get_registered_field( $field ) {
+			global $acf_register_field_group;
+
+			if (!$acf_register_field_group) {
+				return $field;
+			}
+
+			foreach ($acf_register_field_group as $key => $group) {
+				foreach ( $group['fields'] as $this_field ) {
+					if ( $this_field['name'] == $field['name'] ){
+						return $this_field;
+					}
+				}
+			}
+		}
+
+
 		/**
 		 * Correct return value formatting when Pro is NOT installed
 		 */
-		public static function afc_free_value_formatting( $value , $field ) {
+		public static function acf_free_value_formatting( $value , $field ) {
 
 			if ($field['type'] == 'image' && $field['return_format'] == 'url' && !strstr($value , 'http' ) ) {
-				$image_array = wp_get_attachment_image_src( $value );
+				$image_array = wp_get_attachment_image_src( $value , 'full' );
 				return $image_array[0];
 			}
 
+			if ($field['type'] == 'file' && $field['return_format'] == 'url' && !strstr($value , 'http' ) ) {
+				return wp_get_attachment_url( $value );
+			}
+
 			return $value;
+		}
+
+		/**
+		 * If ACF Pro is active then register a global for active fields - this provides legacy support to Landing Pages
+		 */
+		public static function acf_register_global( $field_group ) {
+			$GLOBALS['acf_register_field_group'][] = array(
+				'fields' => acf_local()->fields
+			);
+		}
+
+		/**
+		 * adds a standard set of instructions to all acf templates via our legacy field system
+		 */
+		public static function lp_add_instructions( $data ) {
+			foreach ($data as $key => $object ) {
+				if ( isset($object['info']['acf']) && $object['info']['acf'] ) {
+					$data[$key]['settings'] = array(
+						array(
+							'label' => 'Instructions', /* Turns off main content */
+							'description' => __( 'If changing to this template from another template, save the landing page and after the refresh the page will display the template settings.' , 'landing-pages' ),
+							'id'	=> 'instructions',
+							'type'	=> 'description-block',
+							'default'	=> 'test'
+						)
+					);
+				}
+			}
+
+			return $data;
+		}
+
+		/**
+		 * This is a complicated array search method for working with ACF repeater fields.
+		 * @param $array
+		 * @param $field
+		 * @param bool|false $get_parent if get_parent is set to true to will return the parent field group key of the repeater fields
+		 * @param mixed $last_key placeholder for storing the last key...
+		 * @return bool|int|string
+		 */
+		public static function key_search($array, $field , $get_parent = false , $last_key = false) {
+			$value = false;
+
+			foreach ($array as $key => $item) {
+				if ($key === $field['key'] ) {
+					$value = $item;
+				} else {
+					if (is_array($item)) {
+						$last_key = ( !is_numeric($key)) ? $key : $last_key;
+						$value = self::key_search($item, $field , $get_parent , $last_key );
+					}
+				}
+
+				if ($value) {
+					if (!$get_parent) {
+						return $value;
+					} else {
+						return $last_key;
+					}
+
+				}
+			}
+
+			return false;
 		}
 
 	}
