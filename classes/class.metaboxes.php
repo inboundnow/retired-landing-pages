@@ -1080,18 +1080,19 @@ class Landing_Pages_Metaboxes {
     public static function save_landing_page( $landing_page_id ) {
         global $post;
 
+        $screen = get_current_screen();
+
         if ( wp_is_post_revision( $landing_page_id ) ) {
             return;
         }
 
-        if (  !isset($_POST['post_type']) || $_POST['post_type'] != 'landing-page' ) {
+        if (  $screen->id != 'landing-page' ) {
             return;
         }
 
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE || $screen->action == 'add' ) {
             return;
         }
-
 
         $variations = Landing_Pages_Variations::get_variations( $landing_page_id );
         $variation_id = (isset($_REQUEST['lp-variation-id'])) ? $_REQUEST['lp-variation-id'] : '0';
