@@ -15,13 +15,12 @@ $next_month_timestamp = strtotime("+1 month");
 $next_month = date('Y-m-d H:i', $next_month_timestamp);
 
 $lp_data[$key]['info'] = array(
-	'data_type' => 'template', // Template Data Type
-	'version' => "1.0.5", // Version Number
-	'label' => __( 'Countdown Lander' , 'landing-pages' ), // Nice Name
-	'category' => 'Countdown,1 column', // Template Category
-	'demo' => 'http://demo.inboundnow.com/go/countdown-lander/', // Demo Link
-	'description'  => __( 'Coundown Lander provides a simple sharp looking countdown page.' , 'landing-pages' ), // template description
-	'acf' => true
+	'data_type' => 'acf',
+	'version' => "1.0.5",
+	'label' => __( 'Countdown Lander' , 'landing-pages' ),
+	'category' => 'Countdown,1 column',
+	'demo' => 'http://demo.inboundnow.com/go/countdown-lander/',
+	'description'  => __( 'Coundown Lander provides a simple sharp looking countdown page.' , 'landing-pages' )
 );
 
 /* register ACF fields */

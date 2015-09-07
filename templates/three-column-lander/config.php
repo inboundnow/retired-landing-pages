@@ -10,13 +10,12 @@ $key = inbound_get_parent_directory(dirname(__FILE__));
 
 $lp_data[$key]['info'] =
 array(
-	'data_type' => 'template',
+	'data_type' => 'acf',
 	'version' => "2.0.1",
 	'label' => "3 Column Lander",
 	'category' => '3 column, responsive',
 	'demo' => 'http://demo.inboundnow.com/go/3-column-lander/',
-	'description'  => '',
-    'acf' => true
+	'description'  => ''
 );
 
 /* define ACF fields here */

@@ -261,7 +261,7 @@ class Landing_Pages_Metaboxes {
         wp_localize_script('lp-js-metaboxes', 'data', $params);
 
         /* if ACF load CSS to hide WordPress core elements */
-        if (isset($template_data[$template]['info']['acf'])&&$template_data[$template]['info']['acf']){
+        if ( isset($template_data[$template]['info']['data_type'])&& $template_data[$template]['info']['data_type']=='acf' ){
             wp_enqueue_style('lp-acf-template', LANDINGPAGES_URLPATH . 'assets/css/admin/acf-hide-wp-elements.css');
         }
 

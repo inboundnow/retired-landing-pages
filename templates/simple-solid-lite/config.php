@@ -12,13 +12,12 @@ $path = (preg_match("/uploads/", dirname(__FILE__))) ? LANDINGPAGES_UPLOADS_URLP
 
 /* Configures Template Information */
 $lp_data[$key]['info'] = array(
-	'data_type' => 'template',
+	'data_type' => 'acf',
 	'version' => '1.0',
 	'label' => 'Simple Solid Lite',
 	'category' => '1 Column',
 	'demo' => 'http://demo.inboundnow.com/go/simple/',
-	'description' => 'This is an auto generated template from Inbound Now',
-	'acf' => true
+	'description' => __( 'This is a free template provided by Inbound Now' , 'landing-pages' )
 );
 
 /* Configures template ACF fields here */

@@ -10,13 +10,12 @@ $key = inbound_get_parent_directory(dirname(__FILE__));
 
 $lp_data[$key]['info'] =
 array(
-	'data_type' => 'template',
+	'data_type' => 'acf',
 	'version' => "2.0.1",
 	'label' => "Dropcap",
 	'category' => '1 column layout',
 	'demo' => 'http://demo.inboundnow.com/go/dropcap-lander-preview/',
-	'description'  => __( 'Create a great looking quote styled landing page' , 'landing-pages' ),
-    'acf' => true
+	'description'  => __( 'Create a great looking quote styled landing page' , 'landing-pages' )
 );
 
 /* Load ACF definitions for Dropcap */

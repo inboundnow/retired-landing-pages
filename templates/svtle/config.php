@@ -9,13 +9,12 @@
 $key = inbound_get_parent_directory(dirname(__FILE__));
 
 $lp_data[$key]['info'] = array(
-	'data_type' => 'template',
+	'data_type' => 'acf',
 	'version' => "1.0.1",
 	'label' => "Svbtle",
 	'category' => '2 column',
 	'demo' => 'http://demo.inboundnow.com/go/sbvtle-lander-preview/',
-	'description'  => __('Clean and minimalistic design for a straight forward conversion page.','landing-pages'),
-    'acf' => true
+	'description'  => __('Clean and minimalistic design for a straight forward conversion page.','landing-pages')
 );
 
 /* define ACF fields here */
