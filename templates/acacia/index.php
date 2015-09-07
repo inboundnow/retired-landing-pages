@@ -11,6 +11,9 @@ $path = LANDINGPAGES_UPLOADS_URLPATH ."$key/";
 $url = plugins_url();
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
 do_action('wp_head');
+
+if (have_posts()) : while (have_posts()) : the_post();
+
 $post_id = get_the_ID(); ?>
 
 <!DOCTYPE html>
@@ -55,8 +58,8 @@ $post_id = get_the_ID(); ?>
 		if(have_rows('acacia_template_body')) :
 			 while(have_rows('acacia_template_body')) : the_row();
 				 switch(get_row_layout()) :
-				/* start layout hero_box */
-				 case 'hero_box' : 
+				// start layout hero_box
+				case 'hero_box' : 
 					$hero_bg_color = get_sub_field("hero_bg_color");
 					$add_media = get_sub_field("add_media");
 					$hero_image = get_sub_field("hero_image");
@@ -80,34 +83,60 @@ $post_id = get_the_ID(); ?>
 								<div class="col-lg-6 col-md-6 centered" style="">
 									<h1 style="color:<?php echo $hero_headline_color; ?>"><?php echo $hero_headline;  ?></h1>
 									<p style="color:<?php echo $hero_sub_headline_color; ?>"><?php echo $hero_sub_headline;  ?></p>
-									<button class="btn btn-lg btn-green mtb">Get Our App For Free</button>
+									<button style="background-color:<?php echo $hero_button_bg_color; ?>; color:<?php echo $hero_button_text_color; ?>" class="btn btn-lg btn-green mtb"><?php echo $hero_button_text; ?></button>
 								</div>
 							</div><!--/row -->
 						</div><!--/container -->
 					</div><!-- /.IS Wrap -->
-    
-    <div class="container">
-    	<div class="row mtb centered">
-    		<h2>What Is Our App?</h2>
-    		<div class="icons-white-bg mt">
-				<div class="col-md-4">
-					<i class="fa fa-lightbulb-o"></i>
-					<p>Dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since, when an unknown ristique senectus et netus.</p>
-				</div><!--/col-md-4 -->
+				<?php
+				break;
+				/* start layout three_columns_text */
+				case 'three_columns_text' : 
+					$three_col_bg_color = get_sub_field("three_col_bg_color");
+					$three_col_text_color = get_sub_field("three_col_text_color");
+					$three_col_headline = get_sub_field("three_col_headline");
+					$three_col_column_1_text = get_sub_field("three_col_column_1_text");
+					$three_col_column_1_icon = get_sub_field("three_col_column_1_icon");
+					$three_col_column_2_text = get_sub_field("three_col_column_2_text");
+					$three_col_column_2_icon = get_sub_field("three_col_column_2_icon");
+					$three_col_column_3_text = get_sub_field("three_col_column_3_text");
+					$three_col_column_3_icon = get_sub_field("three_col_column_3_icon");
+			?>
+					<div id="three-col" style="background-color:<?php echo $three_col_bg_color; ?>">
+						<div class="container">
+							<div class="row mtb centered">
+								<h2 style="color:<?php echo $three_col_text_color; ?>"><?php echo $three_col_headline; ?></h2>
+								<div class="icons-white-bg mt">
+									<div class="col-md-4">
+										<i class="fa fa-lightbulb-o" style="color:<?php echo $three_col_text_color; ?>"></i>
+										<p style="color:<?php echo $three_col_text_color; ?>"><?php echo $three_col_column_1_text; ?></p>
+									</div><!--/col-md-4 -->
+
+									<div class="col-md-4">
+										<i class="fa fa-globe" style="color:<?php echo $three_col_text_color; ?>"></i>
+										<p style="color:<?php echo $three_col_text_color; ?>"><?php echo $three_col_column_2_text; ?></p>
+									</div><!--/col-md-4 -->
+
+									<div class="col-md-4">
+										<i class="fa fa-laptop" style="color:<?php echo $three_col_text_color; ?>"></i>
+										<p style="color:<?php echo $three_col_text_color; ?>"><?php echo $three_col_column_3_text; ?></p>
+									</div><!--/col-md-4 -->
+								</div><!--/icons-white-bg -->
+
+							</div><!--/row -->
+						</div><!--/container -->
+					</div>
+					
+					<?php
+				endswitch; /* end switch statement */ 
+			endwhile; /* end while statement */
+		 endif; /* end have_rows */
+	endif;  /* end function_exists */
+/* End acacia_template_body Flexible Content Area Output */
+	?>
 				
-				<div class="col-md-4">
-					<i class="fa fa-globe"></i>
-					<p>Dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since, when an unknown ristique senectus et netus.</p>
-				</div><!--/col-md-4 -->
 				
-				<div class="col-md-4">
-					<i class="fa fa-laptop"></i>
-					<p>Dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since, when an unknown ristique senectus et netus.</p>
-				</div><!--/col-md-4 -->
-    		</div><!--/icons-white-bg -->
-    
-    	</div><!--/row -->
-    </div><!--/container -->
+
     
     <div id="gs">
     	<div class="container">
@@ -221,5 +250,14 @@ $post_id = get_the_ID(); ?>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/retina-1.1.0.js"></script>
+	
+	<?php 
+	do_action('lp_footer');
+	do_action('wp_footer');
+	?>
   </body>
 </html>
+
+<?php
+
+endwhile; endif;
