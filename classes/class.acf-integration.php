@@ -197,7 +197,13 @@ if (!class_exists('Landing_Pages_ACF')) {
 		public static function load_legacy_value( $value, $post_id, $field ) {
 			global $post;
 
+			/* if a brand new post ignore return default value */
+			if (!get_post_meta( $post_id , 'publish' , true )) {
+				return $value;
+			}
+
 			$vid = Landing_Pages_Variations::get_new_variation_reference_id( $post->ID );
+
 
 			if ( $vid ) {
 				$value = get_post_meta( $post_id ,  $field['name'] . '-' . $vid , true );
@@ -218,7 +224,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 			}
 
 			if ($field['type']=='color_picker') {
-				if (!strstr( $value , '#' )) {
+				if (!strstr( $value , '#' ) && $value ) {
 					$value = '#'.$value;
 				}
 			}
