@@ -58,9 +58,9 @@ if (!class_exists('Landing_Pages_ACF')) {
 			/* Intercept load custom field value request and hijack it */
 			add_filter( 'acf/load_value' , array( __CLASS__ , 'load_value' ) , 10 , 3 );
 
-			/* add default instructions to all ACF templates */
+			/* add default instructions to all ACF templates - legacy unused
 			add_filter( 'lp_extension_data' , array( __CLASS__ , 'lp_add_instructions' ) , 11 , 1 );
-
+			*/
 		}
 
 
@@ -206,7 +206,6 @@ if (!class_exists('Landing_Pages_ACF')) {
 			}
 
 			$vid = Landing_Pages_Variations::get_new_variation_reference_id( $post->ID );
-
 
 			if ( $vid ) {
 				$value = get_post_meta( $post_id ,  $field['name'] . '-' . $vid , true );
@@ -464,15 +463,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 		public static function lp_add_instructions( $data ) {
 			foreach ($data as $key => $object ) {
 				if ( isset($object['info']['data_type']) && $object['info']['data_type'] == 'acf' ) {
-					$data[$key]['settings'] = array(
-						array(
-							'label' => 'Instructions', /* Turns off main content */
-							'description' => __( 'If changing to this template from another template, save the landing page and after the refresh the page will display the template settings.' , 'landing-pages' ),
-							'id'	=> 'instructions',
-							'type'	=> 'description-block',
-							'default'	=> 'test'
-						)
-					);
+
 				}
 			}
 
