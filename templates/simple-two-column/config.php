@@ -13,13 +13,12 @@ $key = inbound_get_parent_directory(dirname(__FILE__));
 
 $lp_data[$key]['info'] =
 array(
-	'data_type' => 'template',
+	'data_type' => 'acf',
 	'version' => "1.0.1",
 	'label' => "Simple Two Column",
 	'category' => '2 column',
 	'demo' => 'http://demo.inboundnow.com/go/simple-two-column/',
-	'description'  => 'Two column landing page template.' ,
-    'acf' => true
+	'description'  => 'Two column landing page template.'
 );
 
 /* ACF field definitions here */

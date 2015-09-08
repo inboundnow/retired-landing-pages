@@ -261,7 +261,7 @@ class Landing_Pages_Metaboxes {
         wp_localize_script('lp-js-metaboxes', 'data', $params);
 
         /* if ACF load CSS to hide WordPress core elements */
-        if (isset($template_data[$template]['info']['acf'])&&$template_data[$template]['info']['acf']){
+        if ( isset($template_data[$template]['info']['data_type'])&& $template_data[$template]['info']['data_type']=='acf' ){
             wp_enqueue_style('lp-acf-template', LANDINGPAGES_URLPATH . 'assets/css/admin/acf-hide-wp-elements.css');
         }
 
@@ -1080,18 +1080,19 @@ class Landing_Pages_Metaboxes {
     public static function save_landing_page( $landing_page_id ) {
         global $post;
 
+        $screen = get_current_screen();
+
         if ( wp_is_post_revision( $landing_page_id ) ) {
             return;
         }
 
-        if (  !isset($_POST['post_type']) || $_POST['post_type'] != 'landing-page' ) {
+        if (  $screen->id != 'landing-page' ) {
             return;
         }
 
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE || $screen->action == 'add' ) {
             return;
         }
-
 
         $variations = Landing_Pages_Variations::get_variations( $landing_page_id );
         $variation_id = (isset($_REQUEST['lp-variation-id'])) ? $_REQUEST['lp-variation-id'] : '0';

@@ -11,13 +11,12 @@
 $key = inbound_get_parent_directory(dirname(__FILE__));
 
 $lp_data[$key]['info'] = array(
-	'data_type' => 'template',
+	'data_type' => 'acf',
 	'version' => "2.0.1",
 	'label' => __( 'Tublar' , 'landing-pages' ),
 	'category' => 'Video',
 	'demo' => 'http://demo.inboundnow.com/tubelar-lander-lander-preview/',
-	'description'  => __( 'Tublar template is a simple video background template.' , 'landing-pages' ),
-	'acf' => true
+	'description'  => __( 'Tublar template is a simple video background template.' , 'landing-pages' )
 );
 
 

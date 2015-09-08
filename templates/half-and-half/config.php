@@ -10,13 +10,12 @@ $key = inbound_get_parent_directory(dirname(__FILE__));
 
 $lp_data[$key]['info'] =
 array(
-	'data_type' => 'template',
+	'data_type' => 'acf',
 	'version' => "2.0.1",
 	'label' => "Half and Half",
 	'category' => '2 column',
 	'demo' => 'http://demo.inboundnow.com/go/half-and-half-lander-preview/',
-	'description'  => 'Half and Half is a template with two content areas on each side of the page. One side has your conversion area and the other your content on the page.',
-    'acf' => true
+	'description'  => __('Half and Half is a template with two content areas on each side of the page. One side has your conversion area and the other your content on the page.','landing-pages')
 );
 
 /* define ACF field definitions */
