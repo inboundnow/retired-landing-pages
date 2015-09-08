@@ -197,9 +197,12 @@ if (!class_exists('Landing_Pages_ACF')) {
 		public static function load_legacy_value( $value, $post_id, $field ) {
 			global $post;
 
+			/* get registered field object data */
+			$field = self::acf_get_registered_field( $field );
+
 			/* if a brand new post ignore return default value */
 			if (!get_post_meta( $post_id , 'publish' , true )) {
-				return $value;
+				return $field['default_value'];
 			}
 
 			$vid = Landing_Pages_Variations::get_new_variation_reference_id( $post->ID );
@@ -211,7 +214,6 @@ if (!class_exists('Landing_Pages_ACF')) {
 				$value = get_post_meta( $post_id ,  $field['name']  , true );
 			}
 
-			$field = self::acf_get_registered_field( $field );
 
 			if ($field['type']=='image') {
 				$value = self::get_image_id_from_url( $value );

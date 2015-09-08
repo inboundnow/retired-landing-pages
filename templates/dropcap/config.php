@@ -162,9 +162,7 @@ if( function_exists('register_field_group') ):
                     'repeat-y' => __( 'Repeat Image Vertically','landing-pages'),
                     'custom' => __( 'Custom CSS','landing-pages'),
                 ),
-                'default_value' => array (
-                    'fullscreen' => 'color',
-                ),
+                'default_value' => 'fullscreen',
                 'allow_null' => 0,
                 'multiple' => 0,
                 'ui' => 0,
@@ -196,6 +194,7 @@ if( function_exists('register_field_group') ):
                 'max_height' => '',
                 'max_size' => '',
                 'mime_types' => '',
+                'default_value' => LANDINGPAGES_URLPATH.'templates/dropcap/assets/images/beach-1.jpg'
             ),
             array (
                 'key' => 'field_55dcf36870c77',
