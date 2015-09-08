@@ -6,7 +6,8 @@
 */
 
 /* Declare Template Key */
-$key = lp_get_parent_directory(dirname(__FILE__));
+$key_old = lp_get_parent_directory(dirname(__FILE__));
+$key = basename(dirname(__FILE__));
 $path = LANDINGPAGES_UPLOADS_URLPATH ."$key/";
 $url = plugins_url();
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
@@ -14,7 +15,8 @@ do_action('wp_head');
 
 if (have_posts()) : while (have_posts()) : the_post();
 
-$post_id = get_the_ID(); ?>
+$post_id = get_the_ID(); 
+?>
 
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -30,16 +32,19 @@ $post_id = get_the_ID(); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="LandingSumo.com">
-    <link rel="icon" href="assets/img/favicon.ico">
+<!-- Add href path for local testing http://127.0.0.1:81/sandbox-1/wp-content/plugins/inbound-mailer-master/templates/acacia/ -->
+	<link rel="icon" href="assets/img/favicon.ico">
 
+<!-- Add href path for local testing http://127.0.0.1:81/sandbox-1/wp-content/plugins/inbound-mailer-master/templates/acacia/ -->
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
 
+<!-- Add href path for local testing http://127.0.0.1:81/sandbox-1/wp-content/plugins/inbound-mailer-master/templates/acacia/ -->
     <!-- Custom styles for this template -->
 	<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
     <link href="assets/css/style.css" rel="stylesheet">
 
-
+<!-- Add href path for local testing http://127.0.0.1:81/sandbox-1/wp-content/plugins/inbound-mailer-master/templates/acacia/ -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
 
@@ -66,19 +71,19 @@ $post_id = get_the_ID(); ?>
 					$hero_video = get_sub_field("hero_video");
 					$hero_headline = get_sub_field("hero_headline");
 					$hero_headline_color = get_sub_field("hero_headline_color");
-					$hero_subh_eadline = get_sub_field("hero_subh_eadline");
+					$hero_sub_headline = get_sub_field("hero_sub_headline");
 					$hero_sub_headline_color = get_sub_field("hero_sub_headline_color");
 					$hero_button_text = get_sub_field("hero_button_text");
 					$hero_button_text_color = get_sub_field("hero_button_text_color");
 					$hero_button_link = get_sub_field("hero_button_link");
 					$hero_button_bg_color = get_sub_field("hero_button_bg_color");
-					$hero_media = ($add_media == 'image') ? $hero_image_url : $hero_video;
+					//$hero_media = ($add_media == 'image') ? $hero_image_url : $hero_video;
 					?>
 					<div id="is" style="background-color:<?php echo $hero_bg_color; ?>">
 						<div class="container">
 							<div class="row">
 								<div class="col-lg-6 col-md-6 centered">
-									<img src="<?php echo $hero_media;  ?>" style="max-height:600px;" alt="">
+									<?php echo $add_media; ?>
 								</div>
 								<div class="col-lg-6 col-md-6 centered" style="">
 									<h1 style="color:<?php echo $hero_headline_color; ?>"><?php echo $hero_headline;  ?></h1>
@@ -126,100 +131,121 @@ $post_id = get_the_ID(); ?>
 							</div><!--/row -->
 						</div><!--/container -->
 					</div>
-					
+				<?php break;
+				/* start layout testimonials */
+				case 'testimonials' : 
+					$testimonials_bg_color = get_sub_field("testimonials_bg_color");
+					?>
+					<div id="mint" class="carousel slide" data-ride="carousel" style="background-color:<?php echo $testimonials_bg_color ?>">
+						<div class="col-md-6 col-md-offset-3">
+							<!-- Carousel
+							================================================== -->
+							<!-- Indicators -->
+							<ol class="carousel-indicators">
 					<?php
+					/* Start testimonial Repeater Output Carousel */
+					if ( have_rows( "testimonial" ) )  { ?>
+						
+						<?php $slide = 0;
+						$class = 'active'; ?>
+						<?php while ( have_rows( "testimonial" ) ) : the_row();
+							?>
+							<li data-target="#mint" data-slide-to="<?php echo $slide; ?>" class="<?php echo $class; ?>"></li>
+							<?php
+							$slide += 1;
+							$class = ''; //only the first item has class 'active'
+						endwhile;
+					}
+					
+					?>
+							</ol>
+							<div class="carousel-inner">
+					 <?php
+					
+					$class = 'active';
+					/* Start testimonial Repeater Output */
+					if ( have_rows( "testimonial" ) )  { ?>
+
+						<?php while ( have_rows( "testimonial" ) ) : the_row();
+							$testimonial_image = get_sub_field("testimonial_image");
+							$testimonial_text = get_sub_field("testimonial_text");
+							$testimonial_name = get_sub_field("testimonial_name");
+							$testimonial_name_link = get_sub_field("testimonial_name_link");
+						?>								  
+									<div class="item <?php echo $class; ?>">
+										<div class="centered mtb">
+											<img src="<?php echo $testimonial_image; ?>" class="img-circle" height="100" width="100" alt="slide">
+											<h4><?php echo $testimonial_text; ?></h4>
+											<p><?php echo strtoupper($testimonial_name); ?></p>
+										</div>
+									</div><!-- /item -->								
+									<?php
+									$class = '';
+						endwhile; ?>
+
+					<?php } /* end if have_rows(testimonial) */
+					/* End testimonial Repeater Output */
+								?>
+								</div><!--/carousel-inner -->
+							</div><!--/col-md-6 -->
+						</div><!--/mint -->
+
+				<?php break;
+				/* start layout faq_section */
+				case 'faq_section' : 
+					$faq_bg_color = get_sub_field("faq_bg_color");
+					$faq_text_color = get_sub_field("faq_text_color");
+					$faq_headline = get_sub_field("faq_headline");
+					/* Start faqs Repeater Output */
+					if ( have_rows( "faqs" ) )  { ?>
+						
+						<div id="faq">
+							<div class="container">
+								<div class="row mtb">
+									<h2 class="centered" style="color:<?php echo $faq_text_color; ?>"><?php echo $faq_headline; ?></h2>
+								
+
+							<?php $is_left = true; ?>
+							<?php while ( have_rows( "faqs" ) ) : the_row();
+									$faq_title = get_sub_field("faq_title");
+									$faq_content = get_sub_field("faq_content");
+							?>
+									
+									<div class="col-md-6 mt">
+										<h4><?php echo $faq_title; ?></h4>
+										<p><?php echo $faq_content; ?></p>
+									</div><!--/col-md-6 -->
+								
+
+							<?php endwhile; ?>
+
+					<?php } /* end if have_rows(faqs) */
+					/* End faqs Repeater Output */
+					$more_questions_button_text = get_sub_field("more_questions_button_text");
+					$more_questions_button_link = get_sub_field("more_questions_button_link");
+					$more_questions_button_color = get_sub_field("more_questions_button_color");
+					$more_questions_button_text_color = get_sub_field("more_questions_button_text_color");
+					?>
+
+								<div class="centered mtb">
+									<button class="btn btn-lg btn-green mt">More Questions?</button>
+								</div><!--/col-md-6 -->
+							</div><!--/row -->
+						</div><!-- /container -->
+					</div><!-- /faq -->
+
+			<?php break;
 				endswitch; /* end switch statement */ 
 			endwhile; /* end while statement */
 		 endif; /* end have_rows */
 	endif;  /* end function_exists */
 /* End acacia_template_body Flexible Content Area Output */
 	?>
-				
-				
-
-    
-    <div id="gs">
-    	<div class="container">
-			<div class="row mtb">
-				<div class="col-md-7 centered">
-					<img src="assets/img/tablet.png" alt="" class="img-responsive">
-				</div><!--/col-md-7 -->
-				
-				<div class="col-md-5">
-					<h2 class="mb">Enjoy Your Devices</h2>
-					<p>Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur. Donec id elit non mi porta.</p>
-					<p>Dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since, when an unknown ristique senectus et netus.</p>
-					<p>Mellentesque habitant morbi tristique senectus et netus et malesuada famesac turpis egestas. Ut non enim eleifend felis pretium feugiat. Vivamus quis mi. Dummy text of the printing and typesetting.</p>
-					<button class="btn btn-lg btn-green mt">Register Now!</button> <button class="btn btn-lg btn-blue mt">Learn More</button>
-				</div><!--/col-md-5 -->
-				
-			</div><!--/row -->
-    	</div>
-    </div><!--/Grey Section end -->
-    
-    <div id="mint" class="carousel slide" data-ride="carousel">
-    	<div class="col-md-6 col-md-offset-3">
-		    <!-- Carousel
-		    ================================================== -->
-		      <!-- Indicators -->
-		      <ol class="carousel-indicators">
-		        <li data-target="#mint" data-slide-to="0" class="active"></li>
-		        <li data-target="#mint" data-slide-to="1"></li>
-		        <li data-target="#mint" data-slide-to="2"></li>
-		      </ol>
-		      <div class="carousel-inner">
-		        <div class="item active">
-		        	<div class="centered mtb">
-		            	<img src="assets/img/pic01.jpg" class="img-circle" height="100" width="100" alt="First slide">
-				        <h4>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</h4>
-				        <p>SHARON SMITH</p>
-					</div>
-				</div><!-- /item -->
-				
-		        <div class="item">
-		        	<div class="centered mtb">
-		            	<img src="assets/img/pic02.jpg" class="img-circle" height="100" width="100" alt="First slide">
-				        <h4>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</h4>
-				        <p>SAM MANNING</p>
-					</div>
-				</div><!-- /item -->
-
-		        <div class="item">
-		        	<div class="centered mtb">
-		            	<img src="assets/img/pic03.jpg" class="img-circle" height="100" width="100" alt="First slide">
-				        <h4>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</h4>
-				        <p>PAUL STEVENSON</p>
-					</div>
-				</div><!-- /item -->
-	    	
-			</div><!--/carousel-inner -->
-    	</div><!--/col-md-6 -->
-    </div><!--/mint -->
     
     
-    <div class="container">
-    	<div class="row mtb">
-    		<h2 class="centered">Frequently Asked Questions</h2>
-    		
-    		<div class="col-md-6 mt">
-    			<h4>Dummy text of the printing</h4>
-    			<p>Mellentesque habitant morbi tristique senectus et netus et malesuada famesac turpis egestas. Ut non enim eleifend felis pretium feugiat. Vivamus quis mi. Dummy text of the printing and typesetting.</p>
-    			<h4 class="mt">Mellentesque habitant morbi </h4>
-    			<p>Dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since, when an unknown ristique senectus et netus.</p>
-    		</div><!--/col-md-6 -->
-    		
-    		<div class="col-md-6 mt">
-    			<h4>Dummy text of the printing</h4>
-    			<p>Mellentesque habitant morbi tristique senectus et netus et malesuada famesac turpis egestas. Ut non enim eleifend felis pretium feugiat. Vivamus quis mi. Dummy text of the printing and typesetting.</p>
-    			<h4 class="mt">Mellentesque habitant morbi </h4>
-    			<p>Dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since, when an unknown ristique senectus et netus.</p>
-    		</div>
-    		<div class="centered mtb">
-    			<button class="btn btn-lg btn-green mt">More Questions?</button>
-    		</div><!--/col-md-6 -->
-    	
-    	</div><!--/row -->
-    </div><!-- /container -->
+    
+    
+					
     
     <div id="f">
     	<div class="container">
