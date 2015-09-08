@@ -461,7 +461,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 		 */
 		public static function lp_add_instructions( $data ) {
 			foreach ($data as $key => $object ) {
-				if ( isset($object['info']['acf']) && $object['info']['acf'] ) {
+				if ( isset($object['info']['data_type']) && $object['info']['data_type'] == 'acf' ) {
 					$data[$key]['settings'] = array(
 						array(
 							'label' => 'Instructions', /* Turns off main content */

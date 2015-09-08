@@ -6,7 +6,7 @@
 * WordPress Landing Page Config File
 */
 
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = basename(dirname(__FILE__));
 
 $path = (preg_match("/uploads/", dirname(__FILE__))) ? LANDINGPAGES_UPLOADS_URLPATH . $key .'/' : LANDINGPAGES_URLPATH.'templates/'.$key.'/';
 
