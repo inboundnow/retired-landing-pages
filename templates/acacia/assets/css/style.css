@@ -178,7 +178,7 @@ a:focus {
 	z-index: 1;
 	color: #fff;
 	padding-top: 10%;
-	background-image: linear-gradient(#1da083,#0f3450);
+	//background-image: linear-gradient(#1da083,#0f3450);
 }
 
 #is h1 {
