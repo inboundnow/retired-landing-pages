@@ -202,7 +202,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 
 			/* if a brand new post ignore return default value */
 			if (!get_post_meta( $post_id , 'publish' , true )) {
-				return $field['default_value'];
+				return (isset($field['default_value'])) ? $field['default_value'] : '' ;
 			}
 
 			$vid = Landing_Pages_Variations::get_new_variation_reference_id( $post->ID );
