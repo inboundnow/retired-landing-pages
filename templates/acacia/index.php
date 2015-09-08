@@ -83,7 +83,11 @@ $post_id = get_the_ID();
 						<div class="container">
 							<div class="row">
 								<div class="col-lg-6 col-md-6 centered">
-									<?php echo $add_media; ?>
+									<?php if ( 'image' == $add_media) {
+										echo '<img style="max-width: 100%;" alt="" src="'. $hero_image .'">';
+									} else {
+										echo $hero_video;
+									} ?>
 								</div>
 								<div class="col-lg-6 col-md-6 centered" style="">
 									<h1 style="color:<?php echo $hero_headline_color; ?>"><?php echo $hero_headline;  ?></h1>
