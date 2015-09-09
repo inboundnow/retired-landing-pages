@@ -324,7 +324,11 @@ if (!class_exists('Landing_Pages_ACF')) {
 			$pointer = str_replace('_' , '' , $matches[0]);
 			$repeater_key = self::key_search($array, $field , true ); /* returns parent flexible content field key using sub field key */
 
-			return $array[$repeater_key][$pointer][$field['key']];
+			if (isset($array[$repeater_key][$pointer][$field['key']])){
+				return $array[$repeater_key][$pointer][$field['key']];
+			}
+
+			return '';
 
 		}
 
