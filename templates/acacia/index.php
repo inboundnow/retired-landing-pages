@@ -90,7 +90,7 @@ $post_id = get_the_ID();
 								<div class="col-lg-6 col-md-6 centered" style="">
 									<h1 style="color:<?php echo $hero_headline_color; ?>"><?php echo $hero_headline;  ?></h1>
 									<p style="color:<?php echo $hero_sub_headline_color; ?>"><?php echo $hero_sub_headline;  ?></p>
-									<button style="background-color:<?php echo $hero_button_bg_color; ?>; color:<?php echo $hero_button_text_color; ?>" class="btn btn-lg btn-green mtb"><?php echo $hero_button_text; ?></button>
+									<button style="border: 4px solid <?php echo $hero_button_bg_color; ?>; background-color:<?php echo $hero_button_bg_color; ?>; color:<?php echo $hero_button_text_color; ?>" class="btn btn-lg btn-standard mtb"><?php echo $hero_button_text; ?></button>
 								</div>
 							</div><!--/row -->
 						</div><!--/container -->
@@ -115,17 +115,17 @@ $post_id = get_the_ID();
 								<h2 style="color:<?php echo $three_col_text_color; ?>"><?php echo $three_col_headline; ?></h2>
 								<div class="icons-white-bg mt">
 									<div class="col-md-4">
-										<i class="fa fa-lightbulb-o" style="color:<?php echo $three_col_text_color; ?>"></i>
+										<i class="fa <?php echo $three_col_column_1_icon; ?>" style="color:<?php echo $three_col_text_color; ?>"></i>
 										<p style="color:<?php echo $three_col_text_color; ?>"><?php echo $three_col_column_1_text; ?></p>
 									</div><!--/col-md-4 -->
 
 									<div class="col-md-4">
-										<i class="fa fa-globe" style="color:<?php echo $three_col_text_color; ?>"></i>
+										<i class="fa <?php echo $three_col_column_2_icon; ?>" style="color:<?php echo $three_col_text_color; ?>"></i>
 										<p style="color:<?php echo $three_col_text_color; ?>"><?php echo $three_col_column_2_text; ?></p>
 									</div><!--/col-md-4 -->
 
 									<div class="col-md-4">
-										<i class="fa fa-laptop" style="color:<?php echo $three_col_text_color; ?>"></i>
+										<i class="fa <?php echo $three_col_column_3_icon; ?>" style="color:<?php echo $three_col_text_color; ?>"></i>
 										<p style="color:<?php echo $three_col_text_color; ?>"><?php echo $three_col_column_3_text; ?></p>
 									</div><!--/col-md-4 -->
 								</div><!--/icons-white-bg -->
