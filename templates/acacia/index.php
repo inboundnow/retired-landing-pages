@@ -90,7 +90,7 @@ $post_id = get_the_ID();
 								<div class="col-lg-6 col-md-6 centered" style="">
 									<h1 style="color:<?php echo $hero_headline_color; ?>"><?php echo $hero_headline;  ?></h1>
 									<p style="color:<?php echo $hero_sub_headline_color; ?>"><?php echo $hero_sub_headline;  ?></p>
-									<button style="border: 4px solid <?php echo $hero_button_bg_color; ?>; background-color:<?php echo $hero_button_bg_color; ?>; color:<?php echo $hero_button_text_color; ?>" class="btn btn-lg btn-standard mtb"><?php echo $hero_button_text; ?></button>
+									<a href="<?php echo $hero_button_link; ?>" style="border: 4px solid <?php echo $hero_button_bg_color; ?>; background-color:<?php echo $hero_button_bg_color; ?>; color:<?php echo $hero_button_text_color; ?>" class="btn btn-lg btn-standard mtb"><?php echo $hero_button_text; ?></a>
 								</div>
 							</div><!--/row -->
 						</div><!--/container -->
@@ -201,7 +201,7 @@ $post_id = get_the_ID();
 					/* Start faqs Repeater Output */
 					if ( have_rows( "faqs" ) )  { ?>
 						
-						<div id="faq">
+						<div id="faq" style="background-color: <?php echo $faq_bg_color; ?>;">
 							<div class="container">
 								<div class="row mtb">
 									<h2 class="centered" style="color:<?php echo $faq_text_color; ?>"><?php echo $faq_headline; ?></h2>
@@ -214,12 +214,30 @@ $post_id = get_the_ID();
 							?>
 									
 									<div class="col-md-6 mt">
-										<h4><?php echo $faq_title; ?></h4>
-										<p><?php echo $faq_content; ?></p>
+										<h4 style="color:<?php echo $faq_text_color; ?>"><?php echo $faq_title; ?></h4>
+										<p style="color:<?php echo $faq_text_color; ?>"><?php echo $faq_content; ?></p>
 									</div><!--/col-md-6 -->
-								
+								<?php
+								// alternate left and right side to count where the next FAQ goes
+								$is_left = ! $is_left;
+								?>
 
-							<?php endwhile; ?>
+							<?php endwhile; 
+							/* if last FAQ added was on left side adds a last empty FAQ box on the right
+							 * then we add an empty div 12 columns wide
+							 * in this way, the button is correctly centered
+							 */
+							if (! $is_left ) {
+								?>
+								<div class="col-md-6 mt">
+									<h4 style="color:<?php echo $faq_bg_color; ?>">&nbsp;</h4>
+									<p style="color:<?php echo $faq_bg_color; ?>">&nbsp;</p>
+								</div><!--/col-md-6 -->
+								<div class="col-md-12"></div>
+								<?php
+							}
+							?>
+								
 
 					<?php } /* end if have_rows(faqs) */
 					/* End faqs Repeater Output */
@@ -230,7 +248,7 @@ $post_id = get_the_ID();
 					?>
 
 								<div class="centered mtb">
-									<button class="btn btn-lg btn-green mt">More Questions?</button>
+									<a href="<?php echo $more_questions_button_link; ?>" class="btn btn-lg btn-standard mt" style="color:<?php echo $more_questions_button_text_color; ?>; background-color:<?php echo $more_questions_button_color; ?>; border: 4px solid <?php echo $more_questions_button_color; ?>;"><?php echo $more_questions_button_text; ?></a>
 								</div><!--/col-md-6 -->
 							</div><!--/row -->
 						</div><!-- /container -->
