@@ -56,7 +56,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 			add_action( 'save_post', array( __CLASS__ , 'save_acf_fields' ) );
 
 			/* Intercept load custom field value request and hijack it */
-			add_filter( 'acf/load_value' , array( __CLASS__ , 'load_value' ) , 10 , 3 );
+			add_filter( 'acf/load_value' , array( __CLASS__ , 'load_value' ) , 11 , 3 );
 
 			/* add default instructions to all ACF templates - legacy unused
 			add_filter( 'lp_extension_data' , array( __CLASS__ , 'lp_add_instructions' ) , 11 , 1 );
@@ -156,11 +156,14 @@ if (!class_exists('Landing_Pages_ACF')) {
 				return $value;
 			}
 
+
 			$vid = Landing_Pages_Variations::get_new_variation_reference_id( $post->ID );
 
 			$settings = Landing_Pages_Meta::get_settings( $post->ID );
 
 			$variations = ( isset($settings['variations']) ) ? $settings['variations'] : null;
+
+			/* If there is no ACF data for this template attempt to pull values from the legacy postmeta values */
 
 			if ( !isset( $variations[ $vid ][ 'acf' ] ) || !$variations[ $vid ][ 'acf' ]) {
 				return self::load_legacy_value(  $value, $post_id, $field  );
@@ -176,8 +179,8 @@ if (!class_exists('Landing_Pages_ACF')) {
 					$value = $new_value;
 				}
 
-				/* acf lite isn't processing return values correctly */
-				if (!is_admin()) {
+				/* acf lite isn't processing return values correctly - ignore repeater subfields */
+				if ( !is_admin() && !strstr( $field['parent'] , 'field_' )  ) {
 					$value = self::acf_free_value_formatting( $value , $field );
 				}
 			}
@@ -280,6 +283,8 @@ if (!class_exists('Landing_Pages_ACF')) {
 					if ($repeater_value) {
 						return $repeater_value;
 					}
+
+
 				}
 
 			}
