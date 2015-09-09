@@ -275,9 +275,9 @@ $post_id = get_the_ID();
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/retina-1.1.0.js"></script>
+    <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/jquery.min.js' ?>"></script>
+    <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/bootstrap.min.js' ?>"></script>
+    <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/retina-1.1.0.js' ?>"></script>
 	
 	<?php 
 	do_action('lp_footer');
