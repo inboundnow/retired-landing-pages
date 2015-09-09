@@ -66,7 +66,7 @@ $post_id = get_the_ID();
 	if(function_exists('have_rows')) :
 		if(have_rows('acacia_template_body')) :
 			 while(have_rows('acacia_template_body')) : the_row();
-				 switch(get_row_layout()) :
+				 switch( get_sub_field('acf_fc_layout')) :
 				// start layout hero_box
 				case 'hero_box' :
 					$hero_bg_color = get_sub_field("hero_bg_color");
