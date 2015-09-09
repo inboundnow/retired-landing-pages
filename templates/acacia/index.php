@@ -9,12 +9,17 @@
 $key = basename(dirname(__FILE__));
 $path = LANDINGPAGES_UPLOADS_URLPATH ."$key/";
 $url = plugins_url();
+
+
+/* Include ACF Field Definitions  */
+include_once(LANDINGPAGES_PATH.'templates/'.$key.'/config.php');
+
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
 do_action('wp_head');
 
 if (have_posts()) : while (have_posts()) : the_post();
 
-$post_id = get_the_ID(); 
+$post_id = get_the_ID();
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +36,7 @@ $post_id = get_the_ID();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="LandingSumo.com">
-	
+
 	<!-- don't need a favicon here
 	<link rel="icon" href="<?php //echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/img/favicon.ico' ?>">
 	-->
@@ -57,12 +62,13 @@ $post_id = get_the_ID();
 
 	  <?php
 /* Start acacia_template_body Flexible Content Area Output */
+
 	if(function_exists('have_rows')) :
 		if(have_rows('acacia_template_body')) :
 			 while(have_rows('acacia_template_body')) : the_row();
 				 switch(get_row_layout()) :
 				// start layout hero_box
-				case 'hero_box' : 
+				case 'hero_box' :
 					$hero_bg_color = get_sub_field("hero_bg_color");
 					$add_media = get_sub_field("add_media");
 					$hero_image = get_sub_field("hero_image");
@@ -98,7 +104,7 @@ $post_id = get_the_ID();
 				<?php
 				break;
 				/* start layout three_columns_text */
-				case 'three_columns_text' : 
+				case 'three_columns_text' :
 					$three_col_bg_color = get_sub_field("three_col_bg_color");
 					$three_col_text_color = get_sub_field("three_col_text_color");
 					$three_col_headline = get_sub_field("three_col_headline");
@@ -135,7 +141,7 @@ $post_id = get_the_ID();
 					</div>
 				<?php break;
 				/* start layout testimonials */
-				case 'testimonials' : 
+				case 'testimonials' :
 					$testimonials_bg_color = get_sub_field("testimonials_bg_color");
 					?>
 					<div id="mint" class="carousel slide" data-ride="carousel" style="background-color:<?php echo $testimonials_bg_color ?>">
@@ -147,7 +153,7 @@ $post_id = get_the_ID();
 					<?php
 					/* Start testimonial Repeater Output Carousel */
 					if ( have_rows( "testimonial" ) )  { ?>
-						
+
 						<?php $slide = 0;
 						$class = 'active'; ?>
 						<?php while ( have_rows( "testimonial" ) ) : the_row();
@@ -158,12 +164,12 @@ $post_id = get_the_ID();
 							$class = ''; //only the first item has class 'active'
 						endwhile;
 					}
-					
+
 					?>
 							</ol>
 							<div class="carousel-inner">
 					 <?php
-					
+
 					$class = 'active';
 					/* Start testimonial Repeater Output */
 					if ( have_rows( "testimonial" ) )  { ?>
@@ -173,14 +179,14 @@ $post_id = get_the_ID();
 							$testimonial_text = get_sub_field("testimonial_text");
 							$testimonial_name = get_sub_field("testimonial_name");
 							$testimonial_name_link = get_sub_field("testimonial_name_link");
-						?>								  
+						?>
 									<div class="item <?php echo $class; ?>">
 										<div class="centered mtb">
 											<img src="<?php echo $testimonial_image; ?>" class="img-circle" height="100" width="100" alt="slide">
 											<h4><?php echo $testimonial_text; ?></h4>
 											<p><?php echo strtoupper($testimonial_name); ?></p>
 										</div>
-									</div><!-- /item -->								
+									</div><!-- /item -->
 									<?php
 									$class = '';
 						endwhile; ?>
@@ -194,25 +200,25 @@ $post_id = get_the_ID();
 
 				<?php break;
 				/* start layout faq_section */
-				case 'faq_section' : 
+				case 'faq_section' :
 					$faq_bg_color = get_sub_field("faq_bg_color");
 					$faq_text_color = get_sub_field("faq_text_color");
 					$faq_headline = get_sub_field("faq_headline");
 					/* Start faqs Repeater Output */
 					if ( have_rows( "faqs" ) )  { ?>
-						
+
 						<div id="faq" style="background-color: <?php echo $faq_bg_color; ?>;">
 							<div class="container">
 								<div class="row mtb">
 									<h2 class="centered" style="color:<?php echo $faq_text_color; ?>"><?php echo $faq_headline; ?></h2>
-								
+
 
 							<?php $is_left = true; ?>
 							<?php while ( have_rows( "faqs" ) ) : the_row();
 									$faq_title = get_sub_field("faq_title");
 									$faq_content = get_sub_field("faq_content");
 							?>
-									
+
 									<div class="col-md-6 mt">
 										<h4 style="color:<?php echo $faq_text_color; ?>"><?php echo $faq_title; ?></h4>
 										<p style="color:<?php echo $faq_text_color; ?>"><?php echo $faq_content; ?></p>
@@ -222,7 +228,7 @@ $post_id = get_the_ID();
 								$is_left = ! $is_left;
 								?>
 
-							<?php endwhile; 
+							<?php endwhile;
 							/* if last FAQ added was on left side adds a last empty FAQ box on the right
 							 * then we add an empty div 12 columns wide
 							 * in this way, the button is correctly centered
@@ -237,7 +243,7 @@ $post_id = get_the_ID();
 								<?php
 							}
 							?>
-								
+
 
 					<?php } /* end if have_rows(faqs) */
 					/* End faqs Repeater Output */
@@ -255,25 +261,25 @@ $post_id = get_the_ID();
 					</div><!-- /faq -->
 
 			<?php break;
-				endswitch; /* end switch statement */ 
+				endswitch; /* end switch statement */
 			endwhile; /* end while statement */
 		 endif; /* end have_rows */
 	endif;  /* end function_exists */
 /* End acacia_template_body Flexible Content Area Output */
 	?>
-    
-    
-    
-    
-					
-    
+
+
+
+
+
+
     <div id="f">
     	<div class="container">
     		<div class="row centered mtb">
     			<h2>Get In Touch With Us</h2>
     			<h5>Mellentesque habitant morbi tristique senectus et netus<br/> et malesuada famesac turpis egestas.</h5>
     			<div class="col-md-6 col-md-offset-3 mt">
-					<form role="form" action="register.php" method="post" enctype="plain"> 
+					<form role="form" action="register.php" method="post" enctype="plain">
 	    				<input type="email" name="email" class="subscribe-input" placeholder="Enter your e-mail address..." required>
 						<button class='btn btn-green2 subscribe-submit' type="submit">Subscribe</button>
 					</form>
@@ -296,8 +302,8 @@ $post_id = get_the_ID();
     <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/jquery.min.js' ?>"></script>
     <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/bootstrap.min.js' ?>"></script>
     <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/retina-1.1.0.js' ?>"></script>
-	
-	<?php 
+
+	<?php
 	do_action('lp_footer');
 	do_action('wp_footer');
 	?>
