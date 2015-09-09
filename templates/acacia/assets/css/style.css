@@ -209,7 +209,7 @@ a:focus {
 
 /* Mint Section */
 #mint {
-	background: url(../img/mint.jpg) no-repeat center top;
+	//background: url(../img/mint.jpg) no-repeat center top;
 	padding-top: 50px;
 	text-align:center;
 	background-attachment: relative;
