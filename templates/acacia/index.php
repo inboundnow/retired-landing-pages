@@ -6,7 +6,6 @@
 */
 
 /* Declare Template Key */
-$key_old = lp_get_parent_directory(dirname(__FILE__));
 $key = basename(dirname(__FILE__));
 $path = LANDINGPAGES_UPLOADS_URLPATH ."$key/";
 $url = plugins_url();
