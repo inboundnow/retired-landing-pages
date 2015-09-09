@@ -31,21 +31,20 @@ $post_id = get_the_ID();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="LandingSumo.com">
-<!-- Add href path for local testing http://127.0.0.1:81/sandbox-1/wp-content/plugins/inbound-mailer-master/templates/acacia/ -->
-	<link rel="icon" href="assets/img/favicon.ico">
+	
+	<!-- don't need a favicon here
+	<link rel="icon" href="<?php //echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/img/favicon.ico' ?>">
+	-->
 
-<!-- Add href path for local testing http://127.0.0.1:81/sandbox-1/wp-content/plugins/inbound-mailer-master/templates/acacia/ -->
     <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/css/bootstrap.css' ?>" rel="stylesheet">
 
-<!-- Add href path for local testing http://127.0.0.1:81/sandbox-1/wp-content/plugins/inbound-mailer-master/templates/acacia/ -->
     <!-- Custom styles for this template -->
-	<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
-    <link href="assets/css/style.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/css/font-awesome.min.css' ?>">
+    <link href="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/css/style.css' ?>" rel="stylesheet">
 
-<!-- Add href path for local testing http://127.0.0.1:81/sandbox-1/wp-content/plugins/inbound-mailer-master/templates/acacia/ -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/ie10-viewport-bug-workaround.js' ?>"></script>
 
 	<!-- Load Normal WordPress wp_head() function -->
     <?php wp_head(); ?>
