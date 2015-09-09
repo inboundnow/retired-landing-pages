@@ -10,11 +10,11 @@ if (!class_exists('Inbound_Load_Shared')) {
 		 *
 		 */
 		public static function init() {
+
 			/* Bail if shared files already loaded */
 			if (defined('INBOUNDNOW_SHARED')) {
 				return;
 			}
-
 			self::load_constants();
 			self::load_files();
 			self::load_activation_rules();
@@ -73,7 +73,7 @@ if (!class_exists('Inbound_Load_Shared')) {
 				require_once( INBOUNDNOW_SHARED_PATH . 'classes/class.inbound-api.api-keys-table.php');
 				require_once( INBOUNDNOW_SHARED_PATH . 'classes/class.marketing-button.php');
 				require_once( INBOUNDNOW_SHARED_PATH . 'classes/class.template-utils.php');
-				include_once( INBOUNDNOW_SHARED_PATH . 'functions/shared.php');
+				require_once( INBOUNDNOW_SHARED_PATH . 'functions/shared.php');
 			}
 
 		}

@@ -20,11 +20,7 @@ function inbound_get_parent_directory($path) {
         $parent = $array[$key];
         return $parent;
     } else {
-        if ( !strpos('/', $path)) {
-			$array = explode('\\', $path);
-		} else {
-	        $array = explode('/', $path);
-		}
+        $array = explode('/', $path);
         $count = count($array);
         $key = $count - 1;
         $parent = $array[$key];
