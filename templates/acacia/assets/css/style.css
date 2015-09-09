@@ -114,19 +114,19 @@ a:focus {
 
 /* BUtton Configuration */
 
-.btn-green {
-	border: 4px solid #1da083;
+.btn-standard {
+	//border: 4px solid #1da083;
 	border-radius: 60px;
 	color: #fff;
-	background: #1da083;
+	//background: #1da083;
 	-webkit-transition: none;
 	-moz-transition: none;
 	transition: none;
 }
 
-.btn-green:hover {
-	background: transparent;
-	color: #1da083
+.btn-standard:hover {
+	background: transparent !important;
+	color: #ffffff
 }
 
 .btn-blue {
