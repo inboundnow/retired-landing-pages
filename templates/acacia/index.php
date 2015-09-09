@@ -6,7 +6,6 @@
 */
 
 /* Declare Template Key */
-$key_old = lp_get_parent_directory(dirname(__FILE__));
 $key = basename(dirname(__FILE__));
 $path = LANDINGPAGES_UPLOADS_URLPATH ."$key/";
 $url = plugins_url();
@@ -32,21 +31,20 @@ $post_id = get_the_ID();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="LandingSumo.com">
-<!-- Add href path for local testing http://127.0.0.1:81/sandbox-1/wp-content/plugins/inbound-mailer-master/templates/acacia/ -->
-	<link rel="icon" href="assets/img/favicon.ico">
+	
+	<!-- don't need a favicon here
+	<link rel="icon" href="<?php //echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/img/favicon.ico' ?>">
+	-->
 
-<!-- Add href path for local testing http://127.0.0.1:81/sandbox-1/wp-content/plugins/inbound-mailer-master/templates/acacia/ -->
     <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/css/bootstrap.css' ?>" rel="stylesheet">
 
-<!-- Add href path for local testing http://127.0.0.1:81/sandbox-1/wp-content/plugins/inbound-mailer-master/templates/acacia/ -->
     <!-- Custom styles for this template -->
-	<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
-    <link href="assets/css/style.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/css/font-awesome.min.css' ?>">
+    <link href="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/css/style.css' ?>" rel="stylesheet">
 
-<!-- Add href path for local testing http://127.0.0.1:81/sandbox-1/wp-content/plugins/inbound-mailer-master/templates/acacia/ -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/ie10-viewport-bug-workaround.js' ?>"></script>
 
 	<!-- Load Normal WordPress wp_head() function -->
     <?php wp_head(); ?>
@@ -92,7 +90,7 @@ $post_id = get_the_ID();
 								<div class="col-lg-6 col-md-6 centered" style="">
 									<h1 style="color:<?php echo $hero_headline_color; ?>"><?php echo $hero_headline;  ?></h1>
 									<p style="color:<?php echo $hero_sub_headline_color; ?>"><?php echo $hero_sub_headline;  ?></p>
-									<button style="background-color:<?php echo $hero_button_bg_color; ?>; color:<?php echo $hero_button_text_color; ?>" class="btn btn-lg btn-green mtb"><?php echo $hero_button_text; ?></button>
+									<a href="<?php echo $hero_button_link; ?>" style="border: 4px solid <?php echo $hero_button_bg_color; ?>; background-color:<?php echo $hero_button_bg_color; ?>; color:<?php echo $hero_button_text_color; ?>" class="btn btn-lg btn-standard mtb"><?php echo $hero_button_text; ?></a>
 								</div>
 							</div><!--/row -->
 						</div><!--/container -->
@@ -117,17 +115,17 @@ $post_id = get_the_ID();
 								<h2 style="color:<?php echo $three_col_text_color; ?>"><?php echo $three_col_headline; ?></h2>
 								<div class="icons-white-bg mt">
 									<div class="col-md-4">
-										<i class="fa fa-lightbulb-o" style="color:<?php echo $three_col_text_color; ?>"></i>
+										<i class="fa <?php echo $three_col_column_1_icon; ?>" style="color:<?php echo $three_col_text_color; ?>"></i>
 										<p style="color:<?php echo $three_col_text_color; ?>"><?php echo $three_col_column_1_text; ?></p>
 									</div><!--/col-md-4 -->
 
 									<div class="col-md-4">
-										<i class="fa fa-globe" style="color:<?php echo $three_col_text_color; ?>"></i>
+										<i class="fa <?php echo $three_col_column_2_icon; ?>" style="color:<?php echo $three_col_text_color; ?>"></i>
 										<p style="color:<?php echo $three_col_text_color; ?>"><?php echo $three_col_column_2_text; ?></p>
 									</div><!--/col-md-4 -->
 
 									<div class="col-md-4">
-										<i class="fa fa-laptop" style="color:<?php echo $three_col_text_color; ?>"></i>
+										<i class="fa <?php echo $three_col_column_3_icon; ?>" style="color:<?php echo $three_col_text_color; ?>"></i>
 										<p style="color:<?php echo $three_col_text_color; ?>"><?php echo $three_col_column_3_text; ?></p>
 									</div><!--/col-md-4 -->
 								</div><!--/icons-white-bg -->
@@ -203,7 +201,7 @@ $post_id = get_the_ID();
 					/* Start faqs Repeater Output */
 					if ( have_rows( "faqs" ) )  { ?>
 						
-						<div id="faq">
+						<div id="faq" style="background-color: <?php echo $faq_bg_color; ?>;">
 							<div class="container">
 								<div class="row mtb">
 									<h2 class="centered" style="color:<?php echo $faq_text_color; ?>"><?php echo $faq_headline; ?></h2>
@@ -216,12 +214,30 @@ $post_id = get_the_ID();
 							?>
 									
 									<div class="col-md-6 mt">
-										<h4><?php echo $faq_title; ?></h4>
-										<p><?php echo $faq_content; ?></p>
+										<h4 style="color:<?php echo $faq_text_color; ?>"><?php echo $faq_title; ?></h4>
+										<p style="color:<?php echo $faq_text_color; ?>"><?php echo $faq_content; ?></p>
 									</div><!--/col-md-6 -->
-								
+								<?php
+								// alternate left and right side to count where the next FAQ goes
+								$is_left = ! $is_left;
+								?>
 
-							<?php endwhile; ?>
+							<?php endwhile; 
+							/* if last FAQ added was on left side adds a last empty FAQ box on the right
+							 * then we add an empty div 12 columns wide
+							 * in this way, the button is correctly centered
+							 */
+							if (! $is_left ) {
+								?>
+								<div class="col-md-6 mt">
+									<h4 style="color:<?php echo $faq_bg_color; ?>">&nbsp;</h4>
+									<p style="color:<?php echo $faq_bg_color; ?>">&nbsp;</p>
+								</div><!--/col-md-6 -->
+								<div class="col-md-12"></div>
+								<?php
+							}
+							?>
+								
 
 					<?php } /* end if have_rows(faqs) */
 					/* End faqs Repeater Output */
@@ -232,7 +248,7 @@ $post_id = get_the_ID();
 					?>
 
 								<div class="centered mtb">
-									<button class="btn btn-lg btn-green mt">More Questions?</button>
+									<a href="<?php echo $more_questions_button_link; ?>" class="btn btn-lg btn-standard mt" style="color:<?php echo $more_questions_button_text_color; ?>; background-color:<?php echo $more_questions_button_color; ?>; border: 4px solid <?php echo $more_questions_button_color; ?>;"><?php echo $more_questions_button_text; ?></a>
 								</div><!--/col-md-6 -->
 							</div><!--/row -->
 						</div><!-- /container -->
@@ -277,9 +293,9 @@ $post_id = get_the_ID();
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/retina-1.1.0.js"></script>
+    <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/jquery.min.js' ?>"></script>
+    <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/bootstrap.min.js' ?>"></script>
+    <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/retina-1.1.0.js' ?>"></script>
 	
 	<?php 
 	do_action('lp_footer');
