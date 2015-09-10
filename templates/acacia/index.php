@@ -212,8 +212,6 @@ $post_id = get_the_ID();
 								<div class="row mtb">
 									<h2 class="centered" style="color:<?php echo $faq_text_color; ?>"><?php echo $faq_headline; ?></h2>
 
-
-							<?php $is_left = true; ?>
 							<?php while ( have_rows( "faqs" ) ) : the_row();
 									$faq_title = get_sub_field("faq_title");
 									$faq_content = get_sub_field("faq_content");
@@ -223,26 +221,8 @@ $post_id = get_the_ID();
 										<h4 style="color:<?php echo $faq_text_color; ?>"><?php echo $faq_title; ?></h4>
 										<p style="color:<?php echo $faq_text_color; ?>"><?php echo $faq_content; ?></p>
 									</div><!--/col-md-6 -->
-								<?php
-								// alternate left and right side to count where the next FAQ goes
-								$is_left = ! $is_left;
-								?>
-
-							<?php endwhile;
-							/* if last FAQ added was on left side adds a last empty FAQ box on the right
-							 * then we add an empty div 12 columns wide
-							 * in this way, the button is correctly centered
-							 */
-							if (! $is_left ) {
-								?>
-								<div class="col-md-6 mt">
-									<h4 style="color:<?php echo $faq_bg_color; ?>">&nbsp;</h4>
-									<p style="color:<?php echo $faq_bg_color; ?>">&nbsp;</p>
-								</div><!--/col-md-6 -->
-								<div class="col-md-12"></div>
-								<?php
-							}
-							?>
+								
+							<?php endwhile;?>
 
 
 					<?php } /* end if have_rows(faqs) */
@@ -252,10 +232,11 @@ $post_id = get_the_ID();
 					$more_questions_button_color = get_sub_field("more_questions_button_color");
 					$more_questions_button_text_color = get_sub_field("more_questions_button_text_color");
 					?>
-
-								<div class="centered mtb">
+							
+								<div class="col-md-12 centered mtb" style="margin-top: 0;">
 									<a href="<?php echo $more_questions_button_link; ?>" class="btn btn-lg btn-standard mt" style="color:<?php echo $more_questions_button_text_color; ?>; background-color:<?php echo $more_questions_button_color; ?>; border: 4px solid <?php echo $more_questions_button_color; ?>;"><?php echo $more_questions_button_text; ?></a>
-								</div><!--/col-md-6 -->
+								</div><!--/centered -->
+								
 							</div><!--/row -->
 						</div><!-- /container -->
 					</div><!-- /faq -->
