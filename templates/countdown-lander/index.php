@@ -30,6 +30,9 @@ $body_color = get_field( 'countdown-lander-body-color', $post->ID );
 $main_headline = get_field( 'lp-main-headline' , $post->ID ); /* legacy support */
 $headline_color = get_field( 'countdown-lander-headline-color' , $post->ID );
 $text_color = get_field( 'countdown-lander-other-text-color' , $post->ID );
+$old_text_color = lp_get_value($post, $key, 'other-text-color');
+$text_color = ($text_color != "#") ? $text_color : "#000";
+
 $content_color = get_field( 'countdown-lander-content-background' , $post->ID );
 $background_on = get_field( 'countdown-lander-background-on' , $post->ID );
 $date_picker = get_field( 'countdown-lander-date-picker' , $post->ID );
