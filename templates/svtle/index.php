@@ -35,6 +35,9 @@ $body_color = get_field('svtle-body-color', $post->ID);
 $text_color = get_field('svtle-page_text-color', $post->ID);
 $headline_color = get_field('svtle-headline-color', $post->ID);
 $logo = get_field('svtle-logo', $post->ID, false); /* images need the false to disable formatting by ACF to be compatible with ACF 4 & 5 */
+
+$old_logo = lp_get_value($post, $key, 'logo');
+$final_logo = ($logo) ? $logo : $old_logo;
 $sidebar = get_field('svtle-sidebar', $post->ID);
 $social_display = get_field('svtle-display-social', $post->ID);
 $mobile_form = get_field('svtle-mobile-form', $post->ID);
@@ -154,9 +157,9 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
 <body class="home blog">
 <header id="sidebar">
     <aside id="logo" class="clearfix">
-        <figure data-media="<?php echo $logo; ?>" data-media440="<?php echo $logo; ?>"
-                data-media600="<?php echo $logo; ?>" title="<?php echo $main_headline; ?>">
-            <img src="<?php echo $logo; ?>" alt="<?php echo $main_headline; ?>">
+        <figure data-media="<?php echo $final_logo; ?>" data-media440="<?php echo $final_logo; ?>"
+                data-media600="<?php echo $final_logo; ?>" title="<?php echo $main_headline; ?>">
+            <img src="<?php echo $final_logo; ?>" alt="<?php echo $main_headline; ?>">
         </figure>
     </aside>
     <aside id="form-area">
