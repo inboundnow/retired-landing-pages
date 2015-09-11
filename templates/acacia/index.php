@@ -17,6 +17,21 @@ include_once(LANDINGPAGES_PATH.'templates/'.$key.'/config.php');
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
 do_action('wp_head');
 
+
+function acacia_enqueue_scripts() {
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'acacia-bootstrap-js', plugins_url('assets/js/bootstrap.min.js', __FILE__),'','', true );
+	wp_enqueue_script( 'acacia-retina-js', plugins_url('assets/js/retina-1.1.0.js', __FILE__),'','', true );
+	wp_enqueue_script( 'acacia-retina-js', plugins_url('assets/js/ie10-viewport-bug-workaround.js', __FILE__),'','', true );
+	
+	wp_enqueue_style( 'acacia-bootstrap-css', plugins_url('assets/css/bootstrap.css', __FILE__) );
+	wp_enqueue_style( 'acacia-css', plugins_url('assets/css/style.css', __FILE__) );
+	wp_enqueue_style( 'acacia-fontawesome', plugins_url('assets/css/font-awesome.min.css', __FILE__) );
+}
+
+add_action('wp_enqueue_scripts', 'acacia_enqueue_scripts');
+
+
 if (have_posts()) : while (have_posts()) : the_post();
 
 $post_id = get_the_ID();
@@ -42,14 +57,14 @@ $post_id = get_the_ID();
 	-->
 
     <!-- Bootstrap core CSS -->
-    <link href="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/css/bootstrap.css' ?>" rel="stylesheet">
+    <link href="<?php //echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/css/bootstrap.css' ?>" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-	<link rel="stylesheet" type="text/css" href="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/css/font-awesome.min.css' ?>">
-    <link href="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/css/style.css' ?>" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="<?php //echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/css/font-awesome.min.css' ?>">
+    <link href="<?php //echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/css/style.css' ?>" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/ie10-viewport-bug-workaround.js' ?>"></script>
+    <script src="<?php //echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/ie10-viewport-bug-workaround.js' ?>"></script>
 
 	<!-- Load Normal WordPress wp_head() function -->
     <?php wp_head(); ?>
@@ -280,9 +295,9 @@ $post_id = get_the_ID();
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/jquery.min.js' ?>"></script>
-    <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/bootstrap.min.js' ?>"></script>
-    <script src="<?php echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/retina-1.1.0.js' ?>"></script>
+    <script src="<?php //echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/jquery.min.js' ?>"></script>
+    <script src="<?php //echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/bootstrap.min.js' ?>"></script>
+    <script src="<?php //echo LANDINGPAGES_URLPATH. 'templates/' . $key .'/assets/js/retina-1.1.0.js' ?>"></script>
 
 	<?php
 	do_action('lp_footer');
