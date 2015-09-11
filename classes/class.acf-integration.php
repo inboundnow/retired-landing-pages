@@ -17,38 +17,6 @@ if (!class_exists('Landing_Pages_ACF')) {
 		 */
 		public static function load_hooks() {
 
-			/* load ACF if not already loaded */
-			if( !class_exists('acf') ) {
-
-				define( 'ACF_LITE', true );
-				define( 'ACF_FREE', true );
-
-				include_once( LANDINGPAGES_PATH . 'shared/assets/plugins/advanced-custom-fields/acf.php');
-
-				/* customize ACF path */
-				add_filter('acf/settings/path', array( __CLASS__ , 'define_acf_settings_path' ) );
-
-				/* customize ACF URL path */
-				add_filter('acf/settings/dir', array( __CLASS__ , 'define_acf_settings_url' ) );
-
-				/* Hide ACF field group menu item */
-				add_filter('acf/settings/show_admin', '__return_false');
-
-				/* make sure fields are placed in the correct location */
-				add_action( 'admin_print_footer_scripts', array( __CLASS__ , 'reposition_acf_fields' ) );
-
-			} else {
-				/* find out if ACF free or ACF Pro is installed & activated*/
-				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-				if ( !function_exists('acf_add_local_field_group') ) {
-					define( 'ACF_FREE', true );
-				}  else {
-					define( 'ACF_PRO', true );
-					add_filter('lp_init' , array(__CLASS__,'acf_register_global') , 20 , 1 ); /* registeres a global of registered field values for support between ACF5 & ACF6 */
-				}
-
-			}
-
 			/* Load ACF Fields On ACF powered Email Template */
 			add_filter( 'acf/location/rule_match/template_id' , array( __CLASS__ , 'load_acf_on_template' ) , 10 , 3 );
 
@@ -58,35 +26,12 @@ if (!class_exists('Landing_Pages_ACF')) {
 			/* Intercept load custom field value request and hijack it */
 			add_filter( 'acf/load_value' , array( __CLASS__ , 'load_value' ) , 11 , 3 );
 
+			/* make sure fields are placed in the correct location */
+			add_action( 'admin_print_footer_scripts', array( __CLASS__ , 'reposition_acf_fields' ) );
+
 			/* add default instructions to all ACF templates - legacy unused
 			add_filter( 'lp_extension_data' , array( __CLASS__ , 'lp_add_instructions' ) , 11 , 1 );
 			*/
-		}
-
-
-		/**
-		 * define custom ACF path
-		 * @param $path
-		 * @return string
-		 */
-		public static function define_acf_settings_path( $path ) {
-
-			$path = LANDINGPAGES_PATH . 'shared/assets/plugins/advanced-custom-fields/';
-
-			return $path;
-
-		}
-
-		/**
-		 * define custom settings URL
-		 * @param $url
-		 * @return string
-		 */
-		public static function define_acf_settings_url( $url ) {
-
-			$url = LANDINGPAGES_URLPATH . 'shared/assets/plugins/advanced-custom-fields/';
-
-			return $url;
 		}
 
 		/**
@@ -95,14 +40,14 @@ if (!class_exists('Landing_Pages_ACF')) {
 		public static function reposition_acf_fields() {
 			global $post;
 
-			if ( !isset($post) || $post->post_type != 'landing-page' ) {
+			if ( !defined('ACF_FREE') || ( !isset($post) || $post->post_type != 'landing-page' ) ) {
 				return;
 			}
 
 			?>
 			<script type='text/javascript'>
 				jQuery('.acf_postbox').each(function(){
-					jQuery('#inbound-meta').append(jQuery(this));
+					jQuery('#template-display-options').append(jQuery(this));
 				});
 			</script>
 			<?php
@@ -180,7 +125,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 				}
 
 				/* acf lite isn't processing return values correctly - ignore repeater subfields */
-				if ( !is_admin() && !strstr( $field['parent'] , 'field_' )  ) {
+				if ( !is_admin() && ( !isset($field['parent']) || !strstr( $field['parent'] , 'field_' )  ) ) {
 					$value = self::acf_free_value_formatting( $value , $field );
 				}
 			}
