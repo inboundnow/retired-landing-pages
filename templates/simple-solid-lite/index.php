@@ -30,7 +30,7 @@ $background_image = get_field( 'simple-solid-lite-background-image', $post->ID ,
 $background_color = get_field( 'simple-solid-lite-background-color', $post->ID );
 $submit_color = get_field( 'simple-solid-lite-submit-color', $post->ID );
 $social_media_options = get_field( 'simple-solid-lite-social-media-options', $post->ID );
-$social_media_options = get_field( 'simple-solid-lite-copyright-text', $post->ID );
+$copyright_text = get_field( 'simple-solid-lite-copyright-text', $post->ID );
 
 if ($background_style === "fullscreen") {
     $bg_style = 'background: url(' . $background_image . ') no-repeat center center fixed;
@@ -173,11 +173,10 @@ $test = inbound_color_scheme($background_color, 'hex');
 <body class="lp_ext_customizer_on single-area-edit-on">
 <header class="">
     <div class="inner">
-        <div class="logo"><a href="<?php echo $site_url; ?>" class="inbound_option_area"
-                             data-eq-selector=".logo a:eq(0)" data-count-size="1" data-css-selector=".logo a"
-                             data-js-selector=".logo a" data-option-name="Logo" data-option-kind="media"
-                             inbound-option-name="Logo"><img class="not-image inbound-media inbound_option_area"
-                                                             src="<?php echo $logo; ?>"/></a>
+        <div class="logo">
+            <a href="<?php echo $site_url; ?>" class="inbound_option_area">
+    <img class="not-image inbound-media inbound_option_area" src="<?php echo $logo; ?>"/>
+            </a>
         </div>
         <div class="network inbound_option_area" data-eq-selector=".inner .network:eq(0)" data-count-size="1"
              data-css-selector=".inner .network" data-js-selector=".inner .network"
