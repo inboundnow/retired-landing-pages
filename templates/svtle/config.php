@@ -178,7 +178,7 @@ if( function_exists('register_field_group') ):
                 'return_format' => 'url',
                 'preview_size' => 'thumbnail',
                 'library' => 'all',
-				'default_value' => LANDINGPAGES_URLPATH.'templates/svtle/assets/images/inbound-logo.png'
+				'default_value' => LANDINGPAGES_URLPATH.'templates/svtle/assets/images/inbound-logo.png',
                 'min_width' => '',
                 'min_height' => '',
                 'min_size' => '',
