@@ -403,15 +403,6 @@ if (!class_exists('Landing_Pages_ACF')) {
 		}
 
 		/**
-		 * If ACF Pro is active then register a global for active fields - this provides legacy support to Landing Pages
-		 */
-		public static function acf_register_global( $field_group ) {
-			$GLOBALS['acf_register_field_group'][] = array(
-				'fields' => acf_local()->fields
-			);
-		}
-
-		/**
 		 * adds a standard set of instructions to all acf templates via our legacy field system
 		 */
 		public static function lp_add_instructions( $data ) {
