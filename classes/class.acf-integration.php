@@ -149,8 +149,8 @@ if (!class_exists('Landing_Pages_ACF')) {
 			$field = self::acf_get_registered_field( $field );
 
 			/* if a brand new post ignore return default value */
-			if (!get_post_meta( $post_id , 'publish' , true )) {
-				return (isset($field['default_value'])) ? do_shortcode($field['default_value']) : '' ;
+			if ( $post->post_status != 'publish' ) {				
+				return ( isset($field['default_value']) ) ? do_shortcode($field['default_value']) : '' ;
 			}
 
 			$vid = Landing_Pages_Variations::get_new_variation_reference_id( $post->ID );
@@ -162,7 +162,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 			}
 
 
-			if ($field['type']=='image') {
+			if ($field['type']=='image' && is_admin() ) {
 				$value = self::get_image_id_from_url( $value );
 			}
 
