@@ -2,9 +2,9 @@
 /*
  * Template Name: Svtle Template
  * @package  WordPress Landing Pages
- * @author   David Wells
- * @version  1.0
- * @since    1.0
+ * @author   Inbound Now
+ * @version  1.0.1
+ * @since    1.0.0
  */
 
 /* Include Shareme Library */
