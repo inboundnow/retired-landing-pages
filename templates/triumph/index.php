@@ -16,10 +16,16 @@ include_once(LANDINGPAGES_PATH.'templates/'.$key.'/config.php');
 
 /* Enqueue Styles and Scripts */
 function triumph_enqueue_scripts() {
-	//wp_enqueue_script( 'jquery' );
-	//wp_enqueue_script( 'acacia-bootstrap-js', plugins_url('assets/js/bootstrap.min.js', __FILE__),'','', true );
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'triumph-bootstrap-js', plugins_url('assets/js/bootstrap.min.js', __FILE__),'','', true );
+	wp_enqueue_script( 'triumph-retina-js', plugins_url('assets/js/retina-1.1.0.js', __FILE__),'','', true );
+	wp_enqueue_script( 'triumph-ie-bug-js', plugins_url('assets/js/ie10-viewport-bug-workaround.js', __FILE__),'','', true );
+	wp_enqueue_script( 'triumph-classie-js', plugins_url('assets/js/classie.js', __FILE__),'','', true );
+	wp_enqueue_script( 'triumph-smoothscroll-js', plugins_url('assets/js/smoothscroll.js', __FILE__),'','', true );
 	
-	//wp_enqueue_style( 'acacia-bootstrap-css', plugins_url('assets/css/bootstrap.css', __FILE__) );
+	wp_enqueue_style( 'triumph-bootstrap-css', plugins_url('assets/css/bootstrap.css', __FILE__) );
+	wp_enqueue_style( 'triumph-css', plugins_url('assets/css/style.css', __FILE__) );
+	wp_enqueue_style( 'triumph-fontawesome', plugins_url('assets/css/font-awesome.min.css', __FILE__) );
 }
 
 add_action('wp_enqueue_scripts', 'triumph_enqueue_scripts');
@@ -40,19 +46,18 @@ $post_id = get_the_ID();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="assets/img/favicon.ico">
 
     <title>Triumph</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap core CSS 
+    <link href="assets/css/bootstrap.css" rel="stylesheet"> -->
 
-    <!-- Custom styles for this template -->
+    <!-- Custom styles for this template 
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet"> -->
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug 
+    <script src="assets/js/ie10-viewport-bug-workaround.js"></script> -->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -222,12 +227,13 @@ $post_id = get_the_ID();
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Placed at the end of the document so the pages load faster 
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/classie.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/retina-1.1.0.js"></script>
     <script type="text/javascript" src="assets/js/smoothscroll.js"></script>
+	-->
   </body>
 </html>
 <?php
