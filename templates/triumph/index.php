@@ -1,6 +1,6 @@
 <?php
 /**
-* Template Name: Acacia
+* Template Name: Triumph
 * @package  WordPress Landing Pages
 * @author   Inbound Template Generator
 */
@@ -15,14 +15,14 @@ $url = plugins_url();
 include_once(LANDINGPAGES_PATH.'templates/'.$key.'/config.php');
 
 /* Enqueue Styles and Scripts */
-function acacia_enqueue_scripts() {
+function triumph_enqueue_scripts() {
 	//wp_enqueue_script( 'jquery' );
 	//wp_enqueue_script( 'acacia-bootstrap-js', plugins_url('assets/js/bootstrap.min.js', __FILE__),'','', true );
 	
 	//wp_enqueue_style( 'acacia-bootstrap-css', plugins_url('assets/css/bootstrap.css', __FILE__) );
 }
 
-add_action('wp_enqueue_scripts', 'acacia_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'triumph_enqueue_scripts');
 
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
 do_action('wp_head');
