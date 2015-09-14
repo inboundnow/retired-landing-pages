@@ -19,7 +19,7 @@ function acacia_enqueue_scripts() {
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'acacia-bootstrap-js', plugins_url('assets/js/bootstrap.min.js', __FILE__),'','', true );
 	wp_enqueue_script( 'acacia-retina-js', plugins_url('assets/js/retina-1.1.0.js', __FILE__),'','', true );
-	wp_enqueue_script( 'acacia-retina-js', plugins_url('assets/js/ie10-viewport-bug-workaround.js', __FILE__),'','', true );
+	wp_enqueue_script( 'acacia-ie-bug-js', plugins_url('assets/js/ie10-viewport-bug-workaround.js', __FILE__),'','', true );
 	
 	wp_enqueue_style( 'acacia-bootstrap-css', plugins_url('assets/css/bootstrap.css', __FILE__) );
 	wp_enqueue_style( 'acacia-css', plugins_url('assets/css/style.css', __FILE__) );
