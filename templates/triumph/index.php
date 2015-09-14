@@ -80,8 +80,8 @@ $post_id = get_the_ID();
 	?>
 	<section id="navbar-main">
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:<?php echo $header_bg_color; ?>">
-		<div class="container">
-			<div class="navbar-header">
+			<div class="container">
+				<div class="navbar-header">
 
 		<?php
 		/* Start header_nav_links Repeater Output Mobile */
