@@ -87,7 +87,7 @@ $post_id = get_the_ID();
 	    </div>
 	</section>
 
-	<section id="home" name="home"></section>
+	<section id="home"></section>
 	<div id="w">
 	    <div class="container">
 			<div class="row centered">
@@ -98,7 +98,7 @@ $post_id = get_the_ID();
 	    </div><!-- /.container -->
 	</div><! --/W Header -->
 	
-	<section id="about" name="about">
+	<section id="about">
 		<div id="gs">
 			<div class="container">
 				<div class="row">
