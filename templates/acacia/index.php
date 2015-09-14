@@ -14,10 +14,6 @@ $url = plugins_url();
 /* Include ACF Field Definitions  */
 include_once(LANDINGPAGES_PATH.'templates/'.$key.'/config.php');
 
-/* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
-do_action('wp_head');
-
-
 /* Enqueue Styles and Scripts */
 function acacia_enqueue_scripts() {
 	wp_enqueue_script( 'jquery' );
@@ -32,6 +28,8 @@ function acacia_enqueue_scripts() {
 
 add_action('wp_enqueue_scripts', 'acacia_enqueue_scripts');
 
+/* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
+do_action('wp_head');
 
 if (have_posts()) : while (have_posts()) : the_post();
 
