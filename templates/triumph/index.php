@@ -73,93 +73,78 @@ $post_id = get_the_ID();
 
 <?php 
 
-/* Start header Flexible Content Area Output */
-	if(function_exists('have_rows')) :
-		if(have_rows('header')) :
-			while(have_rows('header')) : the_row();
-				switch(get_row_layout()) :
-				/* start layout header */
-				case 'header' : 
-					$header_logo				 = get_sub_field("header_logo");
-					$header_logo_link			 = get_sub_field("header_logo_link");
-					$header_bg_color			 = get_sub_field("header_bg_color");
-					$navigation_links_text_color = get_sub_field("navigation_links_text_color");
-					?>
-					<section id="navbar-main">
-						<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:<?php echo $header_bg_color; ?>">
-						<div class="container">
-							<div class="navbar-header">
-								
-					<?php
-					/* Start header_nav_links Repeater Output Mobile */
-					if ( have_rows( "header_nav_links" ) )  { ?>
-								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<?php $first = true;
+	$header_logo				 = get_field("header_logo", $post_id);
+	$header_logo_link			 = get_field("header_logo_link", $post_id);
+	$header_bg_color			 = get_field("header_bg_color", $post_id);
+	$navigation_links_text_color = get_field("navigation_links_text_color", $post_id);
+	?>
+	<section id="navbar-main">
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:<?php echo $header_bg_color; ?>">
+		<div class="container">
+			<div class="navbar-header">
 
-						while ( have_rows( "header_nav_links" ) ) : the_row();
-								$navbar_link_text = get_sub_field("navbar_link_text");
-								$navbar_link_url = get_sub_field("navbar_link_url");
-								if ( $first ) {
-									?>
-									<span class="sr-only">Toggle navigation</span>
-									<?php
-									$first = false;
-								} else {
-									?>
-									<span class="icon-bar"></span>
-									<?php
-								}
+		<?php
+		/* Start header_nav_links Repeater Output Mobile */
+		if ( have_rows( "header_nav_links" ) )  { ?>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<?php $first = true;
+
+			while ( have_rows( "header_nav_links" ) ) : the_row();
+					$navbar_link_text = get_sub_field("navbar_link_text");
+					$navbar_link_url = get_sub_field("navbar_link_url");
+					if ( $first ) {
 						?>
-									
-						<?php endwhile; ?>
-								</button>
-					<?php } /* end if have_rows(header_nav_links) */
-					/* End header_nav_links Repeater Output Mobile */
-					?>			
-								<a class="navbar-brand" href="<?php echo $header_logo_link; ?>"><img src="<?php echo $header_logo; ?>"/></a>
-							</div>
-					<?php
-					
-					/* Start header_nav_links Repeater Output */
-					if ( have_rows( "header_nav_links" ) )  {
-						$first = true; ?>
-								<div class="collapse navbar-collapse">
-									<ul class="nav navbar-nav navbar-right">
-
-						<?php while ( have_rows( "header_nav_links" ) ) : the_row();
-								$navbar_link_text = get_sub_field("navbar_link_text");
-								$navbar_link_url = get_sub_field("navbar_link_url");
-								if ( $first ) {
-									?>
-									<li class="active"><a href="<?php echo $navbar_link_url; ?>" class="smoothScroll"><?php echo $navbar_link_text; ?></a></li>
-									<?php
-									$first = false;
-								} else {
-									?>
-									<li><a href="<?php echo $navbar_link_url; ?>" class="smoothScroll"><?php echo $navbar_link_text; ?></a></li>
-									<?php
-								}
+						<span class="sr-only">Toggle navigation</span>
+						<?php
+						$first = false;
+					} else {
 						?>
-
-						<?php endwhile; ?>
-									</ul>
-								</div><!--/.nav-collapse -->
-
-					<?php } /* end if have_rows(header_nav_links) */
-					/* End header_nav_links Repeater Output */
+						<span class="icon-bar"></span>
+						<?php
+					}
 			?>
-				      </div>
-					</div>
-				</section>
 
-			<?php break;
-				endswitch; /* end switch statement */ 
-			endwhile; /* end while statement */
-		 endif; /* end have_rows */
-	endif;  /* end function_exists */
-/* End header Flexible Content Area Output */
+			<?php endwhile; ?>
+					</button>
+		<?php } /* end if have_rows(header_nav_links) */
+		/* End header_nav_links Repeater Output Mobile */
+		?>			
+					<a class="navbar-brand" href="<?php echo $header_logo_link; ?>"><img src="<?php echo $header_logo; ?>"/></a>
+				</div>
+		<?php
 
+		/* Start header_nav_links Repeater Output */
+		if ( have_rows( "header_nav_links" ) )  {
+			$first = true; ?>
+					<div class="collapse navbar-collapse">
+						<ul class="nav navbar-nav navbar-right">
+
+			<?php while ( have_rows( "header_nav_links" ) ) : the_row();
+					$navbar_link_text = get_sub_field("navbar_link_text");
+					$navbar_link_url = get_sub_field("navbar_link_url");
+					if ( $first ) {
+						?>
+						<li class="active"><a href="<?php echo $navbar_link_url; ?>" class="smoothScroll"><?php echo $navbar_link_text; ?></a></li>
+						<?php
+						$first = false;
+					} else {
+						?>
+						<li><a href="<?php echo $navbar_link_url; ?>" class="smoothScroll"><?php echo $navbar_link_text; ?></a></li>
+						<?php
+					}
+			?>
+
+			<?php endwhile; ?>
+						</ul>
+					</div><!--/.nav-collapse -->
+
+		<?php } /* end if have_rows(header_nav_links) */
+		/* End header_nav_links Repeater Output */
 ?>
+			</div>
+		</div>
+	</section>
+
 	          
 	<section id="home"></section>
 	<div id="w">
