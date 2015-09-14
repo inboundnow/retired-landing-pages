@@ -39,7 +39,10 @@ $post_id = get_the_ID();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>  <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>  <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,7 +50,7 @@ $post_id = get_the_ID();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Triumph</title>
+    <title><?php wp_title(); ?></title>
 
     <!-- Bootstrap core CSS 
     <link href="assets/css/bootstrap.css" rel="stylesheet"> -->
@@ -66,32 +69,98 @@ $post_id = get_the_ID();
     <![endif]-->
   </head>
 
-  <body data-spy="scroll" data-offset="0" data-target="#navbar-main">
+<body data-spy="scroll" data-offset="0" data-target="#navbar-main">
 
-	<section id="navbar-main">
-	    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	      <div class="container">
-	        <div class="navbar-header">
-	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	            <span class="sr-only">Toggle navigation</span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	          </button>
-	          <a class="navbar-brand" href="#">THEME02</a>
-	        </div>
-	        <div class="collapse navbar-collapse">
-	          <ul class="nav navbar-nav navbar-right">
-	            <li class="active"><a href="#home" class="smoothScroll">HOME</a></li>
-	            <li><a href="#about" class="smoothScroll">ABOUT</a></li>
-	            <li><a href="#news" class="smoothScroll">NEWS</a></li>
-	            <li><a href="#contact" class="smoothScroll">CONTACT</a></li>
-	          </ul>
-	        </div><!--/.nav-collapse -->
-	      </div>
-	    </div>
-	</section>
+<?php 
 
+/* Start header Flexible Content Area Output */
+	if(function_exists('have_rows')) :
+		if(have_rows('header')) :
+			while(have_rows('header')) : the_row();
+				switch(get_row_layout()) :
+				/* start layout header */
+				case 'header' : 
+					$header_logo				 = get_sub_field("header_logo");
+					$header_logo_link			 = get_sub_field("header_logo_link");
+					$header_bg_color			 = get_sub_field("header_bg_color");
+					$navigation_links_text_color = get_sub_field("navigation_links_text_color");
+					?>
+					<section id="navbar-main">
+						<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:<?php echo $header_bg_color; ?>">
+						<div class="container">
+							<div class="navbar-header">
+								
+					<?php
+					/* Start header_nav_links Repeater Output Mobile */
+					if ( have_rows( "header_nav_links" ) )  { ?>
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<?php $first = true;
+
+						while ( have_rows( "header_nav_links" ) ) : the_row();
+								$navbar_link_text = get_sub_field("navbar_link_text");
+								$navbar_link_url = get_sub_field("navbar_link_url");
+								if ( $first ) {
+									?>
+									<span class="sr-only">Toggle navigation</span>
+									<?php
+									$first = false;
+								} else {
+									?>
+									<span class="icon-bar"></span>
+									<?php
+								}
+						?>
+									
+						<?php endwhile; ?>
+								</button>
+					<?php } /* end if have_rows(header_nav_links) */
+					/* End header_nav_links Repeater Output Mobile */
+					?>			
+								<a class="navbar-brand" href="<?php echo $header_logo_link; ?>"><img src="<?php echo $header_logo; ?>"/></a>
+							</div>
+					<?php
+					
+					/* Start header_nav_links Repeater Output */
+					if ( have_rows( "header_nav_links" ) )  {
+						$first = true; ?>
+								<div class="collapse navbar-collapse">
+									<ul class="nav navbar-nav navbar-right">
+
+						<?php while ( have_rows( "header_nav_links" ) ) : the_row();
+								$navbar_link_text = get_sub_field("navbar_link_text");
+								$navbar_link_url = get_sub_field("navbar_link_url");
+								if ( $first ) {
+									?>
+									<li class="active"><a href="<?php echo $navbar_link_url; ?>" class="smoothScroll"><?php echo $navbar_link_text; ?></a></li>
+									<?php
+									$first = false;
+								} else {
+									?>
+									<li><a href="<?php echo $navbar_link_url; ?>" class="smoothScroll"><?php echo $navbar_link_text; ?></a></li>
+									<?php
+								}
+						?>
+
+						<?php endwhile; ?>
+									</ul>
+								</div><!--/.nav-collapse -->
+
+					<?php } /* end if have_rows(header_nav_links) */
+					/* End header_nav_links Repeater Output */
+			?>
+				      </div>
+					</div>
+				</section>
+
+			<?php break;
+				endswitch; /* end switch statement */ 
+			endwhile; /* end while statement */
+		 endif; /* end have_rows */
+	endif;  /* end function_exists */
+/* End header Flexible Content Area Output */
+
+?>
+	          
 	<section id="home"></section>
 	<div id="w">
 	    <div class="container">
@@ -234,7 +303,11 @@ $post_id = get_the_ID();
     <script src="assets/js/retina-1.1.0.js"></script>
     <script type="text/javascript" src="assets/js/smoothscroll.js"></script>
 	-->
-  </body>
+	<?php 
+	do_action('lp_footer');
+	do_action('wp_footer');
+	?>
+</body>
 </html>
 <?php
 
