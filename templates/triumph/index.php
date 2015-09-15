@@ -30,6 +30,72 @@ function triumph_enqueue_scripts() {
 
 add_action('wp_enqueue_scripts', 'triumph_enqueue_scripts');
 
+
+/**
+ * Converts a hexadecimal color into hue, saturation, and luminance.
+ * Source: http://www.mfwebservices.com/help-and-resources/php/custom-scripts/function/hexhsl.php
+ * 
+ * @param string $HexColor color in hexadecimal value. Can include the '#' sign or not, but must have either 3 digits or 6. Anything between 3 and 6 digits will have an unexpected result.
+ * @return array containing hue, saturation and luminance
+ */
+
+function hex_hsl( $HexColor ) {
+
+        $HexColor    = str_replace( '#', '', $HexColor );
+
+        if( strlen( $HexColor ) < 3 ) str_pad( $HexColor, 3 - strlen( $HexColor ), '0' );
+
+        $Add         = strlen( $HexColor ) == 6 ? 2 : 1;
+        $AA          = 0;
+        $AddOn       = $Add == 1 ? ( $AA = 16 - 1 ) + 1 : 1;
+
+        $Red         = round( ( hexdec( substr( $HexColor, 0, $Add ) ) * $AddOn + $AA ) / 255, 6 );
+        $Green       = round( ( hexdec( substr( $HexColor, $Add, $Add ) ) * $AddOn + $AA ) / 255, 6 );
+        $Blue        = round( ( hexdec( substr( $HexColor, ( $Add + $Add ) , $Add ) ) * $AddOn + $AA ) / 255, 6 );
+
+
+        $HSLColor    = array( 'Hue' => 0, 'Saturation' => 0, 'Luminance' => 0 );
+
+        $Minimum     = min( $Red, $Green, $Blue );
+        $Maximum     = max( $Red, $Green, $Blue );
+
+        $Chroma      = $Maximum - $Minimum;
+
+
+        $HSLColor['Luminance'] = ( $Minimum + $Maximum ) / 2;
+
+        if( $Chroma == 0 ) {
+			$HSLColor['Luminance'] = round( $HSLColor['Luminance'] * 255, 0 );
+			return $HSLColor;
+        }
+
+        $Range = $Chroma * 6;
+
+        $HSLColor['Saturation'] = $HSLColor['Luminance'] <= 0.5 ? $Chroma / ( $HSLColor['Luminance'] * 2 ) : $Chroma / ( 2 - ( $HSLColor['Luminance'] * 2 ) );
+
+        if( $Red <= 0.004 || $Green <= 0.004 || $Blue <= 0.004 ) {
+			$HSLColor['Saturation'] = 1;
+		}
+
+
+        if( $Maximum == $Red ) {
+			$HSLColor['Hue'] = round( ( $Blue > $Green ? 1 - ( abs( $Green - $Blue ) / $Range ) : ( $Green - $Blue ) / $Range ) * 255, 0 );
+        }
+        else if( $Maximum == $Green ) {
+			$HSLColor['Hue'] = round( ( $Red > $Blue ? abs( 1 - ( 4 / 3 ) + ( abs ( $Blue - $Red ) / $Range ) ) : ( 1 / 3 ) + ( $Blue - $Red ) / $Range ) * 255, 0 );
+        }
+        else {
+			$HSLColor['Hue'] = round( ( $Green < $Red ? 1 - 2 / 3 + abs( $Red - $Green ) / $Range : 2 / 3 + ( $Red - $Green ) / $Range ) * 255, 0 );
+        }
+
+        $HSLColor['Saturation'] = round( $HSLColor['Saturation'] * 100, 0 );
+        $HSLColor['Luminance']  = round( $HSLColor['Luminance'] * 100, 0 );
+
+        return $HSLColor;
+
+}
+
+
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
 do_action('wp_head');
 
@@ -77,6 +143,13 @@ $post_id = get_the_ID();
 	$header_logo_link			 = get_field("header_logo_link", $post_id);
 	$header_bg_color			 = get_field("header_bg_color", $post_id);
 	$navigation_links_text_color = get_field("navigation_links_text_color", $post_id);
+	$hsl = hex_hsl($navigation_links_text_color);
+	if ( $hsl['Luminance'] > 70 ) {
+		$luminance = $hsl['Luminance'] - 20;
+	} else {
+		$luminance = $hsl['Luminance'] + 20;
+	}
+	
 	?>
 	<section id="navbar-main">
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:<?php echo $header_bg_color; ?>">
@@ -124,12 +197,18 @@ $post_id = get_the_ID();
 					$navbar_link_url = get_sub_field("navbar_link_url");
 					if ( $first ) {
 						?>
-						<li class="active"><a href="<?php echo $navbar_link_url; ?>" class="smoothScroll"><?php echo $navbar_link_text; ?></a></li>
+						<li class="active">
+							<a href="<?php echo $navbar_link_url; ?>" class="smoothScroll" style="color:<?php echo $navigation_links_text_color ?>" 
+							   onmouseover = "this.style.color = 'hsl(<?php echo $hsl['Hue'] ?>, <?php echo $hsl['Saturation'] . '%' ?>, <?php echo $luminance . '%' ?>)'"
+							   onmouseout = "this.style.color = '<?php echo $navigation_links_text_color ?>'"><?php echo $navbar_link_text; ?></a>
+						</li>
 						<?php
 						$first = false;
 					} else {
 						?>
-						<li><a href="<?php echo $navbar_link_url; ?>" class="smoothScroll"><?php echo $navbar_link_text; ?></a></li>
+						<li><a href="<?php echo $navbar_link_url; ?>" class="smoothScroll" style="color:<?php echo $navigation_links_text_color ?>"
+							   onmouseover = "this.style.color = 'hsl(<?php echo $hsl['Hue'] ?>, <?php echo $hsl['Saturation'] . '%' ?>, <?php echo $luminance . '%' ?>)'"
+							   onmouseout = "this.style.color = '<?php echo $navigation_links_text_color ?>'"><?php echo $navbar_link_text; ?></a></li>
 						<?php
 					}
 			?>
