@@ -22,7 +22,7 @@ function triumph_enqueue_scripts() {
 	wp_enqueue_script( 'triumph-ie-bug-js', plugins_url('assets/js/ie10-viewport-bug-workaround.js', __FILE__),'','', true );
 	wp_enqueue_script( 'triumph-classie-js', plugins_url('assets/js/classie.js', __FILE__),'','', true );
 	wp_enqueue_script( 'triumph-smoothscroll-js', plugins_url('assets/js/smoothscroll.js', __FILE__),'','', true );
-	
+
 	wp_enqueue_style( 'triumph-bootstrap-css', plugins_url('assets/css/bootstrap.css', __FILE__) );
 	wp_enqueue_style( 'triumph-css', plugins_url('assets/css/style.css', __FILE__) );
 	wp_enqueue_style( 'triumph-fontawesome', plugins_url('assets/css/font-awesome.min.css', __FILE__) );
@@ -34,7 +34,7 @@ add_action('wp_enqueue_scripts', 'triumph_enqueue_scripts');
 /**
  * Converts a hexadecimal color into hue, saturation, and luminance.
  * Source: http://www.mfwebservices.com/help-and-resources/php/custom-scripts/function/hexhsl.php
- * 
+ *
  * @param string $HexColor color in hexadecimal value. Can include the '#' sign or not, but must have either 3 digits or 6. Anything between 3 and 6 digits will have an unexpected result.
  * @return array containing hue, saturation and luminance
  */
@@ -118,14 +118,14 @@ $post_id = get_the_ID();
 
     <title><?php wp_title(); ?></title>
 
-    <!-- Bootstrap core CSS 
+    <!-- Bootstrap core CSS
     <link href="assets/css/bootstrap.css" rel="stylesheet"> -->
 
-    <!-- Custom styles for this template 
+    <!-- Custom styles for this template
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet"> -->
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug 
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script> -->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -137,7 +137,7 @@ $post_id = get_the_ID();
 
 <body data-spy="scroll" data-offset="0" data-target="#navbar-main">
 
-<?php 
+<?php
 
 	$header_logo				 = get_field("header_logo", $post_id);
 	$header_logo_link			 = get_field("header_logo_link", $post_id);
@@ -149,7 +149,7 @@ $post_id = get_the_ID();
 	} else {
 		$luminance = $hsl['Luminance'] + 20;
 	}
-	
+
 	?>
 	<section id="navbar-main">
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:<?php echo $header_bg_color; ?>">
@@ -181,7 +181,7 @@ $post_id = get_the_ID();
 					</button>
 		<?php } /* end if have_rows(header_nav_links) */
 		/* End header_nav_links Repeater Output Mobile */
-		?>			
+		?>
 					<a class="navbar-brand" href="<?php echo $header_logo_link; ?>"><img src="<?php echo $header_logo; ?>"/></a>
 				</div>
 		<?php
@@ -198,7 +198,7 @@ $post_id = get_the_ID();
 					if ( $first ) {
 						?>
 						<li class="active">
-							<a href="<?php echo $navbar_link_url; ?>" class="smoothScroll" style="color:<?php echo $navigation_links_text_color ?>" 
+							<a href="<?php echo $navbar_link_url; ?>" class="smoothScroll" style="color:<?php echo $navigation_links_text_color ?>"
 							   onmouseover = "this.style.color = 'hsl(<?php echo $hsl['Hue'] ?>, <?php echo $hsl['Saturation'] . '%' ?>, <?php echo $luminance . '%' ?>)'"
 							   onmouseout = "this.style.color = '<?php echo $navigation_links_text_color ?>'"><?php echo $navbar_link_text; ?></a>
 						</li>
@@ -224,7 +224,7 @@ $post_id = get_the_ID();
 		</div>
 	</section>
 
-	          
+
 	<section id="home"></section>
 	<div id="w">
 	    <div class="container">
@@ -235,7 +235,7 @@ $post_id = get_the_ID();
 			</div><! --/row -->
 	    </div><!-- /.container -->
 	</div><! --/W Header -->
-	
+
 	<section id="about">
 		<div id="gs">
 			<div class="container">
@@ -253,7 +253,7 @@ $post_id = get_the_ID();
 			</div><! --/container -->
 		</div><! --/GS -->
 	</section>
-	
+
 	<section id="news" class="news">
 		<div class="container">
 			<div class="row">
@@ -266,7 +266,7 @@ $post_id = get_the_ID();
 			</div><! --/row -->
 		</div><! --/container -->
 	</section><! --/news section -->
-	
+
 	<div id="gs">
 		<div class="container">
 			<div class="row">
@@ -275,9 +275,9 @@ $post_id = get_the_ID();
 					<p class="intro">Dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since, when an unknown ristique senectus et netus.</p>
 					<hr class="aligncenter">
 				</div><! --/ col-md-4 -->
-			</div><! --/row -->		
+			</div><! --/row -->
 		</div><! --/container -->
-		
+
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2">
@@ -291,8 +291,8 @@ $post_id = get_the_ID();
 			</div><! --/row -->
 		</div><! --/ container -->
 	</div><! --/ GS -->
-	
-	
+
+
 	<div class="container ptb">
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4 centered">
@@ -302,7 +302,7 @@ $post_id = get_the_ID();
 				<hr class="aligncenter">
 			</div><! --/ col-md-4 -->
 		</div><! --/row -->
-		
+
 		<div class="row mt">
 			<div class="col-md-6 centered mb">
 				<img src="assets/img/phone-white.png" height="600">
@@ -324,7 +324,7 @@ $post_id = get_the_ID();
 			</div>
 		</div><! --/row -->
 	</div><! --/container -->
-	
+
 	<div id="pf">
 		<div class="container">
 			<div class="row centered">
@@ -333,14 +333,14 @@ $post_id = get_the_ID();
 			</div><! --/row -->
 		</div><! --/container -->
 	</div>
-	
+
 	<section id="contact" name="contact">
 		<! -- FOOTER -->
 		<div id="f">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-6 col-lg-offset-3">
-						<form role="form" action="register.php" method="post" enctype="plain"> 
+						<form role="form" action="register.php" method="post" enctype="plain">
 		    				<input type="email" name="email" class="subscribe-input" placeholder="Enter your e-mail address..." required>
 							<button class='btn btn-lg btn-gold subscribe-submit' type="submit">Subscribe</button>
 						</form>
@@ -360,14 +360,14 @@ $post_id = get_the_ID();
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster 
+    <!-- Placed at the end of the document so the pages load faster
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/classie.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/retina-1.1.0.js"></script>
     <script type="text/javascript" src="assets/js/smoothscroll.js"></script>
 	-->
-	<?php 
+	<?php
 	do_action('lp_footer');
 	do_action('wp_footer');
 	?>

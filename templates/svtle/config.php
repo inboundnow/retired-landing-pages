@@ -8,6 +8,8 @@
 /* gets template directory name to use as identifier - do not edit - include in all template files */
 $key = basename(dirname(__FILE__));
 
+$path = (preg_match("/uploads/", dirname(__FILE__))) ? LANDINGPAGES_UPLOADS_URLPATH . $key .'/' : LANDINGPAGES_URLPATH.'templates/'.$key.'/';
+
 $lp_data[$key]['info'] = array(
 	'data_type' => 'acf',
 	'version' => "1.0.1",
@@ -178,7 +180,7 @@ if( function_exists('register_field_group') ):
                 'return_format' => 'url',
                 'preview_size' => 'thumbnail',
                 'library' => 'all',
-				'default_value' => LANDINGPAGES_URLPATH.'templates/svtle/assets/images/inbound-logo.png',
+				'default_value' => $path .'assets/images/inbound-logo.png',
                 'min_width' => '',
                 'min_height' => '',
                 'min_size' => '',
