@@ -101,7 +101,6 @@ if (!class_exists('Landing_Pages_ACF')) {
 				return $value;
 			}
 
-
 			$vid = Landing_Pages_Variations::get_new_variation_reference_id( $post->ID );
 
 			$settings = Landing_Pages_Meta::get_settings( $post->ID );
@@ -125,7 +124,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 				}
 
 				/* acf lite isn't processing return values correctly - ignore repeater subfields */
-				if ( !is_admin() && ( !isset($field['parent']) || !strstr( $field['parent'] , 'field_' )  ) ) {
+				if ( !is_admin() &&  defined('ACF_FREE')  ) {
 					$value = self::acf_free_value_formatting( $value , $field );
 				}
 			}
@@ -149,7 +148,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 			$field = self::acf_get_registered_field( $field );
 
 			/* if a brand new post ignore return default value */
-			if ( $post->post_status != 'publish' ) {				
+			if ( $post->post_status != 'publish' ) {
 				return ( isset($field['default_value']) ) ? do_shortcode($field['default_value']) : '' ;
 			}
 
