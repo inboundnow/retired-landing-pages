@@ -232,9 +232,9 @@ $post_id = get_the_ID();
 				<h4>THE WORLD'S BEST LANDING PAGES</h4>
 				<h1>LANDING SUMO</h1>
 				<hr class="aligncenter">
-			</div><! --/row -->
+			</div><!--/row -->
 	    </div><!-- /.container -->
-	</div><! --/W Header -->
+	</div><!--/W Header -->
 
 	<section id="about">
 		<div id="gs">
@@ -248,10 +248,10 @@ $post_id = get_the_ID();
 						<div class="mt">
 							<button class="btn btn-lg btn-dark">See more about this</button>
 						</div>
-					</div><! --/col-md-4 -->
-				</div><! --/row -->
-			</div><! --/container -->
-		</div><! --/GS -->
+					</div><!--/col-md-4 -->
+				</div><!--/row -->
+			</div><!--/container -->
+		</div><!--/GS -->
 	</section>
 
 	<section id="news" class="news">
@@ -263,9 +263,9 @@ $post_id = get_the_ID();
 					<p class="hidden-sm">Mellentesque habitant morbi tristique senectus et netus et malesuada famesac turpis egestas. Ut non enim eleifend felis pretium feugiat.</p>
 					<p><button class="btn btn-dark">Read Full Article</button></p>
 				</div>
-			</div><! --/row -->
-		</div><! --/container -->
-	</section><! --/news section -->
+			</div><!--/row -->
+		</div><!--/container -->
+	</section><!--/news section -->
 
 	<div id="gs">
 		<div class="container">
@@ -274,9 +274,9 @@ $post_id = get_the_ID();
 					<h4>A GREAT PLACE FOR YOU</h4>
 					<p class="intro">Dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since, when an unknown ristique senectus et netus.</p>
 					<hr class="aligncenter">
-				</div><! --/ col-md-4 -->
-			</div><! --/row -->
-		</div><! --/container -->
+				</div><!--/ col-md-4 -->
+			</div><!--/row -->
+		</div><!--/container -->
 
 		<div class="container">
 			<div class="row">
@@ -288,9 +288,9 @@ $post_id = get_the_ID();
 						<a href="#"><i class="fa fa-windows"></i></a>
 					</div>
 				</div>
-			</div><! --/row -->
-		</div><! --/ container -->
-	</div><! --/ GS -->
+			</div><!--/row -->
+		</div><!--/ container -->
+	</div><!--/ GS -->
 
 
 	<div class="container ptb">
@@ -300,8 +300,8 @@ $post_id = get_the_ID();
 				<p class="intro">Dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since, when an unknown ristique senectus et netus.</p>
 				<p class="intro">Mellentesque habitant morbi tristique senectus et netus et malesuada famesac turpis egestas. Ut non enim eleifend felis pretium feugiat. Vivamus quis mi. Dummy text of the printing and typesetting.</p>
 				<hr class="aligncenter">
-			</div><! --/ col-md-4 -->
-		</div><! --/row -->
+			</div><!--/ col-md-4 -->
+		</div><!--/row -->
 
 		<div class="row mt">
 			<div class="col-md-6 centered mb">
@@ -322,20 +322,20 @@ $post_id = get_the_ID();
 				<p>Dummy text of the printing and typesetting industry.<br/> Lorem Ipsum has been the industry's standard.</p>
 
 			</div>
-		</div><! --/row -->
-	</div><! --/container -->
+		</div><!--/row -->
+	</div><!--/container -->
 
 	<div id="pf">
 		<div class="container">
 			<div class="row centered">
 				<h1>SHARE YOUR PASSION</h1>
 				<h4>Dummy text of the printing and typesetting industry.<br> Lorem Ipsum has been the industry's standard.</h4>
-			</div><! --/row -->
-		</div><! --/container -->
+			</div><!--/row -->
+		</div><!--/container -->
 	</div>
 
 	<section id="contact" name="contact">
-		<! -- FOOTER -->
+		<!-- FOOTER -->
 		<div id="f">
 			<div class="container">
 				<div class="row">
@@ -345,7 +345,7 @@ $post_id = get_the_ID();
 							<button class='btn btn-lg btn-gold subscribe-submit' type="submit">Subscribe</button>
 						</form>
 					</div>
-				</div><! --/row -->
+				</div><!--/row -->
 				<div class="row mt">
 					<div class="social-icons centered mt">
 						<a href="#"><i class="fa fa-apple"></i></a>
@@ -353,9 +353,9 @@ $post_id = get_the_ID();
 						<a href="#"><i class="fa fa-windows"></i></a>
 					</div>
 					<h4 class="centered">GET THE APP</h4>
-				</div><! --/row -->
-			</div><! --/container -->
-		</div><! --/ F -->
+				</div><!--/row -->
+			</div><!--/container -->
+		</div><!--/ F -->
 	</section>
 
     <!-- Bootstrap core JavaScript
