@@ -275,33 +275,6 @@ class Landing_Pages_Post_Type {
 
     }
 
-    /* Adds ability to filter email templates by custom post type */
-    public static function add_category_taxonomy_filter() {
-        global $post_type;
-
-        if ($post_type === "wp-call-to-action") {
-            $post_types = get_post_types( array( '_builtin' => false ) );
-            if ( in_array( $post_type, $post_types ) ) {
-                $filters = get_object_taxonomies( $post_type );
-
-                foreach ( $filters as $tax_slug ) {
-                    $tax_obj = get_taxonomy( $tax_slug );
-                    (isset($_GET[$tax_slug])) ? $current = $_GET[$tax_slug] : $current = 0;
-                    wp_dropdown_categories( array(
-                        'show_option_all' => __('Show All '.$tax_obj->label ),
-                        'taxonomy' 		=> $tax_slug,
-                        'name' 			=> $tax_obj->name,
-                        'orderby' 		=> 'name',
-                        'selected' 		=> $current,
-                        'hierarchical' 		=> $tax_obj->hierarchical,
-                        'show_count' 		=> false,
-                        'hide_empty' 		=> true
-                    ) );
-                }
-            }
-        }
-    }
-
     /* Convert Taxonomy ID to Slug for Filter Serch */
     public static function convert_id_to_slug($query) {
         global $pagenow;
