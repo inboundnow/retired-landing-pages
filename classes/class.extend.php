@@ -126,8 +126,7 @@ class Landing_Pages_Load_Extensions {
 		$inboundnow_master_key = get_option('inboundnow_master_license_key' , '');
 
 		/* Loop through all setting data and add licensing for uploaded templates only */
-		foreach ($lp_data as $key=>$data)
-		{
+		foreach ($lp_data as $key=>$data) {
 
 			$array_core_templates = array('simple-solid-lite','countdown-lander','default','demo','dropcap','half-and-half','simple-two-column','super-slick','svtle','tubelar','rsvp-envelope', 'three-column-lander');
 
@@ -170,16 +169,13 @@ class Landing_Pages_Load_Extensions {
 		$template_ids = self::get_core_template_ids();
 
 		/*Now load all config.php files with their custom meta data */
-		if (count($template_ids)>0)
-		{
-			foreach ($template_ids as $name)
-			{
+		if (count($template_ids)>0) {
+			foreach ($template_ids as $name) {
 				if ($name != ".svn" && $name != ".git"){
 				include_once( LANDINGPAGES_PATH . "/templates/$name/config.php");
 				}
 			}
 		}
-
 
 		/* Store all template config files in global */
 		$GLOBALS['lp_data'] = $lp_data;
@@ -197,13 +193,13 @@ class Landing_Pages_Load_Extensions {
 		$template_ids = self::get_uploaded_template_ids();
 
 		/* loop through template ids and include their config file */
-		foreach ($template_ids as $name)
-		{
+		foreach ($template_ids as $name) {
+
 			$match = FALSE;
-			if (strpos($name, 'tmp') !== FALSE || strpos($name, 'template-generator') !== FALSE) {
+			if(strpos($name, 'tmp') !== FALSE || strpos($name, 'template-generator') !== FALSE) {
 				$match = TRUE;
 			}
-			if ($name != ".svn" && $name != ".git" && $name != 'template-generator' && $match === FALSE){
+			if($name != ".svn" && $name != ".git" && $name != 'template-generator' && $match === FALSE){
 				if (file_exists( LANDINGPAGES_UPLOADS_PATH . "$name/config.php")) {
 					include_once( LANDINGPAGES_UPLOADS_PATH . "$name/config.php");
 				}
@@ -220,8 +216,7 @@ class Landing_Pages_Load_Extensions {
 	*
 	* @returns ARRAY $template_ids array of uploaded template ids
 	*/
-	public static function get_uploaded_template_ids()
-	{
+	public static function get_uploaded_template_ids() {
 		$template_ids = array();
 
 		if (!is_dir( LANDINGPAGES_UPLOADS_PATH )) {
