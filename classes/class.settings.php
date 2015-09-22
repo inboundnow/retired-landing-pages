@@ -671,7 +671,7 @@ class Landing_Pages_Settings {
                 case 'license-key':
 
                     if (!defined('INBOUND_PRO_PATH') || $_SERVER['REMOTE_ADDR']=='127.0.0.1') {
-                        return;
+                        continue;
                     }
 
                     if ($master_license_key) {
