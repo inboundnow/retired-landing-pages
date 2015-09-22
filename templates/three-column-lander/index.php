@@ -15,6 +15,11 @@ include_once(LANDINGPAGES_PATH . 'templates/' . $key . '/config.php');
 /* Define Landing Pages's custom pre-load do_action('lp_init'); hook for 3rd party plugin integration */
 do_action('lp_init');
 
+function enqueue_landing_page_scripts() {
+    wp_enqueue_script('jquery');
+}
+add_action('wp_head','enqueue_landing_page_scripts');
+
 /* Start WordPress Loop and Load $post data */
 if (have_posts()) : while (have_posts()) :
 the_post();
@@ -48,13 +53,14 @@ $main_headline = get_field('lp-main-headline', $post->ID);
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>
-        <?php wp_title(); // Load Normal WordPress Page Title
-        ?>
+        <?php wp_title();  ?>
     </title>
-
+    <?php wp_head(); ?>
+    <?php do_action('lp_head');   ?>
     <link rel="stylesheet" href="<?php echo $path; ?>assets/css/normalize.css">
     <link rel="stylesheet" href="<?php echo $path; ?>assets/css/style.css">
     <script src="<?php echo $path; ?>assets/js/modernizr-2.6.2.min.js"></script>
+    <script src="<?php echo $path; ?>assets/js/custom.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.5, minimum-scale=0.5">
     <style type="text/css">
         body {
@@ -110,10 +116,6 @@ $main_headline = get_field('lp-main-headline', $post->ID);
         }
 
     </style>
-    <?php wp_head(); // Load Regular WP Head
-    ?>
-    <?php do_action('lp_head'); // Load Landing Page Specific Header Items
-    ?>
 </head>
 <body <?php body_class(); ?>>
 <!--[if lt IE 7]>
