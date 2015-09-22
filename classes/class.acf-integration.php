@@ -127,6 +127,10 @@ if (!class_exists('Landing_Pages_ACF')) {
 				if ( !is_admin() &&  defined('ACF_FREE')  ) {
 					$value = self::acf_free_value_formatting( $value , $field );
 				}
+
+				if ( !is_admin() ) {
+					$value = do_shortcode($value);
+				}
 			}
 
 			return $value;
