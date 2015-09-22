@@ -203,3 +203,7 @@ margin: auto;
 #php-sql-lp-version {
     display: none;
 }
+
+.tooltip {
+    cursor:help;
+}
