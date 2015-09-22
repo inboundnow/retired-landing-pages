@@ -59,16 +59,16 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					/* loads admin files */
 					include_once( LANDINGPAGES_PATH . 'classes/class.activation.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.activation.upgrade-routines.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.variations.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.variations.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.metaboxes.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.acf-integration.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.postmeta.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.template-management.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.wp-list-table.templates.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.admin-menus.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.admin-notices.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.cloning.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.admin-menus.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.admin-notices.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.cloning.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.settings.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.welcome.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.install.php');
@@ -87,10 +87,10 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 
 				case false :
 					/* load front-end files */
-                    include_once( LANDINGPAGES_PATH . 'classes/class.variations.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.acf-integration.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.postmeta.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.variations.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.acf-integration.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.postmeta.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.click-tracking.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.post-type.landing-page.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.utils.php');
@@ -108,10 +108,10 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
          * Load Shared Files at priority 2
          */
 		private static function load_shared_files() {
-            if (!defined('INBOUND_PRO_PATH')) {
-                require_once('shared/classes/class.load-shared.php');
-                add_action( 'plugins_loaded', array( 'Inbound_Load_Shared' , 'init') , 3 );
-            }
+			if (!defined('INBOUND_PRO_PATH')) {
+				require_once('shared/classes/class.load-shared.php');
+				add_action( 'plugins_loaded', array( 'Inbound_Load_Shared' , 'init') , 3 );
+			}
 		}
 
 		/**
