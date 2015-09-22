@@ -47,6 +47,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			$uploads = wp_upload_dir();
 			define('LANDINGPAGES_UPLOADS_PATH', $uploads['basedir'].'/landing-pages/templates/' );
 			define('LANDINGPAGES_UPLOADS_URLPATH', $uploads['baseurl'].'/landing-pages/templates/' );
+			define('LANDINGPAGES_THEME_TEMPLATES_PATH' , get_template_directory(). '/landing-pages/' );
+			define('LANDINGPAGES_THEME_TEMPLATES_URLPATH' , get_template_directory_uri(). '/landing-pages/' );
 		}
 
 		/**

@@ -180,7 +180,6 @@ class Landing_Pages_Load_Extensions {
      */
     public static function load_theme_privided_template_configurations() {
         global $lp_data;
-        define( 'LANDINGPAGES_THEME_TEMPLATES_PATH' , get_template_directory(). '/landing-pages/' );
 
         $template_ids = self::get_theme_provided_template_ids();
 
