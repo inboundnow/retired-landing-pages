@@ -128,7 +128,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 					$value = self::acf_free_value_formatting( $value , $field );
 				}
 
-				if ( !is_admin() ) {
+				if ( !is_admin() && is_string($value) ) {
 					$value = do_shortcode($value);
 				}
 			}
