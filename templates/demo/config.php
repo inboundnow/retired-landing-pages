@@ -22,7 +22,7 @@ $path = (preg_match("/uploads/", dirname(__FILE__))) ? LANDINGPAGES_UPLOADS_URLP
 
 /* This is where we setup our template meta data */
 $lp_data[$key]['info'] = array(
-	'data_type' => "acf", 												/* tell landing pages that this data represents a landing page template powered by ACF */
+	'data_type' => "acf4", 												/* tell landing pages that this data represents a landing page template powered by ACF */
 	'version' => "2.0.0", 												/* lets give our template a version number */
 	'label' => __( 'Demo','landing-pages'), 							/* Let's give our template a nice name */
 	'category' => 'Demo', 												/* you can categorize your landing pages by adding comma separated keywords */
