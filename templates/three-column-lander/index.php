@@ -25,19 +25,19 @@ if (have_posts()) : while (have_posts()) :
 the_post();
 
 /* Pre-load meta data into variables. These are defined in the templates config.php file */
-$conversion_area_placement = get_field('three-column-lander-conversion_area', $post->ID);
-$left_content_bg_color = get_field('three-column-lander-left-content-bg-color', $post->ID);
-$left_content_text_color = get_field('three-column-lander-left-content-text-color', $post->ID);
-$left_content_area = get_field('three-column-lander-left-content-area', $post->ID);
-$middle_content_bg_color = get_field('three-column-lander-middle-content-bg-color', $post->ID);
-$middle_content_text_color = get_field('three-column-lander-middle-content-text-color', $post->ID);
-$right_content_bg_color = get_field('three-column-lander-right-content-bg-color', $post->ID);
-$right_content_text_color = get_field('three-column-lander-right-content-text-color', $post->ID);
-$right_content_area = get_field('three-column-lander-right-content-area', $post->ID);
-$submit_button_color = get_field('three-column-lander-submit-button-color', $post->ID);
-$content = get_field('three-column-lander-main-content', $post->ID);
-$conversion_area = get_field('three-column-lander-conversion-area-content', $post->ID);
-$main_headline = get_field('lp-main-headline', $post->ID);
+$conversion_area_placement = get_field('three-column-lander-conversion_area', $post->ID , false );
+$left_content_bg_color = get_field('three-column-lander-left-content-bg-color', $post->ID , false );
+$left_content_text_color = get_field('three-column-lander-left-content-text-color', $post->ID , false );
+$left_content_area = get_field('three-column-lander-left-content-area', $post->ID , false );
+$middle_content_bg_color = get_field('three-column-lander-middle-content-bg-color', $post->ID , false );
+$middle_content_text_color = get_field('three-column-lander-middle-content-text-color', $post->ID , false );
+$right_content_bg_color = get_field('three-column-lander-right-content-bg-color', $post->ID , false );
+$right_content_text_color = get_field('three-column-lander-right-content-text-color', $post->ID , false );
+$right_content_area = get_field('three-column-lander-right-content-area', $post->ID , false );
+$submit_button_color = get_field('three-column-lander-submit-button-color', $post->ID , false );
+$content = get_field('three-column-lander-main-content', $post->ID , false );
+$conversion_area = get_field('three-column-lander-conversion-area-content', $post->ID , false );
+$main_headline = get_field('lp-main-headline', $post->ID , false );
 
 ?>
 <!DOCTYPE html>
