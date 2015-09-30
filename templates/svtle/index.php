@@ -181,8 +181,8 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
 
         <div class="entry-content">
             <?php
-                 $content = wpautop($content);
-                echo do_shortcode($content); ?>
+                echo $content;
+            ?>
         </div>
     </article>
 </section>
