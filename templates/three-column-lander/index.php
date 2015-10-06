@@ -68,7 +68,7 @@ $main_headline				= get_field('lp-main-headline', $post->ID , false );
     <?php wp_head(); ?>
     <?php do_action('lp_head');   ?>
 	
-	<!-- Script and styles are now enqueued with the standard WP way
+	<!-- commenting styles and scripts as they have been enqueued with the standard WP way
     <link rel="stylesheet" href="<?php //echo $path; ?>assets/css/normalize.css">
     <link rel="stylesheet" href="<?php //echo $path; ?>assets/css/style.css">
     <script src="<?php //echo $path; ?>assets/js/modernizr-2.6.2.min.js"></script>
@@ -176,16 +176,16 @@ $main_headline				= get_field('lp-main-headline', $post->ID , false );
     experience.</p>
 <![endif]-->
 <div class="wrapper container-fluid">
-	<div class="row" style="min-height:100%;">
+	<div class="row" style="height:100%;">
 				
-		<div class="col-md-3 col-sm-3 hidden-xs sidebar left-area" style="background-color:<?php echo $left_content_bg_color; ?>; color:<?php echo $left_content_text_color; ?>; height: 100%;">
+		<div class="col-md-3 col-sm-3 hidden-xs sidebar-3col left-area" style="background-color:<?php echo $left_content_bg_color; ?>; color:<?php echo $left_content_text_color; ?>; height: 100%;">
 			<?php echo $left_content_area; ?>
 			<?php if ($conversion_area_placement === "left") {
 				echo $conversion_area;
 			} ?>
 		</div>
 		
-		<div class="col-md-6 col-sm-6 hidden-xs main center-area" style="background-color:<?php echo $middle_content_bg_color; ?>; color:<?php echo $middle_content_text_color; ?>; height: 100%;">
+		<div class="col-md-6 col-sm-6 hidden-xs main-3col center-area" style="background-color:<?php echo $middle_content_bg_color; ?>; color:<?php echo $middle_content_text_color; ?>; height: 100%;">
 			
 			<!--
 			<a href="#" class="btn left"><span class="entypo-left-open"></span>More</a>
@@ -202,7 +202,7 @@ $main_headline				= get_field('lp-main-headline', $post->ID , false );
 			} ?>
 		</div>
 
-		<div class="col-md-3 col-sm-3 hidden-xs sidebar right-area" style="background-color:<?php echo $right_content_bg_color; ?>; color:<?php echo $right_content_text_color; ?>; height: 100%;">
+		<div class="col-md-3 col-sm-3 hidden-xs sidebar-3col right-area" style="background-color:<?php echo $right_content_bg_color; ?>; color:<?php echo $right_content_text_color; ?>; height: 100%;">
 			<?php echo $right_content_area; ?>
 			<?php if ($conversion_area_placement === "right") {
 				echo $conversion_area;
@@ -211,7 +211,7 @@ $main_headline				= get_field('lp-main-headline', $post->ID , false );
 		
 		<!-- START OF MOBILE SECTION. These column are visible only on screens <768px -->
 		
-		<div class="col-xs-12 hidden-sm hidden-md hidden-lg sidebar center-area" style="background-color:<?php echo $middle_content_bg_color; ?>; color:<?php echo $middle_content_text_color; ?>;">
+		<div class="col-xs-12 hidden-sm hidden-md hidden-lg main-3col center-area" style="background-color:<?php echo $middle_content_bg_color; ?>; color:<?php echo $middle_content_text_color; ?>;">
 		
 			<h2><?php
 
@@ -224,14 +224,14 @@ $main_headline				= get_field('lp-main-headline', $post->ID , false );
 			} ?>
 		</div>
 		
-		<div class="col-xs-12 hidden-sm hidden-md hidden-lg sidebar left-area" style="background-color:<?php echo $left_content_bg_color; ?>; color:<?php echo $left_content_text_color; ?>;">
+		<div class="col-xs-12 hidden-sm hidden-md hidden-lg sidebar-3col left-area" style="background-color:<?php echo $left_content_bg_color; ?>; color:<?php echo $left_content_text_color; ?>;">
 			<?php echo $left_content_area; ?>
 			<?php if ($conversion_area_placement === "left") {
 				echo $conversion_area;
 			} ?>
 		</div>
 
-		<div class="col-xs-12 hidden-sm hidden-md hidden-lg sidebar right-area" style="background-color:<?php echo $right_content_bg_color; ?>; color:<?php echo $right_content_text_color; ?>;">
+		<div class="col-xs-12 hidden-sm hidden-md hidden-lg sidebar-3col right-area" style="background-color:<?php echo $right_content_bg_color; ?>; color:<?php echo $right_content_text_color; ?>;">
 			<?php echo $right_content_area; ?>
 			<?php if ($conversion_area_placement === "right") {
 				echo $conversion_area;
