@@ -8,16 +8,15 @@
 */
 
 /* gets template directory name to use as identifier - do not edit - include in all template files */
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = basename(dirname(__FILE__));
 
 $lp_data[$key]['info'] = array(
-	'data_type' => 'template',
+	'data_type' => 'acf4',
 	'version' => "2.0.1",
 	'label' => __( 'Tublar' , 'landing-pages' ),
 	'category' => 'Video',
 	'demo' => 'http://demo.inboundnow.com/tubelar-lander-lander-preview/',
-	'description'  => __( 'Tublar template is a simple video background template.' , 'landing-pages' ),
-	'acf' => true
+	'description'  => __( 'Tublar template is a simple video background template.' , 'landing-pages' )
 );
 
 
@@ -132,8 +131,7 @@ if( function_exists('register_field_group') ):
 					'lp_right' => 'Sidebar on Right',
 					'lp_left' => 'Sidebar on Left',
 				),
-				'default_value' => array (
-				),
+				'default_value' => 'lp_right',
 				'allow_null' => 0,
 				'multiple' => 0,
 				'ui' => 0,
@@ -189,9 +187,7 @@ if( function_exists('register_field_group') ):
 					'transparent' => 'Transparent Background',
 					'solid' => 'Solid',
 				),
-				'default_value' => array (
-					'trasparent' => 'trasparent',
-				),
+				'default_value' => 'trasparent',
 				'allow_null' => 0,
 				'multiple' => 0,
 				'ui' => 0,
@@ -291,6 +287,7 @@ if( function_exists('register_field_group') ):
 		'hide_on_screen' => '',
 		'active' => 1,
 		'description' => '',
+		'options' => array(),
 	));
 
 endif;

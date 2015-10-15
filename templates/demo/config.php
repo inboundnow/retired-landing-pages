@@ -14,7 +14,7 @@
  */
 
 /* get the name of the template folder */
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = basename(dirname(__FILE__));
 
 /* discover the absolute path of where this template is located. Core templates are loacted in /wp-content/plugins/landing-pages/templates/ while custom templates belong in /wp-content/uploads/landing-pages/tempaltes/ */
 $path = (preg_match("/uploads/", dirname(__FILE__))) ? LANDINGPAGES_UPLOADS_URLPATH . $key .'/' : LANDINGPAGES_URLPATH.'templates/'.$key.'/'; // This defines the path to your template folder. /wp-content/uploads/landing-pages/templates by default
@@ -22,13 +22,12 @@ $path = (preg_match("/uploads/", dirname(__FILE__))) ? LANDINGPAGES_UPLOADS_URLP
 
 /* This is where we setup our template meta data */
 $lp_data[$key]['info'] = array(
-	'data_type' => "template", 											/* tell landing pages that this data represents a landing page template */
+	'data_type' => "acf4", 												/* tell landing pages that this data represents a landing page template powered by ACF */
 	'version' => "2.0.0", 												/* lets give our template a version number */
 	'label' => __( 'Demo','landing-pages'), 							/* Let's give our template a nice name */
 	'category' => 'Demo', 												/* you can categorize your landing pages by adding comma separated keywords */
 	'demo' => 'http://demo.inboundnow.com/go/demo-template-preview/', 	/* a link to a third party demo page if applicable */
-	'description'	=> __( 'The Demo theme is here to help developers and designs implement their own designs into the landing page plugin. Study this template to learn about Landing Page Plugin\'s templating system and to assist in building new templates.' , 'landing-pages' ), /* template description here! */
-	'acf' => true														/* tells landing pages that ACF powers this template */
+	'description'	=> __( 'The Demo theme is here to help developers and designs implement their own designs into the landing page plugin. Study this template to learn about Landing Page Plugin\'s templating system and to assist in building new templates.' , 'landing-pages' ) /* template description here! */
 );
 
 /* now setup ACF field definitions */
@@ -254,9 +253,7 @@ if( function_exists('register_field_group') ):
 					'0' => 'no',
 					'1' => 'yes',
 				),
-				'default_value' => array (
-					0 => 1,
-				),
+				'default_value' => 1,
 				'allow_null' => 0,
 				'multiple' => 0,
 				'ui' => 0,
@@ -282,9 +279,7 @@ if( function_exists('register_field_group') ):
 					'0' => 'no',
 					'1' => 'yes',
 				),
-				'default_value' => array (
-					0 => 1,
-				),
+				'default_value' =>  1,
 				'layout' => 'vertical',
 				'toggle' => 0,
 			),
@@ -399,6 +394,7 @@ if( function_exists('register_field_group') ):
 		'hide_on_screen' => '',
 		'active' => 1,
 		'description' => '',
+		'options' => array(),
 	));
 
 endif;

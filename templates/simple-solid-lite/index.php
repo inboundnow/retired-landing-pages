@@ -5,7 +5,7 @@
  * @author   Inbound Template Generator!
  */
 /* Declare Template Key */
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = basename(dirname(__FILE__));
 $path = (preg_match("/uploads/", dirname(__FILE__))) ? LANDINGPAGES_UPLOADS_URLPATH . $key . '/' : LANDINGPAGES_URLPATH . 'templates/' . $key . '/';
 $url = plugins_url();
 
@@ -20,17 +20,19 @@ do_action('lp_init');
 if (have_posts()) : while (have_posts()) :
 the_post();
 
-$content = get_field( 'simple-solid-lite-main-content', $post->ID );
-$conversion_area = get_field( 'simple-solid-lite-conversion-area-content', $post->ID );
-$header = get_field( 'simple-solid-lite-header-display', $post->ID );
-$footer = get_field( 'simple-solid-lite-footer-display', $post->ID );
-$background_style = get_field( 'simple-solid-lite-background-style', $post->ID );
+$content = get_field( 'simple-solid-lite-main-content', $post->ID , false );
+$conversion_area = get_field( 'simple-solid-lite-conversion-area-content', $post->ID , false );
+$header = get_field( 'simple-solid-lite-header-display', $post->ID , false );
+$footer = get_field( 'simple-solid-lite-footer-display', $post->ID , false );
+$background_style = get_field( 'simple-solid-lite-background-style', $post->ID , false );
 $logo = get_field( 'simple-solid-lite-logo', $post->ID , false); /* needs to be false for acf lite users */
+$old_logo = lp_get_value($post, $key, 'logo');
+$logo = ($logo) ? $logo : $old_logo;
 $background_image = get_field( 'simple-solid-lite-background-image', $post->ID , false); /* needs to be false for acf lite users */
-$background_color = get_field( 'simple-solid-lite-background-color', $post->ID );
-$submit_color = get_field( 'simple-solid-lite-submit-color', $post->ID );
-$social_media_options = get_field( 'simple-solid-lite-social-media-options', $post->ID );
-$social_media_options = get_field( 'simple-solid-lite-copyright-text', $post->ID );
+$background_color = get_field( 'simple-solid-lite-background-color', $post->ID , false );
+$submit_color = get_field( 'simple-solid-lite-submit-color', $post->ID , false );
+$social_media_options = get_field( 'simple-solid-lite-social-media-options', $post->ID , false );
+$copyright_text = get_field( 'simple-solid-lite-copyright-text', $post->ID , false );
 
 if ($background_style === "fullscreen") {
     $bg_style = 'background: url(' . $background_image . ') no-repeat center center fixed;
@@ -173,11 +175,10 @@ $test = inbound_color_scheme($background_color, 'hex');
 <body class="lp_ext_customizer_on single-area-edit-on">
 <header class="">
     <div class="inner">
-        <div class="logo"><a href="<?php echo $site_url; ?>" class="inbound_option_area"
-                             data-eq-selector=".logo a:eq(0)" data-count-size="1" data-css-selector=".logo a"
-                             data-js-selector=".logo a" data-option-name="Logo" data-option-kind="media"
-                             inbound-option-name="Logo"><img class="not-image inbound-media inbound_option_area"
-                                                             src="<?php echo $logo; ?>"/></a>
+        <div class="logo">
+            <a href="<?php echo $site_url; ?>" class="inbound_option_area">
+    <img class="not-image inbound-media inbound_option_area" src="<?php echo $logo; ?>"/>
+            </a>
         </div>
         <div class="network inbound_option_area" data-eq-selector=".inner .network:eq(0)" data-count-size="1"
              data-css-selector=".inner .network" data-js-selector=".inner .network"

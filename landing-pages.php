@@ -3,7 +3,7 @@
 Plugin Name: Landing Pages
 Plugin URI: http://www.inboundnow.com/landing-pages/
 Description: The first true all-in-one Landing Page solution for WordPress, including ongoing conversion metrics, a/b split testing, unlimited design options and so much more!
-Version: 1.9.2
+Version: 2.0.1
 Author: Inbound Now
 Author URI: http://www.inboundnow.com/
 Text Domain: landing-pages
@@ -38,7 +38,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		*/
 		private static function load_constants() {
 
-			define('LANDINGPAGES_CURRENT_VERSION', '1.9.2' );
+			define('LANDINGPAGES_CURRENT_VERSION', '2.0.1' );
 			define('LANDINGPAGES_URLPATH', plugins_url( '/' , __FILE__ ) );
 			define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 			define('LANDINGPAGES_PLUGIN_SLUG', plugin_basename( dirname(__FILE__) ) );
@@ -47,6 +47,8 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 			$uploads = wp_upload_dir();
 			define('LANDINGPAGES_UPLOADS_PATH', $uploads['basedir'].'/landing-pages/templates/' );
 			define('LANDINGPAGES_UPLOADS_URLPATH', $uploads['baseurl'].'/landing-pages/templates/' );
+			define('LANDINGPAGES_THEME_TEMPLATES_PATH' , get_template_directory(). '/landing-pages/' );
+			define('LANDINGPAGES_THEME_TEMPLATES_URLPATH' , get_template_directory_uri(). '/landing-pages/' );
 		}
 
 		/**
@@ -59,16 +61,16 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 					/* loads admin files */
 					include_once( LANDINGPAGES_PATH . 'classes/class.activation.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.activation.upgrade-routines.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.variations.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.variations.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.metaboxes.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.acf-integration.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.postmeta.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.template-management.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.wp-list-table.templates.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.admin-menus.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.admin-notices.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.cloning.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.admin-menus.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.admin-notices.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.cloning.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.settings.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.welcome.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.install.php');
@@ -87,10 +89,10 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 
 				case false :
 					/* load front-end files */
-                    include_once( LANDINGPAGES_PATH . 'classes/class.variations.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.acf-integration.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.postmeta.php');
-                    include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.variations.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.acf-integration.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.postmeta.php');
+					include_once( LANDINGPAGES_PATH . 'classes/class.inbound-statistics.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.click-tracking.php');
 					include_once( LANDINGPAGES_PATH . 'classes/class.post-type.landing-page.php');
 					include_once( LANDINGPAGES_PATH . 'modules/module.utils.php');
@@ -108,10 +110,10 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
          * Load Shared Files at priority 2
          */
 		private static function load_shared_files() {
-            if (!defined('INBOUND_PRO_PATH')) {
-                require_once('shared/classes/class.load-shared.php');
-                add_action( 'plugins_loaded', array( 'Inbound_Load_Shared' , 'init') , 3 );
-            }
+			if (!defined('INBOUND_PRO_PATH')) {
+				require_once('shared/classes/class.load-shared.php');
+				add_action( 'plugins_loaded', array( 'Inbound_Load_Shared' , 'init') , 3 );
+			}
 		}
 
 		/**

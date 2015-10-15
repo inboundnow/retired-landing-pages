@@ -310,10 +310,14 @@ if (!class_exists('Inbound_Forms')) {
 
                             /*check for label-value separator (pipe) */
                             $pos = strrpos($value, "|");
-
+                            if($required){
+                                $reqTag = "required";
+                            } else {
+                                $reqTag = "";
+                            }
                             /*if not found, use standard replacement (lowercase and spaces become dashes) */
                             if ($pos === false) {
-                                $form .= '<span class="radio-'.$main_layout.' radio-'.$form_labels_class.' '.$field_input_class.'"><input type="radio" name="'. $field_name .'" value="'. $radio_val .'">'. $radio_val_trimmed .'</span>';
+                                $form .= '<span class="radio-'.$main_layout.' radio-'.$form_labels_class.' '.$field_input_class.'"><input type="radio" name="'. $field_name .'" value="'. $radio_val .'" '.$reqTag.'>'. $radio_val_trimmed .'</span>';
                             } else {
                                 /*otherwise left side of separator is label, right side is value */
                                 $option = explode("|", $value);
@@ -412,6 +416,10 @@ if (!class_exists('Inbound_Forms')) {
                     } else if ($type === 'range')  {
                         $range = $matches[3][$i]['range'];
                         $options = explode( '|', $range );
+                        $options[0] = (isset($options[0])) ? $options[0] : 1;
+                        $options[1] = (isset($options[1])) ? $options[1] : 100;
+                        $options[2] = (isset($options[2])) ? $options[2] : 1;
+
                         $hidden_param = (isset($matches[3][$i]['dynamic'])) ? $matches[3][$i]['dynamic'] : '';
                         $fill_value = (isset($matches[3][$i]['default'])) ? $matches[3][$i]['default'] : '';
                         $dynamic_value = (isset($_GET[$hidden_param])) ? $_GET[$hidden_param] : '';
@@ -828,7 +836,7 @@ if (!class_exists('Inbound_Forms')) {
                 $body = preg_replace("/tbod y/", "tbody", $body);
 
                 $headers = 'From: '. $from_name .' <'. $from_email .'>' . "\r\n";
-                $headers = "Reply-To: ".$reply_to_email . "\r\n";
+                $headers .= "Reply-To: ".$reply_to_email . "\r\n";
                 $headers = apply_filters( 'inbound_lead_notification_email_headers', $headers );
 
                 foreach ($to_address as $key => $recipient) {
@@ -919,6 +927,7 @@ if (!class_exists('Inbound_Forms')) {
 
             $headers	= "From: " . $from_name . " <" . $from_email . ">\n";
             $headers .= 'Content-type: text/html';
+            $headers = apply_filters( 'inbound_email_response/headers' , $headers);
 
             wp_mail( $lead_email, $confirm_subject, $confirm_email_message, $headers );
 

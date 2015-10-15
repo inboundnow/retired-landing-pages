@@ -17,38 +17,6 @@ if (!class_exists('Landing_Pages_ACF')) {
 		 */
 		public static function load_hooks() {
 
-			/* load ACF if not already loaded */
-			if( !class_exists('acf') ) {
-
-				define( 'ACF_LITE', true );
-				define( 'ACF_FREE', true );
-
-				include_once( LANDINGPAGES_PATH . 'shared/assets/plugins/advanced-custom-fields/acf.php');
-
-				/* customize ACF path */
-				add_filter('acf/settings/path', array( __CLASS__ , 'define_acf_settings_path' ) );
-
-				/* customize ACF URL path */
-				add_filter('acf/settings/dir', array( __CLASS__ , 'define_acf_settings_url' ) );
-
-				/* Hide ACF field group menu item */
-				add_filter('acf/settings/show_admin', '__return_false');
-
-				/* make sure fields are placed in the correct location */
-				add_action( 'admin_print_footer_scripts', array( __CLASS__ , 'reposition_acf_fields' ) );
-
-			} else {
-				/* find out if ACF free or ACF Pro is installed & activated*/
-				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-				if ( !function_exists('acf_add_local_field_group') ) {
-					define( 'ACF_FREE', true );
-				}  else {
-					define( 'ACF_PRO', true );
-					add_filter('lp_init' , array(__CLASS__,'acf_register_global') , 20 , 1 ); /* registeres a global of registered field values for support between ACF5 & ACF6 */
-				}
-
-			}
-
 			/* Load ACF Fields On ACF powered Email Template */
 			add_filter( 'acf/location/rule_match/template_id' , array( __CLASS__ , 'load_acf_on_template' ) , 10 , 3 );
 
@@ -56,37 +24,17 @@ if (!class_exists('Landing_Pages_ACF')) {
 			add_action( 'save_post', array( __CLASS__ , 'save_acf_fields' ) );
 
 			/* Intercept load custom field value request and hijack it */
-			add_filter( 'acf/load_value' , array( __CLASS__ , 'load_value' ) , 10 , 3 );
+			add_filter( 'acf/load_value' , array( __CLASS__ , 'load_value' ) , 11 , 3 );
 
-			/* add default instructions to all ACF templates */
+			/* extra field formatting
+			add_filter( 'acf/format_value' , array( __CLASS__ , 'format_value' ) , 11 , 3 ); */
+
+			/* make sure fields are placed in the correct location */
+			add_action( 'admin_print_footer_scripts', array( __CLASS__ , 'reposition_acf_fields' ) );
+
+			/* add default instructions to all ACF templates - legacy unused
 			add_filter( 'lp_extension_data' , array( __CLASS__ , 'lp_add_instructions' ) , 11 , 1 );
-
-		}
-
-
-		/**
-		 * define custom ACF path
-		 * @param $path
-		 * @return string
-		 */
-		public static function define_acf_settings_path( $path ) {
-
-			$path = LANDINGPAGES_PATH . 'shared/assets/plugins/advanced-custom-fields/';
-
-			return $path;
-
-		}
-
-		/**
-		 * define custom settings URL
-		 * @param $url
-		 * @return string
-		 */
-		public static function define_acf_settings_url( $url ) {
-
-			$url = LANDINGPAGES_URLPATH . 'shared/assets/plugins/advanced-custom-fields/';
-
-			return $url;
+			*/
 		}
 
 		/**
@@ -95,14 +43,14 @@ if (!class_exists('Landing_Pages_ACF')) {
 		public static function reposition_acf_fields() {
 			global $post;
 
-			if ( !isset($post) || $post->post_type != 'landing-page' ) {
+			if ( !defined('ACF_FREE') || ( !isset($post) || $post->post_type != 'landing-page' ) ) {
 				return;
 			}
 
 			?>
 			<script type='text/javascript'>
 				jQuery('.acf_postbox').each(function(){
-					jQuery('#inbound-meta').append(jQuery(this));
+					jQuery('#template-display-options').append(jQuery(this));
 				});
 			</script>
 			<?php
@@ -141,6 +89,17 @@ if (!class_exists('Landing_Pages_ACF')) {
 		}
 
 		/**
+		 * Although unused at the moment, this method can be used for filtering the return value with ACF5 fields
+		 * @param $value
+		 * @param $post_id
+		 * @param $field
+		 * @return mixed
+		 */
+		public static function format_value( $value, $post_id, $field ) {
+			return $value;
+		}
+
+		/**
 		 * Finds the correct value given the variation
 		 *
 		 * @param MIXED $value contains the non-variation value
@@ -162,6 +121,8 @@ if (!class_exists('Landing_Pages_ACF')) {
 
 			$variations = ( isset($settings['variations']) ) ? $settings['variations'] : null;
 
+			/* If there is no ACF data for this template attempt to pull values from the legacy postmeta values */
+
 			if ( !isset( $variations[ $vid ][ 'acf' ] ) || !$variations[ $vid ][ 'acf' ]) {
 				return self::load_legacy_value(  $value, $post_id, $field  );
 			}
@@ -176,10 +137,20 @@ if (!class_exists('Landing_Pages_ACF')) {
 					$value = $new_value;
 				}
 
-				/* acf lite isn't processing return values correctly */
-				if (!is_admin()) {
+				/* acf lite isn't processing return values correctly - ignore repeater subfields */
+				if ( !is_admin() &&  defined('ACF_FREE')  ) {
 					$value = self::acf_free_value_formatting( $value , $field );
 				}
+
+				if ( !is_admin() && is_string($value) ) {
+					$value = do_shortcode($value);
+				}
+
+				/* handle non acf5 template return formatting */
+				if (defined('ACF_PRO')) {
+					$value = self::acf_check_if_acf4( $value , $field );
+				}
+
 			}
 
 			return $value;
@@ -197,6 +168,14 @@ if (!class_exists('Landing_Pages_ACF')) {
 		public static function load_legacy_value( $value, $post_id, $field ) {
 			global $post;
 
+			/* get registered field object data */
+			$field = self::acf_get_registered_field( $field );
+
+			/* if a brand new post ignore return default value */
+			if ( $post->post_status != 'publish' ) {
+				return ( isset($field['default_value']) ) ? do_shortcode($field['default_value']) : '' ;
+			}
+
 			$vid = Landing_Pages_Variations::get_new_variation_reference_id( $post->ID );
 
 			if ( $vid ) {
@@ -205,9 +184,8 @@ if (!class_exists('Landing_Pages_ACF')) {
 				$value = get_post_meta( $post_id ,  $field['name']  , true );
 			}
 
-			$field = self::acf_get_registered_field( $field );
 
-			if ($field['type']=='image') {
+			if ($field['type']=='image' && is_admin() ) {
 				$value = self::get_image_id_from_url( $value );
 			}
 
@@ -218,7 +196,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 			}
 
 			if ($field['type']=='color_picker') {
-				if (!strstr( $value , '#' )) {
+				if (!strstr( $value , '#' ) && $value ) {
 					$value = '#'.$value;
 				}
 			}
@@ -273,6 +251,8 @@ if (!class_exists('Landing_Pages_ACF')) {
 					if ($repeater_value) {
 						return $repeater_value;
 					}
+
+
 				}
 
 			}
@@ -317,7 +297,11 @@ if (!class_exists('Landing_Pages_ACF')) {
 			$pointer = str_replace('_' , '' , $matches[0]);
 			$repeater_key = self::key_search($array, $field , true ); /* returns parent flexible content field key using sub field key */
 
-			return $array[$repeater_key][$pointer][$field['key']];
+			if (isset($array[$repeater_key][$pointer][$field['key']])){
+				return $array[$repeater_key][$pointer][$field['key']];
+			}
+
+			return '';
 
 		}
 
@@ -438,16 +422,32 @@ if (!class_exists('Landing_Pages_ACF')) {
 				return wp_get_attachment_url( $value );
 			}
 
+			if ($field['type'] == 'wysiwyg') {
+				$vaue = wpautop($value);
+				$vaue = do_shortcode($value);
+			}
+
 			return $value;
 		}
 
 		/**
-		 * If ACF Pro is active then register a global for active fields - this provides legacy support to Landing Pages
+		 * checks template data type
+		 * @param $value
+		 * @param $field
+		 * @return mixed
 		 */
-		public static function acf_register_global( $field_group ) {
-			$GLOBALS['acf_register_field_group'][] = array(
-				'fields' => acf_local()->fields
-			);
+		public static function acf_check_if_acf4( $value , $field ) {
+			global $key, $lp_data;
+
+			if (!isset($lp_data[$key])) {
+				return $value;
+			}
+
+			if ( $lp_data[$key]['info']['data_type'] == 'acf4' ) {
+				return self::acf_free_value_formatting($value , $field);
+			} else {
+				return $value;
+			}
 		}
 
 		/**
@@ -455,16 +455,8 @@ if (!class_exists('Landing_Pages_ACF')) {
 		 */
 		public static function lp_add_instructions( $data ) {
 			foreach ($data as $key => $object ) {
-				if ( isset($object['info']['acf']) && $object['info']['acf'] ) {
-					$data[$key]['settings'] = array(
-						array(
-							'label' => 'Instructions', /* Turns off main content */
-							'description' => __( 'If changing to this template from another template, save the landing page and after the refresh the page will display the template settings.' , 'landing-pages' ),
-							'id'	=> 'instructions',
-							'type'	=> 'description-block',
-							'default'	=> 'test'
-						)
-					);
+				if ( isset($object['info']['data_type']) && strstr( $object['info']['data_type'] , 'acf')  ) {
+
 				}
 			}
 

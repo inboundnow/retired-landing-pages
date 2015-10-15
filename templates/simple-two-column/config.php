@@ -9,17 +9,16 @@
 
 
 //gets template directory name to use as identifier - do not edit - include in all template files
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = basename(dirname(__FILE__));
 
 $lp_data[$key]['info'] =
 array(
-	'data_type' => 'template',
+	'data_type' => 'acf4',
 	'version' => "1.0.1",
 	'label' => "Simple Two Column",
 	'category' => '2 column',
 	'demo' => 'http://demo.inboundnow.com/go/simple-two-column/',
-	'description'  => 'Two column landing page template.' ,
-    'acf' => true
+	'description'  => 'Two column landing page template.'
 );
 
 /* ACF field definitions here */
@@ -117,9 +116,7 @@ if( function_exists('register_field_group') ):
                     1 => __('on','landing-pages'),
                     0 => __('off','landing-pages'),
                 ),
-                'default_value' => array (
-                    0 => 1,
-                ),
+                'default_value' => 1,
                 'allow_null' => 0,
                 'multiple' => 0,
                 'ui' => 0,
@@ -145,9 +142,7 @@ if( function_exists('register_field_group') ):
                     'right' => __('Sidebar on right','landing-pages'),
                     'left' => __('Sidebar on left','landing-pages'),
                 ),
-                'default_value' => array (
-                    'left' => 'left',
-                ),
+                'default_value' => 'left',
                 'allow_null' => 0,
                 'multiple' => 0,
                 'ui' => 0,
@@ -275,6 +270,7 @@ if( function_exists('register_field_group') ):
         'hide_on_screen' => '',
         'active' => 1,
         'description' => '',
+        'options' => array(),
     ));
 
 endif;

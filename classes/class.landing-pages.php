@@ -41,6 +41,9 @@ class Landing_Pages_Template_Switcher {
         add_shortcode('lp_conversion_area', array( __CLASS__ , 'process_conversion_area_shortcode') );
         add_shortcode('landing-page-conversion', array( __CLASS__ , 'process_conversion_shortcode') );
 
+        /* listen for postback URL conversions */
+        add_action( 'init' , array( __CLASS__ , 'process_postback_conversion' ));
+
         /* Add Custom Class to Landing Page Nav Menu to hide/remove */
         add_filter('wp_nav_menu_args', array( __CLASS__ , 'hide_nav_menu' ) );
 
@@ -137,7 +140,6 @@ class Landing_Pages_Template_Switcher {
 
         $template = Landing_Pages_Variations::get_current_template( $post->ID );
 
-
         if (!isset($template) || $template === 'default' ) {
             return $single;
         }
@@ -148,13 +150,20 @@ class Landing_Pages_Template_Switcher {
             return $single;
         }
 
-        /* check if core template first, else assume it's an uploaded template */
+        /* check if core template first */
         if (file_exists(LANDINGPAGES_PATH . 'templates/' . $template . '/index.php')) {
             return LANDINGPAGES_PATH . 'templates/' . $template . '/index.php';
-        } else {
+        }
+        /* next check if it is an uploaded template */
+        else if (file_exists(LANDINGPAGES_UPLOADS_PATH . $template . '/index.php')) {
             return LANDINGPAGES_UPLOADS_PATH . $template . '/index.php';
         }
+        /* next check if it is included with a WordPress theme */
+        else if (file_exists(LANDINGPAGES_THEME_TEMPLATES_PATH . $template . '/index.php')) {
+            return LANDINGPAGES_THEME_TEMPLATES_PATH . $template . '/index.php';
+        }
 
+        return $single;
     }
 
     /**
@@ -227,6 +236,35 @@ class Landing_Pages_Template_Switcher {
 
     }
 
+    /**
+     * Use postback URL to record conversion for landing pages
+     */
+    public static function process_postback_conversion($atts, $content = null) {
+
+        if ( !isset($_GET['postback']) ) {
+            return;
+        }
+
+        if ( !isset($_GET['event']) || $_GET['event'] != 'lp_conversion' ) {
+            return;
+        }
+
+        $id = $_GET['id'];
+        $vid = $_GET['vid'];
+
+        $salt = md5( $id . AUTH_KEY );
+
+        if ( $_GET['salt'] != $salt ) {
+            return;
+        }
+
+        Landing_Pages_Variations::record_conversion($id , $vid);
+
+        _e('success','landing-pages');
+        exit;
+
+    }
+
 
     /**
      * Hides navigation menu on default landing page tempaltes
@@ -241,7 +279,7 @@ class Landing_Pages_Template_Switcher {
         }
 
 
-        $template_name = Landing_Pages_Variation::get_current_tempalte( $post->ID );
+        $template_name = Landing_Pages_Variations::get_current_template( $post->ID );
         if ($template_name != 'default') {
             return $args;
         }
@@ -408,25 +446,7 @@ function lp_content_area($post = null, $content = null, $return = false) {
  * @return mixed
  */
 function lp_get_parent_directory($path) {
-    if (stristr($_SERVER['SERVER_SOFTWARE'], 'Win32')) {
-        $array = explode('\\', $path);
-        $count = count($array);
-        $key = $count - 1;
-        $parent = $array[$key];
-        return $parent;
-    } else if (stristr($_SERVER['SERVER_SOFTWARE'], 'IIS')) {
-        $array = explode('\\', $path);
-        $count = count($array);
-        $key = $count - 1;
-        $parent = $array[$key];
-        return $parent;
-    } else {
-        $array = explode('/', $path);
-        $count = count($array);
-        $key = $count - 1;
-        $parent = $array[$key];
-        return $parent;
-    }
+    return basename($path);
 }
 
 

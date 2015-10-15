@@ -6,17 +6,16 @@
 */
 
 //gets template directory name to use as identifier - do not edit - include in all template files
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = basename(dirname(__FILE__));
 
 $lp_data[$key]['info'] =
 array(
-	'data_type' => 'template',
+	'data_type' => 'acf4',
 	'version' => "2.0.1",
 	'label' => "Half and Half",
 	'category' => '2 column',
 	'demo' => 'http://demo.inboundnow.com/go/half-and-half-lander-preview/',
-	'description'  => 'Half and Half is a template with two content areas on each side of the page. One side has your conversion area and the other your content on the page.',
-    'acf' => true
+	'description'  => __('Half and Half is a template with two content areas on each side of the page. One side has your conversion area and the other your content on the page.','landing-pages')
 );
 
 /* define ACF field definitions */
@@ -136,9 +135,7 @@ if( function_exists('register_field_group') ):
                     'right' => 'Call to Action on right',
                     'left' => 'Call to Action on left',
                 ),
-                'default_value' => array (
-                    'left' => 'left',
-                ),
+                'default_value' => 'left',
                 'allow_null' => 0,
                 'multiple' => 0,
                 'ui' => 0,
@@ -245,6 +242,7 @@ if( function_exists('register_field_group') ):
         'hide_on_screen' => '',
         'active' => 1,
         'description' => '',
+        'options' => array(),
     ));
 
 endif;

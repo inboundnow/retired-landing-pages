@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Inbound Marketing Button in editor
@@ -8,6 +7,10 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 class Inbound_Template_Utils {
+
+    static $activate_msg = '<h1>Hello and welcome to Inbound Now dev tools</h1>
+                <p>Dev tools were created to help you, the developer, quickly create templates for all of inbound now plugins.</p>
+                <p>You need will need <strong>inbound now pro</strong> activated to use this screen.</p>';
 
     public function __construct() {
         self::init();
@@ -26,8 +29,8 @@ class Inbound_Template_Utils {
     static function add_screen() {
         add_submenu_page(
             'edit.php?post_type=landing-page',
-            __( 'Generate Template' , 'leads' ),
-            __( 'Generate Template' , 'leads' ),
+            __( 'Developer Tools' , 'leads' ),
+            __( 'Developer Tools' , 'leads' ),
             'manage_options',
             'template_utils',
             array( __CLASS__ , 'html' )
@@ -37,7 +40,7 @@ class Inbound_Template_Utils {
     static function get_json() {
 
         if (!function_exists('acf_get_field_group')) {
-            echo 'You need ACF activated to use this screen';
+            echo self::$activate_msg;
             exit;
         }
         $keys = (isset($_GET['generate-template-id'])) ? array($_GET['generate-template-id']) : array();
@@ -101,19 +104,51 @@ class Inbound_Template_Utils {
      There are two places the marketing button renders:
      in normal WP editors and via JS for ACF normal
      */
+    static function tabs($count) {
+        $tabs = "";
+        for ($i=0; $i < $count; $i++) {
+            $tabs .= "\t";
+        }
+        return $tabs;
+    }
+    static function inbound_repeater_output($field, $indent = 0, $wrap = true){
+        $sp = $indent;
+        $output = "";
+        if($wrap) {
+            $output = self::tabs(1 + $sp) . "<?php"."\r\n";
+        }
+        $output .= self::tabs(1 + $sp) ."/* Start ".$field['name']." Repeater Output */" ."\r\n";
+        $output .= self::tabs(1 + $sp) .'if ( have_rows( "'.$field['name'].'" ) )  { ?>'. "\r\n\r\n";
+        $output .= self::tabs(2 + $sp) .'<?php while ( have_rows( "'.$field['name'].'" ) ) : the_row();' . "\r\n";
 
+        foreach ($field['sub_fields'] as $sub) {
+            $output .= self::tabs(4 + $sp) ."$".$sub['name']. " = " . "get_sub_field(\"".$sub['name']."\");"."\r\n";
+        }
+
+        $output .= self::tabs(2 + $sp) .'?>'."\r\n\r\n";
+        $output .= self::tabs(2 + $sp) .'<!-- your markup here -->'."\r\n\r\n";
+        $output .= self::tabs(2 + $sp) .'<?php endwhile; ?>'."\r\n\r\n";
+        $output .= self::tabs(1 + $sp) .'<?php } /* end if have_rows('.$field['name'].') */'."\r\n";
+        $output .= self::tabs(1 + $sp) ."/* End ".$field['name']." Repeater Output */" ."\r\n";
+        if($wrap) {
+        $output .= self::tabs(1 + $sp) ."?>" ."\r\n\r\n";
+        }
+
+        return $output;
+    }
     static function html($args) {
-
+        //print_r($_POST);
+        if(isset($_POST) && !empty($_POST)) {
+            return;
+        }
         if (!function_exists('acf_get_field_groups')) {
-            echo 'You need ACF activated to use this screen';
+            echo self::$activate_msg;
             exit;
         }
         /* Todo intercept and update the special key here */
         //print_r($json); exit;
         ?>
         <div class="wrap acf-settings-wrap">
-
-
 
             <h2><?php _e('Import / Export', 'acf'); ?></h2>
 
@@ -146,62 +181,84 @@ class Inbound_Template_Utils {
 
                 </script>
                 <div id="options-available">
-                    <?php
-                    $choices = array('none' => "Choose template");
-                    $field_groups_ids = acf_get_field_groups();
+                <?php
+                $choices = array('none' => "Choose template");
+                $field_groups_ids = acf_get_field_groups();
 
-                    // populate choices
-                    if( !empty($field_groups_ids) ) {
-                        foreach( $field_groups_ids as $field_group ) {
-                            //print_r($field_group);
-                            $choices[ $field_group['key'] ] = $field_group['title'];
-                        }
+                // populate choices
+                if( !empty($field_groups_ids) ) {
+                    foreach( $field_groups_ids as $field_group ) {
+                        //print_r($field_group);
+                        $choices[ $field_group['key'] ] = $field_group['title'];
                     }
-                    echo "<label>Select the ACF options you wish to generate markup for</label>";
-                    // render field
-                    $acf_id = (isset($_GET['generate-template-id'])) ? $_GET['generate-template-id'] : false;
-                    acf_render_field(array(
-                        'type'      => 'select',
-                        'name'      => 'generate_template',
-                        'prefix'    => false,
-                        'value'     => $acf_id,
-                        'toggle'    => true,
-                        'choices'   => $choices,
-                    ));
+                }
+                echo "<label>Select the ACF options you wish to generate markup for</label>";
+                // render field
+                $acf_id = (isset($_GET['generate-template-id'])) ? $_GET['generate-template-id'] : false;
+                $template_name = (isset($_GET['template-name'])) ? $_GET['template-name'] : '';
+                acf_render_field(array(
+                    'type'      => 'select',
+                    'name'      => 'generate_template',
+                    'prefix'    => false,
+                    'value'     => $acf_id,
+                    'toggle'    => true,
+                    'choices'   => $choices,
+                ));
 
-    /* get the data */
-    $json = self::get_json();
-    //print_r($json);
+                acf_render_field(array(
+                    'type'      => 'text',
+                    'name'      => 'template_name',
+                    'prefix'    => false,
+                    'value'     => $template_name,
+                    'placeholder' => "Template Name"
+                )); ?>
 
-    // validate
-    if( $json === false || empty($json)) {
 
-        acf_add_admin_notice( __("No field groups selected", 'acf') , 'error');
-        exit;
 
-    }
-
-    // vars
-    $field_groups = $json;
-                    ?>
                 </div>
                 <p>This page is for helping developing templating super simple.</p>
 
                 <p>This is generated output from your landing page options to copy/paste into your index.php</p>
 
+<?php
+/**
+ * Generate the template here
+ */
+/* get the data */
+$json = self::get_json();
+//print_r($json);
 
+// validate
+if( $json === false || empty($json)) {
 
-<textarea style="width:100%; height:500px;">
+    acf_add_admin_notice( __("No field groups selected", 'acf') , 'error');
+    exit;
+
+}
+
+// vars
+$field_groups = $json;
+?>
+
+<textarea style="width:100%; height:500px;"  class="pre" readonly="true">
 <?php echo "<?php
 /**
-* Template Name: Template Name
+* Template Name: __TEMPLATE_NAME__
 * @package  WordPress Landing Pages
 * @author   Inbound Template Generator
-*/\r\n
+*/
+
 /* Declare Template Key */
-\$key = lp_get_parent_directory(dirname(__FILE__));
-\$path = LANDINGPAGES_UPLOADS_URLPATH .\"\$key/\";
-\$url = plugins_url();
+\$key = basename(dirname(__FILE__));
+
+/* discover the absolute path of where this template is located. Core templates are loacted in /wp-content/plugins/landing-pages/templates/ while custom templates belong in /wp-content/uploads/landing-pages/tempaltes/ */
+\$path = (preg_match(\"/uploads/\", dirname(__FILE__))) ? LANDINGPAGES_UPLOADS_PATH . \$key .'/' : LANDINGPAGES_PATH.'templates/'.\$key.'/';
+
+\$urlpath = (preg_match(\"/uploads/\", dirname(__FILE__))) ? LANDINGPAGES_UPLOADS_URLPATH . \$key .'/' : LANDINGPAGES_URLPATH.'templates/'.\$key.'/';
+
+/* Include ACF Field Definitions  */
+include_once(\$path .'config.php');
+
 /* Define Landing Pages's custom pre-load hook for 3rd party plugin integration */
 do_action('wp_head');
 \$post_id = get_the_ID(); ";?>
@@ -210,7 +267,6 @@ do_action('wp_head');
 <?php
 
 echo '<!DOCTYPE html>
-<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>  <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>  <html class="no-js lt-ie9" lang="en"> <![endif]-->
@@ -223,8 +279,8 @@ echo '<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- include your assets -->
-    <!-- <link rel="stylesheet" href="<?php echo $path; ?>css/css_file_name.css"> -->
-    <!-- <script src="<?php echo $path; ?>js/js_file_name.js"></script> -->
+    <!-- <link rel="stylesheet" href="<?php echo $urlpath; ?>css/css_file_name.css"> -->
+    <!-- <script src="<?php echo $urlpath; ?>js/js_file_name.js"></script> -->
 
     <!-- Load Normal WordPress wp_head() function -->
     <?php wp_head(); ?>
@@ -234,6 +290,9 @@ echo '<!DOCTYPE html>
 </head>'. "\r\n\r\n".
 '<body>'. "\r\n\r\n";
  //print_r($field_groups); exit;
+
+
+
 if(isset($field_groups)) {
 echo "<?php ". "\r\n\r\n";
 foreach( $field_groups as $field_group ) {
@@ -242,39 +301,39 @@ foreach( $field_groups as $field_group ) {
     foreach( $field_group['fields'] as $field ) {
 
         if($field['type'] === "repeater") {
-        echo "/* Start ".$field['name']." Repeater Output */" ."\r\n";
-        echo '<?php if ( have_rows( "'.$field['name'].'" ) )  { ?>'. "\r\n\r\n";
-        echo '<?php while ( have_rows( "'.$field['name'].'" ) ) : the_row();' . "\r\n";
-            $count = count($field['sub_fields']);
-            foreach ($field['sub_fields'] as $subfield) {
-echo "\t$".$subfield['name']. " = " . "get_sub_field(\"".$subfield['name']."\");"."\r\n";
-            }
-            echo '?>'."\r\n\r\n";
-            echo '<!-- your markup here -->'."\r\n\r\n";
-            echo '<?php endwhile; ?>'."\r\n\r\n";
-            echo '<?php } /* end if have_rows */ ?>';
-            echo "/* End ".$field['name']." Repeater Output */" ."\r\n\r\n";
+            $repeater = self::inbound_repeater_output($field);
+            echo $repeater;
         } else if($field['type'] === "flexible_content") {
             echo "/* Start ".$field['name']." Flexible Content Area Output */" ."\r\n";
-            echo "if(function_exists('have_rows')) :" ."\r\n";
-            echo "\tif(have_rows('".$field['name']."')) :" ."\r\n";
-            echo "\t\t while(have_rows('".$field['name']."')) : the_row();" ."\r\n";
-            echo "\t\t\t switch(get_row_layout()) :" ."\r\n";
+            echo "\tif(function_exists('have_rows')) :" ."\r\n";
+            echo "\t\tif(have_rows('".$field['name']."')) :" ."\r\n";
+            echo "\t\t\t while(have_rows('".$field['name']."')) : the_row();" ."\r\n";
+            echo "\t\t\t\t switch(get_sub_field('acf_fc_layout')) :" ."\r\n";
             foreach ($field['layouts'] as $layout) {
-                $layout['name'];
-                echo "\t\t\t case '".$layout['name']."' : " ."\r\n";
+                //print_r($layout);
+                echo "\t\t\t\t/* start layout ".$layout['name']." */"."\r\n";
+                echo "\t\t\t\t case '".$layout['name']."' : " ."\r\n";
+
                 foreach ($layout['sub_fields'] as $layout_subfield) {
-                echo "\t\t\t\t$".$layout_subfield['name']. " = " . "get_sub_field(\"".$layout_subfield['name']."\");"."\r\n";
+                    if($layout_subfield['type'] ==='repeater') {
+                        $test = self::inbound_repeater_output($layout_subfield, 4, false);
+                        echo $test;
+                    } else {
+        echo "\t\t\t\t\t$".$layout_subfield['name']. " = " . "get_sub_field(\"".$layout_subfield['name']."\");"."\r\n";
+                    }
+
 
                 }
                 echo "\t\t\t?>"."\r\n\r\n";
                 echo "\t\t\t<!-- your markup here -->"."\r\n\r\n";
-                echo "\t\t\t <?php break;" ."\r\n";
+                echo "\t\t\t<?php break;". "\r\n";
+                //echo "\t\t\t\t/* end layout ".$layout['name']." */"."\r\n";
+
             }
-            echo "\t\t\tendswitch; /* end switch statement */ "."\r\n";
-            echo "\t\tendwhile; /* end while statement */"."\r\n";
-            echo "\t endif; /* end have_rows */"."\r\n";
-            echo "endif;  /* end function_exists */"."\r\n";
+            echo "\t\t\t\tendswitch; /* end switch statement */ "."\r\n";
+            echo "\t\t\tendwhile; /* end while statement */"."\r\n";
+            echo "\t\t endif; /* end have_rows */"."\r\n";
+            echo "\tendif;  /* end function_exists */"."\r\n";
             echo "/* End ".$field['name']." Flexible Content Area Output */" ."\r\n\r\n";
 
         } else {
@@ -384,4 +443,3 @@ echo "</html>"."\r\n";
     }
 }
 $Inbound_Template_Utils = new Inbound_Template_Utils();
-

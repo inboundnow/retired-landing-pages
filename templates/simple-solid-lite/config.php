@@ -6,19 +6,18 @@
 * WordPress Landing Page Config File
 */
 
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = basename(dirname(__FILE__));
 
 $path = (preg_match("/uploads/", dirname(__FILE__))) ? LANDINGPAGES_UPLOADS_URLPATH . $key .'/' : LANDINGPAGES_URLPATH.'templates/'.$key.'/';
 
 /* Configures Template Information */
 $lp_data[$key]['info'] = array(
-	'data_type' => 'template',
+	'data_type' => 'acf4',
 	'version' => '1.0',
 	'label' => 'Simple Solid Lite',
 	'category' => '1 Column',
 	'demo' => 'http://demo.inboundnow.com/go/simple/',
-	'description' => 'This is an auto generated template from Inbound Now',
-	'acf' => true
+	'description' => __( 'This is a free template provided by Inbound Now' , 'landing-pages' )
 );
 
 /* Configures template ACF fields here */
@@ -95,9 +94,7 @@ if( function_exists('register_field_group') ):
 					'off' => 'Hide',
 					'on' => 'Show',
 				),
-				'default_value' => array (
-					'on' => 'on',
-				),
+				'default_value' => 'on',
 				'allow_null' => 0,
 				'multiple' => 0,
 				'ui' => 0,
@@ -184,9 +181,7 @@ if( function_exists('register_field_group') ):
 					'off' => 'Hide',
 					'on' => 'Show',
 				),
-				'default_value' => array (
-					'on' => 'on',
-				),
+				'default_value' => 'on',
 				'allow_null' => 0,
 				'multiple' => 0,
 				'ui' => 0,
@@ -237,9 +232,7 @@ if( function_exists('register_field_group') ):
 					'repeat-y' => 'Repeat Image Vertically',
 					'custom' => 'Custom CSS',
 				),
-				'default_value' => array (
-					'color' => 'color',
-				),
+				'default_value' => 'color',
 				'allow_null' => 0,
 				'multiple' => 0,
 				'ui' => 0,
@@ -310,6 +303,7 @@ if( function_exists('register_field_group') ):
 		'hide_on_screen' => '',
 		'active' => 1,
 		'description' => '',
+		'options' => array(),
 	));
 
 endif;

@@ -6,16 +6,17 @@
 */
 
 /* gets template directory name to use as identifier - do not edit - include in all template files */
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = basename(dirname(__FILE__));
+
+$path = (preg_match("/uploads/", dirname(__FILE__))) ? LANDINGPAGES_UPLOADS_URLPATH . $key .'/' : LANDINGPAGES_URLPATH.'templates/'.$key.'/';
 
 $lp_data[$key]['info'] = array(
-	'data_type' => 'template',
+	'data_type' => 'acf4',
 	'version' => "1.0.1",
 	'label' => "Svbtle",
 	'category' => '2 column',
 	'demo' => 'http://demo.inboundnow.com/go/sbvtle-lander-preview/',
-	'description'  => __('Clean and minimalistic design for a straight forward conversion page.','landing-pages'),
-    'acf' => true
+	'description'  => __('Clean and minimalistic design for a straight forward conversion page.','landing-pages')
 );
 
 /* define ACF fields here */
@@ -113,9 +114,7 @@ if( function_exists('register_field_group') ):
                     1 => 'on',
                     0 => 'off',
                 ),
-                'default_value' => array (
-                    0 => 1,
-                ),
+                'default_value' => 1,
                 'allow_null' => 0,
                 'multiple' => 0,
                 'ui' => 0,
@@ -141,9 +140,7 @@ if( function_exists('register_field_group') ):
                     'left' => 'Sidebar on left',
                     'right' => 'Sidebar on right',
                 ),
-                'default_value' => array (
-                    'left' => 'left',
-                ),
+                'default_value' => 'left',
                 'allow_null' => 0,
                 'multiple' => 0,
                 'ui' => 0,
@@ -183,6 +180,7 @@ if( function_exists('register_field_group') ):
                 'return_format' => 'url',
                 'preview_size' => 'thumbnail',
                 'library' => 'all',
+				'default_value' => $path .'assets/images/inbound-logo.png',
                 'min_width' => '',
                 'min_height' => '',
                 'min_size' => '',
@@ -285,7 +283,7 @@ if( function_exists('register_field_group') ):
                 ),
                 'other_choice' => 0,
                 'save_other_choice' => 0,
-                'default_value' => '',
+                'default_value' => 'on',
                 'layout' => 'vertical',
             ),
         ),
@@ -311,6 +309,7 @@ if( function_exists('register_field_group') ):
         'hide_on_screen' => '',
         'active' => 1,
         'description' => '',
+        'options' => array(),
     ));
 
 endif;

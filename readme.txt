@@ -7,7 +7,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: landing pages, inbound marketing, conversion pages, split testing, a b test, a b testing, a/b test, a/b testing, coming soon page, email list, landing page, list building, maintenance page, squeeze page, inbound now, landing-pages, splash pages, cpa, click tracking, goal tracking, analytics, free landing page templates
 Requires at least: 3.8
 Tested up to: 4.2
-Stable Tag: 1.9.0
+Stable Tag: 2.0.1
 
 Create landing pages for your WordPress site. Monitor and improve conversion rates, run A/B split tests, customize your own templates and more.
 
@@ -72,6 +72,18 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 4. Choose from a ton of pre-made templates, use your existing design, or design your own theme!
 
 == Changelog ==
+
+= 2.0.1 =
+* brand new frontend editor
+* updated template editor for improved user experience
+* code consolidation and optimization (refactoring)
+* migrating away from custom field system for core templates, now leveraging ACF4
+* misc. UI improvements
+* restore broken sidebar conversion area placement for 'default' template
+* now loading landing page template data on init hook instead of as global.
+* cleaned up config.php requirements for landing page templates
+* repair work on variation switching when in landing page preview mode
+
 = 1.9.2 =
 * Security Patch
 

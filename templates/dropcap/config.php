@@ -6,17 +6,16 @@
  */
 
 //gets template directory name to use as identifier - do not edit - include in all template files
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = basename(dirname(__FILE__));
 
 $lp_data[$key]['info'] =
 array(
-	'data_type' => 'template',
+	'data_type' => 'acf4',
 	'version' => "2.0.1",
 	'label' => "Dropcap",
 	'category' => '1 column layout',
 	'demo' => 'http://demo.inboundnow.com/go/dropcap-lander-preview/',
-	'description'  => __( 'Create a great looking quote styled landing page' , 'landing-pages' ),
-    'acf' => true
+	'description'  => __( 'Create a great looking quote styled landing page' , 'landing-pages' )
 );
 
 /* Load ACF definitions for Dropcap */
@@ -163,9 +162,7 @@ if( function_exists('register_field_group') ):
                     'repeat-y' => __( 'Repeat Image Vertically','landing-pages'),
                     'custom' => __( 'Custom CSS','landing-pages'),
                 ),
-                'default_value' => array (
-                    'fullscreen' => 'color',
-                ),
+                'default_value' => 'fullscreen',
                 'allow_null' => 0,
                 'multiple' => 0,
                 'ui' => 0,
@@ -197,6 +194,7 @@ if( function_exists('register_field_group') ):
                 'max_height' => '',
                 'max_size' => '',
                 'mime_types' => '',
+                'default_value' => LANDINGPAGES_URLPATH.'templates/dropcap/assets/images/beach-1.jpg'
             ),
             array (
                 'key' => 'field_55dcf36870c77',
@@ -236,6 +234,7 @@ if( function_exists('register_field_group') ):
         'hide_on_screen' => '',
         'active' => 1,
         'description' => '',
+        'options' => array(),
     ));
 
 endif;

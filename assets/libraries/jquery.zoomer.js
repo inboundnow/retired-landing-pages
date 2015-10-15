@@ -158,7 +158,7 @@ $('iframe').zoomer({ width: 200, zoom: 0.5 });
 
             options.zoomerLink = $('<a/>')
                 .attr('target', '_blank')
-                .html(options.message)
+                .html("View Page<span style='line-height:12px;position:absolute; bottom:10px;left:0%;width:100%; text-align: center;'>(preview not always to scale)</span>")
                 .css({
                     height: options.height,
                     width: options.width,
@@ -374,6 +374,8 @@ $('iframe').zoomer({ width: 200, zoom: 0.5 });
                     width: options.width / options.zoom
                 })
                 .load(function(){
+                    $el.contents().find("meta[name=viewport]").remove();
+                    console.log('remove viewport');
                     $el.contents().find('html').css({
                                 'transform-origin': options.tranformOrigin,
                         '-webkit-transform-origin': options.tranformOrigin,
@@ -382,8 +384,11 @@ $('iframe').zoomer({ width: 200, zoom: 0.5 });
                                 'transform': 'scale(' + options.zoom + ')',
                         '-webkit-transform': 'scale(' + options.zoom + ')',
                            '-moz-transform': 'scale(' + options.zoom + ')',
-                             '-o-transform': 'scale(' + options.zoom + ')'
+                             '-o-transform': 'scale(' + options.zoom + ')',
+                             'width': '100%',
                     });
+
+
 
                     $el[pluginName]('fadeIn');
 

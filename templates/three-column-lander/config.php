@@ -6,17 +6,16 @@
 */
 
 //gets template directory name to use as identifier - do not edit - include in all template files
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = basename(dirname(__FILE__));
 
 $lp_data[$key]['info'] =
 array(
-	'data_type' => 'template',
+	'data_type' => 'acf4',
 	'version' => "2.0.1",
 	'label' => "3 Column Lander",
 	'category' => '3 column, responsive',
 	'demo' => 'http://demo.inboundnow.com/go/3-column-lander/',
-	'description'  => '',
-    'acf' => true
+	'description'  => ''
 );
 
 /* define ACF fields here */
@@ -144,9 +143,7 @@ if( function_exists('register_field_group') ):
                     'left' => 'Conversion Area on Left Column',
                     'middle' => 'Conversion Area in Middle Column',
                 ),
-                'default_value' => array (
-                    'left' => 'left',
-                ),
+                'default_value' => 'left',
                 'allow_null' => 0,
                 'multiple' => 0,
                 'ui' => 0,
@@ -239,7 +236,7 @@ if( function_exists('register_field_group') ):
             array (
                 'key' => 'field_55e4bedae8799',
                 'label' => __('Right Content Background Color','landing-pages'),
-                'name' => 'three-column-lander-right content-bg-color',
+                'name' => 'three-column-lander-right-content-bg-color',
                 'type' => 'color_picker',
                 'instructions' => __('Input the color of the right content column.','landing-pages'),
                 'required' => 0,
@@ -289,6 +286,7 @@ if( function_exists('register_field_group') ):
         'hide_on_screen' => '',
         'active' => 1,
         'description' => '',
+        'options' => array(),
     ));
 
 endif;

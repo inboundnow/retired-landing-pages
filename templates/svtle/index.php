@@ -2,16 +2,16 @@
 /*
  * Template Name: Svtle Template
  * @package  WordPress Landing Pages
- * @author   David Wells
- * @version  1.0
- * @since    1.0
+ * @author   Inbound Now
+ * @version  1.0.1
+ * @since    1.0.0
  */
 
 /* Include Shareme Library */
 include_once(LANDINGPAGES_PATH . 'assets/libraries/shareme/library.shareme.php');
 
 /* Declare Template Key */
-$key = inbound_get_parent_directory(dirname(__FILE__));
+$key = basename(dirname(__FILE__));
 $path = LANDINGPAGES_URLPATH . 'templates/' . $key . '/';
 $url = plugins_url();
 
@@ -27,20 +27,20 @@ if (have_posts()) : while (have_posts()) :
 the_post();
 
 /* Pre-load meta data into variables */
-$main_headline = get_field('lp-main-headline', $post->ID);
-$sidebar_color = get_field('svtle-sidebar-color', $post->ID);
-$sidebar_text_color = get_field('svtle-sidebar-text-color', $post->ID);
-$header_color = get_field('svtle-header-color', $post->ID);
-$body_color = get_field('svtle-body-color', $post->ID);
-$text_color = get_field('svtle-page_text-color', $post->ID);
-$headline_color = get_field('svtle-headline-color', $post->ID);
-$logo = get_field('svtle-logo', $post->ID, false); /* images need the false to disable formatting by ACF to be compatible with ACF 4 & 5 */
-$sidebar = get_field('svtle-sidebar', $post->ID);
-$social_display = get_field('svtle-display-social', $post->ID);
-$mobile_form = get_field('svtle-mobile-form', $post->ID);
-$submit_button_color = get_field('svtle-submit-button-color', $post->ID);
-$content = get_field('svtle-main-content', $post->ID);
-$conversion_area = get_field('svtle-conversion-area-content', $post->ID);
+$main_headline = get_field('lp-main-headline', $post->ID , false );
+$sidebar_color = get_field('svtle-sidebar-color', $post->ID , false );
+$sidebar_text_color = get_field('svtle-sidebar-text-color', $post->ID , false );
+$header_color = get_field('svtle-header-color', $post->ID , false );
+$body_color = get_field('svtle-body-color', $post->ID , false );
+$text_color = get_field('svtle-page_text-color', $post->ID , false );
+$headline_color = get_field('svtle-headline-color', $post->ID , false );
+$logo = get_field('svtle-logo', $post->ID, false);
+$sidebar = get_field('svtle-sidebar', $post->ID , false );
+$social_display = get_field('svtle-display-social', $post->ID , false );
+$mobile_form = get_field('svtle-mobile-form', $post->ID , false );
+$submit_button_color = get_field('svtle-submit-button-color', $post->ID , false );
+$content = get_field('svtle-main-content', $post->ID , false );
+$conversion_area = get_field('svtle-conversion-area-content', $post->ID , false );
 
 // Convert Hex to RGB Value for submit button
 function Hex_2_RGB($hex) {
@@ -125,15 +125,7 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
            }
         ?>
 
-        #inbound-form-wrapper input[type=text], #inbound-form-wrapper input[type=url], #inbound-form-wrapper input[type=email], #inbound-form-wrapper input[type=tel], #inbound-form-wrapper input[type=number], #inbound-form-wrapper input[type=password] {
-            width: 90%;
-            color: #000;
-        }
-
-        }
-
     </style>
-
     <?php wp_head(); // Load Regular WP Head
     do_action('lp_head'); // Load Custom Landing Page Specific Header Items ?>
     <script type="text/javascript" src="<?php echo $path; ?>assets/js/modernizr.js"></script>
@@ -150,6 +142,15 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
     <?php if ($sidebar === "right") {
         echo "<link rel='stylesheet' href='" . $path . "assets/css/flipped-layout.css' type='text/css' media='screen'>";
     } ?>
+    <style type="text/css">
+            #inbound-form-wrapper input[type=text], #inbound-form-wrapper input[type=url], #inbound-form-wrapper input[type=email], #inbound-form-wrapper input[type=tel], #inbound-form-wrapper input[type=number], #inbound-form-wrapper input[type=password], .inbound-field input[type=text], .inbound-field input[type=url], .inbound-field input[type=email], .inbound-field input[type=tel], .inbound-field input[type=number], .inbound-field input[type=password] {
+                width: 90%;
+                color: #000;
+            }
+
+        </style>
+
+    </style>
 </head>
 <body class="home blog">
 <header id="sidebar">
@@ -179,7 +180,9 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
         <h1 class="entry-title"><?php echo $main_headline; ?></h1>
 
         <div class="entry-content">
-            <?php echo $content; ?>
+            <?php
+                echo $content;
+            ?>
         </div>
     </article>
 </section>

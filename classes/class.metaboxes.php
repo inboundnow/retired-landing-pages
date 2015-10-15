@@ -68,7 +68,7 @@ class Landing_Pages_Metaboxes {
         /* Select Template Metbox */
         add_meta_box(
             'lp_metabox_select_template', /* $id */
-            __( 'Landing Page Templates', 'landing-pages'),
+            __( 'Template Selection', 'landing-pages'),
             array( __CLASS__ , 'display_select_template' ),
             'landing-page',
             'normal',
@@ -80,7 +80,7 @@ class Landing_Pages_Metaboxes {
         $current_template = Landing_Pages_Variations::get_current_template($post->ID);
         foreach ($extension_data as $key => $data) {
 
-            if ( $key != $current_template) {
+            if ( $key != $current_template || ( isset($data['info']['data_type']) && strstr( $data['info']['data_type'] , 'acf') ) ) {
                 continue;
             }
 
@@ -261,7 +261,7 @@ class Landing_Pages_Metaboxes {
         wp_localize_script('lp-js-metaboxes', 'data', $params);
 
         /* if ACF load CSS to hide WordPress core elements */
-        if (isset($template_data[$template]['info']['acf'])&&$template_data[$template]['info']['acf']){
+        if ( isset($template_data[$template]['info']['data_type']) && strstr( $template_data[$template]['info']['data_type'] , 'acf')){
             wp_enqueue_style('lp-acf-template', LANDINGPAGES_URLPATH . 'assets/css/admin/acf-hide-wp-elements.css');
         }
 
@@ -278,6 +278,21 @@ class Landing_Pages_Metaboxes {
         wp_register_style('font-awesome', INBOUNDNOW_SHARED_URLPATH.'assets/css/fontawesome.min.css');
         wp_enqueue_style('font-awesome');
 
+        /* Load Sweet Alert */
+        wp_enqueue_script('sweet-alert', INBOUNDNOW_SHARED_URLPATH.'assets/includes/SweetAlert/sweetalert.min.js');
+        $localized = array(
+            'title' => __("Are you sure?","landing-pages"),
+            'text' => __("Are you sure you want to select this template?","landing-pages"),
+            'confirmButtonText' => __("Yes","landing-pages"),
+            'confirmTextTitle' =>  __("Deleted!","landing-pages"),
+            'confirmText' =>  __("Your imaginary file has been deleted.","landing-pages"),
+            'waitTitle' =>  __("Please wait","landing-pages"),
+            'waitText' =>  __("We are peparing your template now.","landing-pages"),
+            'waitImage' => INBOUNDNOW_SHARED_URLPATH .'assets/includes/SweetAlert/loading_colorful.gif'
+        );
+        wp_localize_script('sweet-alert', 'sweetalert', $localized );
+        wp_enqueue_style('sweet-alert', INBOUNDNOW_SHARED_URLPATH.'assets/includes/SweetAlert/sweetalert.css');
+
         wp_enqueue_style('lp-ab-testing-admin', LANDINGPAGES_URLPATH . 'assets/css/admin-ab-testing.css');
         wp_enqueue_script('lp-ab-testing-admin', LANDINGPAGES_URLPATH . 'assets/js/admin/admin.post-edit-ab-testing.js', array('jquery'));
         wp_localize_script('lp-ab-testing-admin', 'variation', array('pid' => $post->ID , 'vid' => self::$current_vid, 'new_variation' => self::$is_new , 'variations' => self::$variations, 'content_area' => self::$content_area));
@@ -292,6 +307,11 @@ class Landing_Pages_Metaboxes {
             wp_enqueue_script('lp-js-create-new-lander', LANDINGPAGES_URLPATH . 'assets/js/admin/admin.post-new.js', array('jquery'), '1.0', true );
             wp_localize_script( 'lp-js-create-new-lander', 'lp_post_new_ui', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID , 'wp_landing_page_meta_nonce' => wp_create_nonce('lp_nonce')  , 'LANDINGPAGES_URLPATH' => LANDINGPAGES_URLPATH ) );
             wp_enqueue_style('lp-css-post-new', LANDINGPAGES_URLPATH . 'assets/css/admin-post-new.css');
+        }
+
+        if ( $hook == 'post.php'  ) {
+            /* change template sweet alert support */
+            wp_enqueue_script('lp-change-template', LANDINGPAGES_URLPATH . 'assets/js/admin/admin.post.js', array('jquery'), '1.0', true );
         }
     }
 
@@ -871,9 +891,12 @@ class Landing_Pages_Metaboxes {
         $extension_data = lp_get_extension_data();
 
         $key = $args['args']['key'];
-        $lp_custom_fields = $extension_data[$key]['settings'];
 
-        self::render_fields($key , $lp_custom_fields , $post);
+        if (!isset( $extension_data[$key]['settings'] ) ) {
+            return;
+        }
+
+        self::render_fields($key ,  $extension_data[$key]['settings'] , $post);
     }
 
 
@@ -884,17 +907,26 @@ class Landing_Pages_Metaboxes {
         global $post;
 
         $variation_id = Landing_Pages_Variations::get_current_variation_id();
-
+        $salt = md5( $post->ID . AUTH_KEY );
        ?>
        <div>
             <table style='width:100%'>
                 <tr>
-                    <td>
+                    <td style='width:22%'>
                         <?php _e( 'Conversion Shortcode' , 'landing-pages' ); ?>
                     </td>
                     <td>
                         <input type='text' style='width:95%;display:inline;' readonly='readonly' value="[landing-page-conversion id='<?php echo $post->ID; ?>' vid='<?php echo $variation_id; ?>']">
                         <div class="lp_tooltip" title="<?php _e( 'Instead of depending on Inbound Forms or tracked clicks for conversion tracking, enter this shortcode into your final destination page to manually increment this variation\'s conversion count' , 'landing-page' ); ?>" ><i class="fa fa-question-circle"></i></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <?php _e( 'Conversion Callback URL' , 'landing-pages' ); ?>
+                    </td>
+                    <td>
+                        <input type='text' style='width:95%;display:inline;' readonly='readonly' value="<?php echo add_query_arg( array( 'postback'=>'true' , 'event' => 'lp_conversion' , 'id' => $post->ID , 'vid' => $variation_id , 'salt' => $salt ) , site_url())  ?>">
+                        <div class="lp_tooltip" title="<?php _e( 'If you would like to use a thrid party event to record a conversion you can use this cusomized callback URL.' , 'landing-page' ); ?>" ><i class="fa fa-question-circle"></i></div>
                     </td>
                 </tr>
             </table>
@@ -1080,18 +1112,19 @@ class Landing_Pages_Metaboxes {
     public static function save_landing_page( $landing_page_id ) {
         global $post;
 
+        $screen = get_current_screen();
+
         if ( wp_is_post_revision( $landing_page_id ) ) {
             return;
         }
 
-        if (  !isset($_POST['post_type']) || $_POST['post_type'] != 'landing-page' ) {
+        if ( !isset($screen) || $screen->id != 'landing-page' ) {
             return;
         }
 
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE || $screen->action == 'add' ) {
             return;
         }
-
 
         $variations = Landing_Pages_Variations::get_variations( $landing_page_id );
         $variation_id = (isset($_REQUEST['lp-variation-id'])) ? $_REQUEST['lp-variation-id'] : '0';
