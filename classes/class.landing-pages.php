@@ -279,7 +279,7 @@ class Landing_Pages_Template_Switcher {
         }
 
 
-        $template_name = Landing_Pages_Variation::get_current_tempalte( $post->ID );
+        $template_name = Landing_Pages_Variations::get_current_template( $post->ID );
         if ($template_name != 'default') {
             return $args;
         }
