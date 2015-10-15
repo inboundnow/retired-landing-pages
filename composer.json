@@ -27,7 +27,7 @@
 	"badcow/lorem-ipsum": "*",
     "codeception/codeception": "*",
     "codeception/specify": "~0.3",
-    "lucatume/wp-browser": "*",
+    "lucatume/wp-browser": "master@dev",
     "wp-cli/wp-cli": "*"
   },
   "suggest": {
