@@ -84,7 +84,6 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 * cleaned up config.php requirements for landing page templates
 * repair work on variation switching when in landing page preview mode
 
-
 = 1.9.2 =
 * Security Patch
 
