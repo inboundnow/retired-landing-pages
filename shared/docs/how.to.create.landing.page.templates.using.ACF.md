@@ -191,5 +191,3 @@ function my_template_enqueue_scripts() {
 add_action('wp_head', 'my_template_enqueue_scripts');
 ```
 Those that are WordPress developers will probably be surprised to see that we use the `wp-head` hook instead of `enqueue-scripts`. Unfortunately, with the `enqueue-scripts` hook we've found that js files are not enqueued while css files are. The reason for this strange behavior is still unknown but we have found that the `wp-head` hook works correctly for all kind of scripts.
-
-> Written with [StackEdit](https://stackedit.io/).
