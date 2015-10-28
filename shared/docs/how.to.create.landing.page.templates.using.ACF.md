@@ -4,6 +4,9 @@ Author: Giulio Daprela <giulio.daprela@gmail.com>
 Version: 0.0.1 
 [in]: http://www.inboundnow.com/
 
+Support:
+[docs.inboundnow.com](http://docs.inboundnow.com/)
+
 ##Intro
 In the latest versions of the InboundNow suite of plugins we changed our templating system, and switched from a proprietary engine to the Advanced Custom Fields plugin. There are several advantages coming from this switch:
 
