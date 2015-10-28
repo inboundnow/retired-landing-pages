@@ -105,14 +105,14 @@ class Landing_Pages_Admin_Notices {
         $screen = get_current_screen();
 
 
-        if ( !isset($post) || $screen->id == 'landing-pages' || $post->post_status !='publish' ) {
+        if ( !isset($post) || $screen->id == 'landing-pages' ||$screen->id == 'edit-landing-page' || $post->post_status !='publish' ) {
             return;
         }
 
         $extension_data = lp_get_extension_data();
         $current_template = Landing_Pages_Variations::get_current_template($post->ID);
 
-        if ( $extension_data[$current_template]['info']['data_type'] != 'acf4' ) {
+        if ( !isset($extension_data[$current_template]['info']['data_type']) || $extension_data[$current_template]['info']['data_type'] != 'acf4' ) {
             return;
         }
 
