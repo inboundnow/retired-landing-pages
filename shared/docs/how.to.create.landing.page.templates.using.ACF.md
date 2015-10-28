@@ -1,4 +1,4 @@
-# How to Make Templates For InboundNow
+# How to Create Landing Page Templates Using ACF
 Author: Giulio Daprela <giulio.daprela@gmail.com>
 
 Version: 0.0.1 
@@ -121,6 +121,7 @@ jQuery(document).ready(function($) {
 ```
 
 > There are many other fields available, feel free to explore them in the [ACF documentation page](http://www.advancedcustomfields.com/resources/) to see how you can use them in your templates.
+
 ###Using Repeater Fields
 The repeater field allows you to create a set of sub fields which can be repeated again and again whilst editing content!
 Any type of field can be added as a sub field which allows you to create and manage very customized data with ease!
