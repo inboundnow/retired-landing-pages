@@ -164,11 +164,7 @@ class Landing_Pages_Admin_Notices {
         $extension_data = lp_get_extension_data();
         $current_template = Landing_Pages_Variations::get_current_template($post->ID);
 
-        if ( class !isset($extension_data[$current_template]['info']['data_type']) || $extension_data[$current_template]['info']['data_type'] != 'acf5' ) {
-            return;
-        }
-
-        if ( defined('ACF_PRO') ) {
+        if ( defined('ACF_PRO') || !isset($extension_data[$current_template]['info']['data_type']) || $extension_data[$current_template]['info']['data_type'] != 'acf5' ) {
             return;
         }
 
@@ -176,7 +172,7 @@ class Landing_Pages_Admin_Notices {
 
         <div class="error">
             <p>
-                <?php echo sprintf(__('This landing page templates requires Inbound Pro (not released) or the %s Inbound Premium Template Support Extension%s. Please download the best available option and activate it as a plugin to continue using this premoium temaplate', 'landing-pages'), '<a href="#linkhere">', '</a>'); ?>
+                <?php echo sprintf(__('This landing page template requires Inbound Pro Plugin (not available yet) or the %s Inbound Premium Template Support Extension%s to operate. Please download the best available option and activate it as a plugin to continue working with this template.', 'landing-pages'), '<a href="#linkhere">', '</a>'); ?>
             </p>
         </div>
         <?php
