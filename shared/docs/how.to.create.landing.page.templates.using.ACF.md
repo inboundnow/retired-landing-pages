@@ -35,7 +35,7 @@ If you plan to develop a lot of templates we suggest to create a skeleton folder
 **Disclaimer**: The following guide assumes that you have your copy ACF Pro installed on your website or that you use InboundNow Pro that comes with ACF Pro included. Making powerful dynamic templates require the use of repeater fields and flexible fields which are available only with ACF Pro.
 
 ##Template Config
-The must-have files in a dynamic template are `config.php` which holds all the ACF fields, `index.php` that holds all the html and dynamic styling and `thumbnail.php` that is, as the name say, the thumbnail that shows up in the admin page.
+The must-have files in a dynamic template are `config.php` which holds all the ACF fields, `index.php` that holds all the html and dynamic styling and `thumbnail.png` that is, as the name say, the thumbnail that shows up in the admin page.
 You must create all your custom templates under the directory `wp-content -> uploads`. For example, for landing pages the basic structure of the template will be the following:
 ```
 wp-content
@@ -48,7 +48,7 @@ wp-content
 ```
 
 ###config.php
-The file config.php contains all the fields that you create with the ACF Pro plugin. for the sake of this explanation, suppose that you've already created a group of fields with ACF Pro that you want to use for your dynamic template. At this point in the WP Dashboard you must go to `Custom Fields -> Tools`, select the group of fields that you've saved and click on 'generate export code'. The resulting code must be pasted in the config.php file after the comment that says `/* Load ACF definitions */`. For the template to work, the last part of the array must be replace with the following code for the case of landing pages
+The file config.php contains all the fields that you create with the ACF Pro plugin. For the sake of this explanation, suppose that you have already created a group of fields with ACF Pro that you want to use for your dynamic template. At this point in the WP Dashboard you must go to `Custom Fields -> Tools`, select the group of fields that you've saved and click on 'generate export code'. The resulting code must be pasted in the config.php file after the comment that says `/* Load ACF definitions */`. For the template to work, the last part of the array must be replaced with the following code for the case of landing pages
 
 ```
 	'location' => array (
@@ -81,7 +81,7 @@ endif;
 Please look at one of the existing templates included with the plugins to see how to configure the file config.php for the other plugins.
 
 ###index.php
-In order to build a dynamic template you need to have a static html template already built and tested. It will be a lot easier adding bynamic blocks and stylings to an already tested codebase. Most of the dynamic css must be inline or enclosed in a `<style>` tag in the head section. We suggest to use a separate `style.css` file only for the static styles that won't be changed because that file cannot contain any code.
+In order to build a dynamic template you need to have a static html template already built and tested. It will be a lot easier adding dynamic blocks and styling to an already tested codebase. Most of the dynamic css must be inline or enclosed in a `<style>` tag in the head section. We suggest to use a separate `style.css` file only for the static styles that won't be changed because that file cannot contain any code.
 
 An inline style looks like this:
 
@@ -115,7 +115,7 @@ The textarea field creates a text area and can store paragraphs or longer text. 
 This is the most used field in each one of our templates. The color picker creates a jquery color selection popup. Through these field we allow users to change the color of anything in the template, like background, borders, text color, button colors, and anything that can have a color. Remember that if you allow people to change a background you should also allow them to change the text color to create the right contrast and make the text readable. To give maximum flexibility normally we give two separate color options for titles and text so that people can create more contrast.
 
 ####Select
-We use the select field in many templates to allow users positiong media and text. For example, in areas where there is an image beside a text area, we will let the user choose whether the image should be to the left or right side of the area. If the user repeats this area many times in his/her template it's possible to create an attractive wave effect by alternating right and left alignments.
+We use the select field in many templates to allow users to position media and text. For example, in areas where there is an image besides a text area, we will let the user choose whether the image should be to the left or right side of the area. If the user repeats this area many times in his/her template it's possible to create an attractive wave effect by alternating right and left alignments.
 
 Another use of the select field is to allow the user to choose whether to use an image or a video in an area. Image and video are two different field types, and we use conditional logic to show the appropriate field depending on the choice of the user.
 
@@ -138,7 +138,7 @@ echo '<img style="max-width:100%; max-height:300px;" alt="" src="'. $image .'">'
 With these rules, small images won't be enlarged, which would worse their quality, while bigger images will be resized without losing their proportions.
 
 ####Video (oEmbed field)
-A video is added through the oEmbed field. Generally speaking the oEmbed field can be used for adding a number of multimidea content including imgaes, tweets, audio etc. Due to the large number of oEmbed providers we cannot prevent the user from adding something different than a video, so it's important to let the users know what kind of content you expect them to add in the description field. Since the video will be in an iframe, it's hard to control its size. To overcome this problem in our templates we allow the user to add width and height of the video, and we have developed a jQuery function to add these values to the iframe to force them
+A video is added through the oEmbed field. Generally speaking the oEmbed field can be used for adding a number of multimedia content including images, tweets, audio etc. Due to the large number of oEmbed providers we cannot prevent the user from adding something different than a video, so it's important to let the users know what kind of content you expect them to add in the description field. Since the video will be in an iframe, it's hard to control its size. To overcome this problem in our templates we allow the user to add width and height of the video, and we have developed a jQuery function to add these values to the iframe to force them
 
 ```javascript
 jQuery(document).ready(function($) {
@@ -156,7 +156,7 @@ Any type of field can be added as a sub field which allows you to create and man
 
 A typical situation where we use the repeater field is when creating a testimonials section. A testimonials section can have any number of testimonials. A repeater field will typically include a picture of the testimonial, the name and the text, and often also color pickers for name and text.
 
-Another use case for a repeater field could be a slideshow, with any number of picuter each with an overlaying text.
+Another use case for a repeater field could be a slideshow with any number of pictures, each with an overlaying text.
 
 ###Using Flexible Fields
 The flexible content field acts as a blank canvas to which you can add an unlimited number of layouts with full control over the order. Each layout can contain 1 or more sub fields allowing you to create simple or complex flexible content layouts.
@@ -164,7 +164,7 @@ The difference between a flexible field and a repeater field is subtle but impor
 Typically, the sections that you don't want to be part of a flexible field are the header (if there is one) and the footer because they have a fixed position.
 
 ###Vertical Align Of Images And Videos
-When there's an area with an image and a text next to each other, sometimes it's a good idea to have them vertically centered in order to create a better sense of harmony. Vertically centering elements is challenging also for experienced CSS developers. The following lines of code that reach the scope if the browser support CSS 3. The code must be added inside the `<style>` tags at the top of the page, or inside the separate CSS file if you choose to use one. 
+When there's an area with an image and a text next to each other, sometimes it's a good idea to have them vertically centered in order to create a better sense of harmony. Vertically centering elements is challenging also for experienced CSS developers. The following lines of code reach the scope if the browser support CSS 3. The code must be added inside the `<style>` tags at the top of the page, or inside the separate CSS file if you choose to use one. 
 
 ```css
 .vertical-center {
@@ -192,9 +192,9 @@ Vertical aligning elements makes sense only if there are two elements next to ea
 The jQuery code suggested for the video also adds the `vertical-center` class the the iframe, therefore causing the vertical alignment. The class `vertical-center` should also be given to the image to make sure that no matter the size it will always be aligned to the text besides it.
 
 ###Default Values for Fields
-It's important to give a default value to each and every field in your template. The default value is the value that the field has if the user doesn't change it. The reason for this is that thanks to the default values a user will be able to quickly test different layouts of the template and see how it looks like without having each time to fill up all the blanks. This is a huge time saver.
+It's important to give a default value to each and every field in your template. The default value is the initial value that the field has if the user doesn't change it. The reason for this is that thanks to the default values a user will be able to quickly test different layouts of the template and see how it looks like without having each time to fill up all the blanks. This is a huge time saver.
 
-Here at InboundNow we start from a finished static html file that could be taken  'as is' and used as a landing page. Then we use the colors as default colors for text, backgrounds and buttons.
+Here at InboundNow we start from a finished static html file that could be taken 'as is' and used as a landing page. Then we use the colors as default colors for text, backgrounds and buttons.
 
 For titles and text areas we use a [lorem ipsum generator](http://lipsum.com/). For testimonials you can make up names or use character names from books or movies that you love (can you guess what we've used in our templates?)
 
@@ -231,4 +231,4 @@ function my_template_enqueue_scripts() {
 
 add_action('wp_head', 'my_template_enqueue_scripts');
 ```
-Those that are WordPress developers will probably be surprised to see that we use the `wp-head` hook instead of `enqueue-scripts`. Unfortunately, with the `enqueue-scripts` hook we've found that js files are not enqueued while css files are. The reason for this strange behavior is still unknown but we have found that the `wp-head` hook works correctly for all kind of scripts.
+Those that are WordPress developers will probably be surprised to see that we use the `wp-head` hook instead of `enqueue-scripts`. Unfortunately, with the `enqueue-scripts` hook we've found that js files are not enqueued while css files are. The reason for this strange behaviour is still unknown but we have found that the `wp-head` hook works correctly for all kind of scripts.
