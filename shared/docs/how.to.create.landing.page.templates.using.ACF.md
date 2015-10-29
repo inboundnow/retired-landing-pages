@@ -30,7 +30,7 @@ If you plan to develop a lot of templates we suggest to create a skeleton folder
 **Disclaimer**: The following guide assumes that you have your copy ACF Pro installed on your website or that you use InboundNow Pro that comes with ACF Pro included. Making powerful dynamic templates require the use of repeater fields and flexible fields which are available only with ACF Pro.
 
 ##Template Config
-The must-have files in a dynamic template are `config.php` which holds all the ACF fields, `index.php` that holds all the html and dynamic styling and `thumbnail.php` that is, as the name say, the thumbnail that shows up in the admin page.
+The must-have files in a dynamic template are `config.php` which holds all the ACF fields, `index.php` that holds all the html and dynamic styling and `thumbnail.png` that is, as the name say, the thumbnail that shows up in the admin page.
 You must create all your custom templates under the directory `wp-content -> uploads`. For example, for landing pages the basic structure of the template will be the following:
 ```
 wp-content
@@ -42,7 +42,7 @@ wp-content
                 |_thumbnail.png
 ```
 ###config.php
-The file config.php contains all the fields that you create with the ACF Pro plugin. for the sake of this explanation, suppose that you've already created a group of fields with ACF Pro that you want to use for your dynamic template. At this point in the WP Dashboard you must go to `Custom Fields -> Tools`, select the group of fields that you've saved and click on 'generate export code'. The resulting code must be pasted in the config.php file after the comment that says `/* Load ACF definitions */`. For the template to work, the last part of the array must be replace with the following code for the case of landing pages
+The file config.php contains all the fields that you create with the ACF Pro plugin. For the sake of this explanation, suppose that you have already created a group of fields with ACF Pro that you want to use for your dynamic template. At this point in the WP Dashboard you must go to `Custom Fields -> Tools`, select the group of fields that you've saved and click on 'generate export code'. The resulting code must be pasted in the config.php file after the comment that says `/* Load ACF definitions */`. For the template to work, the last part of the array must be replace with the following code for the case of landing pages
 ```
 	'location' => array (
 		array (
@@ -71,10 +71,10 @@ The file config.php contains all the fields that you create with the ACF Pro plu
 
 endif;
 ```
-Please look at one of the existig templates included with the plugins to see how to configure the file config.php for the other plugins.
+Please look at one of the existing templates included with the plugins to see how to configure the file config.php for the other plugins.
 
 ###index.php
-In order to build a dynamic template you need to have a static html template already built and tested. It will be a lot easier adding bynamic blocks and stylings to an already tested codebase. Most of the dynamic css must be inline or enclosed in a `<style>` tag in the head section. We suggest to use a separate `style.css` file only for the static styles that won't be changed because that file cannot contain any code.
+In order to build a dynamic template you need to have a static html template already built and tested. It will be a lot easier adding dynamic blocks and styling to an already tested codebase. Most of the dynamic css must be inline or enclosed in a `<style>` tag in the head section. We suggest to use a separate `style.css` file only for the static styles that won't be changed because that file cannot contain any code.
 An inline style looks like this:
 ```html
 <div style="background-color: #FFFFFF">
@@ -103,7 +103,7 @@ These are two variations of the same field type. The true/false is a checkbox wi
 ####Number
 We use the number field typically when we allow the user to choose the size of the element to add.
 ####Fontawesome
-Fonteawesome is a special field added through a free ACF extension available for download in the WordPress plugin repository (https://wordpress.org/plugins/advanced-custom-fields-font-awesome/). This field allows to add fontawesome icons in the template. They can be given any size and color, like any fonts. However, for this field to work you'll have to add the font files and css to your template. Our suggested solution for this is to create a folder `assets` under your template folder, and then create two subfolders under this named `css` and `fonts`. You will add the fonts and the css under the appropriate folders.
+Fonteawesome is a special field added through a free ACF extension available for download in the WordPress plugin repository (https://wordpress.org/plugins/advanced-custom-fields-font-awesome/). This field allows to add fontawesome icons in the template. They can be given any size and color, like any fonts. However, for this field to work you'll have to add the font files and css to your template. Our suggested solution for this is to create a folder `assets` under your template folder, and then create two subfolders under this named `css` and `fonts`. You will add the fonts and the css under the appropriate folders, and enqueue the css in the way we explain later in this guide.
 ####Image
 The image field, as you may guess, is used to load images from the media library. Usually in a template there is an ideal size of the image that fits perfectly in the layout and creates an effect of harmony with the rest. It's important to inform the user of the ideal size of the image in the field description but you should never assume that the user will load an image of that exact size. A user could load a much bigger hi-res image, or a smaller image. You must consider these situations, and add the right css rules. The solution that we have found works best is to add the css rules `max-width` and `max-height`. Supposing to have an image ideal size of 500px x 300px a good solution could be this:
 ```php
@@ -127,13 +127,13 @@ The repeater field allows you to create a set of sub fields which can be repeate
 Any type of field can be added as a sub field which allows you to create and manage very customized data with ease!
 
 A typical situation where we use the repeater field is when creating a testimonials section. A testimonials section can have any number of testimonials. A repeater field will typically include a picture of the testimonial, the name and the text, and often also color pickers for name and text.
-Another use case for a repeater field could be a slideshow, with any number of picuter each with an overlaying text.
+Another use case for a repeater field could be a slideshow, with any number of pictures each with an overlaying text.
 ###Using Flexible Fields
 The flexible content field acts as a blank canvas to which you can add an unlimited number of layouts with full control over the order. Each layout can contain 1 or more sub fields allowing you to create simple or complex flexible content layouts.
 The difference between a flexible field and a repeater field is subtle but important. A repeater field is the same field group repeated again and again a number of times. A flexible field is a number of field groups that can be combined in any order, any number of times. Thanks to the power of the flexible field the various sections of a template can be combined in any order and number, allowing the user to create a short landing page or a very long sales page with the same template.
 Typically, the sections that you don't want to be part of a flexible field are the header (if there is one) and the footer because they have a fixed position.
 ###Vertical Align Of Images And Videos
-When there's an area with an image and a text next to each other, sometimes it's a good idea to have them vertically centered in order to create a better sense of harmony. Vertically centering elements is challenging also for experienced CSS developers. The following lines of code that reach the scope if the browser support CSS 3. The code must be added inside the `<style>` tags at the top of the page, or inside the separate CSS file if you choose to use one. 
+When there's an area with an image and a text next to each other, sometimes it's a good idea to have them vertically centered in order to create a better sense of harmony. Vertically centering elements is challenging also for experienced CSS developers. The following lines of code reach the scope if the browser support CSS 3. The code must be added inside the `<style>` tags at the top of the page, or inside the separate CSS file if you choose to use one. 
 ```css
 .vertical-center {
     position: relative;
@@ -155,12 +155,12 @@ Vertical aligning elements makes sense only if there are two elements next to ea
     }
 }
 ```
-The jQuery code suggested for the video also adds the `vertical-center` class the the iframe, therefore causing the vertical alignment. The class `vertical-center` should also be given to the image to make sure that no matter the size it will always be aligned to the text besides it.
+The jQuery code suggested for the video also adds the `vertical-center` class to the iframe, therefore causing the vertical alignment. The class `vertical-center` should also be given to the image to make sure that no matter the size it will always be aligned to the text besides it.
 ###Default Values for Fields
 It's important to give a default value to each and every field in your template. The default value is the value that the field has if the user doesn't change it. The reason for this is that thanks to the default values a user will be able to quickly test different layouts of the template and see how it looks like without having each time to fill up all the blanks. This is a huge time saver.
 Here at InboundNow we start from a finished static html file that could be taken  'as is' and used as a landing page. Then we use the colors as default colors for text, backgrounds and buttons.
 For titles and text areas we use a [lorem ipsum generator](http://lipsum.com/). For testimonials you can make up names or use character names from books or movies that you love (can you guess what we've used in our templates?)
-Images are more complicated because unfortunately the image field does not allow a default value. To overcome this problem we suggest to add an `img` folder under the `assets` folder that you already created for the Fontawesome field. Here, add all the images that you will use as defaults in the various sections of the template. A great source of free to use high quality images for us is the website [unsplash.com](https://unsplash.com/). If you use other sources, check the license before using the image. Once you have all your default images saved, this code will allow you to use the default image in case the use hasn't added one
+Images are more complicated because unfortunately the image field does not allow a default value. To overcome this problem we suggest to add an `img` folder under the `assets` folder that you already created for the Fontawesome field. Here, add all the images that you will use as defaults in the various sections of the template. A great source of free to use high quality images for us is the website [unsplash.com](https://unsplash.com/). If you use other sources, check the license before using the image. Once you have all your default images saved, this code will allow you to use the default image in case the user hasn't added one
 ```php
 if ( ! $my_image ) {
     echo '<img width="300" alt="" src="' . $urlpath . 'assets/img/default-image.jpg">';
@@ -168,7 +168,7 @@ if ( ! $my_image ) {
     echo '<img style="max-width: 100%; max-height:300px;" alt="" src="'. $my_image .'">';
 }									}
 ```
-The variable `$urlpath` is the url path to the template folder, and it's calculated at the top of the file index.php with this line of code (check out one of our templates to better understand)
+The variable `$urlpath` is the url path to the template folder, and it's calculated at the top of the file index.php with this lines of code (check out one of our templates to better understand)
 ```php
 $key = basename(dirname(__FILE__));
 $urlpath = LANDINGPAGES_UPLOADS_URLPATH . "$key/";
