@@ -1113,7 +1113,6 @@ class Landing_Pages_Metaboxes {
         global $post;
 
 
-
         if ( !isset($post) || $post->post_type !='landing-page' || wp_is_post_revision( $landing_page_id ) ) {
             return;
         }
