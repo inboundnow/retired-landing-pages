@@ -306,7 +306,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 			}
 
 			/* repeater field comes after the pointer????  */
-			if (isset($array[$pointer])){
+			if (isset($array[$pointer][$needle])){
 				return $array[$pointer][$needle];
 			}
 
