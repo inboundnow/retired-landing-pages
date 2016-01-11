@@ -11,9 +11,9 @@
 #3. Enter github password twice and magic happens
  
 # main config
-PLUGINSLUG="cta"
+PLUGINSLUG="landing-pages"
 CURRENTDIR=`pwd`
-MAINFILE="calls-to-action.php" # this should be the name of your main php file in the wordpress plugin
+MAINFILE="landing-pages.php" # this should be the name of your main php file in the wordpress plugin
  
 # git config
 GITPATH="$CURRENTDIR" # this file should be in the base of your git repository
@@ -21,7 +21,7 @@ TEMPPATH="$GITPATH/tmp" # this should be the name of your main php file in the w
  
 # svn config
 SVNPATH="$TEMPPATH/$PLUGINSLUG" # path to a temp SVN repo. No trailing slash required and don't add trunk.
-SVNURL="http://plugins.svn.wordpress.org/cta/" # Remote SVN repo on wordpress.org, with no trailing slash
+SVNURL="http://plugins.svn.wordpress.org/landing-pages/" # Remote SVN repo on wordpress.org, with no trailing slash
 
  
 # Let's begin...
