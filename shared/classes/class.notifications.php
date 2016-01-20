@@ -82,7 +82,7 @@ if (!class_exists('Inbound_Notices')) {
 							</li>
 						</ul>
 	                  </p>
-                     <a class="button button-primary button-large" href="wp-admin/edit.php?post_type=landing-page&inbound_new_template_ignore=0">' . __('Sounds great, Thanks! Dismiss this message', INBOUNDNOW_TEXT_DOMAIN) . '</a>
+                     <a class="button button-primary button-large" href="?inbound_new_template_ignore=0">' . __('Sounds great, Thanks! Dismiss this message', INBOUNDNOW_TEXT_DOMAIN) . '</a>
                      &nbsp; &nbsp;
                      <a target="_blank" class="button primary button-large" href="http://support.inboundnow.com">' . __('Feedback/Support for new template changes', INBOUNDNOW_TEXT_DOMAIN) . '</a>
                      <br><br>
