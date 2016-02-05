@@ -158,11 +158,11 @@ if (!class_exists('Landing_Pages_ACF')) {
 
 			if ( isset( $variations[ $vid ][ 'acf' ] ) ) {
 				$new_value = self::search_field_array( $variations[ $vid ][ 'acf' ] , $field );
-
+	
 				/* sometimes value is an array count when new_value believes it should be an array in this case get new count */
 				if (!is_array($value) && is_array($new_value)) {
 					$value = count($new_value);
-				} else if( $new_value) {
+				} else if($new_value) {
 					if ($new_value =='_empty') {
 						$new_value = '';
 					}
