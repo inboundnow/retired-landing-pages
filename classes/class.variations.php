@@ -366,7 +366,7 @@ if (!class_exists('Landing_Pages_Variations')) {
         public static function get_current_variation_id() {
             global $post;
 
-            if (isset($_GET['ab-action']) && is_admin()) {
+            if (isset($_SESSION['lp_ab_test_open_variation']) && isset($_GET['ab-action']) && is_admin()) {
                 return $_SESSION['lp_ab_test_open_variation'];
             }
 
