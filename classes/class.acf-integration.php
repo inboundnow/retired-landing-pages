@@ -163,12 +163,16 @@ if (!class_exists('Landing_Pages_ACF')) {
 				if (!is_array($value) && is_array($new_value)) {
 					$value = count($new_value);
 				} else if( $new_value) {
+					if ($new_value =='_empty') {
+						$new_value = '';
+					}
 					$value = $new_value;
 				}
 
 				/* acf lite isn't processing return values correctly - ignore repeater subfields */
 				if ( !is_admin() &&  defined('ACF_FREE')  ) {
 					$value = self::acf_free_value_formatting( $value , $field );
+
 				}
 
 				if ( !is_admin() && is_string($value) ) {
@@ -256,6 +260,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 
 
 				if ($key === $needle && !is_array($value) ) {
+					$value = ($value) ? $value : '_empty' ;
 					return $value;
 				}
 
