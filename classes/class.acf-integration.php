@@ -53,6 +53,8 @@ if (!class_exists('Landing_Pages_ACF')) {
 		public static function define_location_rule_values( $choices ) {
 			$template_ids = Landing_Pages_Load_Extensions::get_uploaded_template_ids();
 
+			$choices[ 'default' ] = 'default';
+
 			if( $template_ids )	{
 				foreach( $template_ids as $template_id )	{
 
@@ -158,7 +160,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 
 			if ( isset( $variations[ $vid ][ 'acf' ] ) ) {
 				$new_value = self::search_field_array( $variations[ $vid ][ 'acf' ] , $field );
-	
+
 				/* sometimes value is an array count when new_value believes it should be an array in this case get new count */
 				if (!is_array($value) && is_array($new_value)) {
 					$value = count($new_value);
