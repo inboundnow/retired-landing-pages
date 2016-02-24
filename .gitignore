@@ -33,6 +33,7 @@ nbproject
 *.sublime-workspace
 *.exe
 *.bat
+*.sh
 
 # Grunt
 node_modules
