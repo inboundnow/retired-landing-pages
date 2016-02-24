@@ -17,15 +17,6 @@ class Landing_Pages_Settings {
         /* load settings scripts and styles */
         add_action('admin_enqueue_scripts', array( __CLASS__ , 'enqueue_settings_scripts' ) );
 
-        /* add quick link to access settings in plugins list table */
-        add_filter( 'plugin_action_links_landing-pages/landing-pages.php', array( __CLASS__ , 'extend_plugin_quicklinks' ) );
-
-        /* add hooks only available if pro not activated */
-        if (!defined('INBOUND_PRO_PATH')) {
-            /* cta to upgrade to pro */
-            add_filter( 'plugin_row_meta', array( __CLASS__ , 'extend_plugin_quicklinks_cta' ), 10, 2 );
-        }
-
         /* display system info */
         add_action('admin_footer', array( __CLASS__ , 'display_system_info' ) );
 
@@ -156,21 +147,6 @@ class Landing_Pages_Settings {
         );
     }
 
-    /**
-     * displays pro upgrade cta for non pro users
-     */
-    public static function extend_plugin_quicklinks_cta( $links, $file ) {
-
-        $plugin = 'landing-pages/landing-pages.php';
-
-        if ( $file == $plugin ) {
-            return array_merge(
-                $links,
-                array( '<a href="http://www.inboundnow.com/membership-packages/">Upgrade to Pro</a>' )
-            );
-        }
-        return $links;
-    }
 
     /**
      * Displays global settings container
@@ -565,14 +541,14 @@ class Landing_Pages_Settings {
                     /* error_log(print_r($field, true)); */
                     $slug = (isset($field['remote_download_slug'])) ? $field['remote_download_slug'] : $field['slug'];
                     $api_params = array(
-                        'edd_action' => 'activate_license',
+                        'edd_action' => 'inbound_check_license',
                         'license' =>   $_POST['inboundnow_master_license_key'],
                         'item_name' => $slug
                     );
                     /* error_log(print_r($api_params, true)); */
 
                     /* Call the edd API */
-                    $response = wp_remote_get(add_query_arg($api_params, WPL_STORE_URL), array('timeout' => 30, 'sslverify' => false));
+                    $response = wp_remote_get(add_query_arg($api_params, INBOUNDNOW_STORE_URL ), array('timeout' => 30, 'sslverify' => false));
                     /* error_log(print_r($response, true)); */
 
                     /* make sure the response came back okay */

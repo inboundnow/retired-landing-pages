@@ -32,9 +32,44 @@ if (!class_exists('Landing_Pages_ACF')) {
 			/* make sure fields are placed in the correct location */
 			add_action( 'admin_print_footer_scripts', array( __CLASS__ , 'reposition_acf_fields' ) );
 
-			/* add default instructions to all ACF templates - legacy unused
-			add_filter( 'lp_extension_data' , array( __CLASS__ , 'lp_add_instructions' ) , 11 , 1 );
-			*/
+			/* add new location rule to ACF Field UI */
+			add_filter('acf/location/rule_types', array( __CLASS__ , 'define_location_rule_types' ) );
+
+			/* add new location rule values to ACF Field UI */
+			add_filter('acf/location/rule_values/template_id', array( __CLASS__ , 'define_location_rule_values' ) );
+
+		}
+
+		/**
+		 * @param $choices
+		 * @return mixed
+		 */
+		public static function define_location_rule_types( $choices ) {
+
+			if (!isset($choices['Basic']['template_id'])) {
+				$choices['Basic']['template_id'] = __('Template ID', 'landing-page');
+			}
+
+			return $choices;
+		}
+
+		public static function define_location_rule_values( $choices ) {
+			$template_ids = Landing_Pages_Load_Extensions::get_uploaded_template_ids();
+
+			if (!isset($choices['default'])) {
+				$choices[ 'default' ] = 'default';
+			}
+
+			if( $template_ids )	{
+				foreach( $template_ids as $template_id )	{
+
+					/* template ID by template name here */
+					$choices[ $template_id ] = $template_id;
+
+				}
+			}
+
+			return $choices;
 		}
 
 		/**
@@ -134,13 +169,17 @@ if (!class_exists('Landing_Pages_ACF')) {
 				/* sometimes value is an array count when new_value believes it should be an array in this case get new count */
 				if (!is_array($value) && is_array($new_value)) {
 					$value = count($new_value);
-				} else if( $new_value) {
+				} else if($new_value) {
+					if ($new_value =='_empty') {
+						$new_value = '';
+					}
 					$value = $new_value;
 				}
 
 				/* acf lite isn't processing return values correctly - ignore repeater subfields */
 				if ( !is_admin() &&  defined('ACF_FREE')  ) {
 					$value = self::acf_free_value_formatting( $value , $field );
+
 				}
 
 				if ( !is_admin() && is_string($value) ) {
@@ -228,6 +267,7 @@ if (!class_exists('Landing_Pages_ACF')) {
 
 
 				if ($key === $needle && !is_array($value) ) {
+					$value = ($value) ? $value : '_empty' ;
 					return $value;
 				}
 

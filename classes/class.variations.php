@@ -236,15 +236,13 @@ if (!class_exists('Landing_Pages_Variations')) {
 
             $variations = get_post_meta($landing_page_id, 'lp-ab-variations', true);
 
-            if (!is_array($variations) ) {
+            if (!is_array($variations) && $variations ) {
                 $variations = explode( ',' , $variations);
             }
 
-            if (!is_array($variations)) {
-                $variations = array( 0 => 0 );
+            if (!is_array($variations) || !$variations ) {
+                $variations = array( 0 => "0" );
             }
-
-            $variations = array_filter($variations, 'is_numeric');
 
             return $variations;
         }
@@ -364,10 +362,15 @@ if (!class_exists('Landing_Pages_Variations')) {
         * @returns INT of variation id
         */
         public static function get_current_variation_id() {
-            global $post;
+            global $post, $current_variation_id;
 
-            if (isset($_GET['ab-action']) && is_admin()) {
+            if (isset($_SESSION['lp_ab_test_open_variation']) && isset($_GET['ab-action']) && is_admin()) {
                 return $_SESSION['lp_ab_test_open_variation'];
+            }
+
+            /* check to see if this has already been set during the instance */
+            if (is_numeric($current_variation_id)) {
+                return $current_variation_id;
             }
 
             if (isset($_REQUEST['lp-variation-id'])) {
@@ -389,8 +392,17 @@ if (!class_exists('Landing_Pages_Variations')) {
             }
 
             if (!isset($current_variation_id)) {
-                $current_variation_id = 0;
+                if (!isset($post) && isset($_GET['post'])) {
+                    $post_id = $_GET['post'];
+                } else if (isset($post)) {
+                   $post_id = $post->ID;
+                }
+                $variations = self::get_variations($post_id);
+                $id = array_values($variations);
+                $current_variation_id = array_shift($id);
             }
+
+            $GLOBALS['current_variation_id'] = $current_variation_id;
 
             return $current_variation_id;
         }
