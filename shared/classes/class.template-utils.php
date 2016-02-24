@@ -18,7 +18,7 @@ class Inbound_Template_Utils {
 
     public function init() {
         /* add extra menu items */
-        add_action('admin_menu', array( __CLASS__ , 'add_screen' )  );
+        add_action('admin_menu', array( __CLASS__ , 'add_screen' ) );
 
         //if (isset($_GET['inbound-template-gen'])) {
             //add_action( 'admin_head', array(__CLASS__, 'html'));
