@@ -22,11 +22,13 @@ if (!class_exists('Inbound_Content_Statistics')) {
 		*  load hooks and filters
 		*/
 		public static function load_hooks() {
+
 			/* add statistics metabox to non landing-page post types */
-			add_action( 'add_meta_boxes' , array( __CLASS__ , 'add_statistics_metabox' ) , 10 );
+			add_action('add_meta_boxes', array(__CLASS__, 'add_statistics_metabox'), 10);
 
 			/*  Adds Ajax for Clear Stats button */
-			add_action( 'wp_ajax_inbound_content_clear_stats', array( __CLASS__ , 'ajax_clear_stats' ) );
+			add_action('wp_ajax_inbound_content_clear_stats', array(__CLASS__, 'ajax_clear_stats'));
+
 
             /* records page impression */
             add_action( 'lp_record_impression' , array( __CLASS__ , 'record_impression' ) , 10, 3);
@@ -35,7 +37,7 @@ if (!class_exists('Inbound_Content_Statistics')) {
             add_action( 'inboundnow_store_lead_pre_filter_data' , array( __CLASS__ , 'record_conversion' ) ,10,1);
 
             /* load impressions/conversions collumns on non lp post types */
-            if (is_admin()) {
+            if (is_admin() ) {
 
                 /* Register Columns */
                 add_filter( 'manage_post_posts_columns' , array( __CLASS__ , 'register_columns') , 20 );
@@ -367,5 +369,8 @@ if (!class_exists('Inbound_Content_Statistics')) {
 
     }
 
-	new Inbound_Content_Statistics;
+	add_action('init' , 'inbound_load_legacy_statistics' , 10 );
+	function inbound_load_legacy_statistics() {
+		new Inbound_Content_Statistics;
+	}
 }

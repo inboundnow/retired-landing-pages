@@ -216,7 +216,7 @@ class  Landing_Pages_Template_Management {
 
             <ul class="subsubsub">
                 <li class="plugin-install-manager"><a href="<?php echo admin_url('edit.php?post_type=landing-page&page=lp_manage_templates' ); ?>" id='manage'><?php _e( 'Back' ,'landing-pages'); ?></a> |</li>
-                <li class="plugin-install-dashboard"><a href="<?php echo admin_url('edit.php?post_type=landing-page&page=lp_store&inbound-store=templates'); ?>" id='menu_search'><?php _e( 'Fine New Templates' ,'landing-pages'); ?></a> |</li>
+                <li class="plugin-install-dashboard"><a target="_blank" href="https://www.inboundnow.com/market/?show=landing-pages" id='menu_search'><?php _e( 'Find New Templates' ,'landing-pages'); ?></a> |</li>
                 <li class="plugin-install-upload"><a class="current" href="#upload" id='menu_upload'><?php _e( 'Upload' , 'landing-pages'); ?></a> </li>
             </ul>
 
