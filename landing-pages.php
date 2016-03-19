@@ -6,10 +6,12 @@ Description: The first true all-in-one Landing Page solution for WordPress, incl
 Version: 2.1.3
 Author: Inbound Now
 Author URI: http://www.inboundnow.com/
-Text Domain: landing-pages
-Domain Path: assets/lang
-*/
 
+*/
+function debug_load_textdomain( $domain , $mofile  ){
+	echo "Trying ",$domain," at ",$mofile,"<br />\n";
+}
+//add_action('load_textdomain','debug_load_textdomain' , 10 ,2);
 if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 
 	final class Inbound_Landing_Pages_Plugin {
@@ -26,9 +28,9 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 
 			/* Run Loaders */
 			self::load_constants();
+			self::load_text_domain_init();
 			self::load_files();
 			self::load_shared_files();
-			self::load_text_domain_init();
 
 		}
 
@@ -120,14 +122,17 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		*  Hooks the text domain loader to the init
 		*/
 		private static function load_text_domain_init() {
-			add_action( 'init' , array( __CLASS__ , 'load_text_domain' ) );
+			add_action( 'init' , array( __CLASS__ , 'load_text_domain' ) , 1 );
 		}
 
 		/**
 		*  Loads the correct .mo file for this plugin
 		*/
 		public static function load_text_domain() {
-			load_plugin_textdomain( 'landing-pages' , false , LANDINGPAGES_PLUGIN_SLUG . '/assets/lang/' );
+
+			if (!class_exists('Inbound_Pro_Plugin')) {
+				load_plugin_textdomain('inbound-pro', false, LANDINGPAGES_PLUGIN_SLUG . '/assets/lang/');
+			}
 		}
 
 		/**
@@ -153,7 +158,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		static function fail_php_version() {
 			//add_action( 'plugins_loaded', array( __CLASS__, 'load_text_domain_init' ) );
 			$plugin_url = admin_url( 'plugins.php' );
-			self::notice( __( 'Landing Pages requires PHP version 5.3+ to run. Your version '.PHP_VERSION.' is not high enough.<br><u>Please contact your hosting provider</u> to upgrade your PHP Version.<br>The plugin is NOT Running. You can disable this warning message by <a href="'.$plugin_url.'">deactivating the plugin</a>', 'landing-pages' ) );
+			self::notice( __( 'Landing Pages requires PHP version 5.3+ to run. Your version '.PHP_VERSION.' is not high enough.<br><u>Please contact your hosting provider</u> to upgrade your PHP Version.<br>The plugin is NOT Running. You can disable this warning message by <a href="'.$plugin_url.'">deactivating the plugin</a>', 'inbound-pro' ) );
 		}
 
 		/**

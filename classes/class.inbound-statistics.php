@@ -90,7 +90,7 @@ if (!class_exists('Inbound_Content_Statistics')) {
 			$exclude[] = 'download';
 
 			if ( $pagenow === 'post.php' && !in_array($post_type,$exclude) ) {
-				add_meta_box( 'inbound-content-statistics', __( 'Inbound Statistics' , 'landing-pages' ) , array( __CLASS__ , 'display_statistics' ) , $post_type, 'side', 'high');
+				add_meta_box( 'inbound-content-statistics', __( 'Inbound Statistics' , 'inbound-pro' ) , array( __CLASS__ , 'display_statistics' ) , $post_type, 'side', 'high');
 			}
 
 		}
@@ -158,20 +158,20 @@ if (!class_exists('Inbound_Content_Statistics')) {
 								<div class='bab-stat-stats' colspan='2'>
 									<div class='bab-stat-container-impressions bab-number-box'>
 										<span class='bab-stat-span-impressions'><?php echo $impressions; ?></span>
-										<span class="bab-stat-id"><?php _e( 'Views' , 'landing-pages' ); ?></span>
+										<span class="bab-stat-id"><?php _e( 'Views' , 'inbound-pro' ); ?></span>
 									</div>
 									<div class='bab-stat-container-conversions bab-number-box'>
 										<span class='bab-stat-span-conversions'><?php echo $conversions; ?></span>
-										<span class="bab-stat-id"><?php _e( 'Conversions' , 'landing-pages' ); ?></span></span>
+										<span class="bab-stat-id"><?php _e( 'Conversions' , 'inbound-pro' ); ?></span></span>
 									</div>
 									<div class='bab-stat-container-conversion_rate bab-number-box'>
 										<span class='bab-stat-span-conversion_rate'><?php echo $conversion_rate; ?></span>
-										<span class="bab-stat-id bab-rate"><?php _e( 'Conversion Rate' , 'landing-pages' ); ?></span>
+										<span class="bab-stat-id bab-rate"><?php _e( 'Conversion Rate' , 'inbound-pro' ); ?></span>
 									</div>
 								</div>
 							</div>
 							<div class='bab-stat-control-container'>
-								<span class="lp-delete-var-stats" rel='<?php echo $post->ID;?>' title="<?php _e( 'Delete this variations stats' , 'landing-pages' ); ?>"><?php _e( 'Clear Stats' , 'landing-pages' ); ?></span>
+								<span class="lp-delete-var-stats" rel='<?php echo $post->ID;?>' title="<?php _e( 'Delete this variations stats' , 'inbound-pro' ); ?>"><?php _e( 'Clear Stats' , 'inbound-pro' ); ?></span>
 							</div>
 						</div>
 					</div>
