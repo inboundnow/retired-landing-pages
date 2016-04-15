@@ -33,9 +33,6 @@ Landing pages are an ideal way to convert more of your passive website visitors 
 * Extend functionality with our growing repository of <a href="http://www.inboundnow.com/market/category/landing-pages/extensions/">third party add ons</a>.
 * Easily implement your own custom landing page design.
 
-This plugin is form agnostic meaning it will work with any form system you use.
-
-Recommended form plugins (Gravity forms, Ninja Forms or Contact form 7)
 
 = About the Plugin =
 
