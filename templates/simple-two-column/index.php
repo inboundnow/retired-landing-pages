@@ -128,7 +128,7 @@ if ($submit_button_color != "") {
 
 </style>
 <?php /* Load all functions hooked to lp_head including global js and global css */
-			wp_head(); // Load Regular WP Head
+			do_action('wp_head'); // Load Regular WP Head
 			do_action('lp_head'); // Load Custom Landing Page Specific Header Items
 		?>
 <script type="text/javascript">
@@ -186,8 +186,13 @@ if ($social_display==="1" ) { // Show Social Media Icons?>
  endwhile;
  endif; // end wordpress loop
 
-do_action('lp_footer'); // load landing pages footer hook
-wp_footer(); // load normal wordpress footer ?>
+?>
+<footer>
+	<?php
+	do_action('lp_footer');
+	do_action('wp_footer');
+	?>
+</footer>
 
 </body>
 </html>

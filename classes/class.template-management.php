@@ -89,7 +89,7 @@ class  Landing_Pages_Template_Management {
         echo '<div class="wrap">';
         ?>
 
-        <h2><?php  _e( 'Manage Templates' , 'landing-pages' ); ?>
+        <h2><?php  _e( 'Manage Templates' , 'inbound-pro' ); ?>
             <a href="edit.php?post_type=landing-page&page=lp_templates_upload"
                class="add-new-h2"><?php echo esc_html_x('Add New Template', 'landing-pages'); ?></a>
         </h2>
@@ -193,15 +193,15 @@ class  Landing_Pages_Template_Management {
 
         if (!$is_template) {
             echo '<br><br><br><br>';
-            die( __('WARNING! This zip file does not seem to be a template file! If you are trying to install a Landing Page extension please use the Plugin\'s upload section! Please press the back button and try again!' , 'landing-pages' ));
+            die( __('WARNING! This zip file does not seem to be a template file! If you are trying to install a Landing Page extension please use the Plugin\'s upload section! Please press the back button and try again!' , 'inbound-pro' ));
         }
 
 
         if ($result = $zip->extract(PCLZIP_OPT_PATH, $extended_path, PCLZIP_OPT_REPLACE_NEWER) == 0) {
-            die( __( 'There was a problem. Please try again!' , 'landing-pages' ) );
+            die( __( 'There was a problem. Please try again!' , 'inbound-pro' ) );
         } else {
             unlink($_FILES['templatezip']["tmp_name"]);
-            echo '<div class="updated"><p>' . __( 'Template uploaded successfully!' , 'landing-pages' ) . '</div>';
+            echo '<div class="updated"><p>' . __( 'Template uploaded successfully!' , 'inbound-pro' ) . '</div>';
         }
     }
 

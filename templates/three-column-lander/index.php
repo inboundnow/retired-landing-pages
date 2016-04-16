@@ -65,7 +65,7 @@ $main_headline				= get_field('lp-main-headline', $post->ID , false );
     <title>
         <?php wp_title();  ?>
     </title>
-    <?php wp_head(); ?>
+    <?php do_action('wp_head') ?>
     <?php do_action('lp_head');   ?>
 	
 	<!-- commenting styles and scripts as they have been enqueued with the standard WP way
@@ -247,8 +247,7 @@ $main_headline				= get_field('lp-main-headline', $post->ID , false );
 <?php break;
 endwhile;
 endif; // end WordPress Loop
-do_action('lp_footer'); // load landing pages footer hook
-wp_footer(); // load normal wordpress footer
+
 ?>
 <script type="text/javascript">
     jQuery(function ($) {
@@ -265,5 +264,11 @@ wp_footer(); // load normal wordpress footer
 
     });
 </script>
+<footer>
+	<?php
+	do_action('lp_footer');
+	do_action('wp_footer');
+	?>
+</footer>
 </body>
 </html>

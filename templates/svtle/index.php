@@ -126,7 +126,7 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
         ?>
 
     </style>
-    <?php wp_head(); // Load Regular WP Head
+    <?php do_action('wp_head'); // Load Regular WP Head
     do_action('lp_head'); // Load Custom Landing Page Specific Header Items ?>
     <script type="text/javascript" src="<?php echo $path; ?>assets/js/modernizr.js"></script>
     <script type="text/javascript" src="<?php echo $path; ?>assets/js/jquery-picture-min.js"></script>
@@ -231,8 +231,12 @@ $blue = (isset($RBG_array['b'])) ? $RBG_array['b'] : '0';
     break;
     endwhile;
     endif;
-    do_action('lp_footer'); // load landing pages footer hook
-    wp_footer(); // load normal wordpress footer ?>
+    ?>
+    <footer>
+        <?php
+        do_action('lp_footer');
+        do_action('wp_footer');
+        ?>
+    </footer>
     </body>
-
 </html>

@@ -97,7 +97,7 @@ if (have_posts()) : while (have_posts()) : the_post();
         /* Import Google Font Stylesheet */
         @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
     </style>
-    <?php wp_head(); // Load Regular WP Head ?>
+    <?php dp_action('wp_head'); // Load Regular WP Head ?>
     <?php do_action('lp_head'); // Load Landing Page Specific Header Items ?>
 </head>
 <body>
@@ -142,9 +142,14 @@ if (have_posts()) : while (have_posts()) : the_post();
             margin-left: -240px;
         }
     </style>
-    <?php break; endwhile; endif; // end WordPress Loop
-    do_action('lp_footer'); // load landing pages footer hook
-    wp_footer(); // load normal wordpress footer
+    <?php
+    break; endwhile; endif; // end WordPress Loop
     ?>
+    <footer>
+        <?php
+        do_action('lp_footer');
+        do_action('wp_footer');
+        ?>
+    </footer>
 </body>
 </html>
