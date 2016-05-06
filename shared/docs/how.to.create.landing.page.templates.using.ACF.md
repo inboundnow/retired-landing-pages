@@ -1,5 +1,6 @@
 # How to Create Landing Page Templates Using ACF
 Author: Giulio Daprela <giulio.daprela@gmail.com>
+Contributor: Hudson Atwell 
 
 Version: 0.0.1 
 [in]: http://www.inboundnow.com/
@@ -55,12 +56,7 @@ The config.php file first must be setup with code that tells Landing Pages it ex
 ```
 <?php
 /**
- * Default theme single.php template
- *
- * To customize your default landing page, create a single-landing-page.php and customize
- * http://docs.inboundnow.com/landing-pages/dev/creating-templates/default-wp-themes
- *
- * DO NOT USE THE DEFAULT TEMPLATE FOR INNOVATING NEW THEMES! Instead use the demo template or any other the others
+ * header for custom landing page template's config.php
  */
 
 /* gets template directory name to use as identifier - do not edit - include in all template files */
