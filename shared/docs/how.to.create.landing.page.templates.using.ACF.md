@@ -1,5 +1,6 @@
 # How to Create Landing Page Templates Using ACF
 Author: Giulio Daprela <giulio.daprela@gmail.com>
+Contributor: Hudson Atwell 
 
 Version: 0.0.1 
 [in]: http://www.inboundnow.com/
@@ -48,7 +49,35 @@ wp-content
 ```
 
 ###config.php
-The file config.php contains all the fields that you create with the ACF Pro plugin. For the sake of this explanation, suppose that you have already created a group of fields with ACF Pro that you want to use for your dynamic template. At this point in the WP Dashboard you must go to `Custom Fields -> Tools`, select the group of fields that you've saved and click on 'generate export code'. The resulting code must be pasted in the config.php file after the comment that says `/* Load ACF definitions */`. For the template to work, the last part of the array must be replaced with the following code for the case of landing pages
+The file config.php contains all the fields that you create with the ACF Pro plugin. 
+
+The config.php file first must be setup with code that tells Landing Pages it exists:
+
+```
+<?php
+/**
+ * header for custom landing page template's config.php
+ */
+
+/* gets template directory name to use as identifier - do not edit - include in all template files */
+$key = basename(dirname(__FILE__));
+
+$lp_data[$key]['info'] =
+array(
+	'data_type' => 'acf5', // Template Data Type accepts 'acf' or 'acf5'
+	'version' => "1.0.4", // Version Number
+	'label' => 'Acacia', // Nice Name
+	'category' => '1 column layout, Responsive, Premium, Pro Series, Acf', // Template Category
+	'demo' => 'http://demo.inboundnow.com/acacia/', // Demo Link
+	'description'  => 'A beautiful modern landing page with image on top'
+);
+
+/* add notice that acf5 is required for this template - this applies to any template using repeater fields  */
+add_action('admin_notices', array( 'Landing_Pages_Admin_Notices' , 'acf5_required' ) );
+```
+#### The next step, adding fields
+
+For the sake of this explanation, suppose that you have already created a group of fields with ACF Pro that you want to use for your dynamic template. At this point in the WP Dashboard you must go to `Custom Fields -> Tools`, select the group of fields that you've saved and click on 'generate export code'. The resulting code must be pasted in the config.php file after the comment that says `/* Load ACF definitions */`. For the template to work, the last part of the array must be replaced with the following code for the case of landing pages
 
 ```
 	'location' => array (
