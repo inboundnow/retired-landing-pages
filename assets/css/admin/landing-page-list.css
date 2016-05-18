@@ -102,47 +102,10 @@
     margin-left: 5px !important;
 }
 
-.qtip {
-    background: #fff;
-}
-
-.qtip-tip {
-    height: 10px !important;
-}
-
-.qtip-content, .lp-pop-description, .lp-pop-preview a {
-    color: #333;
-
-}
-
 .lp-pop-preview a, .lp-pop-edit a {
     text-decoration: none;
 }
 
-.qtip-titlebar {
-    position: relative;
-    padding: 0px;
-}
-
-.qtip-jtools {
-    border: 2px solid rgba(172, 172, 172, 1);
-}
-
-.qtip-title {
-    position: relative;
-    margin: 0 0 5px;
-    padding: 12px 17px 14px 14px;
-    line-height: 19px;
-    font-size: 19px;
-    color: #fff;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-    background: #8cc1e9;
-    background-image: -webkit-gradient(linear, left bottom, left top, from(#72a7cf), to(#8cc1e9));
-    background-image: -webkit-linear-gradient(bottom, #72a7cf, #8cc1e9);
-    background-image: -moz-linear-gradient(bottom, #72a7cf, #8cc1e9);
-    background-image: -o-linear-gradient(bottom, #72a7cf, #8cc1e9);
-    background-image: linear-gradient(to top, #72a7cf, #8cc1e9);
-}
 
 .stats li {
     border-bottom: 1px solid #EBEBEA;
@@ -254,7 +217,7 @@ td.stats.column-stats {
 }
 
 .stats li:last-child {
-    border-bottom: none;
+    //border-bottom: none;
 }
 
 .no-stats-yet {
@@ -289,6 +252,10 @@ td.stats.column-stats {
 
 .introjs-showElement .row-actions {
     visibility: visible;
+}
+
+.stats li:last-child:not(:first-child) {
+    border-bottom: none;
 }
 
 .lp-impress-num {
@@ -459,7 +426,7 @@ a.cr-number:hover {
 }
 .lp-varation-stat-ul .cr-number.cr-empty-0,
 .lp-varation-stat-ul .cr-number.cr-empty-0:hover{
-        text-align: center;
+    text-align: center;
     width: 42px;
     float: right;
     background: none;
@@ -515,4 +482,11 @@ a.cr-number:hover {
 }
 /* New Variation Testing Stat Design by Ahmed Kaludi (AhmedKaludi.com) END */
 
+
+body .alternate, .striped>tbody>:nth-child(odd), ul.striped>:nth-child(odd) {
+    background-color:#ffffff;
+}
+body #the-list td {
+    border-bottom: 1px solid #EBEBEA;
+}
 
