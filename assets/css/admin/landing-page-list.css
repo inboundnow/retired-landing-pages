@@ -238,7 +238,7 @@ td.stats.column-stats {
     border-top: none;
     width: 100%;
     border-bottom: none;
-    margin-bottom: -2px;
+    margin-bottom: 0px;
     padding-bottom: 0px;
     display: inline-block;
     margin-top: 0px;
