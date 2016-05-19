@@ -381,7 +381,7 @@ a.cr-number:hover {
     padding: 0px !important
 }
 .lp-varation-stat-ul .winner-lp{
-    background: none
+    background: #F9FFF4 !important
 }
 .lp-varation-stat-ul .winner-lp .lp-letter{
     background: #15dd6f;
@@ -433,7 +433,7 @@ a.cr-number:hover {
     border: 0;
     box-shadow: none;
     font-size: 14px;
-    font-weight: bold !important;
+    font-weight: normal;
     color: #999;
     text-shadow: none;
     padding: 0;
