@@ -37,11 +37,9 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
             /* add styling handlers to custom post states */
             add_filter('display_post_states', array( __CLASS__ , 'filter_custom_post_states' ) );
 
-            /* add quick actions to lists mode */
-            add_filter('post_row_actions', array(__CLASS__, 'add_quick_actions' ) , 10, 2);
-
             /* enqueue scripts for landing page listings */
             add_action( 'admin_enqueue_scripts' , array(__CLASS__, 'enqueue_admin_scripts' ) );
+
 
             /* enqueue scripts for landing page listings */
             if (isset($_GET['dont_save'])
@@ -148,16 +146,14 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
                 return;
             }
 
+            wp_enqueue_style('lp-content-stats', LANDINGPAGES_URLPATH . 'assets/css/admin/content-stats.css');
+
+
             /* listing page only */
             if ($screen->id == 'edit-landing-page' ) {
                 /* load stat clear handlers */
                 wp_enqueue_script( 'lp-admin-clear-stats-ajax-request', LANDINGPAGES_URLPATH . 'assets/js/ajax.clearstats.js', array( 'jquery' ) );
                 wp_localize_script( 'lp-admin-clear-stats-ajax-request', 'ajaxadmin', array( 'ajaxurl' => admin_url('admin-ajax.php'), 'lp_clear_nonce' => wp_create_nonce('lp-clear-nonce') ) );
-
-                /* load qtip for popup data */
-                wp_enqueue_script('jquery-qtip', LANDINGPAGES_URLPATH . 'assets/libraries/jquery-qtip/jquery.qtip.min.js');
-                wp_enqueue_script('load-qtip', LANDINGPAGES_URLPATH . 'assets/libraries/jquery-qtip/load.qtip.js', array('jquery-qtip'));
-                wp_enqueue_style('qtip-css', LANDINGPAGES_URLPATH . 'assets/css/jquery.qtip.min.css'); /*Tool tip css */
 
                 wp_enqueue_script('landing-page-list', LANDINGPAGES_URLPATH . 'assets/js/admin/admin.landing-page-list.js');
                 wp_enqueue_style('landing-page-list-css', LANDINGPAGES_URLPATH.'assets/css/admin/landing-page-list.css');
@@ -407,7 +403,7 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
             foreach ($variations as $key => $vid) {
                 $letter = Landing_Pages_Variations::vid_to_letter($post->ID, $key); /* convert to letter */
                 $each_impression = get_post_meta($post->ID, 'lp-ab-variation-impressions-' . $vid, true); /* get impressions */
-
+                $each_impression = ($each_impression) ? $each_impression : 0;
                 /* get variation status */
                 $v_status = Landing_Pages_Variations::get_variation_status( $post->ID, $vid ); /* Current status */
 
@@ -439,8 +435,8 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
                 (($each_notes === "")) ? $each_notes = __('No notes', 'inbound-pro') : $each_notes = $each_notes;
                 $data_letter = "data-letter=\"" . $letter . "\"";
                 $edit_link = admin_url('post.php?post=' . $post->ID . '&lp-variation-id=' . $vid . '&action=edit');
-                $popup = "data-notes=\"<span class='lp-pop-description'>" . $each_notes . "</span><span class='lp-pop-controls'><span class='lp-pop-edit button-primary'><a href='" . $edit_link . "'>Edit This variation</a></span><span class='lp-pop-preview button'><a title='Click to Preview this variation' class='thickbox' href='" . $permalink . "?lp-variation-id=" . $vid . "&iframe_window=on&post_id=" . $post->ID . "&TB_iframe=true&width=640&height=703' target='_blank'>Preview This variation</a></span><span class='lp-bottom-controls'><span class='lp-delete-var-stats' data-letter='" . $letter . "' data-vid='" . $vid . "' rel='" . $post->ID . "'>Clear These Stats</span></span></span>\"";
-                echo "<li rel='" . $final_status . "' data-postid='" . $post->ID . "' data-letter='" . $letter . "' data-lp='' class='lp-stat-row-" . $vid . " " . $post->ID . '-' . $conversion_rate . " status-" . $v_status . "'><a " . $popup . " " . $data_letter . " class='lp-letter' title='click to edit this variation' href='" . $edit_link . "'>" . $letter . "</a><span class='lp-numbers'> <span class='lp-impress-num'>" . $each_impression . "</span><span class='visit-text'>" . $i_text . " with</span><span class='lp-con-num'>" . $final_conversion . "</span> " . $c_text . "</span><a " . $popup . " " . $data_letter . " class='cr-number cr-empty-" . $conversion_rate . "' href='" . $edit_link . "'>" . $conversion_rate . "%</a></li>";
+                $popup = "data-notes=\"<span class='lp-pop-description'>" . $each_notes . "</span><span class='lp-pop-controls'><span class='lp-pop-edit button-primary'><a href='" . $edit_link . "'>Edit This variation</a></span><span class='lp-pop-preview button'><a title='".__('Click to Preview this variation' , 'inbound-pro' ) ."' class='thickbox' href='" . $permalink . "?lp-variation-id=" . $vid . "&iframe_window=on&post_id=" . $post->ID . "&TB_iframe=true&width=640&height=703' target='_blank'>".__( 'Preview This variation' , 'inbound-pro' ) ."</a></span><span class='lp-bottom-controls'><span class='lp-delete-var-stats' data-letter='" . $letter . "' data-vid='" . $vid . "' rel='" . $post->ID . "'>". __( 'Clear These Stats' , 'inbound-pro' ) ."</span></span></span>\"";
+                echo "<li rel='" . $final_status . "' data-postid='" . $post->ID . "' data-letter='" . $letter . "' data-lp='' class='lp-stat-row-" . $vid . " " . $post->ID . '-' . $conversion_rate . " status-" . $v_status . "'><a " . $popup . " " . $data_letter . " class='lp-letter' title='click to edit this variation' href='" . $edit_link . "'>" . $letter . "</a><span class='lp-numbers'><span class='lp-visitors'><span class='visit-text'>" . $i_text . "</span><span class='lp-impress-num'>" . $each_impression . "</span></span> <span class='lp-conversions'> <span class='lp-conversion-txt'>" . $c_text . "</span> <span class='lp-con-num'>" . $final_conversion . "</span> </span> </span><a " . $popup . " " . $data_letter . " class='cr-number cr-empty-" . $conversion_rate . "' href='" . $edit_link . "'>" . $conversion_rate . "%</a></li>";
                 $i++;
             }
             echo "</ul>";
@@ -506,19 +502,6 @@ if ( !class_exists('Landing_Pages_Post_Type') ) {
                 $state = '<span class="' . strtolower($state) . ' states">' . str_replace(' ', '-', $state) . '</span>';
             }
             return $post_states;
-        }
-
-        /**
-         * Adds quick action
-         */
-        public static function add_quick_actions($actions, $post) {
-            if ($post->post_type != 'landing-page') {
-                return $actions;
-            }
-
-            $actions['clear'] = '<a href="#clear-stats" id="lp_clear_' . $post->ID . '" class="clear_stats" title="' . esc_attr(__("Clear impression and conversion records", 'inbound-pro')) . '" >' . __('Clear All Stats', 'inbound-pro') . '</a><span class="hover-description">' . __('Hover over the letters to the right for more options', 'inbound-pro') . '</span>';
-
-            return $actions;
         }
 
         /**
