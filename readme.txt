@@ -70,7 +70,7 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 
 == Changelog ==
 
-= 2.2.2 =
+= 2.2.3 =
 * Debugging impression count
 * Removing Inbound Statistics for content in favor of Inbound Google Analytics extension.
 * Fix issue with impressions driving up on first landing page in list.
