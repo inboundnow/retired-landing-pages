@@ -70,8 +70,11 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 
 == Changelog ==
 
+= 2.2.7 =
+* [security fix] Adding additional sanitation requirements.
+
 = 2.2.6 =
-* Removing Dropcap, Half and Half, Tubelar,  & Countdown Lander from the core. 
+* Removing Dropcap, Half and Half, Tubelar,  & Countdown Lander from the core.
 
 = 2.2.4 =
 * Adding custom capabilities to landing-page post type
