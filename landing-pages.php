@@ -37,7 +37,7 @@ if (!class_exists('Inbound_Landing_Pages_Plugin')) {
 		*/
 		private static function load_constants() {
 
-			define('LANDINGPAGES_CURRENT_VERSION', '2.2.5' );
+			define('LANDINGPAGES_CURRENT_VERSION', '2.2.6' );
 			define('LANDINGPAGES_URLPATH', plugins_url( '/' , __FILE__ ) );
 			define('LANDINGPAGES_PATH', WP_PLUGIN_DIR.'/'.plugin_basename( dirname(__FILE__) ).'/' );
 			define('LANDINGPAGES_PLUGIN_SLUG', plugin_basename( dirname(__FILE__) ) );
