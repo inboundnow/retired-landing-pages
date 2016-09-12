@@ -1,6 +1,6 @@
 <?php
 
-class Landing_Pages_Cloning {
+class Landing_Pages_Row_Actions {
 
     /**
      * Initiate class
@@ -18,6 +18,9 @@ class Landing_Pages_Cloning {
 
         /* adds 'clone' links to posts */
         add_filter('post_row_actions', array( __CLASS__ ,'add_clone_link' ), 10, 2);
+        
+        /* adds 'clear stats' links to posts */
+        add_filter('post_row_actions', array( __CLASS__ ,'add_clear_stats_link' ), 10, 2);
     }
 
     /**
@@ -164,6 +167,26 @@ class Landing_Pages_Cloning {
         };
         return $data;
     }
+    
+    /**
+     * Adds clear stats link to quick actions in a post types listing area
+     * @param $actions
+     * @param $post
+     * @return mixed
+     */
+    public static function add_clear_stats_link($actions, $post) {
+
+        if ($post->post_type != 'landing-page' ) {
+            return $actions;
+        }
+	// .clear_stats is listened to by ajax.clearstats.js
+        $actions['clear_the_stats'] = '<a id="'.$post->ID.'" title="'
+            . esc_attr(__("Clear the stats?", 'landing-pages'))
+            . '"class="clear_stats"'
+            . 'style="cursor:pointer;">' .  __('Clear Stats', 'landing-pages') . '</a>';
+
+        return $actions;
+    }
 }
 
-new Landing_Pages_Cloning;
+new Landing_Pages_Row_Actions;
