@@ -206,6 +206,7 @@ var InboundForms = (function(_inbound) {
                     return false;
                 }
             }
+                 
             /* Loop through all match possiblities */
             for (i = 0; i < FieldMapArray.length; i++) {
                 //for (var i = FieldMapArray.length - 1; i >= 0; i--) {
@@ -225,7 +226,6 @@ var InboundForms = (function(_inbound) {
 
                 /* look for name attribute match */
                 if (input_name && input_name.toLowerCase().indexOf(lookingFor) > -1) {
-
                     found = true;
                     _inbound.deBugger('forms', 'Found matching name attribute for -> ' + lookingFor);
 
@@ -261,7 +261,7 @@ var InboundForms = (function(_inbound) {
                 }
 
             }
-
+            
             return inbound_data;
 
         },

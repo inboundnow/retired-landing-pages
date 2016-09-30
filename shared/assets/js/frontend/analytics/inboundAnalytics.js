@@ -857,7 +857,7 @@ var _inboundUtils = (function(_inbound) {
 
             /* Set Param Cookies */
             for (var k in urlParams) {
-
+                /* account for wordpress media uploader bug */
                 if (k == 'action') {
                     continue;
                 }
@@ -1510,6 +1510,7 @@ var InboundForms = (function(_inbound) {
                     return false;
                 }
             }
+                 
             /* Loop through all match possiblities */
             for (i = 0; i < FieldMapArray.length; i++) {
                 //for (var i = FieldMapArray.length - 1; i >= 0; i--) {
@@ -1529,7 +1530,6 @@ var InboundForms = (function(_inbound) {
 
                 /* look for name attribute match */
                 if (input_name && input_name.toLowerCase().indexOf(lookingFor) > -1) {
-
                     found = true;
                     _inbound.deBugger('forms', 'Found matching name attribute for -> ' + lookingFor);
 
@@ -1565,7 +1565,7 @@ var InboundForms = (function(_inbound) {
                 }
 
             }
-
+            
             return inbound_data;
 
         },
@@ -2842,6 +2842,7 @@ var _inboundEvents = (function(_inbound) {
 
 })(_inbound || {});
 
+
 function inboundFormNoRedirect(){
 	/*button == the button that was clicked, form == the form that button belongs to, formRedirectUrl == the link that the form redirects to, if set*/
 	
@@ -2854,7 +2855,11 @@ function inboundFormNoRedirect(){
 	else if(window.frames.frameElement.tagName.toLowerCase() == "iframe"){
 		var button = window.frames.frameElement.contentWindow.document.querySelectorAll('button.inbound-button-submit')[0];
 	}
-	
+
+    if ( typeof button == 'undefined' ) {
+       return;
+    }
+
 	var	form = button.form,
 		formRedirectUrl = form.querySelectorAll('input[value][type="hidden"][name="inbound_furl"]:not([value=""])');
 
@@ -2875,8 +2880,13 @@ function inboundFormNoRedirectContent(){
 	/*If it is an iframe*/
 	else if(window.frames.frameElement.tagName.toLowerCase() == "iframe"){
 		var button = window.frames.frameElement.contentWindow.document.querySelectorAll('button.inbound-button-submit')[0];
-		}
-	
+    }
+
+
+    if ( typeof button == 'undefined' ) {
+        return;
+    }
+
 	var	form = button.form,
 		formRedirectUrl = form.querySelectorAll('input[value][type="hidden"][name="inbound_furl"]:not([value=""])'),
 		btnBackground = jQuery(button).css('background'),
