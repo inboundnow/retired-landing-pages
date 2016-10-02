@@ -110,6 +110,7 @@ class Inbound_Events {
 			  `variation_id` mediumint(9) NOT NULL,
 			  `lead_id` mediumint(20) NOT NULL,
 			  `lead_uid` varchar(255) NOT NULL,
+			  `list_id` mediumint(20) NOT NULL,
 			  `session_id` varchar(255) NOT NULL,
 			  `source` text NOT NULL,
 			  `datetime` datetime NOT NULL,
@@ -128,18 +129,31 @@ class Inbound_Events {
      */
     public static function store_form_submission( $lead ){
 
-        if (! isset($lead['raw_params']) )  {
+        if (!isset($lead['raw_params']) )  {
             return;
         }
 
         parse_str($lead['raw_params'] , $raw_params );
         $details = array_merge($raw_params,$lead);
+
+        if (!isset($raw_params['inbound_form_id'])) {
+            return;
+        }
+
+        if (isset($raw_params['wp_cta_id'])) {
+            $lead['cta_id'] = $raw_params['wp_cta_id'];
+            $lead['variation'] = $raw_params['wp_cta_vid'];
+        } else {
+            $lead['cta_id'] = 0;
+        }
+
         $args = array(
             'event_name' => 'inbound_form_submission',
             'page_id' => $lead['page_id'],
             'variation_id' =>  $lead['variation'],
             'form_id' => (isset($raw_params['inbound_form_id'])) ? $raw_params['inbound_form_id'] : '',
             'lead_id' => $lead['id'],
+            'cta_id' => $lead['cta_id'],
             'lead_uid' => ( isset($_COOKIE['wp_lead_uid']) ? $_COOKIE['wp_lead_uid'] : '' ),
             'event_details' => json_encode($details),
             'datetime' => $lead['wordpress_date_time']
@@ -379,7 +393,7 @@ class Inbound_Events {
 
     }
 
-    public static function delete_related_events( $post_id ) {
+    public static function delete_related_events( $post_id , $vid = 'all' ) {
         global $wpdb;
 
         $post = get_post($post_id);
@@ -397,11 +411,20 @@ class Inbound_Events {
                     'lead_id' => $post_id
                 );
                 break;
+            case  'wp-call-to-action':
+                $where = array(
+                    'cta_id' => $post_id
+                );
+                break;
             default:
                 $where = array(
                     'page_id' => $post_id
                 );
                 break;
+        }
+
+        if ($vid != 'all'){
+            $where['variation_id'] = $vid;
         }
 
         $wpdb->delete( $table_name, $where, $where_format = null );
@@ -467,16 +490,30 @@ class Inbound_Events {
         global $wpdb;
 
         $table_name = $wpdb->prefix . "inbound_events";
+        $query = 'SELECT * FROM '.$table_name.' WHERE ';
 
         switch ($nature) {
             case 'lead_id':
-                $query = 'SELECT * FROM '.$table_name.' WHERE datetime >= "'.$params['start_date'].'" AND  datetime <= "'.$params['end_date'].'" AND `lead_id` = "'.$params['lead_id'].'" AND `event_name` = "inbound_form_submission" ORDER BY `datetime` DESC';
+                $query .= '`lead_id` = "'.$params['lead_id'].'" ';
                 break;
             case 'page_id':
-                $query = 'SELECT * FROM '.$table_name.' WHERE datetime >= "'.$params['start_date'].'" AND  datetime <= "'.$params['end_date'].'" AND `page_id` = "'.$params['page_id'].'" AND `event_name` = "inbound_form_submission" ORDER BY `datetime` DESC';
+                $query .= '`page_id` = "'.$params['page_id'].'" ';
+                break;
+            case 'cta_id':
+                $query .= '`cta_id` = "'.$params['cta_id'].'" ';
                 break;
         }
 
+        /* add date constraints if applicable */
+        if (isset($params['start_date'])) {
+            $query .= 'AND datetime >= "'.$params['start_date'].'" AND  datetime <= "'.$params['end_date'].'" ';
+        }
+
+        if (isset($params['variation_id'])) {
+            $query .= 'AND variation_id = "'.$params['variation_id'].'" ';
+        }
+
+        $query .= 'AND `event_name` LIKE "%form_submission" ORDER BY `datetime` DESC';
 
         $results = $wpdb->get_results( $query , ARRAY_A );
 
@@ -489,9 +526,9 @@ class Inbound_Events {
     public static function get_page_views( $lead_id ){
         global $wpdb;
 
-        $table_name = $wpdb->prefix . "inbound_events";
+        $table_name = $wpdb->prefix . "inbound_page_views";
 
-        $query = 'SELECT * FROM '.$table_name.' WHERE `lead_id` = "'.$lead_id.'" AND `event_name` = "inbound_page_view" ORDER BY `datetime` DESC';
+        $query = 'SELECT * FROM '.$table_name.' WHERE `lead_id` = "'.$lead_id.'" ORDER BY `datetime` DESC';
         $results = $wpdb->get_results( $query , ARRAY_A );
 
         return $results;
@@ -518,6 +555,24 @@ class Inbound_Events {
         $results = $wpdb->get_results( $query , ARRAY_A );
 
         return $results;
+    }
+
+    /**
+     * Get page view count given lead_id
+     *
+     */
+    public static function get_page_views_count( $lead_id  ){
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . "inbound_page_views";
+
+        $query = 'SELECT count(*) FROM '.$table_name.' WHERE `lead_id` = "'.$lead_id.'"';
+
+        $count = $wpdb->get_var( $query , 0, 0 );
+
+        /* return null if nothing there */
+        return ($count) ? $count : 0;
+
     }
 
     /**
@@ -573,15 +628,30 @@ class Inbound_Events {
         global $wpdb;
 
         $table_name = $wpdb->prefix . "inbound_events";
+        $query = 'SELECT * FROM '.$table_name.' WHERE ';
 
         switch ($nature) {
             case 'lead_id':
-                $query = 'SELECT * FROM '.$table_name.' WHERE datetime >= "'.$params['start_date'].'" AND  datetime <= "'.$params['end_date'].'" AND `lead_id` = "'.$params['lead_id'].'" AND `event_name` = "inbound_cta_click" ORDER BY `datetime` DESC';
+                $query .= '`lead_id` = "'.$params['lead_id'].'" ';
                 break;
             case 'page_id':
-                $query = 'SELECT * FROM '.$table_name.' WHERE datetime >= "'.$params['start_date'].'" AND  datetime <= "'.$params['end_date'].'" AND `page_id` = "'.$params['page_id'].'" AND `event_name` = "inbound_cta_click" ORDER BY `datetime` DESC';
+                $query .= '`page_id` = "'.$params['page_id'].'" ';
+                break;
+            case 'cta_id':
+                $query .= '`cta_id` = "'.$params['cta_id'].'" ';
                 break;
         }
+
+        /* add date constraints if applicable */
+        if (isset($params['start_date'])) {
+            $query .= 'AND datetime >= "'.$params['start_date'].'" AND  datetime <= "'.$params['end_date'].'" ';
+        }
+
+        if (isset($params['variation_id'])) {
+            $query .= 'AND variation_id = "'.$params['variation_id'].'" ';
+        }
+
+        $query .= 'AND `event_name` = "inbound_cta_click" ORDER BY `datetime` DESC';
 
         $results = $wpdb->get_results( $query , ARRAY_A );
 

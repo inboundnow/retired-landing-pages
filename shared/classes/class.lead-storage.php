@@ -77,11 +77,7 @@ if (!class_exists('LeadStorage')) {
 			$lead['source'] = self::check_val('source', $args);
 			$lead['ip_address'] = self::lookup_ip_address();
 
-			if($lead['mapped_params']){
-				parse_str($lead['mapped_params'], $mappedData);
-			} else {
-				$mappedData = array();
-			}
+
 
 			if($lead['raw_params']){
 				parse_str($lead['raw_params'], $raw_params);
@@ -89,7 +85,14 @@ if (!class_exists('LeadStorage')) {
 				$raw_params = array();
 			}
 
-			$mappedData = self::improve_mapping($mappedData, $lead);
+			if($lead['mapped_params']){
+				parse_str($lead['mapped_params'], $mappedData);
+			} else {
+				$mappedData = array();
+			}
+
+
+			$mappedData = self::improve_mapping($mappedData, $lead , $args);
 
 			/* prepate lead lists */
 			$lead['lead_lists'] = (isset($args['lead_lists'])) ? $args['lead_lists'] : null;
@@ -129,7 +132,9 @@ if (!class_exists('LeadStorage')) {
 					$Inbound_Leads->add_lead_to_list($lead['id'], $lead['lead_lists']);
 
 					/* store lead list cookie */
-					Leads_Tracking::cookie_lead_lists($lead['id']);
+					if (class_exists('Leads_Tracking')) {
+						Leads_Tracking::cookie_lead_lists($lead['id']);
+					}
 				}
 
 
@@ -575,14 +580,14 @@ if (!class_exists('LeadStorage')) {
 		/**
 		 *	Uses mapped data if not programatically set
 		 */
-		static function improve_mapping($mappedData, $lead) {
+		static function improve_mapping($mappedData, $lead , $args) {
 
 			/* check to see if there are any mapped values arriving through inbound_store_lead */
 			$fields = Leads_Field_Map::build_map_array();
 
 			foreach ($fields as $key => $label ) {
-				if( isset( $lead[ $key ]) && !isset($mappedData[$key]) ) {
-					$mappedData[$key] =  $lead[ $key ];
+				if( isset( $args[ $key ]) && !isset($mappedData[$key]) ) {
+					$mappedData[$key] =  $args[ $key ];
 				}
 			}
 
@@ -696,13 +701,6 @@ if (!function_exists('inbound_store_lead')) {
 		/* wpleads_email_address becomes wpleads_email */
 		$args['email'] = $args['wpleads_email_address'];
 
-		/* loop through and remove wpleads_ (we will add them back in the new method ) */
-		foreach ($args as $key => $value) {
-			$newkey = str_replace( 'wpleads_', '', $key );
-			unset($args[$key]);
-			$args[$newkey] = $value;
-		}
-
 		/* Send data through new method */
 		$Leads = new LeadStorage();
 		if ($return) {
@@ -739,7 +737,7 @@ if (!function_exists('inbound_add_conversion_to_lead')) {
 			$lead_data['wordpress_date_time'] = date("Y-m-d G:i:s T", $time);
 			$conversion_data = get_post_meta( $lead_id, 'wpleads_conversion_data', TRUE );
 			$conversion_data = json_decode($conversion_data,true);
-			$variation = $lead_data['variation'];
+			$variation = (isset($lead_data['variation'])) ? $lead_data['variation']:0;
 
 			if ( is_array($conversion_data)) {
 				$c_count = count($conversion_data) + 1;
