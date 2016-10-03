@@ -172,11 +172,11 @@ class acf_addons
 			'url' => 'http://wordpress.org/extend/plugins/acf-field-date-time-picker/'
 		);
 		$free[] = array(
-			'title' => __("Google Map Extended",'acf'),
+			'title' => __("Location Field",'acf'),
 			'description' => __("Find addresses and coordinates of a desired location",'acf'),
 			'thumbnail' => $dir . 'images/add-ons/google-maps-field-thumb.jpg',
-			'active' => class_exists('acf_field_google_map_extended'),
-			'url' => 'https://wordpress.org/plugins/advanced-custom-fields-google-map-extended/'
+			'active' => class_exists('acf_field_location'),
+			'url' => 'https://github.com/elliotcondon/acf-location-field/'
 		);
 		$free[] = array(
 			'title' => __("Contact Form 7 Field",'acf'),
@@ -253,7 +253,7 @@ class acf_addons
 <script type="text/javascript">
 (function($) {
 	
-	$(window).on('load', function(){
+	$(window).load(function(){
 		
 		$('#add-ons .add-on-group').each(function(){
 		
