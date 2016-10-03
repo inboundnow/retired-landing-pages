@@ -71,8 +71,8 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 == Changelog ==
 
 = 2.3.4 =
-* Updating ACF4
-* Adding support for Inbound Forms without redirect URLs (no ajax)
+* Fixing double admin notifications
+* Fixing settings issue with Simple Solid Lite template
 
 = 2.3.3 =
 * Updating ACF4
