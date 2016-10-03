@@ -64,7 +64,7 @@
 	display: none;
 }
 
-.postbox#acf_fields > .hndle {
+.postbox#acf_fields h3.hndle {
 	display: none;
 }
 
@@ -75,8 +75,6 @@
 
 .postbox#acf_fields a {
 	text-decoration: none;
-	box-shadow: none;
-	transition: none;
 }
 
 

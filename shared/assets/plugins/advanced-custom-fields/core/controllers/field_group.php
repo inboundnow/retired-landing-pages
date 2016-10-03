@@ -350,8 +350,7 @@ class acf_field_group
 	
 	function admin_head()
 	{
-		// global
-		global $wp_version, $post;
+		global $post;
 		
 		
 		// l10n
@@ -379,7 +378,6 @@ class acf_field_group
 	acf.nonce = "<?php echo wp_create_nonce( 'acf_nonce' ); ?>";
 	acf.admin_url = "<?php echo admin_url(); ?>";
 	acf.ajaxurl = "<?php echo admin_url( 'admin-ajax.php' ); ?>";
-	acf.wp_version = "<?php echo $wp_version; ?>";
 	
 	
 	// l10n
