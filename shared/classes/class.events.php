@@ -281,6 +281,10 @@ class Inbound_Events {
         self::store_event($args);
     }
 
+    /**
+     * Add event to inbound_events table
+     * @param $args
+     */
     public static function store_event( $args ) {
         global $wpdb;
 
@@ -626,17 +630,41 @@ class Inbound_Events {
 
     }
 
+    /**
+     * Get sources given lead_id
+     *
+     */
+    public static function get_lead_sources( $lead_id  ){
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . "inbound_events";
+
+        $query = 'SELECT *, count(*) as count FROM '.$table_name.' WHERE `lead_id` = "'.$lead_id.'" GROUP BY source';
+
+        $results = $wpdb->get_results( $query , ARRAY_A );
+
+        return $results;
+
+    }
+
 
     /**
      * Get visitor count given page_id
      *
      */
-    public static function get_visitors_count( $page_id  ){
+    public static function get_visitors_count( $page_id , $params = array() ){
         global $wpdb;
 
         $table_name = $wpdb->prefix . "inbound_page_views";
 
-        $query = 'SELECT * FROM '.$table_name.' WHERE `page_id` = "'.$page_id.'" GROUP BY lead_id';
+        $query = 'SELECT * FROM '.$table_name.' WHERE `page_id` = "'.$page_id.'" ';
+
+        if (isset($params['start_date'])) {
+            $query .= 'AND datetime >= "'.$params['start_date'].'" AND  datetime <= "'.$params['end_date'].'" ';
+        }
+
+        $query .='GROUP BY lead_uid';
+
 
         $results = $wpdb->get_results( $query , ARRAY_A );
 
@@ -801,6 +829,7 @@ class Inbound_Events {
 
 
     }
+
     /**
      * Get all mute events given a lead id
      */
