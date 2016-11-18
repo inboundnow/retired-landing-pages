@@ -6,8 +6,8 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: landing pages, inbound marketing, conversion pages, split testing, a b test, a b testing, a/b test, a/b testing, coming soon page, email list, landing page, list building, maintenance page, squeeze page, inbound now, landing-pages, splash pages, cpa, click tracking, goal tracking, analytics, free landing page templates
 Requires at least: 3.8
-Tested up to: 4.6.0
-Stable Tag: 2.3.7
+Tested up to: 4.6.1
+Stable Tag: 2.3.8
 
 Create landing pages for your WordPress site. Monitor and improve conversion rates, run A/B split tests, customize your own templates and more.
 
@@ -30,7 +30,7 @@ Landing pages are an ideal way to convert more of your passive website visitors 
 * Use your current WordPress theme or choose from our library of custom landing page designs.
 * Pre-populate Forms with visitor information to increase conversion rates
 * Gather lead intelligence and track lead activity with <a href="http://wordpress.org/plugins/leads/screenshots/">WordPress Leads</a>
-* Extend functionality with our growing repository of <a href="http://www.inboundnow.com/market/category/landing-pages/extensions/">third party add ons</a>.
+* Extend functionality with our growing repository of <a href="http://www.inboundnow.com/marketplace">third party add ons</a>.
 * Easily implement your own custom landing page design.
 
 
@@ -69,6 +69,9 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 4. Choose from a ton of pre-made templates, use your existing design, or design your own theme!
 
 == Changelog ==
+
+= 2.3.8 =
+* Improving events storage and events reporting.
 
 = 2.3.7 =
 * [tweak] Better CSS support for SVTLE template
