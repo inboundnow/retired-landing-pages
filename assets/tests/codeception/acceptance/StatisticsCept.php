@@ -31,25 +31,25 @@ $I->see( 'Landing Pages');
 $I->wantTo('Open example landing page');
 $I->click( [ 'link' => 'A/B Testing Landing Page Example']);
 $I->wantTo('check if impressions are correct for variation a');
-$imp = $I->grabTextFrom('#lp-variation-A .bab-stat-span-impressions');
+$imp = $I->grabTextFrom('#lp-variation-A .stat-span-impressions');
 $I->assertContains( '30' , $imp );
 
 $I->wantTo('check check impressions for variation b');
-$imp = $I->grabTextFrom('#lp-variation-B .bab-stat-span-impressions');
+$imp = $I->grabTextFrom('#lp-variation-B .stat-span-impressions');
 $I->assertContains( '35' , $imp , ''  );
 
 $I->wantTo('check conversions for variation a');
-$con = $I->grabTextFrom('#lp-variation-A .bab-stat-span-conversions');
+$con = $I->grabTextFrom('#lp-variation-A .stat-span-conversions');
 $I->assertContains( '10' , $con , '' );
 
 $I->wantTo('check conversions for variation b');
-$con = $I->grabTextFrom('#lp-variation-B .bab-stat-span-conversions');
+$con = $I->grabTextFrom('#lp-variation-B .stat-span-conversions');
 $I->assertContains( '15' , $con  );
 
 $I->wantTo('check the conversion rate of variation a');
-$per = $I->grabTextFrom('#lp-variation-A .bab-stat-span-conversion_rate');
+$per = $I->grabTextFrom('#lp-variation-A .stat-span-conversion_rate');
 $I->assertContains( '33' , $per  );
 
 $I->wantTo('check the conversion rate of variation b');
-$per = $I->grabTextFrom('#lp-variation-B .bab-stat-span-conversion_rate');
+$per = $I->grabTextFrom('#lp-variation-B .stat-span-conversion_rate');
 $I->assertContains( '42.86' , $per  );

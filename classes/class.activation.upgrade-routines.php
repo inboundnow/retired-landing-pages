@@ -287,7 +287,6 @@ if ( !class_exists('Landing_Pages_Activation_Update_Routines') ) {
 			}
 		}
 
-
 	}
 
 }
