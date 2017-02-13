@@ -1,18 +1,3 @@
-![](https://travis-ci.org/inboundnow/landing-pages.svg?branch=master)
-
-# WordPress Landing Pages #
-
-**Contributors:** David Wells, Hudson Atwell  
-**Donate link:** mailto:marketplace@inboundnow.com  
-**License:** GPLv2 or later  
-**License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
-**Tags:** landing pages, inbound marketing, conversion pages, split testing, a b test, a b testing, a/b test, a/b testing, coming soon page, email list, landing page, list building, maintenance page, squeeze page, inbound now, landing-pages, splash pages, cpa, click tracking, goal tracking, analytics, free landing page templates  
-**Requires at least:** 3.8  
-**Tested up to:** 4.1  
-**Stable Tag:** 1.8.0  
-
-Create landing pages for your WordPress site. Monitor and improve conversion rates, run A/B split tests, customize your own templates and more.
-
 ## Description ##
 
 > WordPress Landing Pages works as a standalone plugin or hand in hand with [WordPress Calls to Action](http://wordpress.org/plugins/cta/ "Learn more about Calls to Action") & [WordPress Leads](http://wordpress.org/plugins/leads/ "Learn more about WordPress Leads") to create a powerful & free lead generation system for your business.
