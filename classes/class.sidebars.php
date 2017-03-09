@@ -48,27 +48,40 @@ class Landing_Pages_Sidebars {
             return;
         }
 
-        $original_widgets = $_wp_sidebars_widgets;
-
-        if (!is_active_sidebar('lp_sidebar')) {
-            $active_widgets = get_option('sidebars_widgets');
-            $active_widgets['lp_sidebar'] = array('0', 'id_lp_conversion_area_widget-1');
-            update_option('sidebars_widgets', $active_widgets);
-        }
-
-        $stop = 0;
-        foreach ($original_widgets as $key => $val) {
-
-            if (stristr($key, 'header') || stristr($key, 'footer') || stristr($key, 'lp_sidebar') || stristr($key, 'wp_inactive_widgets') || stristr($key, 'wp_inactive_widgets') || stristr($key, 'array_version')) {
-
-            } else if (strstr($key, 'secondary')) {
-                unset($_wp_sidebars_widgets[$key]);
-            } else if (isset($_wp_sidebars_widgets['lp_sidebar'])) {
-                $_wp_sidebars_widgets[$key] = $_wp_sidebars_widgets['lp_sidebar'];
-                $stop = 1;
+        /* get correct registered widget */
+        $registered_widget_id = 'id_lp_conversion_area_widget-1';
+        foreach ($wp_registered_widgets as $key => $array ) {
+            if (strstr($key , 'id_lp_conversion_area_widget')) {
+                $registered_widget_id = $key;
+                break;
             }
         }
 
+        if (!is_active_sidebar('lp_sidebar')) {
+            $active_widgets = get_option('sidebars_widgets');
+            $active_widgets = get_option('sidebars_widgets');
+
+            if (!isset($active_widgets['lp_sidebar']) || !$active_widgets['lp_sidebar'] ) {
+                $active_widgets['lp_sidebar'] = array($registered_widget_id);
+                $_wp_sidebars_widgets['lp_sidebar'] = $active_widgets['lp_sidebar'];
+                update_option('sidebars_widgets', $active_widgets);
+            }
+        }
+
+
+        $count = 0;
+        foreach ($_wp_sidebars_widgets as $key => $val) {
+            if ($key == 'sidebar-1' ) {
+                $_wp_sidebars_widgets['wp_inactive_widgets'] = array();
+                $_wp_sidebars_widgets[$key] = $_wp_sidebars_widgets['lp_sidebar'];
+            } else if (!$count) {
+                $_wp_sidebars_widgets[$key] = $_wp_sidebars_widgets['lp_sidebar'];
+            }
+            $count++;
+        }
+
+        error_log(print_r($wp_registered_widgets,true));
+        error_log(print_r($_wp_sidebars_widgets,true));
 
     }
 }
