@@ -12,7 +12,6 @@ class Landing_Pages_Click_Tracking {
     public static function add_hooks() {
 
         add_action('wp_footer', array( __CLASS__ , 'build_trackable_links') );
-        /* Click Tracking init */
         add_action('init', array( __CLASS__ , 'intecept_tracked_link' ), 11);
     }
 
