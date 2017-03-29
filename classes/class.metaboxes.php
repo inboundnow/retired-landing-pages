@@ -140,18 +140,6 @@ class Landing_Pages_Metaboxes {
             'high'
         );
 
-        /* Add showcase submission */
-        if (class_exists('Inbound_Pro_Plugin') && !isset($_GET['inbound-editor']) ) {
-            add_meta_box(
-                'lp_showcase_submission',
-                __('Share your Work', 'landing-pages'),
-                array(__CLASS__, 'display_showcase_submission'),
-                'landing-page',
-                'side',
-                'low'
-            );
-        }
-
         /* discover extended metaboxes and render them */
         foreach ($extension_data as $key => $data) {
 
@@ -699,25 +687,6 @@ href='?post=<?php echo $post->ID; ?>&action=edit&action-variation-id=<?php echo 
         echo "<div style='clear:both; display:block;'></div>";
         echo "<div style='width:100%;text-align:right;margin-top:11px;'><div class='lp_tooltip'  title=\"". __('To help track conversions Landing Pages Plugin will automatically add a tracking class to forms. If you would like to track a link add this class to it' , 'landing-pages') ." class='wpl-track-me-link'\" ></div></div>";
 
-    }
-
-
-    /**
-     * Display custom CSS metabox
-     */
-    public static function display_showcase_submission() {
-        global $post, $current_user;
-        wp_get_current_user();
-        $landing_page_url =  get_permalink($post->ID);
-        $admin_email = $current_user->user_email;
-        $name = $current_user->display_name;
-        $template = self::$current_template;
-        ?>
-        <a class="button3"
-           href="<?php echo add_query_arg( array( 'admin_email' => $admin_email , 'template' => $template , 'lander' => urlencode($landing_page_url) , 'submitter_name' => $name  ) , 'https://www.inboundnow.com/showcase/' ); ?>" target="_blank">
-            <?php _e('Like your work? Showcase it!' , 'landing-pages'); ?>
-        </a>
-        <?php
     }
 
     /**
