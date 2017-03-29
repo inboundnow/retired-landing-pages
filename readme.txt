@@ -1,12 +1,12 @@
-=== WordPress Landing Pages ===
+=== Landing Pages ===
 
-Contributors: Hudson Atwell, David Wells, Giulio Daprela, ahmedkaludi
+Contributors: Hudson Atwell, David Wells, Giulio Daprela, Matt Bisset, ahmedkaludi
 Donate link: mailto:hudson@inboundnow.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: landing pages, inbound marketing, conversion pages, split testing, a b test, a b testing, a/b test, a/b testing, coming soon page, email list, landing page, list building, maintenance page, squeeze page, inbound now, landing-pages, splash pages, cpa, click tracking, goal tracking, analytics, free landing page templates
 Requires at least: 3.8
-Tested up to: 4.7.2
+Tested up to: 4.7.3
 Stable Tag: 2.4.6
 
 Create landing pages for your WordPress site. Monitor and improve conversion rates, run A/B split tests, customize your own templates and more.
@@ -15,7 +15,7 @@ Create landing pages for your WordPress site. Monitor and improve conversion rat
 
 > WordPress Landing Pages works as a standalone plugin or hand in hand with [WordPress Calls to Action](http://wordpress.org/plugins/cta/ "Learn more about Calls to Action") & [WordPress Leads](http://wordpress.org/plugins/leads/ "Learn more about WordPress Leads") to create a powerful & free lead generation system for your business.
 
-This plugin creates landing pages (a.k.a. conversion or splash pages) for your WordPress site. It gives site owners the ability to monitor and track conversion rates, run a/b or multivariate split tests on landing pages, and most importantly increase lead flow!
+This framework provides a way to create and develop landing pages for your WordPress site. It's powered by the Advanced Custom Fields framework. It gives site owners the ability to monitor and track conversion rates, run a/b or multivariate split tests on landing pages, and most importantly increase lead flow!
 
 The landing page plugin was specifically designed with inbound marketing best practices in mind and will help you drive & convert more leads on your site.
 
