@@ -133,7 +133,7 @@ class Landing_Pages_Template_Switcher {
      */
     public static function switch_template( $template ) {
         global $wp_query, $post, $query_string;
-        error_log('here');
+
         if (!isset($post) || $post->post_type != "landing-page" || !is_singular("landing-page")) {
             return $template;
         }
