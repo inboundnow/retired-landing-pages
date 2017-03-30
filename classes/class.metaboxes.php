@@ -812,7 +812,7 @@ href='?post=<?php echo $post->ID; ?>&action=edit&action-variation-id=<?php echo 
                 $thumb = true;
             }
 
-            if (!$thumb) {
+            if (!file_exists($thumbnail)) {
                 $thumbnail = LANDINGPAGES_URLPATH . 'templates/default/thumbnail.png';
             }
 

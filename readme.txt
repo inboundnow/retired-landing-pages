@@ -1,4 +1,4 @@
-=== Landing Pages ===
+=== WordPress Landing Pages ===
 
 Contributors: Hudson Atwell, David Wells, Giulio Daprela, Matt Bisset, ahmedkaludi
 Donate link: mailto:hudson@inboundnow.com
@@ -63,10 +63,14 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 
 == Screenshots ==
 
-1. Landing Page Custom Post Type
-2. Track conversion rates and continuously improve your landing pages
-3. Manage Split Testing Page
-4. Choose from a ton of pre-made templates, use your existing design, or design your own theme!
+1. Listing created landing pages - Powered by custom post type
+2. Selecting a template when creating a new landing page
+3. Editing the landing page. Viewing variation performance
+4. Viewing setting options for a landing page variation
+5. Framework is powered by Advanced Custom Fields
+6. Add custom CSS and custom JS
+7. Landing page comes with a visual editor
+8. Administrative popup preview of landing page
 
 == Changelog ==
 
