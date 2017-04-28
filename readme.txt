@@ -6,8 +6,8 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: landing pages, inbound marketing, conversion pages, split testing, a b test, a b testing, a/b test, a/b testing, coming soon page, email list, landing page, list building, maintenance page, squeeze page, inbound now, landing-pages, splash pages, cpa, click tracking, goal tracking, analytics, free landing page templates
 Requires at least: 3.8
-Tested up to: 4.7.3
-Stable Tag: 2.4.7
+Tested up to: 4.7.4
+Stable Tag: 2.4.8
 
 Create landing pages for your WordPress site. Monitor and improve conversion rates, run A/B split tests, customize your own templates and more.
 
@@ -15,9 +15,11 @@ Create landing pages for your WordPress site. Monitor and improve conversion rat
 
 > WordPress Landing Pages works as a standalone plugin or hand in hand with [WordPress Calls to Action](http://wordpress.org/plugins/cta/ "Learn more about Calls to Action") & [WordPress Leads](http://wordpress.org/plugins/leads/ "Learn more about WordPress Leads") to create a powerful & free lead generation system for your business.
 
-This framework provides a way to create and develop landing pages for your WordPress site. It's powered by the Advanced Custom Fields framework. It gives site owners the ability to monitor and track conversion rates, run a/b or multivariate split tests on landing pages, and most importantly increase lead flow!
+WordPress Landing Pages plugin framework provides a way to add and even create landing pages for your WordPress site. Landing Page templates are powered by the [Advanced Custom Fields](https://wordpress.org/plugins/advanced-custom-fields/ "Advanced Custom Fields") framework.
 
-The landing page plugin was specifically designed with inbound marketing best practices in mind and will help you drive & convert more leads on your site.
+Landing Pages plugin provides administrators the abilities to monitor and track conversion rates, run a/b or multivariate split tests on landing pages, and most importantly increase lead flow!
+
+The landing page plugin was designed with inbound marketing practices in mind and will help you drive & convert more leads on your site.
 
 Landing pages are an ideal way to convert more of your passive website visitors into active leads or email list subscribers.
 
@@ -52,6 +54,14 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 [Follow Inbound Now on Twitter ](https://twitter.com/inboundnow "Stay notified with updates.")
 
 
+= Templates =
+
+Landing Pages plugin ships with only small selection of responsive landing page templates. More templates are offered at the <a href="https://www.inboundnow.com/marketplace/">Inbound Now Marketplace</a>.
+
+Landing Pages plugin also offers the ability to use your current selected theme as a template which open the door to <a href="http://docs.inboundnow.com/guide/default-wp-themes/">further customizations</a>.
+
+We also offer a guide for using <a href="https://github.com/inboundnow/landing-pages/blob/develop/shared/docs/how.to.create.landing.page.templates.using.ACF.md">Advanced Custom Fields to build your own template.</a>
+
 == Installation ==
 
 1. Upload `landing-pages` folder to the `/wp-content/plugins/` directory
@@ -69,10 +79,15 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 4. Viewing setting options for a landing page variation
 5. Framework is powered by Advanced Custom Fields
 6. Add custom CSS and custom JS
-7. Landing page comes with a visual editor
-8. Administrative popup preview of landing page
+7. Administrative popup preview of landing page
+8. Landing page comes with a visual editor
 
 == Changelog ==
+
+= 2.4.8 =
+* Removing two admin notices related to legacy templates
+* Variation notes migrated to custom metabox
+* Removing 'Insert default content' button from landing page and modifying metabox order
 
 = 2.4.7 =
 * Adding revision support to Landing Pages
