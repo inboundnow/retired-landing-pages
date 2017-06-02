@@ -7,7 +7,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: landing pages, inbound marketing, conversion pages, split testing, a b test, a b testing, a/b test, a/b testing, coming soon page, email list, landing page, list building, maintenance page, squeeze page, inbound now, landing-pages, splash pages, cpa, click tracking, goal tracking, analytics, free landing page templates
 Requires at least: 3.8
 Tested up to: 4.7.4
-Stable Tag: 2.5.3
+Stable Tag: 2.5.4
 
 
 Create landing pages for your WordPress site. Monitor and improve conversion rates, run A/B split tests, customize your own templates and more.
@@ -84,6 +84,10 @@ We also offer a guide for using <a href="https://github.com/inboundnow/landing-p
 8. Landing page comes with a visual editor
 
 == Changelog ==
+
+= 2.5.4 =
+* Making sure PHP sessions are only used on the backend to fix X-CACHE issue.
+* Updating shared files and database tables.
 
 = 2.5.3 =
 * Support for Avada theme
