@@ -103,7 +103,6 @@ if ( !class_exists('Inbound_Upgrade_Routines') ) {
             set_transient('inbound_shared_version' , INBOUNDNOW_SHARED_DBRV);
         }
 
-
         /**
          * @param $routine
          */
@@ -139,10 +138,9 @@ if ( !class_exists('Inbound_Upgrade_Routines') ) {
             $table_name = $wpdb->prefix . "inbound_page_views";
 
             /* add ip field if does not exist */
+            $col_check = $wpdb->get_row("SELECT * FROM " . $table_name . " LIMIT 1");
 
-            $col_check = $wpdb->get_row("SELECT * FROM " . $table_name);
-
-            if(!isset($col_check->ip)) {
+            if(isset($col_check->ip)) {
                 $wpdb->get_results("ALTER TABLE {$table_name} ADD `ip` VARCHAR(45) NOT NULL");
             } else {
                 $wpdb->get_results( "ALTER TABLE {$table_name} MODIFY COLUMN `ip` VARCHAR(45)" );
@@ -161,7 +159,7 @@ if ( !class_exists('Inbound_Upgrade_Routines') ) {
             require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
             $table_name = $wpdb->prefix . "inbound_events";
 
-            $col_check = $wpdb->get_row("SELECT * FROM " . $table_name);
+            $col_check = $wpdb->get_row("SELECT * FROM " . $table_name . " LIMIT 1");
 
             if(!isset($col_check->funnel)) {
                 $wpdb->get_results("ALTER TABLE {$table_name} ADD `funnel` text NOT NULL");
@@ -188,7 +186,7 @@ if ( !class_exists('Inbound_Upgrade_Routines') ) {
             require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
             $table_name = $wpdb->prefix . "inbound_events";
 
-            $col_check = $wpdb->get_row("SELECT * FROM " . $table_name);
+            $col_check = $wpdb->get_row("SELECT * FROM " . $table_name . " LIMIT 1");
 
             if(!isset($col_check->rule_id)) {
                 $wpdb->get_results("ALTER TABLE {$table_name} ADD `rule_id` mediumint(20) NOT NULL");
@@ -211,7 +209,7 @@ if ( !class_exists('Inbound_Upgrade_Routines') ) {
             require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
             $table_name = $wpdb->prefix . "inbound_events";
 
-            $col_check = $wpdb->get_row("SELECT * FROM " . $table_name);
+            $col_check = $wpdb->get_row("SELECT * FROM " . $table_name . " LIMIT 1");
 
             if(!isset($col_check->comment_id)) {
                 $wpdb->get_results("ALTER TABLE {$table_name} ADD `comment_id` mediumint(20) NOT NULL");
@@ -249,7 +247,7 @@ if ( !class_exists('Inbound_Upgrade_Routines') ) {
             require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
             $table_name = $wpdb->prefix . "inbound_automation_queue";
 
-            $col_check = $wpdb->get_row("SELECT * FROM " . $table_name);
+            $col_check = $wpdb->get_row("SELECT * FROM " . $table_name . " LIMIT 1");
 
             if(!isset($col_check->lead_id)) {
                 $wpdb->get_results("ALTER TABLE {$table_name} ADD `lead_id` mediumint(20)  NOT NULL");
